@@ -19,6 +19,16 @@
         <lombok.version>1.18.6</lombok.version>
     </properties>
 
+    <developers>
+        <developer>
+            <id>savkk</id>
+            <name>Anatoliy Surin</name>
+            <email>savkk@bk.ru</email>
+            <organization>Qase Inc.</organization>
+            <url>https://qase.io/</url>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>com.konghq</groupId>
