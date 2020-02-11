@@ -2,10 +2,8 @@ package io.qase.api;
 
 import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
-import io.qase.api.models.v1.shared_steps.add.CreateUpdateSharedStepRequest;
-import io.qase.api.models.v1.shared_steps.add.CreateUpdateSharedStepResponse;
-import io.qase.api.models.v1.shared_steps.get.SharedStepResponse;
-import io.qase.api.models.v1.shared_steps.get_all.SharedStepsResponse;
+import io.qase.api.models.v1.shared_steps.NewSharedStep;
+import io.qase.api.models.v1.shared_steps.SharedStep;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -21,23 +19,23 @@ public final class SharedSteps {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public SharedStepsResponse getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(SharedStepsResponse.class, "/shared_step/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public io.qase.api.models.v1.shared_steps.SharedSteps getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(io.qase.api.models.v1.shared_steps.SharedSteps.class, "/shared_step/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public SharedStepsResponse getAll(String projectCode, Filter filter) {
+    public io.qase.api.models.v1.shared_steps.SharedSteps getAll(String projectCode, Filter filter) {
         return this.getAll(projectCode, 100, 0, filter);
     }
 
-    public SharedStepsResponse getAll(String projectCode) {
+    public io.qase.api.models.v1.shared_steps.SharedSteps getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 
-    public SharedStepResponse get(String projectCode, String hash) {
+    public SharedStep get(String projectCode, String hash) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("hash", hash);
-        return qaseApiClient.get(SharedStepResponse.class, "/shared_step/{code}/{hash}", routeParams);
+        return qaseApiClient.get(SharedStep.class, "/shared_step/{code}/{hash}", routeParams);
     }
 
     public Filter filter() {
@@ -45,16 +43,16 @@ public final class SharedSteps {
     }
 
 
-    public CreateUpdateSharedStepResponse create(String projectCode, String title, String action, String expectedResult) {
-        CreateUpdateSharedStepRequest createUpdateSharedStepRequest = new CreateUpdateSharedStepRequest(title, action);
+    public String create(String projectCode, String title, String action, String expectedResult) {
+        NewSharedStep createUpdateSharedStepRequest = new NewSharedStep(title, action);
         createUpdateSharedStepRequest.setExpectedResult(expectedResult);
-        return qaseApiClient.post(CreateUpdateSharedStepResponse.class,
+        return qaseApiClient.post(SharedStep.class,
                 "/shared_step/{code}",
                 singletonMap("code", projectCode),
-                createUpdateSharedStepRequest);
+                createUpdateSharedStepRequest).getHash();
     }
 
-    public CreateUpdateSharedStepResponse create(String projectCode, String title, String action) {
+    public String create(String projectCode, String title, String action) {
         return create(projectCode, title, action, null);
     }
 
@@ -66,16 +64,17 @@ public final class SharedSteps {
         return (boolean) qaseApiClient.delete("/shared_step/{code}/{hash}", routeParams).get("status");
     }
 
-    public CreateUpdateSharedStepResponse update(String projectCode, String hash, String title, String action, String expectedResult) {
-        CreateUpdateSharedStepRequest createUpdateSharedStepRequest = new CreateUpdateSharedStepRequest(title, action);
+    public String update(String projectCode, String hash, String title, String action, String expectedResult) {
+        NewSharedStep createUpdateSharedStepRequest = new NewSharedStep(title, action);
         createUpdateSharedStepRequest.setExpectedResult(expectedResult);
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("hash", hash);
-        return qaseApiClient.patch(CreateUpdateSharedStepResponse.class, "/shared_step/{code}/{id}", routeParams, createUpdateSharedStepRequest);
+        return qaseApiClient.patch(SharedStep.class, "/shared_step/{code}/{id}", routeParams, createUpdateSharedStepRequest)
+                .getHash();
     }
 
-    public CreateUpdateSharedStepResponse update(String projectCode, String id, String title, String action) {
+    public String update(String projectCode, String id, String title, String action) {
         return this.update(projectCode, id, title, action, null);
     }
 

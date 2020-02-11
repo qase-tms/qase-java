@@ -2,10 +2,8 @@ package io.qase.api;
 
 import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
-import io.qase.api.models.v1.milestones.add.CreateUpdateMilestoneResponse;
-import io.qase.api.models.v1.milestones.add.CreateUpdateMilestonesRequest;
-import io.qase.api.models.v1.milestones.get.MilestoneResponse;
-import io.qase.api.models.v1.milestones.get_all.MilestonesResponse;
+import io.qase.api.models.v1.milestones.Milestone;
+import io.qase.api.models.v1.milestones.NewMilestone;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -29,23 +27,23 @@ public final class Milestones {
      * @param offset      How many milestones should be skipped
      * @return
      */
-    public MilestonesResponse getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(MilestonesResponse.class, "/milestone/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public io.qase.api.models.v1.milestones.Milestones getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(io.qase.api.models.v1.milestones.Milestones.class, "/milestone/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public MilestonesResponse getAll(String projectCode, Filter filter) {
+    public io.qase.api.models.v1.milestones.Milestones getAll(String projectCode, Filter filter) {
         return this.getAll(projectCode, 100, 0, filter);
     }
 
-    public MilestonesResponse getAll(String projectCode) {
+    public io.qase.api.models.v1.milestones.Milestones getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 
-    public MilestoneResponse get(String projectCode, String milestoneId) {
+    public Milestone get(String projectCode, long milestoneId) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", milestoneId);
-        return qaseApiClient.get(MilestoneResponse.class, "/milestone/{code}/{id}", routeParams);
+        return qaseApiClient.get(Milestone.class, "/milestone/{code}/{id}", routeParams);
 
     }
 
@@ -61,14 +59,14 @@ public final class Milestones {
      * @param description Milestone description
      * @return
      */
-    public CreateUpdateMilestoneResponse create(String projectCode, String title, String description) {
-        CreateUpdateMilestonesRequest createUpdateMilestonesRequest = new CreateUpdateMilestonesRequest(title);
+    public long create(String projectCode, String title, String description) {
+        NewMilestone createUpdateMilestonesRequest = new NewMilestone(title);
         createUpdateMilestonesRequest.setDescription(description);
         return qaseApiClient.post(
-                CreateUpdateMilestoneResponse.class,
+                Milestone.class,
                 "/milestone/{code}",
                 singletonMap("code", projectCode),
-                createUpdateMilestonesRequest);
+                createUpdateMilestonesRequest).getId();
 
     }
 
@@ -79,7 +77,7 @@ public final class Milestones {
      * @param title       Milestone title
      * @return
      */
-    public CreateUpdateMilestoneResponse create(String projectCode, String title) {
+    public long create(String projectCode, String title) {
         return create(projectCode, title, null);
     }
 
@@ -90,7 +88,7 @@ public final class Milestones {
      * @param id          Milestone id
      * @return
      */
-    public boolean delete(String projectCode, String id) {
+    public boolean delete(String projectCode, long id) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", id);
@@ -106,17 +104,17 @@ public final class Milestones {
      * @param description Milestone description
      * @return
      */
-    public CreateUpdateMilestoneResponse update(String projectCode, String id, String title, String description) {
-        CreateUpdateMilestonesRequest createUpdateMilestonesRequest = new CreateUpdateMilestonesRequest(title);
+    public long update(String projectCode, long id, String title, String description) {
+        NewMilestone createUpdateMilestonesRequest = new NewMilestone(title);
         createUpdateMilestonesRequest.setDescription(description);
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", id);
-        return qaseApiClient.patch(CreateUpdateMilestoneResponse.class,
+        return qaseApiClient.patch(Milestone.class,
                 "/milestone/{code}/{id}",
                 routeParams,
                 createUpdateMilestonesRequest
-        );
+        ).getId();
     }
 
     /**
@@ -127,7 +125,7 @@ public final class Milestones {
      * @param title       Milestone title
      * @return
      */
-    public CreateUpdateMilestoneResponse update(String projectCode, String id, String title) {
+    public long update(String projectCode, long id, String title) {
         return this.update(projectCode, id, title, null);
     }
 

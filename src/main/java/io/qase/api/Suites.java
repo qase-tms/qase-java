@@ -2,10 +2,8 @@ package io.qase.api;
 
 import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
-import io.qase.api.models.v1.suites.add.CreateUpdateSuiteRequest;
-import io.qase.api.models.v1.suites.add.CreateUpdateSuiteResponse;
-import io.qase.api.models.v1.suites.get.SuiteResponse;
-import io.qase.api.models.v1.suites.get_all.SuitesResponse;
+import io.qase.api.models.v1.suites.NewSuite;
+import io.qase.api.models.v1.suites.Suite;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -30,8 +28,8 @@ public final class Suites {
      * @param filter      Provide a string that will be used to search by title
      * @return
      */
-    public SuitesResponse getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(SuitesResponse.class, "/suite/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public io.qase.api.models.v1.suites.Suites getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(io.qase.api.models.v1.suites.Suites.class, "/suite/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
     /**
@@ -40,7 +38,7 @@ public final class Suites {
      * @param projectCode Project code
      * @return
      */
-    public SuitesResponse getAll(String projectCode) {
+    public io.qase.api.models.v1.suites.Suites getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 
@@ -51,11 +49,11 @@ public final class Suites {
      * @param suiteId     Test suite id
      * @return
      */
-    public SuiteResponse get(String projectCode, String suiteId) {
+    public Suite get(String projectCode, long suiteId) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", suiteId);
-        return qaseApiClient.get(SuiteResponse.class, "/suite/{code}/{id}", routeParams);
+        return qaseApiClient.get(Suite.class, "/suite/{code}/{id}", routeParams);
     }
 
     /**
@@ -68,16 +66,17 @@ public final class Suites {
      * @param parentId     Parent suite ID
      * @return
      */
-    public CreateUpdateSuiteResponse create(String projectCode,
-                                            String title,
-                                            String description,
-                                            String precondition,
-                                            Integer parentId) {
-        CreateUpdateSuiteRequest createUpdateSuiteRequest = new CreateUpdateSuiteRequest(title);
+    public long create(String projectCode,
+                       String title,
+                       String description,
+                       String precondition,
+                       Integer parentId) {
+        NewSuite createUpdateSuiteRequest = new NewSuite(title);
         createUpdateSuiteRequest.setDescription(description);
         createUpdateSuiteRequest.setPreconditions(precondition);
         createUpdateSuiteRequest.setParentId(parentId);
-        return qaseApiClient.post(CreateUpdateSuiteResponse.class, "/suite/{code}", singletonMap("code", projectCode), createUpdateSuiteRequest);
+        return qaseApiClient.post(Suite.class, "/suite/{code}", singletonMap("code", projectCode), createUpdateSuiteRequest)
+                .getId();
     }
 
     /**
@@ -87,7 +86,7 @@ public final class Suites {
      * @param title       Test suite title. Required field.
      * @return
      */
-    public CreateUpdateSuiteResponse create(String projectCode, String title) {
+    public long create(String projectCode, String title) {
         return this.create(projectCode, title, null, null, null);
     }
 
@@ -99,7 +98,7 @@ public final class Suites {
      * @param description Test suite description
      * @return
      */
-    public CreateUpdateSuiteResponse create(String projectCode, String title, String description) {
+    public long create(String projectCode, String title, String description) {
         return this.create(projectCode, title, description, null, null);
     }
 
@@ -112,16 +111,16 @@ public final class Suites {
      * @param precondition Test suite preconditions
      * @return
      */
-    public CreateUpdateSuiteResponse create(String projectCode, String title, String description, String precondition) {
+    public long create(String projectCode, String title, String description, String precondition) {
         return this.create(projectCode, title, description, precondition, null);
     }
 
-    public CreateUpdateSuiteResponse update(String projectCode, String testSuiteId, String title) {
-        CreateUpdateSuiteRequest createUpdateSuiteRequest = new CreateUpdateSuiteRequest(title);
+    public long update(String projectCode, long testSuiteId, String title) {
+        NewSuite createUpdateSuiteRequest = new NewSuite(title);
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", testSuiteId);
-        return qaseApiClient.patch(CreateUpdateSuiteResponse.class, "/suite/{code}/{id}", routeParams, createUpdateSuiteRequest);
+        return qaseApiClient.patch(Suite.class, "/suite/{code}/{id}", routeParams, createUpdateSuiteRequest).getId();
     }
 
     /**

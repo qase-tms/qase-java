@@ -2,8 +2,7 @@ package io.qase.api;
 
 import io.qase.api.enums.*;
 import io.qase.api.inner.RouteFilter;
-import io.qase.api.models.v1.testcases.get.TestCaseResponse;
-import io.qase.api.models.v1.testcases.get_all.TestCasesResponse;
+import io.qase.api.models.v1.testcases.TestCase;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,15 +25,16 @@ public final class TestCases {
      * @param filter
      * @return
      */
-    public TestCasesResponse getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(TestCasesResponse.class, "/case/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public io.qase.api.models.v1.testcases.TestCases getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(io.qase.api.models.v1.testcases.TestCases.class, "/case/{code}",
+                singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public TestCasesResponse getAll(String projectCode, Filter filter) {
+    public io.qase.api.models.v1.testcases.TestCases getAll(String projectCode, Filter filter) {
         return getAll(projectCode, 100, 0, filter);
     }
 
-    public TestCasesResponse getAll(String projectCode) {
+    public io.qase.api.models.v1.testcases.TestCases getAll(String projectCode) {
         return getAll(projectCode, 100, 0, filter());
     }
 
@@ -45,11 +45,11 @@ public final class TestCases {
      * @param caseId      Test case id
      * @return
      */
-    public TestCaseResponse get(String projectCode, int caseId) {
+    public TestCase get(String projectCode, int caseId) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", caseId);
-        return qaseApiClient.get(TestCaseResponse.class, "/case/{code}/{id}", routeParams);
+        return qaseApiClient.get(TestCase.class, "/case/{code}/{id}", routeParams);
     }
 
     /**

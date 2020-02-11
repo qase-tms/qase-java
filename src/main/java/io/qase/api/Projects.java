@@ -2,10 +2,8 @@ package io.qase.api;
 
 import io.qase.api.enums.Access;
 import io.qase.api.exceptions.QaseException;
-import io.qase.api.models.v1.projects.add.CreateUpdateProjectRequest;
-import io.qase.api.models.v1.projects.add.CreateUpdateProjectResponse;
-import io.qase.api.models.v1.projects.get.ProjectResponse;
-import io.qase.api.models.v1.projects.get_all.ProjectsResponse;
+import io.qase.api.models.v1.projects.NewProject;
+import io.qase.api.models.v1.projects.Project;
 
 import java.util.Collections;
 
@@ -22,7 +20,7 @@ public final class Projects {
      *
      * @return
      */
-    public ProjectsResponse getAll() {
+    public io.qase.api.models.v1.projects.Projects getAll() {
         return this.getAll(100, 0);
     }
 
@@ -33,8 +31,8 @@ public final class Projects {
      * @param offset How many projects should be skipped
      * @return
      */
-    public ProjectsResponse getAll(int limit, int offset) {
-        return qaseApiClient.get(ProjectsResponse.class, "/project", limit, offset);
+    public io.qase.api.models.v1.projects.Projects getAll(int limit, int offset) {
+        return qaseApiClient.get(io.qase.api.models.v1.projects.Projects.class, "/project", limit, offset);
     }
 
     /**
@@ -43,8 +41,8 @@ public final class Projects {
      * @param code Project CODE is required to retrieve specific project
      * @return
      */
-    public ProjectResponse get(String code) {
-        return qaseApiClient.get(ProjectResponse.class, "/project/{code}", Collections.singletonMap("code", code));
+    public Project get(String code) {
+        return qaseApiClient.get(Project.class, "/project/{code}", Collections.singletonMap("code", code));
     }
 
     /**
@@ -54,20 +52,20 @@ public final class Projects {
      * @param title       Test suite title.
      * @param description Project description.
      * @param access      Possible value: all, group, none. Default none
-     * @param groupHash   Team group hash. Required if access param is set to group.
+     * @param groupHash   User group hash. Required if access param is set to group.
      * @return
      */
-    public CreateUpdateProjectResponse create(String code, String title, String description, Access access, String groupHash) {
+    public String create(String code, String title, String description, Access access, String groupHash) {
         if (!code.matches("[A-z]{2,6}")) {
             throw new QaseException("The code must be from 2 to 6 latin characters");
         }
         if (access == Access.group && groupHash == null) {
-            throw new QaseException("Team group hash required if access param is set to group");
+            throw new QaseException("User group hash required if access param is set to group");
         }
-        CreateUpdateProjectRequest createUpdateProjectRequest = new CreateUpdateProjectRequest(code, title);
+        NewProject createUpdateProjectRequest = new NewProject(code, title);
         createUpdateProjectRequest.setAccess(access);
         createUpdateProjectRequest.setDescription(description);
-        return qaseApiClient.post(CreateUpdateProjectResponse.class, "/project", createUpdateProjectRequest);
+        return qaseApiClient.post(Project.class, "/project", createUpdateProjectRequest).getCode();
     }
 
     /**
@@ -77,7 +75,7 @@ public final class Projects {
      * @param title Test suite title.
      * @return
      */
-    public CreateUpdateProjectResponse create(String code, String title) {
+    public String create(String code, String title) {
         return this.create(code, title, null, Access.none, null);
     }
 
@@ -89,7 +87,7 @@ public final class Projects {
      * @param description Project description.
      * @return
      */
-    public CreateUpdateProjectResponse create(String code, String title, String description) {
+    public String create(String code, String title, String description) {
         return this.create(code, title, description, Access.none, null);
     }
 }

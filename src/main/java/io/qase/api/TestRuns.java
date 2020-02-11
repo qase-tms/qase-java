@@ -3,10 +3,8 @@ package io.qase.api;
 import io.qase.api.enums.Filters;
 import io.qase.api.enums.RunStatus;
 import io.qase.api.inner.RouteFilter;
-import io.qase.api.models.v1.testruns.add.CreateUpdateTestRunRequest;
-import io.qase.api.models.v1.testruns.add.CreateUpdateTestRunResponse;
-import io.qase.api.models.v1.testruns.get.TestRunResponse;
-import io.qase.api.models.v1.testruns.get_all.TestRunsResponse;
+import io.qase.api.models.v1.testruns.NewTestRun;
+import io.qase.api.models.v1.testruns.TestRun;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,21 +18,21 @@ public final class TestRuns {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public TestRunsResponse getAll(String projectCode, int limit, int offset, Filter filter, boolean includeCases) {
+    public io.qase.api.models.v1.testruns.TestRuns getAll(String projectCode, int limit, int offset, Filter filter, boolean includeCases) {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("limit", limit);
         queryParams.put("offset", offset);
         if (includeCases) {
             queryParams.put("include", "cases");
         }
-        return qaseApiClient.get(TestRunsResponse.class, "/run/{code}", singletonMap("code", projectCode), queryParams, filter);
+        return qaseApiClient.get(io.qase.api.models.v1.testruns.TestRuns.class, "/run/{code}", singletonMap("code", projectCode), queryParams, filter);
     }
 
-    public TestRunsResponse getAll(String projectCode, boolean includeCases) {
+    public io.qase.api.models.v1.testruns.TestRuns getAll(String projectCode, boolean includeCases) {
         return this.getAll(projectCode, 100, 0, new Filter(), includeCases);
     }
 
-    public TestRunResponse get(String projectCode, String id, boolean includeCases) {
+    public TestRun get(String projectCode, long id, boolean includeCases) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", id);
@@ -42,17 +40,18 @@ public final class TestRuns {
         if (includeCases) {
             queryParams.put("include", "cases");
         }
-        return qaseApiClient.get(TestRunResponse.class, "/run/{code}/{id}", routeParams, queryParams);
+        return qaseApiClient.get(TestRun.class, "/run/{code}/{id}", routeParams, queryParams);
     }
 
-    public CreateUpdateTestRunResponse create(String projectCode, String title, Integer environmentId, String description, Integer... cases) {
-        CreateUpdateTestRunRequest createUpdateTestRunRequest = new CreateUpdateTestRunRequest(title, Arrays.asList(cases));
+    public long create(String projectCode, String title, Integer environmentId, String description, Integer... cases) {
+        NewTestRun createUpdateTestRunRequest = new NewTestRun(title, Arrays.asList(cases));
         createUpdateTestRunRequest.setDescription(description);
         createUpdateTestRunRequest.setEnvironmentId(environmentId);
-        return qaseApiClient.post(CreateUpdateTestRunResponse.class, "/run/{code}", singletonMap("code", projectCode), createUpdateTestRunRequest);
+        return qaseApiClient.post(TestRun.class, "/run/{code}", singletonMap("code", projectCode), createUpdateTestRunRequest)
+                .getId();
     }
 
-    public CreateUpdateTestRunResponse create(String projectCode, String title, Integer... cases) {
+    public long create(String projectCode, String title, Integer... cases) {
         return this.create(projectCode, title, null, null, cases);
     }
 

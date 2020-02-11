@@ -5,6 +5,7 @@ import io.qase.api.inner.FilterHelper;
 import io.qase.api.inner.RouteFilter;
 import kong.unirest.HttpMethod;
 import kong.unirest.JsonNode;
+import kong.unirest.ObjectMapper;
 import kong.unirest.UnirestInstance;
 import kong.unirest.json.JSONObject;
 
@@ -84,10 +85,12 @@ final class QaseApiClient {
             Map<String, Object> queryParams,
             Filter filter) {
         String filterPath = FilterHelper.getFilterRouteParam(filter);
-        return unirestInstance.get(baseUrl + path + filterPath)
-                .queryString(queryParams)
-                .routeParam(routeParams)
-                .asObject(responseClass).getBody();
+        JSONObject jsonObject = asJson(HttpMethod.GET, path + filterPath, routeParams, queryParams);
+        if (!jsonObject.getBoolean("status")) {
+            throw new QaseException(jsonObject.getString("errorMessage")
+                    + (jsonObject.isNull("errorFields") ? "" : System.lineSeparator() + jsonObject.get("errorFields")));
+        }
+        return getObjectMapper().readValue(jsonObject.get("result").toString(), responseClass);
     }
 
     public <Response, Request> Response post(Class<Response> responseClass, String path, Request request) {
@@ -109,11 +112,11 @@ final class QaseApiClient {
     }
 
     public JSONObject delete(String path, Map<String, Object> routeParams) {
-        return this.asJson(HttpMethod.DELETE, path, routeParams);
+        return this.asJson(HttpMethod.DELETE, path, routeParams, null);
     }
 
     public JSONObject patch(String path, Map<String, Object> routeParams) {
-        return this.asJson(HttpMethod.PATCH, path, routeParams);
+        return this.asJson(HttpMethod.PATCH, path, routeParams, null);
     }
 
     private <Response, Request> Response asObject(HttpMethod method,
@@ -121,15 +124,34 @@ final class QaseApiClient {
                                                   String path,
                                                   Map<String, Object> routeParams,
                                                   Request request) {
-        return unirestInstance.request(method.name(), baseUrl + path)
-                .routeParam(routeParams)
-                .body(request).asObject(responseClass).getBody();
+
+        JSONObject jsonObject = asJson(method, path, routeParams, request);
+        if (!jsonObject.getBoolean("status")) {
+            throw new QaseException(jsonObject.getString("errorMessage")
+                    + (jsonObject.isNull("errorFields") ? "" : System.lineSeparator() + jsonObject.get("errorFields")));
+        }
+        return getObjectMapper().readValue(jsonObject.get("result").toString(), responseClass);
     }
 
-    private JSONObject asJson(HttpMethod method, String path, Map<String, Object> routeParams) {
+    private <Request> JSONObject asJson(HttpMethod method, String path, Map<String, Object> routeParams, Request request) {
+        JsonNode body = unirestInstance
+                .request(method.name(), baseUrl + path)
+                .routeParam(routeParams).body(request).asJson().getBody();
+        return Optional.ofNullable(body).orElseThrow(() -> new QaseException("Something went wrong")).getObject();
+    }
+
+    private JSONObject asJson(HttpMethod method,
+                              String path,
+                              Map<String, Object> routeParams,
+                              Map<String, Object> queryParams) {
         JsonNode body = unirestInstance.request(method.name(), baseUrl + path)
                 .routeParam(routeParams)
+                .queryString(queryParams)
                 .asJson().getBody();
         return Optional.ofNullable(body).orElseThrow(() -> new QaseException("Something went wrong")).getObject();
+    }
+
+    private ObjectMapper getObjectMapper() {
+        return unirestInstance.config().getObjectMapper();
     }
 }

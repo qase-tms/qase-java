@@ -3,11 +3,9 @@ package io.qase.api;
 import io.qase.api.enums.Filters;
 import io.qase.api.enums.RunResultStatus;
 import io.qase.api.inner.RouteFilter;
-import io.qase.api.models.v1.testrunresults.add.CreateUpdateTestRunResultRequest;
-import io.qase.api.models.v1.testrunresults.add.CreateUpdateTestRunResultResponse;
-import io.qase.api.models.v1.testrunresults.add.Step;
-import io.qase.api.models.v1.testrunresults.get.TestRunResultResponse;
-import io.qase.api.models.v1.testrunresults.get_all.TestRunResultsResponse;
+import io.qase.api.models.v1.testrunresults.NewTestRunResults;
+import io.qase.api.models.v1.testrunresults.Step;
+import io.qase.api.models.v1.testrunresults.TestRunResult;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -23,28 +21,28 @@ public final class TestRunResults {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public TestRunResultsResponse getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(TestRunResultsResponse.class, "/result/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public io.qase.api.models.v1.testrunresults.TestRunResults getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(io.qase.api.models.v1.testrunresults.TestRunResults.class, "/result/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public TestRunResultsResponse getAll(String projectCode) {
+    public io.qase.api.models.v1.testrunresults.TestRunResults getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 
-    public TestRunResultResponse get(String projectCode, String hash) {
+    public TestRunResult get(String projectCode, String hash) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("hash", hash);
-        return qaseApiClient.get(TestRunResultResponse.class, "/result/{code}/{hash}", routeParams);
+        return qaseApiClient.get(TestRunResult.class, "/result/{code}/{hash}", routeParams);
     }
 
     public Filter filter() {
         return new Filter();
     }
 
-    public CreateUpdateTestRunResultResponse create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
-                                                    Long memberId, String comment, Boolean isDefect, Step... steps) {
-        CreateUpdateTestRunResultRequest createUpdateTestRunResultRequest = CreateUpdateTestRunResultRequest.builder()
+    public String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
+                         Long memberId, String comment, Boolean isDefect, Step... steps) {
+        NewTestRunResults newTestRunResults = NewTestRunResults.builder()
                 .caseId(caseId)
                 .status(status)
                 .time(timeSpent == null ? null : timeSpent.getSeconds())
@@ -56,16 +54,16 @@ public final class TestRunResults {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("run_id", runId);
-        return qaseApiClient.post(CreateUpdateTestRunResultResponse.class, "/result/{code}/{run_id}", routeParams, createUpdateTestRunResultRequest);
+        return qaseApiClient.post(TestRunResult.class, "/result/{code}/{run_id}", routeParams, newTestRunResults).getHash();
     }
 
-    public CreateUpdateTestRunResultResponse create(String projectCode, long runId, long caseId, RunResultStatus status) {
+    public String create(String projectCode, long runId, long caseId, RunResultStatus status) {
         return this.create(projectCode, runId, caseId, status, null, null, null, null, new Step[0]);
     }
 
-    public CreateUpdateTestRunResultResponse update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent,
-                                                    Long memberId, String comment, Boolean isDefect, Step... steps) {
-        CreateUpdateTestRunResultRequest createUpdateTestRunResultRequest = CreateUpdateTestRunResultRequest.builder()
+    public String update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent,
+                         Long memberId, String comment, Boolean isDefect, Step... steps) {
+        NewTestRunResults newTestRunResults = NewTestRunResults.builder()
                 .status(status)
                 .time(timeSpent == null ? null : timeSpent.getSeconds())
                 .memberId(memberId)
@@ -77,18 +75,20 @@ public final class TestRunResults {
         routeParams.put("code", projectCode);
         routeParams.put("run_id", runId);
         routeParams.put("hash", hash);
-        return qaseApiClient.patch(CreateUpdateTestRunResultResponse.class, "/result/{code}/{run_id}/{hash}", routeParams, createUpdateTestRunResultRequest);
+        return qaseApiClient.patch(TestRunResult.class, "/result/{code}/{run_id}/{hash}", routeParams, newTestRunResults)
+                .getHash();
     }
 
-    public CreateUpdateTestRunResultResponse update(String projectCode, long runId, String hash, RunResultStatus status) {
+    public String update(String projectCode, long runId, String hash, RunResultStatus status) {
         return this.update(projectCode, runId, hash, status, null, null, null, null, new Step[0]);
     }
 
-    public boolean delete(String projectCode, String hash) {
+    public boolean delete(String projectCode, long runId, String hash) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
+        routeParams.put("run_id", runId);
         routeParams.put("hash", hash);
-        return (boolean) qaseApiClient.delete("/result/{code}/{hash}", routeParams).get("status");
+        return (boolean) qaseApiClient.delete("/result/{code}/{run_id}/{hash}", routeParams).get("status");
     }
 
     public static class Filter implements RouteFilter {
@@ -112,7 +112,7 @@ public final class TestRunResults {
         }
 
         /**
-         * @param id Team member ID. Search result by team member.
+         * @param id User member ID. Search result by team member.
          * @return
          */
         public Filter member(String id) {
