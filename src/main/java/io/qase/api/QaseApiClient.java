@@ -126,10 +126,6 @@ final class QaseApiClient {
                                                   Request request) {
 
         JSONObject jsonObject = asJson(method, path, routeParams, request);
-        if (!jsonObject.getBoolean("status")) {
-            throw new QaseException(jsonObject.getString("errorMessage")
-                    + (jsonObject.isNull("errorFields") ? "" : System.lineSeparator() + jsonObject.get("errorFields")));
-        }
         return getObjectMapper().readValue(jsonObject.get("result").toString(), responseClass);
     }
 
@@ -137,7 +133,7 @@ final class QaseApiClient {
         JsonNode body = unirestInstance
                 .request(method.name(), baseUrl + path)
                 .routeParam(routeParams).body(request).asJson().getBody();
-        return Optional.ofNullable(body).orElseThrow(() -> new QaseException("Something went wrong")).getObject();
+        return getJsonObject(body);
     }
 
     private JSONObject asJson(HttpMethod method,
@@ -148,7 +144,16 @@ final class QaseApiClient {
                 .routeParam(routeParams)
                 .queryString(queryParams)
                 .asJson().getBody();
-        return Optional.ofNullable(body).orElseThrow(() -> new QaseException("Something went wrong")).getObject();
+        return getJsonObject(body);
+    }
+
+    private JSONObject getJsonObject(JsonNode body) {
+        JSONObject jsonObject = Optional.ofNullable(body).orElseThrow(() -> new QaseException("Something went wrong")).getObject();
+        if (!jsonObject.getBoolean("status")) {
+            throw new QaseException(jsonObject.getString("errorMessage")
+                    + (jsonObject.isNull("errorFields") ? "" : System.lineSeparator() + jsonObject.get("errorFields")));
+        }
+        return jsonObject;
     }
 
     private ObjectMapper getObjectMapper() {

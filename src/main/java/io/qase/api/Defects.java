@@ -3,8 +3,7 @@ package io.qase.api;
 import io.qase.api.enums.DefectStatus;
 import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
-import io.qase.api.models.v1.defects.get.DefectResponse;
-import io.qase.api.models.v1.defects.get_all.DefectsResponse;
+import io.qase.api.models.v1.defects.Defect;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -20,27 +19,27 @@ public final class Defects {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public DefectsResponse getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(DefectsResponse.class, "/defect/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public io.qase.api.models.v1.defects.Defects getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(io.qase.api.models.v1.defects.Defects.class, "/defect/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public DefectsResponse getAll(String projectCode) {
+    public io.qase.api.models.v1.defects.Defects getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 
-    public DefectResponse get(String projectCode, long id) {
+    public Defect get(String projectCode, long id) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", id);
         Map<String, Object> queryParams = new HashMap<>();
-        return qaseApiClient.get(DefectResponse.class, "/defect/{code}/{id}", routeParams, queryParams);
+        return qaseApiClient.get(Defect.class, "/defect/{code}/{id}", routeParams, queryParams);
     }
 
     public boolean resolve(String projectCode, long defectId) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", defectId);
-        return (boolean) qaseApiClient.patch("/defect/{code}/{id}", routeParams).get("status");
+        return (boolean) qaseApiClient.patch("/defect/{code}/resolve/{id}", routeParams).get("status");
     }
 
     public boolean delete(String projectCode, long defectId) {

@@ -1,12 +1,11 @@
-package io.qase.api.models.v1.customfields.get_all;
+package io.qase.api.models.v1.customfields;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
 @SuppressWarnings("unused")
-public class Entity {
-
+public class CustomField {
     private String created;
     @SerializedName("default_value")
     private String defaultValue;
@@ -23,5 +22,4 @@ public class Entity {
     private String type;
     private String updated;
     private String value;
-
 }

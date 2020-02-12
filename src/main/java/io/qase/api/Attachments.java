@@ -1,8 +1,6 @@
 package io.qase.api;
 
-import io.qase.api.models.v1.attachments.add.UploadFileResponse;
-import io.qase.api.models.v1.attachments.get.AttachmentResponse;
-import io.qase.api.models.v1.attachments.get_all.AttachmentsResponse;
+import io.qase.api.models.v1.attachments.Attachment;
 
 import java.io.File;
 
@@ -16,20 +14,20 @@ public final class Attachments {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public AttachmentsResponse getAll(int limit, int offset) {
-        return qaseApiClient.get(AttachmentsResponse.class, "/attachment", emptyMap(), null, limit, offset);
+    public io.qase.api.models.v1.attachments.Attachments getAll(int limit, int offset) {
+        return qaseApiClient.get(io.qase.api.models.v1.attachments.Attachments.class, "/attachment", emptyMap(), null, limit, offset);
     }
 
-    public AttachmentsResponse getAll() {
+    public io.qase.api.models.v1.attachments.Attachments getAll() {
         return this.getAll(100, 0);
     }
 
-    public AttachmentResponse get(String hash) {
-        return qaseApiClient.get(AttachmentResponse.class, "/attachment/{hash}", singletonMap("hash", hash), emptyMap());
+    public Attachment get(String hash) {
+        return qaseApiClient.get(Attachment.class, "/attachment/{hash}", singletonMap("hash", hash), emptyMap());
     }
 
-    public UploadFileResponse add(String projectCode, File file) {
-        return qaseApiClient.post(UploadFileResponse.class, "/attachment/{code}", file);
+    public Attachment add(String projectCode, File file) {
+        return qaseApiClient.post(Attachment.class, "/attachment/{code}", file);
     }
 
     public boolean delete(String hash) {

@@ -1,4 +1,4 @@
-package io.qase.api.models.v1.defects.get;
+package io.qase.api.models.v1.defects;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -7,13 +7,13 @@ import java.util.List;
 
 @Data
 @SuppressWarnings("unused")
-public class Result {
+public class Defect {
     @SerializedName("actual_result")
     private String actualResult;
-    private List<Object> attachments;
+    private List<Attachment> attachments;
     private String created;
     @SerializedName("custom_fields")
-    private List<Object> customFields;
+    private List<CustomField> customFields;
     private long id;
     private String status;
     private String title;

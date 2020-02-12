@@ -1,11 +1,11 @@
-package io.qase.api.models.v1.attachments.get;
+package io.qase.api.models.v1.attachments;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
 @SuppressWarnings("unused")
-public class Result {
+public class Attachment {
     private String extension;
     private String file;
     @SerializedName("full_path")
