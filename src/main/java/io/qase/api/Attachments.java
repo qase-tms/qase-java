@@ -3,6 +3,8 @@ package io.qase.api;
 import io.qase.api.models.v1.attachments.Attachment;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
@@ -26,8 +28,8 @@ public final class Attachments {
         return qaseApiClient.get(Attachment.class, "/attachment/{hash}", singletonMap("hash", hash), emptyMap());
     }
 
-    public Attachment add(String projectCode, File file) {
-        return qaseApiClient.post(Attachment.class, "/attachment/{code}", file);
+    public List<Attachment> add(String projectCode, File file) {
+        return Arrays.asList(qaseApiClient.post(Attachment[].class, "/attachment/{code}", singletonMap("code", projectCode), file));
     }
 
     public boolean delete(String hash) {

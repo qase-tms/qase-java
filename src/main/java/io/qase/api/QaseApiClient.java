@@ -97,10 +97,14 @@ final class QaseApiClient {
         return this.post(responseClass, path, emptyMap(), request);
     }
 
-    public <Response> Response post(Class<Response> responseClass, String path, File file) {
-        return unirestInstance.post(baseUrl + path)
+    public <Response> Response post(Class<Response> responseClass, String path, Map<String, Object> routeParams, File file) {
+        JsonNode body = unirestInstance.post(baseUrl + path)
+                .routeParam(routeParams)
                 .field(file.getName(), file)
-                .asObject(responseClass).getBody();
+                .asJson()
+                .getBody();
+        JSONObject jsonObject = getJsonObject(body);
+        return getObjectMapper().readValue(jsonObject.get("result").toString(), responseClass);
     }
 
     public <Response, Request> Response post(Class<Response> responseClass, String path, Map<String, Object> routeParams, Request request) {
@@ -132,7 +136,11 @@ final class QaseApiClient {
     private <Request> JSONObject asJson(HttpMethod method, String path, Map<String, Object> routeParams, Request request) {
         JsonNode body = unirestInstance
                 .request(method.name(), baseUrl + path)
-                .routeParam(routeParams).body(request).asJson().getBody();
+                .routeParam(routeParams)
+                .header("Content-Type", "application/json")
+                .body(request)
+                .asJson()
+                .getBody();
         return getJsonObject(body);
     }
 
@@ -142,6 +150,7 @@ final class QaseApiClient {
                               Map<String, Object> queryParams) {
         JsonNode body = unirestInstance.request(method.name(), baseUrl + path)
                 .routeParam(routeParams)
+                .header("Content-Type", "application/json")
                 .queryString(queryParams)
                 .asJson().getBody();
         return getJsonObject(body);

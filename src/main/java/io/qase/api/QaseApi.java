@@ -20,7 +20,7 @@ public final class QaseApi {
                     @Override
                     public void onRequest(HttpRequest<?> request, Config config) {
                         logger.info("{} {}", request.getHttpMethod().name(), request.getUrl());
-                        if (request.getBody().isPresent()) {
+                        if (request.getBody().isPresent() && request.getBody().get().isEntityBody()) {
                             logger.info(request.getBody().get().uniPart().getValue().toString());
                         }
                     }
@@ -39,8 +39,7 @@ public final class QaseApi {
                 })
                 .setObjectMapper(new GsonObjectMapper())
                 .addShutdownHook(true)
-                .setDefaultHeader("Token", apiToken)
-                .setDefaultHeader("Content-Type", "application/json");
+                .setDefaultHeader("Token", apiToken);
         this.qaseApiClient = new QaseApiClient(unirestInstance, baseUrl);
     }
 
