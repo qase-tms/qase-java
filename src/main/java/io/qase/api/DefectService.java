@@ -4,6 +4,7 @@ import io.qase.api.enums.DefectStatus;
 import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.defects.Defect;
+import io.qase.api.models.v1.defects.Defects;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -12,18 +13,18 @@ import java.util.Map;
 
 import static java.util.Collections.singletonMap;
 
-public final class Defects {
+public final class DefectService {
     private final QaseApiClient qaseApiClient;
 
-    public Defects(QaseApiClient qaseApiClient) {
+    public DefectService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public io.qase.api.models.v1.defects.Defects getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(io.qase.api.models.v1.defects.Defects.class, "/defect/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public Defects getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(Defects.class, "/defect/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public io.qase.api.models.v1.defects.Defects getAll(String projectCode) {
+    public Defects getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 

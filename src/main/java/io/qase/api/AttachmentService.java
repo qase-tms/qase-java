@@ -1,6 +1,7 @@
 package io.qase.api;
 
 import io.qase.api.models.v1.attachments.Attachment;
+import io.qase.api.models.v1.attachments.Attachments;
 
 import java.io.File;
 import java.util.Arrays;
@@ -9,18 +10,18 @@ import java.util.List;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
 
-public final class Attachments {
+public final class AttachmentService {
     private final QaseApiClient qaseApiClient;
 
-    public Attachments(QaseApiClient qaseApiClient) {
+    public AttachmentService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public io.qase.api.models.v1.attachments.Attachments getAll(int limit, int offset) {
-        return qaseApiClient.get(io.qase.api.models.v1.attachments.Attachments.class, "/attachment", emptyMap(), null, limit, offset);
+    public Attachments getAll(int limit, int offset) {
+        return qaseApiClient.get(Attachments.class, "/attachment", emptyMap(), null, limit, offset);
     }
 
-    public io.qase.api.models.v1.attachments.Attachments getAll() {
+    public Attachments getAll() {
         return this.getAll(100, 0);
     }
 

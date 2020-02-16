@@ -3,16 +3,17 @@ package io.qase.api;
 import io.qase.api.enums.*;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.testcases.TestCase;
+import io.qase.api.models.v1.testcases.TestCases;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonMap;
 
-public final class TestCases {
+public final class TestCaseService {
     private final QaseApiClient qaseApiClient;
 
-    TestCases(QaseApiClient qaseApiClient) {
+    TestCaseService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
@@ -25,16 +26,16 @@ public final class TestCases {
      * @param filter
      * @return
      */
-    public io.qase.api.models.v1.testcases.TestCases getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(io.qase.api.models.v1.testcases.TestCases.class, "/case/{code}",
+    public TestCases getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(TestCases.class, "/case/{code}",
                 singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public io.qase.api.models.v1.testcases.TestCases getAll(String projectCode, Filter filter) {
+    public TestCases getAll(String projectCode, Filter filter) {
         return getAll(projectCode, 100, 0, filter);
     }
 
-    public io.qase.api.models.v1.testcases.TestCases getAll(String projectCode) {
+    public TestCases getAll(String projectCode) {
         return getAll(projectCode, 100, 0, filter());
     }
 

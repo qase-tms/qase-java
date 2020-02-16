@@ -3,6 +3,7 @@ package io.qase.api;
 import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.milestones.Milestone;
+import io.qase.api.models.v1.milestones.Milestones;
 import io.qase.api.models.v1.milestones.NewMilestone;
 
 import java.util.Collections;
@@ -12,10 +13,10 @@ import java.util.Map;
 
 import static java.util.Collections.singletonMap;
 
-public final class Milestones {
+public final class MilestoneService {
     private final QaseApiClient qaseApiClient;
 
-    public Milestones(QaseApiClient qaseApiClient) {
+    public MilestoneService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
@@ -27,15 +28,15 @@ public final class Milestones {
      * @param offset      How many milestones should be skipped
      * @return
      */
-    public io.qase.api.models.v1.milestones.Milestones getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(io.qase.api.models.v1.milestones.Milestones.class, "/milestone/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public Milestones getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(Milestones.class, "/milestone/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public io.qase.api.models.v1.milestones.Milestones getAll(String projectCode, Filter filter) {
+    public Milestones getAll(String projectCode, Filter filter) {
         return this.getAll(projectCode, 100, 0, filter);
     }
 
-    public io.qase.api.models.v1.milestones.Milestones getAll(String projectCode) {
+    public Milestones getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 

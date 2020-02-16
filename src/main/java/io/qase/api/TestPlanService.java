@@ -4,23 +4,24 @@ import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.testplans.NewTestPlan;
 import io.qase.api.models.v1.testplans.TestPlan;
+import io.qase.api.models.v1.testplans.TestPlans;
 
 import java.util.*;
 
 import static java.util.Collections.singletonMap;
 
-public final class TestPlans {
+public final class TestPlanService {
     private final QaseApiClient qaseApiClient;
 
-    public TestPlans(QaseApiClient qaseApiClient) {
+    public TestPlanService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public io.qase.api.models.v1.testplans.TestPlans getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(io.qase.api.models.v1.testplans.TestPlans.class, "/plan/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public TestPlans getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(TestPlans.class, "/plan/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public io.qase.api.models.v1.testplans.TestPlans getAll(String projectCode) {
+    public TestPlans getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 

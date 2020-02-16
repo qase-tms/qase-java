@@ -4,6 +4,7 @@ import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.suites.NewSuite;
 import io.qase.api.models.v1.suites.Suite;
+import io.qase.api.models.v1.suites.Suites;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -12,10 +13,10 @@ import java.util.Map;
 
 import static java.util.Collections.singletonMap;
 
-public final class Suites {
+public final class SuiteService {
     private final QaseApiClient qaseApiClient;
 
-    public Suites(QaseApiClient qaseApiClient) {
+    public SuiteService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
@@ -28,8 +29,8 @@ public final class Suites {
      * @param filter      Provide a string that will be used to search by title
      * @return
      */
-    public io.qase.api.models.v1.suites.Suites getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(io.qase.api.models.v1.suites.Suites.class, "/suite/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public Suites getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(Suites.class, "/suite/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
     /**
@@ -38,7 +39,7 @@ public final class Suites {
      * @param projectCode Project code
      * @return
      */
-    public io.qase.api.models.v1.suites.Suites getAll(String projectCode) {
+    public Suites getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 

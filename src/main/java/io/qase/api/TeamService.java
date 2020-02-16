@@ -6,10 +6,10 @@ import io.qase.api.models.v1.team.Users;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
 
-public final class Team {
+public final class TeamService {
     private final QaseApiClient qaseApiClient;
 
-    public Team(QaseApiClient qaseApiClient) {
+    public TeamService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 

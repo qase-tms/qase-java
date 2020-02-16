@@ -1,24 +1,25 @@
 package io.qase.api;
 
 import io.qase.api.models.v1.customfields.CustomField;
+import io.qase.api.models.v1.customfields.CustomFields;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Collections.singletonMap;
 
-public final class CustomFields {
+public final class CustomFieldService {
     private final QaseApiClient qaseApiClient;
 
-    public CustomFields(QaseApiClient qaseApiClient) {
+    public CustomFieldService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public io.qase.api.models.v1.customfields.CustomFields getAll(String projectCode, int limit, int offset) {
-        return qaseApiClient.get(io.qase.api.models.v1.customfields.CustomFields.class, "/custom_field/{code}", singletonMap("code", projectCode), null, limit, offset);
+    public CustomFields getAll(String projectCode, int limit, int offset) {
+        return qaseApiClient.get(CustomFields.class, "/custom_field/{code}", singletonMap("code", projectCode), null, limit, offset);
     }
 
-    public io.qase.api.models.v1.customfields.CustomFields getAll(String projectCode) {
+    public CustomFields getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0);
     }
 

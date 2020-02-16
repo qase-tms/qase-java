@@ -4,6 +4,7 @@ import io.qase.api.enums.Filters;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.shared_steps.NewSharedStep;
 import io.qase.api.models.v1.shared_steps.SharedStep;
+import io.qase.api.models.v1.shared_steps.SharedSteps;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -12,22 +13,22 @@ import java.util.Map;
 
 import static java.util.Collections.singletonMap;
 
-public final class SharedSteps {
+public final class SharedStepService {
     private final QaseApiClient qaseApiClient;
 
-    public SharedSteps(QaseApiClient qaseApiClient) {
+    public SharedStepService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public io.qase.api.models.v1.shared_steps.SharedSteps getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(io.qase.api.models.v1.shared_steps.SharedSteps.class, "/shared_step/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public SharedSteps getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(SharedSteps.class, "/shared_step/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public io.qase.api.models.v1.shared_steps.SharedSteps getAll(String projectCode, Filter filter) {
+    public SharedSteps getAll(String projectCode, Filter filter) {
         return this.getAll(projectCode, 100, 0, filter);
     }
 
-    public io.qase.api.models.v1.shared_steps.SharedSteps getAll(String projectCode) {
+    public SharedSteps getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 

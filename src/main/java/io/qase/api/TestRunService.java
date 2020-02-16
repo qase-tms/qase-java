@@ -5,30 +5,31 @@ import io.qase.api.enums.RunStatus;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.testruns.NewTestRun;
 import io.qase.api.models.v1.testruns.TestRun;
+import io.qase.api.models.v1.testruns.TestRuns;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonMap;
 
-public final class TestRuns {
+public final class TestRunService {
     private final QaseApiClient qaseApiClient;
 
-    public TestRuns(QaseApiClient qaseApiClient) {
+    public TestRunService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public io.qase.api.models.v1.testruns.TestRuns getAll(String projectCode, int limit, int offset, Filter filter, boolean includeCases) {
+    public TestRuns getAll(String projectCode, int limit, int offset, Filter filter, boolean includeCases) {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("limit", limit);
         queryParams.put("offset", offset);
         if (includeCases) {
             queryParams.put("include", "cases");
         }
-        return qaseApiClient.get(io.qase.api.models.v1.testruns.TestRuns.class, "/run/{code}", singletonMap("code", projectCode), queryParams, filter);
+        return qaseApiClient.get(TestRuns.class, "/run/{code}", singletonMap("code", projectCode), queryParams, filter);
     }
 
-    public io.qase.api.models.v1.testruns.TestRuns getAll(String projectCode, boolean includeCases) {
+    public TestRuns getAll(String projectCode, boolean includeCases) {
         return this.getAll(projectCode, 100, 0, new Filter(), includeCases);
     }
 

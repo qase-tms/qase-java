@@ -6,6 +6,7 @@ import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.testrunresults.NewTestRunResults;
 import io.qase.api.models.v1.testrunresults.Step;
 import io.qase.api.models.v1.testrunresults.TestRunResult;
+import io.qase.api.models.v1.testrunresults.TestRunResults;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -14,18 +15,18 @@ import java.util.*;
 
 import static java.util.Collections.singletonMap;
 
-public final class TestRunResults {
+public final class TestRunResultService {
     private final QaseApiClient qaseApiClient;
 
-    public TestRunResults(QaseApiClient qaseApiClient) {
+    public TestRunResultService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
-    public io.qase.api.models.v1.testrunresults.TestRunResults getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(io.qase.api.models.v1.testrunresults.TestRunResults.class, "/result/{code}", singletonMap("code", projectCode), filter, limit, offset);
+    public TestRunResults getAll(String projectCode, int limit, int offset, Filter filter) {
+        return qaseApiClient.get(TestRunResults.class, "/result/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public io.qase.api.models.v1.testrunresults.TestRunResults getAll(String projectCode) {
+    public TestRunResults getAll(String projectCode) {
         return this.getAll(projectCode, 100, 0, new Filter());
     }
 

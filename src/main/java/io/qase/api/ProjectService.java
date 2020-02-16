@@ -4,14 +4,15 @@ import io.qase.api.enums.Access;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.models.v1.projects.NewProject;
 import io.qase.api.models.v1.projects.Project;
+import io.qase.api.models.v1.projects.Projects;
 
 import java.util.Collections;
 
 
-public final class Projects {
+public final class ProjectService {
     private final QaseApiClient qaseApiClient;
 
-    Projects(QaseApiClient qaseApiClient) {
+    ProjectService(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
@@ -20,7 +21,7 @@ public final class Projects {
      *
      * @return
      */
-    public io.qase.api.models.v1.projects.Projects getAll() {
+    public Projects getAll() {
         return this.getAll(100, 0);
     }
 
@@ -31,8 +32,8 @@ public final class Projects {
      * @param offset How many projects should be skipped
      * @return
      */
-    public io.qase.api.models.v1.projects.Projects getAll(int limit, int offset) {
-        return qaseApiClient.get(io.qase.api.models.v1.projects.Projects.class, "/project", limit, offset);
+    public Projects getAll(int limit, int offset) {
+        return qaseApiClient.get(Projects.class, "/project", limit, offset);
     }
 
     /**

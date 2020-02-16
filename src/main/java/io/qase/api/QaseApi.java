@@ -43,51 +43,51 @@ public final class QaseApi {
         this.qaseApiClient = new QaseApiClient(unirestInstance, baseUrl);
     }
 
-    public Projects projects() {
-        return new Projects(qaseApiClient);
+    public ProjectService projects() {
+        return new ProjectService(qaseApiClient);
     }
 
-    public TestCases testCases() {
-        return new TestCases(qaseApiClient);
+    public TestCaseService testCases() {
+        return new TestCaseService(qaseApiClient);
     }
 
-    public Suites suites() {
-        return new Suites(qaseApiClient);
+    public SuiteService suites() {
+        return new SuiteService(qaseApiClient);
     }
 
-    public Milestones milestones() {
-        return new Milestones(qaseApiClient);
+    public MilestoneService milestones() {
+        return new MilestoneService(qaseApiClient);
     }
 
-    public SharedSteps sharedSteps() {
-        return new SharedSteps(qaseApiClient);
+    public SharedStepService sharedSteps() {
+        return new SharedStepService(qaseApiClient);
     }
 
-    public TestPlans testPlans() {
-        return new TestPlans(qaseApiClient);
+    public TestPlanService testPlans() {
+        return new TestPlanService(qaseApiClient);
     }
 
-    public TestRuns testRuns() {
-        return new TestRuns(qaseApiClient);
+    public TestRunService testRuns() {
+        return new TestRunService(qaseApiClient);
     }
 
-    public TestRunResults testRunResults() {
-        return new TestRunResults(qaseApiClient);
+    public TestRunResultService testRunResults() {
+        return new TestRunResultService(qaseApiClient);
     }
 
-    public Defects defects() {
-        return new Defects(qaseApiClient);
+    public DefectService defects() {
+        return new DefectService(qaseApiClient);
     }
 
-    public CustomFields customFields() {
-        return new CustomFields(qaseApiClient);
+    public CustomFieldService customFields() {
+        return new CustomFieldService(qaseApiClient);
     }
 
-    public Team team() {
-        return new Team(qaseApiClient);
+    public TeamService team() {
+        return new TeamService(qaseApiClient);
     }
 
-    public Attachments attachments() {
-        return new Attachments(qaseApiClient);
+    public AttachmentService attachments() {
+        return new AttachmentService(qaseApiClient);
     }
 }
