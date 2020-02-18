@@ -9,7 +9,7 @@ Add the following dependency and repository to your pom.xml:
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-api</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -22,42 +22,74 @@ Add the following dependency and repository to your pom.xml:
 ```
 
 ## Usage ##
+Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).
 
+You must replace api_token with your personal API key.
+ 
 ```java
-QaseApi qaseApi = new QaseApi("8ad37269a306d94f2387067e42b1a01565ebc0a8")
+QaseApi qaseApi = new QaseApi("api_token")
 ```
 
-### Get Project Info ###
+### Projects ###
+
+#### Get All Projects ####
+This method allows to retrieve all projects available for your account. You can you limit and offset params to paginate.
+
 ```java
-qaseApi.projects().get("PRJ").getResult().getTitle()
+Projects projects = qaseApi.projects().getAll();
+List<Project> projectList = projects.getProjectList();
 ```
 
-		
-### Get All Projects ###
+#### Get All Projects ####
+This method allows to retrieve a specific project.
+
 ```java
-List<Entity> projects = qaseApi.projects().getAll().getResult().getEntities();
-for (Entity project : projects) {
-    System.out.println(project.getTitle());
-}
+Project project = qaseApi.projects().get("PRJCODE");
 ```
 
-### Create Project ###
+#### Create a new project ####
+This method is used to create a new project through API.
+
 ```java
-qaseApi.projects().create("PRJ", "Project description").getStatus()
+String projectCode = qaseApi.projects().create("PRJCODE", "Project description");
 ```
 
-### Get Suite Info ###
+### Test cases ###
+
+#### Get all test cases ####
+This method allows to retrieve all test cases stored in selected project. You can you limit and offset params to paginate.
+
 ```java
-SuiteResponse suite = qaseApi.suites().get("PRJ", "1");
-System.out.println(suite.getResult().getTitle());
+Filter filter = qaseApi.testCases().filter()
+    .type(Type.other)
+    .priority(Priority.high);
+TestCases testCases = qaseApi.testCases().getAll("PRJCODE", filter);
+List<TestCase> testCaseList = testCases.getTestCaseList();
 ```
 
-### Get All Suites ###
+#### Get a specific test case ####
+This method allows to retrieve a specific test case.
+
 ```java
-Suites.Filter filter = qaseApi.suites().filter().search("suite-title-for-search");
-SuitesResponse suites = qaseApi.suites().getAll("PRJ", 100, 0, filter);
-List<Entity> suitesInfo = suites.getResult().getEntities();
-for (Entity suiteInfo : suitesInfo) {
-    System.out.println(suiteInfo.getTitle());
-}
+TestCase testCase = qaseApi.testCases().get("PRJCODE", 4);
 ```
+
+#### Delete test case ####
+This method completely deletes a test case from repository.
+
+```java
+boolean isDeleted = qaseApi.testCases().delete("PRJCODE", 4);
+```
+
+### Suites ###
+
+### Milestones ###
+### Shared steps ###
+### Test plans ###
+### Test runs ###
+### Test run results ###
+### Defects ###
+### Custom Fields ###
+### Attachments ###
+### Team ###
+``
