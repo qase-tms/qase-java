@@ -15,7 +15,7 @@ public class FilterHelper {
         }
         StringBuilder filterPath = new StringBuilder("?");
         for (Map.Entry<Filters, String> entry : filters.entrySet()) {
-            filterPath.append("filter[").append(entry.getKey().name()).append("]=").append(entry.getValue()).append("&");
+            filterPath.append("filters[").append(entry.getKey().name()).append("]=").append(entry.getValue()).append("&");
         }
         filterPath.deleteCharAt(filterPath.lastIndexOf("&"));
         return filterPath.toString();
