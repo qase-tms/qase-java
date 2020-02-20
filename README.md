@@ -83,7 +83,79 @@ boolean isDeleted = qaseApi.testCases().delete("PRJCODE", 4);
 
 ### Suites ###
 
+#### Get all test suites ####
+This method allows to retrieve all test suites stored in selected project. You can you limit and offset params to paginate.
+
+```java
+Suites suites = qaseApi.suites().getAll("PRJCODE");
+List<Suite> suiteList = suites.getSuiteList();
+
+```
+
+#### Get a specific test suite ####
+This method allows to retrieve a specific test suite.
+
+```java
+Suite suite = qaseApi.suites().get("PRJCODE", 18);
+```
+
+#### Create a new test suite ####
+This method is used to create a new test suite through API.
+
+```java
+long id = qaseApi.suites().create("PRJCODE", "SuiteTitle", "Description");
+```
+
+#### Update test suite ####
+This method is used to update a test suite through API. 
+
+```java
+qaseApi.suites().update("PRJCODE", 18, "NewSuiteTitle");
+
+```
+
+#### Delete test suite ####
+This method completely deletes a test suite from repository.
+
+```java
+boolean isDeleted = qaseApi.suites().delete("PRJCODE", 18)
+```
+
 ### Milestones ###
+#### Get all milestones ####
+This method allows to retrieve all milestones stored in selected project. You can you limit and offset params to paginate.
+
+```java
+Milestones milestones = qaseApi.milestones().getAll("PRJCODE");
+List<Milestone> milestoneList = milestones.getMilestoneList();
+```
+
+#### Get a specific milestone ####
+This method allows to retrieve a specific milestone.
+
+```java
+Milestone milestone = qaseApi.milestones().get("PRJCODE", 1)
+```
+
+#### Create a new milestone ####
+This method is used to create a new milestone through API.
+
+```java
+long id = qaseApi.milestones().create("PRJCODE", "MilestoneTitle", "MilestoneDescription")
+```
+#### Update milestone ####
+This method is used to update a milestone through API.
+
+```java
+long id = qaseApi.milestones().update("PRJCODE", 6, "NewMilestoneTitle");
+```
+
+#### Delete milestone ####
+This method completely deletes a milestone from repository
+```java
+boolean isDeleted = qaseApi.milestones().delete("PRJCODE", 6);
+```
+
 ### Shared steps ###
 ### Test plans ###
 ### Test runs ###
