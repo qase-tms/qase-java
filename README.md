@@ -157,6 +157,41 @@ boolean isDeleted = qaseApi.milestones().delete("PRJCODE", 6);
 ```
 
 ### Shared steps ###
+
+#### Get all shared steps ####
+This method allows to retrieve all shared steps stored in selected project. You can you limit and offset params to paginate.
+```java
+SharedSteps sharedSteps = qaseApi.sharedSteps().getAll("PRJCODE");
+List<SharedStep> sharedStepList = sharedSteps.getSharedStepList();
+```
+
+#### Get a specific shared step #####
+This method allows to retrieve a specific shared step.
+```java
+SharedStep sharedStep = qaseApi.sharedSteps().get("PRJCODE", "stepHashCode");
+```
+
+#### Create a new shared step ####
+This method is used to create a new shared step through API.
+
+```java
+String stepHashCode = qaseApi.sharedSteps().create("PRJCODE", "title", "step action", "step expected result");
+```
+
+#### Update shared step ####
+This method is used to update a shared step through API. 
+
+```java
+String stepHashCode = qaseApi.sharedSteps().update("PRJCODE", "stepHashCode", "title", "step action", "step expected result");
+```
+
+#### Delete shared step ####
+This method completely deletes a shared step from repository. Also it will be removed from all test cases.
+
+```java
+boolean isDeleted = qaseApi.sharedSteps().delete("PRJCODE", "stepHashCode");
+```
+
 ### Test plans ###
 ### Test runs ###
 ### Test run results ###
