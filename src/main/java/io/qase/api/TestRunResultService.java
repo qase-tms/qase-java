@@ -80,6 +80,10 @@ public final class TestRunResultService {
                 .getHash();
     }
 
+    public String update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent) {
+        return this.update(projectCode, runId, hash, status, timeSpent, null, null, null, new Step[0]);
+    }
+
     public String update(String projectCode, long runId, String hash, RunResultStatus status) {
         return this.update(projectCode, runId, hash, status, null, null, null, null, new Step[0]);
     }
