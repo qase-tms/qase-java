@@ -116,12 +116,27 @@ public final class SuiteService {
         return this.create(projectCode, title, description, precondition, null);
     }
 
-    public long update(String projectCode, long testSuiteId, String title) {
+    public long update(String projectCode, long testSuiteId, String title, String description, String preconditions, Integer parentId) {
         NewSuite createUpdateSuiteRequest = new NewSuite(title);
+        createUpdateSuiteRequest.setDescription(description);
+        createUpdateSuiteRequest.setPreconditions(preconditions);
+        createUpdateSuiteRequest.setParentId(parentId);
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", testSuiteId);
         return qaseApiClient.patch(Suite.class, "/suite/{code}/{id}", routeParams, createUpdateSuiteRequest).getId();
+    }
+
+    public long update(String projectCode, long testSuiteId, String title, String description, String preconditions) {
+        return update(projectCode, testSuiteId, title, description, preconditions, null);
+    }
+
+    public long update(String projectCode, long testSuiteId, String title, String description) {
+        return update(projectCode, testSuiteId, title, description, null, null);
+    }
+
+    public long update(String projectCode, long testSuiteId, String title) {
+        return update(projectCode, testSuiteId, title, null, null, null);
     }
 
     /**
@@ -131,7 +146,7 @@ public final class SuiteService {
      * @param testSuiteId Test suite id
      * @return
      */
-    public boolean delete(String projectCode, String testSuiteId) {
+    public boolean delete(String projectCode, long testSuiteId) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", testSuiteId);

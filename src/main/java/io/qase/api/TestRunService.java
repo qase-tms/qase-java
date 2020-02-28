@@ -56,7 +56,7 @@ public final class TestRunService {
         return this.create(projectCode, title, null, null, cases);
     }
 
-    public boolean delete(String projectCode, String testRunId) {
+    public boolean delete(String projectCode, long testRunId) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", testRunId);

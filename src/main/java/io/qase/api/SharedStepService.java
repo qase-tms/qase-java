@@ -75,8 +75,8 @@ public final class SharedStepService {
                 .getHash();
     }
 
-    public String update(String projectCode, String id, String title, String action) {
-        return this.update(projectCode, id, title, action, null);
+    public String update(String projectCode, String hash, String title, String action) {
+        return this.update(projectCode, hash, title, action, null);
     }
 
     public static class Filter implements RouteFilter {
