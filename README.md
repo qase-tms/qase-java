@@ -374,7 +374,7 @@ This method allows to retrieve all users in your team. You can you limit and off
 
 ```java
 Users users = qaseApi.team().getAll();
-List<User> userList = response.getUserList();
+List<User> userList = users.getUserList();
 ```
 
 #### Get a specific team member
