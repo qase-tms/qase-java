@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static java.util.Collections.emptyMap;
 
-final class QaseApiClient {
+public final class QaseApiClient {
     private final UnirestInstance unirestInstance;
     private final String baseUrl;
 

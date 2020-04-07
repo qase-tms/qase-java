@@ -1,21 +1,17 @@
-package io.qase.api;
+package io.qase.api.services;
 
 import io.qase.api.enums.*;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.testcases.TestCase;
 import io.qase.api.models.v1.testcases.TestCases;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import static java.util.Collections.singletonMap;
-
-public final class TestCaseService {
-    private final QaseApiClient qaseApiClient;
-
-    TestCaseService(QaseApiClient qaseApiClient) {
-        this.qaseApiClient = qaseApiClient;
-    }
+public interface TestCaseService {
 
     /**
      * This method allows to retrieve all test cases stored in selected project.
@@ -26,18 +22,11 @@ public final class TestCaseService {
      * @param filter
      * @return
      */
-    public TestCases getAll(String projectCode, int limit, int offset, Filter filter) {
-        return qaseApiClient.get(TestCases.class, "/case/{code}",
-                singletonMap("code", projectCode), filter, limit, offset);
-    }
+    TestCases getAll(String projectCode, int limit, int offset, RouteFilter filter);
 
-    public TestCases getAll(String projectCode, Filter filter) {
-        return getAll(projectCode, 100, 0, filter);
-    }
+    TestCases getAll(String projectCode, RouteFilter filter);
 
-    public TestCases getAll(String projectCode) {
-        return getAll(projectCode, 100, 0, filter());
-    }
+    TestCases getAll(String projectCode);
 
     /**
      * This method allows to retrieve a specific test case.
@@ -46,12 +35,7 @@ public final class TestCaseService {
      * @param caseId      Test case id
      * @return
      */
-    public TestCase get(String projectCode, int caseId) {
-        Map<String, Object> routeParams = new HashMap<>();
-        routeParams.put("code", projectCode);
-        routeParams.put("id", caseId);
-        return qaseApiClient.get(TestCase.class, "/case/{code}/{id}", routeParams);
-    }
+    TestCase get(String projectCode, int caseId);
 
     /**
      * This method completely deletes a test case from repository
@@ -59,23 +43,19 @@ public final class TestCaseService {
      * @param projectCode Project code
      * @param caseId      Test case id
      */
-    public boolean delete(String projectCode, int caseId) {
-        Map<String, Object> routeParams = new HashMap<>();
-        routeParams.put("code", projectCode);
-        routeParams.put("id", caseId);
-        return (boolean) qaseApiClient.delete("/case/{code}/{id}", routeParams).get("status");
-    }
+    boolean delete(String projectCode, int caseId);
 
-    public Filter filter() {
+    default Filter filter() {
         return new Filter();
     }
 
-    public static class Filter implements RouteFilter {
+    class Filter implements RouteFilter {
         private final Map<Filters, String> filters = new EnumMap<>(Filters.class);
 
         private Filter() {
         }
 
+        @Override
         public Map<Filters, String> getFilters() {
             return Collections.unmodifiableMap(filters);
         }
