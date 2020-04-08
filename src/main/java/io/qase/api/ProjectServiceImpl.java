@@ -43,6 +43,7 @@ public final class ProjectServiceImpl implements ProjectService {
         NewProject createUpdateProjectRequest = new NewProject(code, title);
         createUpdateProjectRequest.setAccess(access);
         createUpdateProjectRequest.setDescription(description);
+        createUpdateProjectRequest.setGroup(groupHash);
         return qaseApiClient.post(Project.class, "/project", createUpdateProjectRequest).getCode();
     }
 

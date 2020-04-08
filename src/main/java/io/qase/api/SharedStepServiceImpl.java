@@ -72,7 +72,7 @@ public final class SharedStepServiceImpl implements SharedStepService {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("hash", hash);
-        return qaseApiClient.patch(SharedStep.class, "/shared_step/{code}/{id}", routeParams, createUpdateSharedStepRequest)
+        return qaseApiClient.patch(SharedStep.class, "/shared_step/{code}/{hash}", routeParams, createUpdateSharedStepRequest)
                 .getHash();
     }
 

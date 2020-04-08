@@ -16,13 +16,13 @@ class DefectServiceTest {
     private static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
 
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
         configureFor(8088);
         wireMockServer.start();
     }
 
     @AfterAll
-    public static void tearDown() {
+    static void tearDown() {
         wireMockServer.stop();
     }
 
@@ -41,7 +41,7 @@ class DefectServiceTest {
     }
 
     @Test
-    public void getAllWithParams() {
+    void getAllWithParams() {
         try {
             qaseApi.defects().getAll("PROJ", 88, 12, qaseApi.defects().filter());
         } catch (QaseException e) {
@@ -55,7 +55,7 @@ class DefectServiceTest {
     }
 
     @Test
-    public void getAllWithParamsAndFilter() {
+    void getAllWithParamsAndFilter() {
         try {
             DefectService.Filter filter = qaseApi.defects().filter().status(DefectStatus.open);
             qaseApi.defects().getAll("PROJ", 88, 12, filter);
@@ -71,7 +71,7 @@ class DefectServiceTest {
     }
 
     @Test
-    public void get() {
+    void get() {
         try {
             qaseApi.defects().get("PROJ", 99);
         } catch (QaseException e) {
@@ -83,7 +83,7 @@ class DefectServiceTest {
     }
 
     @Test
-    public void resolve() {
+    void resolve() {
         try {
             qaseApi.defects().resolve("PROJ", 88);
         } catch (QaseException e) {
@@ -95,7 +95,7 @@ class DefectServiceTest {
     }
 
     @Test
-    public void delete() {
+    void delete() {
         try {
             qaseApi.defects().delete("PROJ", 77);
         } catch (QaseException e) {

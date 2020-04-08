@@ -16,18 +16,18 @@ class CustomFieldServiceTest {
     private static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
 
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
         configureFor(8088);
         wireMockServer.start();
     }
 
     @AfterAll
-    public static void tearDown() {
+    static void tearDown() {
         wireMockServer.stop();
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         try {
             qaseApi.customFields().getAll("PRJ");
         } catch (QaseException e) {
@@ -41,7 +41,7 @@ class CustomFieldServiceTest {
     }
 
     @Test
-    public void getAllWithParams() {
+    void getAllWithParams() {
         try {
             qaseApi.customFields().getAll("PRJ", 123, 33);
         } catch (QaseException e) {
