@@ -2,7 +2,7 @@ package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.QaseApi;
-import io.qase.api.enums.DefectStatus;
+import io.qase.api.enums.*;
 import io.qase.api.exceptions.QaseException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
-class DefectServiceTest {
+class TestCaseServiceTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
     static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
 
@@ -29,11 +29,11 @@ class DefectServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.defects().getAll("PROJ");
+            qaseApi.testCases().getAll("PRJ");
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
@@ -43,53 +43,58 @@ class DefectServiceTest {
     @Test
     void getAllWithParams() {
         try {
-            qaseApi.defects().getAll("PROJ", 88, 12, qaseApi.defects().filter());
+            qaseApi.testCases().getAll("PRJ", 50, 5, qaseApi.testCases().filter());
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("limit", equalTo("88"))
-                .withQueryParam("offset", equalTo("12")));
+                .withQueryParam("limit", equalTo("50"))
+                .withQueryParam("offset", equalTo("5")));
     }
 
     @Test
-    void getAllWithParamsAndFilter() {
+    void getAllWithFilter() {
         try {
-            DefectService.Filter filter = qaseApi.defects().filter().status(DefectStatus.open);
-            qaseApi.defects().getAll("PROJ", 88, 12, filter);
+            TestCaseService.Filter filter = qaseApi.testCases().filter()
+                    .automation(Automation.is_not_automated, Automation.to_be_automated)
+                    .behavior(Behavior.positive)
+                    .milestoneId(11)
+                    .suiteId(2)
+                    .severity(Severity.critical)
+                    .priority(Priority.high, Priority.medium)
+                    .status(Status.actual)
+                    .type(Type.functional, Type.acceptance)
+                    .search("title");
+            qaseApi.testCases().getAll("PRJ", filter);
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("filters[status]", equalTo("open"))
-                .withQueryParam("limit", equalTo("88"))
-                .withQueryParam("offset", equalTo("12")));
+                .withQueryParam("limit", equalTo("100"))
+                .withQueryParam("offset", equalTo("0"))
+                .withQueryParam("filters[milestone_id]", equalTo("11"))
+                .withQueryParam("filters[severity]", equalTo("critical"))
+                .withQueryParam("filters[behavior]", equalTo("positive"))
+                .withQueryParam("filters[automation]", equalTo("is-not-automated,to-be-automated"))
+                .withQueryParam("filters[search]", equalTo("title"))
+                .withQueryParam("filters[priority]", equalTo("high,medium"))
+                .withQueryParam("filters[type]", equalTo("functional,acceptance"))
+                .withQueryParam("filters[status]", equalTo("actual"))
+                .withQueryParam("filters[suite_id]", equalTo("2")));
     }
 
     @Test
     void get() {
         try {
-            qaseApi.defects().get("PROJ", 99);
+            qaseApi.testCases().get("PRJ", 8);
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ/99"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
-    }
-
-    @Test
-    void resolve() {
-        try {
-            qaseApi.defects().resolve("PROJ", 88);
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(patchRequestedFor(urlPathEqualTo("/v1/defect/PROJ/resolve/88"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ/8"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json")));
     }
@@ -97,11 +102,11 @@ class DefectServiceTest {
     @Test
     void delete() {
         try {
-            qaseApi.defects().delete("PROJ", 77);
+            qaseApi.testCases().delete("PRJ", 8);
         } catch (QaseException e) {
             //ignore
         }
-        verify(deleteRequestedFor(urlPathEqualTo("/v1/defect/PROJ/77"))
+        verify(deleteRequestedFor(urlPathEqualTo("/v1/case/PRJ/8"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json")));
     }

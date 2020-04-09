@@ -12,8 +12,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class ProjectServiceTest {
-    private static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    private static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
+    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
 
     @BeforeAll
     static void setUp() {

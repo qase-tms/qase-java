@@ -77,8 +77,8 @@ public interface TestCaseService {
          * @param id
          * @return
          */
-        public Filter milestoneId(String id) {
-            filters.put(Filters.milestone_id, id);
+        public Filter milestoneId(int id) {
+            filters.put(Filters.milestone_id, String.valueOf(id));
             return this;
         }
 
@@ -88,8 +88,8 @@ public interface TestCaseService {
          * @param id
          * @return
          */
-        public Filter suiteId(String id) {
-            filters.put(Filters.suite_id, id);
+        public Filter suiteId(int id) {
+            filters.put(Filters.suite_id, String.valueOf(id));
             return this;
         }
 
@@ -147,7 +147,7 @@ public interface TestCaseService {
          * @return
          */
         public Filter automation(Automation... automation) {
-            filters.put(Filters.behavior, Arrays.stream(automation).map(Automation::getName)
+            filters.put(Filters.automation, Arrays.stream(automation).map(Automation::getName)
                     .collect(Collectors.joining(",")));
             return this;
         }
@@ -159,7 +159,7 @@ public interface TestCaseService {
          * @return
          */
         public Filter status(Status... statuses) {
-            filters.put(Filters.behavior, Arrays.stream(statuses).map(Status::name)
+            filters.put(Filters.status, Arrays.stream(statuses).map(Status::name)
                     .collect(Collectors.joining(",")));
             return this;
         }

@@ -8,12 +8,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class CustomFieldServiceTest {
-    private static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    private static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
+    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
 
     @BeforeAll
     static void setUp() {

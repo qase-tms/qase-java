@@ -7,12 +7,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
-class AttachmentServiceTest {
+class TeamServiceTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
     static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
 
@@ -30,11 +28,11 @@ class AttachmentServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.attachments().getAll();
+            qaseApi.team().getAll();
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/attachment"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/user"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
@@ -44,51 +42,25 @@ class AttachmentServiceTest {
     @Test
     void getAllWithParams() {
         try {
-            qaseApi.attachments().getAll(55, 20);
+            qaseApi.team().getAll(150, 50);
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/attachment"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/user"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("limit", equalTo("55"))
-                .withQueryParam("offset", equalTo("20")));
+                .withQueryParam("limit", equalTo("150"))
+                .withQueryParam("offset", equalTo("50")));
     }
-
 
     @Test
     void get() {
         try {
-            qaseApi.attachments().get("2497be4bc95f807d2fe3c2203793673f6e5140e8");
+            qaseApi.team().get(123);
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/attachment/2497be4bc95f807d2fe3c2203793673f6e5140e8"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
-    }
-
-    @Test
-    void add() {
-        try {
-            qaseApi.attachments().add("2497be4bc95f807d2fe3c2203793673f6e5140e8", Paths.get("src/test/resources/logo.jpg").toFile());
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(postRequestedFor(urlPathEqualTo("/v1/attachment/2497be4bc95f807d2fe3c2203793673f6e5140e8"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", containing("multipart/form-data;"))
-                .withRequestBody(containing("Content-Disposition: form-data; name=\"logo.jpg\"; filename=\"logo.jpg\"")));
-    }
-
-    @Test
-    void delete() {
-        try {
-            qaseApi.attachments().delete("2497be4bc95f807d2fe3c2203793673f6e5140e8");
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(deleteRequestedFor(urlPathEqualTo("/v1/attachment/2497be4bc95f807d2fe3c2203793673f6e5140e8"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/user/123"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json")));
     }
