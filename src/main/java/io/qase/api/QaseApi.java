@@ -29,27 +29,6 @@ public final class QaseApi {
     public QaseApi(final String apiToken, final String baseUrl) {
         UnirestInstance unirestInstance = Unirest.spawnInstance();
         unirestInstance.config()
-                .interceptor(new Interceptor() {
-                    @Override
-                    public void onRequest(HttpRequest<?> request, Config config) {
-                        logger.info("{} {}", request.getHttpMethod().name(), request.getUrl());
-                        if (request.getBody().isPresent() && request.getBody().get().isEntityBody()) {
-                            logger.info(request.getBody().get().uniPart().getValue().toString());
-                        }
-                    }
-
-                    @Override
-                    public void onResponse(HttpResponse<?> response, HttpRequestSummary request, Config config) {
-                        logger.info("{} {}", response.getStatus(), response.getStatusText());
-                        logger.info("{}", response.getHeaders());
-                        logger.info("{}", response.getBody());
-                    }
-
-                    @Override
-                    public HttpResponse<?> onFail(Exception e, HttpRequestSummary request, Config config) {
-                        return null;
-                    }
-                })
                 .setObjectMapper(new GsonObjectMapper())
                 .addShutdownHook(true)
                 .setDefaultHeader("Token", apiToken);
