@@ -1,22 +1,21 @@
-package io.qase.api;
+package io.qase.api.services.v1;
 
-import io.qase.api.enums.Filters;
+import io.qase.api.QaseApiClient;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.milestones.Milestone;
 import io.qase.api.models.v1.milestones.Milestones;
 import io.qase.api.models.v1.milestones.NewMilestone;
+import io.qase.api.services.MilestoneService;
 
-import java.util.Collections;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Collections.singletonMap;
 
-public final class MilestoneService {
+public final class MilestoneServiceImpl implements MilestoneService {
     private final QaseApiClient qaseApiClient;
 
-    public MilestoneService(QaseApiClient qaseApiClient) {
+    public MilestoneServiceImpl(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 
@@ -28,28 +27,28 @@ public final class MilestoneService {
      * @param offset      How many milestones should be skipped
      * @return
      */
-    public Milestones getAll(String projectCode, int limit, int offset, Filter filter) {
+    @Override
+    public Milestones getAll(String projectCode, int limit, int offset, RouteFilter filter) {
         return qaseApiClient.get(Milestones.class, "/milestone/{code}", singletonMap("code", projectCode), filter, limit, offset);
     }
 
-    public Milestones getAll(String projectCode, Filter filter) {
+    @Override
+    public Milestones getAll(String projectCode, RouteFilter filter) {
         return this.getAll(projectCode, 100, 0, filter);
     }
 
+    @Override
     public Milestones getAll(String projectCode) {
-        return this.getAll(projectCode, 100, 0, new Filter());
+        return this.getAll(projectCode, 100, 0, filter());
     }
 
+    @Override
     public Milestone get(String projectCode, long milestoneId) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", milestoneId);
         return qaseApiClient.get(Milestone.class, "/milestone/{code}/{id}", routeParams);
 
-    }
-
-    public Filter filter() {
-        return new Filter();
     }
 
     /**
@@ -60,6 +59,7 @@ public final class MilestoneService {
      * @param description Milestone description
      * @return
      */
+    @Override
     public long create(String projectCode, String title, String description) {
         NewMilestone createUpdateMilestonesRequest = new NewMilestone(title);
         createUpdateMilestonesRequest.setDescription(description);
@@ -68,7 +68,6 @@ public final class MilestoneService {
                 "/milestone/{code}",
                 singletonMap("code", projectCode),
                 createUpdateMilestonesRequest).getId();
-
     }
 
     /**
@@ -78,6 +77,7 @@ public final class MilestoneService {
      * @param title       Milestone title
      * @return
      */
+    @Override
     public long create(String projectCode, String title) {
         return create(projectCode, title, null);
     }
@@ -89,6 +89,7 @@ public final class MilestoneService {
      * @param id          Milestone id
      * @return
      */
+    @Override
     public boolean delete(String projectCode, long id) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
@@ -105,6 +106,7 @@ public final class MilestoneService {
      * @param description Milestone description
      * @return
      */
+    @Override
     public long update(String projectCode, long id, String title, String description) {
         NewMilestone createUpdateMilestonesRequest = new NewMilestone(title);
         createUpdateMilestonesRequest.setDescription(description);
@@ -126,29 +128,8 @@ public final class MilestoneService {
      * @param title       Milestone title
      * @return
      */
+    @Override
     public long update(String projectCode, long id, String title) {
         return this.update(projectCode, id, title, null);
-    }
-
-    public static class Filter implements RouteFilter {
-        private final Map<Filters, String> filters = new EnumMap<>(Filters.class);
-
-        private Filter() {
-        }
-
-        public Map<Filters, String> getFilters() {
-            return Collections.unmodifiableMap(filters);
-        }
-
-        /**
-         * String that will be used to search by name
-         *
-         * @param search
-         * @return
-         */
-        public Filter search(String search) {
-            filters.put(Filters.search, search);
-            return this;
-        }
     }
 }

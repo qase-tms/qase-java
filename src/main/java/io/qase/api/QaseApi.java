@@ -1,19 +1,32 @@
 package io.qase.api;
 
 import io.qase.api.inner.GsonObjectMapper;
+import io.qase.api.services.*;
+import io.qase.api.services.v1.*;
 import kong.unirest.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class QaseApi {
     private static final Logger logger = LoggerFactory.getLogger("QaseApi");
-    private final QaseApiClient qaseApiClient;
+    private final ProjectService projects;
+    private final TestCaseService testCases;
+    private final SuiteService suites;
+    private final MilestoneService milestones;
+    private final SharedStepService sharedSteps;
+    private final TestPlanService testPlans;
+    private final TestRunService testRuns;
+    private final TestRunResultService testRunResults;
+    private final DefectService defects;
+    private final CustomFieldService customFields;
+    private final TeamService team;
+    private final AttachmentService attachments;
 
-    public QaseApi(String apiToken) {
+    public QaseApi(final String apiToken) {
         this(apiToken, "https://api.qase.io/v1");
     }
 
-    public QaseApi(String apiToken, String baseUrl) {
+    public QaseApi(final String apiToken, final String baseUrl) {
         UnirestInstance unirestInstance = Unirest.spawnInstance();
         unirestInstance.config()
                 .interceptor(new Interceptor() {
@@ -28,66 +41,78 @@ public final class QaseApi {
                     @Override
                     public void onResponse(HttpResponse<?> response, HttpRequestSummary request, Config config) {
                         logger.info("{} {}", response.getStatus(), response.getStatusText());
-                        logger.info("{}", response.getHeaders().toString());
+                        logger.info("{}", response.getHeaders());
                         logger.info("{}", response.getBody());
                     }
 
                     @Override
-                    public HttpResponse<?> onFail(Exception e, HttpRequestSummary request, Config config) throws UnirestException {
+                    public HttpResponse<?> onFail(Exception e, HttpRequestSummary request, Config config) {
                         return null;
                     }
                 })
                 .setObjectMapper(new GsonObjectMapper())
                 .addShutdownHook(true)
                 .setDefaultHeader("Token", apiToken);
-        this.qaseApiClient = new QaseApiClient(unirestInstance, baseUrl);
+        QaseApiClient qaseApiClient = new QaseApiClient(unirestInstance, baseUrl);
+        this.projects = new ProjectServiceImpl(qaseApiClient);
+        this.testCases = new TestCaseServiceImpl(qaseApiClient);
+        this.suites = new SuiteServiceImpl(qaseApiClient);
+        this.milestones = new MilestoneServiceImpl(qaseApiClient);
+        this.sharedSteps = new SharedStepServiceImpl(qaseApiClient);
+        this.testPlans = new TestPlanServiceImpl(qaseApiClient);
+        this.testRuns = new TestRunServiceImpl(qaseApiClient);
+        this.testRunResults = new TestRunResultServiceImpl(qaseApiClient);
+        this.defects = new DefectServiceImpl(qaseApiClient);
+        this.customFields = new CustomFieldServiceImpl(qaseApiClient);
+        this.team = new TeamServiceImpl(qaseApiClient);
+        this.attachments = new AttachmentServiceImpl(qaseApiClient);
     }
 
     public ProjectService projects() {
-        return new ProjectService(qaseApiClient);
+        return this.projects;
     }
 
     public TestCaseService testCases() {
-        return new TestCaseService(qaseApiClient);
+        return this.testCases;
     }
 
     public SuiteService suites() {
-        return new SuiteService(qaseApiClient);
+        return this.suites;
     }
 
     public MilestoneService milestones() {
-        return new MilestoneService(qaseApiClient);
+        return this.milestones;
     }
 
     public SharedStepService sharedSteps() {
-        return new SharedStepService(qaseApiClient);
+        return this.sharedSteps;
     }
 
     public TestPlanService testPlans() {
-        return new TestPlanService(qaseApiClient);
+        return this.testPlans;
     }
 
     public TestRunService testRuns() {
-        return new TestRunService(qaseApiClient);
+        return this.testRuns;
     }
 
     public TestRunResultService testRunResults() {
-        return new TestRunResultService(qaseApiClient);
+        return this.testRunResults;
     }
 
     public DefectService defects() {
-        return new DefectService(qaseApiClient);
+        return this.defects;
     }
 
     public CustomFieldService customFields() {
-        return new CustomFieldService(qaseApiClient);
+        return this.customFields;
     }
 
     public TeamService team() {
-        return new TeamService(qaseApiClient);
+        return this.team;
     }
 
     public AttachmentService attachments() {
-        return new AttachmentService(qaseApiClient);
+        return this.attachments;
     }
 }
