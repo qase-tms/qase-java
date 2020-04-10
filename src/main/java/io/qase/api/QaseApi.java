@@ -2,6 +2,7 @@ package io.qase.api;
 
 import io.qase.api.inner.GsonObjectMapper;
 import io.qase.api.services.*;
+import io.qase.api.services.v1.*;
 import kong.unirest.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,5 +1,6 @@
-package io.qase.api;
+package io.qase.api.services.v1;
 
+import io.qase.api.QaseApiClient;
 import io.qase.api.models.v1.customfields.CustomField;
 import io.qase.api.models.v1.customfields.CustomFields;
 import io.qase.api.services.CustomFieldService;

@@ -1,5 +1,6 @@
-package io.qase.api;
+package io.qase.api.services.v1;
 
+import io.qase.api.QaseApiClient;
 import io.qase.api.models.v1.team.User;
 import io.qase.api.models.v1.team.Users;
 import io.qase.api.services.TeamService;

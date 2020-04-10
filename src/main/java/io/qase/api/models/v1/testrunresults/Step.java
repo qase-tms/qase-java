@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 @SuppressWarnings("unused")
 public class Step {
-    private long position;
-    private long status;
+    private final long position;
+    private final long status;
 }

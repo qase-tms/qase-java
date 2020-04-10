@@ -1,5 +1,6 @@
-package io.qase.api;
+package io.qase.api.services.v1;
 
+import io.qase.api.QaseApiClient;
 import io.qase.api.enums.Access;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.models.v1.projects.NewProject;
@@ -13,7 +14,7 @@ import java.util.Collections;
 public final class ProjectServiceImpl implements ProjectService {
     private final QaseApiClient qaseApiClient;
 
-    ProjectServiceImpl(QaseApiClient qaseApiClient) {
+    public ProjectServiceImpl(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 

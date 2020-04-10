@@ -16,7 +16,7 @@ public class NewTestRunResults {
     private String comment;
     private Boolean defect;
     @SerializedName("member_id")
-    private Long memberId;
+    private Integer memberId;
     private RunResultStatus status;
     private List<Step> steps;
     private Long time;

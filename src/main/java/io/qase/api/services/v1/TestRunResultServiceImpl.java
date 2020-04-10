@@ -1,5 +1,6 @@
-package io.qase.api;
+package io.qase.api.services.v1;
 
+import io.qase.api.QaseApiClient;
 import io.qase.api.enums.RunResultStatus;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.testrunresults.NewTestRunResults;
@@ -42,7 +43,7 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
 
     @Override
     public String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
-                         Long memberId, String comment, Boolean isDefect, Step... steps) {
+                         Integer memberId, String comment, Boolean isDefect, Step... steps) {
         NewTestRunResults newTestRunResults = NewTestRunResults.builder()
                 .caseId(caseId)
                 .status(status)
@@ -65,7 +66,7 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
 
     @Override
     public String update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent,
-                         Long memberId, String comment, Boolean isDefect, Step... steps) {
+                         Integer memberId, String comment, Boolean isDefect, Step... steps) {
         NewTestRunResults newTestRunResults = NewTestRunResults.builder()
                 .status(status)
                 .time(timeSpent == null ? null : timeSpent.getSeconds())

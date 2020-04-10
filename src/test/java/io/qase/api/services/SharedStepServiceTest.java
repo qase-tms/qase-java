@@ -40,21 +40,23 @@ class SharedStepServiceTest {
     }
 
     @Test
-    void getAllWithParams() {
+    void getAllWithFilter() {
         try {
-            qaseApi.sharedSteps().getAll("PRJ", 123, 33, qaseApi.sharedSteps().filter());
+            SharedStepService.Filter filter = qaseApi.sharedSteps().filter().search("title");
+            qaseApi.sharedSteps().getAll("PRJ", filter);
         } catch (QaseException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("limit", equalTo("123"))
-                .withQueryParam("offset", equalTo("33")));
+                .withQueryParam("limit", equalTo("100"))
+                .withQueryParam("offset", equalTo("0"))
+                .withQueryParam("filters[search]", equalTo("title")));
     }
 
     @Test
-    void getAllWithFilter() {
+    void getAllWithParams() {
         try {
             SharedStepService.Filter filter = qaseApi.sharedSteps().filter().search("title");
             qaseApi.sharedSteps().getAll("PRJ", 99, 22, filter);

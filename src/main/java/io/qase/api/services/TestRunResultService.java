@@ -23,12 +23,12 @@ public interface TestRunResultService {
     TestRunResult get(String projectCode, String hash);
 
     String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
-                  Long memberId, String comment, Boolean isDefect, Step... steps);
+                  Integer memberId, String comment, Boolean isDefect, Step... steps);
 
     String create(String projectCode, long runId, long caseId, RunResultStatus status);
 
     String update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent,
-                  Long memberId, String comment, Boolean isDefect, Step... steps);
+                  Integer memberId, String comment, Boolean isDefect, Step... steps);
 
     String update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent);
 
@@ -65,8 +65,8 @@ public interface TestRunResultService {
          * @param id User member ID. Search result by team member.
          * @return
          */
-        public Filter member(String id) {
-            filters.put(Filters.member, id);
+        public Filter member(int id) {
+            filters.put(Filters.member, String.valueOf(id));
             return this;
         }
 
@@ -74,8 +74,8 @@ public interface TestRunResultService {
          * @param id Run ID. Search for all results in a specific run.
          * @return
          */
-        public Filter run(String id) {
-            filters.put(Filters.run, id);
+        public Filter run(int id) {
+            filters.put(Filters.run, String.valueOf(id));
             return this;
         }
 
@@ -83,8 +83,8 @@ public interface TestRunResultService {
          * @param id Test case ID. Search for all results for a specific test case.
          * @return
          */
-        public Filter caseId(String id) {
-            filters.put(Filters.case_id, id);
+        public Filter caseId(int id) {
+            filters.put(Filters.case_id, String.valueOf(id));
             return this;
         }
 

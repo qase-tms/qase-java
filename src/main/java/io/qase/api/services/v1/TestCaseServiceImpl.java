@@ -1,5 +1,6 @@
-package io.qase.api;
+package io.qase.api.services.v1;
 
+import io.qase.api.QaseApiClient;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.testcases.TestCase;
 import io.qase.api.models.v1.testcases.TestCases;
@@ -13,7 +14,7 @@ import static java.util.Collections.singletonMap;
 public final class TestCaseServiceImpl implements TestCaseService {
     private final QaseApiClient qaseApiClient;
 
-    TestCaseServiceImpl(QaseApiClient qaseApiClient) {
+    public TestCaseServiceImpl(QaseApiClient qaseApiClient) {
         this.qaseApiClient = qaseApiClient;
     }
 

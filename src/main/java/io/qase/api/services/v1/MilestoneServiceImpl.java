@@ -1,5 +1,6 @@
-package io.qase.api;
+package io.qase.api.services.v1;
 
+import io.qase.api.QaseApiClient;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.milestones.Milestone;
 import io.qase.api.models.v1.milestones.Milestones;
@@ -67,7 +68,6 @@ public final class MilestoneServiceImpl implements MilestoneService {
                 "/milestone/{code}",
                 singletonMap("code", projectCode),
                 createUpdateMilestonesRequest).getId();
-
     }
 
     /**

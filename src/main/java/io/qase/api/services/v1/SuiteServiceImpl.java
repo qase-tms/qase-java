@@ -1,5 +1,6 @@
-package io.qase.api;
+package io.qase.api.services.v1;
 
+import io.qase.api.QaseApiClient;
 import io.qase.api.inner.RouteFilter;
 import io.qase.api.models.v1.suites.NewSuite;
 import io.qase.api.models.v1.suites.Suite;
