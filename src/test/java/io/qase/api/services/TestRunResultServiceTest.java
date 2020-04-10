@@ -3,6 +3,7 @@ package io.qase.api.services;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.QaseApi;
 import io.qase.api.enums.RunResultStatus;
+import io.qase.api.enums.StepStatus;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.models.v1.testrunresults.Step;
 import org.junit.jupiter.api.AfterAll;
@@ -111,8 +112,8 @@ class TestRunResultServiceTest {
                     3,
                     "Failed via API",
                     true,
-                    new Step(1, 2),
-                    new Step(2, 3));
+                    new Step(1, StepStatus.passed),
+                    new Step(2, StepStatus.failed));
         } catch (QaseException e) {
             //ignore
         }
@@ -126,8 +127,8 @@ class TestRunResultServiceTest {
                         "\"member_id\": 3,\n  " +
                         "\"status\": \"passed\",\n  " +
                         "\"steps\": [\n    " +
-                        "{\n      \"position\": 1,\n      \"status\": 2\n    },\n    " +
-                        "{\n      \"position\": 2,\n      \"status\": 3\n    }\n  ],\n  " +
+                        "{\n      \"position\": 1,\n      \"status\": \"passed\"\n    },\n    " +
+                        "{\n      \"position\": 2,\n      \"status\": \"failed\"\n    }\n  ],\n  " +
                         "\"time\": 120\n}")));
     }
 
@@ -173,7 +174,7 @@ class TestRunResultServiceTest {
                     3,
                     "Failed via API",
                     false,
-                    new Step(2, 3));
+                    new Step(2, StepStatus.passed));
         } catch (QaseException e) {
             //ignore
         }
@@ -186,7 +187,7 @@ class TestRunResultServiceTest {
                         "\"member_id\": 3,\n  " +
                         "\"status\": \"failed\",\n  " +
                         "\"steps\": [\n   " +
-                        " {\n      \"position\": 2,\n      \"status\": 3\n    }\n  ],\n  " +
+                        " {\n      \"position\": 2,\n      \"status\": \"passed\"\n    }\n  ],\n  " +
                         "\"time\": 10\n}")));
     }
 

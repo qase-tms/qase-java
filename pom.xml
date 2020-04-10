@@ -6,7 +6,7 @@
 
     <groupId>io.qase</groupId>
     <artifactId>qase-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>Qase TMS Java API Client</name>
 
     <properties>
