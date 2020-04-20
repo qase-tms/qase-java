@@ -10,7 +10,7 @@ Add the following dependency and repository to your pom.xml:
     <artifactId>qase-api</artifactId>
     <version>1.0.1</version>
 </dependency>
-```
+
 ```
 
 ## Usage ##

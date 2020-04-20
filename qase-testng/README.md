@@ -27,7 +27,6 @@ Add the following dependency and repository to your pom.xml:
     <scope>test</scope>
 </dependency>
 ```
-```
 
 ## Run example ##
 
