@@ -11,17 +11,14 @@ import org.testng.ITestResult;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class QaseListener implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
+    private final boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
-    private List<Long> cases;
 
     private static final String PROJECT_CODE_KEY = "qase.project.code";
 
@@ -29,15 +26,24 @@ public class QaseListener implements ITestListener {
 
     private static final String API_TOKEN_KEY = "qase.api.token";
 
-    private static final String CASE_LIST_KEY = "qase.case.list";
-
     public QaseListener() {
+        isEnabled = Boolean.parseBoolean(System.getProperty("qase.enable", "false"));
+        if (!isEnabled) {
+            return;
+        }
+
         String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
         if (apiToken == null) {
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
             return;
         }
-        qaseApi = new QaseApi(apiToken);
+
+        String qaseUrl = System.getProperty("qase.url");
+        if (qaseUrl != null) {
+            qaseApi = new QaseApi(apiToken, qaseUrl);
+        } else {
+            qaseApi = new QaseApi(apiToken);
+        }
 
         projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
         if (projectCode == null) {
@@ -53,57 +59,49 @@ public class QaseListener implements ITestListener {
         }
 
         logger.info("Qase run id - {}", runId);
-
-        String casesString = System.getProperty(CASE_LIST_KEY, System.getenv(CASE_LIST_KEY));
-        if (casesString == null) {
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, CASE_LIST_KEY);
-            return;
-        }
-        try {
-            cases = Arrays.stream(casesString.split(",")).map(Long::parseLong).collect(Collectors.toList());
-        } catch (NumberFormatException e) {
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, CASE_LIST_KEY);
-        }
-
-        logger.info("Qase cases - {}", cases);
     }
 
-    public QaseListener(QaseApi qaseApi) {
-        this.qaseApi = qaseApi;
-    }
-
+    @Override
     public void onTestStart(ITestResult result) {
     }
 
+    @Override
     public void onTestSuccess(ITestResult result) {
         Long caseId = getCaseId(result);
         Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
         sendResult(caseId, RunResultStatus.passed, timeSpent);
     }
 
+    @Override
     public void onTestFailure(ITestResult result) {
         Long caseId = getCaseId(result);
         Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
         sendResult(caseId, RunResultStatus.failed, timeSpent);
     }
 
+    @Override
     public void onTestSkipped(ITestResult result) {
     }
 
-
+    @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 
     }
 
+    @Override
     public void onStart(ITestContext context) {
     }
 
+    @Override
     public void onFinish(ITestContext context) {
 
     }
 
     private void sendResult(Long caseId, RunResultStatus status, Duration timeSpent) {
-        if (caseId != null && cases != null && cases.contains(caseId)) {
+        if (!isEnabled) {
+            return;
+        }
+        if (caseId != null) {
             try {
                 qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId, status, timeSpent, null, null, null);
             } catch (QaseException e) {

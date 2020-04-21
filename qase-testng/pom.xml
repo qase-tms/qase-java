@@ -11,6 +11,8 @@
 
     <artifactId>qase-testng</artifactId>
 
+    <name>TestNG Integration with Qase TMS</name>
+
     <properties>
         <testng.version>7.1.0</testng.version>
     </properties>
