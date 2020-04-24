@@ -4,7 +4,11 @@ import io.qase.api.enums.Filters;
 
 import java.util.Map;
 
-public class FilterHelper {
+public final class FilterHelper {
+    private FilterHelper() throws IllegalAccessException {
+        throw new IllegalAccessException();
+    }
+
     public static <T extends RouteFilter> String getFilterRouteParam(T filter) {
         if (filter == null) {
             return "";

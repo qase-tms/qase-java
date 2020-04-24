@@ -63,14 +63,14 @@ public final class QaseApiClient {
         return this.get(responseClass, path, routeParams, emptyMap(), filter);
     }
 
-    public <Response, Filter extends RouteFilter> Response get(
+    public <Response> Response get(
             Class<Response> responseClass,
             String path,
             Map<String, Object> routeParams) {
         return this.get(responseClass, path, routeParams, emptyMap(), null);
     }
 
-    public <Response, Filter extends RouteFilter> Response get(
+    public <Response> Response get(
             Class<Response> responseClass,
             String path,
             Map<String, Object> routeParams,
