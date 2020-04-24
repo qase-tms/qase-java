@@ -1,6 +1,6 @@
-package io.qase.testng.tests;
+package io.qase.testng.samples;
 
-import io.qase.testng.CaseId;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 
 

@@ -1,26 +1,27 @@
-package io.qase.testng;
+package io.qase.junit4;
+
 
 import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
+import org.junit.runner.Description;
+import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
 
-import java.lang.reflect.Method;
 import java.time.Duration;
 
-public class QaseListener implements ITestListener {
+public class QaseListener extends RunListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
     private final boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
+    private final ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     private static final String PROJECT_CODE_KEY = "qase.project.code";
 
@@ -64,69 +65,45 @@ public class QaseListener implements ITestListener {
     }
 
     @Override
-    public void onTestStart(ITestResult result) {
+    public void testStarted(Description description) {
+        startTime.remove();
+        startTime.set(System.currentTimeMillis());
     }
 
     @Override
-    public void onTestSuccess(ITestResult result) {
-        Long caseId = getCaseId(result);
-        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
-        sendResult(caseId, RunResultStatus.passed, timeSpent);
+    public void testFinished(Description description) {
+        send(description, RunResultStatus.passed);
     }
 
     @Override
-    public void onTestFailure(ITestResult result) {
-        Long caseId = getCaseId(result);
-        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
-        sendResult(caseId, RunResultStatus.failed, timeSpent);
+    public void testFailure(Failure failure) {
+        send(failure.getDescription(), RunResultStatus.failed);
     }
 
-    @Override
-    public void onTestSkipped(ITestResult result) {
-    }
-
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-
-    }
-
-    @Override
-    public void onStart(ITestContext context) {
-    }
-
-    @Override
-    public void onFinish(ITestContext context) {
-
-    }
-
-    private void sendResult(Long caseId, RunResultStatus status, Duration timeSpent) {
+    private void send(Description description, RunResultStatus runResultStatus) {
         if (!isEnabled) {
             return;
         }
+        Long start = this.startTime.get();
+        long end = System.currentTimeMillis();
+        CaseId caseId = description.getAnnotation(CaseId.class);
+        TmsLink tmsLink = description.getAnnotation(TmsLink.class);
         if (caseId != null) {
             try {
-                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId, status, timeSpent, null, null, null);
+                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId.value(), runResultStatus,
+                        Duration.ofMillis(end - start), null, null, null);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             }
-        }
-    }
-
-    private Long getCaseId(ITestResult result) {
-        Method method = result.getMethod()
-                .getConstructorOrMethod()
-                .getMethod();
-        if (method.isAnnotationPresent(CaseId.class)) {
-            return method
-                    .getDeclaredAnnotation(CaseId.class).value();
-        } else if (method.isAnnotationPresent(TmsLink.class)) {
+        } else if (tmsLink != null) {
             try {
-                return Long.valueOf(method
-                        .getDeclaredAnnotation(TmsLink.class).value());
+                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), Long.parseLong(tmsLink.value()),
+                        runResultStatus, Duration.ofMillis(end - start), null, null, null);
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
             } catch (NumberFormatException e) {
                 logger.error("String could not be parsed as Long", e);
             }
         }
-        return null;
     }
 }

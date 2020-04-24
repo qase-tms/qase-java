@@ -13,10 +13,6 @@
 
     <name>TestNG Integration with Qase TMS</name>
 
-    <properties>
-        <testng.version>7.1.0</testng.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.qase</groupId>
@@ -26,7 +22,6 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

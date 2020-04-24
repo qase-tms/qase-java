@@ -1,20 +1,15 @@
-package io.qase.testng;
-
+package io.qase.junit;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.testng.samples.Failed;
-import io.qase.testng.samples.FailedWithTime;
-import io.qase.testng.samples.Passed;
-import io.qase.testng.samples.PassedWithTime;
+import io.qase.junit.samples.Failed;
+import io.qase.junit.samples.FailedWithTime;
+import io.qase.junit.samples.Passed;
+import io.qase.junit.samples.PassedWithTime;
+import io.qase.junit4.QaseListener;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testng.TestNG;
-import org.testng.xml.XmlClass;
-import org.testng.xml.XmlSuite;
-import org.testng.xml.XmlTest;
-
-import java.util.Collections;
+import org.junit.runner.JUnitCore;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
@@ -50,6 +45,7 @@ public class QaseListenerTest {
                         "\"steps\": [],\n  " +
                         "\"time\": 0\n}")));
     }
+
 
     @Test
     public void passedWithTimeTest() {
@@ -91,14 +87,8 @@ public class QaseListenerTest {
     }
 
     private void runTest(Class<?> className) {
-        TestNG testNG = new TestNG(false);
-        XmlSuite suite = new XmlSuite();
-        XmlTest test = new XmlTest(suite);
-        XmlClass aClass = new XmlClass();
-        aClass.setClass(className);
-        test.setXmlClasses(Collections.singletonList(aClass));
-        suite.setTests(Collections.singletonList(test));
-        testNG.setXmlSuites(Collections.singletonList(suite));
-        testNG.run();
+        JUnitCore jUnitCore = new JUnitCore();
+        jUnitCore.addListener(new QaseListener());
+        jUnitCore.run(className);
     }
 }

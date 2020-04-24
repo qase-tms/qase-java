@@ -9,15 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>qase-api</artifactId>
+    <artifactId>qase-junit4</artifactId>
 
-    <name>Qase TMS Java API Client</name>
-    <description>Qase TMS APIs Client Library for Java</description>
+    <name>JUnit 4 Integration with Qase TMS</name>
 
     <dependencies>
         <dependency>
-            <groupId>com.konghq</groupId>
-            <artifactId>unirest-java</artifactId>
+            <groupId>io.qase</groupId>
+            <artifactId>qase-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

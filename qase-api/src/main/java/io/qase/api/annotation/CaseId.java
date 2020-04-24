@@ -1,4 +1,4 @@
-package io.qase.testng;
+package io.qase.api.annotation;
 
 import java.lang.annotation.*;
 
@@ -7,5 +7,4 @@ import java.lang.annotation.*;
 @Documented
 public @interface CaseId {
     long value();
-    boolean hasDataSet() default false;
 }
