@@ -12,6 +12,7 @@
         <module>qase-testng</module>
         <module>qase-api</module>
         <module>qase-junit4</module>
+        <module>qase-junit5</module>
     </modules>
 
     <url>http://www.qase.io</url>
@@ -20,16 +21,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <junit-jupiter-engine.version>5.5.2</junit-jupiter-engine.version>
-        <slf4j-log4j12.version>1.7.29</slf4j-log4j12.version>
+        <junit5.version>5.6.2</junit5.version>
         <lombok.version>1.18.6</lombok.version>
         <surefire.version>3.0.0-M4</surefire.version>
         <wiremock-jre8.version>2.26.3</wiremock-jre8.version>
         <apiguardian-api.version>1.1.0</apiguardian-api.version>
         <allure-java.version>2.13.3</allure-java.version>
-        <junit.version>4.13</junit.version>
+        <junit4.version>4.13</junit4.version>
         <testng.version>7.1.0</testng.version>
         <unirest-java.version>3.4.00</unirest-java.version>
+        <junit-platform-engine.version>1.6.2</junit-platform-engine.version>
+        <logback.version>1.2.3</logback.version>
+        <slf4j-api.version>1.7.30</slf4j-api.version>
     </properties>
 
     <name>Qase TMS Java Libraries</name>
@@ -70,10 +73,21 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j-log4j12.version}</version>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -86,9 +100,19 @@
                 <version>${wiremock-jre8.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-launcher</artifactId>
+                <version>${junit-platform-engine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit5.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit-jupiter-engine.version}</version>
+                <version>${junit5.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.qameta.allure</groupId>
@@ -98,7 +122,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
+                <version>${junit4.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
