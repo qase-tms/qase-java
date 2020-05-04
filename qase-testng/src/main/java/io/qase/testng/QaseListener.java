@@ -17,7 +17,7 @@ import java.time.Duration;
 public class QaseListener implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
-    private final boolean isEnabled;
+    private boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
@@ -36,6 +36,7 @@ public class QaseListener implements ITestListener {
 
         String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
         if (apiToken == null) {
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
             return;
         }
@@ -49,6 +50,7 @@ public class QaseListener implements ITestListener {
 
         projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
         if (projectCode == null) {
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
             return;
         }
@@ -56,6 +58,7 @@ public class QaseListener implements ITestListener {
 
         runId = System.getProperty(RUN_ID_KEY, System.getenv(RUN_ID_KEY));
         if (runId == null) {
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
             return;
         }

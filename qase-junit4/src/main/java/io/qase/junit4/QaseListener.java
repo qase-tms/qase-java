@@ -17,11 +17,11 @@ import java.time.Duration;
 public class QaseListener extends RunListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
-    private final boolean isEnabled;
+    private boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
-    private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+    private long startTime;
 
     private static final String PROJECT_CODE_KEY = "qase.project.code";
 
@@ -38,6 +38,7 @@ public class QaseListener extends RunListener {
         String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
         if (apiToken == null) {
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
+            isEnabled = false;
             return;
         }
 
@@ -50,6 +51,7 @@ public class QaseListener extends RunListener {
 
         projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
         if (projectCode == null) {
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
             return;
         }
@@ -57,6 +59,7 @@ public class QaseListener extends RunListener {
 
         runId = System.getProperty(RUN_ID_KEY, System.getenv(RUN_ID_KEY));
         if (runId == null) {
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
             return;
         }
@@ -66,8 +69,7 @@ public class QaseListener extends RunListener {
 
     @Override
     public void testStarted(Description description) {
-        startTime.remove();
-        startTime.set(System.currentTimeMillis());
+        startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -84,21 +86,21 @@ public class QaseListener extends RunListener {
         if (!isEnabled) {
             return;
         }
-        Long start = this.startTime.get();
         long end = System.currentTimeMillis();
+        Duration timeSpent = Duration.ofMillis(end - startTime);
         CaseId caseId = description.getAnnotation(CaseId.class);
         TmsLink tmsLink = description.getAnnotation(TmsLink.class);
         if (caseId != null) {
             try {
                 qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId.value(), runResultStatus,
-                        Duration.ofMillis(end - start), null, null, null);
+                        timeSpent, null, null, null);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             }
         } else if (tmsLink != null) {
             try {
                 qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), Long.parseLong(tmsLink.value()),
-                        runResultStatus, Duration.ofMillis(end - start), null, null, null);
+                        runResultStatus, timeSpent, null, null, null);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             } catch (NumberFormatException e) {
