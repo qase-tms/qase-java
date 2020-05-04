@@ -20,6 +20,8 @@ public class TestRun {
     private LocalDateTime startTime;
     private Stats stats;
     private long status;
+    @SerializedName("status_text")
+    private String statusText;
     @SerializedName("time_spent")
     private long timeSpent;
     private String title;

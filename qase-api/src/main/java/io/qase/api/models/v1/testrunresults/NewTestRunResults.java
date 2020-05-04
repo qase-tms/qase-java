@@ -13,11 +13,12 @@ import java.util.List;
 public class NewTestRunResults {
     @SerializedName("case_id")
     private Long caseId;
-    private String comment;
-    private Boolean defect;
+    private RunResultStatus status;
+    private Long time;
     @SerializedName("member_id")
     private Integer memberId;
-    private RunResultStatus status;
+    private String comment;
+    private Boolean defect;
     private List<Step> steps;
-    private Long time;
+    private List<String> attachments;
 }

@@ -23,4 +23,5 @@ public class TestRunResult {
     private List<Step> steps;
     @SerializedName("time_spent")
     private long timeSpent;
+    private String attachments;
 }
