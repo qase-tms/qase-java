@@ -7,7 +7,7 @@
     <groupId>io.qase</groupId>
     <artifactId>qase-java</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.0</version>
+    <version>1.0.2</version>
     <modules>
         <module>qase-testng</module>
         <module>qase-api</module>
