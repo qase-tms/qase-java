@@ -1,4 +1,4 @@
-# Qase TMS JUnit 4 Integration #
+# Qase TMS JUnit 5 Integration #
 [![License](https://lxgaming.github.io/badges/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## Description ##
@@ -23,9 +23,8 @@ Add the following dependency and repository to your pom.xml:
 <dependencies>
     <dependency>
         <groupId>io.qase</groupId>
-        <artifactId>qase-junit4</artifactId>
-        <version>1.0.1</version>
-        <scope>test</scope>
+        <artifactId>qase-junit5</artifactId>
+        <version>1.0.2</version>
     </dependency>
 </dependencies>
 <build>
@@ -36,16 +35,14 @@ Add the following dependency and repository to your pom.xml:
             <version>3.0.0-M4</version>
             <configuration>
                 <properties>
-                    <property>
-                        <name>listener</name>
-                        <value>io.qase.junit4.QaseListener</value>
-                    </property>
+                    <configurationParameters>
+                        junit.jupiter.extensions.autodetection.enabled = true
+                    </configurationParameters>
                 </properties>
             </configuration>
         </plugin>
     </plugins>
 </build>
-
 ```
 
 ## Run example ##
