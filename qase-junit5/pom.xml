@@ -14,23 +14,32 @@
     <name>JUnit 5 Integration with Qase TMS</name>
 
     <dependencies>
-    <dependency>
-        <groupId>io.qase</groupId>
-        <artifactId>qase-api</artifactId>
-        <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.platform</groupId>
-        <artifactId>junit-platform-launcher</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>io.qameta.allure</groupId>
-        <artifactId>allure-java-commons</artifactId>
-    </dependency>
-</dependencies>
-
+        <dependency>
+            <groupId>io.qase</groupId>
+            <artifactId>qase-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
