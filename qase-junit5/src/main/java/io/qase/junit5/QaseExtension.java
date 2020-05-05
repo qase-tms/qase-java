@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static io.qase.api.enums.RunResultStatus.failed;
@@ -104,10 +105,12 @@ public class QaseExtension implements TestExecutionListener {
             TmsLink tmsLink = testMethod.getAnnotation(TmsLink.class);
             RunResultStatus runResultStatus =
                     testExecutionResult.getStatus() == SUCCESSFUL ? passed : failed;
+            String comment = testExecutionResult.getThrowable()
+                    .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
             if (caseId != null) {
                 qaseApi.testRunResults().create(projectCode, Long.parseLong(runId),
                         caseId.value(),
-                        runResultStatus, duration, null, null, null);
+                        runResultStatus, duration, null, comment, null);
             } else if (tmsLink != null) {
                 qaseApi.testRunResults().create(projectCode, Long.parseLong(runId),
                         Long.parseLong(tmsLink.value()),
@@ -115,7 +118,6 @@ public class QaseExtension implements TestExecutionListener {
             }
         }
     }
-
 
 
     private Method getMethod(MethodSource testSource) {

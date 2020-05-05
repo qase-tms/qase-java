@@ -10,6 +10,6 @@ public class FailedWithTime {
     @CaseId(321)
     public void failedTest() throws InterruptedException {
         Thread.sleep(TimeUnit.SECONDS.toMillis(2));
-        throw new AssertionError();
+        throw new AssertionError("Error message");
     }
 }

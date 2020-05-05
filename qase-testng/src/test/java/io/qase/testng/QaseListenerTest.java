@@ -70,11 +70,13 @@ public class QaseListenerTest {
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withRequestBody(equalToJson("{\n  " +
-                        "\"case_id\": 321,\n  " +
-                        "\"status\": \"failed\",\n  " +
-                        "\"steps\": [],\n  " +
-                        "\"time\": 0\n}")));
+                .withRequestBody(equalToJson("{\n" +
+                        "\"case_id\" : 321,\n" +
+                        "\"status\" : \"failed\",\n" +
+                        "\"time\" : 0,\n" +
+                        "\"comment\" : \"java.lang.AssertionError: Error message\",\n" +
+                        "\"steps\" : [ ]\n" +
+                        "}")));
     }
 
     @Test
@@ -83,11 +85,13 @@ public class QaseListenerTest {
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withRequestBody(equalToJson("{\n  " +
-                        "\"case_id\": 321,\n  " +
-                        "\"status\": \"failed\",\n  " +
-                        "\"steps\": [],\n  " +
-                        "\"time\": 2\n}")));
+                .withRequestBody(equalToJson("{\n" +
+                        "\"case_id\" : 321,\n" +
+                        "\"status\" : \"failed\",\n" +
+                        "\"time\" : 2,\n" +
+                        "\"comment\" : \"java.lang.AssertionError: Error message\",\n" +
+                        "\"steps\" : [ ]\n" +
+                        "}")));
     }
 
     private void runTest(Class<?> className) {

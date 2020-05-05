@@ -8,6 +8,6 @@ public class Failed {
     @Test
     @CaseId(321)
     public void failedTest() {
-        throw new AssertionError();
+        throw new AssertionError("Error message");
     }
 }

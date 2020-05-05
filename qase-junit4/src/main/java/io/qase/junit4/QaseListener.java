@@ -74,15 +74,15 @@ public class QaseListener extends RunListener {
 
     @Override
     public void testFinished(Description description) {
-        send(description, RunResultStatus.passed);
+        send(description, RunResultStatus.passed, null);
     }
 
     @Override
     public void testFailure(Failure failure) {
-        send(failure.getDescription(), RunResultStatus.failed);
+        send(failure.getDescription(), RunResultStatus.failed, failure.getException().toString());
     }
 
-    private void send(Description description, RunResultStatus runResultStatus) {
+    private void send(Description description, RunResultStatus runResultStatus, String comment) {
         if (!isEnabled) {
             return;
         }
@@ -93,7 +93,7 @@ public class QaseListener extends RunListener {
         if (caseId != null) {
             try {
                 qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId.value(), runResultStatus,
-                        timeSpent, null, null, null);
+                        timeSpent, null, comment, null);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             }

@@ -13,6 +13,7 @@ import org.testng.ITestResult;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.Optional;
 
 public class QaseListener implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
@@ -72,16 +73,12 @@ public class QaseListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        Long caseId = getCaseId(result);
-        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
-        sendResult(caseId, RunResultStatus.passed, timeSpent);
+        sendResult(result, RunResultStatus.passed);
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        Long caseId = getCaseId(result);
-        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
-        sendResult(caseId, RunResultStatus.failed, timeSpent);
+        sendResult(result, RunResultStatus.failed);
     }
 
     @Override
@@ -102,13 +99,18 @@ public class QaseListener implements ITestListener {
 
     }
 
-    private void sendResult(Long caseId, RunResultStatus status, Duration timeSpent) {
+    private void sendResult(ITestResult result, RunResultStatus status) {
         if (!isEnabled) {
             return;
         }
+        String comment = Optional.ofNullable(result.getThrowable())
+                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+        Long caseId = getCaseId(result);
+        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
         if (caseId != null) {
             try {
-                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId, status, timeSpent, null, null, null);
+                qaseApi.testRunResults()
+                        .create(projectCode, Long.parseLong(runId), caseId, status, timeSpent, null, comment, null);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             }
