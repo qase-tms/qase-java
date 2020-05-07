@@ -1,0 +1,44 @@
+package io.qase.cucumber3;
+
+
+import com.github.tomakehurst.wiremock.WireMockServer;
+import cucumber.api.cli.Main;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+
+public class QaseEventListenerTests {
+    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
+
+    @BeforeAll
+    static void setUp() {
+        configureFor(8088);
+        wireMockServer.start();
+        System.setProperty("qase.enable", "true");
+        System.setProperty("qase.project.code", "PRJ");
+        System.setProperty("qase.run.id", "777");
+        System.setProperty("qase.api.token", "secret-token");
+        System.setProperty("qase.url", "http://localhost:8088/v1");
+    }
+
+    @Test
+    public void success() {
+        String[] args = new String[]{
+                "-g", "io.qase.cucumber3",
+                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "classpath:features/success.feature"
+        };
+        Main.run(args, Thread.currentThread().getContextClassLoader());
+
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json"))
+                .withRequestBody(equalToJson("{\n  " +
+                        "\"case_id\": 123,\n  " +
+                        "\"status\": \"passed\",\n  " +
+                        "\"steps\": [],\n  " +
+                        "\"time\": 0\n}")));
+    }
+}

@@ -63,7 +63,6 @@ public class QaseListener extends RunListener {
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
             return;
         }
-
         logger.info("Qase run id - {}", runId);
     }
 
