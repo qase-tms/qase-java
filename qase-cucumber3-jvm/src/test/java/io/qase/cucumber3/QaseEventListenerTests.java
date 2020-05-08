@@ -3,6 +3,7 @@ package io.qase.cucumber3;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import cucumber.api.cli.Main;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,11 @@ public class QaseEventListenerTests {
         System.setProperty("qase.url", "http://localhost:8088/v1");
     }
 
+    @AfterAll
+    static void tearDown() {
+        wireMockServer.stop();
+    }
+
     @Test
     public void success() {
         String[] args = new String[]{
@@ -40,5 +46,67 @@ public class QaseEventListenerTests {
                         "\"status\": \"passed\",\n  " +
                         "\"steps\": [],\n  " +
                         "\"time\": 0\n}")));
+    }
+
+    @Test
+    public void successWithTime() {
+        String[] args = new String[]{
+                "-g", "io.qase.cucumber3",
+                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "classpath:features/success_with_time.feature"
+        };
+        Main.run(args, Thread.currentThread().getContextClassLoader());
+
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json"))
+                .withRequestBody(equalToJson("{\n" +
+                        "\"case_id\" : 123,\n" +
+                        "\"status\" : \"passed\",\n" +
+                        "\"time\" : 5,\n" +
+                        "\"steps\" : [ ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void failed() {
+        String[] args = new String[]{
+                "-g", "io.qase.cucumber3",
+                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "classpath:features/failed.feature"
+        };
+        Main.run(args, Thread.currentThread().getContextClassLoader());
+
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json"))
+                .withRequestBody(equalToJson("{\n" +
+                        "\"case_id\" : 123,\n" +
+                        "\"status\" : \"failed\",\n" +
+                        "\"time\" : 0,\n" +
+                        "\"comment\" : \"java.lang.AssertionError\",\n" +
+                        "\"steps\" : [ ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void failedWithTime() {
+        String[] args = new String[]{
+                "-g", "io.qase.cucumber3",
+                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "classpath:features/failed_with_time.feature"
+        };
+        Main.run(args, Thread.currentThread().getContextClassLoader());
+
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json"))
+                .withRequestBody(equalToJson("{\n" +
+                        "\"case_id\" : 123,\n" +
+                        "\"status\" : \"failed\",\n" +
+                        "\"time\" : 3,\n" +
+                        "\"comment\" : \"java.lang.AssertionError\",\n" +
+                        "\"steps\" : [ ]\n" +
+                        "}")));
     }
 }
