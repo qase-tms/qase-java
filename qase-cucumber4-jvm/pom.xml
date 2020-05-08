@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>qase-cucumber3-jvm</artifactId>
+    <artifactId>qase-cucumber4-jvm</artifactId>
 
-    <name>Cucumber 3 Integration with Qase TMS</name>
+    <name>Cucumber 4 Integration with Qase TMS</name>
 
     <dependencies>
         <dependency>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>${cucumber3-java.version}</version>
+            <version>${cucumber4-java.version}</version>
         </dependency>
     </dependencies>
 
