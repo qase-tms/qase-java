@@ -15,6 +15,7 @@
         <module>qase-junit5</module>
         <module>qase-cucumber3-jvm</module>
         <module>qase-cucumber4-jvm</module>
+        <module>qase-cucumber5-jvm</module>
     </modules>
 
     <url>http://www.qase.io</url>

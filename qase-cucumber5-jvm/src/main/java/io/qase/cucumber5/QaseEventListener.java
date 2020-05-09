@@ -1,11 +1,7 @@
-package io.qase.cucumber4;
+package io.qase.cucumber5;
 
-import cucumber.api.Result;
-import cucumber.api.event.ConcurrentEventListener;
-import cucumber.api.event.EventPublisher;
-import cucumber.api.event.TestCaseFinished;
-import cucumber.api.event.TestCaseStarted;
-import gherkin.pickles.PickleTag;
+import io.cucumber.plugin.ConcurrentEventListener;
+import io.cucumber.plugin.event.*;
 import io.qase.api.QaseApi;
 import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
@@ -70,12 +66,6 @@ public class QaseEventListener implements ConcurrentEventListener {
         logger.info("Qase run id - {}", runId);
     }
 
-    @Override
-    public void setEventPublisher(EventPublisher publisher) {
-        publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
-        publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-    }
-
     private void testCaseStarted(TestCaseStarted event) {
         startTime.remove();
         startTime.set(System.currentTimeMillis());
@@ -83,16 +73,15 @@ public class QaseEventListener implements ConcurrentEventListener {
 
     private void testCaseFinished(TestCaseFinished event) {
         Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime.get());
-        List<PickleTag> tags = event.testCase.getTags();
+        List<String> tags = event.getTestCase().getTags();
         Integer caseId = getCaseId(tags);
         if (caseId != null) {
-            send(caseId, duration, event.result);
+            send(caseId, duration, event.getResult());
         }
     }
 
-    private Integer getCaseId(List<PickleTag> tags) {
-        for (PickleTag pickleTag : tags) {
-            String tag = pickleTag.getName();
+    private Integer getCaseId(List<String> tags) {
+        for (String tag : tags) {
             String[] split = tag.split("=");
             if (caseTags.contains(split[0]) && split.length == 2 && split[1].matches("\\d+")) {
                 return Integer.valueOf(split[1]);
@@ -119,7 +108,7 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
     }
 
-    private RunResultStatus convertStatus(Result.Type status) {
+    private RunResultStatus convertStatus(Status status) {
         switch (status) {
             case FAILED:
                 return RunResultStatus.failed;
@@ -132,5 +121,11 @@ public class QaseEventListener implements ConcurrentEventListener {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public void setEventPublisher(EventPublisher eventPublisher) {
+        eventPublisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
+        eventPublisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
     }
 }
