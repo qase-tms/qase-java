@@ -133,6 +133,41 @@ class TestRunResultServiceTest {
     }
 
     @Test
+    void createWithStacktraceParams() {
+        try {
+            qaseApi.testRunResults().create("PRJ", 2, 1, RunResultStatus.passed,
+                    Duration.ofMinutes(2),
+                    3,
+                    "Failed via API",
+                    "Exception Stacktrace",
+                    true,
+                    new Step(1, StepStatus.passed),
+                    new Step(2, StepStatus.failed));
+        } catch (QaseException e) {
+            //ignore
+        }
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/2"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json"))
+                .withRequestBody(equalToJson("{\n" +
+                        "\"case_id\" : 1,\n" +
+                        "\"status\" : \"passed\",\n" +
+                        "\"time\" : 120,\n" +
+                        "\"member_id\" : 3,\n" +
+                        "\"comment\" : \"Failed via API\",\n" +
+                        "\"stacktrace\" : \"Exception Stacktrace\",\n" +
+                        "\"defect\" : true,\n" +
+                        "\"steps\" : [ {\n" +
+                        "  \"position\" : 1,\n" +
+                        "  \"status\" : \"passed\"\n" +
+                        "}, {\n" +
+                        "  \"position\" : 2,\n" +
+                        "  \"status\" : \"failed\"\n" +
+                        "} ]\n" +
+                        "}")));
+    }
+
+    @Test
     void update() {
         try {
             qaseApi.testRunResults().update("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132",

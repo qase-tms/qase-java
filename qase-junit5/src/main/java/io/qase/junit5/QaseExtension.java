@@ -22,22 +22,19 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static io.qase.api.enums.RunResultStatus.failed;
 import static io.qase.api.enums.RunResultStatus.passed;
+import static io.qase.api.utils.IntegrationUtils.*;
 import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
 
 public class QaseExtension implements TestExecutionListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseExtension.class);
-    private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
     private boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
-    private static final String PROJECT_CODE_KEY = "qase.project.code";
-    private static final String RUN_ID_KEY = "qase.run.id";
-    private static final String API_TOKEN_KEY = "qase.api.token";
     private final Map<TestIdentifier, Long> startTime = new ConcurrentHashMap<>();
 
     public QaseExtension() {
-        isEnabled = Boolean.parseBoolean(System.getProperty("qase.enable", "false"));
+        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
         if (!isEnabled) {
             return;
         }
@@ -49,7 +46,7 @@ public class QaseExtension implements TestExecutionListener {
             return;
         }
 
-        String qaseUrl = System.getProperty("qase.url");
+        String qaseUrl = System.getProperty(QASE_URL_KEY);
         if (qaseUrl != null) {
             qaseApi = new QaseApi(apiToken, qaseUrl);
         } else {

@@ -14,23 +14,18 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
+import static io.qase.api.utils.IntegrationUtils.*;
+
 public class QaseListener extends RunListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
-    private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
     private boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
     private long startTime;
 
-    private static final String PROJECT_CODE_KEY = "qase.project.code";
-
-    private static final String RUN_ID_KEY = "qase.run.id";
-
-    private static final String API_TOKEN_KEY = "qase.api.token";
-
     public QaseListener() {
-        isEnabled = Boolean.parseBoolean(System.getProperty("qase.enable", "false"));
+        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
         if (!isEnabled) {
             return;
         }
@@ -42,7 +37,7 @@ public class QaseListener extends RunListener {
             return;
         }
 
-        String qaseUrl = System.getProperty("qase.url");
+        String qaseUrl = System.getProperty(QASE_URL_KEY);
         if (qaseUrl != null) {
             qaseApi = new QaseApi(apiToken, qaseUrl);
         } else {

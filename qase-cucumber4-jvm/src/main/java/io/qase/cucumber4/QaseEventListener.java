@@ -13,28 +13,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static io.qase.api.utils.IntegrationUtils.*;
+
 public class QaseEventListener implements ConcurrentEventListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseEventListener.class);
-    private static final List<String> caseTags = Arrays.asList("@caseId", "@tmsLink");
-    private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
     private boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
 
-    private static final String PROJECT_CODE_KEY = "qase.project.code";
-
-    private static final String RUN_ID_KEY = "qase.run.id";
-
-    private static final String API_TOKEN_KEY = "qase.api.token";
-
     public QaseEventListener() {
-        isEnabled = Boolean.parseBoolean(System.getProperty("qase.enable", "false"));
+        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
         if (!isEnabled) {
             return;
         }
@@ -46,7 +39,7 @@ public class QaseEventListener implements ConcurrentEventListener {
             return;
         }
 
-        String qaseUrl = System.getProperty("qase.url");
+        String qaseUrl = System.getProperty(QASE_URL_KEY);
         if (qaseUrl != null) {
             qaseApi = new QaseApi(apiToken, qaseUrl);
         } else {
@@ -97,7 +90,7 @@ public class QaseEventListener implements ConcurrentEventListener {
         for (PickleTag pickleTag : tags) {
             String tag = pickleTag.getName();
             String[] split = tag.split("=");
-            if (caseTags.contains(split[0]) && split.length == 2 && split[1].matches("\\d+")) {
+            if (CASE_TAGS.contains(split[0]) && split.length == 2 && split[1].matches("\\d+")) {
                 return Integer.valueOf(split[1]);
             }
         }

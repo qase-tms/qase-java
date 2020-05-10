@@ -15,22 +15,17 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.Optional;
 
+import static io.qase.api.utils.IntegrationUtils.*;
+
 public class QaseListener implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
-    private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
     private boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
 
-    private static final String PROJECT_CODE_KEY = "qase.project.code";
-
-    private static final String RUN_ID_KEY = "qase.run.id";
-
-    private static final String API_TOKEN_KEY = "qase.api.token";
-
     public QaseListener() {
-        isEnabled = Boolean.parseBoolean(System.getProperty("qase.enable", "false"));
+        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
         if (!isEnabled) {
             return;
         }
@@ -42,7 +37,7 @@ public class QaseListener implements ITestListener {
             return;
         }
 
-        String qaseUrl = System.getProperty("qase.url");
+        String qaseUrl = System.getProperty(QASE_URL_KEY);
         if (qaseUrl != null) {
             qaseApi = new QaseApi(apiToken, qaseUrl);
         } else {
@@ -63,7 +58,6 @@ public class QaseListener implements ITestListener {
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
             return;
         }
-
         logger.info("Qase run id - {}", runId);
     }
 
@@ -103,14 +97,25 @@ public class QaseListener implements ITestListener {
         if (!isEnabled) {
             return;
         }
-        String comment = Optional.ofNullable(result.getThrowable())
-                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-        Long caseId = getCaseId(result);
         Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
+        Optional<Throwable> resultThrowable = Optional.ofNullable(result.getThrowable());
+        String comment = resultThrowable
+                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+        Boolean isDefect = resultThrowable.flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                .orElse(false);
+        String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        Long caseId = getCaseId(result);
         if (caseId != null) {
             try {
                 qaseApi.testRunResults()
-                        .create(projectCode, Long.parseLong(runId), caseId, status, timeSpent, null, comment, null);
+                        .create(projectCode,
+                                Long.parseLong(runId),
+                                caseId, status,
+                                timeSpent,
+                                null,
+                                comment,
+                                stacktrace,
+                                isDefect);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             }

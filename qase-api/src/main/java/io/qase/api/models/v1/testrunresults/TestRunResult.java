@@ -24,4 +24,5 @@ public class TestRunResult {
     @SerializedName("time_spent")
     private long timeSpent;
     private List<Attachment> attachments;
+    private String stacktrace;
 }

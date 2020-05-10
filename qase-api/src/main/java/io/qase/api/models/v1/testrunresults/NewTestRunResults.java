@@ -18,6 +18,7 @@ public class NewTestRunResults {
     @SerializedName("member_id")
     private Integer memberId;
     private String comment;
+    private String stacktrace;
     private Boolean defect;
     private List<Step> steps;
     private List<String> attachments;
