@@ -4,6 +4,8 @@ import io.qase.api.enums.StepStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Data
 @Accessors(chain = true)
 @SuppressWarnings("unused")
@@ -11,5 +13,5 @@ public class Step {
     private final long position;
     private final StepStatus status;
     private String comment;
-    private String attachments;
+    private List<Attachment> attachments;
 }

@@ -67,16 +67,19 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void testCaseStarted(TestCaseStarted event) {
-        startTime.remove();
         startTime.set(System.currentTimeMillis());
     }
 
     private void testCaseFinished(TestCaseFinished event) {
-        Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime.get());
-        List<String> tags = event.getTestCase().getTags();
-        Integer caseId = getCaseId(tags);
-        if (caseId != null) {
-            send(caseId, duration, event.getResult());
+        try {
+            Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime.get());
+            List<String> tags = event.getTestCase().getTags();
+            Integer caseId = getCaseId(tags);
+            if (caseId != null) {
+                send(caseId, duration, event.getResult());
+            }
+        } finally {
+            startTime.remove();
         }
     }
 
