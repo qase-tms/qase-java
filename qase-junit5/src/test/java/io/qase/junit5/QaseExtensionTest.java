@@ -42,11 +42,13 @@ public class QaseExtensionTest {
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withRequestBody(equalToJson("{\n  " +
-                        "\"case_id\": 123,\n  " +
-                        "\"status\": \"passed\",\n  " +
-                        "\"steps\": [],\n  " +
-                        "\"time\": 0\n}")));
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"passed\",\n" +
+                        "  \"time\" : 0,\n" +
+                        "  \"defect\" : false,\n" +
+                        "  \"steps\" : [ ]\n" +
+                        "}")));
     }
 
 
@@ -56,11 +58,13 @@ public class QaseExtensionTest {
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withRequestBody(equalToJson("{\n  " +
-                        "\"case_id\": 123,\n  " +
-                        "\"status\": \"passed\",\n  " +
-                        "\"steps\": [],\n  " +
-                        "\"time\": 3\n}")));
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"passed\",\n" +
+                        "  \"time\" : 3,\n" +
+                        "  \"defect\" : false,\n" +
+                        "  \"steps\" : [ ]\n" +
+                        "}")));
     }
 
     @Test
@@ -70,11 +74,13 @@ public class QaseExtensionTest {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
                 .withRequestBody(equalToJson("{\n" +
-                        "\"case_id\" : 321,\n" +
-                        "\"status\" : \"failed\",\n" +
-                        "\"time\" : 0,\n" +
-                        "\"comment\" : \"java.lang.AssertionError: Error message\",\n" +
-                        "\"steps\" : [ ]\n" +
+                        "  \"case_id\" : 321,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time\" : 0,\n" +
+                        "  \"comment\" : \"java.lang.AssertionError: Error message\",\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\"," +
+                        "  \"defect\" : true,\n" +
+                        "  \"steps\" : [ ]\n" +
                         "}")));
     }
 
@@ -85,11 +91,13 @@ public class QaseExtensionTest {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
                 .withRequestBody(equalToJson("{\n" +
-                        "\"case_id\" : 321,\n" +
-                        "\"status\" : \"failed\",\n" +
-                        "\"time\" : 2,\n" +
-                        "\"comment\" : \"java.lang.AssertionError: Error message\",\n" +
-                        "\"steps\" : [ ]\n" +
+                        "  \"case_id\" : 321,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time\" : 2,\n" +
+                        "  \"comment\" : \"java.lang.AssertionError: Error message\",\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\"," +
+                        "  \"defect\" : true,\n" +
+                        "  \"steps\" : [ ]\n" +
                         "}")));
     }
 

@@ -104,6 +104,7 @@ public class QaseListener implements ITestListener {
         Boolean isDefect = resultThrowable.flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
                 .orElse(false);
         String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+
         Long caseId = getCaseId(result);
         if (caseId != null) {
             try {

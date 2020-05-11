@@ -42,6 +42,7 @@ public class QaseListenerTest {
                 .withRequestBody(equalToJson("{\n  " +
                         "\"case_id\": 123,\n  " +
                         "\"status\": \"passed\",\n  " +
+                        "\"defect\" : false,\n" +
                         "\"steps\": [],\n  " +
                         "\"time\": 0\n}")));
     }
@@ -56,6 +57,7 @@ public class QaseListenerTest {
                 .withRequestBody(equalToJson("{\n  " +
                         "\"case_id\": 123,\n  " +
                         "\"status\": \"passed\",\n  " +
+                        "\"defect\" : false,\n" +
                         "\"steps\": [],\n  " +
                         "\"time\": 3\n}")));
     }
@@ -71,6 +73,8 @@ public class QaseListenerTest {
                         "\"status\" : \"failed\",\n" +
                         "\"time\" : 0,\n" +
                         "\"comment\" : \"java.lang.AssertionError: Error message\",\n" +
+                        "\"stacktrace\" : \"${json-unit.ignore}\"," +
+                        "\"defect\" : true,\n" +
                         "\"steps\" : [ ]\n" +
                         "}")));
     }
@@ -86,6 +90,8 @@ public class QaseListenerTest {
                         "\"status\" : \"failed\",\n" +
                         "\"time\" : 2,\n" +
                         "\"comment\" : \"java.lang.AssertionError: Error message\",\n" +
+                        "\"stacktrace\" : \"${json-unit.ignore}\"," +
+                        "\"defect\" : true,\n" +
                         "\"steps\" : [ ]\n" +
                         "}")));
     }

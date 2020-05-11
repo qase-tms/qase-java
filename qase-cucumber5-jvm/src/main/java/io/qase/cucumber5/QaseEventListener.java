@@ -95,10 +95,17 @@ public class QaseEventListener implements ConcurrentEventListener {
             if (status == null) {
                 return;
             }
-            String comment = Optional.ofNullable(result.getError())
+            Optional<Throwable> optionalThrowable = Optional.ofNullable(result.getError());
+            String comment = optionalThrowable
                     .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+            Boolean isDefect = optionalThrowable
+                    .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                    .orElse(false);
+            String stacktrace = optionalThrowable
+                    .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+
             qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId,
-                    status, duration, null, comment, null);
+                    status, duration, null, comment, stacktrace, isDefect);
         } catch (QaseException e) {
             logger.error(e.getMessage());
         }

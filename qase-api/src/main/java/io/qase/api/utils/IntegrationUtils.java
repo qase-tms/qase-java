@@ -3,6 +3,7 @@ package io.qase.api.utils;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public final class IntegrationUtils {
@@ -12,10 +13,10 @@ public final class IntegrationUtils {
     public static final String API_TOKEN_KEY = "qase.api.token";
     public static final String QASE_URL_KEY = "qase.url";
     public static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
-    public static final List<String> CASE_TAGS = Arrays.asList("@caseId", "@tmsLink");
+    public static final List<String> CASE_TAGS = Collections.unmodifiableList(Arrays.asList("@caseId", "@tmsLink"));
 
     private IntegrationUtils() throws IllegalAccessException {
-        throw new IllegalAccessException();
+        throw new IllegalAccessException("Utils class");
     }
 
     public static String getStacktrace(Throwable throwable) {

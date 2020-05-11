@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.Optional;
 
 import static io.qase.api.utils.IntegrationUtils.*;
 
@@ -73,28 +74,31 @@ public class QaseListener extends RunListener {
 
     @Override
     public void testFailure(Failure failure) {
-        send(failure.getDescription(), RunResultStatus.failed, failure.getException().toString());
+        send(failure.getDescription(), RunResultStatus.failed, failure.getException());
     }
 
-    private void send(Description description, RunResultStatus runResultStatus, String comment) {
+    private void send(Description description, RunResultStatus runResultStatus, Throwable error) {
         if (!isEnabled) {
             return;
         }
         long end = System.currentTimeMillis();
-        Duration timeSpent = Duration.ofMillis(end - startTime);
+        Duration duration = Duration.ofMillis(end - startTime);
         CaseId caseId = description.getAnnotation(CaseId.class);
         TmsLink tmsLink = description.getAnnotation(TmsLink.class);
-        if (caseId != null) {
+        if (caseId != null || tmsLink != null) {
+
+            Optional<Throwable> optionalThrowable = Optional.ofNullable(error);
+            String comment = optionalThrowable
+                    .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+            Boolean isDefect = optionalThrowable
+                    .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                    .orElse(false);
+            String stacktrace = optionalThrowable
+                    .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
             try {
-                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId.value(), runResultStatus,
-                        timeSpent, null, comment, null);
-            } catch (QaseException e) {
-                logger.error(e.getMessage());
-            }
-        } else if (tmsLink != null) {
-            try {
-                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), Long.parseLong(tmsLink.value()),
-                        runResultStatus, timeSpent, null, null, null);
+                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId),
+                        caseId != null ? caseId.value() : Long.parseLong(tmsLink.value()),
+                        runResultStatus, duration, null, comment, stacktrace, isDefect);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             } catch (NumberFormatException e) {

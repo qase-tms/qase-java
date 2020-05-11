@@ -100,18 +100,25 @@ public class QaseExtension implements TestExecutionListener {
         if (testMethod != null) {
             CaseId caseId = testMethod.getAnnotation(CaseId.class);
             TmsLink tmsLink = testMethod.getAnnotation(TmsLink.class);
-            RunResultStatus runResultStatus =
-                    testExecutionResult.getStatus() == SUCCESSFUL ? passed : failed;
-            String comment = testExecutionResult.getThrowable()
-                    .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-            if (caseId != null) {
-                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId),
-                        caseId.value(),
-                        runResultStatus, duration, null, comment, null);
-            } else if (tmsLink != null) {
-                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId),
-                        Long.parseLong(tmsLink.value()),
-                        runResultStatus, duration, null, null, null);
+            if (caseId != null || tmsLink != null) {
+                RunResultStatus runResultStatus =
+                        testExecutionResult.getStatus() == SUCCESSFUL ? passed : failed;
+                String comment = testExecutionResult.getThrowable()
+                        .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+                Boolean isDefect = testExecutionResult.getThrowable()
+                        .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                        .orElse(false);
+                String stacktrace = testExecutionResult.getThrowable()
+                        .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+                try {
+                    qaseApi.testRunResults().create(projectCode, Long.parseLong(runId),
+                            caseId != null ? caseId.value() : Long.parseLong(tmsLink.value()),
+                            runResultStatus, duration, null, comment, stacktrace, isDefect);
+                } catch (QaseException e) {
+                    logger.error(e.getMessage());
+                } catch (NumberFormatException e) {
+                    logger.error("String could not be parsed as Long", e);
+                }
             }
         }
     }
