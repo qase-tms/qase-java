@@ -1,10 +1,28 @@
-# Qase TMS JUnit 4 Integration #
+# Qase TMS Cucumber 4 JVM Integration #
 [![License](https://lxgaming.github.io/badges/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## Description ##
 This integration uploads test run results to Qase TMS via API.
 
-To link autotest to test case in Qase TMS use annotation `@CaseId` or `@io.qameta.allure.TmsLink`
+To link autotest to test case in Qase TMS use tag `@caseId` or `@tmsLink`
+
+For example:
+```
+Feature: example features
+
+  @caseId=59
+  Scenario: example scenario
+    Given example step
+    When example step
+    Then example step
+
+
+  @tmsLink=55
+  Scenario: example scenario2
+    Given example step2
+    When example step2
+    Then example step2
+```
 
 ### Required params ###
 All required params are passed through system properties or environment variables:
@@ -23,9 +41,8 @@ Add the following dependency and repository to your pom.xml:
 <dependencies>
     <dependency>
         <groupId>io.qase</groupId>
-        <artifactId>qase-junit4</artifactId>
-        <version>1.0.1</version>
-        <scope>test</scope>
+        <artifactId>qase-cucumber4-jvm</artifactId>
+        <version>1.0.2</version>
     </dependency>
 </dependencies>
 <build>
@@ -35,21 +52,11 @@ Add the following dependency and repository to your pom.xml:
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0-M4</version>
             <configuration>
-                <properties>
-                    <property>
-                        <name>listener</name>
-                        <value>io.qase.junit4.QaseListener</value>
-                    </property>
-                </properties>
+                <argLine>
+                    -Dcucumber.options="--add-plugin", "io.qase.cucumber4.QaseEventListener"
+                </argLine>
             </configuration>
         </plugin>
     </plugins>
 </build>
-
-```
-
-## Run example ##
-
-```
-mvn clean test -Dqase.enable=true -Dqase.project.code=PRJ -Dqase.run.id=123 -Dqase.api.token=secret-token
 ```
