@@ -23,7 +23,7 @@ Add the following dependency and repository to your pom.xml:
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-testng</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <scope>test</scope>
 </dependency>
 ```
