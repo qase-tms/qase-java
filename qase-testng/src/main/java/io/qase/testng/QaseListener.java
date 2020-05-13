@@ -1,6 +1,8 @@
 package io.qase.testng;
 
+import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
+import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
 import org.slf4j.Logger;
@@ -11,36 +13,40 @@ import org.testng.ITestResult;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
+import static io.qase.api.utils.IntegrationUtils.*;
 
 public class QaseListener implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
-    private static final String REQUIRED_PARAMETER_WARNING_MESSAGE = "Required parameter '{}' not specified";
+    private boolean isEnabled;
     private String projectCode;
     private String runId;
     private QaseApi qaseApi;
-    private List<Long> cases;
-
-    private static final String PROJECT_CODE_KEY = "qase.project.code";
-
-    private static final String RUN_ID_KEY = "qase.run.id";
-
-    private static final String API_TOKEN_KEY = "qase.api.token";
-
-    private static final String CASE_LIST_KEY = "qase.case.list";
 
     public QaseListener() {
+        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
+        if (!isEnabled) {
+            return;
+        }
+
         String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
         if (apiToken == null) {
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
             return;
         }
-        qaseApi = new QaseApi(apiToken);
+
+        String qaseUrl = System.getProperty(QASE_URL_KEY);
+        if (qaseUrl != null) {
+            qaseApi = new QaseApi(apiToken, qaseUrl);
+        } else {
+            qaseApi = new QaseApi(apiToken);
+        }
 
         projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
         if (projectCode == null) {
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
             return;
         }
@@ -48,64 +54,69 @@ public class QaseListener implements ITestListener {
 
         runId = System.getProperty(RUN_ID_KEY, System.getenv(RUN_ID_KEY));
         if (runId == null) {
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
             return;
         }
-
         logger.info("Qase run id - {}", runId);
-
-        String casesString = System.getProperty(CASE_LIST_KEY, System.getenv(CASE_LIST_KEY));
-        if (casesString == null) {
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, CASE_LIST_KEY);
-            return;
-        }
-        try {
-            cases = Arrays.stream(casesString.split(",")).map(Long::parseLong).collect(Collectors.toList());
-        } catch (NumberFormatException e) {
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, CASE_LIST_KEY);
-        }
-
-        logger.info("Qase cases - {}", cases);
     }
 
-    public QaseListener(QaseApi qaseApi) {
-        this.qaseApi = qaseApi;
-    }
-
+    @Override
     public void onTestStart(ITestResult result) {
     }
 
+    @Override
     public void onTestSuccess(ITestResult result) {
-        Long caseId = getCaseId(result);
-        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
-        sendResult(caseId, RunResultStatus.passed, timeSpent);
+        sendResult(result, RunResultStatus.passed);
     }
 
+    @Override
     public void onTestFailure(ITestResult result) {
-        Long caseId = getCaseId(result);
-        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
-        sendResult(caseId, RunResultStatus.failed, timeSpent);
+        sendResult(result, RunResultStatus.failed);
     }
 
+    @Override
     public void onTestSkipped(ITestResult result) {
     }
 
-
+    @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 
     }
 
+    @Override
     public void onStart(ITestContext context) {
     }
 
+    @Override
     public void onFinish(ITestContext context) {
 
     }
 
-    private void sendResult(Long caseId, RunResultStatus status, Duration timeSpent) {
-        if (caseId != null && cases != null && cases.contains(caseId)) {
+    private void sendResult(ITestResult result, RunResultStatus status) {
+        if (!isEnabled) {
+            return;
+        }
+        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
+        Optional<Throwable> resultThrowable = Optional.ofNullable(result.getThrowable());
+        String comment = resultThrowable
+                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+        Boolean isDefect = resultThrowable.flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                .orElse(false);
+        String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+
+        Long caseId = getCaseId(result);
+        if (caseId != null) {
             try {
-                qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId, status, timeSpent, null, null, null);
+                qaseApi.testRunResults()
+                        .create(projectCode,
+                                Long.parseLong(runId),
+                                caseId, status,
+                                timeSpent,
+                                null,
+                                comment,
+                                stacktrace,
+                                isDefect);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             }
@@ -119,6 +130,13 @@ public class QaseListener implements ITestListener {
         if (method.isAnnotationPresent(CaseId.class)) {
             return method
                     .getDeclaredAnnotation(CaseId.class).value();
+        } else if (method.isAnnotationPresent(TmsLink.class)) {
+            try {
+                return Long.valueOf(method
+                        .getDeclaredAnnotation(TmsLink.class).value());
+            } catch (NumberFormatException e) {
+                logger.error("String could not be parsed as Long", e);
+            }
         }
         return null;
     }

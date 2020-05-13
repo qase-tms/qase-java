@@ -5,15 +5,13 @@
     <parent>
         <artifactId>qase-java</artifactId>
         <groupId>io.qase</groupId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>qase-testng</artifactId>
 
-    <properties>
-        <testng.version>7.1.0</testng.version>
-    </properties>
+    <name>TestNG Integration with Qase TMS</name>
 
     <dependencies>
         <dependency>
@@ -22,11 +20,23 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
 </project>

@@ -25,6 +25,10 @@ public interface TestRunResultService {
     String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
                   Integer memberId, String comment, Boolean isDefect, Step... steps);
 
+
+    String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
+                  Integer memberId, String comment, String stacktrace, Boolean isDefect, Step... steps);
+
     String create(String projectCode, long runId, long caseId, RunResultStatus status);
 
     String update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent,

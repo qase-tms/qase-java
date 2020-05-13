@@ -44,12 +44,19 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
     @Override
     public String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
                          Integer memberId, String comment, Boolean isDefect, Step... steps) {
+        return create(projectCode, runId, caseId, status, timeSpent, memberId, comment, null, isDefect, steps);
+    }
+
+    @Override
+    public String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
+                         Integer memberId, String comment, String stacktrace, Boolean isDefect, Step... steps) {
         NewTestRunResults newTestRunResults = NewTestRunResults.builder()
                 .caseId(caseId)
                 .status(status)
                 .time(timeSpent == null ? null : timeSpent.getSeconds())
                 .memberId(memberId)
                 .comment(comment)
+                .stacktrace(stacktrace)
                 .defect(isDefect)
                 .steps(Arrays.asList(steps))
                 .build();

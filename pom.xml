@@ -7,10 +7,15 @@
     <groupId>io.qase</groupId>
     <artifactId>qase-java</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <modules>
         <module>qase-testng</module>
         <module>qase-api</module>
+        <module>qase-junit4</module>
+        <module>qase-junit5</module>
+        <module>qase-cucumber3-jvm</module>
+        <module>qase-cucumber4-jvm</module>
+        <module>qase-cucumber5-jvm</module>
     </modules>
 
     <url>http://www.qase.io</url>
@@ -19,9 +24,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <junit-jupiter-engine.version>5.5.2</junit-jupiter-engine.version>
-        <slf4j-log4j12.version>1.7.29</slf4j-log4j12.version>
+        <junit5.version>5.6.2</junit5.version>
         <lombok.version>1.18.6</lombok.version>
+        <surefire.version>3.0.0-M4</surefire.version>
+        <wiremock-jre8.version>2.26.3</wiremock-jre8.version>
+        <apiguardian-api.version>1.1.0</apiguardian-api.version>
+        <allure-java.version>2.13.3</allure-java.version>
+        <junit4.version>4.13</junit4.version>
+        <testng.version>7.1.0</testng.version>
+        <unirest-java.version>3.4.00</unirest-java.version>
+        <junit-platform-engine.version>1.6.2</junit-platform-engine.version>
+        <logback.version>1.2.3</logback.version>
+        <slf4j-api.version>1.7.30</slf4j-api.version>
+        <cucumber3-java.version>3.0.2</cucumber3-java.version>
+        <cucumber4-java.version>4.8.1</cucumber4-java.version>
+        <cucumber5-java.version>5.7.0</cucumber5-java.version>
     </properties>
 
     <name>Qase TMS Java Libraries</name>
@@ -60,37 +77,84 @@
         </repository>
     </distributionManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j-log4j12.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8</artifactId>
-            <version>2.26.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter-engine.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.tomakehurst</groupId>
+                <artifactId>wiremock-jre8</artifactId>
+                <version>${wiremock-jre8.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-launcher</artifactId>
+                <version>${junit-platform-engine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit5.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit5.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-java-commons</artifactId>
+                <version>${allure-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.konghq</groupId>
+                <artifactId>unirest-java</artifactId>
+                <version>${unirest-java.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>${surefire.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit-platform</artifactId>
+                        <version>${surefire.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -101,6 +165,11 @@
             <modules>
                 <module>qase-testng</module>
                 <module>qase-api</module>
+                <module>qase-junit4</module>
+                <module>qase-junit5</module>
+                <module>qase-cucumber3-jvm</module>
+                <module>qase-cucumber4-jvm</module>
+                <module>qase-cucumber5-jvm</module>
             </modules>
             <build>
                 <plugins>

@@ -3,10 +3,7 @@ package io.qase.api;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.inner.FilterHelper;
 import io.qase.api.inner.RouteFilter;
-import kong.unirest.HttpMethod;
-import kong.unirest.JsonNode;
-import kong.unirest.ObjectMapper;
-import kong.unirest.UnirestInstance;
+import kong.unirest.*;
 import kong.unirest.json.JSONObject;
 
 import java.io.File;
@@ -17,6 +14,7 @@ import java.util.Optional;
 import static java.util.Collections.emptyMap;
 
 public final class QaseApiClient {
+    private static final String FAILED_REQUEST_MESSAGE = "The request failed. Error - %s";
     private final UnirestInstance unirestInstance;
     private final String baseUrl;
 
@@ -63,14 +61,14 @@ public final class QaseApiClient {
         return this.get(responseClass, path, routeParams, emptyMap(), filter);
     }
 
-    public <Response, Filter extends RouteFilter> Response get(
+    public <Response> Response get(
             Class<Response> responseClass,
             String path,
             Map<String, Object> routeParams) {
         return this.get(responseClass, path, routeParams, emptyMap(), null);
     }
 
-    public <Response, Filter extends RouteFilter> Response get(
+    public <Response> Response get(
             Class<Response> responseClass,
             String path,
             Map<String, Object> routeParams,
@@ -98,13 +96,17 @@ public final class QaseApiClient {
     }
 
     public <Response> Response post(Class<Response> responseClass, String path, Map<String, Object> routeParams, File file) {
-        JsonNode body = unirestInstance.post(baseUrl + path)
+        HttpResponse<JsonNode> jsonNodeHttpResponse = unirestInstance.post(baseUrl + path)
                 .routeParam(routeParams)
                 .field(file.getName(), file)
-                .asJson()
-                .getBody();
-        JSONObject jsonObject = getJsonObject(body);
-        return getObjectMapper().readValue(jsonObject.get("result").toString(), responseClass);
+                .asJson();
+        if (jsonNodeHttpResponse.isSuccess()) {
+            JsonNode body = jsonNodeHttpResponse
+                    .getBody();
+            JSONObject jsonObject = getJsonObject(body);
+            return getObjectMapper().readValue(jsonObject.get("result").toString(), responseClass);
+        }
+        throw new QaseException(FAILED_REQUEST_MESSAGE, jsonNodeHttpResponse.getStatus());
     }
 
     public <Response, Request> Response post(Class<Response> responseClass, String path, Map<String, Object> routeParams, Request request) {
@@ -134,26 +136,32 @@ public final class QaseApiClient {
     }
 
     private <Request> JSONObject asJson(HttpMethod method, String path, Map<String, Object> routeParams, Request request) {
-        JsonNode body = unirestInstance
+        HttpResponse<JsonNode> jsonNodeHttpResponse = unirestInstance
                 .request(method.name(), baseUrl + path)
                 .routeParam(routeParams)
                 .header("Content-Type", "application/json")
                 .body(request)
-                .asJson()
-                .getBody();
-        return getJsonObject(body);
+                .asJson();
+        if (jsonNodeHttpResponse.isSuccess()) {
+            return getJsonObject(jsonNodeHttpResponse
+                    .getBody());
+        }
+        throw new QaseException(FAILED_REQUEST_MESSAGE, jsonNodeHttpResponse.getStatus());
     }
 
     private JSONObject asJson(HttpMethod method,
                               String path,
                               Map<String, Object> routeParams,
                               Map<String, Object> queryParams) {
-        JsonNode body = unirestInstance.request(method.name(), baseUrl + path)
+        HttpResponse<JsonNode> jsonNodeHttpResponse = unirestInstance.request(method.name(), baseUrl + path)
                 .routeParam(routeParams)
                 .header("Content-Type", "application/json")
                 .queryString(queryParams)
-                .asJson().getBody();
-        return getJsonObject(body);
+                .asJson();
+        if (jsonNodeHttpResponse.isSuccess()) {
+            return getJsonObject(jsonNodeHttpResponse.getBody());
+        }
+        throw new QaseException(FAILED_REQUEST_MESSAGE, jsonNodeHttpResponse.getStatus());
     }
 
     private JSONObject getJsonObject(JsonNode body) {

@@ -3,12 +3,10 @@ package io.qase.api;
 import io.qase.api.inner.GsonObjectMapper;
 import io.qase.api.services.*;
 import io.qase.api.services.v1.*;
-import kong.unirest.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestInstance;
 
 public final class QaseApi {
-    private static final Logger logger = LoggerFactory.getLogger("QaseApi");
     private final ProjectService projects;
     private final TestCaseService testCases;
     private final SuiteService suites;
