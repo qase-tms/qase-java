@@ -14,7 +14,7 @@ Add the following dependency and repository to your pom.xml:
 ```
 
 ## Usage ##
-Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).
+Qase.io uses API tokens to authenticate requests. You can view a manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).
 
 You must replace api_token with your personal API key.
  
@@ -255,7 +255,7 @@ boolean isDeleted = qaseApi.testRuns().delete("PRJCODE", 1);
 ### Test run results ###
 
 #### Get all test run results ####
-This method allows to retrieve all test run run results stored in selected project. You can you limit and offset params to paginate. Also you can use various filters to get specific results.
+This method allows to retrieve all test run results stored in selected project. You can you limit and offset params to paginate. Also you can use various filters to get specific results.
 
 ```java
 TestRunResultService.Filter filter = qaseApi.testRunResults().filter().status(passed);

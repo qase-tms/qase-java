@@ -45,6 +45,21 @@ public final class QaseApi {
         this.attachments = new AttachmentServiceImpl(qaseApiClient);
     }
 
+    public QaseApi(final QaseApiClient qaseApiClient) {
+        this.projects = new ProjectServiceImpl(qaseApiClient);
+        this.testCases = new TestCaseServiceImpl(qaseApiClient);
+        this.suites = new SuiteServiceImpl(qaseApiClient);
+        this.milestones = new MilestoneServiceImpl(qaseApiClient);
+        this.sharedSteps = new SharedStepServiceImpl(qaseApiClient);
+        this.testPlans = new TestPlanServiceImpl(qaseApiClient);
+        this.testRuns = new TestRunServiceImpl(qaseApiClient);
+        this.testRunResults = new TestRunResultServiceImpl(qaseApiClient);
+        this.defects = new DefectServiceImpl(qaseApiClient);
+        this.customFields = new CustomFieldServiceImpl(qaseApiClient);
+        this.team = new TeamServiceImpl(qaseApiClient);
+        this.attachments = new AttachmentServiceImpl(qaseApiClient);
+    }
+
     public ProjectService projects() {
         return this.projects;
     }

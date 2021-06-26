@@ -100,10 +100,8 @@ public final class QaseApiClient {
                 .routeParam(routeParams)
                 .field(file.getName(), file)
                 .asJson();
+        JSONObject jsonObject = getJsonObject(jsonNodeHttpResponse);
         if (jsonNodeHttpResponse.isSuccess()) {
-            JsonNode body = jsonNodeHttpResponse
-                    .getBody();
-            JSONObject jsonObject = getJsonObject(body);
             return getObjectMapper().readValue(jsonObject.get("result").toString(), responseClass);
         }
         throw new QaseException(FAILED_REQUEST_MESSAGE, jsonNodeHttpResponse.getStatus());
@@ -142,11 +140,7 @@ public final class QaseApiClient {
                 .header("Content-Type", "application/json")
                 .body(request)
                 .asJson();
-        if (jsonNodeHttpResponse.isSuccess()) {
-            return getJsonObject(jsonNodeHttpResponse
-                    .getBody());
-        }
-        throw new QaseException(FAILED_REQUEST_MESSAGE, jsonNodeHttpResponse.getStatus());
+        return getJsonObject(jsonNodeHttpResponse);
     }
 
     private JSONObject asJson(HttpMethod method,
@@ -158,14 +152,13 @@ public final class QaseApiClient {
                 .header("Content-Type", "application/json")
                 .queryString(queryParams)
                 .asJson();
-        if (jsonNodeHttpResponse.isSuccess()) {
-            return getJsonObject(jsonNodeHttpResponse.getBody());
-        }
-        throw new QaseException(FAILED_REQUEST_MESSAGE, jsonNodeHttpResponse.getStatus());
+        return getJsonObject(jsonNodeHttpResponse);
     }
 
-    private JSONObject getJsonObject(JsonNode body) {
-        JSONObject jsonObject = Optional.ofNullable(body).orElseThrow(() -> new QaseException("Something went wrong")).getObject();
+    private JSONObject getJsonObject(HttpResponse<JsonNode> jsonNodeHttpResponse) {
+        JsonNode body = jsonNodeHttpResponse.getBody();
+        JSONObject jsonObject = Optional.ofNullable(body).orElseThrow(() ->
+                new QaseException(FAILED_REQUEST_MESSAGE, jsonNodeHttpResponse.getStatus())).getObject();
         if (!jsonObject.getBoolean("status")) {
             throw new QaseException(jsonObject.getString("errorMessage")
                     + (jsonObject.isNull("errorFields") ? "" : System.lineSeparator() + jsonObject.get("errorFields")));
