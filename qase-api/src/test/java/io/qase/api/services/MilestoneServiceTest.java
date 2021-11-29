@@ -1,8 +1,12 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseApi;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.MilestonesApi;
+import io.qase.client.model.Filters3;
+import io.qase.client.model.MilestoneCreate;
+import io.qase.client.model.MilestoneUpdate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,13 +15,18 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class MilestoneServiceTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+    static final ApiClient qaseApi = new ApiClient();
+    static final MilestonesApi milestonesApi = new MilestonesApi(qaseApi);
+    static int port;
 
     @BeforeAll
     static void setUp() {
-        configureFor(8088);
         wireMockServer.start();
+        port = wireMockServer.port();
+        configureFor(port);
+        qaseApi.setBasePath("http://localhost:" + port + "/v1");
+        qaseApi.setApiKey("secret-token");
     }
 
     @AfterAll
@@ -28,7 +37,7 @@ class MilestoneServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.milestones().getAll("PROJ");
+            milestonesApi.getMilestones("PROJ", 100, 0, null);
         } catch (QaseException e) {
             //ignore
         }
@@ -40,24 +49,9 @@ class MilestoneServiceTest {
     }
 
     @Test
-    void getAllWithParams() {
-        try {
-            qaseApi.milestones().getAll("PROJ", 55, 10, qaseApi.milestones().filter());
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(getRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("limit", equalTo("55"))
-                .withQueryParam("offset", equalTo("10")));
-    }
-
-    @Test
     void getAllWithFilter() {
         try {
-            MilestoneService.Filter filter = qaseApi.milestones().filter().search("title");
-            qaseApi.milestones().getAll("PROJ", filter);
+            milestonesApi.getMilestones("PROJ", 100, 0, new Filters3().search("title"));
         } catch (QaseException e) {
             //ignore
         }
@@ -66,13 +60,13 @@ class MilestoneServiceTest {
                 .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0"))
-                .withQueryParam("filters[search]", equalTo("title")));
+                .withQueryParam("filters%5Bsearch%5D", equalTo("title")));
     }
 
     @Test
     void get() {
         try {
-            qaseApi.milestones().get("PROJ", 65);
+            milestonesApi.getMilestone("PROJ", 65);
         } catch (QaseException e) {
             //ignore
         }
@@ -84,33 +78,36 @@ class MilestoneServiceTest {
     @Test
     void create() {
         try {
-            qaseApi.milestones().create("PROJ", "MTitle");
+            milestonesApi.createMilestone("PROJ", new MilestoneCreate().title("MTitle"));
         } catch (QaseException e) {
             // ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  \"title\": \"MTitle\"\n}")));
     }
 
     @Test
     void createWithDescription() {
         try {
-            qaseApi.milestones().create("PROJ", "MTitle", "MDescription");
+            milestonesApi.createMilestone("PROJ",
+                    new MilestoneCreate()
+                            .title("MTitle")
+                            .description("MDescription"));
         } catch (QaseException e) {
             // ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  \"title\" : \"MTitle\",\n  \"description\" : \"MDescription\"\n}")));
     }
 
     @Test
     void delete() {
         try {
-            qaseApi.milestones().delete("PROJ", 123);
+            milestonesApi.deleteMilestone("PROJ", 123);
         } catch (QaseException e) {
             // ignore
         }
@@ -122,26 +119,29 @@ class MilestoneServiceTest {
     @Test
     void update() {
         try {
-            qaseApi.milestones().update("PROJ", 123, "newMTitle");
+            milestonesApi.updateMilestone("PROJ", 123, new MilestoneUpdate().title("newMTitle"));
         } catch (QaseException e) {
             // ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/milestone/PROJ/123"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  \"title\" : \"newMTitle\"\n}")));
     }
 
     @Test
     void updateWithDescription() {
         try {
-            qaseApi.milestones().update("PROJ", 123, "newMTitle", "newMDescription");
+            milestonesApi.updateMilestone("PROJ", 123,
+                    new MilestoneUpdate()
+                            .title("newMTitle")
+                            .description("newMDescription"));
         } catch (QaseException e) {
             // ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/milestone/PROJ/123"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  \"title\" : \"newMTitle\",\n  \"description\" : \"newMDescription\"\n}")));
     }
 }

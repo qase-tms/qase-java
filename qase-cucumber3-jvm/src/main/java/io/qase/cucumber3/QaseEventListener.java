@@ -6,9 +6,11 @@ import cucumber.api.event.TestCaseFinished;
 import cucumber.api.event.TestCaseStarted;
 import cucumber.api.formatter.Formatter;
 import gherkin.pickles.PickleTag;
-import io.qase.api.QaseApi;
-import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.ResultsApi;
+import io.qase.client.model.ResultCreate;
+import io.qase.client.model.ResultCreate.StatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,10 +22,11 @@ import static io.qase.api.utils.IntegrationUtils.*;
 
 public class QaseEventListener implements Formatter {
     private static final Logger logger = LoggerFactory.getLogger(QaseEventListener.class);
+    private final ApiClient apiClient = new ApiClient();
+    private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private boolean isEnabled;
     private String projectCode;
     private String runId;
-    private QaseApi qaseApi;
     private long startTime;
 
     public QaseEventListener() {
@@ -34,17 +37,16 @@ public class QaseEventListener implements Formatter {
 
         String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
         if (apiToken == null) {
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
             isEnabled = false;
+            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
             return;
         }
 
-        String qaseUrl = System.getProperty(QASE_URL_KEY);
+        String qaseUrl = System.getProperty(QASE_URL_KEY, System.getenv(API_TOKEN_KEY));
         if (qaseUrl != null) {
-            qaseApi = new QaseApi(apiToken, qaseUrl);
-        } else {
-            qaseApi = new QaseApi(apiToken);
+            apiClient.setBasePath(qaseUrl);
         }
+        apiClient.setApiKey(apiToken);
 
         projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
         if (projectCode == null) {
@@ -76,32 +78,29 @@ public class QaseEventListener implements Formatter {
     private void testCaseFinished(TestCaseFinished event) {
         Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime);
         List<PickleTag> tags = event.testCase.getTags();
-        Integer caseId = getCaseId(tags);
+        Long caseId = getCaseId(tags);
         if (caseId != null) {
             send(caseId, duration, event.result);
         }
     }
 
-    private Integer getCaseId(List<PickleTag> tags) {
+    private Long getCaseId(List<PickleTag> tags) {
         for (PickleTag pickleTag : tags) {
             String tag = pickleTag.getName();
             String[] split = tag.split("=");
             if (CASE_TAGS.contains(split[0]) && split.length == 2 && split[1].matches("\\d+")) {
-                return Integer.valueOf(split[1]);
+                return Long.valueOf(split[1]);
             }
         }
         return null;
     }
 
-    private void send(Integer caseId, Duration duration, Result result) {
+    private void send(Long caseId, Duration duration, Result result) {
         if (!isEnabled) {
             return;
         }
         try {
-            RunResultStatus status = convertStatus(result.getStatus());
-            if (status == null) {
-                return;
-            }
+            StatusEnum status = convertStatus(result.getStatus());
             Optional<Throwable> optionalThrowable = Optional.ofNullable(result.getError());
             String comment = optionalThrowable
                     .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
@@ -111,25 +110,32 @@ public class QaseEventListener implements Formatter {
             String stacktrace = optionalThrowable
                     .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
 
-            qaseApi.testRunResults().create(projectCode, Long.parseLong(runId), caseId,
-                    status, duration, null, comment, stacktrace, isDefect);
+            resultsApi.createResult(projectCode,
+                    runId,
+                    new ResultCreate()
+                            .caseId(caseId)
+                            .status(status)
+                            .timeMs(duration.toMillis())
+                            .comment(comment)
+                            .stacktrace(stacktrace)
+                            .defect(isDefect));
         } catch (QaseException e) {
             logger.error(e.getMessage());
         }
     }
 
-    private RunResultStatus convertStatus(Result.Type status) {
+    private StatusEnum convertStatus(Result.Type status) {
         switch (status) {
             case FAILED:
-                return RunResultStatus.failed;
+                return StatusEnum.FAILED;
             case PASSED:
-                return RunResultStatus.passed;
+                return StatusEnum.PASSED;
             case PENDING:
             case SKIPPED:
             case AMBIGUOUS:
             case UNDEFINED:
             default:
-                return null;
+                return StatusEnum.SKIPPED;
         }
     }
 }

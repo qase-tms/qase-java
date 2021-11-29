@@ -1,27 +1,45 @@
 package io.qase.api.inner;
 
-import io.qase.api.enums.Filters;
+import com.google.gson.annotations.SerializedName;
+import io.qase.client.Pair;
 
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class FilterHelper {
     private FilterHelper() throws IllegalAccessException {
         throw new IllegalAccessException();
     }
 
-    public static <T extends RouteFilter> String getFilterRouteParam(T filter) {
-        if (filter == null) {
-            return "";
+    public static List<Pair> getFilterPairs(Object filterModel) {
+        List<Pair> pairs = new ArrayList<>();
+        Class<?> aClass = filterModel.getClass();
+        List<Field> fields = Arrays.stream(aClass.getDeclaredFields())
+                .filter(field -> !Modifier.isStatic(field.getModifiers()))
+                .peek(field -> field.setAccessible(true))
+                .collect(Collectors.toList());
+        for (Field field : fields) {
+            Object value = null;
+            try {
+                value = field.get(filterModel);
+            } catch (IllegalAccessException e) {
+                // ignore
+            }
+            if (value != null) {
+                String name;
+                SerializedName serializedName = field.getAnnotation(SerializedName.class);
+                if (serializedName != null) {
+                    name = serializedName.value();
+                } else {
+                    name = field.getName();
+                }
+                pairs.add(new Pair("filters[" + name + "]", value.toString()));
+            }
         }
-        Map<Filters, String> filters = filter.getFilters();
-        if (filters.isEmpty()) {
-            return "";
-        }
-        StringBuilder filterPath = new StringBuilder("?");
-        for (Map.Entry<Filters, String> entry : filters.entrySet()) {
-            filterPath.append("filters[").append(entry.getKey().name()).append("]=").append(entry.getValue()).append("&");
-        }
-        filterPath.deleteCharAt(filterPath.lastIndexOf("&"));
-        return filterPath.toString();
+        return pairs;
     }
 }

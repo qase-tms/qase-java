@@ -40,13 +40,12 @@ public class QaseEventListenerTests {
 
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"case_id\": 123,\n  " +
                         "\"status\": \"passed\",\n  " +
                         "\"defect\" : false,\n" +
-                        "\"steps\": [],\n  " +
-                        "\"time\": 0\n}")));
+                        "\"time_ms\": \"${json-unit.ignore}\"\n}")));
     }
 
     @Test
@@ -60,13 +59,12 @@ public class QaseEventListenerTests {
 
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "\"case_id\" : 123,\n" +
                         "\"status\" : \"passed\",\n" +
                         "\"defect\" : false,\n" +
-                        "\"time\" : 5,\n" +
-                        "\"steps\" : [ ]\n" +
+                        "\"time_ms\" : \"${json-unit.ignore}\"\n" +
                         "}")));
     }
 
@@ -81,15 +79,14 @@ public class QaseEventListenerTests {
 
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "\"case_id\" : 123,\n" +
                         "\"status\" : \"failed\",\n" +
-                        "\"time\" : 0,\n" +
+                        "\"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "\"comment\" : \"java.lang.AssertionError\",\n" +
                         "\"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "\"defect\" : true,\n" +
-                        "\"steps\" : [ ]\n" +
+                        "\"defect\" : true\n" +
                         "}")));
     }
 
@@ -104,15 +101,14 @@ public class QaseEventListenerTests {
 
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "\"case_id\" : 123,\n" +
                         "\"status\" : \"failed\",\n" +
-                        "\"time\" : 3,\n" +
+                        "\"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "\"comment\" : \"java.lang.AssertionError\",\n" +
                         "\"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "\"defect\" : true,\n" +
-                        "\"steps\" : [ ]\n" +
+                        "\"defect\" : true\n" +
                         "}")));
     }
 }

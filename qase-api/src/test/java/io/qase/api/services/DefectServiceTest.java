@@ -1,9 +1,10 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseApi;
-import io.qase.api.enums.DefectStatus;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.DefectsApi;
+import io.qase.client.model.Filters2;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,13 +13,18 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class DefectServiceTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+    static final ApiClient qaseApi = new ApiClient();
+    static final DefectsApi defectsApi = new DefectsApi(qaseApi);
+    static int port;
 
     @BeforeAll
     static void setUp() {
-        configureFor(8088);
         wireMockServer.start();
+        port = wireMockServer.port();
+        configureFor(port);
+        qaseApi.setBasePath("http://localhost:" + port + "/v1");
+        qaseApi.setApiKey("secret-token");
     }
 
     @AfterAll
@@ -29,7 +35,7 @@ class DefectServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.defects().getAll("PROJ");
+            defectsApi.getDefects("PROJ", 100, 0, null);
         } catch (QaseException e) {
             //ignore
         }
@@ -41,31 +47,16 @@ class DefectServiceTest {
     }
 
     @Test
-    void getAllWithParams() {
-        try {
-            qaseApi.defects().getAll("PROJ", 88, 12, qaseApi.defects().filter());
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("limit", equalTo("88"))
-                .withQueryParam("offset", equalTo("12")));
-    }
-
-    @Test
     void getAllWithParamsAndFilter() {
         try {
-            DefectService.Filter filter = qaseApi.defects().filter().status(DefectStatus.open);
-            qaseApi.defects().getAll("PROJ", 88, 12, filter);
+            defectsApi.getDefects("PROJ", 88, 12, new Filters2().status(Filters2.StatusEnum.OPEN));
         } catch (QaseException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("filters[status]", equalTo("open"))
+                .withQueryParam("filters%5Bstatus%5D", equalTo("open"))
                 .withQueryParam("limit", equalTo("88"))
                 .withQueryParam("offset", equalTo("12")));
     }
@@ -73,7 +64,7 @@ class DefectServiceTest {
     @Test
     void get() {
         try {
-            qaseApi.defects().get("PROJ", 99);
+            defectsApi.getDefect("PROJ", 99);
         } catch (QaseException e) {
             //ignore
         }
@@ -85,19 +76,19 @@ class DefectServiceTest {
     @Test
     void resolve() {
         try {
-            qaseApi.defects().resolve("PROJ", 88);
+            defectsApi.resolveDefect("PROJ", 88);
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/defect/PROJ/resolve/88"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8")));
     }
 
     @Test
     void delete() {
         try {
-            qaseApi.defects().delete("PROJ", 77);
+            defectsApi.deleteDefect("PROJ", 77);
         } catch (QaseException e) {
             //ignore
         }

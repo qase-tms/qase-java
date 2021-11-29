@@ -1,24 +1,34 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseApi;
-import io.qase.api.enums.RunStatus;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.RunsApi;
+import io.qase.client.model.Filters5;
+import io.qase.client.model.RunCreate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class TestRunServiceTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+    static final ApiClient qaseApi = new ApiClient();
+    static final RunsApi runsApi = new RunsApi(qaseApi);
+    static int port;
 
     @BeforeAll
     static void setUp() {
-        configureFor(8088);
         wireMockServer.start();
+        port = wireMockServer.port();
+        configureFor(port);
+        qaseApi.setBasePath("http://localhost:" + port + "/v1");
+        qaseApi.setApiKey("secret-token");
     }
 
     @AfterAll
@@ -29,7 +39,7 @@ class TestRunServiceTest {
     @Test
     void getAllWithoutInclude() {
         try {
-            qaseApi.testRuns().getAll("PRJ", false);
+            runsApi.getRuns("PRJ", 100, 0, Collections.emptyList(), null);
         } catch (QaseException e) {
             //ignore
         }
@@ -44,7 +54,7 @@ class TestRunServiceTest {
     @Test
     void getAllWithInclude() {
         try {
-            qaseApi.testRuns().getAll("PRJ", true);
+            runsApi.getRuns("PRJ", 100, 0, Collections.singletonList("cases"), null);
         } catch (QaseException e) {
             //ignore
         }
@@ -59,9 +69,10 @@ class TestRunServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            TestRunService.Filter filter = qaseApi.testRuns().filter()
-                    .status(RunStatus.complete);
-            qaseApi.testRuns().getAll("PRJ", 33, 3, filter, true);
+            runsApi.getRuns("PRJ", 33, 3, Collections.singletonList("cases"),
+                    new Filters5()
+                            .status("complete"));
+
         } catch (QaseException e) {
             //ignore
         }
@@ -71,13 +82,13 @@ class TestRunServiceTest {
                 .withQueryParam("limit", equalTo("33"))
                 .withQueryParam("offset", equalTo("3"))
                 .withQueryParam("include", equalTo("cases"))
-                .withQueryParam("filters[status]", equalTo("complete")));
+                .withQueryParam("filters%5Bstatus%5D", equalTo("complete")));
     }
 
     @Test
-    void getWithoutInclude() {
+    void get() {
         try {
-            qaseApi.testRuns().get("PRJ", 1, false);
+            runsApi.getRun("PRJ", 1);
         } catch (QaseException e) {
             //ignore
         }
@@ -88,28 +99,18 @@ class TestRunServiceTest {
     }
 
     @Test
-    void getWithInclude() {
-        try {
-            qaseApi.testRuns().get("PRJ", 1, true);
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ/1"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("include", equalTo("cases")));
-    }
-
-    @Test
     void create() {
         try {
-            qaseApi.testRuns().create("PRJ", "New test run", 1, 2, 3, 55);
+            runsApi.createRun("PRJ",
+                    new RunCreate()
+                            .title("New test run")
+                            .cases(Arrays.asList(1L, 2L, 3L, 55L)));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"New test run\",\n  " +
                         "\"cases\": [\n    1,\n    2,\n    3,\n    55\n  ]\n}")));
@@ -118,13 +119,18 @@ class TestRunServiceTest {
     @Test
     void createWithParams() {
         try {
-            qaseApi.testRuns().create("PRJ", "New test run", 1, "Awesome run by API", 1, 2, 3, 55);
+            runsApi.createRun("PRJ",
+                    new RunCreate()
+                            .title("New test run")
+                            .environmentId(1L)
+                            .description("Awesome run by API")
+                            .cases(Arrays.asList(1L, 2L, 3L, 55L)));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"New test run\",\n  " +
                         "\"description\": \"Awesome run by API\",\n  " +
@@ -135,7 +141,7 @@ class TestRunServiceTest {
     @Test
     void delete() {
         try {
-            qaseApi.testRuns().delete("PRJ", 22);
+            runsApi.deleteRun("PRJ", 22);
         } catch (QaseException e) {
             //ignore
         }

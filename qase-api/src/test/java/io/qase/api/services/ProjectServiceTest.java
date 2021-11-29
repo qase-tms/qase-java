@@ -1,9 +1,10 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseApi;
-import io.qase.api.enums.Access;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.ProjectsApi;
+import io.qase.client.model.ProjectCreate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,13 +13,18 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class ProjectServiceTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+    static final ApiClient qaseApi = new ApiClient();
+    static final ProjectsApi projectsApi = new ProjectsApi(qaseApi);
+    static int port;
 
     @BeforeAll
     static void setUp() {
-        configureFor(8088);
         wireMockServer.start();
+        port = wireMockServer.port();
+        configureFor(port);
+        qaseApi.setBasePath("http://localhost:" + port + "/v1");
+        qaseApi.setApiKey("secret-token");
     }
 
     @AfterAll
@@ -29,7 +35,7 @@ class ProjectServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.projects().getAll();
+            projectsApi.getProjects(100, 0);
         } catch (QaseException e) {
             //ignore
         }
@@ -41,23 +47,9 @@ class ProjectServiceTest {
     }
 
     @Test
-    void getAllWithParams() {
-        try {
-            qaseApi.projects().getAll(18, 2);
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(getRequestedFor(urlPathEqualTo("/v1/project"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("limit", equalTo("18"))
-                .withQueryParam("offset", equalTo("2")));
-    }
-
-    @Test
     void get() {
         try {
-            qaseApi.projects().get("PROJ");
+            projectsApi.getProject("PROJ");
         } catch (QaseException e) {
             //ignore
         }
@@ -69,29 +61,38 @@ class ProjectServiceTest {
     @Test
     void create() {
         try {
-            qaseApi.projects().create("PROJ", "Project title");
+            projectsApi.createProject(
+                    new ProjectCreate()
+                            .code("PROJ")
+                            .title("Project title")
+                            .access(ProjectCreate.AccessEnum.NONE));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/project"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-        .withRequestBody(
-                equalToJson("{\n  \"code\": \"PROJ\",\n  " +
-                        "\"title\": \"Project title\",\n  " +
-                        "\"access\": \"none\"\n}")));
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(
+                        equalToJson("{\n  \"code\": \"PROJ\",\n  " +
+                                "\"title\": \"Project title\",\n  " +
+                                "\"access\": \"none\"\n}")));
     }
 
     @Test
     void testCreateWithDescription() {
         try {
-            qaseApi.projects().create("PROJ", "Project title", "Awesome project");
+            projectsApi.createProject(
+                    new ProjectCreate()
+                            .code("PROJ")
+                            .title("Project title")
+                            .description("Awesome project")
+                            .access(ProjectCreate.AccessEnum.NONE));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/project"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(
                         equalToJson("{\n  \"code\": \"PROJ\",\n  " +
                                 "\"title\": \"Project title\",\n  " +
@@ -102,13 +103,19 @@ class ProjectServiceTest {
     @Test
     void createWithParams() {
         try {
-            qaseApi.projects().create("PROJ", "Project title", "Awesome project", Access.group, "groupHash");
+            projectsApi.createProject(
+                    new ProjectCreate()
+                            .code("PROJ")
+                            .title("Project title")
+                            .description("Awesome project")
+                            .access(ProjectCreate.AccessEnum.GROUP)
+                            .group("groupHash"));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/project"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(
                         equalToJson("{\n  \"code\": \"PROJ\",\n  " +
                                 "\"title\": \"Project title\",\n  " +

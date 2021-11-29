@@ -1,8 +1,11 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseApi;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.SuitesApi;
+import io.qase.client.model.Filters7;
+import io.qase.client.model.SuiteCreate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,13 +14,18 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class SuiteServiceTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+    static final ApiClient qaseApi = new ApiClient();
+    static final SuitesApi suitesApi = new SuitesApi(qaseApi);
+    static int port;
 
     @BeforeAll
     static void setUp() {
-        configureFor(8088);
         wireMockServer.start();
+        port = wireMockServer.port();
+        configureFor(port);
+        qaseApi.setBasePath("http://localhost:" + port + "/v1");
+        qaseApi.setApiKey("secret-token");
     }
 
     @AfterAll
@@ -28,7 +36,7 @@ class SuiteServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.suites().getAll("PRJ");
+            suitesApi.getSuites("PRJ", 100, 0, null);
         } catch (QaseException e) {
             //ignore
         }
@@ -42,8 +50,7 @@ class SuiteServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            SuiteService.Filter filter = qaseApi.suites().filter().search("title");
-            qaseApi.suites().getAll("PRJ", 55, 2, filter);
+            suitesApi.getSuites("PRJ", 55, 2, new Filters7().search("title"));
         } catch (QaseException e) {
             //ignore
         }
@@ -52,13 +59,13 @@ class SuiteServiceTest {
                 .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("55"))
                 .withQueryParam("offset", equalTo("2"))
-                .withQueryParam("filters[search]", equalTo("title")));
+                .withQueryParam("filters%5Bsearch%5D", equalTo("title")));
     }
 
     @Test
     void get() {
         try {
-            qaseApi.suites().get("PRJ", 1);
+            suitesApi.getSuite("PRJ", 1);
         } catch (QaseException e) {
             //ignore
         }
@@ -70,13 +77,13 @@ class SuiteServiceTest {
     @Test
     void create() {
         try {
-            qaseApi.suites().create("PRJ", "Test suite");
+            suitesApi.createSuite("PRJ", new SuiteCreate().title("Test suite"));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"Test suite\"\n}")));
     }
@@ -84,13 +91,14 @@ class SuiteServiceTest {
     @Test
     void createWithDescription() {
         try {
-            qaseApi.suites().create("PRJ", "Test suite", "Suite description");
+            suitesApi.createSuite("PRJ",
+                    new SuiteCreate().title("Test suite").description("Suite description"));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"Test suite\",\n  " +
                         "\"description\": \"Suite description\"\n}")));
@@ -99,13 +107,17 @@ class SuiteServiceTest {
     @Test
     void createWithPreconditions() {
         try {
-            qaseApi.suites().create("PRJ", "Test suite", "Suite description", "Suite preconditions");
+            suitesApi.createSuite("PRJ",
+                    new SuiteCreate()
+                            .title("Test suite")
+                            .description("Suite description")
+                            .preconditions("Suite preconditions"));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"Test suite\",\n  " +
                         "\"description\": \"Suite description\",\n  " +
@@ -115,13 +127,18 @@ class SuiteServiceTest {
     @Test
     void createWithParent() {
         try {
-            qaseApi.suites().create("PRJ", "Test suite", "Suite description", "Suite preconditions", 12);
+            suitesApi.createSuite("PRJ",
+                    new SuiteCreate()
+                            .title("Test suite")
+                            .description("Suite description")
+                            .preconditions("Suite preconditions")
+                            .parentId(12L));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"parent_id\": 12,\n  " +
                         "\"title\": \"Test suite\",\n  " +
@@ -132,13 +149,13 @@ class SuiteServiceTest {
     @Test
     void update() {
         try {
-            qaseApi.suites().update("PRJ", 1, "Test suite");
+            suitesApi.updateSuite("PRJ", 1, new SuiteCreate().title("Test suite"));
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"Test suite\"\n}")));
     }
@@ -146,13 +163,16 @@ class SuiteServiceTest {
     @Test
     void updateWithDescription() {
         try {
-            qaseApi.suites().update("PRJ", 1, "Test suite", "Suite description");
+            suitesApi.updateSuite("PRJ", 1,
+                    new SuiteCreate()
+                            .title("Test suite")
+                            .description("Suite description"));
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"Test suite\",\n  " +
                         "\"description\": \"Suite description\"\n}")));
@@ -161,13 +181,17 @@ class SuiteServiceTest {
     @Test
     void updateWithPreconditions() {
         try {
-            qaseApi.suites().update("PRJ", 1, "Test suite", "Suite description", "Suite preconditions");
+            suitesApi.updateSuite("PRJ", 1,
+                    new SuiteCreate()
+                            .title("Test suite")
+                            .description("Suite description")
+                            .preconditions("Suite preconditions"));
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"Test suite\",\n  " +
                         "\"description\": \"Suite description\",\n  " +
@@ -177,13 +201,18 @@ class SuiteServiceTest {
     @Test
     void updateWithParent() {
         try {
-            qaseApi.suites().update("PRJ", 1, "Test suite", "Suite description", "Suite preconditions", 2);
+            suitesApi.updateSuite("PRJ", 1,
+                    new SuiteCreate()
+                            .title("Test suite")
+                            .description("Suite description")
+                            .preconditions("Suite preconditions")
+                            .parentId(2L));
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"parent_id\": 2,\n  " +
                         "\"title\": \"Test suite\",\n  " +
@@ -194,7 +223,7 @@ class SuiteServiceTest {
     @Test
     void delete() {
         try {
-            qaseApi.suites().delete("PRJ", 1);
+            suitesApi.deleteSuite("PRJ", 1, null);
         } catch (QaseException e) {
             //ignore
         }

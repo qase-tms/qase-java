@@ -14,10 +14,14 @@ import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+import static io.qase.api.utils.IntegrationUtils.BULK_KEY;
 
 public class QaseListenerTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
@@ -39,76 +43,151 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void passedTest() {
+    public void passedBulkTest() {
         runTest(Passed.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "  \"case_id\" : 123,\n" +
-                        "  \"status\" : \"passed\",\n" +
-                        "  \"time\" : 0,\n" +
-                        "  \"defect\" : false,\n" +
-                        "  \"steps\" : [ ]\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false\n" +
+                        "  } ]\n" +
                         "}")));
     }
 
     @Test
-    public void passedWithTimeTest() {
+    public void passedWithTimeBulkTest() {
         runTest(PassedWithTime.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void failedBulkTest() {
+        runTest(Failed.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 321,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\"," +
+                        "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void failedWithTimeBulkTest() {
+        runTest(FailedWithTime.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 321,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\"," +
+                        "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void allBulkTests() {
+        runTest(Arrays.asList(Passed.class, PassedWithTime.class, Failed.class, FailedWithTime.class));
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 321,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 321,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void passedTest() {
+        System.setProperty(BULK_KEY, "false");
+        runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 123,\n" +
                         "  \"status\" : \"passed\",\n" +
-                        "  \"time\" : 3,\n" +
-                        "  \"defect\" : false,\n" +
-                        "  \"steps\" : [ ]\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : false\n" +
                         "}")));
     }
 
     @Test
     public void failedTest() {
+        System.setProperty(BULK_KEY, "false");
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "  \"case_id\" : 321,\n" +
-                        "  \"status\" : \"failed\",\n" +
-                        "  \"time\" : 0,\n" +
-                        "  \"comment\" : \"java.lang.AssertionError: Error message\",\n" +
-                        "  \"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "  \"defect\" : true,\n" +
-                        "  \"steps\" : [ ]\n" +
-                        "}")));
-    }
-
-    @Test
-    public void failedWithTimeTest() {
-        runTest(FailedWithTime.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-                .withRequestBody(equalToJson("{\n" +
-                        "  \"case_id\" : 321,\n" +
-                        "  \"status\" : \"failed\",\n" +
-                        "  \"time\" : 2,\n" +
-                        "  \"comment\" : \"java.lang.AssertionError: Error message\",\n" +
-                        "  \"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "  \"defect\" : true,\n" +
-                        "  \"steps\" : [ ]\n" +
+                        "    \"case_id\" : 321,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\"," +
+                        "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
                         "}")));
     }
 
     private void runTest(Class<?> className) {
+        runTest(Collections.singletonList(className));
+    }
+
+    private void runTest(List<Class<?>> classesName) {
         TestNG testNG = new TestNG(false);
         XmlSuite suite = new XmlSuite();
         XmlTest test = new XmlTest(suite);
-        XmlClass aClass = new XmlClass();
-        aClass.setClass(className);
-        test.setXmlClasses(Collections.singletonList(aClass));
+        test.setParallel(XmlSuite.ParallelMode.METHODS);
+        List<XmlClass> xmlClasses = classesName.stream().map(XmlClass::new).collect(Collectors.toList());
+        test.setXmlClasses(xmlClasses);
         suite.setTests(Collections.singletonList(test));
         testNG.setXmlSuites(Collections.singletonList(suite));
         testNG.run();

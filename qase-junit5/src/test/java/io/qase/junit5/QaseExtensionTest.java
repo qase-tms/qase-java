@@ -41,13 +41,12 @@ public class QaseExtensionTest {
         runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 123,\n" +
                         "  \"status\" : \"passed\",\n" +
                         "  \"time\" : 0,\n" +
-                        "  \"defect\" : false,\n" +
-                        "  \"steps\" : [ ]\n" +
+                        "  \"defect\" : false\n" +
                         "}")));
     }
 
@@ -57,13 +56,12 @@ public class QaseExtensionTest {
         runTest(PassedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 123,\n" +
                         "  \"status\" : \"passed\",\n" +
                         "  \"time\" : 3,\n" +
-                        "  \"defect\" : false,\n" +
-                        "  \"steps\" : [ ]\n" +
+                        "  \"defect\" : false\n" +
                         "}")));
     }
 
@@ -72,15 +70,14 @@ public class QaseExtensionTest {
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 321,\n" +
                         "  \"status\" : \"failed\",\n" +
                         "  \"time\" : 0,\n" +
                         "  \"comment\" : \"java.lang.AssertionError: Error message\",\n" +
                         "  \"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "  \"defect\" : true,\n" +
-                        "  \"steps\" : [ ]\n" +
+                        "  \"defect\" : true\n" +
                         "}")));
     }
 
@@ -89,15 +86,14 @@ public class QaseExtensionTest {
         runTest(FailedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 321,\n" +
                         "  \"status\" : \"failed\",\n" +
                         "  \"time\" : 2,\n" +
                         "  \"comment\" : \"java.lang.AssertionError: Error message\",\n" +
                         "  \"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "  \"defect\" : true,\n" +
-                        "  \"steps\" : [ ]\n" +
+                        "  \"defect\" : true\n" +
                         "}")));
     }
 

@@ -1,23 +1,33 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseApi;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.PlansApi;
+import io.qase.client.model.PlanCreate;
+import io.qase.client.model.PlanUpdate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class TestPlanServiceTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+    static final ApiClient qaseApi = new ApiClient();
+    static final PlansApi plansApi = new PlansApi(qaseApi);
+    static int port;
 
     @BeforeAll
     static void setUp() {
-        configureFor(8088);
         wireMockServer.start();
+        port = wireMockServer.port();
+        configureFor(port);
+        qaseApi.setBasePath("http://localhost:" + port + "/v1");
+        qaseApi.setApiKey("secret-token");
     }
 
     @AfterAll
@@ -28,7 +38,7 @@ class TestPlanServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.testPlans().getAll("PRJ");
+            plansApi.getPlans("PRJ", 100, 0);
         } catch (QaseException e) {
             //ignore
         }
@@ -40,25 +50,9 @@ class TestPlanServiceTest {
     }
 
     @Test
-    void getAllWithParamsAndFilter() {
-        try {
-            TestPlanService.Filter filter = qaseApi.testPlans().filter().search("title");
-            qaseApi.testPlans().getAll("PRJ", 55, 5, filter);
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(getRequestedFor(urlPathEqualTo("/v1/plan/PRJ"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("limit", equalTo("55"))
-                .withQueryParam("offset", equalTo("5"))
-                .withQueryParam("filters[search]", equalTo("title")));
-    }
-
-    @Test
     void get() {
         try {
-            qaseApi.testPlans().get("PRJ", 2);
+            plansApi.getPlan("PRJ", 2);
         } catch (QaseException e) {
             //ignore
         }
@@ -70,13 +64,16 @@ class TestPlanServiceTest {
     @Test
     void create() {
         try {
-            qaseApi.testPlans().create("PRJ", "New plan", 1, 2, 3, 55);
+            plansApi.createPlan("PRJ",
+                    new PlanCreate()
+                            .title("New plan")
+                            .cases(Arrays.asList(1L, 2L, 3L, 55L)));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/plan/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"New plan\",\n  " +
                         "\"cases\": [\n    1,\n    2,\n    3,\n    55\n  ]\n}")));
@@ -85,13 +82,17 @@ class TestPlanServiceTest {
     @Test
     void createWithDescription() {
         try {
-            qaseApi.testPlans().create("PRJ", "New plan", "Awesome plan", 1, 2, 3, 55);
+            plansApi.createPlan("PRJ",
+                    new PlanCreate()
+                            .title("New plan")
+                            .description("Awesome plan")
+                            .cases(Arrays.asList(1L, 2L, 3L, 55L)));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/plan/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"New plan\",\n  " +
                         "\"description\": \"Awesome plan\",\n  " +
@@ -101,13 +102,17 @@ class TestPlanServiceTest {
     @Test
     void update() {
         try {
-            qaseApi.testPlans().update("PRJ", 2, "Updated plan", "Updated description", 55, 3, 2, 1);
+            plansApi.updatePlan("PRJ", 2,
+                    new PlanUpdate()
+                            .title("Updated plan")
+                            .description("Updated description")
+                            .cases(Arrays.asList(55L, 3L, 2L, 1L)));
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/plan/PRJ/2"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"Updated plan\",\n  " +
                         "\"description\": \"Updated description\",\n  " +
@@ -117,7 +122,7 @@ class TestPlanServiceTest {
     @Test
     void delete() {
         try {
-            qaseApi.testPlans().delete("PRJ", 2);
+            plansApi.deletePlan("PRJ", 2);
         } catch (QaseException e) {
             //ignore
         }
