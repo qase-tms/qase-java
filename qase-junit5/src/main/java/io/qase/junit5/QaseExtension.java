@@ -1,10 +1,10 @@
 package io.qase.junit5;
 
-import io.qameta.allure.TmsLink;
-import io.qase.api.QaseApi;
-import io.qase.api.annotation.CaseId;
-import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.ResultsApi;
+import io.qase.client.model.ResultCreate;
+import io.qase.client.model.ResultCreate.StatusEnum;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
@@ -20,8 +20,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static io.qase.api.enums.RunResultStatus.failed;
-import static io.qase.api.enums.RunResultStatus.passed;
 import static io.qase.api.utils.IntegrationUtils.*;
 import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
 
@@ -30,7 +28,8 @@ public class QaseExtension implements TestExecutionListener {
     private boolean isEnabled;
     private String projectCode;
     private String runId;
-    private QaseApi qaseApi;
+    private final ApiClient apiClient = new ApiClient();
+    private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final Map<TestIdentifier, Long> startTime = new ConcurrentHashMap<>();
 
     public QaseExtension() {
@@ -46,12 +45,11 @@ public class QaseExtension implements TestExecutionListener {
             return;
         }
 
-        String qaseUrl = System.getProperty(QASE_URL_KEY);
+        String qaseUrl = System.getProperty(QASE_URL_KEY, System.getenv(API_TOKEN_KEY));
         if (qaseUrl != null) {
-            qaseApi = new QaseApi(apiToken, qaseUrl);
-        } else {
-            qaseApi = new QaseApi(apiToken);
+            apiClient.setBasePath(qaseUrl);
         }
+        apiClient.setApiKey(apiToken);
 
         projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
         if (projectCode == null) {
@@ -87,8 +85,6 @@ public class QaseExtension implements TestExecutionListener {
                 try {
                     Method testMethod = getMethod((MethodSource) testSource);
                     sendResults(testExecutionResult, duration, testMethod);
-                } catch (QaseException e) {
-                    logger.error(e.getMessage());
                 } catch (NumberFormatException e) {
                     logger.error("String could not be parsed as Long", e);
                 }
@@ -96,13 +92,12 @@ public class QaseExtension implements TestExecutionListener {
         }
     }
 
-    private void sendResults(TestExecutionResult testExecutionResult, Duration duration, Method testMethod) {
+    private void sendResults(TestExecutionResult testExecutionResult, Duration timeSpent, Method testMethod) {
         if (testMethod != null) {
-            CaseId caseId = testMethod.getAnnotation(CaseId.class);
-            TmsLink tmsLink = testMethod.getAnnotation(TmsLink.class);
-            if (caseId != null || tmsLink != null) {
-                RunResultStatus runResultStatus =
-                        testExecutionResult.getStatus() == SUCCESSFUL ? passed : failed;
+            Long caseId = getCaseId(testMethod);
+            if (caseId != null) {
+                StatusEnum status =
+                        testExecutionResult.getStatus() == SUCCESSFUL ? StatusEnum.PASSED : StatusEnum.FAILED;
                 String comment = testExecutionResult.getThrowable()
                         .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
                 Boolean isDefect = testExecutionResult.getThrowable()
@@ -111,9 +106,15 @@ public class QaseExtension implements TestExecutionListener {
                 String stacktrace = testExecutionResult.getThrowable()
                         .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
                 try {
-                    qaseApi.testRunResults().create(projectCode, Long.parseLong(runId),
-                            caseId != null ? caseId.value() : Long.parseLong(tmsLink.value()),
-                            runResultStatus, duration, null, comment, stacktrace, isDefect);
+                    resultsApi.createResult(projectCode,
+                            runId,
+                            new ResultCreate()
+                                    .caseId(caseId)
+                                    .status(status)
+                                    .time(timeSpent.getSeconds())
+                                    .comment(comment)
+                                    .stacktrace(stacktrace)
+                                    .defect(isDefect));
                 } catch (QaseException e) {
                     logger.error(e.getMessage());
                 } catch (NumberFormatException e) {

@@ -1,11 +1,10 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseApi;
-import io.qase.api.enums.RunResultStatus;
-import io.qase.api.enums.StepStatus;
 import io.qase.api.exceptions.QaseException;
-import io.qase.api.models.v1.testrunresults.Step;
+import io.qase.client.ApiClient;
+import io.qase.client.api.ResultsApi;
+import io.qase.client.model.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,18 +12,25 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class TestRunResultServiceTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+    static final ApiClient qaseApi = new ApiClient();
+    static final ResultsApi resultsApi = new ResultsApi(qaseApi);
+    static int port;
 
     @BeforeAll
     static void setUp() {
-        configureFor(8088);
         wireMockServer.start();
+        port = wireMockServer.port();
+        configureFor(port);
+        qaseApi.setBasePath("http://localhost:" + port + "/v1");
+        qaseApi.setApiKey("secret-token");
     }
 
     @AfterAll
@@ -35,7 +41,7 @@ class TestRunResultServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.testRunResults().getAll("PRJ");
+            resultsApi.getResults("PRJ", 100, 0, null);
         } catch (QaseException e) {
             //ignore
         }
@@ -48,38 +54,41 @@ class TestRunResultServiceTest {
 
     @Test
     void getAllWithParamsAndFilter() {
+        String timeFormat = "yyyy-MM-dd HH:mm:ss";
+
         LocalDateTime from = LocalDateTime.now().minusDays(1);
         LocalDateTime to = LocalDateTime.now();
+        String fromString = DateTimeFormatter.ofPattern(timeFormat).format(from);
+        String toString = DateTimeFormatter.ofPattern(timeFormat).format(to);
         try {
-            TestRunResultService.Filter filter = qaseApi.testRunResults().filter()
-                    .caseId(1)
-                    .member(2)
-                    .run(3)
-                    .status(RunResultStatus.in_progress)
-                    .fromEndTime(from)
-                    .toEndTime(to);
-            qaseApi.testRunResults().getAll("PRJ", 33, 3, filter);
+            resultsApi.getResults("PRJ", 33, 3,
+                    new Filters4()
+                            .caseId("1")
+                            .member("2")
+                            .run("3")
+                            .status("in_progress")
+                            .fromEndTime(fromString)
+                            .toEndTime(toString));
         } catch (QaseException e) {
             //ignore
         }
-        String timeFormat = "yyyy-MM-dd HH:mm:ss";
         verify(getRequestedFor(urlPathEqualTo("/v1/result/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("33"))
                 .withQueryParam("offset", equalTo("3"))
-                .withQueryParam("filters[status]", equalTo("in_progress"))
-                .withQueryParam("filters[member]", equalTo("2"))
-                .withQueryParam("filters[run]", equalTo("3"))
-                .withQueryParam("filters[case_id]", equalTo("1"))
-                .withQueryParam("filters[from_end_time]", equalTo(DateTimeFormatter.ofPattern(timeFormat).format(from)))
-                .withQueryParam("filters[to_end_time]", equalTo(DateTimeFormatter.ofPattern(timeFormat).format(to))));
+                .withQueryParam("filters%5Bstatus%5D", equalTo("in_progress"))
+                .withQueryParam("filters%5Bmember%5D", equalTo("2"))
+                .withQueryParam("filters%5Brun%5D", equalTo("3"))
+                .withQueryParam("filters%5Bcase_id%5D", equalTo("1"))
+                .withQueryParam("filters%5Bfrom_end_time%5D", equalTo(fromString))
+                .withQueryParam("filters%5Bto_end_time%5D", equalTo(toString)));
     }
 
     @Test
     void get() {
         try {
-            qaseApi.testRunResults().get("PRJ", "6efce6e4f9de887a2ee863e8197cb74ab626a273");
+            resultsApi.getResult("PRJ", "6efce6e4f9de887a2ee863e8197cb74ab626a273");
         } catch (QaseException e) {
             //ignore
         }
@@ -91,40 +100,50 @@ class TestRunResultServiceTest {
     @Test
     void create() {
         try {
-            qaseApi.testRunResults().create("PRJ", 2, 1, RunResultStatus.passed);
+            resultsApi.createResult("PRJ", "2",
+                    new ResultCreate()
+                            .caseId(1L)
+                            .status(ResultCreate.StatusEnum.PASSED));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/2"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"case_id\": 1,\n  " +
-                        "\"status\": \"passed\",\n  " +
-                        "\"steps\": []\n}")));
+                        "\"status\": \"passed\"\n  }")));
     }
 
     @Test
     void createWithParams() {
         try {
-            qaseApi.testRunResults().create("PRJ", 2, 1, RunResultStatus.passed,
-                    Duration.ofMinutes(2),
-                    3,
-                    "Failed via API",
-                    true,
-                    new Step(1, StepStatus.passed),
-                    new Step(2, StepStatus.failed));
+            resultsApi.createResult("PRJ", "2",
+                    new ResultCreate()
+                            .caseId(1L)
+                            .status(ResultCreate.StatusEnum.PASSED)
+                            .comment("Failed via API")
+                            .defect(true)
+                            .time(120L)
+                            .steps(
+                                    Arrays.asList(
+                                            new ResultCreateSteps()
+                                                    .position(1)
+                                                    .status(ResultCreateSteps.StatusEnum.PASSED),
+                                            new ResultCreateSteps()
+                                                    .position(2)
+                                                    .status(ResultCreateSteps.StatusEnum.FAILED))
+                            ));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/2"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"case_id\": 1,\n  " +
                         "\"comment\": \"Failed via API\",\n  " +
                         "\"defect\": true,\n  " +
-                        "\"member_id\": 3,\n  " +
                         "\"status\": \"passed\",\n  " +
                         "\"steps\": [\n    " +
                         "{\n      \"position\": 1,\n      \"status\": \"passed\"\n    },\n    " +
@@ -135,25 +154,33 @@ class TestRunResultServiceTest {
     @Test
     void createWithStacktraceParams() {
         try {
-            qaseApi.testRunResults().create("PRJ", 2, 1, RunResultStatus.passed,
-                    Duration.ofMinutes(2),
-                    3,
-                    "Failed via API",
-                    "Exception Stacktrace",
-                    true,
-                    new Step(1, StepStatus.passed),
-                    new Step(2, StepStatus.failed));
+            resultsApi.createResult("PRJ", "2",
+                    new ResultCreate()
+                            .caseId(1L)
+                            .status(ResultCreate.StatusEnum.PASSED)
+                            .comment("Failed via API")
+                            .stacktrace("Exception Stacktrace")
+                            .defect(true)
+                            .time(120L)
+                            .steps(
+                                    Arrays.asList(
+                                            new ResultCreateSteps()
+                                                    .position(1)
+                                                    .status(ResultCreateSteps.StatusEnum.PASSED),
+                                            new ResultCreateSteps()
+                                                    .position(2)
+                                                    .status(ResultCreateSteps.StatusEnum.FAILED))
+                            ));
         } catch (QaseException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/2"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "\"case_id\" : 1,\n" +
                         "\"status\" : \"passed\",\n" +
                         "\"time\" : 120,\n" +
-                        "\"member_id\" : 3,\n" +
                         "\"comment\" : \"Failed via API\",\n" +
                         "\"stacktrace\" : \"Exception Stacktrace\",\n" +
                         "\"defect\" : true,\n" +
@@ -170,66 +197,70 @@ class TestRunResultServiceTest {
     @Test
     void update() {
         try {
-            qaseApi.testRunResults().update("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132",
-                    RunResultStatus.failed);
+            resultsApi.updateResult("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132",
+                    new ResultUpdate().status(ResultUpdate.StatusEnum.FAILED));
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/result/PRJ/1/2898ba7f3b4d857cec8bee4a852cdc85f8b33132"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
-                        "\"status\": \"failed\",\n  " +
-                        "\"steps\": []\n}")));
+                        "\"status\": \"failed\"\n  " +
+                        "\n}")));
     }
 
     @Test
     void updateWithTimeSpent() {
         try {
-            qaseApi.testRunResults().update("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132",
-                    RunResultStatus.failed, Duration.ofMinutes(3));
+            resultsApi.updateResult("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132",
+                    new ResultUpdate()
+                            .status(ResultUpdate.StatusEnum.FAILED)
+                            .timeMs(Duration.ofMinutes(3).toMillis()));
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/result/PRJ/1/2898ba7f3b4d857cec8bee4a852cdc85f8b33132"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"status\": \"failed\",\n  " +
-                        "\"steps\": [],\n  " +
-                        "\"time\": 180\n}")));
+                        "\"time_ms\": 180000\n}")));
     }
 
     @Test
     void updateWithParams() {
         try {
-            qaseApi.testRunResults().update("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132",
-                    RunResultStatus.failed,
-                    Duration.ofSeconds(10),
-                    3,
-                    "Failed via API",
-                    false,
-                    new Step(2, StepStatus.passed));
+            resultsApi.updateResult("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132",
+                    new ResultUpdate()
+                            .status(ResultUpdate.StatusEnum.FAILED)
+                            .timeMs(Duration.ofSeconds(10).toMillis())
+                            .comment("Failed via API")
+                            .defect(false)
+                            .steps(Collections.singletonList(
+                                    new ResultUpdateSteps().position(2).status(ResultUpdateSteps.StatusEnum.PASSED))));
         } catch (QaseException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/result/PRJ/1/2898ba7f3b4d857cec8bee4a852cdc85f8b33132"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-                .withRequestBody(equalToJson("{\n  " +
-                        "\"comment\": \"Failed via API\",\n  " +
-                        "\"defect\": false,\n  " +
-                        "\"member_id\": 3,\n  " +
-                        "\"status\": \"failed\",\n  " +
-                        "\"steps\": [\n   " +
-                        " {\n      \"position\": 2,\n      \"status\": \"passed\"\n    }\n  ],\n  " +
-                        "\"time\": 10\n}")));
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : 10000,\n" +
+                        "  \"defect\" : false,\n" +
+                        "  \"comment\" : \"Failed via API\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"passed\"\n" +
+                        "  } ]\n" +
+                        "}")));
     }
 
     @Test
     void delete() {
         try {
-            qaseApi.testRunResults().delete("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132");
+            resultsApi.deleteResult("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132");
         } catch (QaseException e) {
             //ignore
         }

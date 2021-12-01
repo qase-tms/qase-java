@@ -7,10 +7,10 @@
     <groupId>io.qase</groupId>
     <artifactId>qase-java</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.3</version>
+    <version>2.0.0</version>
     <modules>
-        <module>qase-testng</module>
         <module>qase-api</module>
+        <module>qase-testng</module>
         <module>qase-junit4</module>
         <module>qase-junit5</module>
         <module>qase-cucumber3-jvm</module>
@@ -24,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <junit5.version>5.6.2</junit5.version>
+        <junit5.version>5.6.3</junit5.version>
         <lombok.version>1.18.6</lombok.version>
         <wiremock-jre8.version>2.26.3</wiremock-jre8.version>
         <apiguardian-api.version>1.1.0</apiguardian-api.version>
@@ -34,10 +34,11 @@
         <unirest-java.version>3.4.00</unirest-java.version>
         <junit-platform-engine.version>1.6.2</junit-platform-engine.version>
         <logback.version>1.2.3</logback.version>
-        <slf4j-api.version>1.7.30</slf4j-api.version>
+        <slf4j-api.version>1.7.32</slf4j-api.version>
         <cucumber3-java.version>3.0.2</cucumber3-java.version>
         <cucumber4-java.version>4.8.1</cucumber4-java.version>
         <cucumber5-java.version>5.7.0</cucumber5-java.version>
+        <swagger-core-version>2.0.0</swagger-core-version>
     </properties>
 
     <name>Qase TMS Java Libraries</name>
@@ -146,14 +147,45 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
-                <configuration>
-                    <forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory"/>
-                </configuration>
             </plugin>
         </plugins>
     </build>
-
     <profiles>
+        <profile>
+            <id>codegen</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>5.3.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <inputSpec>https://github.com/qase-tms/specs/raw/master/api.yaml</inputSpec>
+                                    <generatorName>java</generatorName>
+                                    <modelPackage>io.qase.client.model</modelPackage>
+                                    <apiPackage>io.qase.client.api</apiPackage>
+                                    <library>okhttp-gson</library>
+                                    <httpUserAgent>Qase API Client</httpUserAgent>
+                                    <generateModelTests>false</generateModelTests>
+                                    <generateApiTests>false</generateApiTests>
+                                    <configOptions>
+                                        <useSwaggerAnnotations>false</useSwaggerAnnotations>
+                                        <dateLibrary>java8-localdatetime</dateLibrary>
+                                        <java8>true</java8>
+                                        <sourceFolder>src/gen/java/main</sourceFolder>
+                                    </configOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>release</id>
             <modules>
@@ -170,12 +202,12 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.3</version>
+                        <version>3.8.1</version>
                     </plugin>
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.3</version>
+                        <version>1.6.8</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -186,7 +218,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
+                        <version>3.2.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -212,7 +244,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
+                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

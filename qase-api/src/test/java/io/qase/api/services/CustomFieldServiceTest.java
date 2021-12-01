@@ -1,8 +1,9 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseApi;
 import io.qase.api.exceptions.QaseException;
+import io.qase.client.ApiClient;
+import io.qase.client.api.CustomFieldsApi;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,13 +12,18 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class CustomFieldServiceTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
-    static final QaseApi qaseApi = new QaseApi("secret-token", "http://localhost:8088/v1");
+    static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+    static final ApiClient qaseApi = new ApiClient();
+    static final CustomFieldsApi customFieldsApi = new CustomFieldsApi(qaseApi);
+    static int port;
 
     @BeforeAll
     static void setUp() {
-        configureFor(8088);
         wireMockServer.start();
+        port = wireMockServer.port();
+        configureFor(port);
+        qaseApi.setBasePath("http://localhost:" + port + "/v1");
+        qaseApi.setApiKey("secret-token");
     }
 
     @AfterAll
@@ -28,11 +34,11 @@ class CustomFieldServiceTest {
     @Test
     void getAll() {
         try {
-            qaseApi.customFields().getAll("PRJ");
+            customFieldsApi.getCustomFields(100, 0, null);
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/custom_field/PRJ"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/custom_field"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
@@ -40,27 +46,13 @@ class CustomFieldServiceTest {
     }
 
     @Test
-    void getAllWithParams() {
-        try {
-            qaseApi.customFields().getAll("PRJ", 123, 33);
-        } catch (QaseException e) {
-            //ignore
-        }
-        verify(getRequestedFor(urlPathEqualTo("/v1/custom_field/PRJ"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
-                .withQueryParam("limit", equalTo("123"))
-                .withQueryParam("offset", equalTo("33")));
-    }
-
-    @Test
     void get() {
         try {
-            qaseApi.customFields().get("PRJ", 123);
+            customFieldsApi.getCustomField(123);
         } catch (QaseException e) {
             //ignore
         }
-        verify(getRequestedFor(urlPathEqualTo("/v1/custom_field/PRJ/123"))
+        verify(getRequestedFor(urlPathEqualTo("/v1/custom_field/123"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json")));
     }
