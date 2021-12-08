@@ -8,7 +8,7 @@ Add the following dependency and repository to your pom.xml:
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-api</artifactId>
-    <version>1.0.2</version>
+    <version>2.0.0</version>
 </dependency>
 
 ```
@@ -19,7 +19,8 @@ Qase.io uses API tokens to authenticate requests. You can view a manage your API
 You must replace api_token with your personal API key.
  
 ```java
-QaseApi qaseApi = new QaseApi("api_token")
+ApiClient qaseApi = Configuration.getDefaultApiClient();
+qaseApi.setApiKey("api_token");
 ```
 
 ### Projects ###
@@ -28,22 +29,28 @@ QaseApi qaseApi = new QaseApi("api_token")
 This method allows to retrieve all projects available for your account. You can you limit and offset params to paginate.
 
 ```java
-Projects projects = qaseApi.projects().getAll();
-List<Project> projectList = projects.getProjectList();
+ProjectsApi projectsApi = new ProjectsApi(qaseApi);
+List<Project> projects = projectsApi.getProjects(100, 0).getResult().getEntities();
 ```
 
 #### Get All Projects ####
 This method allows to retrieve a specific project.
 
 ```java
-Project project = qaseApi.projects().get("PRJCODE");
+ProjectsApi projectsApi = new ProjectsApi(qaseApi);
+Project project = projectsApi.getProject("PROJ").getResult();
 ```
 
 #### Create a new project ####
 This method is used to create a new project through API.
 
 ```java
-String projectCode = qaseApi.projects().create("PRJCODE", "Project description");
+ProjectsApi projectsApi = new ProjectsApi(qaseApi);
+ProjectCreate project = new ProjectCreate()
+    .code("PROJ")
+    .title("Project title")
+    .access(ProjectCreate.AccessEnum.NONE);
+String code = projectsApi.createProject(project).getResult().getCode()
 ```
 
 ### Test cases ###
