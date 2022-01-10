@@ -53,7 +53,7 @@ Add the following dependency and repository to your pom.xml:
             <version>3.0.0-M4</version>
             <configuration>
                 <argLine>
-                    -Dcucumber.options="--add-plugin", "io.qase.cucumber3.QaseEventListener"
+                    -Dcucumber.options="--add-plugin io.qase.cucumber3.QaseEventListener"
                 </argLine>
             </configuration>
         </plugin>
