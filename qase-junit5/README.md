@@ -50,3 +50,18 @@ Add the following dependency and repository to your pom.xml:
 ```
 mvn clean test -Dqase.enable=true -Dqase.project.code=PRJ -Dqase.run.id=123 -Dqase.api.token=secret-token
 ```
+
+
+## Gradle ##
+add the below code to build.gradle:
+```
+dependencies {
+    ...
+    testImplementation 'io.qase:qase-junit5:2.0.1'
+}
+
+test {
+    systemProperty("junit.jupiter.extensions.autodetection.enabled", true)
+    useJUnitPlatform()
+}
+```
