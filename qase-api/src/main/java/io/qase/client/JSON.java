@@ -77,7 +77,7 @@ public class JSON {
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
                         (json, type, jsonDeserializationContext) -> {
                             String date = json.getAsJsonPrimitive().getAsString();
-                            return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS'Z'"));
+                            return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         })
                 .registerTypeAdapter(LocalDate.class, localDateTypeAdapter)
                 .registerTypeAdapter(byte[].class, byteArrayAdapter)
