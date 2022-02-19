@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -47,7 +47,7 @@ public class ResultsApi {
     /**
      * Build call for createResult
      * @param code Code of project, where to search entities. (required)
-     * @param idOrHash Id or Hash. (required)
+     * @param id Identifier. (required)
      * @param resultCreate  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -58,13 +58,13 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultCall(String code, String idOrHash, ResultCreate resultCreate, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call createResultCall(String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = resultCreate;
 
         // create path and map variables
-        String localVarPath = "/result/{code}/{id_or_hash}"
+        String localVarPath = "/result/{code}/{id}"
             .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()))
-            .replaceAll("\\{" + "id_or_hash" + "\\}", localVarApiClient.escapeString(idOrHash.toString()));
+            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -91,34 +91,34 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createResultValidateBeforeCall(String code, String idOrHash, ResultCreate resultCreate, final ApiCallback _callback) throws QaseException {
-        
+    private okhttp3.Call createResultValidateBeforeCall(String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback) throws QaseException {
+
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling createResult(Async)");
         }
-        
-        // verify the required parameter 'idOrHash' is set
-        if (idOrHash == null) {
-            throw new QaseException("Missing the required parameter 'idOrHash' when calling createResult(Async)");
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling createResult(Async)");
         }
-        
+
         // verify the required parameter 'resultCreate' is set
         if (resultCreate == null) {
             throw new QaseException("Missing the required parameter 'resultCreate' when calling createResult(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = createResultCall(code, idOrHash, resultCreate, _callback);
+
+        okhttp3.Call localVarCall = createResultCall(code, id, resultCreate, _callback);
         return localVarCall;
 
     }
 
     /**
      * Create test run result.
-     * This method allows to create test run result by Run Id. 
+     * This method allows to create test run result by Run Id.
      * @param code Code of project, where to search entities. (required)
-     * @param idOrHash Id or Hash. (required)
+     * @param id Identifier. (required)
      * @param resultCreate  (required)
      * @return Response
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -128,16 +128,16 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      </table>
      */
-    public Response createResult(String code, String idOrHash, ResultCreate resultCreate) throws QaseException {
-        ApiResponse<Response> localVarResp = createResultWithHttpInfo(code, idOrHash, resultCreate);
+    public Response createResult(String code, Integer id, ResultCreate resultCreate) throws QaseException {
+        ApiResponse<Response> localVarResp = createResultWithHttpInfo(code, id, resultCreate);
         return localVarResp.getData();
     }
 
     /**
      * Create test run result.
-     * This method allows to create test run result by Run Id. 
+     * This method allows to create test run result by Run Id.
      * @param code Code of project, where to search entities. (required)
-     * @param idOrHash Id or Hash. (required)
+     * @param id Identifier. (required)
      * @param resultCreate  (required)
      * @return ApiResponse&lt;Response&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -147,17 +147,17 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Response> createResultWithHttpInfo(String code, String idOrHash, ResultCreate resultCreate) throws QaseException {
-        okhttp3.Call localVarCall = createResultValidateBeforeCall(code, idOrHash, resultCreate, null);
+    public ApiResponse<Response> createResultWithHttpInfo(String code, Integer id, ResultCreate resultCreate) throws QaseException {
+        okhttp3.Call localVarCall = createResultValidateBeforeCall(code, id, resultCreate, null);
         Type localVarReturnType = new TypeToken<Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Create test run result. (asynchronously)
-     * This method allows to create test run result by Run Id. 
+     * This method allows to create test run result by Run Id.
      * @param code Code of project, where to search entities. (required)
-     * @param idOrHash Id or Hash. (required)
+     * @param id Identifier. (required)
      * @param resultCreate  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -168,9 +168,9 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultAsync(String code, String idOrHash, ResultCreate resultCreate, final ApiCallback<Response> _callback) throws QaseException {
+    public okhttp3.Call createResultAsync(String code, Integer id, ResultCreate resultCreate, final ApiCallback<Response> _callback) throws QaseException {
 
-        okhttp3.Call localVarCall = createResultValidateBeforeCall(code, idOrHash, resultCreate, _callback);
+        okhttp3.Call localVarCall = createResultValidateBeforeCall(code, id, resultCreate, _callback);
         Type localVarReturnType = new TypeToken<Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -223,22 +223,22 @@ public class ResultsApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call createResultBulkValidateBeforeCall(String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback _callback) throws QaseException {
-        
+
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling createResultBulk(Async)");
         }
-        
+
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new QaseException("Missing the required parameter 'id' when calling createResultBulk(Async)");
         }
-        
+
         // verify the required parameter 'resultCreateBulk' is set
         if (resultCreateBulk == null) {
             throw new QaseException("Missing the required parameter 'resultCreateBulk' when calling createResultBulk(Async)");
         }
-        
+
 
         okhttp3.Call localVarCall = createResultBulkCall(code, id, resultCreateBulk, _callback);
         return localVarCall;
@@ -247,7 +247,7 @@ public class ResultsApi {
 
     /**
      * Bulk create test run result.
-     * This method allows to create a lot of test run result at once. 
+     * This method allows to create a lot of test run result at once.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param resultCreateBulk  (required)
@@ -266,7 +266,7 @@ public class ResultsApi {
 
     /**
      * Bulk create test run result.
-     * This method allows to create a lot of test run result at once. 
+     * This method allows to create a lot of test run result at once.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param resultCreateBulk  (required)
@@ -286,7 +286,7 @@ public class ResultsApi {
 
     /**
      * Bulk create test run result. (asynchronously)
-     * This method allows to create a lot of test run result at once. 
+     * This method allows to create a lot of test run result at once.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param resultCreateBulk  (required)
@@ -344,7 +344,7 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-            
+
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -355,22 +355,22 @@ public class ResultsApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call deleteResultValidateBeforeCall(String code, Integer id, String hash, final ApiCallback _callback) throws QaseException {
-        
+
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling deleteResult(Async)");
         }
-        
+
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new QaseException("Missing the required parameter 'id' when calling deleteResult(Async)");
         }
-        
+
         // verify the required parameter 'hash' is set
         if (hash == null) {
             throw new QaseException("Missing the required parameter 'hash' when calling deleteResult(Async)");
         }
-        
+
 
         okhttp3.Call localVarCall = deleteResultCall(code, id, hash, _callback);
         return localVarCall;
@@ -379,7 +379,7 @@ public class ResultsApi {
 
     /**
      * Delete test run result.
-     * This method allows to delete test run result. 
+     * This method allows to delete test run result.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param hash Hash. (required)
@@ -398,7 +398,7 @@ public class ResultsApi {
 
     /**
      * Delete test run result.
-     * This method allows to delete test run result. 
+     * This method allows to delete test run result.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param hash Hash. (required)
@@ -418,7 +418,7 @@ public class ResultsApi {
 
     /**
      * Delete test run result. (asynchronously)
-     * This method allows to delete test run result. 
+     * This method allows to delete test run result.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param hash Hash. (required)
@@ -441,7 +441,7 @@ public class ResultsApi {
     /**
      * Build call for getResult
      * @param code Code of project, where to search entities. (required)
-     * @param idOrHash Id or Hash. (required)
+     * @param hash Hash. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
@@ -451,13 +451,13 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getResultCall(String code, String idOrHash, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call getResultCall(String code, String hash, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/result/{code}/{id_or_hash}"
+        String localVarPath = "/result/{code}/{hash}"
             .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()))
-            .replaceAll("\\{" + "id_or_hash" + "\\}", localVarApiClient.escapeString(idOrHash.toString()));
+            .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -474,7 +474,7 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-            
+
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -484,29 +484,29 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getResultValidateBeforeCall(String code, String idOrHash, final ApiCallback _callback) throws QaseException {
-        
+    private okhttp3.Call getResultValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws QaseException {
+
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling getResult(Async)");
         }
-        
-        // verify the required parameter 'idOrHash' is set
-        if (idOrHash == null) {
-            throw new QaseException("Missing the required parameter 'idOrHash' when calling getResult(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = getResultCall(code, idOrHash, _callback);
+        // verify the required parameter 'hash' is set
+        if (hash == null) {
+            throw new QaseException("Missing the required parameter 'hash' when calling getResult(Async)");
+        }
+
+
+        okhttp3.Call localVarCall = getResultCall(code, hash, _callback);
         return localVarCall;
 
     }
 
     /**
      * Get test run result by code.
-     * This method allows to retrieve a specific test run result by Hash. 
+     * This method allows to retrieve a specific test run result by Hash.
      * @param code Code of project, where to search entities. (required)
-     * @param idOrHash Id or Hash. (required)
+     * @param hash Hash. (required)
      * @return ResultResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -515,16 +515,16 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
      </table>
      */
-    public ResultResponse getResult(String code, String idOrHash) throws QaseException {
-        ApiResponse<ResultResponse> localVarResp = getResultWithHttpInfo(code, idOrHash);
+    public ResultResponse getResult(String code, String hash) throws QaseException {
+        ApiResponse<ResultResponse> localVarResp = getResultWithHttpInfo(code, hash);
         return localVarResp.getData();
     }
 
     /**
      * Get test run result by code.
-     * This method allows to retrieve a specific test run result by Hash. 
+     * This method allows to retrieve a specific test run result by Hash.
      * @param code Code of project, where to search entities. (required)
-     * @param idOrHash Id or Hash. (required)
+     * @param hash Hash. (required)
      * @return ApiResponse&lt;ResultResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -533,17 +533,17 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ResultResponse> getResultWithHttpInfo(String code, String idOrHash) throws QaseException {
-        okhttp3.Call localVarCall = getResultValidateBeforeCall(code, idOrHash, null);
+    public ApiResponse<ResultResponse> getResultWithHttpInfo(String code, String hash) throws QaseException {
+        okhttp3.Call localVarCall = getResultValidateBeforeCall(code, hash, null);
         Type localVarReturnType = new TypeToken<ResultResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get test run result by code. (asynchronously)
-     * This method allows to retrieve a specific test run result by Hash. 
+     * This method allows to retrieve a specific test run result by Hash.
      * @param code Code of project, where to search entities. (required)
-     * @param idOrHash Id or Hash. (required)
+     * @param hash Hash. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
@@ -553,9 +553,9 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getResultAsync(String code, String idOrHash, final ApiCallback<ResultResponse> _callback) throws QaseException {
+    public okhttp3.Call getResultAsync(String code, String hash, final ApiCallback<ResultResponse> _callback) throws QaseException {
 
-        okhttp3.Call localVarCall = getResultValidateBeforeCall(code, idOrHash, _callback);
+        okhttp3.Call localVarCall = getResultValidateBeforeCall(code, hash, _callback);
         Type localVarReturnType = new TypeToken<ResultResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -563,9 +563,9 @@ public class ResultsApi {
     /**
      * Build call for getResults
      * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
      * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param filters  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
@@ -575,7 +575,7 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getResultsCall(String code, Integer limit, Integer offset, Filters4 filters, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call getResultsCall(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -588,16 +588,16 @@ public class ResultsApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (filters != null) {
+            localVarQueryParams.addAll(FilterHelper.getFilterPairs(filters));
+        }
+
         if (limit != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
         }
 
         if (offset != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (filters != null) {
-            localVarQueryParams.addAll(FilterHelper.getFilterPairs(filters));
         }
 
         final String[] localVarAccepts = {
@@ -609,7 +609,7 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-            
+
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -619,26 +619,26 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getResultsValidateBeforeCall(String code, Integer limit, Integer offset, Filters4 filters, final ApiCallback _callback) throws QaseException {
-        
+    private okhttp3.Call getResultsValidateBeforeCall(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
+
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling getResults(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = getResultsCall(code, limit, offset, filters, _callback);
+
+        okhttp3.Call localVarCall = getResultsCall(code, filters, limit, offset, _callback);
         return localVarCall;
 
     }
 
     /**
      * Get all test run results.
-     * This method allows to retrieve all test run results stored in selected project. 
+     * This method allows to retrieve all test run results stored in selected project.
      * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
      * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param filters  (optional)
      * @return ResultListResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -647,18 +647,18 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
      </table>
      */
-    public ResultListResponse getResults(String code, Integer limit, Integer offset, Filters4 filters) throws QaseException {
-        ApiResponse<ResultListResponse> localVarResp = getResultsWithHttpInfo(code, limit, offset, filters);
+    public ResultListResponse getResults(String code, Filters4 filters, Integer limit, Integer offset) throws QaseException {
+        ApiResponse<ResultListResponse> localVarResp = getResultsWithHttpInfo(code, filters, limit, offset);
         return localVarResp.getData();
     }
 
     /**
      * Get all test run results.
-     * This method allows to retrieve all test run results stored in selected project. 
+     * This method allows to retrieve all test run results stored in selected project.
      * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
      * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param filters  (optional)
      * @return ApiResponse&lt;ResultListResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -667,19 +667,19 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ResultListResponse> getResultsWithHttpInfo(String code, Integer limit, Integer offset, Filters4 filters) throws QaseException {
-        okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, limit, offset, filters, null);
+    public ApiResponse<ResultListResponse> getResultsWithHttpInfo(String code, Filters4 filters, Integer limit, Integer offset) throws QaseException {
+        okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, filters, limit, offset, null);
         Type localVarReturnType = new TypeToken<ResultListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get all test run results. (asynchronously)
-     * This method allows to retrieve all test run results stored in selected project. 
+     * This method allows to retrieve all test run results stored in selected project.
      * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
      * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param filters  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
@@ -689,9 +689,9 @@ public class ResultsApi {
         <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getResultsAsync(String code, Integer limit, Integer offset, Filters4 filters, final ApiCallback<ResultListResponse> _callback) throws QaseException {
+    public okhttp3.Call getResultsAsync(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback<ResultListResponse> _callback) throws QaseException {
 
-        okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, limit, offset, filters, _callback);
+        okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, filters, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<ResultListResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -746,27 +746,27 @@ public class ResultsApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call updateResultValidateBeforeCall(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback) throws QaseException {
-        
+
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling updateResult(Async)");
         }
-        
+
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new QaseException("Missing the required parameter 'id' when calling updateResult(Async)");
         }
-        
+
         // verify the required parameter 'hash' is set
         if (hash == null) {
             throw new QaseException("Missing the required parameter 'hash' when calling updateResult(Async)");
         }
-        
+
         // verify the required parameter 'resultUpdate' is set
         if (resultUpdate == null) {
             throw new QaseException("Missing the required parameter 'resultUpdate' when calling updateResult(Async)");
         }
-        
+
 
         okhttp3.Call localVarCall = updateResultCall(code, id, hash, resultUpdate, _callback);
         return localVarCall;
@@ -775,7 +775,7 @@ public class ResultsApi {
 
     /**
      * Update test run result.
-     * This method allows to update test run result. 
+     * This method allows to update test run result.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param hash Hash. (required)
@@ -795,7 +795,7 @@ public class ResultsApi {
 
     /**
      * Update test run result.
-     * This method allows to update test run result. 
+     * This method allows to update test run result.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param hash Hash. (required)
@@ -816,7 +816,7 @@ public class ResultsApi {
 
     /**
      * Update test run result. (asynchronously)
-     * This method allows to update test run result. 
+     * This method allows to update test run result.
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
      * @param hash Hash. (required)

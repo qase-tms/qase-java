@@ -1,14 +1,17 @@
 package io.qase.junit4;
 
 
-import io.qameta.allure.TmsLink;
+import io.qase.api.QaseClient;
+import io.qase.api.StepStorage;
+import io.qase.api.annotation.CaseId;
+import io.qase.api.annotation.CaseTitle;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
-import io.qase.api.annotation.CaseId;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
-import io.qase.client.model.ResultCreateBulk;
+import io.qase.client.model.ResultCreateCase;
+import io.qase.client.model.ResultCreateSteps;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -17,59 +20,19 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.qase.api.utils.IntegrationUtils.*;
+import static io.qase.api.QaseClient.getConfig;
+import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
 public class QaseListener extends RunListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private static final ThreadLocal<Set<Integer>> cases = ThreadLocal.withInitial(HashSet::new);
-    private boolean isEnabled;
-    private boolean useBulk;
-    private String projectCode;
-    private String runId;
-    private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
-    private final ApiClient apiClient = new ApiClient();
+    private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private long startTime;
-
-    public QaseListener() {
-        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
-        if (!isEnabled) {
-            return;
-        }
-        useBulk = Boolean.parseBoolean(System.getProperty(BULK_KEY, "true"));
-
-        String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
-        if (apiToken == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
-            return;
-        }
-
-        String qaseUrl = System.getProperty(QASE_URL_KEY, System.getenv(API_TOKEN_KEY));
-        if (qaseUrl != null) {
-            apiClient.setBasePath(qaseUrl);
-        }
-        apiClient.setApiKey(apiToken);
-
-        projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
-        if (projectCode == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
-            return;
-        }
-        logger.info("Qase project code - {}", projectCode);
-
-        runId = System.getProperty(RUN_ID_KEY, System.getenv(RUN_ID_KEY));
-        if (runId == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
-            return;
-        }
-        logger.info("Qase run id - {}", runId);
-    }
 
     @Override
     public void testStarted(Description description) {
@@ -98,22 +61,23 @@ public class QaseListener extends RunListener {
     }
 
     @Override
-    public void testIgnored(Description description) throws Exception {
+    public void testIgnored(Description description) {
         cases.get().remove(description.hashCode());
         send(description, StatusEnum.SKIPPED, null);
     }
 
     private void send(Description description, StatusEnum status, Throwable error) {
-        if (!isEnabled) {
+        if (!QaseClient.isEnabled()) {
             return;
         }
         long end = System.currentTimeMillis();
         Duration duration = Duration.ofMillis(end - startTime);
 
-        CaseId caseIdAnnotation = description.getAnnotation(CaseId.class);
-        TmsLink tmsLinkAnnotation = description.getAnnotation(TmsLink.class);
-        Long caseId = caseIdAnnotation != null ? caseIdAnnotation.value() :
-                tmsLinkAnnotation != null ? Long.parseLong(tmsLinkAnnotation.value()) : null;
+        Long caseId = getCaseId(description);
+        String caseTitle = null;
+        if (caseId == null) {
+            caseTitle = getCaseTitle(description);
+        }
 
         Optional<Throwable> optionalThrowable = Optional.ofNullable(error);
         String comment = optionalThrowable
@@ -123,18 +87,31 @@ public class QaseListener extends RunListener {
                 .orElse(false);
         String stacktrace = optionalThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
         try {
-            resultsApi.createResult(projectCode,
-                    runId,
+            resultsApi.createResult(getConfig().projectCode(),
+                    getConfig().runId(),
                     new ResultCreate()
+                            ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                             .caseId(caseId)
                             .status(status)
                             .timeMs(duration.toMillis())
                             .comment(comment)
                             .stacktrace(stacktrace)
+                            .steps(steps.isEmpty() ? null : steps)
                             .defect(isDefect));
         } catch (QaseException e) {
             logger.error(e.getMessage());
         }
+    }
+
+    private Long getCaseId(Description description) {
+        CaseId caseIdAnnotation = description.getAnnotation(CaseId.class);
+        return caseIdAnnotation != null ? caseIdAnnotation.value() : null;
+    }
+
+    private String getCaseTitle(Description description) {
+        CaseTitle caseTitleAnnotation = description.getAnnotation(CaseTitle.class);
+        return caseTitleAnnotation != null ? caseTitleAnnotation.value() : null;
     }
 }

@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -21,7 +21,7 @@ import java.util.Objects;
 /**
  * Filters
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
 public class Filters {
   public static final String SERIALIZED_NAME_SEARCH = "search";
   @SerializedName(SERIALIZED_NAME_SEARCH)
@@ -61,7 +61,7 @@ public class Filters {
 
 
   public Filters search(String search) {
-    
+
     this.search = search;
     return this;
   }
@@ -84,7 +84,7 @@ public class Filters {
 
 
   public Filters milestoneId(Integer milestoneId) {
-    
+
     this.milestoneId = milestoneId;
     return this;
   }
@@ -107,7 +107,7 @@ public class Filters {
 
 
   public Filters suiteId(Integer suiteId) {
-    
+
     this.suiteId = suiteId;
     return this;
   }
@@ -130,13 +130,13 @@ public class Filters {
 
 
   public Filters severity(String severity) {
-    
+
     this.severity = severity;
     return this;
   }
 
    /**
-   * A list of severity values separated by comma. Possible values: undefined, blocker, critical, major, normal, minor, trivial 
+   * A list of severity values separated by comma. Possible values: undefined, blocker, critical, major, normal, minor, trivial
    * @return severity
   **/
   @javax.annotation.Nullable
@@ -153,13 +153,13 @@ public class Filters {
 
 
   public Filters priority(String priority) {
-    
+
     this.priority = priority;
     return this;
   }
 
    /**
-   * A list of priority values separated by comma. Possible values: undefined, high, medium, low 
+   * A list of priority values separated by comma. Possible values: undefined, high, medium, low
    * @return priority
   **/
   @javax.annotation.Nullable
@@ -176,13 +176,13 @@ public class Filters {
 
 
   public Filters type(String type) {
-    
+
     this.type = type;
     return this;
   }
 
    /**
-   * A list of type values separated by comma. Possible values: other, functional smoke, regression, security, usability, performance, acceptance 
+   * A list of type values separated by comma. Possible values: other, functional smoke, regression, security, usability, performance, acceptance
    * @return type
   **/
   @javax.annotation.Nullable
@@ -199,13 +199,13 @@ public class Filters {
 
 
   public Filters behavior(String behavior) {
-    
+
     this.behavior = behavior;
     return this;
   }
 
    /**
-   * A list of behavior values separated by comma. Possible values: undefined, positive negative, destructive 
+   * A list of behavior values separated by comma. Possible values: undefined, positive negative, destructive
    * @return behavior
   **/
   @javax.annotation.Nullable
@@ -222,13 +222,13 @@ public class Filters {
 
 
   public Filters automation(String automation) {
-    
+
     this.automation = automation;
     return this;
   }
 
    /**
-   * A list of values separated by comma. Possible values: is-not-automated, automated to-be-automated 
+   * A list of values separated by comma. Possible values: is-not-automated, automated to-be-automated
    * @return automation
   **/
   @javax.annotation.Nullable
@@ -245,13 +245,13 @@ public class Filters {
 
 
   public Filters status(String status) {
-    
+
     this.status = status;
     return this;
   }
 
    /**
-   * A list of values separated by comma. Possible values: actual, draft deprecated 
+   * A list of values separated by comma. Possible values: actual, draft deprecated
    * @return status
   **/
   @javax.annotation.Nullable

@@ -35,7 +35,7 @@ class TestCaseServiceTest {
     @Test
     void getAll() {
         try {
-            casesApi.getCases("PRJ", 100, 0, null);
+            casesApi.getCases("PRJ", null, 100, 0);
         } catch (QaseException e) {
             //ignore
         }
@@ -49,17 +49,16 @@ class TestCaseServiceTest {
     @Test
     void getAllWithFilter() {
         try {
-            casesApi.getCases("PRJ", 100, 0,
-                    new Filters()
-                            .automation("is-not-automated,to-be-automated")
-                            .behavior("positive")
-                            .milestoneId(11)
-                            .suiteId(2)
-                            .severity("critical")
-                            .priority("high,medium")
-                            .status("actual")
-                            .type("functional,acceptance")
-                            .search("title"));
+            casesApi.getCases("PRJ", new Filters()
+                    .automation("is-not-automated,to-be-automated")
+                    .behavior("positive")
+                    .milestoneId(11)
+                    .suiteId(2)
+                    .severity("critical")
+                    .priority("high,medium")
+                    .status("actual")
+                    .type("functional,acceptance")
+                    .search("title"), 100, 0);
         } catch (QaseException e) {
             //ignore
         }

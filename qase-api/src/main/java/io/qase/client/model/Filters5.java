@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -21,8 +21,12 @@ import java.util.Objects;
 /**
  * Filters5
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
 public class Filters5 {
+  public static final String SERIALIZED_NAME_SEARCH = "search";
+  @SerializedName(SERIALIZED_NAME_SEARCH)
+  private String search;
+
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
   private String status;
@@ -35,15 +39,46 @@ public class Filters5 {
   @SerializedName(SERIALIZED_NAME_ENVIRONMENT)
   private Integer environment;
 
+  public static final String SERIALIZED_NAME_FROM_START_TIME = "from_start_time";
+  @SerializedName(SERIALIZED_NAME_FROM_START_TIME)
+  private Long fromStartTime;
+
+  public static final String SERIALIZED_NAME_TO_START_TIME = "to_start_time";
+  @SerializedName(SERIALIZED_NAME_TO_START_TIME)
+  private Long toStartTime;
+
+
+  public Filters5 search(String search) {
+
+    this.search = search;
+    return this;
+  }
+
+   /**
+   * Get search
+   * @return search
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getSearch() {
+    return search;
+  }
+
+
+  public void setSearch(String search) {
+    this.search = search;
+  }
+
 
   public Filters5 status(String status) {
-    
+
     this.status = status;
     return this;
   }
 
    /**
-   * A list of status values separated by comma. Possible values: active, complete, abort. 
+   * A list of status values separated by comma. Possible values: active, complete, abort.
    * @return status
   **/
   @javax.annotation.Nullable
@@ -60,7 +95,7 @@ public class Filters5 {
 
 
   public Filters5 milestone(Integer milestone) {
-    
+
     this.milestone = milestone;
     return this;
   }
@@ -83,7 +118,7 @@ public class Filters5 {
 
 
   public Filters5 environment(Integer environment) {
-    
+
     this.environment = environment;
     return this;
   }
@@ -105,6 +140,52 @@ public class Filters5 {
   }
 
 
+  public Filters5 fromStartTime(Long fromStartTime) {
+
+    this.fromStartTime = fromStartTime;
+    return this;
+  }
+
+   /**
+   * Get fromStartTime
+   * @return fromStartTime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getFromStartTime() {
+    return fromStartTime;
+  }
+
+
+  public void setFromStartTime(Long fromStartTime) {
+    this.fromStartTime = fromStartTime;
+  }
+
+
+  public Filters5 toStartTime(Long toStartTime) {
+
+    this.toStartTime = toStartTime;
+    return this;
+  }
+
+   /**
+   * Get toStartTime
+   * @return toStartTime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getToStartTime() {
+    return toStartTime;
+  }
+
+
+  public void setToStartTime(Long toStartTime) {
+    this.toStartTime = toStartTime;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -114,23 +195,29 @@ public class Filters5 {
       return false;
     }
     Filters5 filters5 = (Filters5) o;
-    return Objects.equals(this.status, filters5.status) &&
+    return Objects.equals(this.search, filters5.search) &&
+        Objects.equals(this.status, filters5.status) &&
         Objects.equals(this.milestone, filters5.milestone) &&
-        Objects.equals(this.environment, filters5.environment);
+        Objects.equals(this.environment, filters5.environment) &&
+        Objects.equals(this.fromStartTime, filters5.fromStartTime) &&
+        Objects.equals(this.toStartTime, filters5.toStartTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, milestone, environment);
+    return Objects.hash(search, status, milestone, environment, fromStartTime, toStartTime);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Filters5 {\n");
+    sb.append("    search: ").append(toIndentedString(search)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    milestone: ").append(toIndentedString(milestone)).append("\n");
     sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
+    sb.append("    fromStartTime: ").append(toIndentedString(fromStartTime)).append("\n");
+    sb.append("    toStartTime: ").append(toIndentedString(toStartTime)).append("\n");
     sb.append("}");
     return sb.toString();
   }

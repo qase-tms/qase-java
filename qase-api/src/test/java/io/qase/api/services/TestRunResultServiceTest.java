@@ -41,7 +41,7 @@ class TestRunResultServiceTest {
     @Test
     void getAll() {
         try {
-            resultsApi.getResults("PRJ", 100, 0, null);
+            resultsApi.getResults("PRJ", null, 100, 0);
         } catch (QaseException e) {
             //ignore
         }
@@ -61,14 +61,13 @@ class TestRunResultServiceTest {
         String fromString = DateTimeFormatter.ofPattern(timeFormat).format(from);
         String toString = DateTimeFormatter.ofPattern(timeFormat).format(to);
         try {
-            resultsApi.getResults("PRJ", 33, 3,
-                    new Filters4()
-                            .caseId("1")
-                            .member("2")
-                            .run("3")
-                            .status("in_progress")
-                            .fromEndTime(fromString)
-                            .toEndTime(toString));
+            resultsApi.getResults("PRJ", new Filters4()
+                    .caseId("1")
+                    .member("2")
+                    .run("3")
+                    .status("in_progress")
+                    .fromEndTime(fromString)
+                    .toEndTime(toString), 33, 3);
         } catch (QaseException e) {
             //ignore
         }
@@ -100,7 +99,7 @@ class TestRunResultServiceTest {
     @Test
     void create() {
         try {
-            resultsApi.createResult("PRJ", "2",
+            resultsApi.createResult("PRJ", 2,
                     new ResultCreate()
                             .caseId(1L)
                             .status(ResultCreate.StatusEnum.PASSED));
@@ -118,7 +117,7 @@ class TestRunResultServiceTest {
     @Test
     void createWithParams() {
         try {
-            resultsApi.createResult("PRJ", "2",
+            resultsApi.createResult("PRJ", 2,
                     new ResultCreate()
                             .caseId(1L)
                             .status(ResultCreate.StatusEnum.PASSED)
@@ -154,7 +153,7 @@ class TestRunResultServiceTest {
     @Test
     void createWithStacktraceParams() {
         try {
-            resultsApi.createResult("PRJ", "2",
+            resultsApi.createResult("PRJ", 2,
                     new ResultCreate()
                             .caseId(1L)
                             .status(ResultCreate.StatusEnum.PASSED)

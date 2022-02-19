@@ -11,14 +11,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 class TestRunServiceTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
-    static final ApiClient qaseApi = new ApiClient();
+    static ApiClient qaseApi = new ApiClient();
     static final RunsApi runsApi = new RunsApi(qaseApi);
     static int port;
 
@@ -39,7 +38,7 @@ class TestRunServiceTest {
     @Test
     void getAllWithoutInclude() {
         try {
-            runsApi.getRuns("PRJ", 100, 0, Collections.emptyList(), null);
+            runsApi.getRuns("PRJ", new Filters5(), 100, 0, null);
         } catch (QaseException e) {
             //ignore
         }
@@ -54,7 +53,7 @@ class TestRunServiceTest {
     @Test
     void getAllWithInclude() {
         try {
-            runsApi.getRuns("PRJ", 100, 0, Collections.singletonList("cases"), null);
+            runsApi.getRuns("PRJ", new Filters5(), 100, 0, "cases");
         } catch (QaseException e) {
             //ignore
         }
@@ -69,9 +68,7 @@ class TestRunServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            runsApi.getRuns("PRJ", 33, 3, Collections.singletonList("cases"),
-                    new Filters5()
-                            .status("complete"));
+            runsApi.getRuns("PRJ", new Filters5().status("complete"), 33, 3, "cases");
 
         } catch (QaseException e) {
             //ignore
@@ -88,7 +85,7 @@ class TestRunServiceTest {
     @Test
     void get() {
         try {
-            runsApi.getRun("PRJ", 1);
+            runsApi.getRun("PRJ", 1, null);
         } catch (QaseException e) {
             //ignore
         }

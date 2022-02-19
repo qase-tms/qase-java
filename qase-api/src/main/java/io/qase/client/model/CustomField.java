@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -17,7 +17,6 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.Objects;
 /**
  * CustomField
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
 public class CustomField {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -70,11 +69,11 @@ public class CustomField {
 
   public static final String SERIALIZED_NAME_CREATED = "created";
   @SerializedName(SERIALIZED_NAME_CREATED)
-  private LocalDateTime created;
+  private String created;
 
   public static final String SERIALIZED_NAME_UPDATED = "updated";
   @SerializedName(SERIALIZED_NAME_UPDATED)
-  private LocalDateTime updated;
+  private String updated;
 
   public static final String SERIALIZED_NAME_PROJECTS_CODES = "projects_codes";
   @SerializedName(SERIALIZED_NAME_PROJECTS_CODES)
@@ -82,7 +81,7 @@ public class CustomField {
 
 
   public CustomField id(Long id) {
-    
+
     this.id = id;
     return this;
   }
@@ -105,7 +104,7 @@ public class CustomField {
 
 
   public CustomField title(String title) {
-    
+
     this.title = title;
     return this;
   }
@@ -128,7 +127,7 @@ public class CustomField {
 
 
   public CustomField entity(String entity) {
-    
+
     this.entity = entity;
     return this;
   }
@@ -151,7 +150,7 @@ public class CustomField {
 
 
   public CustomField type(String type) {
-    
+
     this.type = type;
     return this;
   }
@@ -174,7 +173,7 @@ public class CustomField {
 
 
   public CustomField placeholder(String placeholder) {
-    
+
     this.placeholder = placeholder;
     return this;
   }
@@ -197,7 +196,7 @@ public class CustomField {
 
 
   public CustomField defaultValue(String defaultValue) {
-    
+
     this.defaultValue = defaultValue;
     return this;
   }
@@ -220,7 +219,7 @@ public class CustomField {
 
 
   public CustomField value(String value) {
-    
+
     this.value = value;
     return this;
   }
@@ -243,7 +242,7 @@ public class CustomField {
 
 
   public CustomField isRequired(Boolean isRequired) {
-    
+
     this.isRequired = isRequired;
     return this;
   }
@@ -266,7 +265,7 @@ public class CustomField {
 
 
   public CustomField isVisible(Boolean isVisible) {
-    
+
     this.isVisible = isVisible;
     return this;
   }
@@ -289,7 +288,7 @@ public class CustomField {
 
 
   public CustomField isFilterable(Boolean isFilterable) {
-    
+
     this.isFilterable = isFilterable;
     return this;
   }
@@ -311,8 +310,8 @@ public class CustomField {
   }
 
 
-  public CustomField created(LocalDateTime created) {
-    
+  public CustomField created(String created) {
+
     this.created = created;
     return this;
   }
@@ -324,18 +323,18 @@ public class CustomField {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public LocalDateTime getCreated() {
+  public String getCreated() {
     return created;
   }
 
 
-  public void setCreated(LocalDateTime created) {
+  public void setCreated(String created) {
     this.created = created;
   }
 
 
-  public CustomField updated(LocalDateTime updated) {
-    
+  public CustomField updated(String updated) {
+
     this.updated = updated;
     return this;
   }
@@ -347,18 +346,18 @@ public class CustomField {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public LocalDateTime getUpdated() {
+  public String getUpdated() {
     return updated;
   }
 
 
-  public void setUpdated(LocalDateTime updated) {
+  public void setUpdated(String updated) {
     this.updated = updated;
   }
 
 
   public CustomField projectsCodes(List<String> projectsCodes) {
-    
+
     this.projectsCodes = projectsCodes;
     return this;
   }

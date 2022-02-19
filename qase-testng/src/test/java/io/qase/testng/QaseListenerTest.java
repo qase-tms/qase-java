@@ -2,10 +2,8 @@ package io.qase.testng;
 
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.testng.samples.Failed;
-import io.qase.testng.samples.FailedWithTime;
-import io.qase.testng.samples.Passed;
-import io.qase.testng.samples.PassedWithTime;
+import io.qase.api.QaseClient;
+import io.qase.testng.samples.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,7 @@ import java.util.stream.Collectors;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-import static io.qase.api.utils.IntegrationUtils.BULK_KEY;
+import static io.qase.api.config.QaseConfig.USE_BULK_KEY;
 
 public class QaseListenerTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
@@ -30,11 +28,11 @@ public class QaseListenerTest {
     static void setUp() {
         configureFor(8088);
         wireMockServer.start();
-        System.setProperty("qase.enable", "true");
-        System.setProperty("qase.project.code", "PRJ");
-        System.setProperty("qase.run.id", "777");
-        System.setProperty("qase.api.token", "secret-token");
-        System.setProperty("qase.url", "http://localhost:8088/v1");
+        System.setProperty("QASE_ENABLE", "true");
+        System.setProperty("QASE_PROJECT_CODE", "PRJ");
+        System.setProperty("QASE_RUN_ID", "777");
+        System.setProperty("QASE_API_TOKEN", "secret-token");
+        System.setProperty("QASE_URL", "http://localhost:8088/v1");
     }
 
     @AfterAll
@@ -44,6 +42,7 @@ public class QaseListenerTest {
 
     @Test
     public void passedBulkTest() {
+        useBulk(true);
         runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -60,6 +59,7 @@ public class QaseListenerTest {
 
     @Test
     public void passedWithTimeBulkTest() {
+        useBulk(true);
         runTest(PassedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -76,6 +76,7 @@ public class QaseListenerTest {
 
     @Test
     public void failedBulkTest() {
+        useBulk(true);
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -94,6 +95,7 @@ public class QaseListenerTest {
 
     @Test
     public void failedWithTimeBulkTest() {
+        useBulk(true);
         runTest(FailedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -112,6 +114,7 @@ public class QaseListenerTest {
 
     @Test
     public void allBulkTests() {
+        useBulk(true);
         runTest(Arrays.asList(Passed.class, PassedWithTime.class, Failed.class, FailedWithTime.class));
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -147,7 +150,7 @@ public class QaseListenerTest {
 
     @Test
     public void passedTest() {
-        System.setProperty(BULK_KEY, "false");
+        useBulk(false);
         runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -161,8 +164,64 @@ public class QaseListenerTest {
     }
 
     @Test
+    public void withStepsTest() {
+        useBulk(false);
+        runTest(WithSteps.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"success step\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"action\" : \"failure step\",\n" +
+                        "    \"attachments\" : [ \"${json-unit.ignore}\" ]\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void newCaseWithStepsTest() {
+        useBulk(false);
+        runTest(NewCase.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case\" : {\n" +
+                        "    \"title\" : \"Case Title\"\n" +
+                        "  },\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"success step\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : [ \"${json-unit.ignore}\" ],\n" +
+                        "    \"action\" : \"failure step\"\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
     public void failedTest() {
-        System.setProperty(BULK_KEY, "false");
+        useBulk(false);
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -191,5 +250,10 @@ public class QaseListenerTest {
         suite.setTests(Collections.singletonList(test));
         testNG.setXmlSuites(Collections.singletonList(suite));
         testNG.run();
+    }
+
+    private void useBulk(boolean use) {
+        System.setProperty(USE_BULK_KEY, String.valueOf(use));
+        QaseClient.getConfig().reload();
     }
 }

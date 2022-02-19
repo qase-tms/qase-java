@@ -20,11 +20,11 @@ public class QaseListenerTest {
         wireMockServer.start();
         port = wireMockServer.port();
         configureFor(port);
-        System.setProperty("qase.enable", "true");
-        System.setProperty("qase.project.code", "PRJ");
-        System.setProperty("qase.run.id", "777");
-        System.setProperty("qase.api.token", "secret-token");
-        System.setProperty("qase.url", "http://localhost:" + port + "/v1");
+        System.setProperty("QASE_ENABLE", "true");
+        System.setProperty("QASE_PROJECT_CODE", "PRJ");
+        System.setProperty("QASE_RUN_ID", "777");
+        System.setProperty("QASE_API_TOKEN", "secret-token");
+        System.setProperty("QASE_URL", "http://localhost:" + port + "/v1");
     }
 
     @AfterAll
@@ -45,6 +45,59 @@ public class QaseListenerTest {
                         "\"time_ms\": \"${json-unit.ignore}\"\n}")));
     }
 
+    @Test
+    public void withStepsTest() {
+        runTest(WithSteps.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"success step\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : \"${json-unit.ignore}\",\n" +
+                        "    \"action\" : \"failure step\"\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void newCaseWithStepsTest() {
+        runTest(NewCase.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case\" : {\n" +
+                        "    \"title\" : \"Case Title\"\n" +
+                        "  },\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"success step\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : \"${json-unit.ignore}\",\n" +
+                        "    \"action\" : \"failure step\"\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
 
     @Test
     public void passedWithTimeTest() {

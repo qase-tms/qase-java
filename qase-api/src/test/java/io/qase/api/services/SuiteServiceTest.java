@@ -36,7 +36,7 @@ class SuiteServiceTest {
     @Test
     void getAll() {
         try {
-            suitesApi.getSuites("PRJ", 100, 0, null);
+            suitesApi.getSuites("PRJ", null, 100, 0);
         } catch (QaseException e) {
             //ignore
         }
@@ -50,7 +50,7 @@ class SuiteServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            suitesApi.getSuites("PRJ", 55, 2, new Filters7().search("title"));
+            suitesApi.getSuites("PRJ", new Filters7().search("title"), 55, 2);
         } catch (QaseException e) {
             //ignore
         }

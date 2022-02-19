@@ -4,17 +4,17 @@
 ## Description ##
 This integration uploads test run results to Qase TMS via API.
 
-To link autotest to test case in Qase TMS use annotation `@CaseId` or `@io.qameta.allure.TmsLink`
+To link autotest to test case in Qase TMS use annotation `@CaseId`
 
 ### Required params ###
 All required params are passed through system properties or environment variables:
 
 |  Key              | Description |
 | :---------------: | :----------: |
-| qase.enable       | Enable Integration |
-| qase.project.code | Project Code |
-| qase.run.id       | Run Id |
-| qase.api.token    | Qase API Token |
+| QASE_ENABLE       | Enable Integration |
+| QASE_PROJECT_CODE | Project Code |
+| QASE_RUN_ID       | Run Id |
+| QASE_API_TOKEN    | Qase API Token |
 
 ## Maven ##
 
@@ -24,7 +24,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-junit4</artifactId>
-        <version>2.0.1</version>
+        <version>2.1.0</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
@@ -51,5 +51,5 @@ Add the following dependency and repository to your pom.xml:
 ## Run example ##
 
 ```
-mvn clean test -Dqase.enable=true -Dqase.project.code=PRJ -Dqase.run.id=123 -Dqase.api.token=secret-token
+mvn clean test -DQASE_ENABLE=true -DQASE_PROJECT_CODE=PRJ -DQASE_RUN_ID=123 -DQASE_API_TOKEN=secret-token
 ```
