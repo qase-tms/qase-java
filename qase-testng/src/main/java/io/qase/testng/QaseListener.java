@@ -12,19 +12,20 @@ import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.*;
-import org.testng.xml.XmlSuite;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 
 import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.*;
 
-public class QaseListener extends TestListenerAdapter implements IReporter, ITestListener {
+public class QaseListener extends TestListenerAdapter implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
     private final ApiClient apiClient = QaseClient.getApiClient();
@@ -33,30 +34,30 @@ public class QaseListener extends TestListenerAdapter implements IReporter, ITes
     @Override
     public void onTestSuccess(ITestResult tr) {
         if (getConfig().useBulk()) {
+            addBulkResult(tr, StatusEnum.PASSED);
             super.onTestSuccess(tr);
         } else {
             sendResult(tr, StatusEnum.PASSED);
         }
+        super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
         if (getConfig().useBulk()) {
-            super.onTestFailure(tr);
+            addBulkResult(tr, StatusEnum.FAILED);
         } else {
             sendResult(tr, StatusEnum.FAILED);
         }
+        super.onTestFailure(tr);
     }
 
     @Override
-    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
+    public void onFinish(ITestContext testContext) {
         if (getConfig().useBulk()) {
-            List<ITestResult> passedTests = getPassedTests();
-            List<ITestResult> failedTests = getFailedTests();
-            passedTests.forEach(passedTest -> addBulkResult(passedTest, StatusEnum.PASSED));
-            failedTests.forEach(passedTest -> addBulkResult(passedTest, StatusEnum.FAILED));
             sendBulkResult();
         }
+        super.onFinish(testContext);
     }
 
     private void sendResult(ITestResult result, StatusEnum status) {

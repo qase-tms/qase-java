@@ -12,7 +12,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 @Aspect
-public final class Aspects {
+public final class StepsAspects {
 
     @Pointcut("@annotation(io.qase.api.annotation.Step)")
     public void withStepAnnotation() {

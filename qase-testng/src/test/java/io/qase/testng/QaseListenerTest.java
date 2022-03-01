@@ -58,6 +58,23 @@ public class QaseListenerTest {
     }
 
     @Test
+    public void passedWithStepsBulkTest() {
+        useBulk(true);
+        runTest(WithSteps.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
     public void passedWithTimeBulkTest() {
         useBulk(true);
         runTest(PassedWithTime.class);
@@ -115,7 +132,8 @@ public class QaseListenerTest {
     @Test
     public void allBulkTests() {
         useBulk(true);
-        runTest(Arrays.asList(Passed.class, PassedWithTime.class, Failed.class, FailedWithTime.class));
+        runTest(Arrays.asList(Passed.class, PassedWithTime.class, Failed.class, FailedWithTime.class,
+                WithSteps.class, WithStepsSuccess.class));
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
@@ -138,6 +156,33 @@ public class QaseListenerTest {
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
                         "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
                         "  }, {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\",\n" +
+                        "      \"action\" : \"failure step\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 41332,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
                         "    \"case_id\" : 321,\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
@@ -145,7 +190,7 @@ public class QaseListenerTest {
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
                         "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
                         "  } ]\n" +
-                        "}")));
+                        "}",true, false)));
     }
 
     @Test
