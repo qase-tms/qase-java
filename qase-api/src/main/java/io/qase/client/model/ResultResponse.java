@@ -21,101 +21,102 @@ import java.util.Objects;
 /**
  * ResultResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class ResultResponse {
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private Boolean status;
-
-  public static final String SERIALIZED_NAME_RESULT = "result";
-  @SerializedName(SERIALIZED_NAME_RESULT)
-  private Result result;
-
-
-  public ResultResponse status(Boolean status) {
-
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Boolean getStatus() {
-    return status;
-  }
+    public static final String SERIALIZED_NAME_STATUS = "status";
+    public static final String SERIALIZED_NAME_RESULT = "result";
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    private Boolean status;
+    @SerializedName(SERIALIZED_NAME_RESULT)
+    private Result result;
 
 
-  public void setStatus(Boolean status) {
-    this.status = status;
-  }
+    public ResultResponse status(Boolean status) {
 
-
-  public ResultResponse result(Result result) {
-
-    this.result = result;
-    return this;
-  }
-
-   /**
-   * Get result
-   * @return result
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Result getResult() {
-    return result;
-  }
-
-
-  public void setResult(Result result) {
-    this.result = result;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.status = status;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get status
+     *
+     * @return status
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Boolean getStatus() {
+        return status;
     }
-    ResultResponse resultResponse = (ResultResponse) o;
-    return Objects.equals(this.status, resultResponse.status) &&
-        Objects.equals(this.result, resultResponse.result);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(status, result);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ResultResponse {\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    result: ").append(toIndentedString(result)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public ResultResponse result(Result result) {
+
+        this.result = result;
+        return this;
+    }
+
+    /**
+     * Get result
+     *
+     * @return result
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Result getResult() {
+        return result;
+    }
+
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ResultResponse resultResponse = (ResultResponse) o;
+        return Objects.equals(this.status, resultResponse.status) &&
+                Objects.equals(this.result, resultResponse.result);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, result);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ResultResponse {\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    result: ").append(toIndentedString(result)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

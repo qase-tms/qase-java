@@ -45,17 +45,17 @@ public class SearchApi {
 
     /**
      * Build call for search
-     * @param query Expression in Qase Query Language. (required)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param query     Expression in Qase Query Language. (required)
+     * @param limit     A number of entities in result set. (optional, default to 10)
+     * @param offset    How many entities should be skipped. (optional, default to 0)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
+     * </table>
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL). Documentation</a>
      */
@@ -84,7 +84,7 @@ public class SearchApi {
         }
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -97,7 +97,7 @@ public class SearchApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -118,16 +118,16 @@ public class SearchApi {
     /**
      * Search entities by Qase Query Language (QQL).
      * This method allows to retrieve data sets for various entities using expressions with conditions.
-     * @param query Expression in Qase Query Language. (required)
-     * @param limit A number of entities in result set. (optional, default to 10)
+     *
+     * @param query  Expression in Qase Query Language. (required)
+     * @param limit  A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
      * @return SearchResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
+     * </table>
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL). Documentation</a>
      */
@@ -139,46 +139,48 @@ public class SearchApi {
     /**
      * Search entities by Qase Query Language (QQL).
      * This method allows to retrieve data sets for various entities using expressions with conditions.
-     * @param query Expression in Qase Query Language. (required)
-     * @param limit A number of entities in result set. (optional, default to 10)
+     *
+     * @param query  Expression in Qase Query Language. (required)
+     * @param limit  A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
      * @return ApiResponse&lt;SearchResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
+     * </table>
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL). Documentation</a>
      */
     public ApiResponse<SearchResponse> searchWithHttpInfo(String query, Integer limit, Integer offset) throws QaseException {
         okhttp3.Call localVarCall = searchValidateBeforeCall(query, limit, offset, null);
-        Type localVarReturnType = new TypeToken<SearchResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<SearchResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Search entities by Qase Query Language (QQL). (asynchronously)
      * This method allows to retrieve data sets for various entities using expressions with conditions.
-     * @param query Expression in Qase Query Language. (required)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param query     Expression in Qase Query Language. (required)
+     * @param limit     A number of entities in result set. (optional, default to 10)
+     * @param offset    How many entities should be skipped. (optional, default to 0)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
+     * </table>
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL). Documentation</a>
      */
     public okhttp3.Call searchAsync(String query, Integer limit, Integer offset, final ApiCallback<SearchResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = searchValidateBeforeCall(query, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<SearchResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<SearchResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

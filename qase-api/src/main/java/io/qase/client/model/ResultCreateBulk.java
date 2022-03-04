@@ -23,77 +23,78 @@ import java.util.Objects;
 /**
  * ResultCreateBulk
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class ResultCreateBulk {
-  public static final String SERIALIZED_NAME_RESULTS = "results";
-  @SerializedName(SERIALIZED_NAME_RESULTS)
-  private List<ResultCreate> results = new ArrayList<>();
+    public static final String SERIALIZED_NAME_RESULTS = "results";
+    @SerializedName(SERIALIZED_NAME_RESULTS)
+    private List<ResultCreate> results = new ArrayList<>();
 
 
-  public ResultCreateBulk results(List<ResultCreate> results) {
+    public ResultCreateBulk results(List<ResultCreate> results) {
 
-    this.results = results;
-    return this;
-  }
-
-  public ResultCreateBulk addResultsItem(ResultCreate resultsItem) {
-    this.results.add(resultsItem);
-    return this;
-  }
-
-   /**
-   * Get results
-   * @return results
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
-  public List<ResultCreate> getResults() {
-    return results;
-  }
-
-
-  public void setResults(List<ResultCreate> results) {
-    this.results = results;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.results = results;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public ResultCreateBulk addResultsItem(ResultCreate resultsItem) {
+        this.results.add(resultsItem);
+        return this;
     }
-    ResultCreateBulk resultCreateBulk = (ResultCreateBulk) o;
-    return Objects.equals(this.results, resultCreateBulk.results);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(results);
-  }
+    /**
+     * Get results
+     *
+     * @return results
+     **/
+    @javax.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ResultCreateBulk {\n");
-    sb.append("    results: ").append(toIndentedString(results)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public List<ResultCreate> getResults() {
+        return results;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public void setResults(List<ResultCreate> results) {
+        this.results = results;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ResultCreateBulk resultCreateBulk = (ResultCreateBulk) o;
+        return Objects.equals(this.results, resultCreateBulk.results);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(results);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ResultCreateBulk {\n");
+        sb.append("    results: ").append(toIndentedString(results)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

@@ -21,217 +21,218 @@ import java.util.Objects;
 /**
  * Filters5
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class Filters5 {
-  public static final String SERIALIZED_NAME_SEARCH = "search";
-  @SerializedName(SERIALIZED_NAME_SEARCH)
-  private String search;
-
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private String status;
-
-  public static final String SERIALIZED_NAME_MILESTONE = "milestone";
-  @SerializedName(SERIALIZED_NAME_MILESTONE)
-  private Integer milestone;
-
-  public static final String SERIALIZED_NAME_ENVIRONMENT = "environment";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT)
-  private Integer environment;
-
-  public static final String SERIALIZED_NAME_FROM_START_TIME = "from_start_time";
-  @SerializedName(SERIALIZED_NAME_FROM_START_TIME)
-  private Long fromStartTime;
-
-  public static final String SERIALIZED_NAME_TO_START_TIME = "to_start_time";
-  @SerializedName(SERIALIZED_NAME_TO_START_TIME)
-  private Long toStartTime;
+    public static final String SERIALIZED_NAME_SEARCH = "search";
+    public static final String SERIALIZED_NAME_STATUS = "status";
+    public static final String SERIALIZED_NAME_MILESTONE = "milestone";
+    public static final String SERIALIZED_NAME_ENVIRONMENT = "environment";
+    public static final String SERIALIZED_NAME_FROM_START_TIME = "from_start_time";
+    public static final String SERIALIZED_NAME_TO_START_TIME = "to_start_time";
+    @SerializedName(SERIALIZED_NAME_SEARCH)
+    private String search;
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    private String status;
+    @SerializedName(SERIALIZED_NAME_MILESTONE)
+    private Integer milestone;
+    @SerializedName(SERIALIZED_NAME_ENVIRONMENT)
+    private Integer environment;
+    @SerializedName(SERIALIZED_NAME_FROM_START_TIME)
+    private Long fromStartTime;
+    @SerializedName(SERIALIZED_NAME_TO_START_TIME)
+    private Long toStartTime;
 
 
-  public Filters5 search(String search) {
+    public Filters5 search(String search) {
 
-    this.search = search;
-    return this;
-  }
-
-   /**
-   * Get search
-   * @return search
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getSearch() {
-    return search;
-  }
-
-
-  public void setSearch(String search) {
-    this.search = search;
-  }
-
-
-  public Filters5 status(String status) {
-
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * A list of status values separated by comma. Possible values: active, complete, abort.
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of status values separated by comma. Possible values: active, complete, abort. ")
-
-  public String getStatus() {
-    return status;
-  }
-
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-
-  public Filters5 milestone(Integer milestone) {
-
-    this.milestone = milestone;
-    return this;
-  }
-
-   /**
-   * Get milestone
-   * @return milestone
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getMilestone() {
-    return milestone;
-  }
-
-
-  public void setMilestone(Integer milestone) {
-    this.milestone = milestone;
-  }
-
-
-  public Filters5 environment(Integer environment) {
-
-    this.environment = environment;
-    return this;
-  }
-
-   /**
-   * Get environment
-   * @return environment
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getEnvironment() {
-    return environment;
-  }
-
-
-  public void setEnvironment(Integer environment) {
-    this.environment = environment;
-  }
-
-
-  public Filters5 fromStartTime(Long fromStartTime) {
-
-    this.fromStartTime = fromStartTime;
-    return this;
-  }
-
-   /**
-   * Get fromStartTime
-   * @return fromStartTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getFromStartTime() {
-    return fromStartTime;
-  }
-
-
-  public void setFromStartTime(Long fromStartTime) {
-    this.fromStartTime = fromStartTime;
-  }
-
-
-  public Filters5 toStartTime(Long toStartTime) {
-
-    this.toStartTime = toStartTime;
-    return this;
-  }
-
-   /**
-   * Get toStartTime
-   * @return toStartTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getToStartTime() {
-    return toStartTime;
-  }
-
-
-  public void setToStartTime(Long toStartTime) {
-    this.toStartTime = toStartTime;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.search = search;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get search
+     *
+     * @return search
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getSearch() {
+        return search;
     }
-    Filters5 filters5 = (Filters5) o;
-    return Objects.equals(this.search, filters5.search) &&
-        Objects.equals(this.status, filters5.status) &&
-        Objects.equals(this.milestone, filters5.milestone) &&
-        Objects.equals(this.environment, filters5.environment) &&
-        Objects.equals(this.fromStartTime, filters5.fromStartTime) &&
-        Objects.equals(this.toStartTime, filters5.toStartTime);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(search, status, milestone, environment, fromStartTime, toStartTime);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Filters5 {\n");
-    sb.append("    search: ").append(toIndentedString(search)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    milestone: ").append(toIndentedString(milestone)).append("\n");
-    sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
-    sb.append("    fromStartTime: ").append(toIndentedString(fromStartTime)).append("\n");
-    sb.append("    toStartTime: ").append(toIndentedString(toStartTime)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setSearch(String search) {
+        this.search = search;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public Filters5 status(String status) {
+
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * A list of status values separated by comma. Possible values: active, complete, abort.
+     *
+     * @return status
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of status values separated by comma. Possible values: active, complete, abort. ")
+
+    public String getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+    public Filters5 milestone(Integer milestone) {
+
+        this.milestone = milestone;
+        return this;
+    }
+
+    /**
+     * Get milestone
+     *
+     * @return milestone
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getMilestone() {
+        return milestone;
+    }
+
+
+    public void setMilestone(Integer milestone) {
+        this.milestone = milestone;
+    }
+
+
+    public Filters5 environment(Integer environment) {
+
+        this.environment = environment;
+        return this;
+    }
+
+    /**
+     * Get environment
+     *
+     * @return environment
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getEnvironment() {
+        return environment;
+    }
+
+
+    public void setEnvironment(Integer environment) {
+        this.environment = environment;
+    }
+
+
+    public Filters5 fromStartTime(Long fromStartTime) {
+
+        this.fromStartTime = fromStartTime;
+        return this;
+    }
+
+    /**
+     * Get fromStartTime
+     *
+     * @return fromStartTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getFromStartTime() {
+        return fromStartTime;
+    }
+
+
+    public void setFromStartTime(Long fromStartTime) {
+        this.fromStartTime = fromStartTime;
+    }
+
+
+    public Filters5 toStartTime(Long toStartTime) {
+
+        this.toStartTime = toStartTime;
+        return this;
+    }
+
+    /**
+     * Get toStartTime
+     *
+     * @return toStartTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getToStartTime() {
+        return toStartTime;
+    }
+
+
+    public void setToStartTime(Long toStartTime) {
+        this.toStartTime = toStartTime;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Filters5 filters5 = (Filters5) o;
+        return Objects.equals(this.search, filters5.search) &&
+                Objects.equals(this.status, filters5.status) &&
+                Objects.equals(this.milestone, filters5.milestone) &&
+                Objects.equals(this.environment, filters5.environment) &&
+                Objects.equals(this.fromStartTime, filters5.fromStartTime) &&
+                Objects.equals(this.toStartTime, filters5.toStartTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(search, status, milestone, environment, fromStartTime, toStartTime);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Filters5 {\n");
+        sb.append("    search: ").append(toIndentedString(search)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    milestone: ").append(toIndentedString(milestone)).append("\n");
+        sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
+        sb.append("    fromStartTime: ").append(toIndentedString(fromStartTime)).append("\n");
+        sb.append("    toStartTime: ").append(toIndentedString(toStartTime)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

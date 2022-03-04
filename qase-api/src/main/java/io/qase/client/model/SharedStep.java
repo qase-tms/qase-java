@@ -15,370 +15,420 @@ package io.qase.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * SharedStep
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class SharedStep {
-  public static final String SERIALIZED_NAME_HASH = "hash";
-  @SerializedName(SERIALIZED_NAME_HASH)
-  private String hash;
-
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
-
-  public static final String SERIALIZED_NAME_ACTION = "action";
-  @SerializedName(SERIALIZED_NAME_ACTION)
-  private String action;
-
-  public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
-  @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
-  private String expectedResult;
-
-  public static final String SERIALIZED_NAME_STEPS = "steps";
-  @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<SharedStepSteps> steps = null;
-
-  public static final String SERIALIZED_NAME_DATA = "data";
-  @SerializedName(SERIALIZED_NAME_DATA)
-  private String data;
-
-  public static final String SERIALIZED_NAME_CASES = "cases";
-  @SerializedName(SERIALIZED_NAME_CASES)
-  private List<Long> cases = null;
-
-  public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
-  @SerializedName(SERIALIZED_NAME_CASES_COUNT)
-  private Integer casesCount;
-
-  public static final String SERIALIZED_NAME_CREATED = "created";
-  @SerializedName(SERIALIZED_NAME_CREATED)
-  private String created;
-
-  public static final String SERIALIZED_NAME_UPDATED = "updated";
-  @SerializedName(SERIALIZED_NAME_UPDATED)
-  private String updated;
+    public static final String SERIALIZED_NAME_HASH = "hash";
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    public static final String SERIALIZED_NAME_ACTION = "action";
+    public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
+    public static final String SERIALIZED_NAME_STEPS = "steps";
+    public static final String SERIALIZED_NAME_DATA = "data";
+    public static final String SERIALIZED_NAME_CASES = "cases";
+    public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
+    public static final String SERIALIZED_NAME_CREATED = "created";
+    public static final String SERIALIZED_NAME_UPDATED = "updated";
+    public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
+    public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
+    @SerializedName(SERIALIZED_NAME_HASH)
+    private String hash;
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
+    @SerializedName(SERIALIZED_NAME_ACTION)
+    private String action;
+    @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+    private String expectedResult;
+    @SerializedName(SERIALIZED_NAME_STEPS)
+    private List<SharedStepSteps> steps = null;
+    @SerializedName(SERIALIZED_NAME_DATA)
+    private String data;
+    @SerializedName(SERIALIZED_NAME_CASES)
+    private List<Long> cases = null;
+    @SerializedName(SERIALIZED_NAME_CASES_COUNT)
+    private Integer casesCount;
+    @SerializedName(SERIALIZED_NAME_CREATED)
+    private String created;
+    @SerializedName(SERIALIZED_NAME_UPDATED)
+    private String updated;
+    @SerializedName(SERIALIZED_NAME_CREATED_AT)
+    private String createdAt;
+    @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+    private String updatedAt;
 
 
-  public SharedStep hash(String hash) {
+    public SharedStep hash(String hash) {
 
-    this.hash = hash;
-    return this;
-  }
-
-   /**
-   * Get hash
-   * @return hash
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getHash() {
-    return hash;
-  }
-
-
-  public void setHash(String hash) {
-    this.hash = hash;
-  }
-
-
-  public SharedStep title(String title) {
-
-    this.title = title;
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public SharedStep action(String action) {
-
-    this.action = action;
-    return this;
-  }
-
-   /**
-   * Get action
-   * @return action
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getAction() {
-    return action;
-  }
-
-
-  public void setAction(String action) {
-    this.action = action;
-  }
-
-
-  public SharedStep expectedResult(String expectedResult) {
-
-    this.expectedResult = expectedResult;
-    return this;
-  }
-
-   /**
-   * Get expectedResult
-   * @return expectedResult
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getExpectedResult() {
-    return expectedResult;
-  }
-
-
-  public void setExpectedResult(String expectedResult) {
-    this.expectedResult = expectedResult;
-  }
-
-
-  public SharedStep steps(List<SharedStepSteps> steps) {
-
-    this.steps = steps;
-    return this;
-  }
-
-  public SharedStep addStepsItem(SharedStepSteps stepsItem) {
-    if (this.steps == null) {
-      this.steps = new ArrayList<>();
+        this.hash = hash;
+        return this;
     }
-    this.steps.add(stepsItem);
-    return this;
-  }
 
-   /**
-   * Get steps
-   * @return steps
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    /**
+     * Get hash
+     *
+     * @return hash
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  public List<SharedStepSteps> getSteps() {
-    return steps;
-  }
-
-
-  public void setSteps(List<SharedStepSteps> steps) {
-    this.steps = steps;
-  }
-
-
-  public SharedStep data(String data) {
-
-    this.data = data;
-    return this;
-  }
-
-   /**
-   * Get data
-   * @return data
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getData() {
-    return data;
-  }
-
-
-  public void setData(String data) {
-    this.data = data;
-  }
-
-
-  public SharedStep cases(List<Long> cases) {
-
-    this.cases = cases;
-    return this;
-  }
-
-  public SharedStep addCasesItem(Long casesItem) {
-    if (this.cases == null) {
-      this.cases = new ArrayList<>();
+    public String getHash() {
+        return hash;
     }
-    this.cases.add(casesItem);
-    return this;
-  }
-
-   /**
-   * Get cases
-   * @return cases
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public List<Long> getCases() {
-    return cases;
-  }
 
 
-  public void setCases(List<Long> cases) {
-    this.cases = cases;
-  }
-
-
-  public SharedStep casesCount(Integer casesCount) {
-
-    this.casesCount = casesCount;
-    return this;
-  }
-
-   /**
-   * Get casesCount
-   * @return casesCount
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getCasesCount() {
-    return casesCount;
-  }
-
-
-  public void setCasesCount(Integer casesCount) {
-    this.casesCount = casesCount;
-  }
-
-
-  public SharedStep created(String created) {
-
-    this.created = created;
-    return this;
-  }
-
-   /**
-   * Get created
-   * @return created
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getCreated() {
-    return created;
-  }
-
-
-  public void setCreated(String created) {
-    this.created = created;
-  }
-
-
-  public SharedStep updated(String updated) {
-
-    this.updated = updated;
-    return this;
-  }
-
-   /**
-   * Get updated
-   * @return updated
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getUpdated() {
-    return updated;
-  }
-
-
-  public void setUpdated(String updated) {
-    this.updated = updated;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+
+    public SharedStep title(String title) {
+
+        this.title = title;
+        return this;
     }
-    SharedStep sharedStep = (SharedStep) o;
-    return Objects.equals(this.hash, sharedStep.hash) &&
-        Objects.equals(this.title, sharedStep.title) &&
-        Objects.equals(this.action, sharedStep.action) &&
-        Objects.equals(this.expectedResult, sharedStep.expectedResult) &&
-        Objects.equals(this.steps, sharedStep.steps) &&
-        Objects.equals(this.data, sharedStep.data) &&
-        Objects.equals(this.cases, sharedStep.cases) &&
-        Objects.equals(this.casesCount, sharedStep.casesCount) &&
-        Objects.equals(this.created, sharedStep.created) &&
-        Objects.equals(this.updated, sharedStep.updated);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(hash, title, action, expectedResult, steps, data, cases, casesCount, created, updated);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    public String getTitle() {
+        return title;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SharedStep {\n");
-    sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    action: ").append(toIndentedString(action)).append("\n");
-    sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
-    sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
-    sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
-    sb.append("    created: ").append(toIndentedString(created)).append("\n");
-    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setTitle(String title) {
+        this.title = title;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public SharedStep action(String action) {
+
+        this.action = action;
+        return this;
+    }
+
+    /**
+     * Get action
+     *
+     * @return action
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getAction() {
+        return action;
+    }
+
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+
+    public SharedStep expectedResult(String expectedResult) {
+
+        this.expectedResult = expectedResult;
+        return this;
+    }
+
+    /**
+     * Get expectedResult
+     *
+     * @return expectedResult
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getExpectedResult() {
+        return expectedResult;
+    }
+
+
+    public void setExpectedResult(String expectedResult) {
+        this.expectedResult = expectedResult;
+    }
+
+
+    public SharedStep steps(List<SharedStepSteps> steps) {
+
+        this.steps = steps;
+        return this;
+    }
+
+    public SharedStep addStepsItem(SharedStepSteps stepsItem) {
+        if (this.steps == null) {
+            this.steps = new ArrayList<>();
+        }
+        this.steps.add(stepsItem);
+        return this;
+    }
+
+    /**
+     * Get steps
+     *
+     * @return steps
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<SharedStepSteps> getSteps() {
+        return steps;
+    }
+
+
+    public void setSteps(List<SharedStepSteps> steps) {
+        this.steps = steps;
+    }
+
+
+    public SharedStep data(String data) {
+
+        this.data = data;
+        return this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return data
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getData() {
+        return data;
+    }
+
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+
+    public SharedStep cases(List<Long> cases) {
+
+        this.cases = cases;
+        return this;
+    }
+
+    public SharedStep addCasesItem(Long casesItem) {
+        if (this.cases == null) {
+            this.cases = new ArrayList<>();
+        }
+        this.cases.add(casesItem);
+        return this;
+    }
+
+    /**
+     * Get cases
+     *
+     * @return cases
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<Long> getCases() {
+        return cases;
+    }
+
+
+    public void setCases(List<Long> cases) {
+        this.cases = cases;
+    }
+
+
+    public SharedStep casesCount(Integer casesCount) {
+
+        this.casesCount = casesCount;
+        return this;
+    }
+
+    /**
+     * Get casesCount
+     *
+     * @return casesCount
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getCasesCount() {
+        return casesCount;
+    }
+
+
+    public void setCasesCount(Integer casesCount) {
+        this.casesCount = casesCount;
+    }
+
+
+    public SharedStep created(String created) {
+
+        this.created = created;
+        return this;
+    }
+
+    /**
+     * Deprecated, use the &#x60;created_at&#x60; property instead.
+     *
+     * @return created
+     * @deprecated
+     **/
+    @Deprecated
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `created_at` property instead.")
+
+    public String getCreated() {
+        return created;
+    }
+
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+
+    public SharedStep updated(String updated) {
+
+        this.updated = updated;
+        return this;
+    }
+
+    /**
+     * Deprecated, use the &#x60;updated_at&#x60; property instead.
+     *
+     * @return updated
+     * @deprecated
+     **/
+    @Deprecated
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `updated_at` property instead.")
+
+    public String getUpdated() {
+        return updated;
+    }
+
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+
+    public SharedStep createdAt(String createdAt) {
+
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return createdAt
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
+    public SharedStep updatedAt(String updatedAt) {
+
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return updatedAt
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SharedStep sharedStep = (SharedStep) o;
+        return Objects.equals(this.hash, sharedStep.hash) &&
+                Objects.equals(this.title, sharedStep.title) &&
+                Objects.equals(this.action, sharedStep.action) &&
+                Objects.equals(this.expectedResult, sharedStep.expectedResult) &&
+                Objects.equals(this.steps, sharedStep.steps) &&
+                Objects.equals(this.data, sharedStep.data) &&
+                Objects.equals(this.cases, sharedStep.cases) &&
+                Objects.equals(this.casesCount, sharedStep.casesCount) &&
+                Objects.equals(this.created, sharedStep.created) &&
+                Objects.equals(this.updated, sharedStep.updated) &&
+                Objects.equals(this.createdAt, sharedStep.createdAt) &&
+                Objects.equals(this.updatedAt, sharedStep.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hash, title, action, expectedResult, steps, data, cases, casesCount, created, updated, createdAt, updatedAt);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SharedStep {\n");
+        sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    action: ").append(toIndentedString(action)).append("\n");
+        sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
+        sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
+        sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
+        sb.append("    created: ").append(toIndentedString(created)).append("\n");
+        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+        sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

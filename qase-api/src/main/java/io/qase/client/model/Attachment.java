@@ -22,159 +22,160 @@ import java.util.Objects;
 /**
  * Attachment
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class Attachment {
-  public static final String SERIALIZED_NAME_SIZE = "size";
-  @SerializedName(SERIALIZED_NAME_SIZE)
-  private Integer size;
-
-  public static final String SERIALIZED_NAME_MIME = "mime";
-  @SerializedName(SERIALIZED_NAME_MIME)
-  private String mime;
-
-  public static final String SERIALIZED_NAME_FILENAME = "filename";
-  @SerializedName(SERIALIZED_NAME_FILENAME)
-  private String filename;
-
-  public static final String SERIALIZED_NAME_URL = "url";
-  @SerializedName(SERIALIZED_NAME_URL)
-  private URI url;
+    public static final String SERIALIZED_NAME_SIZE = "size";
+    public static final String SERIALIZED_NAME_MIME = "mime";
+    public static final String SERIALIZED_NAME_FILENAME = "filename";
+    public static final String SERIALIZED_NAME_URL = "url";
+    @SerializedName(SERIALIZED_NAME_SIZE)
+    private Integer size;
+    @SerializedName(SERIALIZED_NAME_MIME)
+    private String mime;
+    @SerializedName(SERIALIZED_NAME_FILENAME)
+    private String filename;
+    @SerializedName(SERIALIZED_NAME_URL)
+    private URI url;
 
 
-  public Attachment size(Integer size) {
+    public Attachment size(Integer size) {
 
-    this.size = size;
-    return this;
-  }
-
-   /**
-   * Get size
-   * @return size
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getSize() {
-    return size;
-  }
-
-
-  public void setSize(Integer size) {
-    this.size = size;
-  }
-
-
-  public Attachment mime(String mime) {
-
-    this.mime = mime;
-    return this;
-  }
-
-   /**
-   * Get mime
-   * @return mime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getMime() {
-    return mime;
-  }
-
-
-  public void setMime(String mime) {
-    this.mime = mime;
-  }
-
-
-  public Attachment filename(String filename) {
-
-    this.filename = filename;
-    return this;
-  }
-
-   /**
-   * Get filename
-   * @return filename
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getFilename() {
-    return filename;
-  }
-
-
-  public void setFilename(String filename) {
-    this.filename = filename;
-  }
-
-
-  public Attachment url(URI url) {
-
-    this.url = url;
-    return this;
-  }
-
-   /**
-   * Get url
-   * @return url
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public URI getUrl() {
-    return url;
-  }
-
-
-  public void setUrl(URI url) {
-    this.url = url;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.size = size;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get size
+     *
+     * @return size
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getSize() {
+        return size;
     }
-    Attachment attachment = (Attachment) o;
-    return Objects.equals(this.size, attachment.size) &&
-        Objects.equals(this.mime, attachment.mime) &&
-        Objects.equals(this.filename, attachment.filename) &&
-        Objects.equals(this.url, attachment.url);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(size, mime, filename, url);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Attachment {\n");
-    sb.append("    size: ").append(toIndentedString(size)).append("\n");
-    sb.append("    mime: ").append(toIndentedString(mime)).append("\n");
-    sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setSize(Integer size) {
+        this.size = size;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public Attachment mime(String mime) {
+
+        this.mime = mime;
+        return this;
+    }
+
+    /**
+     * Get mime
+     *
+     * @return mime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getMime() {
+        return mime;
+    }
+
+
+    public void setMime(String mime) {
+        this.mime = mime;
+    }
+
+
+    public Attachment filename(String filename) {
+
+        this.filename = filename;
+        return this;
+    }
+
+    /**
+     * Get filename
+     *
+     * @return filename
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getFilename() {
+        return filename;
+    }
+
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+
+    public Attachment url(URI url) {
+
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return url
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public URI getUrl() {
+        return url;
+    }
+
+
+    public void setUrl(URI url) {
+        this.url = url;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Attachment attachment = (Attachment) o;
+        return Objects.equals(this.size, attachment.size) &&
+                Objects.equals(this.mime, attachment.mime) &&
+                Objects.equals(this.filename, attachment.filename) &&
+                Objects.equals(this.url, attachment.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(size, mime, filename, url);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Attachment {\n");
+        sb.append("    size: ").append(toIndentedString(size)).append("\n");
+        sb.append("    mime: ").append(toIndentedString(mime)).append("\n");
+        sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
+        sb.append("    url: ").append(toIndentedString(url)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

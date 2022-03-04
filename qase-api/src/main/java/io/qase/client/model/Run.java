@@ -25,513 +25,483 @@ import java.util.Objects;
 /**
  * Run
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class Run {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Long id;
-
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
-
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-  private String description;
-
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private Integer status;
-
-  public static final String SERIALIZED_NAME_STATUS_TEXT = "status_text";
-  @SerializedName(SERIALIZED_NAME_STATUS_TEXT)
-  private String statusText;
-
-  public static final String SERIALIZED_NAME_START_TIME = "start_time";
-  @SerializedName(SERIALIZED_NAME_START_TIME)
-  private String startTime;
-
-  public static final String SERIALIZED_NAME_END_TIME = "end_time";
-  @SerializedName(SERIALIZED_NAME_END_TIME)
-  private String endTime;
-
-  public static final String SERIALIZED_NAME_PUBLIC = "public";
-  @SerializedName(SERIALIZED_NAME_PUBLIC)
-  private Boolean _public;
-
-  public static final String SERIALIZED_NAME_STATS = "stats";
-  @SerializedName(SERIALIZED_NAME_STATS)
-  private RunStats stats;
-
-  public static final String SERIALIZED_NAME_TIME_SPENT = "time_spent";
-  @SerializedName(SERIALIZED_NAME_TIME_SPENT)
-  private Long timeSpent;
-
-  public static final String SERIALIZED_NAME_ENVIRONMENT = "environment";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT)
-  private RunEnvironment environment;
-
-  public static final String SERIALIZED_NAME_MILESTONE = "milestone";
-  @SerializedName(SERIALIZED_NAME_MILESTONE)
-  private RunMilestone milestone;
-
-  public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
-  @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
-  private List<CustomFieldValue> customFields = null;
-
-  public static final String SERIALIZED_NAME_TAGS = "tags";
-  @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<TagValue> tags = null;
-
-  public static final String SERIALIZED_NAME_CASES = "cases";
-  @SerializedName(SERIALIZED_NAME_CASES)
-  private List<Long> cases = null;
-
-
-  public Run id(Long id) {
-
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getId() {
-    return id;
-  }
-
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-
-  public Run title(String title) {
-
-    this.title = title;
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public Run description(String description) {
-
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public Run status(Integer status) {
-
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getStatus() {
-    return status;
-  }
-
-
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
-
-
-  public Run statusText(String statusText) {
-
-    this.statusText = statusText;
-    return this;
-  }
-
-   /**
-   * Get statusText
-   * @return statusText
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getStatusText() {
-    return statusText;
-  }
-
-
-  public void setStatusText(String statusText) {
-    this.statusText = statusText;
-  }
-
-
-  public Run startTime(String startTime) {
-
-    this.startTime = startTime;
-    return this;
-  }
-
-   /**
-   * Get startTime
-   * @return startTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getStartTime() {
-    return startTime;
-  }
-
-
-  public void setStartTime(String startTime) {
-    this.startTime = startTime;
-  }
-
-
-  public Run endTime(String endTime) {
-
-    this.endTime = endTime;
-    return this;
-  }
-
-   /**
-   * Get endTime
-   * @return endTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getEndTime() {
-    return endTime;
-  }
-
-
-  public void setEndTime(String endTime) {
-    this.endTime = endTime;
-  }
-
-
-  public Run _public(Boolean _public) {
-
-    this._public = _public;
-    return this;
-  }
-
-   /**
-   * Get _public
-   * @return _public
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Boolean getPublic() {
-    return _public;
-  }
-
-
-  public void setPublic(Boolean _public) {
-    this._public = _public;
-  }
-
-
-  public Run stats(RunStats stats) {
-
-    this.stats = stats;
-    return this;
-  }
-
-   /**
-   * Get stats
-   * @return stats
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public RunStats getStats() {
-    return stats;
-  }
-
-
-  public void setStats(RunStats stats) {
-    this.stats = stats;
-  }
-
-
-  public Run timeSpent(Long timeSpent) {
-
-    this.timeSpent = timeSpent;
-    return this;
-  }
-
-   /**
-   * Time in ms.
-   * @return timeSpent
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Time in ms.")
-
-  public Long getTimeSpent() {
-    return timeSpent;
-  }
-
-
-  public void setTimeSpent(Long timeSpent) {
-    this.timeSpent = timeSpent;
-  }
-
-
-  public Run environment(RunEnvironment environment) {
-
-    this.environment = environment;
-    return this;
-  }
-
-   /**
-   * Get environment
-   * @return environment
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public RunEnvironment getEnvironment() {
-    return environment;
-  }
-
-
-  public void setEnvironment(RunEnvironment environment) {
-    this.environment = environment;
-  }
-
-
-  public Run milestone(RunMilestone milestone) {
-
-    this.milestone = milestone;
-    return this;
-  }
-
-   /**
-   * Get milestone
-   * @return milestone
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public RunMilestone getMilestone() {
-    return milestone;
-  }
-
-
-  public void setMilestone(RunMilestone milestone) {
-    this.milestone = milestone;
-  }
-
-
-  public Run customFields(List<CustomFieldValue> customFields) {
-
-    this.customFields = customFields;
-    return this;
-  }
-
-  public Run addCustomFieldsItem(CustomFieldValue customFieldsItem) {
-    if (this.customFields == null) {
-      this.customFields = new ArrayList<>();
+    public static final String SERIALIZED_NAME_ID = "id";
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+    public static final String SERIALIZED_NAME_STATUS = "status";
+    public static final String SERIALIZED_NAME_STATUS_TEXT = "status_text";
+    public static final String SERIALIZED_NAME_START_TIME = "start_time";
+    public static final String SERIALIZED_NAME_END_TIME = "end_time";
+    public static final String SERIALIZED_NAME_PUBLIC = "public";
+    public static final String SERIALIZED_NAME_STATS = "stats";
+    public static final String SERIALIZED_NAME_TIME_SPENT = "time_spent";
+    public static final String SERIALIZED_NAME_ENVIRONMENT = "environment";
+    public static final String SERIALIZED_NAME_MILESTONE = "milestone";
+    public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
+    public static final String SERIALIZED_NAME_TAGS = "tags";
+    public static final String SERIALIZED_NAME_CASES = "cases";
+    @SerializedName(SERIALIZED_NAME_ID)
+    private Long id;
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    private Integer status;
+    @SerializedName(SERIALIZED_NAME_STATUS_TEXT)
+    private String statusText;
+    @SerializedName(SERIALIZED_NAME_START_TIME)
+    private String startTime;
+    @SerializedName(SERIALIZED_NAME_END_TIME)
+    private String endTime;
+    @SerializedName(SERIALIZED_NAME_PUBLIC)
+    private Boolean _public;
+    @SerializedName(SERIALIZED_NAME_STATS)
+    private RunStats stats;
+    @SerializedName(SERIALIZED_NAME_TIME_SPENT)
+    private Long timeSpent;
+    @SerializedName(SERIALIZED_NAME_ENVIRONMENT)
+    private RunEnvironment environment;
+    @SerializedName(SERIALIZED_NAME_MILESTONE)
+    private RunMilestone milestone;
+    @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
+    private List<CustomFieldValue> customFields = null;
+    @SerializedName(SERIALIZED_NAME_TAGS)
+    private List<TagValue> tags = null;
+    @SerializedName(SERIALIZED_NAME_CASES)
+    private List<Long> cases = null;
+
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
     }
-    this.customFields.add(customFieldsItem);
-    return this;
-  }
 
-   /**
-   * Get customFields
-   * @return customFields
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public List<CustomFieldValue> getCustomFields() {
-    return customFields;
-  }
-
-
-  public void setCustomFields(List<CustomFieldValue> customFields) {
-    this.customFields = customFields;
-  }
-
-
-  public Run tags(List<TagValue> tags) {
-
-    this.tags = tags;
-    return this;
-  }
-
-  public Run addTagsItem(TagValue tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<>();
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
-    this.tags.add(tagsItem);
-    return this;
-  }
 
-   /**
-   * Get tags
-   * @return tags
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    public Run id(Long id) {
 
-  public List<TagValue> getTags() {
-    return tags;
-  }
-
-
-  public void setTags(List<TagValue> tags) {
-    this.tags = tags;
-  }
-
-
-  public Run cases(List<Long> cases) {
-
-    this.cases = cases;
-    return this;
-  }
-
-  public Run addCasesItem(Long casesItem) {
-    if (this.cases == null) {
-      this.cases = new ArrayList<>();
+        this.id = id;
+        return this;
     }
-    this.cases.add(casesItem);
-    return this;
-  }
 
-   /**
-   * Get cases
-   * @return cases
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  public List<Long> getCases() {
-    return cases;
-  }
-
-
-  public void setCases(List<Long> cases) {
-    this.cases = cases;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Long getId() {
+        return id;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public void setId(Long id) {
+        this.id = id;
     }
-    Run run = (Run) o;
-    return Objects.equals(this.id, run.id) &&
-        Objects.equals(this.title, run.title) &&
-        Objects.equals(this.description, run.description) &&
-        Objects.equals(this.status, run.status) &&
-        Objects.equals(this.statusText, run.statusText) &&
-        Objects.equals(this.startTime, run.startTime) &&
-        Objects.equals(this.endTime, run.endTime) &&
-        Objects.equals(this._public, run._public) &&
-        Objects.equals(this.stats, run.stats) &&
-        Objects.equals(this.timeSpent, run.timeSpent) &&
-        Objects.equals(this.environment, run.environment) &&
-        Objects.equals(this.milestone, run.milestone) &&
-        Objects.equals(this.customFields, run.customFields) &&
-        Objects.equals(this.tags, run.tags) &&
-        Objects.equals(this.cases, run.cases);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
+    public Run title(String title) {
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, title, description, status, statusText, startTime, endTime, _public, stats, timeSpent, environment, milestone, customFields, tags, cases);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+        this.title = title;
+        return this;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Run {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    statusText: ").append(toIndentedString(statusText)).append("\n");
-    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
-    sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
-    sb.append("    _public: ").append(toIndentedString(_public)).append("\n");
-    sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
-    sb.append("    timeSpent: ").append(toIndentedString(timeSpent)).append("\n");
-    sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
-    sb.append("    milestone: ").append(toIndentedString(milestone)).append("\n");
-    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
-    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public String getTitle() {
+        return title;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Run description(String description) {
+
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return description
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Run status(Integer status) {
+
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return status
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Run statusText(String statusText) {
+
+        this.statusText = statusText;
+        return this;
+    }
+
+    /**
+     * Get statusText
+     *
+     * @return statusText
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getStatusText() {
+        return statusText;
+    }
+
+    public void setStatusText(String statusText) {
+        this.statusText = statusText;
+    }
+
+    public Run startTime(String startTime) {
+
+        this.startTime = startTime;
+        return this;
+    }
+
+    /**
+     * Get startTime
+     *
+     * @return startTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public Run endTime(String endTime) {
+
+        this.endTime = endTime;
+        return this;
+    }
+
+    /**
+     * Get endTime
+     *
+     * @return endTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public Run _public(Boolean _public) {
+
+        this._public = _public;
+        return this;
+    }
+
+    /**
+     * Get _public
+     *
+     * @return _public
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Boolean getPublic() {
+        return _public;
+    }
+
+    public void setPublic(Boolean _public) {
+        this._public = _public;
+    }
+
+    public Run stats(RunStats stats) {
+
+        this.stats = stats;
+        return this;
+    }
+
+    /**
+     * Get stats
+     *
+     * @return stats
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public RunStats getStats() {
+        return stats;
+    }
+
+    public void setStats(RunStats stats) {
+        this.stats = stats;
+    }
+
+    public Run timeSpent(Long timeSpent) {
+
+        this.timeSpent = timeSpent;
+        return this;
+    }
+
+    /**
+     * Time in ms.
+     *
+     * @return timeSpent
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "Time in ms.")
+
+    public Long getTimeSpent() {
+        return timeSpent;
+    }
+
+    public void setTimeSpent(Long timeSpent) {
+        this.timeSpent = timeSpent;
+    }
+
+    public Run environment(RunEnvironment environment) {
+
+        this.environment = environment;
+        return this;
+    }
+
+    /**
+     * Get environment
+     *
+     * @return environment
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public RunEnvironment getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(RunEnvironment environment) {
+        this.environment = environment;
+    }
+
+    public Run milestone(RunMilestone milestone) {
+
+        this.milestone = milestone;
+        return this;
+    }
+
+    /**
+     * Get milestone
+     *
+     * @return milestone
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public RunMilestone getMilestone() {
+        return milestone;
+    }
+
+    public void setMilestone(RunMilestone milestone) {
+        this.milestone = milestone;
+    }
+
+    public Run customFields(List<CustomFieldValue> customFields) {
+
+        this.customFields = customFields;
+        return this;
+    }
+
+    public Run addCustomFieldsItem(CustomFieldValue customFieldsItem) {
+        if (this.customFields == null) {
+            this.customFields = new ArrayList<>();
+        }
+        this.customFields.add(customFieldsItem);
+        return this;
+    }
+
+    /**
+     * Get customFields
+     *
+     * @return customFields
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<CustomFieldValue> getCustomFields() {
+        return customFields;
+    }
+
+    public void setCustomFields(List<CustomFieldValue> customFields) {
+        this.customFields = customFields;
+    }
+
+    public Run tags(List<TagValue> tags) {
+
+        this.tags = tags;
+        return this;
+    }
+
+    public Run addTagsItem(TagValue tagsItem) {
+        if (this.tags == null) {
+            this.tags = new ArrayList<>();
+        }
+        this.tags.add(tagsItem);
+        return this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return tags
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<TagValue> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagValue> tags) {
+        this.tags = tags;
+    }
+
+    public Run cases(List<Long> cases) {
+
+        this.cases = cases;
+        return this;
+    }
+
+    public Run addCasesItem(Long casesItem) {
+        if (this.cases == null) {
+            this.cases = new ArrayList<>();
+        }
+        this.cases.add(casesItem);
+        return this;
+    }
+
+    /**
+     * Get cases
+     *
+     * @return cases
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<Long> getCases() {
+        return cases;
+    }
+
+    public void setCases(List<Long> cases) {
+        this.cases = cases;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Run run = (Run) o;
+        return Objects.equals(this.id, run.id) &&
+                Objects.equals(this.title, run.title) &&
+                Objects.equals(this.description, run.description) &&
+                Objects.equals(this.status, run.status) &&
+                Objects.equals(this.statusText, run.statusText) &&
+                Objects.equals(this.startTime, run.startTime) &&
+                Objects.equals(this.endTime, run.endTime) &&
+                Objects.equals(this._public, run._public) &&
+                Objects.equals(this.stats, run.stats) &&
+                Objects.equals(this.timeSpent, run.timeSpent) &&
+                Objects.equals(this.environment, run.environment) &&
+                Objects.equals(this.milestone, run.milestone) &&
+                Objects.equals(this.customFields, run.customFields) &&
+                Objects.equals(this.tags, run.tags) &&
+                Objects.equals(this.cases, run.cases);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, status, statusText, startTime, endTime, _public, stats, timeSpent, environment, milestone, customFields, tags, cases);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Run {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    statusText: ").append(toIndentedString(statusText)).append("\n");
+        sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
+        sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
+        sb.append("    _public: ").append(toIndentedString(_public)).append("\n");
+        sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
+        sb.append("    timeSpent: ").append(toIndentedString(timeSpent)).append("\n");
+        sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
+        sb.append("    milestone: ").append(toIndentedString(milestone)).append("\n");
+        sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
+        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+        sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

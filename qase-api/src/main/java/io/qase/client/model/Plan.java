@@ -15,236 +15,286 @@ package io.qase.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
  * Plan
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class Plan {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Long id;
-
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
-
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-  private String description;
-
-  public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
-  @SerializedName(SERIALIZED_NAME_CASES_COUNT)
-  private Integer casesCount;
-
-  public static final String SERIALIZED_NAME_CREATED = "created";
-  @SerializedName(SERIALIZED_NAME_CREATED)
-  private String created;
-
-  public static final String SERIALIZED_NAME_UPDATED = "updated";
-  @SerializedName(SERIALIZED_NAME_UPDATED)
-  private String updated;
-
-
-  public Plan id(Long id) {
-
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getId() {
-    return id;
-  }
+    public static final String SERIALIZED_NAME_ID = "id";
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+    public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
+    public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
+    public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
+    public static final String SERIALIZED_NAME_CREATED = "created";
+    public static final String SERIALIZED_NAME_UPDATED = "updated";
+    @SerializedName(SERIALIZED_NAME_ID)
+    private Long id;
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
+    @SerializedName(SERIALIZED_NAME_CASES_COUNT)
+    private Integer casesCount;
+    @SerializedName(SERIALIZED_NAME_CREATED_AT)
+    private String createdAt;
+    @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+    private String updatedAt;
+    @SerializedName(SERIALIZED_NAME_CREATED)
+    private String created;
+    @SerializedName(SERIALIZED_NAME_UPDATED)
+    private String updated;
 
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Plan id(Long id) {
 
-
-  public Plan title(String title) {
-
-    this.title = title;
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public Plan description(String description) {
-
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public Plan casesCount(Integer casesCount) {
-
-    this.casesCount = casesCount;
-    return this;
-  }
-
-   /**
-   * Get casesCount
-   * @return casesCount
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getCasesCount() {
-    return casesCount;
-  }
-
-
-  public void setCasesCount(Integer casesCount) {
-    this.casesCount = casesCount;
-  }
-
-
-  public Plan created(String created) {
-
-    this.created = created;
-    return this;
-  }
-
-   /**
-   * Get created
-   * @return created
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getCreated() {
-    return created;
-  }
-
-
-  public void setCreated(String created) {
-    this.created = created;
-  }
-
-
-  public Plan updated(String updated) {
-
-    this.updated = updated;
-    return this;
-  }
-
-   /**
-   * Get updated
-   * @return updated
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getUpdated() {
-    return updated;
-  }
-
-
-  public void setUpdated(String updated) {
-    this.updated = updated;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getId() {
+        return id;
     }
-    Plan plan = (Plan) o;
-    return Objects.equals(this.id, plan.id) &&
-        Objects.equals(this.title, plan.title) &&
-        Objects.equals(this.description, plan.description) &&
-        Objects.equals(this.casesCount, plan.casesCount) &&
-        Objects.equals(this.created, plan.created) &&
-        Objects.equals(this.updated, plan.updated);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, title, description, casesCount, created, updated);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    public void setId(Long id) {
+        this.id = id;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Plan {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
-    sb.append("    created: ").append(toIndentedString(created)).append("\n");
-    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public Plan title(String title) {
+
+        this.title = title;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    public Plan description(String description) {
+
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return description
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public Plan casesCount(Integer casesCount) {
+
+        this.casesCount = casesCount;
+        return this;
+    }
+
+    /**
+     * Get casesCount
+     *
+     * @return casesCount
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getCasesCount() {
+        return casesCount;
+    }
+
+
+    public void setCasesCount(Integer casesCount) {
+        this.casesCount = casesCount;
+    }
+
+
+    public Plan createdAt(String createdAt) {
+
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return createdAt
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
+    public Plan updatedAt(String updatedAt) {
+
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return updatedAt
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+
+    public Plan created(String created) {
+
+        this.created = created;
+        return this;
+    }
+
+    /**
+     * Deprecated, use the &#x60;created_at&#x60; property instead.
+     *
+     * @return created
+     * @deprecated
+     **/
+    @Deprecated
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `created_at` property instead.")
+
+    public String getCreated() {
+        return created;
+    }
+
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+
+    public Plan updated(String updated) {
+
+        this.updated = updated;
+        return this;
+    }
+
+    /**
+     * Deprecated, use the &#x60;updated_at&#x60; property instead.
+     *
+     * @return updated
+     * @deprecated
+     **/
+    @Deprecated
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `updated_at` property instead.")
+
+    public String getUpdated() {
+        return updated;
+    }
+
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Plan plan = (Plan) o;
+        return Objects.equals(this.id, plan.id) &&
+                Objects.equals(this.title, plan.title) &&
+                Objects.equals(this.description, plan.description) &&
+                Objects.equals(this.casesCount, plan.casesCount) &&
+                Objects.equals(this.createdAt, plan.createdAt) &&
+                Objects.equals(this.updatedAt, plan.updatedAt) &&
+                Objects.equals(this.created, plan.created) &&
+                Objects.equals(this.updated, plan.updated);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, casesCount, createdAt, updatedAt, created, updated);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Plan {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
+        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+        sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+        sb.append("    created: ").append(toIndentedString(created)).append("\n");
+        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

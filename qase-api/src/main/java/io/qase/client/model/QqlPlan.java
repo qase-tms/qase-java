@@ -16,26 +16,19 @@ package io.qase.client.model;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * PlanDetailed
+ * QqlPlan
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
-public class PlanDetailed {
+public class QqlPlan {
     public static final String SERIALIZED_NAME_ID = "id";
     public static final String SERIALIZED_NAME_TITLE = "title";
     public static final String SERIALIZED_NAME_DESCRIPTION = "description";
     public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
     public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
     public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
-    public static final String SERIALIZED_NAME_CREATED = "created";
-    public static final String SERIALIZED_NAME_UPDATED = "updated";
-    public static final String SERIALIZED_NAME_AVERAGE_TIME = "average_time";
-    public static final String SERIALIZED_NAME_CASES = "cases";
     @SerializedName(SERIALIZED_NAME_ID)
     private Long id;
     @SerializedName(SERIALIZED_NAME_TITLE)
@@ -48,17 +41,9 @@ public class PlanDetailed {
     private String createdAt;
     @SerializedName(SERIALIZED_NAME_UPDATED_AT)
     private String updatedAt;
-    @SerializedName(SERIALIZED_NAME_CREATED)
-    private String created;
-    @SerializedName(SERIALIZED_NAME_UPDATED)
-    private String updated;
-    @SerializedName(SERIALIZED_NAME_AVERAGE_TIME)
-    private BigDecimal averageTime;
-    @SerializedName(SERIALIZED_NAME_CASES)
-    private List<PlanDetailedAllOfCases> cases = null;
 
 
-    public PlanDetailed id(Long id) {
+    public QqlPlan id(Long id) {
 
         this.id = id;
         return this;
@@ -82,7 +67,7 @@ public class PlanDetailed {
     }
 
 
-    public PlanDetailed title(String title) {
+    public QqlPlan title(String title) {
 
         this.title = title;
         return this;
@@ -106,7 +91,7 @@ public class PlanDetailed {
     }
 
 
-    public PlanDetailed description(String description) {
+    public QqlPlan description(String description) {
 
         this.description = description;
         return this;
@@ -130,7 +115,7 @@ public class PlanDetailed {
     }
 
 
-    public PlanDetailed casesCount(Integer casesCount) {
+    public QqlPlan casesCount(Integer casesCount) {
 
         this.casesCount = casesCount;
         return this;
@@ -154,7 +139,7 @@ public class PlanDetailed {
     }
 
 
-    public PlanDetailed createdAt(String createdAt) {
+    public QqlPlan createdAt(String createdAt) {
 
         this.createdAt = createdAt;
         return this;
@@ -178,7 +163,7 @@ public class PlanDetailed {
     }
 
 
-    public PlanDetailed updatedAt(String updatedAt) {
+    public QqlPlan updatedAt(String updatedAt) {
 
         this.updatedAt = updatedAt;
         return this;
@@ -202,114 +187,6 @@ public class PlanDetailed {
     }
 
 
-    public PlanDetailed created(String created) {
-
-        this.created = created;
-        return this;
-    }
-
-    /**
-     * Deprecated, use the &#x60;created_at&#x60; property instead.
-     *
-     * @return created
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `created_at` property instead.")
-
-    public String getCreated() {
-        return created;
-    }
-
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-
-    public PlanDetailed updated(String updated) {
-
-        this.updated = updated;
-        return this;
-    }
-
-    /**
-     * Deprecated, use the &#x60;updated_at&#x60; property instead.
-     *
-     * @return updated
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `updated_at` property instead.")
-
-    public String getUpdated() {
-        return updated;
-    }
-
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-
-    public PlanDetailed averageTime(BigDecimal averageTime) {
-
-        this.averageTime = averageTime;
-        return this;
-    }
-
-    /**
-     * Get averageTime
-     *
-     * @return averageTime
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public BigDecimal getAverageTime() {
-        return averageTime;
-    }
-
-
-    public void setAverageTime(BigDecimal averageTime) {
-        this.averageTime = averageTime;
-    }
-
-
-    public PlanDetailed cases(List<PlanDetailedAllOfCases> cases) {
-
-        this.cases = cases;
-        return this;
-    }
-
-    public PlanDetailed addCasesItem(PlanDetailedAllOfCases casesItem) {
-        if (this.cases == null) {
-            this.cases = new ArrayList<>();
-        }
-        this.cases.add(casesItem);
-        return this;
-    }
-
-    /**
-     * Get cases
-     *
-     * @return cases
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<PlanDetailedAllOfCases> getCases() {
-        return cases;
-    }
-
-
-    public void setCases(List<PlanDetailedAllOfCases> cases) {
-        this.cases = cases;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -318,38 +195,30 @@ public class PlanDetailed {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PlanDetailed planDetailed = (PlanDetailed) o;
-        return Objects.equals(this.id, planDetailed.id) &&
-                Objects.equals(this.title, planDetailed.title) &&
-                Objects.equals(this.description, planDetailed.description) &&
-                Objects.equals(this.casesCount, planDetailed.casesCount) &&
-                Objects.equals(this.createdAt, planDetailed.createdAt) &&
-                Objects.equals(this.updatedAt, planDetailed.updatedAt) &&
-                Objects.equals(this.created, planDetailed.created) &&
-                Objects.equals(this.updated, planDetailed.updated) &&
-                Objects.equals(this.averageTime, planDetailed.averageTime) &&
-                Objects.equals(this.cases, planDetailed.cases);
+        QqlPlan qqlPlan = (QqlPlan) o;
+        return Objects.equals(this.id, qqlPlan.id) &&
+                Objects.equals(this.title, qqlPlan.title) &&
+                Objects.equals(this.description, qqlPlan.description) &&
+                Objects.equals(this.casesCount, qqlPlan.casesCount) &&
+                Objects.equals(this.createdAt, qqlPlan.createdAt) &&
+                Objects.equals(this.updatedAt, qqlPlan.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, casesCount, createdAt, updatedAt, created, updated, averageTime, cases);
+        return Objects.hash(id, title, description, casesCount, createdAt, updatedAt);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class PlanDetailed {\n");
+        sb.append("class QqlPlan {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    title: ").append(toIndentedString(title)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-        sb.append("    created: ").append(toIndentedString(created)).append("\n");
-        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
-        sb.append("    averageTime: ").append(toIndentedString(averageTime)).append("\n");
-        sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
         sb.append("}");
         return sb.toString();
     }

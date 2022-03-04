@@ -24,109 +24,110 @@ import java.util.Objects;
 /**
  * PlanDetailedAllOf
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class PlanDetailedAllOf {
-  public static final String SERIALIZED_NAME_AVERAGE_TIME = "average_time";
-  @SerializedName(SERIALIZED_NAME_AVERAGE_TIME)
-  private BigDecimal averageTime;
-
-  public static final String SERIALIZED_NAME_CASES = "cases";
-  @SerializedName(SERIALIZED_NAME_CASES)
-  private List<PlanDetailedAllOfCases> cases = null;
-
-
-  public PlanDetailedAllOf averageTime(BigDecimal averageTime) {
-
-    this.averageTime = averageTime;
-    return this;
-  }
-
-   /**
-   * Get averageTime
-   * @return averageTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public BigDecimal getAverageTime() {
-    return averageTime;
-  }
+    public static final String SERIALIZED_NAME_AVERAGE_TIME = "average_time";
+    public static final String SERIALIZED_NAME_CASES = "cases";
+    @SerializedName(SERIALIZED_NAME_AVERAGE_TIME)
+    private BigDecimal averageTime;
+    @SerializedName(SERIALIZED_NAME_CASES)
+    private List<PlanDetailedAllOfCases> cases = null;
 
 
-  public void setAverageTime(BigDecimal averageTime) {
-    this.averageTime = averageTime;
-  }
+    public PlanDetailedAllOf averageTime(BigDecimal averageTime) {
 
-
-  public PlanDetailedAllOf cases(List<PlanDetailedAllOfCases> cases) {
-
-    this.cases = cases;
-    return this;
-  }
-
-  public PlanDetailedAllOf addCasesItem(PlanDetailedAllOfCases casesItem) {
-    if (this.cases == null) {
-      this.cases = new ArrayList<>();
+        this.averageTime = averageTime;
+        return this;
     }
-    this.cases.add(casesItem);
-    return this;
-  }
 
-   /**
-   * Get cases
-   * @return cases
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    /**
+     * Get averageTime
+     *
+     * @return averageTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  public List<PlanDetailedAllOfCases> getCases() {
-    return cases;
-  }
-
-
-  public void setCases(List<PlanDetailedAllOfCases> cases) {
-    this.cases = cases;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public BigDecimal getAverageTime() {
+        return averageTime;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+
+    public void setAverageTime(BigDecimal averageTime) {
+        this.averageTime = averageTime;
     }
-    PlanDetailedAllOf planDetailedAllOf = (PlanDetailedAllOf) o;
-    return Objects.equals(this.averageTime, planDetailedAllOf.averageTime) &&
-        Objects.equals(this.cases, planDetailedAllOf.cases);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(averageTime, cases);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PlanDetailedAllOf {\n");
-    sb.append("    averageTime: ").append(toIndentedString(averageTime)).append("\n");
-    sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    public PlanDetailedAllOf cases(List<PlanDetailedAllOfCases> cases) {
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+        this.cases = cases;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public PlanDetailedAllOf addCasesItem(PlanDetailedAllOfCases casesItem) {
+        if (this.cases == null) {
+            this.cases = new ArrayList<>();
+        }
+        this.cases.add(casesItem);
+        return this;
+    }
+
+    /**
+     * Get cases
+     *
+     * @return cases
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<PlanDetailedAllOfCases> getCases() {
+        return cases;
+    }
+
+
+    public void setCases(List<PlanDetailedAllOfCases> cases) {
+        this.cases = cases;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PlanDetailedAllOf planDetailedAllOf = (PlanDetailedAllOf) o;
+        return Objects.equals(this.averageTime, planDetailedAllOf.averageTime) &&
+                Objects.equals(this.cases, planDetailedAllOf.cases);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(averageTime, cases);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PlanDetailedAllOf {\n");
+        sb.append("    averageTime: ").append(toIndentedString(averageTime)).append("\n");
+        sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

@@ -21,72 +21,73 @@ import java.util.Objects;
 /**
  * SuiteDelete
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class SuiteDelete {
-  public static final String SERIALIZED_NAME_DESTINATION_ID = "destination_id";
-  @SerializedName(SERIALIZED_NAME_DESTINATION_ID)
-  private Long destinationId;
+    public static final String SERIALIZED_NAME_DESTINATION_ID = "destination_id";
+    @SerializedName(SERIALIZED_NAME_DESTINATION_ID)
+    private Long destinationId;
 
 
-  public SuiteDelete destinationId(Long destinationId) {
+    public SuiteDelete destinationId(Long destinationId) {
 
-    this.destinationId = destinationId;
-    return this;
-  }
-
-   /**
-   * If provided, child test cases would be moved to suite with such ID.
-   * @return destinationId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "If provided, child test cases would be moved to suite with such ID.")
-
-  public Long getDestinationId() {
-    return destinationId;
-  }
-
-
-  public void setDestinationId(Long destinationId) {
-    this.destinationId = destinationId;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.destinationId = destinationId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * If provided, child test cases would be moved to suite with such ID.
+     *
+     * @return destinationId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "If provided, child test cases would be moved to suite with such ID.")
+
+    public Long getDestinationId() {
+        return destinationId;
     }
-    SuiteDelete suiteDelete = (SuiteDelete) o;
-    return Objects.equals(this.destinationId, suiteDelete.destinationId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(destinationId);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SuiteDelete {\n");
-    sb.append("    destinationId: ").append(toIndentedString(destinationId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setDestinationId(Long destinationId) {
+        this.destinationId = destinationId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SuiteDelete suiteDelete = (SuiteDelete) o;
+        return Objects.equals(this.destinationId, suiteDelete.destinationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(destinationId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SuiteDelete {\n");
+        sb.append("    destinationId: ").append(toIndentedString(destinationId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

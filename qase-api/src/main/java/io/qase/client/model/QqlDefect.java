@@ -23,10 +23,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Defect
+ * QqlDefect
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
-public class Defect {
+public class QqlDefect {
     public static final String SERIALIZED_NAME_ID = "id";
     public static final String SERIALIZED_NAME_TITLE = "title";
     public static final String SERIALIZED_NAME_ACTUAL_RESULT = "actual_result";
@@ -42,8 +42,6 @@ public class Defect {
     public static final String SERIALIZED_NAME_TAGS = "tags";
     public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
     public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
-    public static final String SERIALIZED_NAME_CREATED = "created";
-    public static final String SERIALIZED_NAME_UPDATED = "updated";
     @SerializedName(SERIALIZED_NAME_ID)
     private Long id;
     @SerializedName(SERIALIZED_NAME_TITLE)
@@ -74,10 +72,6 @@ public class Defect {
     private String createdAt;
     @SerializedName(SERIALIZED_NAME_UPDATED_AT)
     private String updatedAt;
-    @SerializedName(SERIALIZED_NAME_CREATED)
-    private String created;
-    @SerializedName(SERIALIZED_NAME_UPDATED)
-    private String updated;
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
         return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
@@ -90,7 +84,7 @@ public class Defect {
         return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
 
-    public Defect id(Long id) {
+    public QqlDefect id(Long id) {
 
         this.id = id;
         return this;
@@ -112,7 +106,7 @@ public class Defect {
         this.id = id;
     }
 
-    public Defect title(String title) {
+    public QqlDefect title(String title) {
 
         this.title = title;
         return this;
@@ -134,7 +128,7 @@ public class Defect {
         this.title = title;
     }
 
-    public Defect actualResult(String actualResult) {
+    public QqlDefect actualResult(String actualResult) {
 
         this.actualResult = actualResult;
         return this;
@@ -156,7 +150,7 @@ public class Defect {
         this.actualResult = actualResult;
     }
 
-    public Defect severity(String severity) {
+    public QqlDefect severity(String severity) {
 
         this.severity = severity;
         return this;
@@ -178,7 +172,7 @@ public class Defect {
         this.severity = severity;
     }
 
-    public Defect status(String status) {
+    public QqlDefect status(String status) {
 
         this.status = status;
         return this;
@@ -200,7 +194,7 @@ public class Defect {
         this.status = status;
     }
 
-    public Defect milestoneId(Long milestoneId) {
+    public QqlDefect milestoneId(Long milestoneId) {
 
         this.milestoneId = milestoneId;
         return this;
@@ -222,13 +216,13 @@ public class Defect {
         this.milestoneId = milestoneId;
     }
 
-    public Defect customFields(List<CustomFieldValue> customFields) {
+    public QqlDefect customFields(List<CustomFieldValue> customFields) {
 
         this.customFields = customFields;
         return this;
     }
 
-    public Defect addCustomFieldsItem(CustomFieldValue customFieldsItem) {
+    public QqlDefect addCustomFieldsItem(CustomFieldValue customFieldsItem) {
         if (this.customFields == null) {
             this.customFields = new ArrayList<>();
         }
@@ -252,13 +246,13 @@ public class Defect {
         this.customFields = customFields;
     }
 
-    public Defect attachments(List<Attachment> attachments) {
+    public QqlDefect attachments(List<Attachment> attachments) {
 
         this.attachments = attachments;
         return this;
     }
 
-    public Defect addAttachmentsItem(Attachment attachmentsItem) {
+    public QqlDefect addAttachmentsItem(Attachment attachmentsItem) {
         if (this.attachments == null) {
             this.attachments = new ArrayList<>();
         }
@@ -282,7 +276,7 @@ public class Defect {
         this.attachments = attachments;
     }
 
-    public Defect resolved(String resolved) {
+    public QqlDefect resolved(String resolved) {
 
         this.resolved = resolved;
         return this;
@@ -304,7 +298,7 @@ public class Defect {
         this.resolved = resolved;
     }
 
-    public Defect projectId(Long projectId) {
+    public QqlDefect projectId(Long projectId) {
 
         this.projectId = projectId;
         return this;
@@ -326,7 +320,7 @@ public class Defect {
         this.projectId = projectId;
     }
 
-    public Defect memberId(Long memberId) {
+    public QqlDefect memberId(Long memberId) {
 
         this.memberId = memberId;
         return this;
@@ -348,7 +342,7 @@ public class Defect {
         this.memberId = memberId;
     }
 
-    public Defect externalData(String externalData) {
+    public QqlDefect externalData(String externalData) {
 
         this.externalData = externalData;
         return this;
@@ -370,13 +364,13 @@ public class Defect {
         this.externalData = externalData;
     }
 
-    public Defect tags(List<TagValue> tags) {
+    public QqlDefect tags(List<TagValue> tags) {
 
         this.tags = tags;
         return this;
     }
 
-    public Defect addTagsItem(TagValue tagsItem) {
+    public QqlDefect addTagsItem(TagValue tagsItem) {
         if (this.tags == null) {
             this.tags = new ArrayList<>();
         }
@@ -400,7 +394,7 @@ public class Defect {
         this.tags = tags;
     }
 
-    public Defect createdAt(String createdAt) {
+    public QqlDefect createdAt(String createdAt) {
 
         this.createdAt = createdAt;
         return this;
@@ -422,7 +416,7 @@ public class Defect {
         this.createdAt = createdAt;
     }
 
-    public Defect updatedAt(String updatedAt) {
+    public QqlDefect updatedAt(String updatedAt) {
 
         this.updatedAt = updatedAt;
         return this;
@@ -444,54 +438,6 @@ public class Defect {
         this.updatedAt = updatedAt;
     }
 
-    public Defect created(String created) {
-
-        this.created = created;
-        return this;
-    }
-
-    /**
-     * Deprecated, use the &#x60;created_at&#x60; property instead.
-     *
-     * @return created
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `created_at` property instead.")
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public Defect updated(String updated) {
-
-        this.updated = updated;
-        return this;
-    }
-
-    /**
-     * Deprecated, use the &#x60;updated_at&#x60; property instead.
-     *
-     * @return updated
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `updated_at` property instead.")
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -500,35 +446,33 @@ public class Defect {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Defect defect = (Defect) o;
-        return Objects.equals(this.id, defect.id) &&
-                Objects.equals(this.title, defect.title) &&
-                Objects.equals(this.actualResult, defect.actualResult) &&
-                Objects.equals(this.severity, defect.severity) &&
-                Objects.equals(this.status, defect.status) &&
-                Objects.equals(this.milestoneId, defect.milestoneId) &&
-                Objects.equals(this.customFields, defect.customFields) &&
-                Objects.equals(this.attachments, defect.attachments) &&
-                Objects.equals(this.resolved, defect.resolved) &&
-                Objects.equals(this.projectId, defect.projectId) &&
-                Objects.equals(this.memberId, defect.memberId) &&
-                Objects.equals(this.externalData, defect.externalData) &&
-                Objects.equals(this.tags, defect.tags) &&
-                Objects.equals(this.createdAt, defect.createdAt) &&
-                Objects.equals(this.updatedAt, defect.updatedAt) &&
-                Objects.equals(this.created, defect.created) &&
-                Objects.equals(this.updated, defect.updated);
+        QqlDefect qqlDefect = (QqlDefect) o;
+        return Objects.equals(this.id, qqlDefect.id) &&
+                Objects.equals(this.title, qqlDefect.title) &&
+                Objects.equals(this.actualResult, qqlDefect.actualResult) &&
+                Objects.equals(this.severity, qqlDefect.severity) &&
+                Objects.equals(this.status, qqlDefect.status) &&
+                Objects.equals(this.milestoneId, qqlDefect.milestoneId) &&
+                Objects.equals(this.customFields, qqlDefect.customFields) &&
+                Objects.equals(this.attachments, qqlDefect.attachments) &&
+                Objects.equals(this.resolved, qqlDefect.resolved) &&
+                Objects.equals(this.projectId, qqlDefect.projectId) &&
+                Objects.equals(this.memberId, qqlDefect.memberId) &&
+                Objects.equals(this.externalData, qqlDefect.externalData) &&
+                Objects.equals(this.tags, qqlDefect.tags) &&
+                Objects.equals(this.createdAt, qqlDefect.createdAt) &&
+                Objects.equals(this.updatedAt, qqlDefect.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, actualResult, severity, status, milestoneId, customFields, attachments, resolved, projectId, memberId, externalData, tags, createdAt, updatedAt, created, updated);
+        return Objects.hash(id, title, actualResult, severity, status, milestoneId, customFields, attachments, resolved, projectId, memberId, externalData, tags, createdAt, updatedAt);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Defect {\n");
+        sb.append("class QqlDefect {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    title: ").append(toIndentedString(title)).append("\n");
         sb.append("    actualResult: ").append(toIndentedString(actualResult)).append("\n");
@@ -544,8 +488,6 @@ public class Defect {
         sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-        sb.append("    created: ").append(toIndentedString(created)).append("\n");
-        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
         sb.append("}");
         return sb.toString();
     }

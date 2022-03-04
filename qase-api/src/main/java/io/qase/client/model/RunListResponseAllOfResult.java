@@ -23,167 +23,168 @@ import java.util.Objects;
 /**
  * RunListResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class RunListResponseAllOfResult {
-  public static final String SERIALIZED_NAME_TOTAL = "total";
-  @SerializedName(SERIALIZED_NAME_TOTAL)
-  private Integer total;
-
-  public static final String SERIALIZED_NAME_FILTERED = "filtered";
-  @SerializedName(SERIALIZED_NAME_FILTERED)
-  private Integer filtered;
-
-  public static final String SERIALIZED_NAME_COUNT = "count";
-  @SerializedName(SERIALIZED_NAME_COUNT)
-  private Integer count;
-
-  public static final String SERIALIZED_NAME_ENTITIES = "entities";
-  @SerializedName(SERIALIZED_NAME_ENTITIES)
-  private List<Run> entities = null;
+    public static final String SERIALIZED_NAME_TOTAL = "total";
+    public static final String SERIALIZED_NAME_FILTERED = "filtered";
+    public static final String SERIALIZED_NAME_COUNT = "count";
+    public static final String SERIALIZED_NAME_ENTITIES = "entities";
+    @SerializedName(SERIALIZED_NAME_TOTAL)
+    private Integer total;
+    @SerializedName(SERIALIZED_NAME_FILTERED)
+    private Integer filtered;
+    @SerializedName(SERIALIZED_NAME_COUNT)
+    private Integer count;
+    @SerializedName(SERIALIZED_NAME_ENTITIES)
+    private List<Run> entities = null;
 
 
-  public RunListResponseAllOfResult total(Integer total) {
+    public RunListResponseAllOfResult total(Integer total) {
 
-    this.total = total;
-    return this;
-  }
-
-   /**
-   * Get total
-   * @return total
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getTotal() {
-    return total;
-  }
-
-
-  public void setTotal(Integer total) {
-    this.total = total;
-  }
-
-
-  public RunListResponseAllOfResult filtered(Integer filtered) {
-
-    this.filtered = filtered;
-    return this;
-  }
-
-   /**
-   * Get filtered
-   * @return filtered
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getFiltered() {
-    return filtered;
-  }
-
-
-  public void setFiltered(Integer filtered) {
-    this.filtered = filtered;
-  }
-
-
-  public RunListResponseAllOfResult count(Integer count) {
-
-    this.count = count;
-    return this;
-  }
-
-   /**
-   * Get count
-   * @return count
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getCount() {
-    return count;
-  }
-
-
-  public void setCount(Integer count) {
-    this.count = count;
-  }
-
-
-  public RunListResponseAllOfResult entities(List<Run> entities) {
-
-    this.entities = entities;
-    return this;
-  }
-
-  public RunListResponseAllOfResult addEntitiesItem(Run entitiesItem) {
-    if (this.entities == null) {
-      this.entities = new ArrayList<>();
+        this.total = total;
+        return this;
     }
-    this.entities.add(entitiesItem);
-    return this;
-  }
 
-   /**
-   * Get entities
-   * @return entities
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    /**
+     * Get total
+     *
+     * @return total
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  public List<Run> getEntities() {
-    return entities;
-  }
-
-
-  public void setEntities(List<Run> entities) {
-    this.entities = entities;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Integer getTotal() {
+        return total;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
-    RunListResponseAllOfResult runListResponseAllOfResult = (RunListResponseAllOfResult) o;
-    return Objects.equals(this.total, runListResponseAllOfResult.total) &&
-        Objects.equals(this.filtered, runListResponseAllOfResult.filtered) &&
-        Objects.equals(this.count, runListResponseAllOfResult.count) &&
-        Objects.equals(this.entities, runListResponseAllOfResult.entities);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(total, filtered, count, entities);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RunListResponseAllOfResult {\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
-    sb.append("    filtered: ").append(toIndentedString(filtered)).append("\n");
-    sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb.append("    entities: ").append(toIndentedString(entities)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    public RunListResponseAllOfResult filtered(Integer filtered) {
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+        this.filtered = filtered;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Get filtered
+     *
+     * @return filtered
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getFiltered() {
+        return filtered;
+    }
+
+
+    public void setFiltered(Integer filtered) {
+        this.filtered = filtered;
+    }
+
+
+    public RunListResponseAllOfResult count(Integer count) {
+
+        this.count = count;
+        return this;
+    }
+
+    /**
+     * Get count
+     *
+     * @return count
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getCount() {
+        return count;
+    }
+
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+
+    public RunListResponseAllOfResult entities(List<Run> entities) {
+
+        this.entities = entities;
+        return this;
+    }
+
+    public RunListResponseAllOfResult addEntitiesItem(Run entitiesItem) {
+        if (this.entities == null) {
+            this.entities = new ArrayList<>();
+        }
+        this.entities.add(entitiesItem);
+        return this;
+    }
+
+    /**
+     * Get entities
+     *
+     * @return entities
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<Run> getEntities() {
+        return entities;
+    }
+
+
+    public void setEntities(List<Run> entities) {
+        this.entities = entities;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RunListResponseAllOfResult runListResponseAllOfResult = (RunListResponseAllOfResult) o;
+        return Objects.equals(this.total, runListResponseAllOfResult.total) &&
+                Objects.equals(this.filtered, runListResponseAllOfResult.filtered) &&
+                Objects.equals(this.count, runListResponseAllOfResult.count) &&
+                Objects.equals(this.entities, runListResponseAllOfResult.entities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(total, filtered, count, entities);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RunListResponseAllOfResult {\n");
+        sb.append("    total: ").append(toIndentedString(total)).append("\n");
+        sb.append("    filtered: ").append(toIndentedString(filtered)).append("\n");
+        sb.append("    count: ").append(toIndentedString(count)).append("\n");
+        sb.append("    entities: ").append(toIndentedString(entities)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

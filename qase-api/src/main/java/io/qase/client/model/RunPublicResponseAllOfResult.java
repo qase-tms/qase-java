@@ -22,72 +22,73 @@ import java.util.Objects;
 /**
  * RunPublicResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class RunPublicResponseAllOfResult {
-  public static final String SERIALIZED_NAME_URL = "url";
-  @SerializedName(SERIALIZED_NAME_URL)
-  private URI url;
+    public static final String SERIALIZED_NAME_URL = "url";
+    @SerializedName(SERIALIZED_NAME_URL)
+    private URI url;
 
 
-  public RunPublicResponseAllOfResult url(URI url) {
+    public RunPublicResponseAllOfResult url(URI url) {
 
-    this.url = url;
-    return this;
-  }
-
-   /**
-   * Get url
-   * @return url
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public URI getUrl() {
-    return url;
-  }
-
-
-  public void setUrl(URI url) {
-    this.url = url;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.url = url;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get url
+     *
+     * @return url
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public URI getUrl() {
+        return url;
     }
-    RunPublicResponseAllOfResult runPublicResponseAllOfResult = (RunPublicResponseAllOfResult) o;
-    return Objects.equals(this.url, runPublicResponseAllOfResult.url);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(url);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RunPublicResponseAllOfResult {\n");
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setUrl(URI url) {
+        this.url = url;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RunPublicResponseAllOfResult runPublicResponseAllOfResult = (RunPublicResponseAllOfResult) o;
+        return Objects.equals(this.url, runPublicResponseAllOfResult.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RunPublicResponseAllOfResult {\n");
+        sb.append("    url: ").append(toIndentedString(url)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

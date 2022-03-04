@@ -23,196 +23,197 @@ import java.util.Objects;
 /**
  * SharedStepSteps
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class SharedStepSteps {
-  public static final String SERIALIZED_NAME_DATA = "data";
-  @SerializedName(SERIALIZED_NAME_DATA)
-  private String data;
-
-  public static final String SERIALIZED_NAME_HASH = "hash";
-  @SerializedName(SERIALIZED_NAME_HASH)
-  private String hash;
-
-  public static final String SERIALIZED_NAME_ACTION = "action";
-  @SerializedName(SERIALIZED_NAME_ACTION)
-  private String action;
-
-  public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
-  @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
-  private String expectedResult;
-
-  public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
-  @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<AttachmentHash> attachments = null;
+    public static final String SERIALIZED_NAME_DATA = "data";
+    public static final String SERIALIZED_NAME_HASH = "hash";
+    public static final String SERIALIZED_NAME_ACTION = "action";
+    public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
+    public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
+    @SerializedName(SERIALIZED_NAME_DATA)
+    private String data;
+    @SerializedName(SERIALIZED_NAME_HASH)
+    private String hash;
+    @SerializedName(SERIALIZED_NAME_ACTION)
+    private String action;
+    @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+    private String expectedResult;
+    @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+    private List<AttachmentHash> attachments = null;
 
 
-  public SharedStepSteps data(String data) {
+    public SharedStepSteps data(String data) {
 
-    this.data = data;
-    return this;
-  }
-
-   /**
-   * Get data
-   * @return data
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getData() {
-    return data;
-  }
-
-
-  public void setData(String data) {
-    this.data = data;
-  }
-
-
-  public SharedStepSteps hash(String hash) {
-
-    this.hash = hash;
-    return this;
-  }
-
-   /**
-   * Get hash
-   * @return hash
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getHash() {
-    return hash;
-  }
-
-
-  public void setHash(String hash) {
-    this.hash = hash;
-  }
-
-
-  public SharedStepSteps action(String action) {
-
-    this.action = action;
-    return this;
-  }
-
-   /**
-   * Get action
-   * @return action
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getAction() {
-    return action;
-  }
-
-
-  public void setAction(String action) {
-    this.action = action;
-  }
-
-
-  public SharedStepSteps expectedResult(String expectedResult) {
-
-    this.expectedResult = expectedResult;
-    return this;
-  }
-
-   /**
-   * Get expectedResult
-   * @return expectedResult
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getExpectedResult() {
-    return expectedResult;
-  }
-
-
-  public void setExpectedResult(String expectedResult) {
-    this.expectedResult = expectedResult;
-  }
-
-
-  public SharedStepSteps attachments(List<AttachmentHash> attachments) {
-
-    this.attachments = attachments;
-    return this;
-  }
-
-  public SharedStepSteps addAttachmentsItem(AttachmentHash attachmentsItem) {
-    if (this.attachments == null) {
-      this.attachments = new ArrayList<>();
+        this.data = data;
+        return this;
     }
-    this.attachments.add(attachmentsItem);
-    return this;
-  }
 
-   /**
-   * Get attachments
-   * @return attachments
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    /**
+     * Get data
+     *
+     * @return data
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  public List<AttachmentHash> getAttachments() {
-    return attachments;
-  }
-
-
-  public void setAttachments(List<AttachmentHash> attachments) {
-    this.attachments = attachments;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public String getData() {
+        return data;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+
+    public void setData(String data) {
+        this.data = data;
     }
-    SharedStepSteps sharedStepSteps = (SharedStepSteps) o;
-    return Objects.equals(this.data, sharedStepSteps.data) &&
-        Objects.equals(this.hash, sharedStepSteps.hash) &&
-        Objects.equals(this.action, sharedStepSteps.action) &&
-        Objects.equals(this.expectedResult, sharedStepSteps.expectedResult) &&
-        Objects.equals(this.attachments, sharedStepSteps.attachments);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(data, hash, action, expectedResult, attachments);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SharedStepSteps {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
-    sb.append("    action: ").append(toIndentedString(action)).append("\n");
-    sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
-    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    public SharedStepSteps hash(String hash) {
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+        this.hash = hash;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Get hash
+     *
+     * @return hash
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getHash() {
+        return hash;
+    }
+
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+
+    public SharedStepSteps action(String action) {
+
+        this.action = action;
+        return this;
+    }
+
+    /**
+     * Get action
+     *
+     * @return action
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getAction() {
+        return action;
+    }
+
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+
+    public SharedStepSteps expectedResult(String expectedResult) {
+
+        this.expectedResult = expectedResult;
+        return this;
+    }
+
+    /**
+     * Get expectedResult
+     *
+     * @return expectedResult
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getExpectedResult() {
+        return expectedResult;
+    }
+
+
+    public void setExpectedResult(String expectedResult) {
+        this.expectedResult = expectedResult;
+    }
+
+
+    public SharedStepSteps attachments(List<AttachmentHash> attachments) {
+
+        this.attachments = attachments;
+        return this;
+    }
+
+    public SharedStepSteps addAttachmentsItem(AttachmentHash attachmentsItem) {
+        if (this.attachments == null) {
+            this.attachments = new ArrayList<>();
+        }
+        this.attachments.add(attachmentsItem);
+        return this;
+    }
+
+    /**
+     * Get attachments
+     *
+     * @return attachments
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<AttachmentHash> getAttachments() {
+        return attachments;
+    }
+
+
+    public void setAttachments(List<AttachmentHash> attachments) {
+        this.attachments = attachments;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SharedStepSteps sharedStepSteps = (SharedStepSteps) o;
+        return Objects.equals(this.data, sharedStepSteps.data) &&
+                Objects.equals(this.hash, sharedStepSteps.hash) &&
+                Objects.equals(this.action, sharedStepSteps.action) &&
+                Objects.equals(this.expectedResult, sharedStepSteps.expectedResult) &&
+                Objects.equals(this.attachments, sharedStepSteps.attachments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data, hash, action, expectedResult, attachments);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SharedStepSteps {\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
+        sb.append("    action: ").append(toIndentedString(action)).append("\n");
+        sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
+        sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

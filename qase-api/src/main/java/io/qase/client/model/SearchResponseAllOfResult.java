@@ -23,80 +23,81 @@ import java.util.Objects;
 /**
  * SearchResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class SearchResponseAllOfResult {
-  public static final String SERIALIZED_NAME_ENTITIES = "entities";
-  @SerializedName(SERIALIZED_NAME_ENTITIES)
-  private List<Object> entities = null;
+    public static final String SERIALIZED_NAME_ENTITIES = "entities";
+    @SerializedName(SERIALIZED_NAME_ENTITIES)
+    private List<Object> entities = null;
 
 
-  public SearchResponseAllOfResult entities(List<Object> entities) {
+    public SearchResponseAllOfResult entities(List<Object> entities) {
 
-    this.entities = entities;
-    return this;
-  }
-
-  public SearchResponseAllOfResult addEntitiesItem(Object entitiesItem) {
-    if (this.entities == null) {
-      this.entities = new ArrayList<>();
+        this.entities = entities;
+        return this;
     }
-    this.entities.add(entitiesItem);
-    return this;
-  }
 
-   /**
-   * Get entities
-   * @return entities
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public List<Object> getEntities() {
-    return entities;
-  }
-
-
-  public void setEntities(List<Object> entities) {
-    this.entities = entities;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public SearchResponseAllOfResult addEntitiesItem(Object entitiesItem) {
+        if (this.entities == null) {
+            this.entities = new ArrayList<>();
+        }
+        this.entities.add(entitiesItem);
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get entities
+     *
+     * @return entities
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<Object> getEntities() {
+        return entities;
     }
-    SearchResponseAllOfResult searchResponseAllOfResult = (SearchResponseAllOfResult) o;
-    return Objects.equals(this.entities, searchResponseAllOfResult.entities);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(entities);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SearchResponseAllOfResult {\n");
-    sb.append("    entities: ").append(toIndentedString(entities)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setEntities(List<Object> entities) {
+        this.entities = entities;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SearchResponseAllOfResult searchResponseAllOfResult = (SearchResponseAllOfResult) o;
+        return Objects.equals(this.entities, searchResponseAllOfResult.entities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(entities);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SearchResponseAllOfResult {\n");
+        sb.append("    entities: ").append(toIndentedString(entities)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

@@ -15,7 +15,6 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.api.inner.FilterHelper;
 import io.qase.client.*;
 import io.qase.client.model.*;
 
@@ -46,23 +45,23 @@ public class CasesApi {
 
     /**
      * Build call for createCase
-     * @param code Code of project, where to search entities. (required)
-     * @param testCaseCreate  (required)
-     * @param _callback Callback for upload/download progress
+     *
+     * @param code           Code of project, where to search entities. (required)
+     * @param testCaseCreate (required)
+     * @param _callback      Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call createCaseCall(String code, TestCaseCreate testCaseCreate, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = testCaseCreate;
 
         // create path and map variables
         String localVarPath = "/case/{code}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -71,7 +70,7 @@ public class CasesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -79,12 +78,12 @@ public class CasesApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/json"
+                "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -110,15 +109,15 @@ public class CasesApi {
     /**
      * Create a new test case.
      * This method allows to create a new test case in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param testCaseCreate  (required)
+     *
+     * @param code           Code of project, where to search entities. (required)
+     * @param testCaseCreate (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
+     * </table>
      */
     public IdResponse createCase(String code, TestCaseCreate testCaseCreate) throws QaseException {
         ApiResponse<IdResponse> localVarResp = createCaseWithHttpInfo(code, testCaseCreate);
@@ -128,63 +127,66 @@ public class CasesApi {
     /**
      * Create a new test case.
      * This method allows to create a new test case in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param testCaseCreate  (required)
+     *
+     * @param code           Code of project, where to search entities. (required)
+     * @param testCaseCreate (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<IdResponse> createCaseWithHttpInfo(String code, TestCaseCreate testCaseCreate) throws QaseException {
         okhttp3.Call localVarCall = createCaseValidateBeforeCall(code, testCaseCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Create a new test case. (asynchronously)
      * This method allows to create a new test case in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param testCaseCreate  (required)
-     * @param _callback The callback to be executed when the API call finishes
+     *
+     * @param code           Code of project, where to search entities. (required)
+     * @param testCaseCreate (required)
+     * @param _callback      The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call createCaseAsync(String code, TestCaseCreate testCaseCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = createCaseValidateBeforeCall(code, testCaseCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for deleteCase
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param id        Identifier. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call deleteCaseCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/case/{code}/{id}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()))
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -193,7 +195,7 @@ public class CasesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -206,7 +208,7 @@ public class CasesApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -232,15 +234,15 @@ public class CasesApi {
     /**
      * Delete test case.
      * This method completely deletes a test case from repository.
+     *
      * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     * @param id   Identifier. (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public IdResponse deleteCase(String code, Integer id) throws QaseException {
         ApiResponse<IdResponse> localVarResp = deleteCaseWithHttpInfo(code, id);
@@ -250,63 +252,66 @@ public class CasesApi {
     /**
      * Delete test case.
      * This method completely deletes a test case from repository.
+     *
      * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     * @param id   Identifier. (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<IdResponse> deleteCaseWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = deleteCaseValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Delete test case. (asynchronously)
      * This method completely deletes a test case from repository.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param id        Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call deleteCaseAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = deleteCaseValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for getCase
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param id        Identifier. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCaseCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/case/{code}/{id}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()))
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -315,7 +320,7 @@ public class CasesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -328,7 +333,7 @@ public class CasesApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -354,15 +359,15 @@ public class CasesApi {
     /**
      * Get a specific test case.
      * This method allows to retrieve a specific test case.
+     *
      * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     * @param id   Identifier. (required)
      * @return TestCaseResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public TestCaseResponse getCase(String code, Integer id) throws QaseException {
         ApiResponse<TestCaseResponse> localVarResp = getCaseWithHttpInfo(code, id);
@@ -372,64 +377,67 @@ public class CasesApi {
     /**
      * Get a specific test case.
      * This method allows to retrieve a specific test case.
+     *
      * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     * @param id   Identifier. (required)
      * @return ApiResponse&lt;TestCaseResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<TestCaseResponse> getCaseWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<TestCaseResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<TestCaseResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get a specific test case. (asynchronously)
      * This method allows to retrieve a specific test case.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param id        Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCaseAsync(String code, Integer id, final ApiCallback<TestCaseResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<TestCaseResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<TestCaseResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for getCases
-     * @param code Code of project, where to search entities. (required)
-     * @param filters  (optional)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param filters   (optional)
+     * @param limit     A number of entities in result set. (optional, default to 10)
+     * @param offset    How many entities should be skipped. (optional, default to 0)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCasesCall(String code, Filters filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/case/{code}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -438,7 +446,7 @@ public class CasesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         if (filters != null) {
-            localVarQueryParams.addAll(FilterHelper.getFilterPairs(filters));
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
         }
 
         if (limit != null) {
@@ -450,7 +458,7 @@ public class CasesApi {
         }
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -463,7 +471,7 @@ public class CasesApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -484,17 +492,17 @@ public class CasesApi {
     /**
      * Get all test cases.
      * This method allows to retrieve all test cases stored in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param filters  (optional)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param code    Code of project, where to search entities. (required)
+     * @param filters (optional)
+     * @param limit   A number of entities in result set. (optional, default to 10)
+     * @param offset  How many entities should be skipped. (optional, default to 0)
      * @return TestCaseListResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
+     * </table>
      */
     public TestCaseListResponse getCases(String code, Filters filters, Integer limit, Integer offset) throws QaseException {
         ApiResponse<TestCaseListResponse> localVarResp = getCasesWithHttpInfo(code, filters, limit, offset);
@@ -504,68 +512,71 @@ public class CasesApi {
     /**
      * Get all test cases.
      * This method allows to retrieve all test cases stored in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param filters  (optional)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param code    Code of project, where to search entities. (required)
+     * @param filters (optional)
+     * @param limit   A number of entities in result set. (optional, default to 10)
+     * @param offset  How many entities should be skipped. (optional, default to 0)
      * @return ApiResponse&lt;TestCaseListResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<TestCaseListResponse> getCasesWithHttpInfo(String code, Filters filters, Integer limit, Integer offset) throws QaseException {
         okhttp3.Call localVarCall = getCasesValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<TestCaseListResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<TestCaseListResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get all test cases. (asynchronously)
      * This method allows to retrieve all test cases stored in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param filters  (optional)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param filters   (optional)
+     * @param limit     A number of entities in result set. (optional, default to 10)
+     * @param offset    How many entities should be skipped. (optional, default to 0)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCasesAsync(String code, Filters filters, Integer limit, Integer offset, final ApiCallback<TestCaseListResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getCasesValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<TestCaseListResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<TestCaseListResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for updateCase
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
-     * @param testCaseUpdate  (required)
-     * @param _callback Callback for upload/download progress
+     *
+     * @param code           Code of project, where to search entities. (required)
+     * @param id             Identifier. (required)
+     * @param testCaseUpdate (required)
+     * @param _callback      Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call updateCaseCall(String code, Integer id, TestCaseUpdate testCaseUpdate, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = testCaseUpdate;
 
         // create path and map variables
         String localVarPath = "/case/{code}/{id}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()))
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -574,7 +585,7 @@ public class CasesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -582,12 +593,12 @@ public class CasesApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/json"
+                "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -618,16 +629,16 @@ public class CasesApi {
     /**
      * Update test case.
      * This method updates a test case.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
-     * @param testCaseUpdate  (required)
+     *
+     * @param code           Code of project, where to search entities. (required)
+     * @param id             Identifier. (required)
+     * @param testCaseUpdate (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public IdResponse updateCase(String code, Integer id, TestCaseUpdate testCaseUpdate) throws QaseException {
         ApiResponse<IdResponse> localVarResp = updateCaseWithHttpInfo(code, id, testCaseUpdate);
@@ -637,42 +648,44 @@ public class CasesApi {
     /**
      * Update test case.
      * This method updates a test case.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
-     * @param testCaseUpdate  (required)
+     *
+     * @param code           Code of project, where to search entities. (required)
+     * @param id             Identifier. (required)
+     * @param testCaseUpdate (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<IdResponse> updateCaseWithHttpInfo(String code, Integer id, TestCaseUpdate testCaseUpdate) throws QaseException {
         okhttp3.Call localVarCall = updateCaseValidateBeforeCall(code, id, testCaseUpdate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Update test case. (asynchronously)
      * This method updates a test case.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
-     * @param testCaseUpdate  (required)
-     * @param _callback The callback to be executed when the API call finishes
+     *
+     * @param code           Code of project, where to search entities. (required)
+     * @param id             Identifier. (required)
+     * @param testCaseUpdate (required)
+     * @param _callback      The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call updateCaseAsync(String code, Integer id, TestCaseUpdate testCaseUpdate, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = updateCaseValidateBeforeCall(code, id, testCaseUpdate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

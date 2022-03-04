@@ -23,10 +23,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * TestCase
+ * QqlTestCase
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
-public class TestCase {
+public class QqlTestCase {
     public static final String SERIALIZED_NAME_ID = "id";
     public static final String SERIALIZED_NAME_POSITION = "position";
     public static final String SERIALIZED_NAME_TITLE = "title";
@@ -53,9 +53,6 @@ public class TestCase {
     public static final String SERIALIZED_NAME_PROJECT_ID = "project_id";
     public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
     public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
-    public static final String SERIALIZED_NAME_DELETED = "deleted";
-    public static final String SERIALIZED_NAME_CREATED = "created";
-    public static final String SERIALIZED_NAME_UPDATED = "updated";
     @SerializedName(SERIALIZED_NAME_ID)
     private Long id;
     @SerializedName(SERIALIZED_NAME_POSITION)
@@ -108,12 +105,6 @@ public class TestCase {
     private String createdAt;
     @SerializedName(SERIALIZED_NAME_UPDATED_AT)
     private String updatedAt;
-    @SerializedName(SERIALIZED_NAME_DELETED)
-    private String deleted;
-    @SerializedName(SERIALIZED_NAME_CREATED)
-    private String created;
-    @SerializedName(SERIALIZED_NAME_UPDATED)
-    private String updated;
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
         return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
@@ -126,7 +117,7 @@ public class TestCase {
         return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
 
-    public TestCase id(Long id) {
+    public QqlTestCase id(Long id) {
 
         this.id = id;
         return this;
@@ -148,7 +139,7 @@ public class TestCase {
         this.id = id;
     }
 
-    public TestCase position(Integer position) {
+    public QqlTestCase position(Integer position) {
 
         this.position = position;
         return this;
@@ -170,7 +161,7 @@ public class TestCase {
         this.position = position;
     }
 
-    public TestCase title(String title) {
+    public QqlTestCase title(String title) {
 
         this.title = title;
         return this;
@@ -192,7 +183,7 @@ public class TestCase {
         this.title = title;
     }
 
-    public TestCase description(String description) {
+    public QqlTestCase description(String description) {
 
         this.description = description;
         return this;
@@ -214,7 +205,7 @@ public class TestCase {
         this.description = description;
     }
 
-    public TestCase preconditions(String preconditions) {
+    public QqlTestCase preconditions(String preconditions) {
 
         this.preconditions = preconditions;
         return this;
@@ -236,7 +227,7 @@ public class TestCase {
         this.preconditions = preconditions;
     }
 
-    public TestCase postconditions(String postconditions) {
+    public QqlTestCase postconditions(String postconditions) {
 
         this.postconditions = postconditions;
         return this;
@@ -258,7 +249,7 @@ public class TestCase {
         this.postconditions = postconditions;
     }
 
-    public TestCase severity(Integer severity) {
+    public QqlTestCase severity(Integer severity) {
 
         this.severity = severity;
         return this;
@@ -280,7 +271,7 @@ public class TestCase {
         this.severity = severity;
     }
 
-    public TestCase priority(Integer priority) {
+    public QqlTestCase priority(Integer priority) {
 
         this.priority = priority;
         return this;
@@ -302,7 +293,7 @@ public class TestCase {
         this.priority = priority;
     }
 
-    public TestCase type(Integer type) {
+    public QqlTestCase type(Integer type) {
 
         this.type = type;
         return this;
@@ -324,7 +315,7 @@ public class TestCase {
         this.type = type;
     }
 
-    public TestCase layer(Integer layer) {
+    public QqlTestCase layer(Integer layer) {
 
         this.layer = layer;
         return this;
@@ -346,7 +337,7 @@ public class TestCase {
         this.layer = layer;
     }
 
-    public TestCase isFlaky(Integer isFlaky) {
+    public QqlTestCase isFlaky(Integer isFlaky) {
 
         this.isFlaky = isFlaky;
         return this;
@@ -368,7 +359,7 @@ public class TestCase {
         this.isFlaky = isFlaky;
     }
 
-    public TestCase behavior(Integer behavior) {
+    public QqlTestCase behavior(Integer behavior) {
 
         this.behavior = behavior;
         return this;
@@ -390,7 +381,7 @@ public class TestCase {
         this.behavior = behavior;
     }
 
-    public TestCase automation(Integer automation) {
+    public QqlTestCase automation(Integer automation) {
 
         this.automation = automation;
         return this;
@@ -412,7 +403,7 @@ public class TestCase {
         this.automation = automation;
     }
 
-    public TestCase status(Integer status) {
+    public QqlTestCase status(Integer status) {
 
         this.status = status;
         return this;
@@ -434,7 +425,7 @@ public class TestCase {
         this.status = status;
     }
 
-    public TestCase milestoneId(Long milestoneId) {
+    public QqlTestCase milestoneId(Long milestoneId) {
 
         this.milestoneId = milestoneId;
         return this;
@@ -456,7 +447,7 @@ public class TestCase {
         this.milestoneId = milestoneId;
     }
 
-    public TestCase suiteId(Long suiteId) {
+    public QqlTestCase suiteId(Long suiteId) {
 
         this.suiteId = suiteId;
         return this;
@@ -478,13 +469,13 @@ public class TestCase {
         this.suiteId = suiteId;
     }
 
-    public TestCase customFields(List<CustomFieldValue> customFields) {
+    public QqlTestCase customFields(List<CustomFieldValue> customFields) {
 
         this.customFields = customFields;
         return this;
     }
 
-    public TestCase addCustomFieldsItem(CustomFieldValue customFieldsItem) {
+    public QqlTestCase addCustomFieldsItem(CustomFieldValue customFieldsItem) {
         if (this.customFields == null) {
             this.customFields = new ArrayList<>();
         }
@@ -508,13 +499,13 @@ public class TestCase {
         this.customFields = customFields;
     }
 
-    public TestCase attachments(List<Attachment> attachments) {
+    public QqlTestCase attachments(List<Attachment> attachments) {
 
         this.attachments = attachments;
         return this;
     }
 
-    public TestCase addAttachmentsItem(Attachment attachmentsItem) {
+    public QqlTestCase addAttachmentsItem(Attachment attachmentsItem) {
         if (this.attachments == null) {
             this.attachments = new ArrayList<>();
         }
@@ -538,7 +529,7 @@ public class TestCase {
         this.attachments = attachments;
     }
 
-    public TestCase stepsType(String stepsType) {
+    public QqlTestCase stepsType(String stepsType) {
 
         this.stepsType = stepsType;
         return this;
@@ -560,13 +551,13 @@ public class TestCase {
         this.stepsType = stepsType;
     }
 
-    public TestCase steps(List<TestStep> steps) {
+    public QqlTestCase steps(List<TestStep> steps) {
 
         this.steps = steps;
         return this;
     }
 
-    public TestCase addStepsItem(TestStep stepsItem) {
+    public QqlTestCase addStepsItem(TestStep stepsItem) {
         if (this.steps == null) {
             this.steps = new ArrayList<>();
         }
@@ -590,7 +581,7 @@ public class TestCase {
         this.steps = steps;
     }
 
-    public TestCase params(Object[] params) {
+    public QqlTestCase params(Object[] params) {
 
         this.params = params;
         return this;
@@ -612,13 +603,13 @@ public class TestCase {
         this.params = params;
     }
 
-    public TestCase tags(List<TagValue> tags) {
+    public QqlTestCase tags(List<TagValue> tags) {
 
         this.tags = tags;
         return this;
     }
 
-    public TestCase addTagsItem(TagValue tagsItem) {
+    public QqlTestCase addTagsItem(TagValue tagsItem) {
         if (this.tags == null) {
             this.tags = new ArrayList<>();
         }
@@ -642,7 +633,7 @@ public class TestCase {
         this.tags = tags;
     }
 
-    public TestCase memberId(Long memberId) {
+    public QqlTestCase memberId(Long memberId) {
 
         this.memberId = memberId;
         return this;
@@ -664,7 +655,7 @@ public class TestCase {
         this.memberId = memberId;
     }
 
-    public TestCase projectId(Long projectId) {
+    public QqlTestCase projectId(Long projectId) {
 
         this.projectId = projectId;
         return this;
@@ -686,7 +677,7 @@ public class TestCase {
         this.projectId = projectId;
     }
 
-    public TestCase createdAt(String createdAt) {
+    public QqlTestCase createdAt(String createdAt) {
 
         this.createdAt = createdAt;
         return this;
@@ -708,7 +699,7 @@ public class TestCase {
         this.createdAt = createdAt;
     }
 
-    public TestCase updatedAt(String updatedAt) {
+    public QqlTestCase updatedAt(String updatedAt) {
 
         this.updatedAt = updatedAt;
         return this;
@@ -730,78 +721,6 @@ public class TestCase {
         this.updatedAt = updatedAt;
     }
 
-    public TestCase deleted(String deleted) {
-
-        this.deleted = deleted;
-        return this;
-    }
-
-    /**
-     * Get deleted
-     *
-     * @return deleted
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "")
-
-    public String getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(String deleted) {
-        this.deleted = deleted;
-    }
-
-    public TestCase created(String created) {
-
-        this.created = created;
-        return this;
-    }
-
-    /**
-     * Deprecated, use the &#x60;created_at&#x60; property instead.
-     *
-     * @return created
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "Deprecated, use the `created_at` property instead.")
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public TestCase updated(String updated) {
-
-        this.updated = updated;
-        return this;
-    }
-
-    /**
-     * Deprecated, use the &#x60;updated_at&#x60; property instead.
-     *
-     * @return updated
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "Deprecated, use the `updated_at` property instead.")
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -810,47 +729,44 @@ public class TestCase {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TestCase testCase = (TestCase) o;
-        return Objects.equals(this.id, testCase.id) &&
-                Objects.equals(this.position, testCase.position) &&
-                Objects.equals(this.title, testCase.title) &&
-                Objects.equals(this.description, testCase.description) &&
-                Objects.equals(this.preconditions, testCase.preconditions) &&
-                Objects.equals(this.postconditions, testCase.postconditions) &&
-                Objects.equals(this.severity, testCase.severity) &&
-                Objects.equals(this.priority, testCase.priority) &&
-                Objects.equals(this.type, testCase.type) &&
-                Objects.equals(this.layer, testCase.layer) &&
-                Objects.equals(this.isFlaky, testCase.isFlaky) &&
-                Objects.equals(this.behavior, testCase.behavior) &&
-                Objects.equals(this.automation, testCase.automation) &&
-                Objects.equals(this.status, testCase.status) &&
-                Objects.equals(this.milestoneId, testCase.milestoneId) &&
-                Objects.equals(this.suiteId, testCase.suiteId) &&
-                Objects.equals(this.customFields, testCase.customFields) &&
-                Objects.equals(this.attachments, testCase.attachments) &&
-                Objects.equals(this.stepsType, testCase.stepsType) &&
-                Objects.equals(this.steps, testCase.steps) &&
-                Objects.equals(this.params, testCase.params) &&
-                Objects.equals(this.tags, testCase.tags) &&
-                Objects.equals(this.memberId, testCase.memberId) &&
-                Objects.equals(this.projectId, testCase.projectId) &&
-                Objects.equals(this.createdAt, testCase.createdAt) &&
-                Objects.equals(this.updatedAt, testCase.updatedAt) &&
-                Objects.equals(this.deleted, testCase.deleted) &&
-                Objects.equals(this.created, testCase.created) &&
-                Objects.equals(this.updated, testCase.updated);
+        QqlTestCase qqlTestCase = (QqlTestCase) o;
+        return Objects.equals(this.id, qqlTestCase.id) &&
+                Objects.equals(this.position, qqlTestCase.position) &&
+                Objects.equals(this.title, qqlTestCase.title) &&
+                Objects.equals(this.description, qqlTestCase.description) &&
+                Objects.equals(this.preconditions, qqlTestCase.preconditions) &&
+                Objects.equals(this.postconditions, qqlTestCase.postconditions) &&
+                Objects.equals(this.severity, qqlTestCase.severity) &&
+                Objects.equals(this.priority, qqlTestCase.priority) &&
+                Objects.equals(this.type, qqlTestCase.type) &&
+                Objects.equals(this.layer, qqlTestCase.layer) &&
+                Objects.equals(this.isFlaky, qqlTestCase.isFlaky) &&
+                Objects.equals(this.behavior, qqlTestCase.behavior) &&
+                Objects.equals(this.automation, qqlTestCase.automation) &&
+                Objects.equals(this.status, qqlTestCase.status) &&
+                Objects.equals(this.milestoneId, qqlTestCase.milestoneId) &&
+                Objects.equals(this.suiteId, qqlTestCase.suiteId) &&
+                Objects.equals(this.customFields, qqlTestCase.customFields) &&
+                Objects.equals(this.attachments, qqlTestCase.attachments) &&
+                Objects.equals(this.stepsType, qqlTestCase.stepsType) &&
+                Objects.equals(this.steps, qqlTestCase.steps) &&
+                Objects.equals(this.params, qqlTestCase.params) &&
+                Objects.equals(this.tags, qqlTestCase.tags) &&
+                Objects.equals(this.memberId, qqlTestCase.memberId) &&
+                Objects.equals(this.projectId, qqlTestCase.projectId) &&
+                Objects.equals(this.createdAt, qqlTestCase.createdAt) &&
+                Objects.equals(this.updatedAt, qqlTestCase.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, projectId, createdAt, updatedAt, deleted, created, updated);
+        return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, projectId, createdAt, updatedAt);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TestCase {\n");
+        sb.append("class QqlTestCase {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    position: ").append(toIndentedString(position)).append("\n");
         sb.append("    title: ").append(toIndentedString(title)).append("\n");
@@ -877,9 +793,6 @@ public class TestCase {
         sb.append("    projectId: ").append(toIndentedString(projectId)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-        sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
-        sb.append("    created: ").append(toIndentedString(created)).append("\n");
-        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
         sb.append("}");
         return sb.toString();
     }

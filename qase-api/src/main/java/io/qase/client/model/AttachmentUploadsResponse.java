@@ -23,109 +23,110 @@ import java.util.Objects;
 /**
  * AttachmentUploadsResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class AttachmentUploadsResponse {
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private Boolean status;
-
-  public static final String SERIALIZED_NAME_RESULT = "result";
-  @SerializedName(SERIALIZED_NAME_RESULT)
-  private List<AttachmentGet> result = null;
-
-
-  public AttachmentUploadsResponse status(Boolean status) {
-
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Boolean getStatus() {
-    return status;
-  }
+    public static final String SERIALIZED_NAME_STATUS = "status";
+    public static final String SERIALIZED_NAME_RESULT = "result";
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    private Boolean status;
+    @SerializedName(SERIALIZED_NAME_RESULT)
+    private List<AttachmentGet> result = null;
 
 
-  public void setStatus(Boolean status) {
-    this.status = status;
-  }
+    public AttachmentUploadsResponse status(Boolean status) {
 
-
-  public AttachmentUploadsResponse result(List<AttachmentGet> result) {
-
-    this.result = result;
-    return this;
-  }
-
-  public AttachmentUploadsResponse addResultItem(AttachmentGet resultItem) {
-    if (this.result == null) {
-      this.result = new ArrayList<>();
+        this.status = status;
+        return this;
     }
-    this.result.add(resultItem);
-    return this;
-  }
 
-   /**
-   * Get result
-   * @return result
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    /**
+     * Get status
+     *
+     * @return status
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  public List<AttachmentGet> getResult() {
-    return result;
-  }
-
-
-  public void setResult(List<AttachmentGet> result) {
-    this.result = result;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Boolean getStatus() {
+        return status;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
-    AttachmentUploadsResponse attachmentUploadsResponse = (AttachmentUploadsResponse) o;
-    return Objects.equals(this.status, attachmentUploadsResponse.status) &&
-        Objects.equals(this.result, attachmentUploadsResponse.result);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(status, result);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AttachmentUploadsResponse {\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    result: ").append(toIndentedString(result)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    public AttachmentUploadsResponse result(List<AttachmentGet> result) {
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+        this.result = result;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public AttachmentUploadsResponse addResultItem(AttachmentGet resultItem) {
+        if (this.result == null) {
+            this.result = new ArrayList<>();
+        }
+        this.result.add(resultItem);
+        return this;
+    }
+
+    /**
+     * Get result
+     *
+     * @return result
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<AttachmentGet> getResult() {
+        return result;
+    }
+
+
+    public void setResult(List<AttachmentGet> result) {
+        this.result = result;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AttachmentUploadsResponse attachmentUploadsResponse = (AttachmentUploadsResponse) o;
+        return Objects.equals(this.status, attachmentUploadsResponse.status) &&
+                Objects.equals(this.result, attachmentUploadsResponse.result);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, result);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AttachmentUploadsResponse {\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    result: ").append(toIndentedString(result)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

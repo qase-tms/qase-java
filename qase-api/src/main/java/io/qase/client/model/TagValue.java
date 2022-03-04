@@ -21,101 +21,102 @@ import java.util.Objects;
 /**
  * TagValue
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class TagValue {
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
-
-  public static final String SERIALIZED_NAME_INTERNAL_ID = "internal_id";
-  @SerializedName(SERIALIZED_NAME_INTERNAL_ID)
-  private Long internalId;
-
-
-  public TagValue title(String title) {
-
-    this.title = title;
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getTitle() {
-    return title;
-  }
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    public static final String SERIALIZED_NAME_INTERNAL_ID = "internal_id";
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
+    @SerializedName(SERIALIZED_NAME_INTERNAL_ID)
+    private Long internalId;
 
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public TagValue title(String title) {
 
-
-  public TagValue internalId(Long internalId) {
-
-    this.internalId = internalId;
-    return this;
-  }
-
-   /**
-   * Get internalId
-   * @return internalId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getInternalId() {
-    return internalId;
-  }
-
-
-  public void setInternalId(Long internalId) {
-    this.internalId = internalId;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.title = title;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getTitle() {
+        return title;
     }
-    TagValue tagValue = (TagValue) o;
-    return Objects.equals(this.title, tagValue.title) &&
-        Objects.equals(this.internalId, tagValue.internalId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, internalId);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TagValue {\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    internalId: ").append(toIndentedString(internalId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setTitle(String title) {
+        this.title = title;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public TagValue internalId(Long internalId) {
+
+        this.internalId = internalId;
+        return this;
+    }
+
+    /**
+     * Get internalId
+     *
+     * @return internalId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getInternalId() {
+        return internalId;
+    }
+
+
+    public void setInternalId(Long internalId) {
+        this.internalId = internalId;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TagValue tagValue = (TagValue) o;
+        return Objects.equals(this.title, tagValue.title) &&
+                Objects.equals(this.internalId, tagValue.internalId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, internalId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TagValue {\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    internalId: ").append(toIndentedString(internalId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

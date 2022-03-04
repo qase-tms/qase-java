@@ -23,315 +23,355 @@ import java.util.Objects;
 /**
  * Suite
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class Suite {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Long id;
-
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
-
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-  private String description;
-
-  public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
-  @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
-  private String preconditions;
-
-  public static final String SERIALIZED_NAME_POSITION = "position";
-  @SerializedName(SERIALIZED_NAME_POSITION)
-  private Integer position;
-
-  public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
-  @SerializedName(SERIALIZED_NAME_CASES_COUNT)
-  private Integer casesCount;
-
-  public static final String SERIALIZED_NAME_PARENT_ID = "parent_id";
-  @SerializedName(SERIALIZED_NAME_PARENT_ID)
-  private Long parentId;
-
-  public static final String SERIALIZED_NAME_CREATED = "created";
-  @SerializedName(SERIALIZED_NAME_CREATED)
-  private String created;
-
-  public static final String SERIALIZED_NAME_UPDATED = "updated";
-  @SerializedName(SERIALIZED_NAME_UPDATED)
-  private String updated;
-
-
-  public Suite id(Long id) {
-
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getId() {
-    return id;
-  }
-
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-
-  public Suite title(String title) {
-
-    this.title = title;
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public Suite description(String description) {
-
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public Suite preconditions(String preconditions) {
-
-    this.preconditions = preconditions;
-    return this;
-  }
-
-   /**
-   * Get preconditions
-   * @return preconditions
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getPreconditions() {
-    return preconditions;
-  }
-
-
-  public void setPreconditions(String preconditions) {
-    this.preconditions = preconditions;
-  }
-
-
-  public Suite position(Integer position) {
-
-    this.position = position;
-    return this;
-  }
-
-   /**
-   * Get position
-   * @return position
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getPosition() {
-    return position;
-  }
-
-
-  public void setPosition(Integer position) {
-    this.position = position;
-  }
-
-
-  public Suite casesCount(Integer casesCount) {
-
-    this.casesCount = casesCount;
-    return this;
-  }
-
-   /**
-   * Get casesCount
-   * @return casesCount
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getCasesCount() {
-    return casesCount;
-  }
-
-
-  public void setCasesCount(Integer casesCount) {
-    this.casesCount = casesCount;
-  }
-
-
-  public Suite parentId(Long parentId) {
-
-    this.parentId = parentId;
-    return this;
-  }
-
-   /**
-   * Get parentId
-   * @return parentId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getParentId() {
-    return parentId;
-  }
-
-
-  public void setParentId(Long parentId) {
-    this.parentId = parentId;
-  }
-
-
-  public Suite created(String created) {
-
-    this.created = created;
-    return this;
-  }
-
-   /**
-   * Get created
-   * @return created
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getCreated() {
-    return created;
-  }
-
-
-  public void setCreated(String created) {
-    this.created = created;
-  }
-
-
-  public Suite updated(String updated) {
-
-    this.updated = updated;
-    return this;
-  }
-
-   /**
-   * Get updated
-   * @return updated
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getUpdated() {
-    return updated;
-  }
-
-
-  public void setUpdated(String updated) {
-    this.updated = updated;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public static final String SERIALIZED_NAME_ID = "id";
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+    public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
+    public static final String SERIALIZED_NAME_POSITION = "position";
+    public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
+    public static final String SERIALIZED_NAME_PARENT_ID = "parent_id";
+    public static final String SERIALIZED_NAME_CREATED = "created";
+    public static final String SERIALIZED_NAME_UPDATED = "updated";
+    public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
+    public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
+    @SerializedName(SERIALIZED_NAME_ID)
+    private Long id;
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
+    @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+    private String preconditions;
+    @SerializedName(SERIALIZED_NAME_POSITION)
+    private Integer position;
+    @SerializedName(SERIALIZED_NAME_CASES_COUNT)
+    private Integer casesCount;
+    @SerializedName(SERIALIZED_NAME_PARENT_ID)
+    private Long parentId;
+    @SerializedName(SERIALIZED_NAME_CREATED)
+    private String created;
+    @SerializedName(SERIALIZED_NAME_UPDATED)
+    private String updated;
+    @SerializedName(SERIALIZED_NAME_CREATED_AT)
+    private String createdAt;
+    @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+    private String updatedAt;
+
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
-    Suite suite = (Suite) o;
-    return Objects.equals(this.id, suite.id) &&
-        Objects.equals(this.title, suite.title) &&
-        Objects.equals(this.description, suite.description) &&
-        Objects.equals(this.preconditions, suite.preconditions) &&
-        Objects.equals(this.position, suite.position) &&
-        Objects.equals(this.casesCount, suite.casesCount) &&
-        Objects.equals(this.parentId, suite.parentId) &&
-        Objects.equals(this.created, suite.created) &&
-        Objects.equals(this.updated, suite.updated);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
+    public Suite id(Long id) {
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, title, description, preconditions, position, casesCount, parentId, created, updated);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+        this.id = id;
+        return this;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Suite {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    preconditions: ").append(toIndentedString(preconditions)).append("\n");
-    sb.append("    position: ").append(toIndentedString(position)).append("\n");
-    sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
-    sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
-    sb.append("    created: ").append(toIndentedString(created)).append("\n");
-    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public Long getId() {
+        return id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Suite title(String title) {
+
+        this.title = title;
+        return this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Suite description(String description) {
+
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return description
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Suite preconditions(String preconditions) {
+
+        this.preconditions = preconditions;
+        return this;
+    }
+
+    /**
+     * Get preconditions
+     *
+     * @return preconditions
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getPreconditions() {
+        return preconditions;
+    }
+
+    public void setPreconditions(String preconditions) {
+        this.preconditions = preconditions;
+    }
+
+    public Suite position(Integer position) {
+
+        this.position = position;
+        return this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return position
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public Suite casesCount(Integer casesCount) {
+
+        this.casesCount = casesCount;
+        return this;
+    }
+
+    /**
+     * Get casesCount
+     *
+     * @return casesCount
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getCasesCount() {
+        return casesCount;
+    }
+
+    public void setCasesCount(Integer casesCount) {
+        this.casesCount = casesCount;
+    }
+
+    public Suite parentId(Long parentId) {
+
+        this.parentId = parentId;
+        return this;
+    }
+
+    /**
+     * Get parentId
+     *
+     * @return parentId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public Suite created(String created) {
+
+        this.created = created;
+        return this;
+    }
+
+    /**
+     * Deprecated, use the &#x60;created_at&#x60; property instead.
+     *
+     * @return created
+     * @deprecated
+     **/
+    @Deprecated
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `created_at` property instead.")
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public Suite updated(String updated) {
+
+        this.updated = updated;
+        return this;
+    }
+
+    /**
+     * Deprecated, use the &#x60;updated_at&#x60; property instead.
+     *
+     * @return updated
+     * @deprecated
+     **/
+    @Deprecated
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `updated_at` property instead.")
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public Suite createdAt(String createdAt) {
+
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return createdAt
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Suite updatedAt(String updatedAt) {
+
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return updatedAt
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Suite suite = (Suite) o;
+        return Objects.equals(this.id, suite.id) &&
+                Objects.equals(this.title, suite.title) &&
+                Objects.equals(this.description, suite.description) &&
+                Objects.equals(this.preconditions, suite.preconditions) &&
+                Objects.equals(this.position, suite.position) &&
+                Objects.equals(this.casesCount, suite.casesCount) &&
+                Objects.equals(this.parentId, suite.parentId) &&
+                Objects.equals(this.created, suite.created) &&
+                Objects.equals(this.updated, suite.updated) &&
+                Objects.equals(this.createdAt, suite.createdAt) &&
+                Objects.equals(this.updatedAt, suite.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, preconditions, position, casesCount, parentId, created, updated, createdAt, updatedAt);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Suite {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    preconditions: ").append(toIndentedString(preconditions)).append("\n");
+        sb.append("    position: ").append(toIndentedString(position)).append("\n");
+        sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
+        sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
+        sb.append("    created: ").append(toIndentedString(created)).append("\n");
+        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+        sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

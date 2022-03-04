@@ -23,170 +23,162 @@ import java.util.Objects;
 /**
  * SuiteCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class SuiteCreate {
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+    public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
+    public static final String SERIALIZED_NAME_PARENT_ID = "parent_id";
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
+    @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+    private String preconditions;
+    @SerializedName(SERIALIZED_NAME_PARENT_ID)
+    private Long parentId;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-  private String description;
-
-  public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
-  @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
-  private String preconditions;
-
-  public static final String SERIALIZED_NAME_PARENT_ID = "parent_id";
-  @SerializedName(SERIALIZED_NAME_PARENT_ID)
-  private Long parentId;
-
-
-  public SuiteCreate title(String title) {
-
-    this.title = title;
-    return this;
-  }
-
-   /**
-   * Test suite title.
-   * @return title
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Test suite title.")
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public SuiteCreate description(String description) {
-
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Test suite description.
-   * @return description
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Test suite description.")
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public SuiteCreate preconditions(String preconditions) {
-
-    this.preconditions = preconditions;
-    return this;
-  }
-
-   /**
-   * Test suite preconditions
-   * @return preconditions
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Test suite preconditions")
-
-  public String getPreconditions() {
-    return preconditions;
-  }
-
-
-  public void setPreconditions(String preconditions) {
-    this.preconditions = preconditions;
-  }
-
-
-  public SuiteCreate parentId(Long parentId) {
-
-    this.parentId = parentId;
-    return this;
-  }
-
-   /**
-   * Parent suite ID
-   * @return parentId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Parent suite ID")
-
-  public Long getParentId() {
-    return parentId;
-  }
-
-
-  public void setParentId(Long parentId) {
-    this.parentId = parentId;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
-    SuiteCreate suiteCreate = (SuiteCreate) o;
-    return Objects.equals(this.title, suiteCreate.title) &&
-        Objects.equals(this.description, suiteCreate.description) &&
-        Objects.equals(this.preconditions, suiteCreate.preconditions) &&
-        Objects.equals(this.parentId, suiteCreate.parentId);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
+    public SuiteCreate title(String title) {
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, description, preconditions, parentId);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+        this.title = title;
+        return this;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SuiteCreate {\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    preconditions: ").append(toIndentedString(preconditions)).append("\n");
-    sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    /**
+     * Test suite title.
+     *
+     * @return title
+     **/
+    @javax.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "Test suite title.")
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public String getTitle() {
+        return title;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public SuiteCreate description(String description) {
+
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Test suite description.
+     *
+     * @return description
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "Test suite description.")
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public SuiteCreate preconditions(String preconditions) {
+
+        this.preconditions = preconditions;
+        return this;
+    }
+
+    /**
+     * Test suite preconditions
+     *
+     * @return preconditions
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "Test suite preconditions")
+
+    public String getPreconditions() {
+        return preconditions;
+    }
+
+    public void setPreconditions(String preconditions) {
+        this.preconditions = preconditions;
+    }
+
+    public SuiteCreate parentId(Long parentId) {
+
+        this.parentId = parentId;
+        return this;
+    }
+
+    /**
+     * Parent suite ID
+     *
+     * @return parentId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "Parent suite ID")
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SuiteCreate suiteCreate = (SuiteCreate) o;
+        return Objects.equals(this.title, suiteCreate.title) &&
+                Objects.equals(this.description, suiteCreate.description) &&
+                Objects.equals(this.preconditions, suiteCreate.preconditions) &&
+                Objects.equals(this.parentId, suiteCreate.parentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, preconditions, parentId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SuiteCreate {\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    preconditions: ").append(toIndentedString(preconditions)).append("\n");
+        sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

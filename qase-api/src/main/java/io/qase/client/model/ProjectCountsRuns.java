@@ -21,101 +21,102 @@ import java.util.Objects;
 /**
  * ProjectCountsRuns
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class ProjectCountsRuns {
-  public static final String SERIALIZED_NAME_TOTAL = "total";
-  @SerializedName(SERIALIZED_NAME_TOTAL)
-  private Integer total;
-
-  public static final String SERIALIZED_NAME_ACTIVE = "active";
-  @SerializedName(SERIALIZED_NAME_ACTIVE)
-  private Integer active;
-
-
-  public ProjectCountsRuns total(Integer total) {
-
-    this.total = total;
-    return this;
-  }
-
-   /**
-   * Get total
-   * @return total
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getTotal() {
-    return total;
-  }
+    public static final String SERIALIZED_NAME_TOTAL = "total";
+    public static final String SERIALIZED_NAME_ACTIVE = "active";
+    @SerializedName(SERIALIZED_NAME_TOTAL)
+    private Integer total;
+    @SerializedName(SERIALIZED_NAME_ACTIVE)
+    private Integer active;
 
 
-  public void setTotal(Integer total) {
-    this.total = total;
-  }
+    public ProjectCountsRuns total(Integer total) {
 
-
-  public ProjectCountsRuns active(Integer active) {
-
-    this.active = active;
-    return this;
-  }
-
-   /**
-   * Get active
-   * @return active
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getActive() {
-    return active;
-  }
-
-
-  public void setActive(Integer active) {
-    this.active = active;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.total = total;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get total
+     *
+     * @return total
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getTotal() {
+        return total;
     }
-    ProjectCountsRuns projectCountsRuns = (ProjectCountsRuns) o;
-    return Objects.equals(this.total, projectCountsRuns.total) &&
-        Objects.equals(this.active, projectCountsRuns.active);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(total, active);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProjectCountsRuns {\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
-    sb.append("    active: ").append(toIndentedString(active)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setTotal(Integer total) {
+        this.total = total;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public ProjectCountsRuns active(Integer active) {
+
+        this.active = active;
+        return this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return active
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getActive() {
+        return active;
+    }
+
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProjectCountsRuns projectCountsRuns = (ProjectCountsRuns) o;
+        return Objects.equals(this.total, projectCountsRuns.total) &&
+                Objects.equals(this.active, projectCountsRuns.active);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(total, active);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ProjectCountsRuns {\n");
+        sb.append("    total: ").append(toIndentedString(total)).append("\n");
+        sb.append("    active: ").append(toIndentedString(active)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

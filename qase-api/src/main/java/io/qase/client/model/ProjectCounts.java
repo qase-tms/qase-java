@@ -21,188 +21,189 @@ import java.util.Objects;
 /**
  * ProjectCounts
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class ProjectCounts {
-  public static final String SERIALIZED_NAME_CASES = "cases";
-  @SerializedName(SERIALIZED_NAME_CASES)
-  private Integer cases;
-
-  public static final String SERIALIZED_NAME_SUITES = "suites";
-  @SerializedName(SERIALIZED_NAME_SUITES)
-  private Integer suites;
-
-  public static final String SERIALIZED_NAME_MILESTONES = "milestones";
-  @SerializedName(SERIALIZED_NAME_MILESTONES)
-  private Integer milestones;
-
-  public static final String SERIALIZED_NAME_RUNS = "runs";
-  @SerializedName(SERIALIZED_NAME_RUNS)
-  private ProjectCountsRuns runs;
-
-  public static final String SERIALIZED_NAME_DEFECTS = "defects";
-  @SerializedName(SERIALIZED_NAME_DEFECTS)
-  private ProjectCountsDefects defects;
+    public static final String SERIALIZED_NAME_CASES = "cases";
+    public static final String SERIALIZED_NAME_SUITES = "suites";
+    public static final String SERIALIZED_NAME_MILESTONES = "milestones";
+    public static final String SERIALIZED_NAME_RUNS = "runs";
+    public static final String SERIALIZED_NAME_DEFECTS = "defects";
+    @SerializedName(SERIALIZED_NAME_CASES)
+    private Integer cases;
+    @SerializedName(SERIALIZED_NAME_SUITES)
+    private Integer suites;
+    @SerializedName(SERIALIZED_NAME_MILESTONES)
+    private Integer milestones;
+    @SerializedName(SERIALIZED_NAME_RUNS)
+    private ProjectCountsRuns runs;
+    @SerializedName(SERIALIZED_NAME_DEFECTS)
+    private ProjectCountsDefects defects;
 
 
-  public ProjectCounts cases(Integer cases) {
+    public ProjectCounts cases(Integer cases) {
 
-    this.cases = cases;
-    return this;
-  }
-
-   /**
-   * Get cases
-   * @return cases
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getCases() {
-    return cases;
-  }
-
-
-  public void setCases(Integer cases) {
-    this.cases = cases;
-  }
-
-
-  public ProjectCounts suites(Integer suites) {
-
-    this.suites = suites;
-    return this;
-  }
-
-   /**
-   * Get suites
-   * @return suites
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getSuites() {
-    return suites;
-  }
-
-
-  public void setSuites(Integer suites) {
-    this.suites = suites;
-  }
-
-
-  public ProjectCounts milestones(Integer milestones) {
-
-    this.milestones = milestones;
-    return this;
-  }
-
-   /**
-   * Get milestones
-   * @return milestones
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getMilestones() {
-    return milestones;
-  }
-
-
-  public void setMilestones(Integer milestones) {
-    this.milestones = milestones;
-  }
-
-
-  public ProjectCounts runs(ProjectCountsRuns runs) {
-
-    this.runs = runs;
-    return this;
-  }
-
-   /**
-   * Get runs
-   * @return runs
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public ProjectCountsRuns getRuns() {
-    return runs;
-  }
-
-
-  public void setRuns(ProjectCountsRuns runs) {
-    this.runs = runs;
-  }
-
-
-  public ProjectCounts defects(ProjectCountsDefects defects) {
-
-    this.defects = defects;
-    return this;
-  }
-
-   /**
-   * Get defects
-   * @return defects
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public ProjectCountsDefects getDefects() {
-    return defects;
-  }
-
-
-  public void setDefects(ProjectCountsDefects defects) {
-    this.defects = defects;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.cases = cases;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get cases
+     *
+     * @return cases
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getCases() {
+        return cases;
     }
-    ProjectCounts projectCounts = (ProjectCounts) o;
-    return Objects.equals(this.cases, projectCounts.cases) &&
-        Objects.equals(this.suites, projectCounts.suites) &&
-        Objects.equals(this.milestones, projectCounts.milestones) &&
-        Objects.equals(this.runs, projectCounts.runs) &&
-        Objects.equals(this.defects, projectCounts.defects);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(cases, suites, milestones, runs, defects);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProjectCounts {\n");
-    sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
-    sb.append("    suites: ").append(toIndentedString(suites)).append("\n");
-    sb.append("    milestones: ").append(toIndentedString(milestones)).append("\n");
-    sb.append("    runs: ").append(toIndentedString(runs)).append("\n");
-    sb.append("    defects: ").append(toIndentedString(defects)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setCases(Integer cases) {
+        this.cases = cases;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public ProjectCounts suites(Integer suites) {
+
+        this.suites = suites;
+        return this;
+    }
+
+    /**
+     * Get suites
+     *
+     * @return suites
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getSuites() {
+        return suites;
+    }
+
+
+    public void setSuites(Integer suites) {
+        this.suites = suites;
+    }
+
+
+    public ProjectCounts milestones(Integer milestones) {
+
+        this.milestones = milestones;
+        return this;
+    }
+
+    /**
+     * Get milestones
+     *
+     * @return milestones
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getMilestones() {
+        return milestones;
+    }
+
+
+    public void setMilestones(Integer milestones) {
+        this.milestones = milestones;
+    }
+
+
+    public ProjectCounts runs(ProjectCountsRuns runs) {
+
+        this.runs = runs;
+        return this;
+    }
+
+    /**
+     * Get runs
+     *
+     * @return runs
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public ProjectCountsRuns getRuns() {
+        return runs;
+    }
+
+
+    public void setRuns(ProjectCountsRuns runs) {
+        this.runs = runs;
+    }
+
+
+    public ProjectCounts defects(ProjectCountsDefects defects) {
+
+        this.defects = defects;
+        return this;
+    }
+
+    /**
+     * Get defects
+     *
+     * @return defects
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public ProjectCountsDefects getDefects() {
+        return defects;
+    }
+
+
+    public void setDefects(ProjectCountsDefects defects) {
+        this.defects = defects;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProjectCounts projectCounts = (ProjectCounts) o;
+        return Objects.equals(this.cases, projectCounts.cases) &&
+                Objects.equals(this.suites, projectCounts.suites) &&
+                Objects.equals(this.milestones, projectCounts.milestones) &&
+                Objects.equals(this.runs, projectCounts.runs) &&
+                Objects.equals(this.defects, projectCounts.defects);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cases, suites, milestones, runs, defects);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ProjectCounts {\n");
+        sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
+        sb.append("    suites: ").append(toIndentedString(suites)).append("\n");
+        sb.append("    milestones: ").append(toIndentedString(milestones)).append("\n");
+        sb.append("    runs: ").append(toIndentedString(runs)).append("\n");
+        sb.append("    defects: ").append(toIndentedString(defects)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

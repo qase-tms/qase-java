@@ -15,7 +15,6 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.api.inner.FilterHelper;
 import io.qase.client.*;
 import io.qase.client.model.*;
 
@@ -46,23 +45,23 @@ public class MilestonesApi {
 
     /**
      * Build call for createMilestone
-     * @param code Code of project, where to search entities. (required)
-     * @param milestoneCreate  (required)
-     * @param _callback Callback for upload/download progress
+     *
+     * @param code            Code of project, where to search entities. (required)
+     * @param milestoneCreate (required)
+     * @param _callback       Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call createMilestoneCall(String code, MilestoneCreate milestoneCreate, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = milestoneCreate;
 
         // create path and map variables
         String localVarPath = "/milestone/{code}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -71,7 +70,7 @@ public class MilestonesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -79,12 +78,12 @@ public class MilestonesApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/json"
+                "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -110,15 +109,15 @@ public class MilestonesApi {
     /**
      * Create a new milestone.
      * This method allows to create a milestone in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param milestoneCreate  (required)
+     *
+     * @param code            Code of project, where to search entities. (required)
+     * @param milestoneCreate (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
      */
     public IdResponse createMilestone(String code, MilestoneCreate milestoneCreate) throws QaseException {
         ApiResponse<IdResponse> localVarResp = createMilestoneWithHttpInfo(code, milestoneCreate);
@@ -128,63 +127,66 @@ public class MilestonesApi {
     /**
      * Create a new milestone.
      * This method allows to create a milestone in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param milestoneCreate  (required)
+     *
+     * @param code            Code of project, where to search entities. (required)
+     * @param milestoneCreate (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<IdResponse> createMilestoneWithHttpInfo(String code, MilestoneCreate milestoneCreate) throws QaseException {
         okhttp3.Call localVarCall = createMilestoneValidateBeforeCall(code, milestoneCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Create a new milestone. (asynchronously)
      * This method allows to create a milestone in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param milestoneCreate  (required)
-     * @param _callback The callback to be executed when the API call finishes
+     *
+     * @param code            Code of project, where to search entities. (required)
+     * @param milestoneCreate (required)
+     * @param _callback       The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call createMilestoneAsync(String code, MilestoneCreate milestoneCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = createMilestoneValidateBeforeCall(code, milestoneCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for deleteMilestone
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param id        Identifier. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call deleteMilestoneCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/milestone/{code}/{id}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()))
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -193,7 +195,7 @@ public class MilestonesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -206,7 +208,7 @@ public class MilestonesApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -232,15 +234,15 @@ public class MilestonesApi {
     /**
      * Delete milestone.
      * This method completely deletes a milestone from repository.
+     *
      * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     * @param id   Identifier. (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+     * </table>
      */
     public IdResponse deleteMilestone(String code, Integer id) throws QaseException {
         ApiResponse<IdResponse> localVarResp = deleteMilestoneWithHttpInfo(code, id);
@@ -250,63 +252,66 @@ public class MilestonesApi {
     /**
      * Delete milestone.
      * This method completely deletes a milestone from repository.
+     *
      * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     * @param id   Identifier. (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<IdResponse> deleteMilestoneWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = deleteMilestoneValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Delete milestone. (asynchronously)
      * This method completely deletes a milestone from repository.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param id        Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call deleteMilestoneAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = deleteMilestoneValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for getMilestone
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param id        Identifier. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getMilestoneCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/milestone/{code}/{id}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()))
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -315,7 +320,7 @@ public class MilestonesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -328,7 +333,7 @@ public class MilestonesApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -354,15 +359,15 @@ public class MilestonesApi {
     /**
      * Get a specific milestone.
      * This method allows to retrieve a specific milestone.
+     *
      * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     * @param id   Identifier. (required)
      * @return MilestoneResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
+     * </table>
      */
     public MilestoneResponse getMilestone(String code, Integer id) throws QaseException {
         ApiResponse<MilestoneResponse> localVarResp = getMilestoneWithHttpInfo(code, id);
@@ -372,64 +377,67 @@ public class MilestonesApi {
     /**
      * Get a specific milestone.
      * This method allows to retrieve a specific milestone.
+     *
      * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     * @param id   Identifier. (required)
      * @return ApiResponse&lt;MilestoneResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<MilestoneResponse> getMilestoneWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = getMilestoneValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<MilestoneResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<MilestoneResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get a specific milestone. (asynchronously)
      * This method allows to retrieve a specific milestone.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param id        Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getMilestoneAsync(String code, Integer id, final ApiCallback<MilestoneResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getMilestoneValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<MilestoneResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<MilestoneResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for getMilestones
-     * @param code Code of project, where to search entities. (required)
-     * @param filters  (optional)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param filters   (optional)
+     * @param limit     A number of entities in result set. (optional, default to 10)
+     * @param offset    How many entities should be skipped. (optional, default to 0)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getMilestonesCall(String code, Filters3 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/milestone/{code}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -438,7 +446,7 @@ public class MilestonesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         if (filters != null) {
-            localVarQueryParams.addAll(FilterHelper.getFilterPairs(filters));
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
         }
 
         if (limit != null) {
@@ -450,7 +458,7 @@ public class MilestonesApi {
         }
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -463,7 +471,7 @@ public class MilestonesApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -484,17 +492,17 @@ public class MilestonesApi {
     /**
      * Get all milestones.
      * This method allows to retrieve all milestones stored in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param filters  (optional)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param code    Code of project, where to search entities. (required)
+     * @param filters (optional)
+     * @param limit   A number of entities in result set. (optional, default to 10)
+     * @param offset  How many entities should be skipped. (optional, default to 0)
      * @return MilestoneListResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
+     * </table>
      */
     public MilestoneListResponse getMilestones(String code, Filters3 filters, Integer limit, Integer offset) throws QaseException {
         ApiResponse<MilestoneListResponse> localVarResp = getMilestonesWithHttpInfo(code, filters, limit, offset);
@@ -504,68 +512,71 @@ public class MilestonesApi {
     /**
      * Get all milestones.
      * This method allows to retrieve all milestones stored in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param filters  (optional)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param code    Code of project, where to search entities. (required)
+     * @param filters (optional)
+     * @param limit   A number of entities in result set. (optional, default to 10)
+     * @param offset  How many entities should be skipped. (optional, default to 0)
      * @return ApiResponse&lt;MilestoneListResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<MilestoneListResponse> getMilestonesWithHttpInfo(String code, Filters3 filters, Integer limit, Integer offset) throws QaseException {
         okhttp3.Call localVarCall = getMilestonesValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<MilestoneListResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<MilestoneListResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get all milestones. (asynchronously)
      * This method allows to retrieve all milestones stored in selected project.
-     * @param code Code of project, where to search entities. (required)
-     * @param filters  (optional)
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
+     *
+     * @param code      Code of project, where to search entities. (required)
+     * @param filters   (optional)
+     * @param limit     A number of entities in result set. (optional, default to 10)
+     * @param offset    How many entities should be skipped. (optional, default to 0)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getMilestonesAsync(String code, Filters3 filters, Integer limit, Integer offset, final ApiCallback<MilestoneListResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getMilestonesValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<MilestoneListResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<MilestoneListResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for updateMilestone
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
-     * @param milestoneUpdate  (required)
-     * @param _callback Callback for upload/download progress
+     *
+     * @param code            Code of project, where to search entities. (required)
+     * @param id              Identifier. (required)
+     * @param milestoneUpdate (required)
+     * @param _callback       Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call updateMilestoneCall(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = milestoneUpdate;
 
         // create path and map variables
         String localVarPath = "/milestone/{code}/{id}"
-            .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code.toString()))
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -574,7 +585,7 @@ public class MilestonesApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -582,12 +593,12 @@ public class MilestonesApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/json"
+                "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -618,16 +629,16 @@ public class MilestonesApi {
     /**
      * Update milestone.
      * This method updates a milestone.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
-     * @param milestoneUpdate  (required)
+     *
+     * @param code            Code of project, where to search entities. (required)
+     * @param id              Identifier. (required)
+     * @param milestoneUpdate (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
      */
     public IdResponse updateMilestone(String code, Integer id, MilestoneUpdate milestoneUpdate) throws QaseException {
         ApiResponse<IdResponse> localVarResp = updateMilestoneWithHttpInfo(code, id, milestoneUpdate);
@@ -637,42 +648,44 @@ public class MilestonesApi {
     /**
      * Update milestone.
      * This method updates a milestone.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
-     * @param milestoneUpdate  (required)
+     *
+     * @param code            Code of project, where to search entities. (required)
+     * @param id              Identifier. (required)
+     * @param milestoneUpdate (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<IdResponse> updateMilestoneWithHttpInfo(String code, Integer id, MilestoneUpdate milestoneUpdate) throws QaseException {
         okhttp3.Call localVarCall = updateMilestoneValidateBeforeCall(code, id, milestoneUpdate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Update milestone. (asynchronously)
      * This method updates a milestone.
-     * @param code Code of project, where to search entities. (required)
-     * @param id Identifier. (required)
-     * @param milestoneUpdate  (required)
-     * @param _callback The callback to be executed when the API call finishes
+     *
+     * @param code            Code of project, where to search entities. (required)
+     * @param id              Identifier. (required)
+     * @param milestoneUpdate (required)
+     * @param _callback       The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call updateMilestoneAsync(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = updateMilestoneValidateBeforeCall(code, id, milestoneUpdate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

@@ -22,217 +22,218 @@ import java.util.Objects;
 /**
  * AttachmentGet
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class AttachmentGet {
-  public static final String SERIALIZED_NAME_HASH = "hash";
-  @SerializedName(SERIALIZED_NAME_HASH)
-  private String hash;
-
-  public static final String SERIALIZED_NAME_FILE = "file";
-  @SerializedName(SERIALIZED_NAME_FILE)
-  private String file;
-
-  public static final String SERIALIZED_NAME_MIME = "mime";
-  @SerializedName(SERIALIZED_NAME_MIME)
-  private String mime;
-
-  public static final String SERIALIZED_NAME_SIZE = "size";
-  @SerializedName(SERIALIZED_NAME_SIZE)
-  private Integer size;
-
-  public static final String SERIALIZED_NAME_EXTENSION = "extension";
-  @SerializedName(SERIALIZED_NAME_EXTENSION)
-  private String extension;
-
-  public static final String SERIALIZED_NAME_FULL_PATH = "full_path";
-  @SerializedName(SERIALIZED_NAME_FULL_PATH)
-  private URI fullPath;
+    public static final String SERIALIZED_NAME_HASH = "hash";
+    public static final String SERIALIZED_NAME_FILE = "file";
+    public static final String SERIALIZED_NAME_MIME = "mime";
+    public static final String SERIALIZED_NAME_SIZE = "size";
+    public static final String SERIALIZED_NAME_EXTENSION = "extension";
+    public static final String SERIALIZED_NAME_FULL_PATH = "full_path";
+    @SerializedName(SERIALIZED_NAME_HASH)
+    private String hash;
+    @SerializedName(SERIALIZED_NAME_FILE)
+    private String file;
+    @SerializedName(SERIALIZED_NAME_MIME)
+    private String mime;
+    @SerializedName(SERIALIZED_NAME_SIZE)
+    private Integer size;
+    @SerializedName(SERIALIZED_NAME_EXTENSION)
+    private String extension;
+    @SerializedName(SERIALIZED_NAME_FULL_PATH)
+    private URI fullPath;
 
 
-  public AttachmentGet hash(String hash) {
+    public AttachmentGet hash(String hash) {
 
-    this.hash = hash;
-    return this;
-  }
-
-   /**
-   * Get hash
-   * @return hash
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getHash() {
-    return hash;
-  }
-
-
-  public void setHash(String hash) {
-    this.hash = hash;
-  }
-
-
-  public AttachmentGet file(String file) {
-
-    this.file = file;
-    return this;
-  }
-
-   /**
-   * Get file
-   * @return file
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getFile() {
-    return file;
-  }
-
-
-  public void setFile(String file) {
-    this.file = file;
-  }
-
-
-  public AttachmentGet mime(String mime) {
-
-    this.mime = mime;
-    return this;
-  }
-
-   /**
-   * Get mime
-   * @return mime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getMime() {
-    return mime;
-  }
-
-
-  public void setMime(String mime) {
-    this.mime = mime;
-  }
-
-
-  public AttachmentGet size(Integer size) {
-
-    this.size = size;
-    return this;
-  }
-
-   /**
-   * Get size
-   * @return size
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getSize() {
-    return size;
-  }
-
-
-  public void setSize(Integer size) {
-    this.size = size;
-  }
-
-
-  public AttachmentGet extension(String extension) {
-
-    this.extension = extension;
-    return this;
-  }
-
-   /**
-   * Get extension
-   * @return extension
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getExtension() {
-    return extension;
-  }
-
-
-  public void setExtension(String extension) {
-    this.extension = extension;
-  }
-
-
-  public AttachmentGet fullPath(URI fullPath) {
-
-    this.fullPath = fullPath;
-    return this;
-  }
-
-   /**
-   * Get fullPath
-   * @return fullPath
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public URI getFullPath() {
-    return fullPath;
-  }
-
-
-  public void setFullPath(URI fullPath) {
-    this.fullPath = fullPath;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.hash = hash;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get hash
+     *
+     * @return hash
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getHash() {
+        return hash;
     }
-    AttachmentGet attachmentGet = (AttachmentGet) o;
-    return Objects.equals(this.hash, attachmentGet.hash) &&
-        Objects.equals(this.file, attachmentGet.file) &&
-        Objects.equals(this.mime, attachmentGet.mime) &&
-        Objects.equals(this.size, attachmentGet.size) &&
-        Objects.equals(this.extension, attachmentGet.extension) &&
-        Objects.equals(this.fullPath, attachmentGet.fullPath);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(hash, file, mime, size, extension, fullPath);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AttachmentGet {\n");
-    sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
-    sb.append("    file: ").append(toIndentedString(file)).append("\n");
-    sb.append("    mime: ").append(toIndentedString(mime)).append("\n");
-    sb.append("    size: ").append(toIndentedString(size)).append("\n");
-    sb.append("    extension: ").append(toIndentedString(extension)).append("\n");
-    sb.append("    fullPath: ").append(toIndentedString(fullPath)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setHash(String hash) {
+        this.hash = hash;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public AttachmentGet file(String file) {
+
+        this.file = file;
+        return this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return file
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getFile() {
+        return file;
+    }
+
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+
+    public AttachmentGet mime(String mime) {
+
+        this.mime = mime;
+        return this;
+    }
+
+    /**
+     * Get mime
+     *
+     * @return mime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getMime() {
+        return mime;
+    }
+
+
+    public void setMime(String mime) {
+        this.mime = mime;
+    }
+
+
+    public AttachmentGet size(Integer size) {
+
+        this.size = size;
+        return this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return size
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getSize() {
+        return size;
+    }
+
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+
+    public AttachmentGet extension(String extension) {
+
+        this.extension = extension;
+        return this;
+    }
+
+    /**
+     * Get extension
+     *
+     * @return extension
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getExtension() {
+        return extension;
+    }
+
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+
+    public AttachmentGet fullPath(URI fullPath) {
+
+        this.fullPath = fullPath;
+        return this;
+    }
+
+    /**
+     * Get fullPath
+     *
+     * @return fullPath
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public URI getFullPath() {
+        return fullPath;
+    }
+
+
+    public void setFullPath(URI fullPath) {
+        this.fullPath = fullPath;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AttachmentGet attachmentGet = (AttachmentGet) o;
+        return Objects.equals(this.hash, attachmentGet.hash) &&
+                Objects.equals(this.file, attachmentGet.file) &&
+                Objects.equals(this.mime, attachmentGet.mime) &&
+                Objects.equals(this.size, attachmentGet.size) &&
+                Objects.equals(this.extension, attachmentGet.extension) &&
+                Objects.equals(this.fullPath, attachmentGet.fullPath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hash, file, mime, size, extension, fullPath);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AttachmentGet {\n");
+        sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
+        sb.append("    file: ").append(toIndentedString(file)).append("\n");
+        sb.append("    mime: ").append(toIndentedString(mime)).append("\n");
+        sb.append("    size: ").append(toIndentedString(size)).append("\n");
+        sb.append("    extension: ").append(toIndentedString(extension)).append("\n");
+        sb.append("    fullPath: ").append(toIndentedString(fullPath)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

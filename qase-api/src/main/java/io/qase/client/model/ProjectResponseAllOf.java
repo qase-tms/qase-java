@@ -21,72 +21,73 @@ import java.util.Objects;
 /**
  * ProjectResponseAllOf
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class ProjectResponseAllOf {
-  public static final String SERIALIZED_NAME_RESULT = "result";
-  @SerializedName(SERIALIZED_NAME_RESULT)
-  private Project result;
+    public static final String SERIALIZED_NAME_RESULT = "result";
+    @SerializedName(SERIALIZED_NAME_RESULT)
+    private Project result;
 
 
-  public ProjectResponseAllOf result(Project result) {
+    public ProjectResponseAllOf result(Project result) {
 
-    this.result = result;
-    return this;
-  }
-
-   /**
-   * Get result
-   * @return result
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Project getResult() {
-    return result;
-  }
-
-
-  public void setResult(Project result) {
-    this.result = result;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.result = result;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get result
+     *
+     * @return result
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Project getResult() {
+        return result;
     }
-    ProjectResponseAllOf projectResponseAllOf = (ProjectResponseAllOf) o;
-    return Objects.equals(this.result, projectResponseAllOf.result);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(result);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProjectResponseAllOf {\n");
-    sb.append("    result: ").append(toIndentedString(result)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setResult(Project result) {
+        this.result = result;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProjectResponseAllOf projectResponseAllOf = (ProjectResponseAllOf) o;
+        return Objects.equals(this.result, projectResponseAllOf.result);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(result);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ProjectResponseAllOf {\n");
+        sb.append("    result: ").append(toIndentedString(result)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

@@ -25,146 +25,140 @@ import java.util.Objects;
 /**
  * PlanCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class PlanCreate {
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+    public static final String SERIALIZED_NAME_CASES = "cases";
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
+    @SerializedName(SERIALIZED_NAME_CASES)
+    private List<Long> cases = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-  private String description;
-
-  public static final String SERIALIZED_NAME_CASES = "cases";
-  @SerializedName(SERIALIZED_NAME_CASES)
-  private List<Long> cases = new ArrayList<>();
-
-
-  public PlanCreate title(String title) {
-
-    this.title = title;
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public PlanCreate description(String description) {
-
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public PlanCreate cases(List<Long> cases) {
-
-    this.cases = cases;
-    return this;
-  }
-
-  public PlanCreate addCasesItem(Long casesItem) {
-    this.cases.add(casesItem);
-    return this;
-  }
-
-   /**
-   * Get cases
-   * @return cases
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
-  public List<Long> getCases() {
-    return cases;
-  }
-
-
-  public void setCases(List<Long> cases) {
-    this.cases = cases;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
-    PlanCreate planCreate = (PlanCreate) o;
-    return Objects.equals(this.title, planCreate.title) &&
-        Objects.equals(this.description, planCreate.description) &&
-        Objects.equals(this.cases, planCreate.cases);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
+    public PlanCreate title(String title) {
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, description, cases);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+        this.title = title;
+        return this;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PlanCreate {\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    @javax.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public String getTitle() {
+        return title;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public PlanCreate description(String description) {
+
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return description
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public PlanCreate cases(List<Long> cases) {
+
+        this.cases = cases;
+        return this;
+    }
+
+    public PlanCreate addCasesItem(Long casesItem) {
+        this.cases.add(casesItem);
+        return this;
+    }
+
+    /**
+     * Get cases
+     *
+     * @return cases
+     **/
+    @javax.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+
+    public List<Long> getCases() {
+        return cases;
+    }
+
+    public void setCases(List<Long> cases) {
+        this.cases = cases;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PlanCreate planCreate = (PlanCreate) o;
+        return Objects.equals(this.title, planCreate.title) &&
+                Objects.equals(this.description, planCreate.description) &&
+                Objects.equals(this.cases, planCreate.cases);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, cases);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PlanCreate {\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

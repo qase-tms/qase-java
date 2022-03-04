@@ -23,138 +23,139 @@ import java.util.Objects;
 /**
  * ResultSteps
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class ResultSteps {
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private Integer status;
-
-  public static final String SERIALIZED_NAME_POSITION = "position";
-  @SerializedName(SERIALIZED_NAME_POSITION)
-  private Integer position;
-
-  public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
-  @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<Attachment> attachments = null;
+    public static final String SERIALIZED_NAME_STATUS = "status";
+    public static final String SERIALIZED_NAME_POSITION = "position";
+    public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    private Integer status;
+    @SerializedName(SERIALIZED_NAME_POSITION)
+    private Integer position;
+    @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+    private List<Attachment> attachments = null;
 
 
-  public ResultSteps status(Integer status) {
+    public ResultSteps status(Integer status) {
 
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getStatus() {
-    return status;
-  }
-
-
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
-
-
-  public ResultSteps position(Integer position) {
-
-    this.position = position;
-    return this;
-  }
-
-   /**
-   * Get position
-   * @return position
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getPosition() {
-    return position;
-  }
-
-
-  public void setPosition(Integer position) {
-    this.position = position;
-  }
-
-
-  public ResultSteps attachments(List<Attachment> attachments) {
-
-    this.attachments = attachments;
-    return this;
-  }
-
-  public ResultSteps addAttachmentsItem(Attachment attachmentsItem) {
-    if (this.attachments == null) {
-      this.attachments = new ArrayList<>();
+        this.status = status;
+        return this;
     }
-    this.attachments.add(attachmentsItem);
-    return this;
-  }
 
-   /**
-   * Get attachments
-   * @return attachments
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    /**
+     * Get status
+     *
+     * @return status
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  public List<Attachment> getAttachments() {
-    return attachments;
-  }
-
-
-  public void setAttachments(List<Attachment> attachments) {
-    this.attachments = attachments;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Integer getStatus() {
+        return status;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
-    ResultSteps resultSteps = (ResultSteps) o;
-    return Objects.equals(this.status, resultSteps.status) &&
-        Objects.equals(this.position, resultSteps.position) &&
-        Objects.equals(this.attachments, resultSteps.attachments);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(status, position, attachments);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ResultSteps {\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    position: ").append(toIndentedString(position)).append("\n");
-    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    public ResultSteps position(Integer position) {
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+        this.position = position;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Get position
+     *
+     * @return position
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getPosition() {
+        return position;
+    }
+
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+
+    public ResultSteps attachments(List<Attachment> attachments) {
+
+        this.attachments = attachments;
+        return this;
+    }
+
+    public ResultSteps addAttachmentsItem(Attachment attachmentsItem) {
+        if (this.attachments == null) {
+            this.attachments = new ArrayList<>();
+        }
+        this.attachments.add(attachmentsItem);
+        return this;
+    }
+
+    /**
+     * Get attachments
+     *
+     * @return attachments
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ResultSteps resultSteps = (ResultSteps) o;
+        return Objects.equals(this.status, resultSteps.status) &&
+                Objects.equals(this.position, resultSteps.position) &&
+                Objects.equals(this.attachments, resultSteps.attachments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, position, attachments);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ResultSteps {\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    position: ").append(toIndentedString(position)).append("\n");
+        sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

@@ -23,112 +23,108 @@ import java.util.Objects;
 /**
  * PlanDetailedAllOfCases
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-18T22:03:57.773028+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class PlanDetailedAllOfCases {
-  public static final String SERIALIZED_NAME_CASE_ID = "case_id";
-  @SerializedName(SERIALIZED_NAME_CASE_ID)
-  private Long caseId;
+    public static final String SERIALIZED_NAME_CASE_ID = "case_id";
+    public static final String SERIALIZED_NAME_ASSIGNEE_ID = "assignee_id";
+    @SerializedName(SERIALIZED_NAME_CASE_ID)
+    private Long caseId;
+    @SerializedName(SERIALIZED_NAME_ASSIGNEE_ID)
+    private Long assigneeId;
 
-  public static final String SERIALIZED_NAME_ASSIGNEE_ID = "assignee_id";
-  @SerializedName(SERIALIZED_NAME_ASSIGNEE_ID)
-  private Long assigneeId;
-
-
-  public PlanDetailedAllOfCases caseId(Long caseId) {
-
-    this.caseId = caseId;
-    return this;
-  }
-
-   /**
-   * Get caseId
-   * @return caseId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getCaseId() {
-    return caseId;
-  }
-
-
-  public void setCaseId(Long caseId) {
-    this.caseId = caseId;
-  }
-
-
-  public PlanDetailedAllOfCases assigneeId(Long assigneeId) {
-
-    this.assigneeId = assigneeId;
-    return this;
-  }
-
-   /**
-   * Get assigneeId
-   * @return assigneeId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getAssigneeId() {
-    return assigneeId;
-  }
-
-
-  public void setAssigneeId(Long assigneeId) {
-    this.assigneeId = assigneeId;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
-    PlanDetailedAllOfCases planDetailedAllOfCases = (PlanDetailedAllOfCases) o;
-    return Objects.equals(this.caseId, planDetailedAllOfCases.caseId) &&
-        Objects.equals(this.assigneeId, planDetailedAllOfCases.assigneeId);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
+    public PlanDetailedAllOfCases caseId(Long caseId) {
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(caseId, assigneeId);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+        this.caseId = caseId;
+        return this;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PlanDetailedAllOfCases {\n");
-    sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
-    sb.append("    assigneeId: ").append(toIndentedString(assigneeId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    /**
+     * Get caseId
+     *
+     * @return caseId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public Long getCaseId() {
+        return caseId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setCaseId(Long caseId) {
+        this.caseId = caseId;
+    }
+
+    public PlanDetailedAllOfCases assigneeId(Long assigneeId) {
+
+        this.assigneeId = assigneeId;
+        return this;
+    }
+
+    /**
+     * Get assigneeId
+     *
+     * @return assigneeId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getAssigneeId() {
+        return assigneeId;
+    }
+
+    public void setAssigneeId(Long assigneeId) {
+        this.assigneeId = assigneeId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PlanDetailedAllOfCases planDetailedAllOfCases = (PlanDetailedAllOfCases) o;
+        return Objects.equals(this.caseId, planDetailedAllOfCases.caseId) &&
+                Objects.equals(this.assigneeId, planDetailedAllOfCases.assigneeId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(caseId, assigneeId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PlanDetailedAllOfCases {\n");
+        sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
+        sb.append("    assigneeId: ").append(toIndentedString(assigneeId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 
