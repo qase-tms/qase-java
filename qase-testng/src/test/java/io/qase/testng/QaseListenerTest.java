@@ -22,7 +22,9 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import static io.qase.api.config.QaseConfig.USE_BULK_KEY;
 
 public class QaseListenerTest {
-    static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
+    public static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
+    public static final String RESULT_BULK_URL = "/v1/result/PRJ/777/bulk";
+    public static final String RESULT_URL = "/v1/result/PRJ/777";
 
     @BeforeAll
     static void setUp() {
@@ -44,7 +46,7 @@ public class QaseListenerTest {
     public void passedBulkTest() {
         useBulk(true);
         runTest(Passed.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -61,7 +63,7 @@ public class QaseListenerTest {
     public void passedWithStepsBulkTest() {
         useBulk(true);
         runTest(WithSteps.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -78,7 +80,7 @@ public class QaseListenerTest {
     public void passedWithTimeBulkTest() {
         useBulk(true);
         runTest(PassedWithTime.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -95,7 +97,7 @@ public class QaseListenerTest {
     public void failedBulkTest() {
         useBulk(true);
         runTest(Failed.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -114,7 +116,7 @@ public class QaseListenerTest {
     public void failedWithTimeBulkTest() {
         useBulk(true);
         runTest(FailedWithTime.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -134,7 +136,7 @@ public class QaseListenerTest {
         useBulk(true);
         runTest(Arrays.asList(Passed.class, PassedWithTime.class, Failed.class, FailedWithTime.class,
                 WithSteps.class, WithStepsSuccess.class));
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -190,14 +192,14 @@ public class QaseListenerTest {
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
                         "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
                         "  } ]\n" +
-                        "}",true, false)));
+                        "}", true, false)));
     }
 
     @Test
     public void passedTest() {
         useBulk(false);
         runTest(Passed.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -212,7 +214,7 @@ public class QaseListenerTest {
     public void withStepsTest() {
         useBulk(false);
         runTest(WithSteps.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -239,7 +241,7 @@ public class QaseListenerTest {
     public void newCaseWithStepsTest() {
         useBulk(false);
         runTest(NewCase.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
@@ -268,7 +270,7 @@ public class QaseListenerTest {
     public void failedTest() {
         useBulk(false);
         runTest(Failed.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+        verify(postRequestedFor(urlPathEqualTo(RESULT_URL))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
