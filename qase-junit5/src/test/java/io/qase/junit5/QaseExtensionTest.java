@@ -14,6 +14,7 @@ import org.junit.platform.launcher.core.LauncherFactory;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+import static io.qase.api.config.QaseConfig.USE_BULK_KEY;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 
 public class QaseExtensionTest {
@@ -36,7 +37,83 @@ public class QaseExtensionTest {
     }
 
     @Test
+    public void bulkWithStepsTest() {
+        useBulk(true);
+        runTest(WithSteps.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\",\n" +
+                        "      \"action\" : \"failure step\"\n" +
+                        "    } ]\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
+    @Test
+    public void bulkMultipleTest() {
+        useBulk(true);
+        runTest(MultipleTests.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time\" : 0,\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\",\n" +
+                        "      \"action\" : \"failure step\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 321,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time\" : 2,\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 456,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time\" : 0,\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    } ]\n" +
+                        "  } ]\n" +
+                        "}", true, false)));
+    }
+
+    @Test
     public void withStepsTest() {
+        useBulk(false);
         runTest(WithSteps.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -63,6 +140,7 @@ public class QaseExtensionTest {
 
     @Test
     public void newCaseWithStepsTest() {
+        useBulk(false);
         runTest(NewCase.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -91,6 +169,7 @@ public class QaseExtensionTest {
 
     @Test
     public void passedTest() {
+        useBulk(false);
         runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -105,6 +184,7 @@ public class QaseExtensionTest {
 
     @Test
     public void passedWithTimeTest() {
+        useBulk(false);
         runTest(PassedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -119,6 +199,7 @@ public class QaseExtensionTest {
 
     @Test
     public void failedTest() {
+        useBulk(false);
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -135,6 +216,7 @@ public class QaseExtensionTest {
 
     @Test
     public void failedWithTimeTest() {
+        useBulk(false);
         runTest(FailedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
@@ -154,14 +236,21 @@ public class QaseExtensionTest {
         QaseClient.reInit();
         LauncherDiscoveryRequest launcherDiscoveryRequest = LauncherDiscoveryRequestBuilder
                 .request()
-                .selectors(selectClass(className)).build();
+                .selectors(selectClass(className))
+                .configurationParameter("junit.jupiter.execution.parallel.enabled", "true")
+                .configurationParameter("junit.jupiter.execution.parallel.mode.default", "concurrent")
+                .build();
 
         final LauncherConfig config = LauncherConfig.builder().addTestEngines()
                 .enableTestExecutionListenerAutoRegistration(true)
-//                .addTestExecutionListeners(new QaseExtension())
                 .build();
 
         Launcher launcher = LauncherFactory.create(config);
         launcher.execute(launcherDiscoveryRequest);
+    }
+
+    private void useBulk(boolean use) {
+        System.setProperty(USE_BULK_KEY, String.valueOf(use));
+        QaseClient.getConfig().reload();
     }
 }

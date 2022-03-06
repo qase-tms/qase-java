@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class WithSteps {
     @Test
     @CaseId(123)
-    public void passedTest() {
+    public void withStepsFailedTest() {
         Steps steps = new Steps();
         steps.successStep();
         steps.failureStep();
