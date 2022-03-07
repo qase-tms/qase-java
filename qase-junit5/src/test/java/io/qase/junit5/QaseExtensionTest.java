@@ -68,7 +68,7 @@ public class QaseExtensionTest {
     @Test
     public void bulkMultipleTest() {
         useBulk(true);
-        runTest(MultipleTests.class);
+        runTest(Multiple.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))

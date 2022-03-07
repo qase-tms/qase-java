@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.TimeUnit;
 
 
-public class MultipleTests {
+public class Multiple {
     @Test
     @CaseId(123)
     public void failedWithStepsTest() {
