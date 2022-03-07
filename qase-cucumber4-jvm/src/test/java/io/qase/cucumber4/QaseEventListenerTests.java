@@ -17,11 +17,11 @@ public class QaseEventListenerTests {
     static void setUp() {
         configureFor(8088);
         wireMockServer.start();
-        System.setProperty("qase.enable", "true");
-        System.setProperty("qase.project.code", "PRJ");
-        System.setProperty("qase.run.id", "777");
-        System.setProperty("qase.api.token", "secret-token");
-        System.setProperty("qase.url", "http://localhost:8088/v1");
+        System.setProperty("QASE_ENABLE", "true");
+        System.setProperty("QASE_PROJECT_CODE", "PRJ");
+        System.setProperty("QASE_RUN_ID", "777");
+        System.setProperty("QASE_API_TOKEN", "secret-token");
+        System.setProperty("QASE_URL", "http://localhost:8088/v1");
     }
 
     @AfterAll

@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -15,7 +15,6 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.api.inner.FilterHelper;
 import io.qase.client.*;
 import io.qase.client.model.*;
 
@@ -46,15 +45,15 @@ public class CustomFieldsApi {
 
     /**
      * Build call for createCustomField
-     * @param customFieldCreate  (required)
-     * @param _callback Callback for upload/download progress
+     *
+     * @param customFieldCreate (required)
+     * @param _callback         Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call createCustomFieldCall(CustomFieldCreate customFieldCreate, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = customFieldCreate;
@@ -69,7 +68,7 @@ public class CustomFieldsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -77,23 +76,23 @@ public class CustomFieldsApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/json"
+                "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call createCustomFieldValidateBeforeCall(CustomFieldCreate customFieldCreate, final ApiCallback _callback) throws QaseException {
-        
+
         // verify the required parameter 'customFieldCreate' is set
         if (customFieldCreate == null) {
             throw new QaseException("Missing the required parameter 'customFieldCreate' when calling createCustomField(Async)");
         }
-        
+
 
         okhttp3.Call localVarCall = createCustomFieldCall(customFieldCreate, _callback);
         return localVarCall;
@@ -102,15 +101,15 @@ public class CustomFieldsApi {
 
     /**
      * Create new Custom Field.
-     * This method allows to create custom field. 
-     * @param customFieldCreate  (required)
+     * This method allows to create custom field.
+     *
+     * @param customFieldCreate (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
+     * </table>
      */
     public IdResponse createCustomField(CustomFieldCreate customFieldCreate) throws QaseException {
         ApiResponse<IdResponse> localVarResp = createCustomFieldWithHttpInfo(customFieldCreate);
@@ -119,60 +118,63 @@ public class CustomFieldsApi {
 
     /**
      * Create new Custom Field.
-     * This method allows to create custom field. 
-     * @param customFieldCreate  (required)
+     * This method allows to create custom field.
+     *
+     * @param customFieldCreate (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<IdResponse> createCustomFieldWithHttpInfo(CustomFieldCreate customFieldCreate) throws QaseException {
         okhttp3.Call localVarCall = createCustomFieldValidateBeforeCall(customFieldCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Create new Custom Field. (asynchronously)
-     * This method allows to create custom field. 
-     * @param customFieldCreate  (required)
-     * @param _callback The callback to be executed when the API call finishes
+     * This method allows to create custom field.
+     *
+     * @param customFieldCreate (required)
+     * @param _callback         The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call createCustomFieldAsync(CustomFieldCreate customFieldCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = createCustomFieldValidateBeforeCall(customFieldCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for deleteCustomField
-     * @param id Identifier. (required)
+     *
+     * @param id        Identifier. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call deleteCustomFieldCall(Integer id, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/custom_field/{id}"
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -181,7 +183,7 @@ public class CustomFieldsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -189,23 +191,23 @@ public class CustomFieldsApi {
         }
 
         final String[] localVarContentTypes = {
-            
+
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call deleteCustomFieldValidateBeforeCall(Integer id, final ApiCallback _callback) throws QaseException {
-        
+
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new QaseException("Missing the required parameter 'id' when calling deleteCustomField(Async)");
         }
-        
+
 
         okhttp3.Call localVarCall = deleteCustomFieldCall(id, _callback);
         return localVarCall;
@@ -214,15 +216,15 @@ public class CustomFieldsApi {
 
     /**
      * Delete Custom Field by id.
-     * This method allows to delete custom field. 
+     * This method allows to delete custom field.
+     *
      * @param id Identifier. (required)
      * @return Response
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
+     * </table>
      */
     public Response deleteCustomField(Integer id) throws QaseException {
         ApiResponse<Response> localVarResp = deleteCustomFieldWithHttpInfo(id);
@@ -231,60 +233,63 @@ public class CustomFieldsApi {
 
     /**
      * Delete Custom Field by id.
-     * This method allows to delete custom field. 
+     * This method allows to delete custom field.
+     *
      * @param id Identifier. (required)
      * @return ApiResponse&lt;Response&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<Response> deleteCustomFieldWithHttpInfo(Integer id) throws QaseException {
         okhttp3.Call localVarCall = deleteCustomFieldValidateBeforeCall(id, null);
-        Type localVarReturnType = new TypeToken<Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<Response>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Delete Custom Field by id. (asynchronously)
-     * This method allows to delete custom field. 
-     * @param id Identifier. (required)
+     * This method allows to delete custom field.
+     *
+     * @param id        Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call deleteCustomFieldAsync(Integer id, final ApiCallback<Response> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = deleteCustomFieldValidateBeforeCall(id, _callback);
-        Type localVarReturnType = new TypeToken<Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<Response>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for getCustomField
-     * @param id Identifier. (required)
+     *
+     * @param id        Identifier. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCustomFieldCall(Integer id, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/custom_field/{id}"
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -293,7 +298,7 @@ public class CustomFieldsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -301,23 +306,23 @@ public class CustomFieldsApi {
         }
 
         final String[] localVarContentTypes = {
-            
+
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getCustomFieldValidateBeforeCall(Integer id, final ApiCallback _callback) throws QaseException {
-        
+
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new QaseException("Missing the required parameter 'id' when calling getCustomField(Async)");
         }
-        
+
 
         okhttp3.Call localVarCall = getCustomFieldCall(id, _callback);
         return localVarCall;
@@ -326,15 +331,15 @@ public class CustomFieldsApi {
 
     /**
      * Get Custom Field by id.
-     * This method allows to retrieve custom field. 
+     * This method allows to retrieve custom field.
+     *
      * @param id Identifier. (required)
      * @return CustomFieldResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
+     * </table>
      */
     public CustomFieldResponse getCustomField(Integer id) throws QaseException {
         ApiResponse<CustomFieldResponse> localVarResp = getCustomFieldWithHttpInfo(id);
@@ -343,57 +348,60 @@ public class CustomFieldsApi {
 
     /**
      * Get Custom Field by id.
-     * This method allows to retrieve custom field. 
+     * This method allows to retrieve custom field.
+     *
      * @param id Identifier. (required)
      * @return ApiResponse&lt;CustomFieldResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<CustomFieldResponse> getCustomFieldWithHttpInfo(Integer id) throws QaseException {
         okhttp3.Call localVarCall = getCustomFieldValidateBeforeCall(id, null);
-        Type localVarReturnType = new TypeToken<CustomFieldResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CustomFieldResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get Custom Field by id. (asynchronously)
-     * This method allows to retrieve custom field. 
-     * @param id Identifier. (required)
+     * This method allows to retrieve custom field.
+     *
+     * @param id        Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCustomFieldAsync(Integer id, final ApiCallback<CustomFieldResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getCustomFieldValidateBeforeCall(id, _callback);
-        Type localVarReturnType = new TypeToken<CustomFieldResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CustomFieldResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for getCustomFields
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param filters  (optional)
+     *
+     * @param filters   (optional)
+     * @param limit     A number of entities in result set. (optional, default to 10)
+     * @param offset    How many entities should be skipped. (optional, default to 0)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
+     * </table>
      */
-    public okhttp3.Call getCustomFieldsCall(Integer limit, Integer offset, Filters1 filters, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call getCustomFieldsCall(Filters1 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -405,6 +413,10 @@ public class CustomFieldsApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (filters != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
+        }
+
         if (limit != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
         }
@@ -413,12 +425,8 @@ public class CustomFieldsApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
         }
 
-        if (filters != null) {
-            localVarQueryParams.addAll(FilterHelper.getFilterPairs(filters));
-        }
-
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -426,104 +434,107 @@ public class CustomFieldsApi {
         }
 
         final String[] localVarContentTypes = {
-            
+
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCustomFieldsValidateBeforeCall(Integer limit, Integer offset, Filters1 filters, final ApiCallback _callback) throws QaseException {
-        
+    private okhttp3.Call getCustomFieldsValidateBeforeCall(Filters1 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
 
-        okhttp3.Call localVarCall = getCustomFieldsCall(limit, offset, filters, _callback);
+
+        okhttp3.Call localVarCall = getCustomFieldsCall(filters, limit, offset, _callback);
         return localVarCall;
 
     }
 
     /**
      * Get all Custom Fields.
-     * This method allows to retrieve and filter custom fields. 
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param filters  (optional)
+     * This method allows to retrieve and filter custom fields.
+     *
+     * @param filters (optional)
+     * @param limit   A number of entities in result set. (optional, default to 10)
+     * @param offset  How many entities should be skipped. (optional, default to 0)
      * @return CustomFieldsResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
+     * </table>
      */
-    public CustomFieldsResponse getCustomFields(Integer limit, Integer offset, Filters1 filters) throws QaseException {
-        ApiResponse<CustomFieldsResponse> localVarResp = getCustomFieldsWithHttpInfo(limit, offset, filters);
+    public CustomFieldsResponse getCustomFields(Filters1 filters, Integer limit, Integer offset) throws QaseException {
+        ApiResponse<CustomFieldsResponse> localVarResp = getCustomFieldsWithHttpInfo(filters, limit, offset);
         return localVarResp.getData();
     }
 
     /**
      * Get all Custom Fields.
-     * This method allows to retrieve and filter custom fields. 
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param filters  (optional)
+     * This method allows to retrieve and filter custom fields.
+     *
+     * @param filters (optional)
+     * @param limit   A number of entities in result set. (optional, default to 10)
+     * @param offset  How many entities should be skipped. (optional, default to 0)
      * @return ApiResponse&lt;CustomFieldsResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
+     * </table>
      */
-    public ApiResponse<CustomFieldsResponse> getCustomFieldsWithHttpInfo(Integer limit, Integer offset, Filters1 filters) throws QaseException {
-        okhttp3.Call localVarCall = getCustomFieldsValidateBeforeCall(limit, offset, filters, null);
-        Type localVarReturnType = new TypeToken<CustomFieldsResponse>(){}.getType();
+    public ApiResponse<CustomFieldsResponse> getCustomFieldsWithHttpInfo(Filters1 filters, Integer limit, Integer offset) throws QaseException {
+        okhttp3.Call localVarCall = getCustomFieldsValidateBeforeCall(filters, limit, offset, null);
+        Type localVarReturnType = new TypeToken<CustomFieldsResponse>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get all Custom Fields. (asynchronously)
-     * This method allows to retrieve and filter custom fields. 
-     * @param limit A number of entities in result set. (optional, default to 10)
-     * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param filters  (optional)
+     * This method allows to retrieve and filter custom fields.
+     *
+     * @param filters   (optional)
+     * @param limit     A number of entities in result set. (optional, default to 10)
+     * @param offset    How many entities should be skipped. (optional, default to 0)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
+     * </table>
      */
-    public okhttp3.Call getCustomFieldsAsync(Integer limit, Integer offset, Filters1 filters, final ApiCallback<CustomFieldsResponse> _callback) throws QaseException {
+    public okhttp3.Call getCustomFieldsAsync(Filters1 filters, Integer limit, Integer offset, final ApiCallback<CustomFieldsResponse> _callback) throws QaseException {
 
-        okhttp3.Call localVarCall = getCustomFieldsValidateBeforeCall(limit, offset, filters, _callback);
-        Type localVarReturnType = new TypeToken<CustomFieldsResponse>(){}.getType();
+        okhttp3.Call localVarCall = getCustomFieldsValidateBeforeCall(filters, limit, offset, _callback);
+        Type localVarReturnType = new TypeToken<CustomFieldsResponse>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
     /**
      * Build call for updateCustomField
-     * @param id Identifier. (required)
-     * @param customFieldUpdate  (required)
-     * @param _callback Callback for upload/download progress
+     *
+     * @param id                Identifier. (required)
+     * @param customFieldUpdate (required)
+     * @param _callback         Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call updateCustomFieldCall(Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback _callback) throws QaseException {
         Object localVarPostBody = customFieldUpdate;
 
         // create path and map variables
         String localVarPath = "/custom_field/{id}"
-            .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -532,7 +543,7 @@ public class CustomFieldsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
+                "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -540,28 +551,28 @@ public class CustomFieldsApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/json"
+                "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call updateCustomFieldValidateBeforeCall(Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback _callback) throws QaseException {
-        
+
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new QaseException("Missing the required parameter 'id' when calling updateCustomField(Async)");
         }
-        
+
         // verify the required parameter 'customFieldUpdate' is set
         if (customFieldUpdate == null) {
             throw new QaseException("Missing the required parameter 'customFieldUpdate' when calling updateCustomField(Async)");
         }
-        
+
 
         okhttp3.Call localVarCall = updateCustomFieldCall(id, customFieldUpdate, _callback);
         return localVarCall;
@@ -570,16 +581,16 @@ public class CustomFieldsApi {
 
     /**
      * Update Custom Field by id.
-     * This method allows to update custom field. 
-     * @param id Identifier. (required)
-     * @param customFieldUpdate  (required)
+     * This method allows to update custom field.
+     *
+     * @param id                Identifier. (required)
+     * @param customFieldUpdate (required)
      * @return Response
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
+     * </table>
      */
     public Response updateCustomField(Integer id, CustomFieldUpdate customFieldUpdate) throws QaseException {
         ApiResponse<Response> localVarResp = updateCustomFieldWithHttpInfo(id, customFieldUpdate);
@@ -588,41 +599,43 @@ public class CustomFieldsApi {
 
     /**
      * Update Custom Field by id.
-     * This method allows to update custom field. 
-     * @param id Identifier. (required)
-     * @param customFieldUpdate  (required)
+     * This method allows to update custom field.
+     *
+     * @param id                Identifier. (required)
+     * @param customFieldUpdate (required)
      * @return ApiResponse&lt;Response&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<Response> updateCustomFieldWithHttpInfo(Integer id, CustomFieldUpdate customFieldUpdate) throws QaseException {
         okhttp3.Call localVarCall = updateCustomFieldValidateBeforeCall(id, customFieldUpdate, null);
-        Type localVarReturnType = new TypeToken<Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<Response>() {
+        }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Update Custom Field by id. (asynchronously)
-     * This method allows to update custom field. 
-     * @param id Identifier. (required)
-     * @param customFieldUpdate  (required)
-     * @param _callback The callback to be executed when the API call finishes
+     * This method allows to update custom field.
+     *
+     * @param id                Identifier. (required)
+     * @param customFieldUpdate (required)
+     * @param _callback         The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
-     </table>
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call updateCustomFieldAsync(Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback<Response> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = updateCustomFieldValidateBeforeCall(id, customFieldUpdate, _callback);
-        Type localVarReturnType = new TypeToken<Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<Response>() {
+        }.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

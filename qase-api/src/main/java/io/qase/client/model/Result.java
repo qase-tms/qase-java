@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -17,7 +17,6 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,389 +25,367 @@ import java.util.Objects;
 /**
  * Result
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class Result {
-  public static final String SERIALIZED_NAME_HASH = "hash";
-  @SerializedName(SERIALIZED_NAME_HASH)
-  private String hash;
+    public static final String SERIALIZED_NAME_HASH = "hash";
+    public static final String SERIALIZED_NAME_COMMENT = "comment";
+    public static final String SERIALIZED_NAME_STACKTRACE = "stacktrace";
+    public static final String SERIALIZED_NAME_RUN_ID = "run_id";
+    public static final String SERIALIZED_NAME_CASE_ID = "case_id";
+    public static final String SERIALIZED_NAME_STEPS = "steps";
+    public static final String SERIALIZED_NAME_STATUS = "status";
+    public static final String SERIALIZED_NAME_IS_API_RESULT = "is_api_result";
+    public static final String SERIALIZED_NAME_TIME_SPENT_MS = "time_spent_ms";
+    public static final String SERIALIZED_NAME_END_TIME = "end_time";
+    public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
+    @SerializedName(SERIALIZED_NAME_HASH)
+    private String hash;
+    @SerializedName(SERIALIZED_NAME_COMMENT)
+    private String comment;
+    @SerializedName(SERIALIZED_NAME_STACKTRACE)
+    private String stacktrace;
+    @SerializedName(SERIALIZED_NAME_RUN_ID)
+    private Long runId;
+    @SerializedName(SERIALIZED_NAME_CASE_ID)
+    private Long caseId;
+    @SerializedName(SERIALIZED_NAME_STEPS)
+    private List<ResultSteps> steps = null;
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    private String status;
+    @SerializedName(SERIALIZED_NAME_IS_API_RESULT)
+    private Boolean isApiResult;
+    @SerializedName(SERIALIZED_NAME_TIME_SPENT_MS)
+    private Long timeSpentMs;
+    @SerializedName(SERIALIZED_NAME_END_TIME)
+    private String endTime;
+    @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+    private List<Attachment> attachments = null;
 
-  public static final String SERIALIZED_NAME_COMMENT = "comment";
-  @SerializedName(SERIALIZED_NAME_COMMENT)
-  private String comment;
-
-  public static final String SERIALIZED_NAME_STACKTRACE = "stacktrace";
-  @SerializedName(SERIALIZED_NAME_STACKTRACE)
-  private String stacktrace;
-
-  public static final String SERIALIZED_NAME_RUN_ID = "run_id";
-  @SerializedName(SERIALIZED_NAME_RUN_ID)
-  private Long runId;
-
-  public static final String SERIALIZED_NAME_CASE_ID = "case_id";
-  @SerializedName(SERIALIZED_NAME_CASE_ID)
-  private Long caseId;
-
-  public static final String SERIALIZED_NAME_STEPS = "steps";
-  @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<ResultSteps> steps = null;
-
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private String status;
-
-  public static final String SERIALIZED_NAME_IS_API_RESULT = "is_api_result";
-  @SerializedName(SERIALIZED_NAME_IS_API_RESULT)
-  private Boolean isApiResult;
-
-  public static final String SERIALIZED_NAME_TIME_SPENT_MS = "time_spent_ms";
-  @SerializedName(SERIALIZED_NAME_TIME_SPENT_MS)
-  private Long timeSpentMs;
-
-  public static final String SERIALIZED_NAME_END_TIME = "end_time";
-  @SerializedName(SERIALIZED_NAME_END_TIME)
-  private LocalDateTime endTime;
-
-  public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
-  @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<Attachment> attachments = null;
-
-
-  public Result hash(String hash) {
-    
-    this.hash = hash;
-    return this;
-  }
-
-   /**
-   * Get hash
-   * @return hash
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getHash() {
-    return hash;
-  }
-
-
-  public void setHash(String hash) {
-    this.hash = hash;
-  }
-
-
-  public Result comment(String comment) {
-    
-    this.comment = comment;
-    return this;
-  }
-
-   /**
-   * Get comment
-   * @return comment
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getComment() {
-    return comment;
-  }
-
-
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
-
-
-  public Result stacktrace(String stacktrace) {
-    
-    this.stacktrace = stacktrace;
-    return this;
-  }
-
-   /**
-   * Get stacktrace
-   * @return stacktrace
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getStacktrace() {
-    return stacktrace;
-  }
-
-
-  public void setStacktrace(String stacktrace) {
-    this.stacktrace = stacktrace;
-  }
-
-
-  public Result runId(Long runId) {
-    
-    this.runId = runId;
-    return this;
-  }
-
-   /**
-   * Get runId
-   * @return runId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getRunId() {
-    return runId;
-  }
-
-
-  public void setRunId(Long runId) {
-    this.runId = runId;
-  }
-
-
-  public Result caseId(Long caseId) {
-    
-    this.caseId = caseId;
-    return this;
-  }
-
-   /**
-   * Get caseId
-   * @return caseId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getCaseId() {
-    return caseId;
-  }
-
-
-  public void setCaseId(Long caseId) {
-    this.caseId = caseId;
-  }
-
-
-  public Result steps(List<ResultSteps> steps) {
-    
-    this.steps = steps;
-    return this;
-  }
-
-  public Result addStepsItem(ResultSteps stepsItem) {
-    if (this.steps == null) {
-      this.steps = new ArrayList<>();
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
     }
-    this.steps.add(stepsItem);
-    return this;
-  }
 
-   /**
-   * Get steps
-   * @return steps
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public List<ResultSteps> getSteps() {
-    return steps;
-  }
-
-
-  public void setSteps(List<ResultSteps> steps) {
-    this.steps = steps;
-  }
-
-
-  public Result status(String status) {
-    
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getStatus() {
-    return status;
-  }
-
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-
-  public Result isApiResult(Boolean isApiResult) {
-    
-    this.isApiResult = isApiResult;
-    return this;
-  }
-
-   /**
-   * Get isApiResult
-   * @return isApiResult
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Boolean getIsApiResult() {
-    return isApiResult;
-  }
-
-
-  public void setIsApiResult(Boolean isApiResult) {
-    this.isApiResult = isApiResult;
-  }
-
-
-  public Result timeSpentMs(Long timeSpentMs) {
-    
-    this.timeSpentMs = timeSpentMs;
-    return this;
-  }
-
-   /**
-   * Get timeSpentMs
-   * @return timeSpentMs
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getTimeSpentMs() {
-    return timeSpentMs;
-  }
-
-
-  public void setTimeSpentMs(Long timeSpentMs) {
-    this.timeSpentMs = timeSpentMs;
-  }
-
-
-  public Result endTime(LocalDateTime endTime) {
-    
-    this.endTime = endTime;
-    return this;
-  }
-
-   /**
-   * Get endTime
-   * @return endTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public LocalDateTime getEndTime() {
-    return endTime;
-  }
-
-
-  public void setEndTime(LocalDateTime endTime) {
-    this.endTime = endTime;
-  }
-
-
-  public Result attachments(List<Attachment> attachments) {
-    
-    this.attachments = attachments;
-    return this;
-  }
-
-  public Result addAttachmentsItem(Attachment attachmentsItem) {
-    if (this.attachments == null) {
-      this.attachments = new ArrayList<>();
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
-    this.attachments.add(attachmentsItem);
-    return this;
-  }
 
-   /**
-   * Get attachments
-   * @return attachments
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    public Result hash(String hash) {
 
-  public List<Attachment> getAttachments() {
-    return attachments;
-  }
-
-
-  public void setAttachments(List<Attachment> attachments) {
-    this.attachments = attachments;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.hash = hash;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get hash
+     *
+     * @return hash
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getHash() {
+        return hash;
     }
-    Result result = (Result) o;
-    return Objects.equals(this.hash, result.hash) &&
-        Objects.equals(this.comment, result.comment) &&
-        Objects.equals(this.stacktrace, result.stacktrace) &&
-        Objects.equals(this.runId, result.runId) &&
-        Objects.equals(this.caseId, result.caseId) &&
-        Objects.equals(this.steps, result.steps) &&
-        Objects.equals(this.status, result.status) &&
-        Objects.equals(this.isApiResult, result.isApiResult) &&
-        Objects.equals(this.timeSpentMs, result.timeSpentMs) &&
-        Objects.equals(this.endTime, result.endTime) &&
-        Objects.equals(this.attachments, result.attachments);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(hash, comment, stacktrace, runId, caseId, steps, status, isApiResult, timeSpentMs, endTime, attachments);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Result {\n");
-    sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
-    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
-    sb.append("    stacktrace: ").append(toIndentedString(stacktrace)).append("\n");
-    sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
-    sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
-    sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    isApiResult: ").append(toIndentedString(isApiResult)).append("\n");
-    sb.append("    timeSpentMs: ").append(toIndentedString(timeSpentMs)).append("\n");
-    sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
-    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    public Result comment(String comment) {
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+        this.comment = comment;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Get comment
+     *
+     * @return comment
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Result stacktrace(String stacktrace) {
+
+        this.stacktrace = stacktrace;
+        return this;
+    }
+
+    /**
+     * Get stacktrace
+     *
+     * @return stacktrace
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getStacktrace() {
+        return stacktrace;
+    }
+
+    public void setStacktrace(String stacktrace) {
+        this.stacktrace = stacktrace;
+    }
+
+    public Result runId(Long runId) {
+
+        this.runId = runId;
+        return this;
+    }
+
+    /**
+     * Get runId
+     *
+     * @return runId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getRunId() {
+        return runId;
+    }
+
+    public void setRunId(Long runId) {
+        this.runId = runId;
+    }
+
+    public Result caseId(Long caseId) {
+
+        this.caseId = caseId;
+        return this;
+    }
+
+    /**
+     * Get caseId
+     *
+     * @return caseId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getCaseId() {
+        return caseId;
+    }
+
+    public void setCaseId(Long caseId) {
+        this.caseId = caseId;
+    }
+
+    public Result steps(List<ResultSteps> steps) {
+
+        this.steps = steps;
+        return this;
+    }
+
+    public Result addStepsItem(ResultSteps stepsItem) {
+        if (this.steps == null) {
+            this.steps = new ArrayList<>();
+        }
+        this.steps.add(stepsItem);
+        return this;
+    }
+
+    /**
+     * Get steps
+     *
+     * @return steps
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<ResultSteps> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<ResultSteps> steps) {
+        this.steps = steps;
+    }
+
+    public Result status(String status) {
+
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return status
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Result isApiResult(Boolean isApiResult) {
+
+        this.isApiResult = isApiResult;
+        return this;
+    }
+
+    /**
+     * Get isApiResult
+     *
+     * @return isApiResult
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Boolean getIsApiResult() {
+        return isApiResult;
+    }
+
+    public void setIsApiResult(Boolean isApiResult) {
+        this.isApiResult = isApiResult;
+    }
+
+    public Result timeSpentMs(Long timeSpentMs) {
+
+        this.timeSpentMs = timeSpentMs;
+        return this;
+    }
+
+    /**
+     * Get timeSpentMs
+     *
+     * @return timeSpentMs
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getTimeSpentMs() {
+        return timeSpentMs;
+    }
+
+    public void setTimeSpentMs(Long timeSpentMs) {
+        this.timeSpentMs = timeSpentMs;
+    }
+
+    public Result endTime(String endTime) {
+
+        this.endTime = endTime;
+        return this;
+    }
+
+    /**
+     * Get endTime
+     *
+     * @return endTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public Result attachments(List<Attachment> attachments) {
+
+        this.attachments = attachments;
+        return this;
+    }
+
+    public Result addAttachmentsItem(Attachment attachmentsItem) {
+        if (this.attachments == null) {
+            this.attachments = new ArrayList<>();
+        }
+        this.attachments.add(attachmentsItem);
+        return this;
+    }
+
+    /**
+     * Get attachments
+     *
+     * @return attachments
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Result result = (Result) o;
+        return Objects.equals(this.hash, result.hash) &&
+                Objects.equals(this.comment, result.comment) &&
+                Objects.equals(this.stacktrace, result.stacktrace) &&
+                Objects.equals(this.runId, result.runId) &&
+                Objects.equals(this.caseId, result.caseId) &&
+                Objects.equals(this.steps, result.steps) &&
+                Objects.equals(this.status, result.status) &&
+                Objects.equals(this.isApiResult, result.isApiResult) &&
+                Objects.equals(this.timeSpentMs, result.timeSpentMs) &&
+                Objects.equals(this.endTime, result.endTime) &&
+                Objects.equals(this.attachments, result.attachments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hash, comment, stacktrace, runId, caseId, steps, status, isApiResult, timeSpentMs, endTime, attachments);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Result {\n");
+        sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
+        sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
+        sb.append("    stacktrace: ").append(toIndentedString(stacktrace)).append("\n");
+        sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
+        sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
+        sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    isApiResult: ").append(toIndentedString(isApiResult)).append("\n");
+        sb.append("    timeSpentMs: ").append(toIndentedString(timeSpentMs)).append("\n");
+        sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
+        sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

@@ -6,62 +6,35 @@ import cucumber.api.event.EventPublisher;
 import cucumber.api.event.TestCaseFinished;
 import cucumber.api.event.TestCaseStarted;
 import gherkin.pickles.PickleTag;
+import io.qase.api.QaseClient;
+import io.qase.api.StepStorage;
 import io.qase.api.exceptions.QaseException;
+import io.qase.api.utils.CucumberUtils;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.model.ResultCreate;
+import io.qase.client.model.ResultCreateSteps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import static io.qase.api.Constants.X_CLIENT_REPORTER;
+import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.*;
 
 public class QaseEventListener implements ConcurrentEventListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseEventListener.class);
-    private final ApiClient apiClient = new ApiClient();
+    private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
-    private boolean isEnabled;
-    private String projectCode;
-    private String runId;
 
     public QaseEventListener() {
-        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
-        if (!isEnabled) {
-            return;
-        }
-
-        String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
-        if (apiToken == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
-            return;
-        }
-
-        String qaseUrl = System.getProperty(QASE_URL_KEY, System.getenv(API_TOKEN_KEY));
-        if (qaseUrl != null) {
-            apiClient.setBasePath(qaseUrl);
-        }
-        apiClient.setApiKey(apiToken);
-
-        projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
-        if (projectCode == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
-            return;
-        }
-        logger.info("Qase project code - {}", projectCode);
-
-        runId = System.getProperty(RUN_ID_KEY, System.getenv(RUN_ID_KEY));
-        if (runId == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
-            return;
-        }
-        logger.info("Qase run id - {}", runId);
+        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 4-JVM");
     }
 
     @Override
@@ -77,8 +50,9 @@ public class QaseEventListener implements ConcurrentEventListener {
     private void testCaseFinished(TestCaseFinished event) {
         try {
             Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime.get());
-            List<PickleTag> tags = event.testCase.getTags();
-            Long caseId = getCaseId(tags);
+            List<PickleTag> pickleTags = event.testCase.getTags();
+            List<String> tags = pickleTags.stream().map(PickleTag::getName).collect(Collectors.toList());
+            Long caseId = CucumberUtils.getCaseId(tags);
             if (caseId != null) {
                 send(caseId, duration, event.result);
             }
@@ -87,19 +61,8 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
     }
 
-    private Long getCaseId(List<PickleTag> tags) {
-        for (PickleTag pickleTag : tags) {
-            String tag = pickleTag.getName();
-            String[] split = tag.split("=");
-            if (CASE_TAGS.contains(split[0]) && split.length == 2 && split[1].matches("\\d+")) {
-                return Long.valueOf(split[1]);
-            }
-        }
-        return null;
-    }
-
     private void send(Long caseId, Duration duration, Result result) {
-        if (!isEnabled) {
+        if (!QaseClient.isEnabled()) {
             return;
         }
         try {
@@ -115,15 +78,16 @@ public class QaseEventListener implements ConcurrentEventListener {
                     .orElse(false);
             String stacktrace = optionalThrowable
                     .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-
-            resultsApi.createResult(projectCode,
-                    runId,
+            LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
+            resultsApi.createResult(getConfig().projectCode(),
+                    getConfig().runId(),
                     new ResultCreate()
                             .caseId(caseId)
                             .status(status)
                             .timeMs(duration.toMillis())
                             .comment(comment)
                             .stacktrace(stacktrace)
+                            .steps(steps.isEmpty() ? null : steps)
                             .defect(isDefect));
         } catch (QaseException e) {
             logger.error(e.getMessage());

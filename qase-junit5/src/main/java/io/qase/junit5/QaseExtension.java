@@ -1,127 +1,141 @@
 package io.qase.junit5;
 
+import io.qase.api.QaseClient;
+import io.qase.api.StepStorage;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
+import io.qase.client.model.ResultCreateBulk;
+import io.qase.client.model.ResultCreateCase;
+import io.qase.client.model.ResultCreateSteps;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
+import org.junit.platform.launcher.TestPlan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static io.qase.api.Constants.X_CLIENT_REPORTER;
+import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.*;
 import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
 
 public class QaseExtension implements TestExecutionListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseExtension.class);
-    private boolean isEnabled;
-    private String projectCode;
-    private String runId;
-    private final ApiClient apiClient = new ApiClient();
+    private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final Map<TestIdentifier, Long> startTime = new ConcurrentHashMap<>();
+    private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
 
     public QaseExtension() {
-        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
-        if (!isEnabled) {
-            return;
-        }
-
-        String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
-        if (apiToken == null) {
-            logger.error(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
-            isEnabled = false;
-            return;
-        }
-
-        String qaseUrl = System.getProperty(QASE_URL_KEY, System.getenv(API_TOKEN_KEY));
-        if (qaseUrl != null) {
-            apiClient.setBasePath(qaseUrl);
-        }
-        apiClient.setApiKey(apiToken);
-
-        projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
-        if (projectCode == null) {
-            logger.error(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
-            isEnabled = false;
-            return;
-        }
-        logger.info("Qase project code - {}", projectCode);
-
-        runId = System.getProperty(RUN_ID_KEY, System.getenv(RUN_ID_KEY));
-        if (runId == null) {
-            logger.error(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
-            isEnabled = false;
-            return;
-        }
-
-        logger.info("Qase run id - {}", runId);
+        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "JUnit 5");
     }
 
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
-        if (isEnabled && testIdentifier.isTest()) {
+        if (QaseClient.isEnabled() && testIdentifier.isTest()) {
             startTime.put(testIdentifier, System.currentTimeMillis());
         }
     }
 
     @Override
     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
-        if (isEnabled && testIdentifier.isTest()) {
-            Duration duration = Duration.ofMillis(System.currentTimeMillis() - this.startTime.remove(testIdentifier));
-            TestSource testSource = testIdentifier.getSource().orElse(null);
-            if (testSource instanceof MethodSource) {
-                try {
-                    Method testMethod = getMethod((MethodSource) testSource);
-                    sendResults(testExecutionResult, duration, testMethod);
-                } catch (NumberFormatException e) {
-                    logger.error("String could not be parsed as Long", e);
-                }
-            }
+        if (!QaseClient.isEnabled() || !testIdentifier.isTest()
+                || !startTime.containsKey(testIdentifier)) {
+            return;
+        }
+        Duration duration = Duration.ofMillis(System.currentTimeMillis() - this.startTime.remove(testIdentifier));
+        TestSource testSource = testIdentifier.getSource().orElse(null);
+        Method testMethod = null;
+        if (testSource instanceof MethodSource) {
+            testMethod = getMethod((MethodSource) testSource);
+        }
+
+        if (getConfig().useBulk()) {
+            addBulkResult(testExecutionResult, duration, testMethod);
+        } else {
+            sendResults(testExecutionResult, duration, testMethod);
+        }
+    }
+
+    @Override
+    public void testPlanExecutionFinished(TestPlan testPlan) {
+        if (getConfig().useBulk()) {
+            sendBulkResult();
+        }
+    }
+
+    private void addBulkResult(TestExecutionResult testExecutionResult, Duration timeSpent, Method testMethod) {
+        if (QaseClient.isEnabled() && testMethod != null) {
+            resultCreateBulk.addResultsItem(getResultItem(testExecutionResult, timeSpent, testMethod));
+        }
+    }
+
+    private void sendBulkResult() {
+        if (!QaseClient.isEnabled()) {
+            return;
+        }
+        try {
+            resultsApi.createResultBulk(
+                    getConfig().projectCode(),
+                    getConfig().runId(),
+                    resultCreateBulk
+            );
+        } catch (QaseException e) {
+            logger.error(e.getMessage());
         }
     }
 
     private void sendResults(TestExecutionResult testExecutionResult, Duration timeSpent, Method testMethod) {
         if (testMethod != null) {
-            Long caseId = getCaseId(testMethod);
-            if (caseId != null) {
-                StatusEnum status =
-                        testExecutionResult.getStatus() == SUCCESSFUL ? StatusEnum.PASSED : StatusEnum.FAILED;
-                String comment = testExecutionResult.getThrowable()
-                        .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-                Boolean isDefect = testExecutionResult.getThrowable()
-                        .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-                        .orElse(false);
-                String stacktrace = testExecutionResult.getThrowable()
-                        .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-                try {
-                    resultsApi.createResult(projectCode,
-                            runId,
-                            new ResultCreate()
-                                    .caseId(caseId)
-                                    .status(status)
-                                    .time(timeSpent.getSeconds())
-                                    .comment(comment)
-                                    .stacktrace(stacktrace)
-                                    .defect(isDefect));
-                } catch (QaseException e) {
-                    logger.error(e.getMessage());
-                } catch (NumberFormatException e) {
-                    logger.error("String could not be parsed as Long", e);
-                }
+            ResultCreate resultCreate = getResultItem(testExecutionResult, timeSpent, testMethod);
+            try {
+                resultsApi.createResult(getConfig().projectCode(),
+                        getConfig().runId(),
+                        resultCreate);
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
             }
         }
+    }
+
+    private ResultCreate getResultItem(TestExecutionResult testExecutionResult, Duration timeSpent, Method testMethod) {
+        Long caseId = getCaseId(testMethod);
+        String caseTitle = null;
+        if (caseId == null) {
+            caseTitle = getCaseTitle(testMethod);
+        }
+        StatusEnum status =
+                testExecutionResult.getStatus() == SUCCESSFUL ? StatusEnum.PASSED : StatusEnum.FAILED;
+        String comment = testExecutionResult.getThrowable()
+                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+        Boolean isDefect = testExecutionResult.getThrowable()
+                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                .orElse(false);
+        String stacktrace = testExecutionResult.getThrowable()
+                .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
+        return new ResultCreate()
+                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
+                .caseId(caseId)
+                .status(status)
+                .timeMs(timeSpent.getSeconds())
+                .comment(comment)
+                .stacktrace(stacktrace)
+                .steps(steps.isEmpty() ? null : steps)
+                .defect(isDefect);
     }
 
 

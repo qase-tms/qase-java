@@ -35,7 +35,7 @@ class DefectServiceTest {
     @Test
     void getAll() {
         try {
-            defectsApi.getDefects("PROJ", 100, 0, null);
+            defectsApi.getDefects("PROJ", null, 100, 0);
         } catch (QaseException e) {
             //ignore
         }
@@ -49,7 +49,7 @@ class DefectServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            defectsApi.getDefects("PROJ", 88, 12, new Filters2().status(Filters2.StatusEnum.OPEN));
+            defectsApi.getDefects("PROJ", new Filters2().status(Filters2.StatusEnum.OPEN), 88, 12);
         } catch (QaseException e) {
             //ignore
         }

@@ -37,7 +37,7 @@ class MilestoneServiceTest {
     @Test
     void getAll() {
         try {
-            milestonesApi.getMilestones("PROJ", 100, 0, null);
+            milestonesApi.getMilestones("PROJ", null, 100, 0);
         } catch (QaseException e) {
             //ignore
         }
@@ -51,7 +51,7 @@ class MilestoneServiceTest {
     @Test
     void getAllWithFilter() {
         try {
-            milestonesApi.getMilestones("PROJ", 100, 0, new Filters3().search("title"));
+            milestonesApi.getMilestones("PROJ", new Filters3().search("title"), 100, 0);
         } catch (QaseException e) {
             //ignore
         }

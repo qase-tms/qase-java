@@ -1,108 +1,78 @@
 package io.qase.testng;
 
+import io.qase.api.QaseClient;
+import io.qase.api.StepStorage;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
+import io.qase.client.model.ResultCreateCase;
+import io.qase.client.model.ResultCreateSteps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.*;
-import org.testng.xml.XmlSuite;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Optional;
 
+import static io.qase.api.Constants.*;
+import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.*;
 
-public class QaseListener extends TestListenerAdapter implements IReporter, ITestListener {
+public class QaseListener extends TestListenerAdapter implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
-    private final ApiClient apiClient = new ApiClient();
+    private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
-    private boolean isEnabled;
-    private boolean useBulk;
-    private String projectCode;
-    private Integer runId;
+
+    public QaseListener() {
+        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "TestNG");
+    }
 
     @Override
     public void onTestSuccess(ITestResult tr) {
-        if (useBulk) {
+        if (getConfig().useBulk()) {
+            addBulkResult(tr, StatusEnum.PASSED);
             super.onTestSuccess(tr);
         } else {
             sendResult(tr, StatusEnum.PASSED);
         }
+        super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        if (useBulk) {
-            super.onTestFailure(tr);
+        if (getConfig().useBulk()) {
+            addBulkResult(tr, StatusEnum.FAILED);
         } else {
             sendResult(tr, StatusEnum.FAILED);
         }
+        super.onTestFailure(tr);
     }
 
     @Override
-    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
-        if (useBulk) {
-            List<ITestResult> passedTests = getPassedTests();
-            List<ITestResult> failedTests = getFailedTests();
-            passedTests.forEach(passedTest -> addBulkResult(passedTest, StatusEnum.PASSED));
-            failedTests.forEach(passedTest -> addBulkResult(passedTest, StatusEnum.FAILED));
+    public void onFinish(ITestContext testContext) {
+        if (getConfig().useBulk()) {
             sendBulkResult();
         }
-    }
-
-    public QaseListener() {
-        isEnabled = Boolean.parseBoolean(System.getProperty(ENABLE_KEY, "false"));
-        if (!isEnabled) {
-            return;
-        }
-        useBulk = Boolean.parseBoolean(System.getProperty(BULK_KEY, "true"));
-
-        String apiToken = System.getProperty(API_TOKEN_KEY, System.getenv(API_TOKEN_KEY));
-        if (apiToken == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
-            return;
-        }
-
-        String qaseUrl = System.getProperty(QASE_URL_KEY, System.getenv(API_TOKEN_KEY));
-        if (qaseUrl != null) {
-            apiClient.setBasePath(qaseUrl);
-        }
-        apiClient.setApiKey(apiToken);
-
-        projectCode = System.getProperty(PROJECT_CODE_KEY, System.getenv(PROJECT_CODE_KEY));
-        if (projectCode == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
-            return;
-        }
-        logger.info("Qase project code - {}", projectCode);
-
-        try {
-            runId = Integer.valueOf(System.getProperty(RUN_ID_KEY, System.getenv(RUN_ID_KEY)));
-        } catch (NumberFormatException e) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, RUN_ID_KEY);
-            return;
-        }
-        logger.info("Qase run id - {}", runId);
+        super.onFinish(testContext);
     }
 
     private void sendResult(ITestResult result, StatusEnum status) {
-        if (!isEnabled) {
+        if (!QaseClient.isEnabled()) {
             return;
         }
         try {
             resultsApi.createResult(
-                    projectCode,
-                    String.valueOf(runId),
+                    getConfig().projectCode(),
+                    getConfig().runId(),
                     getResultItem(result, status)
             );
         } catch (QaseException e) {
@@ -111,7 +81,7 @@ public class QaseListener extends TestListenerAdapter implements IReporter, ITes
     }
 
     private void addBulkResult(ITestResult result, StatusEnum status) {
-        if (!isEnabled) {
+        if (!QaseClient.isEnabled()) {
             return;
         }
         resultCreateBulk.addResultsItem(
@@ -119,13 +89,13 @@ public class QaseListener extends TestListenerAdapter implements IReporter, ITes
     }
 
     private void sendBulkResult() {
-        if (!isEnabled) {
+        if (!QaseClient.isEnabled()) {
             return;
         }
         try {
             resultsApi.createResultBulk(
-                    projectCode,
-                    runId,
+                    getConfig().projectCode(),
+                    getConfig().runId(),
                     resultCreateBulk
             );
         } catch (QaseException e) {
@@ -145,12 +115,19 @@ public class QaseListener extends TestListenerAdapter implements IReporter, ITes
                 .getConstructorOrMethod()
                 .getMethod();
         Long caseId = getCaseId(method);
+        String caseTitle = null;
+        if (caseId == null) {
+            caseTitle = getCaseTitle(method);
+        }
+        LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
         return new ResultCreate()
+                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)
                 .status(status)
                 .timeMs(timeSpent.toMillis())
                 .comment(comment)
                 .stacktrace(stacktrace)
+                .steps(steps.isEmpty() ? null : steps)
                 .defect(isDefect);
     }
 }

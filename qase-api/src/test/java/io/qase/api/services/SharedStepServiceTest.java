@@ -37,7 +37,7 @@ class SharedStepServiceTest {
     @Test
     void getAll() {
         try {
-            sharedStepsApi.getSharedSteps("PRJ", 100, 0, null);
+            sharedStepsApi.getSharedSteps("PRJ", null, 100, 0);
         } catch (QaseException e) {
             //ignore
         }
@@ -51,9 +51,8 @@ class SharedStepServiceTest {
     @Test
     void getAllWithFilter() {
         try {
-            sharedStepsApi.getSharedSteps("PRJ", 100, 0,
-                    new Filters6()
-                            .search("title"));
+            sharedStepsApi.getSharedSteps("PRJ", new Filters6()
+                    .search("title"), 100, 0);
         } catch (QaseException e) {
             //ignore
         }

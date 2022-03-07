@@ -29,10 +29,10 @@ All required params are passed through system properties or environment variable
 
 |  Key              | Description |
 | :---------------: | :----------: |
-| qase.enable       | Enable Integration |
-| qase.project.code | Project Code |
-| qase.run.id       | Run Id |
-| qase.api.token    | Qase API Token |
+| QASE_ENABLE       | Enable Integration |
+| QASE_PROJECT_CODE | Project Code |
+| QASE_RUN_ID       | Run Id |
+| QASE_API_TOKEN    | Qase API Token |
 
 ## Maven ##
 
@@ -42,7 +42,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-cucumber3-jvm</artifactId>
-        <version>2.0.2</version>
+        <version>2.1.0</version>
     </dependency>
 </dependencies>
 <build>

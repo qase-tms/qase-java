@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -23,112 +23,108 @@ import java.util.Objects;
 /**
  * PlanDetailedAllOfCases
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class PlanDetailedAllOfCases {
-  public static final String SERIALIZED_NAME_CASE_ID = "case_id";
-  @SerializedName(SERIALIZED_NAME_CASE_ID)
-  private Long caseId;
+    public static final String SERIALIZED_NAME_CASE_ID = "case_id";
+    public static final String SERIALIZED_NAME_ASSIGNEE_ID = "assignee_id";
+    @SerializedName(SERIALIZED_NAME_CASE_ID)
+    private Long caseId;
+    @SerializedName(SERIALIZED_NAME_ASSIGNEE_ID)
+    private Long assigneeId;
 
-  public static final String SERIALIZED_NAME_ASSIGNEE_ID = "assignee_id";
-  @SerializedName(SERIALIZED_NAME_ASSIGNEE_ID)
-  private Long assigneeId;
-
-
-  public PlanDetailedAllOfCases caseId(Long caseId) {
-    
-    this.caseId = caseId;
-    return this;
-  }
-
-   /**
-   * Get caseId
-   * @return caseId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getCaseId() {
-    return caseId;
-  }
-
-
-  public void setCaseId(Long caseId) {
-    this.caseId = caseId;
-  }
-
-
-  public PlanDetailedAllOfCases assigneeId(Long assigneeId) {
-    
-    this.assigneeId = assigneeId;
-    return this;
-  }
-
-   /**
-   * Get assigneeId
-   * @return assigneeId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getAssigneeId() {
-    return assigneeId;
-  }
-
-
-  public void setAssigneeId(Long assigneeId) {
-    this.assigneeId = assigneeId;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
     }
-    PlanDetailedAllOfCases planDetailedAllOfCases = (PlanDetailedAllOfCases) o;
-    return Objects.equals(this.caseId, planDetailedAllOfCases.caseId) &&
-        Objects.equals(this.assigneeId, planDetailedAllOfCases.assigneeId);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
+    public PlanDetailedAllOfCases caseId(Long caseId) {
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(caseId, assigneeId);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+        this.caseId = caseId;
+        return this;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PlanDetailedAllOfCases {\n");
-    sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
-    sb.append("    assigneeId: ").append(toIndentedString(assigneeId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    /**
+     * Get caseId
+     *
+     * @return caseId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public Long getCaseId() {
+        return caseId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setCaseId(Long caseId) {
+        this.caseId = caseId;
+    }
+
+    public PlanDetailedAllOfCases assigneeId(Long assigneeId) {
+
+        this.assigneeId = assigneeId;
+        return this;
+    }
+
+    /**
+     * Get assigneeId
+     *
+     * @return assigneeId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Long getAssigneeId() {
+        return assigneeId;
+    }
+
+    public void setAssigneeId(Long assigneeId) {
+        this.assigneeId = assigneeId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PlanDetailedAllOfCases planDetailedAllOfCases = (PlanDetailedAllOfCases) o;
+        return Objects.equals(this.caseId, planDetailedAllOfCases.caseId) &&
+                Objects.equals(this.assigneeId, planDetailedAllOfCases.assigneeId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(caseId, assigneeId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PlanDetailedAllOfCases {\n");
+        sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
+        sb.append("    assigneeId: ").append(toIndentedString(assigneeId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

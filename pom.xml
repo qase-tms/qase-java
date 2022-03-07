@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.qase</groupId>
     <artifactId>qase-java</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.2</version>
+    <version>2.1.0</version>
     <modules>
         <module>qase-api</module>
         <module>qase-testng</module>
@@ -93,6 +93,12 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-api.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.9</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -149,6 +155,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}"/org/aspectj/aspectjweaver/1.8.9/aspectjweaver-1.8.9.jar
+                    </argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -175,6 +186,13 @@
                                     <httpUserAgent>Qase API Client</httpUserAgent>
                                     <generateModelTests>false</generateModelTests>
                                     <generateApiTests>false</generateApiTests>
+                                    <typeMappings>
+                                        <typeMapping>LocalDateTime=String</typeMapping>
+                                        <typeMapping>OneOfTestCaseDefectRunResultPlanRequirement=Object</typeMapping>
+                                        <typeMapping>OneOfRunResultRequirementqqlTestCaseqqlDefectqqlPlan=Object
+                                        </typeMapping>
+                                        <typeMapping>AnyOfarrayobject=Object[]</typeMapping>
+                                    </typeMappings>
                                     <configOptions>
                                         <useSwaggerAnnotations>false</useSwaggerAnnotations>
                                         <dateLibrary>java8-localdatetime</dateLibrary>

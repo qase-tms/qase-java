@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -21,246 +21,247 @@ import java.util.Objects;
 /**
  * Filters4
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class Filters4 {
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private String status;
-
-  public static final String SERIALIZED_NAME_RUN = "run";
-  @SerializedName(SERIALIZED_NAME_RUN)
-  private String run;
-
-  public static final String SERIALIZED_NAME_CASE_ID = "case_id";
-  @SerializedName(SERIALIZED_NAME_CASE_ID)
-  private String caseId;
-
-  public static final String SERIALIZED_NAME_MEMBER = "member";
-  @SerializedName(SERIALIZED_NAME_MEMBER)
-  private String member;
-
-  public static final String SERIALIZED_NAME_API = "api";
-  @SerializedName(SERIALIZED_NAME_API)
-  private Boolean api;
-
-  public static final String SERIALIZED_NAME_FROM_END_TIME = "from_end_time";
-  @SerializedName(SERIALIZED_NAME_FROM_END_TIME)
-  private String fromEndTime;
-
-  public static final String SERIALIZED_NAME_TO_END_TIME = "to_end_time";
-  @SerializedName(SERIALIZED_NAME_TO_END_TIME)
-  private String toEndTime;
+    public static final String SERIALIZED_NAME_STATUS = "status";
+    public static final String SERIALIZED_NAME_RUN = "run";
+    public static final String SERIALIZED_NAME_CASE_ID = "case_id";
+    public static final String SERIALIZED_NAME_MEMBER = "member";
+    public static final String SERIALIZED_NAME_API = "api";
+    public static final String SERIALIZED_NAME_FROM_END_TIME = "from_end_time";
+    public static final String SERIALIZED_NAME_TO_END_TIME = "to_end_time";
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    private String status;
+    @SerializedName(SERIALIZED_NAME_RUN)
+    private String run;
+    @SerializedName(SERIALIZED_NAME_CASE_ID)
+    private String caseId;
+    @SerializedName(SERIALIZED_NAME_MEMBER)
+    private String member;
+    @SerializedName(SERIALIZED_NAME_API)
+    private Boolean api;
+    @SerializedName(SERIALIZED_NAME_FROM_END_TIME)
+    private String fromEndTime;
+    @SerializedName(SERIALIZED_NAME_TO_END_TIME)
+    private String toEndTime;
 
 
-  public Filters4 status(String status) {
-    
-    this.status = status;
-    return this;
-  }
+    public Filters4 status(String status) {
 
-   /**
-   * A single test run result status. Possible values: in_progress, passed, failed, blocked, skipped, invalid. 
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A single test run result status. Possible values: in_progress, passed, failed, blocked, skipped, invalid. ")
-
-  public String getStatus() {
-    return status;
-  }
-
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-
-  public Filters4 run(String run) {
-    
-    this.run = run;
-    return this;
-  }
-
-   /**
-   * A list of run IDs separated by comma.
-   * @return run
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of run IDs separated by comma.")
-
-  public String getRun() {
-    return run;
-  }
-
-
-  public void setRun(String run) {
-    this.run = run;
-  }
-
-
-  public Filters4 caseId(String caseId) {
-    
-    this.caseId = caseId;
-    return this;
-  }
-
-   /**
-   * A list of case IDs separated by comma.
-   * @return caseId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of case IDs separated by comma.")
-
-  public String getCaseId() {
-    return caseId;
-  }
-
-
-  public void setCaseId(String caseId) {
-    this.caseId = caseId;
-  }
-
-
-  public Filters4 member(String member) {
-    
-    this.member = member;
-    return this;
-  }
-
-   /**
-   * A list of member IDs separated by comma.
-   * @return member
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of member IDs separated by comma.")
-
-  public String getMember() {
-    return member;
-  }
-
-
-  public void setMember(String member) {
-    this.member = member;
-  }
-
-
-  public Filters4 api(Boolean api) {
-    
-    this.api = api;
-    return this;
-  }
-
-   /**
-   * Get api
-   * @return api
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Boolean getApi() {
-    return api;
-  }
-
-
-  public void setApi(Boolean api) {
-    this.api = api;
-  }
-
-
-  public Filters4 fromEndTime(String fromEndTime) {
-    
-    this.fromEndTime = fromEndTime;
-    return this;
-  }
-
-   /**
-   * Will return all results created after provided datetime. Allowed format: &#x60;Y-m-d H:i:s&#x60;. 
-   * @return fromEndTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Will return all results created after provided datetime. Allowed format: `Y-m-d H:i:s`. ")
-
-  public String getFromEndTime() {
-    return fromEndTime;
-  }
-
-
-  public void setFromEndTime(String fromEndTime) {
-    this.fromEndTime = fromEndTime;
-  }
-
-
-  public Filters4 toEndTime(String toEndTime) {
-    
-    this.toEndTime = toEndTime;
-    return this;
-  }
-
-   /**
-   * Will return all results created before provided datetime. Allowed format: &#x60;Y-m-d H:i:s&#x60;. 
-   * @return toEndTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Will return all results created before provided datetime. Allowed format: `Y-m-d H:i:s`. ")
-
-  public String getToEndTime() {
-    return toEndTime;
-  }
-
-
-  public void setToEndTime(String toEndTime) {
-    this.toEndTime = toEndTime;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.status = status;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * A single test run result status. Possible values: in_progress, passed, failed, blocked, skipped, invalid.
+     *
+     * @return status
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A single test run result status. Possible values: in_progress, passed, failed, blocked, skipped, invalid. ")
+
+    public String getStatus() {
+        return status;
     }
-    Filters4 filters4 = (Filters4) o;
-    return Objects.equals(this.status, filters4.status) &&
-        Objects.equals(this.run, filters4.run) &&
-        Objects.equals(this.caseId, filters4.caseId) &&
-        Objects.equals(this.member, filters4.member) &&
-        Objects.equals(this.api, filters4.api) &&
-        Objects.equals(this.fromEndTime, filters4.fromEndTime) &&
-        Objects.equals(this.toEndTime, filters4.toEndTime);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(status, run, caseId, member, api, fromEndTime, toEndTime);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Filters4 {\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    run: ").append(toIndentedString(run)).append("\n");
-    sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
-    sb.append("    member: ").append(toIndentedString(member)).append("\n");
-    sb.append("    api: ").append(toIndentedString(api)).append("\n");
-    sb.append("    fromEndTime: ").append(toIndentedString(fromEndTime)).append("\n");
-    sb.append("    toEndTime: ").append(toIndentedString(toEndTime)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setStatus(String status) {
+        this.status = status;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public Filters4 run(String run) {
+
+        this.run = run;
+        return this;
+    }
+
+    /**
+     * A list of run IDs separated by comma.
+     *
+     * @return run
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of run IDs separated by comma.")
+
+    public String getRun() {
+        return run;
+    }
+
+
+    public void setRun(String run) {
+        this.run = run;
+    }
+
+
+    public Filters4 caseId(String caseId) {
+
+        this.caseId = caseId;
+        return this;
+    }
+
+    /**
+     * A list of case IDs separated by comma.
+     *
+     * @return caseId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of case IDs separated by comma.")
+
+    public String getCaseId() {
+        return caseId;
+    }
+
+
+    public void setCaseId(String caseId) {
+        this.caseId = caseId;
+    }
+
+
+    public Filters4 member(String member) {
+
+        this.member = member;
+        return this;
+    }
+
+    /**
+     * A list of member IDs separated by comma.
+     *
+     * @return member
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of member IDs separated by comma.")
+
+    public String getMember() {
+        return member;
+    }
+
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+
+
+    public Filters4 api(Boolean api) {
+
+        this.api = api;
+        return this;
+    }
+
+    /**
+     * Get api
+     *
+     * @return api
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Boolean getApi() {
+        return api;
+    }
+
+
+    public void setApi(Boolean api) {
+        this.api = api;
+    }
+
+
+    public Filters4 fromEndTime(String fromEndTime) {
+
+        this.fromEndTime = fromEndTime;
+        return this;
+    }
+
+    /**
+     * Will return all results created after provided datetime. Allowed format: &#x60;Y-m-d H:i:s&#x60;.
+     *
+     * @return fromEndTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "Will return all results created after provided datetime. Allowed format: `Y-m-d H:i:s`. ")
+
+    public String getFromEndTime() {
+        return fromEndTime;
+    }
+
+
+    public void setFromEndTime(String fromEndTime) {
+        this.fromEndTime = fromEndTime;
+    }
+
+
+    public Filters4 toEndTime(String toEndTime) {
+
+        this.toEndTime = toEndTime;
+        return this;
+    }
+
+    /**
+     * Will return all results created before provided datetime. Allowed format: &#x60;Y-m-d H:i:s&#x60;.
+     *
+     * @return toEndTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "Will return all results created before provided datetime. Allowed format: `Y-m-d H:i:s`. ")
+
+    public String getToEndTime() {
+        return toEndTime;
+    }
+
+
+    public void setToEndTime(String toEndTime) {
+        this.toEndTime = toEndTime;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Filters4 filters4 = (Filters4) o;
+        return Objects.equals(this.status, filters4.status) &&
+                Objects.equals(this.run, filters4.run) &&
+                Objects.equals(this.caseId, filters4.caseId) &&
+                Objects.equals(this.member, filters4.member) &&
+                Objects.equals(this.api, filters4.api) &&
+                Objects.equals(this.fromEndTime, filters4.fromEndTime) &&
+                Objects.equals(this.toEndTime, filters4.toEndTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, run, caseId, member, api, fromEndTime, toEndTime);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Filters4 {\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    run: ").append(toIndentedString(run)).append("\n");
+        sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
+        sb.append("    member: ").append(toIndentedString(member)).append("\n");
+        sb.append("    api: ").append(toIndentedString(api)).append("\n");
+        sb.append("    fromEndTime: ").append(toIndentedString(fromEndTime)).append("\n");
+        sb.append("    toEndTime: ").append(toIndentedString(toEndTime)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

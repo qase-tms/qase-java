@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -22,188 +22,189 @@ import java.util.Objects;
 /**
  * AttachmentHash
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class AttachmentHash {
-  public static final String SERIALIZED_NAME_SIZE = "size";
-  @SerializedName(SERIALIZED_NAME_SIZE)
-  private Integer size;
-
-  public static final String SERIALIZED_NAME_MIME = "mime";
-  @SerializedName(SERIALIZED_NAME_MIME)
-  private String mime;
-
-  public static final String SERIALIZED_NAME_FILENAME = "filename";
-  @SerializedName(SERIALIZED_NAME_FILENAME)
-  private String filename;
-
-  public static final String SERIALIZED_NAME_URL = "url";
-  @SerializedName(SERIALIZED_NAME_URL)
-  private URI url;
-
-  public static final String SERIALIZED_NAME_HASH = "hash";
-  @SerializedName(SERIALIZED_NAME_HASH)
-  private String hash;
+    public static final String SERIALIZED_NAME_SIZE = "size";
+    public static final String SERIALIZED_NAME_MIME = "mime";
+    public static final String SERIALIZED_NAME_FILENAME = "filename";
+    public static final String SERIALIZED_NAME_URL = "url";
+    public static final String SERIALIZED_NAME_HASH = "hash";
+    @SerializedName(SERIALIZED_NAME_SIZE)
+    private Integer size;
+    @SerializedName(SERIALIZED_NAME_MIME)
+    private String mime;
+    @SerializedName(SERIALIZED_NAME_FILENAME)
+    private String filename;
+    @SerializedName(SERIALIZED_NAME_URL)
+    private URI url;
+    @SerializedName(SERIALIZED_NAME_HASH)
+    private String hash;
 
 
-  public AttachmentHash size(Integer size) {
-    
-    this.size = size;
-    return this;
-  }
+    public AttachmentHash size(Integer size) {
 
-   /**
-   * Get size
-   * @return size
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getSize() {
-    return size;
-  }
-
-
-  public void setSize(Integer size) {
-    this.size = size;
-  }
-
-
-  public AttachmentHash mime(String mime) {
-    
-    this.mime = mime;
-    return this;
-  }
-
-   /**
-   * Get mime
-   * @return mime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getMime() {
-    return mime;
-  }
-
-
-  public void setMime(String mime) {
-    this.mime = mime;
-  }
-
-
-  public AttachmentHash filename(String filename) {
-    
-    this.filename = filename;
-    return this;
-  }
-
-   /**
-   * Get filename
-   * @return filename
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getFilename() {
-    return filename;
-  }
-
-
-  public void setFilename(String filename) {
-    this.filename = filename;
-  }
-
-
-  public AttachmentHash url(URI url) {
-    
-    this.url = url;
-    return this;
-  }
-
-   /**
-   * Get url
-   * @return url
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public URI getUrl() {
-    return url;
-  }
-
-
-  public void setUrl(URI url) {
-    this.url = url;
-  }
-
-
-  public AttachmentHash hash(String hash) {
-    
-    this.hash = hash;
-    return this;
-  }
-
-   /**
-   * Get hash
-   * @return hash
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getHash() {
-    return hash;
-  }
-
-
-  public void setHash(String hash) {
-    this.hash = hash;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+        this.size = size;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get size
+     *
+     * @return size
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getSize() {
+        return size;
     }
-    AttachmentHash attachmentHash = (AttachmentHash) o;
-    return Objects.equals(this.size, attachmentHash.size) &&
-        Objects.equals(this.mime, attachmentHash.mime) &&
-        Objects.equals(this.filename, attachmentHash.filename) &&
-        Objects.equals(this.url, attachmentHash.url) &&
-        Objects.equals(this.hash, attachmentHash.hash);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(size, mime, filename, url, hash);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AttachmentHash {\n");
-    sb.append("    size: ").append(toIndentedString(size)).append("\n");
-    sb.append("    mime: ").append(toIndentedString(mime)).append("\n");
-    sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setSize(Integer size) {
+        this.size = size;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public AttachmentHash mime(String mime) {
+
+        this.mime = mime;
+        return this;
+    }
+
+    /**
+     * Get mime
+     *
+     * @return mime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getMime() {
+        return mime;
+    }
+
+
+    public void setMime(String mime) {
+        this.mime = mime;
+    }
+
+
+    public AttachmentHash filename(String filename) {
+
+        this.filename = filename;
+        return this;
+    }
+
+    /**
+     * Get filename
+     *
+     * @return filename
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getFilename() {
+        return filename;
+    }
+
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+
+    public AttachmentHash url(URI url) {
+
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return url
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public URI getUrl() {
+        return url;
+    }
+
+
+    public void setUrl(URI url) {
+        this.url = url;
+    }
+
+
+    public AttachmentHash hash(String hash) {
+
+        this.hash = hash;
+        return this;
+    }
+
+    /**
+     * Get hash
+     *
+     * @return hash
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getHash() {
+        return hash;
+    }
+
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AttachmentHash attachmentHash = (AttachmentHash) o;
+        return Objects.equals(this.size, attachmentHash.size) &&
+                Objects.equals(this.mime, attachmentHash.mime) &&
+                Objects.equals(this.filename, attachmentHash.filename) &&
+                Objects.equals(this.url, attachmentHash.url) &&
+                Objects.equals(this.hash, attachmentHash.hash);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(size, mime, filename, url, hash);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AttachmentHash {\n");
+        sb.append("    size: ").append(toIndentedString(size)).append("\n");
+        sb.append("    mime: ").append(toIndentedString(mime)).append("\n");
+        sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
+        sb.append("    url: ").append(toIndentedString(url)).append("\n");
+        sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -15,306 +15,355 @@ package io.qase.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * PlanDetailed
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class PlanDetailed {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Long id;
-
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
-
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-  private String description;
-
-  public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
-  @SerializedName(SERIALIZED_NAME_CASES_COUNT)
-  private Integer casesCount;
-
-  public static final String SERIALIZED_NAME_CREATED = "created";
-  @SerializedName(SERIALIZED_NAME_CREATED)
-  private LocalDateTime created;
-
-  public static final String SERIALIZED_NAME_UPDATED = "updated";
-  @SerializedName(SERIALIZED_NAME_UPDATED)
-  private LocalDateTime updated;
-
-  public static final String SERIALIZED_NAME_AVERAGE_TIME = "average_time";
-  @SerializedName(SERIALIZED_NAME_AVERAGE_TIME)
-  private BigDecimal averageTime;
-
-  public static final String SERIALIZED_NAME_CASES = "cases";
-  @SerializedName(SERIALIZED_NAME_CASES)
-  private List<PlanDetailedAllOfCases> cases = null;
-
-
-  public PlanDetailed id(Long id) {
-    
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getId() {
-    return id;
-  }
+    public static final String SERIALIZED_NAME_ID = "id";
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+    public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
+    public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
+    public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
+    public static final String SERIALIZED_NAME_CREATED = "created";
+    public static final String SERIALIZED_NAME_UPDATED = "updated";
+    public static final String SERIALIZED_NAME_AVERAGE_TIME = "average_time";
+    public static final String SERIALIZED_NAME_CASES = "cases";
+    @SerializedName(SERIALIZED_NAME_ID)
+    private Long id;
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
+    @SerializedName(SERIALIZED_NAME_CASES_COUNT)
+    private Integer casesCount;
+    @SerializedName(SERIALIZED_NAME_CREATED_AT)
+    private String createdAt;
+    @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+    private String updatedAt;
+    @SerializedName(SERIALIZED_NAME_CREATED)
+    private String created;
+    @SerializedName(SERIALIZED_NAME_UPDATED)
+    private String updated;
+    @SerializedName(SERIALIZED_NAME_AVERAGE_TIME)
+    private BigDecimal averageTime;
+    @SerializedName(SERIALIZED_NAME_CASES)
+    private List<PlanDetailedAllOfCases> cases = null;
 
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public PlanDetailed id(Long id) {
 
-
-  public PlanDetailed title(String title) {
-    
-    this.title = title;
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public PlanDetailed description(String description) {
-    
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public PlanDetailed casesCount(Integer casesCount) {
-    
-    this.casesCount = casesCount;
-    return this;
-  }
-
-   /**
-   * Get casesCount
-   * @return casesCount
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Integer getCasesCount() {
-    return casesCount;
-  }
-
-
-  public void setCasesCount(Integer casesCount) {
-    this.casesCount = casesCount;
-  }
-
-
-  public PlanDetailed created(LocalDateTime created) {
-    
-    this.created = created;
-    return this;
-  }
-
-   /**
-   * Get created
-   * @return created
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public LocalDateTime getCreated() {
-    return created;
-  }
-
-
-  public void setCreated(LocalDateTime created) {
-    this.created = created;
-  }
-
-
-  public PlanDetailed updated(LocalDateTime updated) {
-    
-    this.updated = updated;
-    return this;
-  }
-
-   /**
-   * Get updated
-   * @return updated
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public LocalDateTime getUpdated() {
-    return updated;
-  }
-
-
-  public void setUpdated(LocalDateTime updated) {
-    this.updated = updated;
-  }
-
-
-  public PlanDetailed averageTime(BigDecimal averageTime) {
-    
-    this.averageTime = averageTime;
-    return this;
-  }
-
-   /**
-   * Get averageTime
-   * @return averageTime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public BigDecimal getAverageTime() {
-    return averageTime;
-  }
-
-
-  public void setAverageTime(BigDecimal averageTime) {
-    this.averageTime = averageTime;
-  }
-
-
-  public PlanDetailed cases(List<PlanDetailedAllOfCases> cases) {
-    
-    this.cases = cases;
-    return this;
-  }
-
-  public PlanDetailed addCasesItem(PlanDetailedAllOfCases casesItem) {
-    if (this.cases == null) {
-      this.cases = new ArrayList<>();
+        this.id = id;
+        return this;
     }
-    this.cases.add(casesItem);
-    return this;
-  }
 
-   /**
-   * Get cases
-   * @return cases
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  public List<PlanDetailedAllOfCases> getCases() {
-    return cases;
-  }
-
-
-  public void setCases(List<PlanDetailedAllOfCases> cases) {
-    this.cases = cases;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Long getId() {
+        return id;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
-    PlanDetailed planDetailed = (PlanDetailed) o;
-    return Objects.equals(this.id, planDetailed.id) &&
-        Objects.equals(this.title, planDetailed.title) &&
-        Objects.equals(this.description, planDetailed.description) &&
-        Objects.equals(this.casesCount, planDetailed.casesCount) &&
-        Objects.equals(this.created, planDetailed.created) &&
-        Objects.equals(this.updated, planDetailed.updated) &&
-        Objects.equals(this.averageTime, planDetailed.averageTime) &&
-        Objects.equals(this.cases, planDetailed.cases);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, title, description, casesCount, created, updated, averageTime, cases);
-  }
+    public PlanDetailed title(String title) {
 
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+        this.title = title;
+        return this;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PlanDetailed {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
-    sb.append("    created: ").append(toIndentedString(created)).append("\n");
-    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
-    sb.append("    averageTime: ").append(toIndentedString(averageTime)).append("\n");
-    sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public String getTitle() {
+        return title;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    public PlanDetailed description(String description) {
+
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return description
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public PlanDetailed casesCount(Integer casesCount) {
+
+        this.casesCount = casesCount;
+        return this;
+    }
+
+    /**
+     * Get casesCount
+     *
+     * @return casesCount
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public Integer getCasesCount() {
+        return casesCount;
+    }
+
+
+    public void setCasesCount(Integer casesCount) {
+        this.casesCount = casesCount;
+    }
+
+
+    public PlanDetailed createdAt(String createdAt) {
+
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return createdAt
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
+    public PlanDetailed updatedAt(String updatedAt) {
+
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return updatedAt
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+
+    public PlanDetailed created(String created) {
+
+        this.created = created;
+        return this;
+    }
+
+    /**
+     * Deprecated, use the &#x60;created_at&#x60; property instead.
+     *
+     * @return created
+     * @deprecated
+     **/
+    @Deprecated
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `created_at` property instead.")
+
+    public String getCreated() {
+        return created;
+    }
+
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+
+    public PlanDetailed updated(String updated) {
+
+        this.updated = updated;
+        return this;
+    }
+
+    /**
+     * Deprecated, use the &#x60;updated_at&#x60; property instead.
+     *
+     * @return updated
+     * @deprecated
+     **/
+    @Deprecated
+    @javax.annotation.Nullable
+    @ApiModelProperty(example = "2021-12-30 19:23:59", value = "Deprecated, use the `updated_at` property instead.")
+
+    public String getUpdated() {
+        return updated;
+    }
+
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+
+    public PlanDetailed averageTime(BigDecimal averageTime) {
+
+        this.averageTime = averageTime;
+        return this;
+    }
+
+    /**
+     * Get averageTime
+     *
+     * @return averageTime
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public BigDecimal getAverageTime() {
+        return averageTime;
+    }
+
+
+    public void setAverageTime(BigDecimal averageTime) {
+        this.averageTime = averageTime;
+    }
+
+
+    public PlanDetailed cases(List<PlanDetailedAllOfCases> cases) {
+
+        this.cases = cases;
+        return this;
+    }
+
+    public PlanDetailed addCasesItem(PlanDetailedAllOfCases casesItem) {
+        if (this.cases == null) {
+            this.cases = new ArrayList<>();
+        }
+        this.cases.add(casesItem);
+        return this;
+    }
+
+    /**
+     * Get cases
+     *
+     * @return cases
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+
+    public List<PlanDetailedAllOfCases> getCases() {
+        return cases;
+    }
+
+
+    public void setCases(List<PlanDetailedAllOfCases> cases) {
+        this.cases = cases;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PlanDetailed planDetailed = (PlanDetailed) o;
+        return Objects.equals(this.id, planDetailed.id) &&
+                Objects.equals(this.title, planDetailed.title) &&
+                Objects.equals(this.description, planDetailed.description) &&
+                Objects.equals(this.casesCount, planDetailed.casesCount) &&
+                Objects.equals(this.createdAt, planDetailed.createdAt) &&
+                Objects.equals(this.updatedAt, planDetailed.updatedAt) &&
+                Objects.equals(this.created, planDetailed.created) &&
+                Objects.equals(this.updated, planDetailed.updated) &&
+                Objects.equals(this.averageTime, planDetailed.averageTime) &&
+                Objects.equals(this.cases, planDetailed.cases);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, casesCount, createdAt, updatedAt, created, updated, averageTime, cases);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PlanDetailed {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
+        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+        sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+        sb.append("    created: ").append(toIndentedString(created)).append("\n");
+        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+        sb.append("    averageTime: ").append(toIndentedString(averageTime)).append("\n");
+        sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 

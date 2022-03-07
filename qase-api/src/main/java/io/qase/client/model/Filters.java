@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later. 
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -21,304 +21,305 @@ import java.util.Objects;
 /**
  * Filters
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T23:17:33.666847+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
 public class Filters {
-  public static final String SERIALIZED_NAME_SEARCH = "search";
-  @SerializedName(SERIALIZED_NAME_SEARCH)
-  private String search;
-
-  public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
-  @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
-  private Integer milestoneId;
-
-  public static final String SERIALIZED_NAME_SUITE_ID = "suite_id";
-  @SerializedName(SERIALIZED_NAME_SUITE_ID)
-  private Integer suiteId;
-
-  public static final String SERIALIZED_NAME_SEVERITY = "severity";
-  @SerializedName(SERIALIZED_NAME_SEVERITY)
-  private String severity;
-
-  public static final String SERIALIZED_NAME_PRIORITY = "priority";
-  @SerializedName(SERIALIZED_NAME_PRIORITY)
-  private String priority;
-
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
-  private String type;
-
-  public static final String SERIALIZED_NAME_BEHAVIOR = "behavior";
-  @SerializedName(SERIALIZED_NAME_BEHAVIOR)
-  private String behavior;
-
-  public static final String SERIALIZED_NAME_AUTOMATION = "automation";
-  @SerializedName(SERIALIZED_NAME_AUTOMATION)
-  private String automation;
-
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private String status;
-
-
-  public Filters search(String search) {
-    
-    this.search = search;
-    return this;
-  }
-
-   /**
-   * Provide a string that will be used to search by name.
-   * @return search
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Provide a string that will be used to search by name.")
-
-  public String getSearch() {
-    return search;
-  }
-
-
-  public void setSearch(String search) {
-    this.search = search;
-  }
-
-
-  public Filters milestoneId(Integer milestoneId) {
-    
-    this.milestoneId = milestoneId;
-    return this;
-  }
-
-   /**
-   * ID of milestone.
-   * @return milestoneId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "ID of milestone.")
-
-  public Integer getMilestoneId() {
-    return milestoneId;
-  }
-
-
-  public void setMilestoneId(Integer milestoneId) {
-    this.milestoneId = milestoneId;
-  }
-
-
-  public Filters suiteId(Integer suiteId) {
-    
-    this.suiteId = suiteId;
-    return this;
-  }
-
-   /**
-   * ID of test suite.
-   * @return suiteId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "ID of test suite.")
-
-  public Integer getSuiteId() {
-    return suiteId;
-  }
-
-
-  public void setSuiteId(Integer suiteId) {
-    this.suiteId = suiteId;
-  }
-
-
-  public Filters severity(String severity) {
-    
-    this.severity = severity;
-    return this;
-  }
-
-   /**
-   * A list of severity values separated by comma. Possible values: undefined, blocker, critical, major, normal, minor, trivial 
-   * @return severity
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of severity values separated by comma. Possible values: undefined, blocker, critical, major, normal, minor, trivial ")
-
-  public String getSeverity() {
-    return severity;
-  }
-
-
-  public void setSeverity(String severity) {
-    this.severity = severity;
-  }
-
-
-  public Filters priority(String priority) {
-    
-    this.priority = priority;
-    return this;
-  }
-
-   /**
-   * A list of priority values separated by comma. Possible values: undefined, high, medium, low 
-   * @return priority
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of priority values separated by comma. Possible values: undefined, high, medium, low ")
-
-  public String getPriority() {
-    return priority;
-  }
-
-
-  public void setPriority(String priority) {
-    this.priority = priority;
-  }
-
-
-  public Filters type(String type) {
-    
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * A list of type values separated by comma. Possible values: other, functional smoke, regression, security, usability, performance, acceptance 
-   * @return type
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of type values separated by comma. Possible values: other, functional smoke, regression, security, usability, performance, acceptance ")
-
-  public String getType() {
-    return type;
-  }
-
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-
-  public Filters behavior(String behavior) {
-    
-    this.behavior = behavior;
-    return this;
-  }
-
-   /**
-   * A list of behavior values separated by comma. Possible values: undefined, positive negative, destructive 
-   * @return behavior
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of behavior values separated by comma. Possible values: undefined, positive negative, destructive ")
-
-  public String getBehavior() {
-    return behavior;
-  }
-
-
-  public void setBehavior(String behavior) {
-    this.behavior = behavior;
-  }
-
-
-  public Filters automation(String automation) {
-    
-    this.automation = automation;
-    return this;
-  }
-
-   /**
-   * A list of values separated by comma. Possible values: is-not-automated, automated to-be-automated 
-   * @return automation
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of values separated by comma. Possible values: is-not-automated, automated to-be-automated ")
-
-  public String getAutomation() {
-    return automation;
-  }
-
-
-  public void setAutomation(String automation) {
-    this.automation = automation;
-  }
-
-
-  public Filters status(String status) {
-    
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * A list of values separated by comma. Possible values: actual, draft deprecated 
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of values separated by comma. Possible values: actual, draft deprecated ")
-
-  public String getStatus() {
-    return status;
-  }
-
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public static final String SERIALIZED_NAME_SEARCH = "search";
+    public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
+    public static final String SERIALIZED_NAME_SUITE_ID = "suite_id";
+    public static final String SERIALIZED_NAME_SEVERITY = "severity";
+    public static final String SERIALIZED_NAME_PRIORITY = "priority";
+    public static final String SERIALIZED_NAME_TYPE = "type";
+    public static final String SERIALIZED_NAME_BEHAVIOR = "behavior";
+    public static final String SERIALIZED_NAME_AUTOMATION = "automation";
+    public static final String SERIALIZED_NAME_STATUS = "status";
+    @SerializedName(SERIALIZED_NAME_SEARCH)
+    private String search;
+    @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+    private Integer milestoneId;
+    @SerializedName(SERIALIZED_NAME_SUITE_ID)
+    private Integer suiteId;
+    @SerializedName(SERIALIZED_NAME_SEVERITY)
+    private String severity;
+    @SerializedName(SERIALIZED_NAME_PRIORITY)
+    private String priority;
+    @SerializedName(SERIALIZED_NAME_TYPE)
+    private String type;
+    @SerializedName(SERIALIZED_NAME_BEHAVIOR)
+    private String behavior;
+    @SerializedName(SERIALIZED_NAME_AUTOMATION)
+    private String automation;
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    private String status;
+
+
+    public Filters search(String search) {
+
+        this.search = search;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Provide a string that will be used to search by name.
+     *
+     * @return search
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "Provide a string that will be used to search by name.")
+
+    public String getSearch() {
+        return search;
     }
-    Filters filters = (Filters) o;
-    return Objects.equals(this.search, filters.search) &&
-        Objects.equals(this.milestoneId, filters.milestoneId) &&
-        Objects.equals(this.suiteId, filters.suiteId) &&
-        Objects.equals(this.severity, filters.severity) &&
-        Objects.equals(this.priority, filters.priority) &&
-        Objects.equals(this.type, filters.type) &&
-        Objects.equals(this.behavior, filters.behavior) &&
-        Objects.equals(this.automation, filters.automation) &&
-        Objects.equals(this.status, filters.status);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(search, milestoneId, suiteId, severity, priority, type, behavior, automation, status);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Filters {\n");
-    sb.append("    search: ").append(toIndentedString(search)).append("\n");
-    sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
-    sb.append("    suiteId: ").append(toIndentedString(suiteId)).append("\n");
-    sb.append("    severity: ").append(toIndentedString(severity)).append("\n");
-    sb.append("    priority: ").append(toIndentedString(priority)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    behavior: ").append(toIndentedString(behavior)).append("\n");
-    sb.append("    automation: ").append(toIndentedString(automation)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setSearch(String search) {
+        this.search = search;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    public Filters milestoneId(Integer milestoneId) {
+
+        this.milestoneId = milestoneId;
+        return this;
+    }
+
+    /**
+     * ID of milestone.
+     *
+     * @return milestoneId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "ID of milestone.")
+
+    public Integer getMilestoneId() {
+        return milestoneId;
+    }
+
+
+    public void setMilestoneId(Integer milestoneId) {
+        this.milestoneId = milestoneId;
+    }
+
+
+    public Filters suiteId(Integer suiteId) {
+
+        this.suiteId = suiteId;
+        return this;
+    }
+
+    /**
+     * ID of test suite.
+     *
+     * @return suiteId
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "ID of test suite.")
+
+    public Integer getSuiteId() {
+        return suiteId;
+    }
+
+
+    public void setSuiteId(Integer suiteId) {
+        this.suiteId = suiteId;
+    }
+
+
+    public Filters severity(String severity) {
+
+        this.severity = severity;
+        return this;
+    }
+
+    /**
+     * A list of severity values separated by comma. Possible values: undefined, blocker, critical, major, normal, minor, trivial
+     *
+     * @return severity
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of severity values separated by comma. Possible values: undefined, blocker, critical, major, normal, minor, trivial ")
+
+    public String getSeverity() {
+        return severity;
+    }
+
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+
+    public Filters priority(String priority) {
+
+        this.priority = priority;
+        return this;
+    }
+
+    /**
+     * A list of priority values separated by comma. Possible values: undefined, high, medium, low
+     *
+     * @return priority
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of priority values separated by comma. Possible values: undefined, high, medium, low ")
+
+    public String getPriority() {
+        return priority;
+    }
+
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+
+    public Filters type(String type) {
+
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * A list of type values separated by comma. Possible values: other, functional smoke, regression, security, usability, performance, acceptance
+     *
+     * @return type
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of type values separated by comma. Possible values: other, functional smoke, regression, security, usability, performance, acceptance ")
+
+    public String getType() {
+        return type;
+    }
+
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
+    public Filters behavior(String behavior) {
+
+        this.behavior = behavior;
+        return this;
+    }
+
+    /**
+     * A list of behavior values separated by comma. Possible values: undefined, positive negative, destructive
+     *
+     * @return behavior
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of behavior values separated by comma. Possible values: undefined, positive negative, destructive ")
+
+    public String getBehavior() {
+        return behavior;
+    }
+
+
+    public void setBehavior(String behavior) {
+        this.behavior = behavior;
+    }
+
+
+    public Filters automation(String automation) {
+
+        this.automation = automation;
+        return this;
+    }
+
+    /**
+     * A list of values separated by comma. Possible values: is-not-automated, automated to-be-automated
+     *
+     * @return automation
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of values separated by comma. Possible values: is-not-automated, automated to-be-automated ")
+
+    public String getAutomation() {
+        return automation;
+    }
+
+
+    public void setAutomation(String automation) {
+        this.automation = automation;
+    }
+
+
+    public Filters status(String status) {
+
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * A list of values separated by comma. Possible values: actual, draft deprecated
+     *
+     * @return status
+     **/
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "A list of values separated by comma. Possible values: actual, draft deprecated ")
+
+    public String getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Filters filters = (Filters) o;
+        return Objects.equals(this.search, filters.search) &&
+                Objects.equals(this.milestoneId, filters.milestoneId) &&
+                Objects.equals(this.suiteId, filters.suiteId) &&
+                Objects.equals(this.severity, filters.severity) &&
+                Objects.equals(this.priority, filters.priority) &&
+                Objects.equals(this.type, filters.type) &&
+                Objects.equals(this.behavior, filters.behavior) &&
+                Objects.equals(this.automation, filters.automation) &&
+                Objects.equals(this.status, filters.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(search, milestoneId, suiteId, severity, priority, type, behavior, automation, status);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Filters {\n");
+        sb.append("    search: ").append(toIndentedString(search)).append("\n");
+        sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
+        sb.append("    suiteId: ").append(toIndentedString(suiteId)).append("\n");
+        sb.append("    severity: ").append(toIndentedString(severity)).append("\n");
+        sb.append("    priority: ").append(toIndentedString(priority)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    behavior: ").append(toIndentedString(behavior)).append("\n");
+        sb.append("    automation: ").append(toIndentedString(automation)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
 
