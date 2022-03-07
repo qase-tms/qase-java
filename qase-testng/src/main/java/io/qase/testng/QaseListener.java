@@ -22,6 +22,7 @@ import java.time.Duration;
 import java.util.LinkedList;
 import java.util.Optional;
 
+import static io.qase.api.Constants.*;
 import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.*;
 
@@ -30,6 +31,10 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
     private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
+
+    public QaseListener() {
+        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "TestNG");
+    }
 
     @Override
     public void onTestSuccess(ITestResult tr) {

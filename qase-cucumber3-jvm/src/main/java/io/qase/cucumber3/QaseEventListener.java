@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static io.qase.api.Constants.X_CLIENT_REPORTER;
 import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.*;
 
@@ -32,6 +33,10 @@ public class QaseEventListener implements Formatter {
     private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private long startTime;
+
+    public QaseEventListener() {
+        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 3-JVM");
+    }
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {

@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import static io.qase.api.Constants.X_CLIENT_REPORTER;
 import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
@@ -28,6 +29,9 @@ public class QaseEventListener implements ConcurrentEventListener {
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
 
+    public QaseEventListener() {
+        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 5-JVM");
+    }
 
     private void testCaseStarted(TestCaseStarted event) {
         startTime.set(System.currentTimeMillis());

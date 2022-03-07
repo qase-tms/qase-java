@@ -14,7 +14,7 @@ import org.junit.platform.launcher.core.LauncherFactory;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-import static io.qase.api.config.QaseConfig.USE_BULK_KEY;
+import static io.qase.api.utils.TestUtils.useBulk;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 
 public class QaseExtensionTest {
@@ -47,7 +47,7 @@ public class QaseExtensionTest {
                         "  \"results\" : [ {\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"failed\",\n" +
-                        "    \"time\" : \"${json-unit.ignore}\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
                         "    \"comment\" : \"java.lang.AssertionError\",\n" +
@@ -76,7 +76,7 @@ public class QaseExtensionTest {
                         "  \"results\" : [ {\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"failed\",\n" +
-                        "    \"time\" : 0,\n" +
+                        "    \"time_ms\" : 0,\n" +
                         "    \"defect\" : true,\n" +
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
                         "    \"comment\" : \"java.lang.AssertionError\",\n" +
@@ -93,14 +93,14 @@ public class QaseExtensionTest {
                         "  }, {\n" +
                         "    \"case_id\" : 321,\n" +
                         "    \"status\" : \"failed\",\n" +
-                        "    \"time\" : 2,\n" +
+                        "    \"time_ms\" : 2,\n" +
                         "    \"defect\" : true,\n" +
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
                         "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 456,\n" +
                         "    \"status\" : \"passed\",\n" +
-                        "    \"time\" : 0,\n" +
+                        "    \"time_ms\" : 0,\n" +
                         "    \"defect\" : false,\n" +
                         "    \"steps\" : [ {\n" +
                         "      \"position\" : 1,\n" +
@@ -121,7 +121,7 @@ public class QaseExtensionTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 123,\n" +
                         "  \"status\" : \"failed\",\n" +
-                        "  \"time\" : 0,\n" +
+                        "  \"time_ms\" : 0,\n" +
                         "  \"defect\" : true,\n" +
                         "  \"stacktrace\" : \"${json-unit.ignore}\"," +
                         "  \"comment\" : \"java.lang.AssertionError\",\n" +
@@ -150,7 +150,7 @@ public class QaseExtensionTest {
                         "    \"title\" : \"Case Title\"\n" +
                         "  },\n" +
                         "  \"status\" : \"failed\",\n" +
-                        "  \"time\" : 0,\n" +
+                        "  \"time_ms\" : 0,\n" +
                         "  \"defect\" : true,\n" +
                         "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
                         "  \"comment\" : \"java.lang.AssertionError\",\n" +
@@ -177,7 +177,7 @@ public class QaseExtensionTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 123,\n" +
                         "  \"status\" : \"passed\",\n" +
-                        "  \"time\" : 0,\n" +
+                        "  \"time_ms\" : 0,\n" +
                         "  \"defect\" : false\n" +
                         "}")));
     }
@@ -192,7 +192,7 @@ public class QaseExtensionTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 123,\n" +
                         "  \"status\" : \"passed\",\n" +
-                        "  \"time\" : 3,\n" +
+                        "  \"time_ms\" : 3,\n" +
                         "  \"defect\" : false\n" +
                         "}")));
     }
@@ -207,7 +207,7 @@ public class QaseExtensionTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 321,\n" +
                         "  \"status\" : \"failed\",\n" +
-                        "  \"time\" : \"${json-unit.ignore}\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "  \"comment\" : \"java.lang.AssertionError: Error message\",\n" +
                         "  \"stacktrace\" : \"${json-unit.ignore}\"," +
                         "  \"defect\" : true\n" +
@@ -224,7 +224,7 @@ public class QaseExtensionTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 321,\n" +
                         "  \"status\" : \"failed\",\n" +
-                        "  \"time\" : 2,\n" +
+                        "  \"time_ms\" : 2,\n" +
                         "  \"comment\" : \"java.lang.AssertionError: Error message\",\n" +
                         "  \"stacktrace\" : \"${json-unit.ignore}\"," +
                         "  \"defect\" : true\n" +
@@ -247,10 +247,5 @@ public class QaseExtensionTest {
 
         Launcher launcher = LauncherFactory.create(config);
         launcher.execute(launcherDiscoveryRequest);
-    }
-
-    private void useBulk(boolean use) {
-        System.setProperty(USE_BULK_KEY, String.valueOf(use));
-        QaseClient.getConfig().reload();
     }
 }

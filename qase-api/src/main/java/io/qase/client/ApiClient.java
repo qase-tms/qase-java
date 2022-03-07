@@ -123,9 +123,6 @@ public class ApiClient {
 
         // Set default User-Agent.
         setUserAgent("Qase API Client");
-        addDefaultHeader("X-CLIENT-VERSION", System.getProperty("qase.client.version"));
-        addDefaultHeader("X-CLIENT-REPORTER", System.getProperty("qase.client.reporter"));
-        addDefaultHeader("X-CLIENT-REPORTER-VERSION", System.getProperty("qase.client.reporter.version"));
         authentications = new HashMap<>();
         authentications.put("TokenAuth", new ApiKeyAuth("header", "Token"));
     }

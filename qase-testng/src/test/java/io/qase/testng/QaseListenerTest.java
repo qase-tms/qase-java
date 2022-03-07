@@ -2,7 +2,6 @@ package io.qase.testng;
 
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.api.QaseClient;
 import io.qase.testng.samples.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-import static io.qase.api.config.QaseConfig.USE_BULK_KEY;
+import static io.qase.api.utils.TestUtils.useBulk;
 
 public class QaseListenerTest {
     public static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
@@ -297,10 +296,5 @@ public class QaseListenerTest {
         suite.setTests(Collections.singletonList(test));
         testNG.setXmlSuites(Collections.singletonList(suite));
         testNG.run();
-    }
-
-    private void useBulk(boolean use) {
-        System.setProperty(USE_BULK_KEY, String.valueOf(use));
-        QaseClient.getConfig().reload();
     }
 }

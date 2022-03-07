@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static io.qase.api.Constants.X_CLIENT_REPORTER;
 import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.*;
 import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
@@ -37,6 +38,10 @@ public class QaseExtension implements TestExecutionListener {
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final Map<TestIdentifier, Long> startTime = new ConcurrentHashMap<>();
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
+
+    public QaseExtension() {
+        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "JUnit 5");
+    }
 
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
@@ -126,7 +131,7 @@ public class QaseExtension implements TestExecutionListener {
                 ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)
                 .status(status)
-                .time(timeSpent.getSeconds())
+                .timeMs(timeSpent.getSeconds())
                 .comment(comment)
                 .stacktrace(stacktrace)
                 .steps(steps.isEmpty() ? null : steps)
