@@ -69,7 +69,7 @@ public class QaseEventListenerTests {
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : false\n" +
                         "  } ]\n" +
-                        "}")));
+                        "}", true, false)));
     }
 
     @Test
