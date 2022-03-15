@@ -73,8 +73,8 @@ public final class QaseClient {
         apiClient.set(client);
     }
 
-    public static Boolean isEnabled() {
-        return isEnabled.get();
+    public static boolean isEnabled() {
+        return Boolean.TRUE.equals(isEnabled.get());
     }
 
     public static ApiClient reInit() {

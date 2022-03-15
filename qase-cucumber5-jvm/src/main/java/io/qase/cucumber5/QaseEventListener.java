@@ -10,6 +10,7 @@ import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
+import io.qase.client.model.ResultCreateBulk;
 import io.qase.client.model.ResultCreateSteps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public class QaseEventListener implements ConcurrentEventListener {
     private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+    private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
 
     public QaseEventListener() {
         apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 5-JVM");
@@ -42,7 +44,9 @@ public class QaseEventListener implements ConcurrentEventListener {
             Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime.get());
             List<String> tags = event.getTestCase().getTags();
             Long caseId = CucumberUtils.getCaseId(tags);
-            if (caseId != null) {
+            if (getConfig().useBulk()) {
+                addBulkResult(caseId, duration, event.getResult());
+            } else {
                 send(caseId, duration, event.getResult());
             }
         } finally {
@@ -50,34 +54,39 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
     }
 
+    private void addBulkResult(Long caseId, Duration duration, Result result) {
+        resultCreateBulk.addResultsItem(getResultItem(caseId, duration, result));
+    }
+
+    private ResultCreate getResultItem(Long caseId, Duration duration, Result result) {
+        StatusEnum status = convertStatus(result.getStatus());
+        Optional<Throwable> optionalThrowable = Optional.ofNullable(result.getError());
+        String comment = optionalThrowable
+                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+        Boolean isDefect = optionalThrowable
+                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                .orElse(false);
+        String stacktrace = optionalThrowable
+                .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
+        return new ResultCreate()
+                .caseId(caseId)
+                .status(status)
+                .timeMs(duration.toMillis())
+                .comment(comment)
+                .stacktrace(stacktrace)
+                .steps(steps.isEmpty() ? null : steps)
+                .defect(isDefect);
+    }
+
     private void send(Long caseId, Duration duration, Result result) {
         if (!QaseClient.isEnabled()) {
             return;
         }
         try {
-            StatusEnum status = convertStatus(result.getStatus());
-            if (status == null) {
-                return;
-            }
-            Optional<Throwable> optionalThrowable = Optional.ofNullable(result.getError());
-            String comment = optionalThrowable
-                    .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-            Boolean isDefect = optionalThrowable
-                    .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-                    .orElse(false);
-            String stacktrace = optionalThrowable
-                    .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-            LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
             resultsApi.createResult(getConfig().projectCode(),
                     getConfig().runId(),
-                    new ResultCreate()
-                            .caseId(caseId)
-                            .status(status)
-                            .timeMs(duration.toMillis())
-                            .comment(comment)
-                            .stacktrace(stacktrace)
-                            .steps(steps.isEmpty() ? null : steps)
-                            .defect(isDefect));
+                    getResultItem(caseId, duration, result));
         } catch (QaseException e) {
             logger.error(e.getMessage());
         }
@@ -93,6 +102,7 @@ public class QaseEventListener implements ConcurrentEventListener {
             case SKIPPED:
             case AMBIGUOUS:
             case UNDEFINED:
+            case UNUSED:
             default:
                 return StatusEnum.SKIPPED;
         }
@@ -102,5 +112,25 @@ public class QaseEventListener implements ConcurrentEventListener {
     public void setEventPublisher(EventPublisher eventPublisher) {
         eventPublisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
         eventPublisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
+        eventPublisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+    }
+
+    private void testRunFinished(TestRunFinished testRunFinished) {
+        sendBulkResult();
+    }
+
+    private void sendBulkResult() {
+        if (!QaseClient.isEnabled()) {
+            return;
+        }
+        try {
+            resultsApi.createResultBulk(
+                    getConfig().projectCode(),
+                    getConfig().runId(),
+                    resultCreateBulk
+            );
+        } catch (QaseException e) {
+            logger.error(e.getMessage());
+        }
     }
 }

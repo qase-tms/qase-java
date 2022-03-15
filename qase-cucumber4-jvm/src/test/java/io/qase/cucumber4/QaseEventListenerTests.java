@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+import static io.qase.api.utils.TestUtils.useBulk;
 
 public class QaseEventListenerTests {
     static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
@@ -30,7 +31,50 @@ public class QaseEventListenerTests {
     }
 
     @Test
+    public void bulk() {
+        useBulk(true);
+        String[] args = new String[]{
+                "-g", "io.qase.cucumber4",
+                "--add-plugin", "io.qase.cucumber4.QaseEventListener",
+                "classpath:features/"
+        };
+        Main.run(args, Thread.currentThread().getContextClassLoader());
+
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"results\" : [ {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\"\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\"\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false\n" +
+                        "  } ]\n" +
+                        "}", true, false)));
+    }
+
+    @Test
     public void success() {
+        useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber4",
                 "--add-plugin", "io.qase.cucumber4.QaseEventListener",
@@ -50,6 +94,7 @@ public class QaseEventListenerTests {
 
     @Test
     public void successWithTime() {
+        useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber4",
                 "--add-plugin", "io.qase.cucumber4.QaseEventListener",
@@ -70,6 +115,7 @@ public class QaseEventListenerTests {
 
     @Test
     public void failed() {
+        useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber4",
                 "--add-plugin", "io.qase.cucumber4.QaseEventListener",
@@ -92,6 +138,7 @@ public class QaseEventListenerTests {
 
     @Test
     public void failedWithTime() {
+        useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber4",
                 "--add-plugin", "io.qase.cucumber4.QaseEventListener",
