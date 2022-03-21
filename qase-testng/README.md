@@ -1,35 +1,108 @@
 # Qase TMS TestNG Integration #
+
 [![License](https://lxgaming.github.io/badges/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## Description ##
+
 This integration uploads test run results to Qase TMS via API.
 
-To link autotest to test case in Qase TMS use annotation `@CaseId`
+## Usage
 
-### Required params ###
-All required params are passed through system properties or environment variables:
-
-|  Key              | Description |
-| :---------------: | :----------: |
-| QASE_ENABLE       | Enable Integration |
-| QASE_PROJECT_CODE | Project Code |
-| QASE_RUN_ID       | Run Id |
-| QASE_API_TOKEN    | Qase API Token |
-
-## Maven ##
+### Maven
 
 Add the following dependency and repository to your pom.xml:
+
 ```xml
+
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-testng</artifactId>
-    <version>2.1.0</version>
+    <version>2.1.1</version>
     <scope>test</scope>
 </dependency>
 ```
 
-## Run example ##
+### Configuration
 
-```
+Use the following options to configure integration:
+
+|         Key          |  Type   |                                    Description                                     |
+|:--------------------:|:-------:|:----------------------------------------------------------------------------------:|
+|     QASE_ENABLE      | boolean |                                    Use Qase TMS                                    |
+|  QASE_PROJECT_CODE   | string  |                              Project Code in Qase TMS                              |
+|     QASE_RUN_ID      | integer |                              Test Run ID in Qase TMS                               |
+|    QASE_API_TOKEN    | string  |                               API Token for Qase TMS                               |
+|    QASE_USE_BULK     | boolean |                           Use Bulk Send (default: true)                            |
+|    QASE_RUN_NAME     | string  |               Name of the new Test Run (only if QASE_RUN_ID not set)               |
+| QASE_RUN_DESCRIPTION | string  |           Description of the new Test Run (only if QASE_RUN_ID not set)            |
+
+All options could be provided by both system properties and environment variables.
+
+For example, you can provide options by system properties using CLI:
+```bash
 mvn clean test -DQASE_ENABLE=true -DQASE_PROJECT_CODE=PRJ -DQASE_RUN_ID=123 -DQASE_API_TOKEN=secret-token
+```
+
+### Link autotests with test-cases
+
+To link tests with test-cases in Qase TMS you should use annotation `@io.qase.api.annotation.CaseId`:
+
+```java
+    @Test
+    @CaseId(123)
+    public void someTest() {
+        ...
+    }
+```
+
+### TestCase as a Code
+
+For using Test Case as a Code, you could mark your test by annotation `@io.qase.api.annotation.CaseTitle`:
+
+```java
+    @Test
+    @CaseTitle("Case Title")
+    public void someTest() {
+        steps.someStep1();
+        steps.someStep2();
+    }
+```
+
+The steps of the test case you can mark by annotation `@io.qase.api.annotation.Step`:
+
+```java
+    @Step("Some step1")
+    public void someStep1() {
+        // do something
+    }
+    
+    @Step("Some step2")
+    public void someStep2() {
+        // do something
+    }
+```
+
+After the test run is completed, a test case will be created if it did not already exist.
+
+### Sending tests to existing Test Run in Qase TMS
+
+Test Run in TMS will contain only those test results, which are presented in testrun:
+
+```bash
+mvn clean test \
+      -DQASE_ENABLE=true \
+      -DQASE_PROJECT_CODE=PRJ \ # project, where your testrun exists in
+      -DQASE_RUN_ID=123 \ # testrun id
+      -DQASE_API_TOKEN=<your api token here>
+```
+
+### Creating Test Run in Qase TMS base on Autotest's test run
+
+```bash
+mvn clean test \
+      -DQASE_ENABLE=true \
+      -DQASE_PROJECT_CODE=PRJ \ # the project where your test run will be created
+      -QASE_RUN_NAME=NEW_RUN_NAME \ # name of new test run creating in Qase TMS
+      -QASE_RUN_DESCRIPTION=NEW_RUN_DESCRIPTION \ # description of new test run creating in Qase TMS
+      -DQASE_API_TOKEN=<your api token here>
 ```
