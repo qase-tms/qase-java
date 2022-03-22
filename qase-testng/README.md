@@ -102,7 +102,7 @@ mvn clean test \
 mvn clean test \
       -DQASE_ENABLE=true \
       -DQASE_PROJECT_CODE=PRJ \ # the project where your test run will be created
-      -QASE_RUN_NAME=NEW_RUN_NAME \ # name of new test run creating in Qase TMS
-      -QASE_RUN_DESCRIPTION=NEW_RUN_DESCRIPTION \ # description of new test run creating in Qase TMS
+      -DQASE_RUN_NAME=NEW_RUN_NAME \ # name of new test run creating in Qase TMS
+      -DQASE_RUN_DESCRIPTION=NEW_RUN_DESCRIPTION \ # description of new test run creating in Qase TMS
       -DQASE_API_TOKEN=<your api token here>
 ```
