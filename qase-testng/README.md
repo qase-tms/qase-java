@@ -10,7 +10,7 @@ This integration uploads test run results to Qase TMS via API.
 
 ### Maven
 
-Add the following dependency and repository to your pom.xml:
+Add the following dependency to your pom.xml:
 
 ```xml
 
@@ -20,6 +20,17 @@ Add the following dependency and repository to your pom.xml:
     <version>2.1.1</version>
     <scope>test</scope>
 </dependency>
+```
+
+### Gradle
+
+Add the following dependency to build.gradle:
+
+```
+dependencies {
+    ...
+    testImplementation 'io.qase:qase-testng:2.1.1'
+}
 ```
 
 ### Configuration
@@ -39,6 +50,7 @@ Use the following options to configure integration:
 All options could be provided by both system properties and environment variables.
 
 For example, you can provide options by system properties using CLI:
+
 ```bash
 mvn clean test -DQASE_ENABLE=true -DQASE_PROJECT_CODE=PRJ -DQASE_RUN_ID=123 -DQASE_API_TOKEN=secret-token
 ```
@@ -49,10 +61,10 @@ To link tests with test-cases in Qase TMS you should use annotation `@io.qase.ap
 
 ```java
     @Test
-    @CaseId(123)
-    public void someTest() {
+@CaseId(123)
+public void someTest(){
         ...
-    }
+        }
 ```
 
 ### TestCase as a Code
@@ -61,25 +73,25 @@ For using Test Case as a Code, you could mark your test by annotation `@io.qase.
 
 ```java
     @Test
-    @CaseTitle("Case Title")
-    public void someTest() {
+@CaseTitle("Case Title")
+public void someTest(){
         steps.someStep1();
         steps.someStep2();
-    }
+        }
 ```
 
 The steps of the test case you can mark by annotation `@io.qase.api.annotation.Step`:
 
 ```java
     @Step("Some step1")
-    public void someStep1() {
+public void someStep1(){
         // do something
-    }
-    
-    @Step("Some step2")
-    public void someStep2() {
+        }
+
+@Step("Some step2")
+public void someStep2(){
         // do something
-    }
+        }
 ```
 
 After the test run is completed, a test case will be created if it did not already exist.
