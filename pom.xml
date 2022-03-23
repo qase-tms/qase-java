@@ -38,6 +38,7 @@
         <cucumber4-java.version>4.8.1</cucumber4-java.version>
         <cucumber5-java.version>5.7.0</cucumber5-java.version>
         <swagger-core-version>2.0.0</swagger-core-version>
+        <aspectj.version>1.9.8</aspectj.version>
     </properties>
 
     <name>Qase TMS Java Libraries</name>
@@ -92,12 +93,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-api.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>1.8.9</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -151,9 +146,16 @@
                 <version>3.0.0-M5</version>
                 <configuration>
                     <argLine>
-                        -javaagent:"${settings.localRepository}"/org/aspectj/aspectjweaver/1.8.9/aspectjweaver-1.8.9.jar
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
