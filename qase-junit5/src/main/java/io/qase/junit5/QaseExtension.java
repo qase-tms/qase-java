@@ -93,6 +93,7 @@ public class QaseExtension implements TestExecutionListener {
                     getConfig().runId(),
                     resultCreateBulk
             );
+            resultCreateBulk.getResults().clear();
         } catch (QaseException e) {
             logger.error(e.getMessage());
         }
