@@ -126,6 +126,7 @@ public class QaseListener extends RunListener {
                     getConfig().runId(),
                     resultCreateBulk
             );
+            resultCreateBulk.getResults().clear();
         } catch (QaseException e) {
             logger.error(e.getMessage());
         }
