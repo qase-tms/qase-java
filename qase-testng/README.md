@@ -93,7 +93,7 @@ mvn clean test -DQASE_ENABLE=true -DQASE_PROJECT_CODE=PRJ -DQASE_RUN_ID=123 -DQA
 To link tests with test-cases in Qase TMS you should use annotation `@io.qase.api.annotation.CaseId`:
 
 ```java
-    @Test
+@Test
 @CaseId(123)
 public void someTest(){
         ...
@@ -105,7 +105,7 @@ public void someTest(){
 For using Test Case as a Code, you could mark your test by annotation `@io.qase.api.annotation.CaseTitle`:
 
 ```java
-    @Test
+@Test
 @CaseTitle("Case Title")
 public void someTest(){
         steps.someStep1();
@@ -116,13 +116,22 @@ public void someTest(){
 The steps of the test case you can mark by annotation `@io.qase.api.annotation.Step`:
 
 ```java
-    @Step("Some step1")
+@Step("Some step1")
 public void someStep1(){
         // do something
         }
 
 @Step("Some step2")
 public void someStep2(){
+        // do something
+        }
+```
+
+You can add the method argument value to the step name by using the argument name in the placeholder:
+
+```java
+@Step("Step {arg1} and {arg2}")
+public void step(String arg1, int arg2) {
         // do something
         }
 ```
