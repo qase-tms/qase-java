@@ -132,7 +132,7 @@ public class QaseExtension implements TestExecutionListener {
                 ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)
                 .status(status)
-                .timeMs(timeSpent.getSeconds())
+                .timeMs(timeSpent.toMillis())
                 .comment(comment)
                 .stacktrace(stacktrace)
                 .steps(steps.isEmpty() ? null : steps)
