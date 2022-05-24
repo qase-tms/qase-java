@@ -1,26 +1,36 @@
 package io.qase.api.utils;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
 import static io.qase.api.utils.CucumberUtils.getCaseId;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CucumberUtilsTest {
 
-    @Test
-    public void getCaseIdTest() {
-        assertEquals(getCaseId(Collections.singletonList("@tmsLink=1234")), 1234);
-        assertEquals(getCaseId(Collections.singletonList("@tmsLink=PRJ-1234")), 1234);
-        assertEquals(getCaseId(Arrays.asList("@tmsLink=1234", "@PRJ-5678", "@tmsLink=PRJ-9123")), 1234);
-        assertEquals(getCaseId(Arrays.asList("@tmsLink=PRJ-9123", "@tmsLink=1234", "@PRJ-5678")), 9123);
+    @ParameterizedTest
+    @MethodSource("data")
+    public void getCaseIdTest(List<String> tags, Long actualResult) {
+        assertEquals(getCaseId(tags), actualResult);
+    }
 
-        assertNull(getCaseId(Collections.singletonList("@tmsLink=any")));
-        assertNull(getCaseId(Collections.singletonList("@any")));
-        assertNull(getCaseId(Collections.singletonList("@tmsLink=any123")));
+    static Stream<Arguments> data() {
+        Long actualResult = 1234L;
+        return Stream.of(
+                Arguments.of(Collections.singletonList("@tmsLink=1234"), actualResult),
+                Arguments.of(Collections.singletonList("@tmsLink=PRJ-1234"), actualResult),
+                Arguments.of(Arrays.asList("@tmsLink=1234", "@PRJ-5678", "@tmsLink=PRJ-9123"), actualResult),
+                Arguments.of(Arrays.asList("@tmsLink=PRJ-1234", "@tmsLink=2345", "@PRJ-5678"), actualResult),
+                Arguments.of(Collections.singletonList("@tmsLink=any"), null),
+                Arguments.of(Collections.singletonList("@any"), null),
+                Arguments.of(Collections.singletonList("@tmsLink=any123"), null)
+        );
     }
 
 }
