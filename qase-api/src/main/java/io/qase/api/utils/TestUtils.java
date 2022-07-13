@@ -2,6 +2,7 @@ package io.qase.api.utils;
 
 import io.qase.api.QaseClient;
 
+import static io.qase.api.config.QaseConfig.RUN_AUTOCOMPLETE_KEY;
 import static io.qase.api.config.QaseConfig.USE_BULK_KEY;
 
 /**
@@ -14,6 +15,11 @@ public final class TestUtils {
 
     public static void useBulk(boolean use) {
         System.setProperty(USE_BULK_KEY, String.valueOf(use));
+        QaseClient.getConfig().reload();
+    }
+
+    public static void useRunAutocomplete(boolean use) {
+        System.setProperty(RUN_AUTOCOMPLETE_KEY, String.valueOf(use));
         QaseClient.getConfig().reload();
     }
 }

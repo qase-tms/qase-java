@@ -5,6 +5,7 @@ import io.qase.api.StepStorage;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
+import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
@@ -29,15 +30,23 @@ import static io.qase.api.utils.IntegrationUtils.*;
 public class QaseListener extends TestListenerAdapter implements ITestListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
-    private final ApiClient apiClient = QaseClient.getApiClient();
-    private final ResultsApi resultsApi = new ResultsApi(apiClient);
+    private ResultsApi resultsApi;
+    private RunsApi runsApi;
 
     public QaseListener() {
-        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "TestNG");
+        if (QaseClient.isEnabled()) {
+            ApiClient apiClient = QaseClient.getApiClient();
+            apiClient.addDefaultHeader(X_CLIENT_REPORTER, "TestNG");
+            resultsApi = new ResultsApi(apiClient);
+            runsApi = new RunsApi(apiClient);
+        }
     }
 
     @Override
     public void onTestSuccess(ITestResult tr) {
+        if(!QaseClient.isEnabled()) {
+            return;
+        }
         if (getConfig().useBulk()) {
             addBulkResult(tr, StatusEnum.PASSED);
             super.onTestSuccess(tr);
@@ -49,6 +58,9 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult tr) {
+        if(!QaseClient.isEnabled()) {
+            return;
+        }
         if (getConfig().useBulk()) {
             addBulkResult(tr, StatusEnum.FAILED);
         } else {
@@ -59,16 +71,23 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
 
     @Override
     public void onFinish(ITestContext testContext) {
+        if(!QaseClient.isEnabled()) {
+            return;
+        }
         if (getConfig().useBulk()) {
             sendBulkResult();
+        }
+        if (getConfig().runAutocomplete()) {
+            try {
+                runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
+            }
         }
         super.onFinish(testContext);
     }
 
     private void sendResult(ITestResult result, StatusEnum status) {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         try {
             resultsApi.createResult(
                     getConfig().projectCode(),
@@ -81,17 +100,11 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
     }
 
     private void addBulkResult(ITestResult result, StatusEnum status) {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         resultCreateBulk.addResultsItem(
                 getResultItem(result, status));
     }
 
     private void sendBulkResult() {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         try {
             resultsApi.createResultBulk(
                     getConfig().projectCode(),

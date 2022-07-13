@@ -16,37 +16,37 @@ import static io.qase.api.config.QaseConfig.*;
 public final class QaseClient {
     private static final Logger logger = LoggerFactory.getLogger(QaseClient.class);
     private static final QaseConfig qaseConfig = ConfigFactory.create(QaseConfig.class);
-    private static final ThreadLocal<Boolean> isEnabled = new InheritableThreadLocal<>();
+    private static boolean isEnabled = qaseConfig.isEnabled();
     private static final ThreadLocal<ApiClient> apiClient = new InheritableThreadLocal<>();
 
     private static ApiClient initApiClient() {
         ApiClient client = new ApiClient();
-        isEnabled.set(getConfig().isEnabled());
         String apiToken = getConfig().apiToken();
         if (apiToken == null) {
-            isEnabled.set(false);
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
         }
         client.setBasePath(getConfig().baseUrl());
         client.setApiKey(apiToken);
 
         if (getConfig().projectCode() == null) {
-            isEnabled.set(false);
+            isEnabled = false;
             logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
         }
         logger.info("Qase project code - {}", getConfig().projectCode());
 
         if (getConfig().runId() == null) {
             if (getConfig().runName() == null) {
-                isEnabled.set(false);
+                isEnabled = false;
                 logger.info(REQUIRED_PARAMETERS_WARNING_MESSAGE, RUN_ID_KEY, RUN_NAME_KEY);
             } else {
                 Long id;
                 try {
                     id = new RunsApi(client).createRun(getConfig().projectCode(),
-                            new RunCreate()
-                                    .title(getConfig().runName())
-                                    .description(getConfig().runDescription()))
+                                    new RunCreate()
+                                            .title(getConfig().runName())
+                                            .description(getConfig().runDescription())
+                                            .isAutotest(true))
                             .getResult().getId();
                 } catch (QaseException e) {
                     throw new IllegalStateException(e);
@@ -74,11 +74,10 @@ public final class QaseClient {
     }
 
     public static boolean isEnabled() {
-        return Boolean.TRUE.equals(isEnabled.get());
+        return isEnabled;
     }
 
-    public static ApiClient reInit() {
-        apiClient.remove();
-        return getApiClient();
+    public static void setEnabled(boolean isEnabled) {
+        QaseClient.isEnabled = isEnabled;
     }
 }

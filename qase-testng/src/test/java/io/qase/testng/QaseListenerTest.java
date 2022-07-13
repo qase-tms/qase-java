@@ -4,6 +4,7 @@ package io.qase.testng;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.testng.samples.*;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testng.TestNG;
@@ -19,11 +20,13 @@ import java.util.stream.Collectors;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.useBulk;
+import static io.qase.api.utils.TestUtils.useRunAutocomplete;
 
-public class QaseListenerTest {
+class QaseListenerTest {
     public static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
     public static final String RESULT_BULK_URL = "/v1/result/PRJ/777/bulk";
     public static final String RESULT_URL = "/v1/result/PRJ/777";
+    public static final String RUN_COMPELTE_URL = "/v1/run/PRJ/777/complete";
 
     @BeforeAll
     static void setUp() {
@@ -36,13 +39,37 @@ public class QaseListenerTest {
         System.setProperty("QASE_URL", "http://localhost:8088/v1");
     }
 
+    @AfterEach
+    public void resetRequests() {
+        wireMockServer.resetRequests();
+    }
+
     @AfterAll
     static void tearDown() {
         wireMockServer.stop();
     }
 
     @Test
-    public void passedBulkTest() {
+    void runAutocompleteFalse() {
+        useRunAutocomplete(false);
+        runTest(Passed.class);
+        verify(exactly(0), postRequestedFor(urlPathEqualTo(RUN_COMPELTE_URL))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8")));
+    }
+
+    @Test
+    void runAutocomplete() {
+        useRunAutocomplete(true);
+        runTest(Passed.class);
+        verify(exactly(1), postRequestedFor(urlPathEqualTo(RUN_COMPELTE_URL))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8")));
+    }
+
+    @Test
+    void passedBulkTest() {
+        useRunAutocomplete(false);
         useBulk(true);
         runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
@@ -59,7 +86,8 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void passedWithStepsBulkTest() {
+    void passedWithStepsBulkTest() {
+        useRunAutocomplete(false);
         useBulk(true);
         runTest(WithSteps.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
@@ -68,15 +96,28 @@ public class QaseListenerTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"results\" : [ {\n" +
                         "    \"case_id\" : 123,\n" +
-                        "    \"status\" : \"passed\",\n" +
+                        "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "    \"defect\" : false\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\"," +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\",\n" +
+                        "      \"action\" : \"failure step\"\n" +
+                        "    } ]\n" +
                         "  } ]\n" +
                         "}")));
     }
 
     @Test
-    public void passedWithTimeBulkTest() {
+    void passedWithTimeBulkTest() {
+        useRunAutocomplete(false);
         useBulk(true);
         runTest(PassedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
@@ -93,7 +134,8 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void failedBulkTest() {
+    void failedBulkTest() {
+        useRunAutocomplete(false);
         useBulk(true);
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
@@ -112,7 +154,8 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void failedWithTimeBulkTest() {
+    void failedWithTimeBulkTest() {
+        useRunAutocomplete(false);
         useBulk(true);
         runTest(FailedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_BULK_URL))
@@ -131,7 +174,8 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void allBulkTests() {
+    void allBulkTests() {
+        useRunAutocomplete(false);
         useBulk(true);
         runTest(Arrays.asList(Passed.class, PassedWithTime.class, Failed.class, FailedWithTime.class,
                 WithSteps.class, WithStepsSuccess.class));
@@ -195,7 +239,8 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void passedTest() {
+    void passedTest() {
+        useRunAutocomplete(false);
         useBulk(false);
         runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_URL))
@@ -210,7 +255,8 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void withStepsTest() {
+    void withStepsTest() {
+        useRunAutocomplete(false);
         useBulk(false);
         runTest(WithSteps.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_URL))
@@ -237,7 +283,8 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void newCaseWithStepsTest() {
+    void newCaseWithStepsTest() {
+        useRunAutocomplete(false);
         useBulk(false);
         runTest(NewCase.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_URL))
@@ -266,7 +313,8 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void failedTest() {
+    void failedTest() {
+        useRunAutocomplete(false);
         useBulk(false);
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo(RESULT_URL))

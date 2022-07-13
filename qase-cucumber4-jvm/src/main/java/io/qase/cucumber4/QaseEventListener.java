@@ -9,6 +9,7 @@ import io.qase.api.exceptions.QaseException;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
+import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreateBulk;
 import io.qase.client.model.ResultCreateSteps;
@@ -27,24 +28,40 @@ import static io.qase.api.utils.IntegrationUtils.*;
 
 public class QaseEventListener implements ConcurrentEventListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseEventListener.class);
-    private final ApiClient apiClient = QaseClient.getApiClient();
-    private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
+    private ResultsApi resultsApi;
+    private RunsApi runsApi;
 
     public QaseEventListener() {
-        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 4-JVM");
+        if (QaseClient.isEnabled()) {
+            ApiClient apiClient = QaseClient.getApiClient();
+            resultsApi = new ResultsApi(apiClient);
+            runsApi = new RunsApi(apiClient);
+            apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 4-JVM");
+        }
     }
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-        publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
-        publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-        publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+        if (QaseClient.isEnabled()) {
+            publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
+            publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
+            publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+        }
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
-        sendBulkResult();
+        if (getConfig().useBulk()) {
+            sendBulkResult();
+        }
+        if (getConfig().runAutocomplete()) {
+            try {
+                runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
+            }
+        }
     }
 
     private void testCaseStarted(TestCaseStarted event) {
@@ -57,7 +74,7 @@ public class QaseEventListener implements ConcurrentEventListener {
             List<PickleTag> pickleTags = event.testCase.getTags();
             List<String> tags = pickleTags.stream().map(PickleTag::getName).collect(Collectors.toList());
             Long caseId = CucumberUtils.getCaseId(tags);
-            if (!QaseClient.isEnabled() || caseId == null) {
+            if (caseId == null) {
                 return;
             }
             if (getConfig().useBulk()) {
@@ -75,9 +92,6 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void sendBulkResult() {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         try {
             resultsApi.createResultBulk(
                     getConfig().projectCode(),

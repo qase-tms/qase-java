@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.QaseClient;
 import io.qase.junit5.samples.*;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.launcher.Launcher;
@@ -17,7 +18,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import static io.qase.api.utils.TestUtils.useBulk;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 
-public class QaseExtensionTest {
+class QaseExtensionTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
 
     @BeforeAll
@@ -31,13 +32,18 @@ public class QaseExtensionTest {
         System.setProperty("QASE_URL", "http://localhost:8088/v1");
     }
 
+    @AfterEach
+    public void resetRequests() {
+        wireMockServer.resetRequests();
+    }
+
     @AfterAll
     static void tearDown() {
         wireMockServer.stop();
     }
 
     @Test
-    public void bulkWithStepsTest() {
+    void bulkWithStepsTest() {
         useBulk(true);
         runTest(WithSteps.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
@@ -66,7 +72,7 @@ public class QaseExtensionTest {
     }
 
     @Test
-    public void bulkMultipleTest() {
+    void bulkMultipleTest() {
         useBulk(true);
         runTest(Multiple.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
@@ -112,7 +118,7 @@ public class QaseExtensionTest {
     }
 
     @Test
-    public void withStepsTest() {
+    void withStepsTest() {
         useBulk(false);
         runTest(WithSteps.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -139,7 +145,7 @@ public class QaseExtensionTest {
     }
 
     @Test
-    public void newCaseWithStepsTest() {
+    void newCaseWithStepsTest() {
         useBulk(false);
         runTest(NewCase.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -168,7 +174,7 @@ public class QaseExtensionTest {
     }
 
     @Test
-    public void passedTest() {
+    void passedTest() {
         useBulk(false);
         runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -183,7 +189,7 @@ public class QaseExtensionTest {
     }
 
     @Test
-    public void passedWithTimeTest() {
+    void passedWithTimeTest() {
         useBulk(false);
         runTest(PassedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -198,7 +204,7 @@ public class QaseExtensionTest {
     }
 
     @Test
-    public void failedTest() {
+    void failedTest() {
         useBulk(false);
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -215,7 +221,7 @@ public class QaseExtensionTest {
     }
 
     @Test
-    public void failedWithTimeTest() {
+    void failedWithTimeTest() {
         useBulk(false);
         runTest(FailedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -232,8 +238,7 @@ public class QaseExtensionTest {
     }
 
     private void runTest(Class<?> className) {
-        QaseClient.getConfig().reload();
-        QaseClient.reInit();
+        QaseClient.setEnabled(true);
         LauncherDiscoveryRequest launcherDiscoveryRequest = LauncherDiscoveryRequestBuilder
                 .request()
                 .selectors(selectClass(className))

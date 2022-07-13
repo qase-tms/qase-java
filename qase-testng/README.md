@@ -13,37 +13,38 @@ This integration uploads test run results to Qase TMS via API.
 Add the following dependency to your pom.xml:
 
 ```xml
+
 <properties>
     <aspectj.version>1.9.8</aspectj.version>
 </properties>
 
 <dependency>
-    <groupId>io.qase</groupId>
-    <artifactId>qase-testng</artifactId>
-    <version>2.1.3</version>
-    <scope>test</scope>
+<groupId>io.qase</groupId>
+<artifactId>qase-testng</artifactId>
+<version>2.1.4</version>
+<scope>test</scope>
 </dependency>
 
 <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
-            <configuration>
-                <argLine>
-                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                </argLine>
-            </configuration>
-            <dependencies>
-                <dependency>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjweaver</artifactId>
-                    <version>${aspectj.version}</version>
-                </dependency>
-            </dependencies>
-        </plugin>
-    </plugins>
+<plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M5</version>
+        <configuration>
+            <argLine>
+                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+            </argLine>
+        </configuration>
+        <dependencies>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+        </dependencies>
+    </plugin>
+</plugins>
 </build>
 ```
 
@@ -70,15 +71,16 @@ test.doFirst {
 
 Use the following options to configure integration:
 
-|         Key          |  Type   |                                    Description                                     |
-|:--------------------:|:-------:|:----------------------------------------------------------------------------------:|
-|     QASE_ENABLE      | boolean |                                    Use Qase TMS                                    |
-|  QASE_PROJECT_CODE   | string  |                              Project Code in Qase TMS                              |
-|     QASE_RUN_ID      | integer |                              Test Run ID in Qase TMS                               |
-|    QASE_API_TOKEN    | string  |                               API Token for Qase TMS                               |
-|    QASE_USE_BULK     | boolean |                           Use Bulk Send (default: true)                            |
-|    QASE_RUN_NAME     | string  |               Name of the new Test Run (only if QASE_RUN_ID not set)               |
-| QASE_RUN_DESCRIPTION | string  |           Description of the new Test Run (only if QASE_RUN_ID not set)            |
+|          Key          |  Type   |                          Description                          |
+|:---------------------:|:-------:|:-------------------------------------------------------------:|
+|      QASE_ENABLE      | boolean |                         Use Qase TMS                          |
+|   QASE_PROJECT_CODE   | string  |                   Project Code in Qase TMS                    |
+|      QASE_RUN_ID      | integer |                    Test Run ID in Qase TMS                    |
+|    QASE_API_TOKEN     | string  |                    API Token for Qase TMS                     |
+|     QASE_USE_BULK     | boolean |                 Use Bulk Send (default: true)                 |
+|     QASE_RUN_NAME     | string  |    Name of the new Test Run (only if QASE_RUN_ID not set)     |
+| QASE_RUN_DESCRIPTION  | string  | Description of the new Test Run (only if QASE_RUN_ID not set) |
+| QASE_RUN_AUTOCOMPLETE | boolean |           Complete test run after passing autotests           |
 
 All options could be provided by both system properties and environment variables.
 
@@ -131,7 +133,7 @@ You can add the method argument value to the step name by using the argument nam
 
 ```java
 @Step("Step {arg1} and {arg2}")
-public void step(String arg1, int arg2) {
+public void step(String arg1,int arg2){
         // do something
         }
 ```
