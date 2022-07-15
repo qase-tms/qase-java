@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.junit.samples.*;
 import io.qase.junit4.QaseListener;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.JUnitCore;
@@ -12,7 +13,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.useBulk;
 
-public class QaseListenerTest {
+class QaseListenerTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
     static int port;
 
@@ -33,8 +34,13 @@ public class QaseListenerTest {
         wireMockServer.stop();
     }
 
+    @AfterEach
+    void resetRequests() {
+        wireMockServer.resetRequests();
+    }
+
     @Test
-    public void bulkWithStepsTest() {
+    void bulkWithStepsTest() {
         useBulk(true);
         runTest(WithSteps.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
@@ -63,7 +69,7 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void bulkMultipleTest() {
+    void bulkMultipleTest() {
         useBulk(true);
         runTest(Multiple.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777/bulk"))
@@ -109,7 +115,7 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void passedTest() {
+    void passedTest() {
         useBulk(false);
         runTest(Passed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -123,7 +129,7 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void withStepsTest() {
+    void withStepsTest() {
         useBulk(false);
         runTest(WithSteps.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -150,7 +156,7 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void newCaseWithStepsTest() {
+    void newCaseWithStepsTest() {
         useBulk(false);
         runTest(NewCase.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -179,7 +185,7 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void passedWithTimeTest() {
+    void passedWithTimeTest() {
         useBulk(false);
         runTest(PassedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -193,7 +199,7 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void failedTest() {
+    void failedTest() {
         useBulk(false);
         runTest(Failed.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
@@ -210,7 +216,7 @@ public class QaseListenerTest {
     }
 
     @Test
-    public void failedWithTimeTest() {
+    void failedWithTimeTest() {
         useBulk(false);
         runTest(FailedWithTime.class);
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))

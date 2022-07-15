@@ -5,6 +5,7 @@ import io.qase.api.StepStorage;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
+import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
@@ -34,13 +35,18 @@ import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
 
 public class QaseExtension implements TestExecutionListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseExtension.class);
-    private final ApiClient apiClient = QaseClient.getApiClient();
-    private final ResultsApi resultsApi = new ResultsApi(apiClient);
+    private ResultsApi resultsApi;
+    private RunsApi runsApi;
     private final Map<TestIdentifier, Long> startTime = new ConcurrentHashMap<>();
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
 
     public QaseExtension() {
-        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "JUnit 5");
+        if (QaseClient.isEnabled()) {
+            ApiClient apiClient = QaseClient.getApiClient();
+            apiClient.addDefaultHeader(X_CLIENT_REPORTER, "JUnit 5");
+            resultsApi = new ResultsApi(apiClient);
+            runsApi = new RunsApi(apiClient);
+        }
     }
 
     @Override
@@ -72,21 +78,28 @@ public class QaseExtension implements TestExecutionListener {
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
+        if (!QaseClient.isEnabled()) {
+            return;
+        }
         if (getConfig().useBulk()) {
             sendBulkResult();
+        }
+        if (getConfig().runAutocomplete()) {
+            try {
+                runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
+            }
         }
     }
 
     private void addBulkResult(TestExecutionResult testExecutionResult, Duration timeSpent, Method testMethod) {
-        if (QaseClient.isEnabled() && testMethod != null) {
+        if (testMethod != null) {
             resultCreateBulk.addResultsItem(getResultItem(testExecutionResult, timeSpent, testMethod));
         }
     }
 
     private void sendBulkResult() {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         try {
             resultsApi.createResultBulk(
                     getConfig().projectCode(),

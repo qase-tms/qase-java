@@ -8,6 +8,7 @@ import io.qase.api.annotation.CaseTitle;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
+import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
@@ -37,6 +38,7 @@ public class QaseListener extends RunListener {
     private static final ThreadLocal<Set<Integer>> cases = ThreadLocal.withInitial(HashSet::new);
     private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
+    private final RunsApi runsApi = new RunsApi(apiClient);
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
     private long startTime;
 
@@ -90,6 +92,13 @@ public class QaseListener extends RunListener {
     public void testRunFinished(Result result) throws Exception {
         if (getConfig().useBulk()) {
             sendBulkResult();
+        }
+        if (getConfig().runAutocomplete()) {
+            try {
+                runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
+            }
         }
         super.testRunFinished(result);
     }

@@ -8,6 +8,7 @@ import io.qase.api.exceptions.QaseException;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
+import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
@@ -26,13 +27,18 @@ import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements ConcurrentEventListener {
     private static final Logger logger = LoggerFactory.getLogger(QaseEventListener.class);
-    private final ApiClient apiClient = QaseClient.getApiClient();
-    private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
+    private ResultsApi resultsApi;
+    private RunsApi runsApi;
 
     public QaseEventListener() {
-        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 5-JVM");
+        if (QaseClient.isEnabled()) {
+            ApiClient apiClient = QaseClient.getApiClient();
+            resultsApi = new ResultsApi(apiClient);
+            runsApi = new RunsApi(apiClient);
+            apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 5-JVM");
+        }
     }
 
     private void testCaseStarted(TestCaseStarted event) {
@@ -44,6 +50,9 @@ public class QaseEventListener implements ConcurrentEventListener {
             Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime.get());
             List<String> tags = event.getTestCase().getTags();
             Long caseId = CucumberUtils.getCaseId(tags);
+            if (caseId == null) {
+                return;
+            }
             if (getConfig().useBulk()) {
                 addBulkResult(caseId, duration, event.getResult());
             } else {
@@ -80,9 +89,6 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void send(Long caseId, Duration duration, Result result) {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         try {
             resultsApi.createResult(getConfig().projectCode(),
                     getConfig().runId(),
@@ -110,19 +116,27 @@ public class QaseEventListener implements ConcurrentEventListener {
 
     @Override
     public void setEventPublisher(EventPublisher eventPublisher) {
-        eventPublisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
-        eventPublisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-        eventPublisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+        if (QaseClient.isEnabled()) {
+            eventPublisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
+            eventPublisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
+            eventPublisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+        }
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
-        sendBulkResult();
+        if (getConfig().useBulk()) {
+            sendBulkResult();
+        }
+        if (getConfig().runAutocomplete()) {
+            try {
+                runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
+            }
+        }
     }
 
     private void sendBulkResult() {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         try {
             resultsApi.createResultBulk(
                     getConfig().projectCode(),

@@ -1,7 +1,10 @@
 package io.qase.cucumber3;
 
 import cucumber.api.Result;
-import cucumber.api.event.*;
+import cucumber.api.event.EventPublisher;
+import cucumber.api.event.TestCaseFinished;
+import cucumber.api.event.TestCaseStarted;
+import cucumber.api.event.TestRunFinished;
 import cucumber.api.formatter.Formatter;
 import gherkin.pickles.PickleTag;
 import io.qase.api.QaseClient;
@@ -10,6 +13,7 @@ import io.qase.api.exceptions.QaseException;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.ApiClient;
 import io.qase.client.api.ResultsApi;
+import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
@@ -17,7 +21,6 @@ import io.qase.client.model.ResultCreateSteps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,40 +29,56 @@ import java.util.stream.Collectors;
 
 import static io.qase.api.Constants.X_CLIENT_REPORTER;
 import static io.qase.api.QaseClient.getConfig;
-import static io.qase.api.utils.IntegrationUtils.*;
+import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements Formatter {
     private static final Logger logger = LoggerFactory.getLogger(QaseEventListener.class);
-    private final ApiClient apiClient = QaseClient.getApiClient();
-    private final ResultsApi resultsApi = new ResultsApi(apiClient);
+    private final ThreadLocal<Long> startTime = new ThreadLocal<>();
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
-    private long startTime;
+    private ResultsApi resultsApi;
+    private RunsApi runsApi;
 
     public QaseEventListener() {
-        apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 3-JVM");
+        if (QaseClient.isEnabled()) {
+            ApiClient apiClient = QaseClient.getApiClient();
+            resultsApi = new ResultsApi(apiClient);
+            runsApi = new RunsApi(apiClient);
+            apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 3-JVM");
+        }
     }
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-        publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
-        publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-        publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+        if (QaseClient.isEnabled()) {
+            publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
+            publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
+            publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+        }
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
-        sendBulkResult();
+        if (getConfig().useBulk()) {
+            sendBulkResult();
+        }
+        if (getConfig().runAutocomplete()) {
+            try {
+                runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
+            }
+        }
     }
 
     private void testCaseStarted(TestCaseStarted event) {
-        startTime = System.currentTimeMillis();
+        startTime.set(System.currentTimeMillis());
     }
 
     private void testCaseFinished(TestCaseFinished event) {
-        Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime);
+        Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime.get());
         List<PickleTag> pickleTags = event.testCase.getTags();
         List<String> tags = pickleTags.stream().map(PickleTag::getName).collect(Collectors.toList());
         Long caseId = CucumberUtils.getCaseId(tags);
-        if (!QaseClient.isEnabled() || caseId == null) {
+        if (caseId == null) {
             return;
         }
         if (getConfig().useBulk()) {
@@ -70,9 +89,6 @@ public class QaseEventListener implements Formatter {
     }
 
     private void sendBulkResult() {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         try {
             resultsApi.createResultBulk(
                     getConfig().projectCode(),

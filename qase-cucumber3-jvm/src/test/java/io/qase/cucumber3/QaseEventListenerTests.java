@@ -4,6 +4,7 @@ package io.qase.cucumber3;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import cucumber.api.cli.Main;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.useBulk;
 
-public class QaseEventListenerTests {
+class QaseEventListenerTests {
     static final WireMockServer wireMockServer = new WireMockServer(options().port(8088));
 
     @BeforeAll
@@ -30,8 +31,13 @@ public class QaseEventListenerTests {
         wireMockServer.stop();
     }
 
+    @AfterEach
+    void resetRequests() {
+        wireMockServer.resetRequests();
+    }
+
     @Test
-    public void bulk() {
+    void bulk() {
         useBulk(true);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
@@ -73,7 +79,7 @@ public class QaseEventListenerTests {
     }
 
     @Test
-    public void success() {
+    void success() {
         useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
@@ -93,7 +99,7 @@ public class QaseEventListenerTests {
     }
 
     @Test
-    public void successWithTime() {
+    void successWithTime() {
         useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
@@ -114,7 +120,7 @@ public class QaseEventListenerTests {
     }
 
     @Test
-    public void failed() {
+    void failed() {
         useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
@@ -137,7 +143,7 @@ public class QaseEventListenerTests {
     }
 
     @Test
-    public void failedWithTime() {
+    void failedWithTime() {
         useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",

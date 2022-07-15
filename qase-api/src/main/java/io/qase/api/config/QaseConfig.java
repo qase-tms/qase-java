@@ -20,7 +20,8 @@ public interface QaseConfig extends Reloadable, Mutable {
     String USE_BULK_KEY = "QASE_USE_BULK";
     String BASE_URL_KEY = "QASE_URL";
     String RUN_NAME_KEY = "QASE_RUN_NAME";
-    String QASE_RUN_DESCRIPTION_KEY = "QASE_RUN_DESCRIPTION";
+    String RUN_DESCRIPTION_KEY = "QASE_RUN_DESCRIPTION";
+    String RUN_AUTOCOMPLETE_KEY = "QASE_RUN_AUTOCOMPLETE";
 
     @Key(ENABLE_KEY)
     @DefaultValue("false")
@@ -46,6 +47,10 @@ public interface QaseConfig extends Reloadable, Mutable {
     @Key(RUN_NAME_KEY)
     String runName();
 
-    @Key(QASE_RUN_DESCRIPTION_KEY)
+    @Key(RUN_DESCRIPTION_KEY)
     String runDescription();
+
+    @Key(RUN_AUTOCOMPLETE_KEY)
+    @DefaultValue("false")
+    boolean runAutocomplete();
 }
