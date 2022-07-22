@@ -12,6 +12,7 @@ import org.junit.runner.JUnitCore;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.useBulk;
+import static io.qase.api.utils.TestUtils.useScreenshotsSending;
 
 class QaseListenerTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
@@ -112,6 +113,18 @@ class QaseListenerTest {
                         "    } ]\n" +
                         "  } ]\n" +
                         "}", true, false)));
+    }
+
+    @Test
+    void bulkMultipleWithScreenshotsSendingTest() {
+        useBulk(true);
+        useScreenshotsSending(true);
+        wireMockServer.addStubMapping(stubFor(post("/v1/result/PRJ/777/bulk").willReturn(ok())));
+        wireMockServer.addStubMapping(stubFor(post("/v1/attachment/PRJ").willReturn(ok())));
+        runTest(Multiple.class);
+        verify(postRequestedFor(urlPathEqualTo("/v1/attachment/PRJ"))
+            .withHeader("Token", equalTo("secret-token"))
+            .withHeader("Content-Type", matching("\\Qmultipart/form-data; boundary=\\E.+")));
     }
 
     @Test
