@@ -4,6 +4,7 @@ import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
+import io.qase.client.api.AttachmentsApi;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
@@ -11,6 +12,9 @@ import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.services.ScreenshotsSender;
+import io.qase.client.services.impl.AttachmentsApiScreenshotsUploader;
+import io.qase.client.services.impl.NoOpScreenshotsSender;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
@@ -40,12 +44,17 @@ public class QaseExtension implements TestExecutionListener {
     private final Map<TestIdentifier, Long> startTime = new ConcurrentHashMap<>();
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
 
+    private final ScreenshotsSender screenshotsSender;
+
     public QaseExtension() {
         if (QaseClient.isEnabled()) {
             ApiClient apiClient = QaseClient.getApiClient();
             apiClient.addDefaultHeader(X_CLIENT_REPORTER, "JUnit 5");
             resultsApi = new ResultsApi(apiClient);
             runsApi = new RunsApi(apiClient);
+            screenshotsSender = new AttachmentsApiScreenshotsUploader(new AttachmentsApi(apiClient));
+        } else {
+            screenshotsSender = new NoOpScreenshotsSender();
         }
     }
 
@@ -106,6 +115,7 @@ public class QaseExtension implements TestExecutionListener {
                     getConfig().runId(),
                     resultCreateBulk
             );
+            screenshotsSender.sendScreenshotsIfPermitted();
             resultCreateBulk.getResults().clear();
         } catch (QaseException e) {
             logger.error(e.getMessage());
