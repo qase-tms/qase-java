@@ -24,6 +24,8 @@ public interface QaseConfig extends Reloadable, Mutable {
     String RUN_AUTOCOMPLETE_KEY = "QASE_RUN_AUTOCOMPLETE";
     String QASE_ENVIRONMENT_ID_KEY = "QASE_ENVIRONMENT_ID";
 
+    String QASE_RUN_COMPLETE_KEY = "QASE_RUN_COMPLETE";
+
     @Key(ENABLE_KEY)
     @DefaultValue("false")
     boolean isEnabled();
@@ -53,6 +55,9 @@ public interface QaseConfig extends Reloadable, Mutable {
 
     @Key(QASE_ENVIRONMENT_ID_KEY)
     Long environmentId();
+
+    @Key(QASE_ENVIRONMENT_ID_KEY)
+    Boolean runComplete();
 
     @Key(RUN_AUTOCOMPLETE_KEY)
     @DefaultValue("false")
