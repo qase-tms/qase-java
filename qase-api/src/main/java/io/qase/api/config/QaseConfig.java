@@ -56,7 +56,7 @@ public interface QaseConfig extends Reloadable, Mutable {
     @Key(QASE_ENVIRONMENT_ID_KEY)
     Long environmentId();
 
-    @Key(QASE_ENVIRONMENT_ID_KEY)
+    @Key(QASE_RUN_COMPLETE_KEY)
     Boolean runComplete();
 
     @Key(RUN_AUTOCOMPLETE_KEY)
