@@ -1,6 +1,7 @@
 package io.qase.junit;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import io.qase.api.utils.TestUtils;
 import io.qase.junit.samples.*;
 import io.qase.junit4.QaseListener;
 import org.junit.jupiter.api.AfterAll;
@@ -22,11 +23,7 @@ class QaseListenerTest {
         wireMockServer.start();
         port = wireMockServer.port();
         configureFor(port);
-        System.setProperty("QASE_ENABLE", "true");
-        System.setProperty("QASE_PROJECT_CODE", "PRJ");
-        System.setProperty("QASE_RUN_ID", "777");
-        System.setProperty("QASE_API_TOKEN", "secret-token");
-        System.setProperty("QASE_URL", "http://localhost:" + port + "/v1");
+        TestUtils.setupQaseTestEnvironmentVariables(port);
     }
 
     @AfterAll
