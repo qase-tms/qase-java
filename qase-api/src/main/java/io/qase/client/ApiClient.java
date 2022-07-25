@@ -57,7 +57,7 @@ public class ApiClient {
 
     private final Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private final Map<String, String> defaultCookieMap = new HashMap<String, String>();
-    private String basePath = "https://api.qase.io/v1";
+    private String basePath = "https://api.qase.io/v1"; // TODO: check if the value could be unhardcoded
     private boolean debugging = false;
     private String tempFolderPath = null;
 

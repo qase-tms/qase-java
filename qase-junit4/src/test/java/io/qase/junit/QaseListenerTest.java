@@ -1,6 +1,7 @@
 package io.qase.junit;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import io.qase.api.utils.TestUtils;
 import io.qase.junit.samples.*;
 import io.qase.junit4.QaseListener;
 import org.junit.jupiter.api.AfterAll;
@@ -12,7 +13,6 @@ import org.junit.runner.JUnitCore;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.useBulk;
-import static io.qase.api.utils.TestUtils.useScreenshotsSending;
 
 class QaseListenerTest {
     static final WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
@@ -23,11 +23,7 @@ class QaseListenerTest {
         wireMockServer.start();
         port = wireMockServer.port();
         configureFor(port);
-        System.setProperty("QASE_ENABLE", "true");
-        System.setProperty("QASE_PROJECT_CODE", "PRJ");
-        System.setProperty("QASE_RUN_ID", "777");
-        System.setProperty("QASE_API_TOKEN", "secret-token");
-        System.setProperty("QASE_URL", "http://localhost:" + port + "/v1");
+        TestUtils.setupQaseTestEnvironmentVariables(port);
     }
 
     @AfterAll
@@ -113,18 +109,6 @@ class QaseListenerTest {
                         "    } ]\n" +
                         "  } ]\n" +
                         "}", true, false)));
-    }
-
-    @Test
-    void bulkMultipleWithScreenshotsSendingTest() {
-        useBulk(true);
-        useScreenshotsSending(true);
-        wireMockServer.addStubMapping(stubFor(post("/v1/result/PRJ/777/bulk").willReturn(ok())));
-        wireMockServer.addStubMapping(stubFor(post("/v1/attachment/PRJ").willReturn(ok())));
-        runTest(Multiple.class);
-        verify(postRequestedFor(urlPathEqualTo("/v1/attachment/PRJ"))
-            .withHeader("Token", equalTo("secret-token"))
-            .withHeader("Content-Type", matching("\\Qmultipart/form-data; boundary=\\E.+")));
     }
 
     @Test
