@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.CaseTitle;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
+import io.qase.client.api.AttachmentsApi;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
@@ -14,6 +15,8 @@ import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.services.ScreenshotsSender;
+import io.qase.client.services.impl.AttachmentsApiScreenshotsUploader;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -21,7 +24,6 @@ import org.junit.runner.notification.RunListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -40,6 +42,10 @@ public class QaseListener extends RunListener {
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
     private final RunsApi runsApi = new RunsApi(apiClient);
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
+
+    private final ScreenshotsSender screenshotsSender =
+        new AttachmentsApiScreenshotsUploader(new AttachmentsApi(apiClient));
+
     private long startTime;
 
     public QaseListener() {
@@ -135,6 +141,7 @@ public class QaseListener extends RunListener {
                     getConfig().runId(),
                     resultCreateBulk
             );
+            screenshotsSender.sendScreenshotsIfPermitted();
             resultCreateBulk.getResults().clear();
         } catch (QaseException e) {
             logger.error(e.getMessage());
