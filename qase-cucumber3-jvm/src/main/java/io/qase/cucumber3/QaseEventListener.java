@@ -12,12 +12,16 @@ import io.qase.api.StepStorage;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.ApiClient;
+import io.qase.client.api.AttachmentsApi;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateBulk;
 import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.services.ScreenshotsSender;
+import io.qase.client.services.impl.AttachmentsApiScreenshotsUploader;
+import io.qase.client.services.impl.NoOpScreenshotsSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,12 +42,17 @@ public class QaseEventListener implements Formatter {
     private ResultsApi resultsApi;
     private RunsApi runsApi;
 
+    private final ScreenshotsSender screenshotsSender;
+
     public QaseEventListener() {
         if (QaseClient.isEnabled()) {
             ApiClient apiClient = QaseClient.getApiClient();
             resultsApi = new ResultsApi(apiClient);
             runsApi = new RunsApi(apiClient);
             apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 3-JVM");
+            screenshotsSender = new AttachmentsApiScreenshotsUploader(new AttachmentsApi(apiClient));
+        } else {
+            screenshotsSender = new NoOpScreenshotsSender();
         }
     }
 
@@ -95,6 +104,7 @@ public class QaseEventListener implements Formatter {
                     getConfig().runId(),
                     resultCreateBulk
             );
+            screenshotsSender.sendScreenshotsIfPermitted();
             resultCreateBulk.getResults().clear();
         } catch (QaseException e) {
             logger.error(e.getMessage());
