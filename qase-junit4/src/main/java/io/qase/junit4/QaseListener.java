@@ -47,24 +47,24 @@ public class QaseListener extends RunListener {
     @Override
     public void testFailure(Failure failure) {
         qaseReporter.onTestCaseFinished(getResultItem(failure.getDescription(), FAILED, failure.getException()));
-        qaseReporter.onTestRunFinished();
+        qaseReporter.reportResults();
     }
 
     @Override
     public void testAssumptionFailure(Failure failure) {
         qaseReporter.onTestCaseFinished(getResultItem(failure.getDescription(), SKIPPED, null));
-        qaseReporter.onTestRunFinished();
+        qaseReporter.reportResults();
     }
 
     @Override
     public void testIgnored(Description description) {
         qaseReporter.onTestCaseFinished(getResultItem(description, SKIPPED, null));
-        qaseReporter.onTestRunFinished();
+        qaseReporter.reportResults();
     }
 
     @Override
     public void testRunFinished(Result result) {
-        qaseReporter.onTestRunFinished();
+        qaseReporter.reportResults();
     }
 
     private ResultCreate getResultItem(Description description, StatusEnum status, Throwable error) {

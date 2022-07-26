@@ -25,7 +25,7 @@ public class QaseReporter {
 
     private final ReportersResultOperations resultOperations;
 
-    public void onTestRunFinished() {
+    public void reportResults() {
         if (getConfig().useBulk()) {
             resultOperations.sendBulkResult();
         }
