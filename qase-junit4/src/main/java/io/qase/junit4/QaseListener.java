@@ -94,7 +94,7 @@ public class QaseListener extends RunListener {
     }
 
     @Override
-    public void testRunFinished(Result result) throws Exception {
+    public void testRunFinished(Result result) {
         if (getConfig().useBulk()) {
             sendBulkResult();
         }
@@ -105,7 +105,6 @@ public class QaseListener extends RunListener {
                 log.error(e.getMessage());
             }
         }
-        super.testRunFinished(result);
     }
 
     private void addBulkResult(Description description, StatusEnum status, Throwable error) {
