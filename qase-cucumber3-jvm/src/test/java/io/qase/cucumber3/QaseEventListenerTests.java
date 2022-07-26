@@ -38,7 +38,7 @@ class QaseEventListenerTests {
         useBulk(true);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
-                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "--add-plugin", io.qase.cucumber3.QaseEventListenerDelegator.class.getCanonicalName(),
                 "classpath:features/"
         };
         Main.run(args, Thread.currentThread().getContextClassLoader());
@@ -80,7 +80,7 @@ class QaseEventListenerTests {
         useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
-                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "--add-plugin", io.qase.cucumber3.QaseEventListenerDelegator.class.getCanonicalName(),
                 "classpath:features/success.feature"
         };
         Main.run(args, Thread.currentThread().getContextClassLoader());
@@ -100,7 +100,7 @@ class QaseEventListenerTests {
         useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
-                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "--add-plugin", io.qase.cucumber3.QaseEventListenerDelegator.class.getCanonicalName(),
                 "classpath:features/success_with_time.feature"
         };
         Main.run(args, Thread.currentThread().getContextClassLoader());
@@ -121,7 +121,7 @@ class QaseEventListenerTests {
         useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
-                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "--add-plugin", io.qase.cucumber3.QaseEventListenerDelegator.class.getCanonicalName(),
                 "classpath:features/failed.feature"
         };
         Main.run(args, Thread.currentThread().getContextClassLoader());
@@ -144,7 +144,7 @@ class QaseEventListenerTests {
         useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber3",
-                "--add-plugin", "io.qase.cucumber3.QaseEventListener",
+                "--add-plugin", io.qase.cucumber3.QaseEventListenerDelegator.class.getCanonicalName(),
                 "classpath:features/failed_with_time.feature"
         };
         Main.run(args, Thread.currentThread().getContextClassLoader());

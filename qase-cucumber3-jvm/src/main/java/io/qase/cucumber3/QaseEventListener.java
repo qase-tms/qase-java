@@ -1,5 +1,6 @@
 package io.qase.cucumber3;
 
+import com.google.inject.Inject;
 import cucumber.api.Result;
 import cucumber.api.event.EventPublisher;
 import cucumber.api.event.TestCaseFinished;
@@ -12,18 +13,12 @@ import io.qase.api.StepStorage;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.ApiClient;
-import io.qase.client.api.AttachmentsApi;
-import io.qase.client.api.ResultsApi;
 import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
-import io.qase.client.model.ResultCreateBulk;
 import io.qase.client.model.ResultCreateSteps;
-import io.qase.client.services.ScreenshotsSender;
-import io.qase.client.services.impl.AttachmentsApiScreenshotsUploader;
-import io.qase.client.services.impl.NoOpScreenshotsSender;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.qase.client.services.ReportersResultOperations;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
 import java.util.LinkedList;
@@ -35,25 +30,20 @@ import static io.qase.api.Constants.X_CLIENT_REPORTER;
 import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
+@Slf4j
 public class QaseEventListener implements Formatter {
-    private static final Logger logger = LoggerFactory.getLogger(QaseEventListener.class);
+    private static final String REPORTER_NAME = "Cucumber 3-JVM";
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
-    private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
-    private ResultsApi resultsApi;
-    private RunsApi runsApi;
 
-    private final ScreenshotsSender screenshotsSender;
+    private final RunsApi runsApi;
 
-    public QaseEventListener() {
-        if (QaseClient.isEnabled()) {
-            ApiClient apiClient = QaseClient.getApiClient();
-            resultsApi = new ResultsApi(apiClient);
-            runsApi = new RunsApi(apiClient);
-            apiClient.addDefaultHeader(X_CLIENT_REPORTER, "Cucumber 3-JVM");
-            screenshotsSender = new AttachmentsApiScreenshotsUploader(new AttachmentsApi(apiClient));
-        } else {
-            screenshotsSender = new NoOpScreenshotsSender();
-        }
+    private final ReportersResultOperations resultOperations;
+
+    @Inject
+    public QaseEventListener(ApiClient apiClient, RunsApi runsApi, ReportersResultOperations resultOperations) {
+        this.runsApi = runsApi;
+        this.resultOperations = resultOperations;
+        apiClient.addDefaultHeader(X_CLIENT_REPORTER, REPORTER_NAME);
     }
 
     @Override
@@ -67,13 +57,13 @@ public class QaseEventListener implements Formatter {
 
     private void testRunFinished(TestRunFinished testRunFinished) {
         if (getConfig().useBulk()) {
-            sendBulkResult();
+            resultOperations.sendBulkResult();
         }
         if (getConfig().runAutocomplete()) {
             try {
                 runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
             } catch (QaseException e) {
-                logger.error(e.getMessage());
+                log.error(e.getMessage());
             }
         }
     }
@@ -91,38 +81,9 @@ public class QaseEventListener implements Formatter {
             return;
         }
         if (getConfig().useBulk()) {
-            addBulkResult(caseId, duration, event.result);
+            resultOperations.addBulkResult(getResultItem(caseId, duration, event.result));
         } else {
-            send(caseId, duration, event.result);
-        }
-    }
-
-    private void sendBulkResult() {
-        try {
-            resultsApi.createResultBulk(
-                    getConfig().projectCode(),
-                    getConfig().runId(),
-                    resultCreateBulk
-            );
-            screenshotsSender.sendScreenshotsIfPermitted();
-            resultCreateBulk.getResults().clear();
-        } catch (QaseException e) {
-            logger.error(e.getMessage());
-        }
-    }
-
-    private void addBulkResult(Long caseId, Duration duration, Result result) {
-        resultCreateBulk.addResultsItem(getResultItem(caseId, duration, result));
-    }
-
-    private void send(Long caseId, Duration duration, Result result) {
-        try {
-            ResultCreate resultCreate = getResultItem(caseId, duration, result);
-            resultsApi.createResult(getConfig().projectCode(),
-                    getConfig().runId(),
-                    resultCreate);
-        } catch (QaseException e) {
-            logger.error(e.getMessage());
+            resultOperations.send(getResultItem(caseId, duration, event.result));
         }
     }
 
