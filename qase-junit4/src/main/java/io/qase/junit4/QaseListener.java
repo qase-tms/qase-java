@@ -17,12 +17,11 @@ import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.client.services.ScreenshotsSender;
 import io.qase.client.services.impl.AttachmentsApiScreenshotsUploader;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.HashSet;
@@ -35,8 +34,8 @@ import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 import static io.qase.client.model.ResultCreate.StatusEnum.*;
 
+@Slf4j
 public class QaseListener extends RunListener {
-    private static final Logger logger = LoggerFactory.getLogger(QaseListener.class);
     private static final ThreadLocal<Set<Integer>> cases = ThreadLocal.withInitial(HashSet::new);
     private final ApiClient apiClient = QaseClient.getApiClient();
     private final ResultsApi resultsApi = new ResultsApi(apiClient);
@@ -103,7 +102,7 @@ public class QaseListener extends RunListener {
             try {
                 runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
             } catch (QaseException e) {
-                logger.error(e.getMessage());
+                log.error(e.getMessage());
             }
         }
         super.testRunFinished(result);
@@ -126,7 +125,7 @@ public class QaseListener extends RunListener {
                     getConfig().runId(),
                     result);
         } catch (QaseException e) {
-            logger.error(e.getMessage());
+            log.error(e.getMessage());
         }
         cases.get().remove(description.hashCode());
     }
@@ -144,7 +143,7 @@ public class QaseListener extends RunListener {
             screenshotsSender.sendScreenshotsIfPermitted();
             resultCreateBulk.getResults().clear();
         } catch (QaseException e) {
-            logger.error(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
