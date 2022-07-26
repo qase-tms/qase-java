@@ -15,6 +15,12 @@ import static io.qase.api.QaseClient.getConfig;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class QaseReporter {
 
+    /**
+     * @see #startTestCaseTimer
+     * @see #stopTestCaseTimer
+     * */
+    private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+
     private final RunsApi runsApi;
 
     private final ReportersResultOperations resultOperations;
@@ -32,7 +38,12 @@ public class QaseReporter {
         }
     }
 
+    public void onTestCaseStarted() {
+        startTestCaseTimer();
+    }
+
     public void onTestCaseFinished(ResultCreate resultCreate) {
+        resultCreate.timeMs(stopTestCaseTimer());
         if (getConfig().useBulk()) {
             resultOperations.addBulkResult(resultCreate);
         } else {
@@ -42,5 +53,15 @@ public class QaseReporter {
 
     public void setupReporterName(String reporterName) {
         runsApi.getApiClient().addDefaultHeader(X_CLIENT_REPORTER, reporterName);
+    }
+
+    private void startTestCaseTimer() {
+        startTime.set(System.currentTimeMillis());
+    }
+
+    private long stopTestCaseTimer() {
+        long testCaseStartTime = startTime.get();
+        startTime.remove();
+        return System.currentTimeMillis() - testCaseStartTime;
     }
 }

@@ -16,7 +16,6 @@ import io.qase.client.model.ResultCreateSteps;
 import io.qase.reporters.QaseReporter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -30,12 +29,9 @@ public class QaseEventListener implements Formatter {
 
     private static final String REPORTER_NAME = "Cucumber 3-JVM";
 
-    private final ThreadLocal<Long> startTime;
-
     private final QaseReporter qaseReporter;
 
     public QaseEventListener() {
-        this.startTime = new ThreadLocal<>();
         this.qaseReporter = INJECTOR.getInstance(QaseReporter.class);
         qaseReporter.setupReporterName(REPORTER_NAME);
     }
@@ -54,7 +50,7 @@ public class QaseEventListener implements Formatter {
     }
 
     private void testCaseStarted(TestCaseStarted event) {
-        startTime.set(System.currentTimeMillis());
+        qaseReporter.onTestCaseStarted();
     }
 
     private void testCaseFinished(TestCaseFinished event) {
@@ -62,7 +58,6 @@ public class QaseEventListener implements Formatter {
     }
 
     private ResultCreate getResultItem(TestCaseFinished event) {
-        Duration duration = Duration.ofMillis(System.currentTimeMillis() - startTime.get());
         List<PickleTag> pickleTags = event.testCase.getTags();
         List<String> tags = pickleTags.stream().map(PickleTag::getName).collect(Collectors.toList());
         Long caseId = CucumberUtils.getCaseId(tags);
@@ -79,7 +74,6 @@ public class QaseEventListener implements Formatter {
         return new ResultCreate()
             .caseId(caseId)
             .status(status)
-            .timeMs(duration.toMillis())
             .comment(comment)
             .stacktrace(stacktrace)
             .steps(steps.isEmpty() ? null : steps)
