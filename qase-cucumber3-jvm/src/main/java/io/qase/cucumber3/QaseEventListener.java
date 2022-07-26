@@ -14,7 +14,6 @@ import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.reporters.QaseReporter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 import static io.qase.configuration.QaseModule.INJECTOR;
 
-@Slf4j
 public class QaseEventListener implements Formatter {
 
     private static final String REPORTER_NAME = "Cucumber 3-JVM";
