@@ -15,14 +15,13 @@ import io.qase.client.model.ResultCreateSteps;
 import io.qase.client.services.ScreenshotsSender;
 import io.qase.client.services.impl.AttachmentsApiScreenshotsUploader;
 import io.qase.client.services.impl.NoOpScreenshotsSender;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -37,8 +36,9 @@ import static io.qase.api.QaseClient.getConfig;
 import static io.qase.api.utils.IntegrationUtils.*;
 import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
 
+@Slf4j
 public class QaseExtension implements TestExecutionListener {
-    private static final Logger logger = LoggerFactory.getLogger(QaseExtension.class);
+
     private ResultsApi resultsApi;
     private RunsApi runsApi;
     private final Map<TestIdentifier, Long> startTime = new ConcurrentHashMap<>();
@@ -97,7 +97,7 @@ public class QaseExtension implements TestExecutionListener {
             try {
                 runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
             } catch (QaseException e) {
-                logger.error(e.getMessage());
+                log.error(e.getMessage());
             }
         }
     }
@@ -118,7 +118,7 @@ public class QaseExtension implements TestExecutionListener {
             screenshotsSender.sendScreenshotsIfPermitted();
             resultCreateBulk.getResults().clear();
         } catch (QaseException e) {
-            logger.error(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
@@ -130,7 +130,7 @@ public class QaseExtension implements TestExecutionListener {
                         getConfig().runId(),
                         resultCreate);
             } catch (QaseException e) {
-                logger.error(e.getMessage());
+                log.error(e.getMessage());
             }
         }
     }
@@ -170,7 +170,7 @@ public class QaseExtension implements TestExecutionListener {
                     .filter(method -> MethodSource.from(method).equals(testSource))
                     .findFirst().orElse(null);
         } catch (ClassNotFoundException e) {
-            logger.error(e.getMessage());
+            log.error(e.getMessage());
             return null;
         }
     }
