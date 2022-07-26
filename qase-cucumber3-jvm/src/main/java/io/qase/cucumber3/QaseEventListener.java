@@ -33,6 +33,7 @@ import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 @Slf4j
 public class QaseEventListener implements Formatter {
     private static final String REPORTER_NAME = "Cucumber 3-JVM";
+
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     private final RunsApi runsApi;
