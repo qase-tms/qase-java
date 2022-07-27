@@ -1,6 +1,5 @@
 package io.qase.junit5;
 
-import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
@@ -38,7 +37,7 @@ public class QaseExtension implements TestExecutionListener {
 
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
-        if (!QaseClient.isEnabled() || !testIdentifier.isTest()) {
+        if (!testIdentifier.isTest()) {
             return;
         }
         getQaseReporter().onTestCaseStarted();
@@ -47,7 +46,7 @@ public class QaseExtension implements TestExecutionListener {
 
     @Override
     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
-        if (!QaseClient.isEnabled() || !testIdentifier.isTest()
+        if (!testIdentifier.isTest()
             || !startedTestIdentifiers.contains(testIdentifier)) {
             return;
         }
@@ -62,9 +61,6 @@ public class QaseExtension implements TestExecutionListener {
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
-        if (!QaseClient.isEnabled()) {
-            return;
-        }
         getQaseReporter().reportResults();
     }
 
