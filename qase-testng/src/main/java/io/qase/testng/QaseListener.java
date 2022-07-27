@@ -5,7 +5,7 @@ import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
-import io.qase.reporters.QaseReporter;
+import io.qase.client.services.QaseTestCaseListener;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.testng.ITestContext;
@@ -25,29 +25,29 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
     private static final String REPORTER_NAME = "TestNG";
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseReporter qaseReporter = initializeQaseReporter();
+    private final QaseTestCaseListener qaseTestCaseListener = initializeQaseReporter();
 
     @Override
     public void onTestStart(ITestResult result) {
-        getQaseReporter().onTestCaseStarted();
+        getQaseTestCaseListener().onTestCaseStarted();
         super.onTestStart(result);
     }
 
     @Override
     public void onTestSuccess(ITestResult tr) {
-        getQaseReporter().onTestCaseFinished(getResultItem(tr, StatusEnum.PASSED));
+        getQaseTestCaseListener().onTestCaseFinished(getResultItem(tr, StatusEnum.PASSED));
         super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        getQaseReporter().onTestCaseFinished(getResultItem(tr, StatusEnum.FAILED));
+        getQaseTestCaseListener().onTestCaseFinished(getResultItem(tr, StatusEnum.FAILED));
         super.onTestFailure(tr);
     }
 
     @Override
     public void onFinish(ITestContext testContext) {
-        getQaseReporter().reportResults();
+        getQaseTestCaseListener().reportResults();
         super.onFinish(testContext);
     }
 
@@ -77,8 +77,8 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
                 .defect(isDefect);
     }
 
-    private QaseReporter initializeQaseReporter() {
-        QaseReporter reporter = INJECTOR.getInstance(QaseReporter.class);
+    private QaseTestCaseListener initializeQaseReporter() {
+        QaseTestCaseListener reporter = INJECTOR.getInstance(QaseTestCaseListener.class);
         reporter.setupReporterName(REPORTER_NAME);
         return reporter;
     }
