@@ -11,6 +11,8 @@ import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.client.services.QaseTestCaseListener;
+import lombok.AccessLevel;
+import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,14 +26,11 @@ public class QaseEventListener implements ConcurrentEventListener {
 
     private static final String REPORTER_NAME = "Cucumber 4-JVM";
 
-    private final QaseTestCaseListener qaseTestCaseListener;
+    @Getter(lazy = true, value = AccessLevel.PRIVATE)
+    private final QaseTestCaseListener qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
 
     static {
         System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
-    }
-
-    public QaseEventListener() {
-        this.qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
     }
 
     @Override
@@ -44,15 +43,15 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
-        qaseTestCaseListener.reportResults();
+        getQaseTestCaseListener().reportResults();
     }
 
     private void testCaseStarted(TestCaseStarted event) {
-        qaseTestCaseListener.onTestCaseStarted();
+        getQaseTestCaseListener().onTestCaseStarted();
     }
 
     private void testCaseFinished(TestCaseFinished event) {
-        qaseTestCaseListener.onTestCaseFinished(getResultItem(event));
+        getQaseTestCaseListener().onTestCaseFinished(getResultItem(event));
     }
 
     private ResultCreate getResultItem(TestCaseFinished event) {
