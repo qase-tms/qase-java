@@ -32,6 +32,8 @@ public interface QaseConfig extends Reloadable, Mutable {
 
     String QASE_SCREENSHOT_EXTENSIONS_KEY = "QASE_SCREENSHOT_EXTENSIONS";
 
+    String QASE_CLIENT_REPORTER_NAME_KEY = "QASE_CLIENT_REPORTER_NAME";
+
     @Key(ENABLE_KEY)
     @DefaultValue("false")
     boolean isEnabled();
@@ -79,4 +81,8 @@ public interface QaseConfig extends Reloadable, Mutable {
     @Key(RUN_AUTOCOMPLETE_KEY)
     @DefaultValue("false")
     boolean runAutocomplete();
+
+    @Key(QASE_CLIENT_REPORTER_NAME_KEY)
+    @DefaultValue("qase-java")
+    String clientReporterName();
 }

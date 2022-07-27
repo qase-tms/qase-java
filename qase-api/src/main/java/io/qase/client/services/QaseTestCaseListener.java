@@ -9,6 +9,4 @@ public interface QaseTestCaseListener {
     void onTestCaseStarted();
 
     void onTestCaseFinished(ResultCreate resultCreate);
-
-    void setupReporterName(String reporterName);
 }

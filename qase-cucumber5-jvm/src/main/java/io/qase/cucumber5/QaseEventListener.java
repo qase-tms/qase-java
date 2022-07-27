@@ -3,6 +3,7 @@ package io.qase.cucumber5;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import io.qase.api.StepStorage;
+import io.qase.api.config.QaseConfig;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
@@ -22,9 +23,12 @@ public class QaseEventListener implements ConcurrentEventListener {
 
     private final QaseTestCaseListener qaseTestCaseListener;
 
+    static {
+        System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
+    }
+
     public QaseEventListener() {
         this.qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
-        qaseTestCaseListener.setupReporterName(REPORTER_NAME);
     }
 
     @Override

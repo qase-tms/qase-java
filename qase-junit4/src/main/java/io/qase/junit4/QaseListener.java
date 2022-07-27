@@ -4,6 +4,7 @@ package io.qase.junit4;
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.CaseTitle;
+import io.qase.api.config.QaseConfig;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
@@ -29,9 +30,12 @@ public class QaseListener extends RunListener {
 
     private final QaseTestCaseListener qaseTestCaseListener;
 
+    static {
+        System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
+    }
+
     public QaseListener() {
         qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
-        qaseTestCaseListener.setupReporterName(REPORTER_NAME);
     }
 
     @Override

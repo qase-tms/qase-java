@@ -10,7 +10,6 @@ import io.qase.client.services.ReportersResultOperations;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import static io.qase.api.Constants.X_CLIENT_REPORTER;
 import static io.qase.api.QaseClient.getConfig;
 
 @Slf4j
@@ -66,11 +65,6 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
         } else {
             resultOperations.send(resultCreate);
         }
-    }
-
-    @Override
-    public void setupReporterName(String reporterName) {
-        runsApi.getApiClient().addDefaultHeader(X_CLIENT_REPORTER, reporterName);
     }
 
     private void startTestCaseTimer() {

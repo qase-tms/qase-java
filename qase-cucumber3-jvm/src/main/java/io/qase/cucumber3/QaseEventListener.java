@@ -8,6 +8,7 @@ import cucumber.api.event.TestRunFinished;
 import cucumber.api.formatter.Formatter;
 import gherkin.pickles.PickleTag;
 import io.qase.api.StepStorage;
+import io.qase.api.config.QaseConfig;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
@@ -28,9 +29,12 @@ public class QaseEventListener implements Formatter {
 
     private final QaseTestCaseListener qaseTestCaseListener;
 
+    static {
+        System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
+    }
+
     public QaseEventListener() {
         this.qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
-        qaseTestCaseListener.setupReporterName(REPORTER_NAME);
     }
 
     @Override

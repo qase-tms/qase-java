@@ -1,6 +1,7 @@
 package io.qase.configuration;
 
 import com.google.inject.*;
+import io.qase.api.Constants;
 import io.qase.api.QaseClient;
 import io.qase.client.ApiClient;
 import io.qase.client.api.AttachmentsApi;
@@ -26,7 +27,9 @@ public class QaseModule extends AbstractModule {
     @Provides
     @Singleton
     public ApiClient apiClient() {
-        return QaseClient.getApiClient();
+        ApiClient apiClient = QaseClient.getApiClient();
+        apiClient.addDefaultHeader(Constants.X_CLIENT_REPORTER, QaseClient.getConfig().clientReporterName());
+        return apiClient;
     }
 
     @Provides
