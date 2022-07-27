@@ -46,8 +46,7 @@ public class QaseExtension implements TestExecutionListener {
 
     @Override
     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
-        if (!testIdentifier.isTest()
-            || !startedTestIdentifiers.contains(testIdentifier)) {
+        if (!testIdentifier.isTest() || !startedTestIdentifiers.contains(testIdentifier)) {
             return;
         }
         TestSource testSource = testIdentifier.getSource().orElse(null);
