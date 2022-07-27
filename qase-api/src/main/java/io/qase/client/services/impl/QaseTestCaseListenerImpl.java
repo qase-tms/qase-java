@@ -1,10 +1,11 @@
-package io.qase.reporters;
+package io.qase.client.services.impl;
 
 import com.google.inject.Inject;
 import io.qase.api.QaseClient;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
+import io.qase.client.services.QaseTestCaseListener;
 import io.qase.client.services.ReportersResultOperations;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import static io.qase.api.QaseClient.getConfig;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class QaseReporter {
+public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
 
     /**
      * @see #startTestCaseTimer
@@ -26,7 +27,7 @@ public class QaseReporter {
 
     private final ReportersResultOperations resultOperations;
 
-    public void reportResults() { // TODO: make conformant with QaseConfig.useBulk() in concurrent mode
+    @Override public void reportResults() { // TODO: make conformant with QaseConfig.useBulk() in concurrent mode
         if (!QaseClient.isEnabled()) {
             return;
         }
@@ -43,7 +44,7 @@ public class QaseReporter {
         }
     }
 
-    public void onTestCaseStarted() {
+    @Override public void onTestCaseStarted() {
         if (!QaseClient.isEnabled()) {
             return;
         }
@@ -51,7 +52,7 @@ public class QaseReporter {
         startTestCaseTimer();
     }
 
-    public void onTestCaseFinished(ResultCreate resultCreate) {
+    @Override public void onTestCaseFinished(ResultCreate resultCreate) {
         if (!QaseClient.isEnabled()) {
             return;
         }
@@ -64,7 +65,7 @@ public class QaseReporter {
         }
     }
 
-    public void setupReporterName(String reporterName) {
+    @Override public void setupReporterName(String reporterName) {
         runsApi.getApiClient().addDefaultHeader(X_CLIENT_REPORTER, reporterName);
     }
 

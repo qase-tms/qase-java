@@ -7,13 +7,12 @@ import cucumber.api.event.TestCaseStarted;
 import cucumber.api.event.TestRunFinished;
 import cucumber.api.formatter.Formatter;
 import gherkin.pickles.PickleTag;
-import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateSteps;
-import io.qase.reporters.QaseReporter;
+import io.qase.client.services.QaseTestCaseListener;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,11 +26,11 @@ public class QaseEventListener implements Formatter {
 
     private static final String REPORTER_NAME = "Cucumber 3-JVM";
 
-    private final QaseReporter qaseReporter;
+    private final QaseTestCaseListener qaseTestCaseListener;
 
     public QaseEventListener() {
-        this.qaseReporter = INJECTOR.getInstance(QaseReporter.class);
-        qaseReporter.setupReporterName(REPORTER_NAME);
+        this.qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
+        qaseTestCaseListener.setupReporterName(REPORTER_NAME);
     }
 
     @Override
@@ -42,15 +41,15 @@ public class QaseEventListener implements Formatter {
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
-        qaseReporter.reportResults();
+        qaseTestCaseListener.reportResults();
     }
 
     private void testCaseStarted(TestCaseStarted event) {
-        qaseReporter.onTestCaseStarted();
+        qaseTestCaseListener.onTestCaseStarted();
     }
 
     private void testCaseFinished(TestCaseFinished event) {
-        qaseReporter.onTestCaseFinished(getResultItem(event));
+        qaseTestCaseListener.onTestCaseFinished(getResultItem(event));
     }
 
     private ResultCreate getResultItem(TestCaseFinished event) {

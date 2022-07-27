@@ -5,7 +5,7 @@ import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
-import io.qase.reporters.QaseReporter;
+import io.qase.client.services.QaseTestCaseListener;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -33,14 +33,14 @@ public class QaseExtension implements TestExecutionListener {
         new ConcurrentSkipListSet<>(Comparator.comparing(TestIdentifier::hashCode));
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseReporter qaseReporter = initializeQaseReporter();
+    private final QaseTestCaseListener qaseTestCaseListener = initializeQaseReporter();
 
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
         if (!testIdentifier.isTest()) {
             return;
         }
-        getQaseReporter().onTestCaseStarted();
+        getQaseTestCaseListener().onTestCaseStarted();
         startedTestIdentifiers.add(testIdentifier);
     }
 
@@ -55,12 +55,12 @@ public class QaseExtension implements TestExecutionListener {
             testMethod = getMethod((MethodSource) testSource);
         }
 
-        getQaseReporter().onTestCaseFinished(getResultItem(testExecutionResult, testMethod));
+        getQaseTestCaseListener().onTestCaseFinished(getResultItem(testExecutionResult, testMethod));
     }
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
-        getQaseReporter().reportResults();
+        getQaseTestCaseListener().reportResults();
     }
 
     private ResultCreate getResultItem(TestExecutionResult testExecutionResult, Method testMethod) {
@@ -102,8 +102,8 @@ public class QaseExtension implements TestExecutionListener {
         }
     }
 
-    private QaseReporter initializeQaseReporter() {
-        QaseReporter reporter = INJECTOR.getInstance(QaseReporter.class);
+    private QaseTestCaseListener initializeQaseReporter() {
+        QaseTestCaseListener reporter = INJECTOR.getInstance(QaseTestCaseListener.class);
         reporter.setupReporterName(REPORTER_NAME);
         return reporter;
     }
