@@ -33,6 +33,9 @@ public class QaseExtension implements TestExecutionListener {
     private final Set<TestIdentifier> startedTestIdentifiers =
         new ConcurrentSkipListSet<>(Comparator.comparing(TestIdentifier::hashCode));
 
+    @Getter(lazy = true, value = AccessLevel.PRIVATE)
+    private final QaseReporter qaseReporter = initializeQaseReporter();
+
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
         if (!QaseClient.isEnabled() || !testIdentifier.isTest()) {
@@ -103,9 +106,6 @@ public class QaseExtension implements TestExecutionListener {
             return null;
         }
     }
-
-    @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseReporter qaseReporter = initializeQaseReporter();
 
     private QaseReporter initializeQaseReporter() {
         QaseReporter reporter = INJECTOR.getInstance(QaseReporter.class);
