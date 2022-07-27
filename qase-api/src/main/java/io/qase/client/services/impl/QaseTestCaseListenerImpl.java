@@ -27,7 +27,8 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
 
     private final ReportersResultOperations resultOperations;
 
-    @Override public void reportResults() { // TODO: make conformant with QaseConfig.useBulk() in concurrent mode
+    @Override
+    public void reportResults() { // TODO: make conformant with QaseConfig.useBulk() in concurrent mode
         if (!QaseClient.isEnabled()) {
             return;
         }
@@ -44,7 +45,8 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
         }
     }
 
-    @Override public void onTestCaseStarted() {
+    @Override
+    public void onTestCaseStarted() {
         if (!QaseClient.isEnabled()) {
             return;
         }
@@ -52,7 +54,8 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
         startTestCaseTimer();
     }
 
-    @Override public void onTestCaseFinished(ResultCreate resultCreate) {
+    @Override
+    public void onTestCaseFinished(ResultCreate resultCreate) {
         if (!QaseClient.isEnabled()) {
             return;
         }
@@ -65,7 +68,8 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
         }
     }
 
-    @Override public void setupReporterName(String reporterName) {
+    @Override
+    public void setupReporterName(String reporterName) {
         runsApi.getApiClient().addDefaultHeader(X_CLIENT_REPORTER, reporterName);
     }
 
