@@ -50,19 +50,16 @@ public class QaseListener extends RunListener {
     @Override
     public void testFailure(Failure failure) {
         getQaseTestCaseListener().onTestCaseFinished(getResultItem(failure.getDescription(), FAILED, failure.getException()));
-        getQaseTestCaseListener().reportResults();
     }
 
     @Override
     public void testAssumptionFailure(Failure failure) {
         getQaseTestCaseListener().onTestCaseFinished(getResultItem(failure.getDescription(), SKIPPED, null));
-        getQaseTestCaseListener().reportResults();
     }
 
     @Override
     public void testIgnored(Description description) {
         getQaseTestCaseListener().onTestCaseFinished(getResultItem(description, SKIPPED, null));
-        getQaseTestCaseListener().reportResults();
     }
 
     @Override
