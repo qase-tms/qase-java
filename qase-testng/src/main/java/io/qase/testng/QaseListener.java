@@ -1,6 +1,7 @@
 package io.qase.testng;
 
 import io.qase.api.StepStorage;
+import io.qase.api.config.QaseConfig;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
@@ -25,7 +26,11 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
     private static final String REPORTER_NAME = "TestNG";
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseTestCaseListener qaseTestCaseListener = initializeQaseReporter();
+    private final QaseTestCaseListener qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
+
+    static {
+        System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
+    }
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -75,11 +80,5 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
                 .stacktrace(stacktrace)
                 .steps(steps.isEmpty() ? null : steps)
                 .defect(isDefect);
-    }
-
-    private QaseTestCaseListener initializeQaseReporter() {
-        QaseTestCaseListener reporter = INJECTOR.getInstance(QaseTestCaseListener.class);
-        reporter.setupReporterName(REPORTER_NAME);
-        return reporter;
     }
 }
