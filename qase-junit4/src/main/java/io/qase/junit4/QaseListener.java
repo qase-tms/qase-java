@@ -10,6 +10,8 @@ import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.client.services.QaseTestCaseListener;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
@@ -28,47 +30,44 @@ public class QaseListener extends RunListener {
 
     private static final String REPORTER_NAME = "JUnit 4";
 
-    private final QaseTestCaseListener qaseTestCaseListener;
+    @Getter(lazy = true, value = AccessLevel.PRIVATE)
+    private final QaseTestCaseListener qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
 
     static {
         System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
     }
 
-    public QaseListener() {
-        qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
-    }
-
     @Override
     public void testStarted(Description description) {
-        qaseTestCaseListener.onTestCaseStarted();
+        getQaseTestCaseListener().onTestCaseStarted();
     }
 
     @Override
     public void testFinished(Description description) {
-        qaseTestCaseListener.onTestCaseFinished(getResultItem(description, PASSED, null));
+        getQaseTestCaseListener().onTestCaseFinished(getResultItem(description, PASSED, null));
     }
 
     @Override
     public void testFailure(Failure failure) {
-        qaseTestCaseListener.onTestCaseFinished(getResultItem(failure.getDescription(), FAILED, failure.getException()));
-        qaseTestCaseListener.reportResults();
+        getQaseTestCaseListener().onTestCaseFinished(getResultItem(failure.getDescription(), FAILED, failure.getException()));
+        getQaseTestCaseListener().reportResults();
     }
 
     @Override
     public void testAssumptionFailure(Failure failure) {
-        qaseTestCaseListener.onTestCaseFinished(getResultItem(failure.getDescription(), SKIPPED, null));
-        qaseTestCaseListener.reportResults();
+        getQaseTestCaseListener().onTestCaseFinished(getResultItem(failure.getDescription(), SKIPPED, null));
+        getQaseTestCaseListener().reportResults();
     }
 
     @Override
     public void testIgnored(Description description) {
-        qaseTestCaseListener.onTestCaseFinished(getResultItem(description, SKIPPED, null));
-        qaseTestCaseListener.reportResults();
+        getQaseTestCaseListener().onTestCaseFinished(getResultItem(description, SKIPPED, null));
+        getQaseTestCaseListener().reportResults();
     }
 
     @Override
     public void testRunFinished(Result result) {
-        qaseTestCaseListener.reportResults();
+        getQaseTestCaseListener().reportResults();
     }
 
     private ResultCreate getResultItem(Description description, StatusEnum status, Throwable error) {
