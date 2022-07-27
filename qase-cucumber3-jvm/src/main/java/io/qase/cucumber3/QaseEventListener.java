@@ -36,11 +36,9 @@ public class QaseEventListener implements Formatter {
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-        if (QaseClient.isEnabled()) {
-            publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
-            publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-            publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
-        }
+        publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
+        publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
+        publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
