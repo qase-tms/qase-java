@@ -3,7 +3,7 @@ package io.qase.client.services;
 import io.qase.client.model.ResultCreate;
 
 public interface QaseTestCaseListener {
-    void reportResults();
+    void reportResults(); // TODO: rename method to onTestCaseSetFinished
 
     void onTestCaseStarted();
 
