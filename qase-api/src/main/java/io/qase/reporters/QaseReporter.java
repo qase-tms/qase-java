@@ -1,6 +1,7 @@
 package io.qase.reporters;
 
 import com.google.inject.Inject;
+import io.qase.api.QaseClient;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
@@ -25,7 +26,11 @@ public class QaseReporter {
 
     private final ReportersResultOperations resultOperations;
 
-    public void reportResults() {
+    public void reportResults() { // TODO: make conformant with QaseConfig.useBulk() in concurrent mode
+        if (!QaseClient.isEnabled()) {
+            return;
+        }
+
         if (getConfig().useBulk()) {
             resultOperations.sendBulkResult();
         }
@@ -39,10 +44,18 @@ public class QaseReporter {
     }
 
     public void onTestCaseStarted() {
+        if (!QaseClient.isEnabled()) {
+            return;
+        }
+
         startTestCaseTimer();
     }
 
     public void onTestCaseFinished(ResultCreate resultCreate) {
+        if (!QaseClient.isEnabled()) {
+            return;
+        }
+
         resultCreate.timeMs(stopTestCaseTimer());
         if (getConfig().useBulk()) {
             resultOperations.addBulkResult(resultCreate);
