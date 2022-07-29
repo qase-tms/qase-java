@@ -2,5 +2,6 @@
     <weaver options="-warn:none -Xlint:ignore"/>
     <aspects>
         <aspect name="io.qase.api.aspects.StepsAspects"/>
+        <aspect name="io.qase.api.aspects.QaseConfigAutoReloadAspect"/>
     </aspects>
 </aspectj>
