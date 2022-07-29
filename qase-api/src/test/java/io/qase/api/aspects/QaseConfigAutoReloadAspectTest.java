@@ -29,8 +29,11 @@ class QaseConfigAutoReloadAspectTest {
         QaseConfig qaseConfig = ConfigFactory.create(QaseConfig.class);
         Properties newProperties = new Properties() {{ setProperty(QaseConfig.API_TOKEN_KEY, newToken); }};
 
+        Properties oldProperties = System.getProperties();
         System.setProperties(newProperties);
 
         assertEquals(newToken, qaseConfig.apiToken());
+
+        System.setProperties(oldProperties);
     }
 }
