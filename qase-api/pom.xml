@@ -17,6 +17,7 @@
         <guice.version>5.1.0</guice.version>
         <assertj.version>1.8.9</assertj.version>
         <aspectj-maven-plugin.version>1.14.0</aspectj-maven-plugin.version>
+        <mockito.version>4.6.1</mockito.version>
     </properties>
     <dependencies>
         <dependency>
@@ -95,6 +96,12 @@
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
