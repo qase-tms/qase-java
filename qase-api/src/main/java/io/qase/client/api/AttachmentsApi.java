@@ -29,11 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 public class AttachmentsApi {
-    private ApiClient localVarApiClient;
 
-    public AttachmentsApi() {
-        this(Configuration.getDefaultApiClient());
-    }
+    private ApiClient localVarApiClient;
 
     public AttachmentsApi(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
@@ -63,45 +60,48 @@ public class AttachmentsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/attachment/{hash}"
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+        String localVarPath = "/attachment/" + localVarApiClient.escapeString(hash);
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+        Map<String, String> localVarHeaderParams = new HashMap<>();
+        Map<String, String> localVarCookieParams = new HashMap<>();
+        Map<String, Object> localVarFormParams = new HashMap<>();
 
-        final String[] localVarAccepts = {
-                "application/json"
-        };
+        final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {
-
-        };
+        final String[] localVarContentTypes = { };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] {"TokenAuth"};
+        return localVarApiClient.buildCall(
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAuthNames,
+            _callback
+        );
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteAttachmentValidateBeforeCall(String hash, final ApiCallback _callback) throws QaseException {
-
+    private okhttp3.Call deleteAttachmentValidateBeforeCall(String hash, final ApiCallback _callback)
+    throws QaseException {
         // verify the required parameter 'hash' is set
         if (hash == null) {
             throw new QaseException("Missing the required parameter 'hash' when calling deleteAttachment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = deleteAttachmentCall(hash, _callback);
-        return localVarCall;
-
+        return deleteAttachmentCall(hash, _callback);
     }
 
     /**
@@ -153,8 +153,8 @@ public class AttachmentsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteAttachmentAsync(String hash, final ApiCallback<HashResponse> _callback) throws QaseException {
-
+    public okhttp3.Call deleteAttachmentAsync(String hash, final ApiCallback<HashResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = deleteAttachmentValidateBeforeCall(hash, _callback);
         Type localVarReturnType = new TypeToken<HashResponse>() {
         }.getType();
@@ -178,45 +178,48 @@ public class AttachmentsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/attachment/{hash}"
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+        String localVarPath = "/attachment/" + localVarApiClient.escapeString(hash);
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+        Map<String, String> localVarHeaderParams = new HashMap<>();
+        Map<String, String> localVarCookieParams = new HashMap<>();
+        Map<String, Object> localVarFormParams = new HashMap<>();
 
-        final String[] localVarAccepts = {
-                "application/json"
-        };
+        final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {
-
-        };
+        final String[] localVarContentTypes = { };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
         String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAuthNames,
+            _callback
+        );
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAttachmentValidateBeforeCall(String hash, final ApiCallback _callback) throws QaseException {
-
+    private okhttp3.Call getAttachmentValidateBeforeCall(String hash, final ApiCallback _callback)
+    throws QaseException {
         // verify the required parameter 'hash' is set
         if (hash == null) {
             throw new QaseException("Missing the required parameter 'hash' when calling getAttachment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = getAttachmentCall(hash, _callback);
-        return localVarCall;
-
+        return getAttachmentCall(hash, _callback);
     }
 
     /**
@@ -268,8 +271,8 @@ public class AttachmentsApi {
      * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getAttachmentAsync(String hash, final ApiCallback<AttachmentResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getAttachmentAsync(String hash, final ApiCallback<AttachmentResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = getAttachmentValidateBeforeCall(hash, _callback);
         Type localVarReturnType = new TypeToken<AttachmentResponse>() {
         }.getType();
@@ -290,17 +293,18 @@ public class AttachmentsApi {
      * <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getAttachmentsCall(Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call getAttachmentsCall(Integer limit, Integer offset, final ApiCallback _callback)
+    throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/attachment";
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+        Map<String, String> localVarHeaderParams = new HashMap<>();
+        Map<String, String> localVarCookieParams = new HashMap<>();
+        Map<String, Object> localVarFormParams = new HashMap<>();
 
         if (limit != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
@@ -310,31 +314,35 @@ public class AttachmentsApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
         }
 
-        final String[] localVarAccepts = {
-                "application/json"
-        };
+        final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {
-
-        };
+        final String[] localVarContentTypes = { };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
         String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAuthNames,
+            _callback
+        );
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAttachmentsValidateBeforeCall(Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-
-        okhttp3.Call localVarCall = getAttachmentsCall(limit, offset, _callback);
-        return localVarCall;
-
+    private okhttp3.Call getAttachmentsValidateBeforeCall(Integer limit, Integer offset, final ApiCallback _callback)
+    throws QaseException {
+        return getAttachmentsCall(limit, offset, _callback);
     }
 
     /**
@@ -368,10 +376,10 @@ public class AttachmentsApi {
      * <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<AttachmentListResponse> getAttachmentsWithHttpInfo(Integer limit, Integer offset) throws QaseException {
+    public ApiResponse<AttachmentListResponse> getAttachmentsWithHttpInfo(Integer limit, Integer offset)
+    throws QaseException {
         okhttp3.Call localVarCall = getAttachmentsValidateBeforeCall(limit, offset, null);
-        Type localVarReturnType = new TypeToken<AttachmentListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<AttachmentListResponse>() { }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -389,8 +397,9 @@ public class AttachmentsApi {
      * <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getAttachmentsAsync(Integer limit, Integer offset, final ApiCallback<AttachmentListResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getAttachmentsAsync(
+        Integer limit, Integer offset, final ApiCallback<AttachmentListResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = getAttachmentsValidateBeforeCall(limit, offset, _callback);
         Type localVarReturnType = new TypeToken<AttachmentListResponse>() {
         }.getType();
@@ -411,53 +420,57 @@ public class AttachmentsApi {
      * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call uploadAttachmentCall(String code, List<File> file, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call uploadAttachmentCall(String code, List<File> file, final ApiCallback _callback)
+    throws QaseException {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/attachment/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
+        String localVarPath = "/attachment/" + localVarApiClient.escapeString(code);
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+        Map<String, String> localVarHeaderParams = new HashMap<>();
+        Map<String, String> localVarCookieParams = new HashMap<>();
+        Map<String, Object> localVarFormParams = new HashMap<>();
 
         if (file != null) {
             localVarFormParams.put("file", file);
         }
 
-        final String[] localVarAccepts = {
-                "application/json"
-        };
+        final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {
-                "multipart/form-data"
-        };
+        final String[] localVarContentTypes = {"multipart/form-data"};
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
         String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAuthNames,
+            _callback
+        );
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call uploadAttachmentValidateBeforeCall(String code, List<File> file, final ApiCallback _callback) throws QaseException {
-
+    private okhttp3.Call uploadAttachmentValidateBeforeCall(String code, List<File> file, final ApiCallback _callback)
+    throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling uploadAttachment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = uploadAttachmentCall(code, file, _callback);
-        return localVarCall;
-
+        return uploadAttachmentCall(code, file, _callback);
     }
 
     /**
@@ -491,7 +504,8 @@ public class AttachmentsApi {
      * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<AttachmentUploadsResponse> uploadAttachmentWithHttpInfo(String code, List<File> file) throws QaseException {
+    public ApiResponse<AttachmentUploadsResponse> uploadAttachmentWithHttpInfo(String code, List<File> file)
+    throws QaseException {
         okhttp3.Call localVarCall = uploadAttachmentValidateBeforeCall(code, file, null);
         Type localVarReturnType = new TypeToken<AttachmentUploadsResponse>() {
         }.getType();
@@ -512,8 +526,9 @@ public class AttachmentsApi {
      * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call uploadAttachmentAsync(String code, List<File> file, final ApiCallback<AttachmentUploadsResponse> _callback) throws QaseException {
-
+    public okhttp3.Call uploadAttachmentAsync(
+        String code, List<File> file, final ApiCallback<AttachmentUploadsResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = uploadAttachmentValidateBeforeCall(code, file, _callback);
         Type localVarReturnType = new TypeToken<AttachmentUploadsResponse>() {
         }.getType();
