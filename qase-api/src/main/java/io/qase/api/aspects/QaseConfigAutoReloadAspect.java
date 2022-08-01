@@ -13,7 +13,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Aspect
-public class QaseConfigAutoReloadAspect { // TODO: wrap a result of System.getProperties() with a proxy
+public class QaseConfigAutoReloadAspect { // TODO: cover the aspect with tests
 
     private static final Collection<QaseConfig> TRACKED_CONFIG_INSTANCES = new ArrayList<>();
 
