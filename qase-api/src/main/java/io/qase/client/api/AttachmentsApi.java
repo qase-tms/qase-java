@@ -20,6 +20,7 @@ import io.qase.client.model.AttachmentListResponse;
 import io.qase.client.model.AttachmentResponse;
 import io.qase.client.model.AttachmentUploadsResponse;
 import io.qase.client.model.HashResponse;
+import io.qase.enums.HttpMethod;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -87,7 +88,7 @@ public class AttachmentsApi {
         String[] localVarAuthNames = new String[] {"TokenAuth"};
         return localVarApiClient.buildCall(
             localVarPath,
-            "DELETE",
+            HttpMethod.DELETE.toString(),
             localVarQueryParams,
             localVarCollectionQueryParams,
             localVarPostBody,
@@ -205,7 +206,7 @@ public class AttachmentsApi {
         String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(
             localVarPath,
-            "GET",
+            HttpMethod.GET.toString(),
             localVarQueryParams,
             localVarCollectionQueryParams,
             localVarPostBody,
@@ -333,7 +334,7 @@ public class AttachmentsApi {
         String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(
             localVarPath,
-            "GET",
+            HttpMethod.GET.toString(),
             localVarQueryParams,
             localVarCollectionQueryParams,
             localVarPostBody,
@@ -456,7 +457,7 @@ public class AttachmentsApi {
         String[] localVarAuthNames = new String[]{"TokenAuth"};
         return localVarApiClient.buildCall(
             localVarPath,
-            "POST",
+            HttpMethod.POST.toString(),
             localVarQueryParams,
             localVarCollectionQueryParams,
             localVarPostBody,
