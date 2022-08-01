@@ -28,9 +28,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.qase.configuration.QaseModule.INJECTOR;
+
 public class AttachmentsApi {
 
     private ApiClient localVarApiClient;
+
+    public AttachmentsApi() {
+        this(INJECTOR.getInstance(ApiClient.class));
+    }
 
     public AttachmentsApi(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
