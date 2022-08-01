@@ -1,5 +1,7 @@
 package io.qase.api.utils;
 
+import io.qase.api.QaseClient;
+
 import static io.qase.api.config.QaseConfig.*;
 
 /**
@@ -21,10 +23,12 @@ public final class TestUtils {
 
     public static void useBulk(boolean use) {
         System.setProperty(USE_BULK_KEY, String.valueOf(use));
+        QaseClient.getConfig().reload();
     }
 
     public static void useRunAutocomplete(boolean use) {
         System.setProperty(RUN_AUTOCOMPLETE_KEY, String.valueOf(use));
+        QaseClient.getConfig().reload();
     }
 
     public static void useScreenshotsSending(boolean use) {
@@ -32,6 +36,7 @@ public final class TestUtils {
         if (use) {
             System.setProperty(QASE_SCREENSHOT_FOLDER_KEY, "src/test/resources");
         }
+        QaseClient.getConfig().reload();
     }
 
     public static void setupQaseTestEnvironmentVariables(int testServerPort) {
