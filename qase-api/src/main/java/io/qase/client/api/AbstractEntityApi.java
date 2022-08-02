@@ -457,6 +457,10 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
         return localVarResp.getData();
     }
 
+    public RL getEntities(String code, Integer limit, Integer offset) throws QaseException {
+        return getEntities(code, NO_FILTERS, limit, offset);
+    }
+
     /**
      * Get all entities.
      * This method allows to retrieve all entities stored in selected project.
