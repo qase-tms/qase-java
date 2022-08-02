@@ -13,34 +13,21 @@
 
 package io.qase.client.api;
 
-import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class DefectsApi {
-    private ApiClient localVarApiClient;
+public class DefectsApi
+extends AbstractEntityApi<DefectCreate, DefectResponse, DefectListResponse, DefectUpdate, DefectStatus> {
 
     public DefectsApi() {
-        this(Configuration.getDefaultApiClient());
+        super();
     }
 
     public DefectsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -56,54 +43,9 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createDefectCall(String code, DefectCreate defectCreate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = defectCreate;
-
-        // create path and map variables
-        String localVarPath = "/defect/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createDefectValidateBeforeCall(String code, DefectCreate defectCreate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling createDefect(Async)");
-        }
-
-        // verify the required parameter 'defectCreate' is set
-        if (defectCreate == null) {
-            throw new QaseException("Missing the required parameter 'defectCreate' when calling createDefect(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = createDefectCall(code, defectCreate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call createDefectCall(String code, DefectCreate defectCreate, final ApiCallback _callback)
+    throws QaseException {
+        return createEntityCall(code, defectCreate, _callback);
     }
 
     /**
@@ -120,8 +62,7 @@ public class DefectsApi {
      * </table>
      */
     public IdResponse createDefect(String code, DefectCreate defectCreate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = createDefectWithHttpInfo(code, defectCreate);
-        return localVarResp.getData();
+        return createEntity(code, defectCreate);
     }
 
     /**
@@ -137,11 +78,9 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<IdResponse> createDefectWithHttpInfo(String code, DefectCreate defectCreate) throws QaseException {
-        okhttp3.Call localVarCall = createDefectValidateBeforeCall(code, defectCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<IdResponse> createDefectWithHttpInfo(String code, DefectCreate defectCreate)
+    throws QaseException {
+        return createEntityWithHttpInfo(code, defectCreate);
     }
 
     /**
@@ -158,13 +97,10 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createDefectAsync(String code, DefectCreate defectCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = createDefectValidateBeforeCall(code, defectCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call createDefectAsync(
+        String code, DefectCreate defectCreate, final ApiCallback<IdResponse> _callback
+    ) throws QaseException {
+        return createEntityAsync(code, defectCreate, _callback);
     }
 
     /**
@@ -181,54 +117,7 @@ public class DefectsApi {
      * </table>
      */
     public okhttp3.Call deleteDefectCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/defect/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteDefectValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteDefect(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling deleteDefect(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = deleteDefectCall(code, id, _callback);
-        return localVarCall;
-
+        return deleteEntityCall(code, id, _callback);
     }
 
     /**
@@ -245,8 +134,7 @@ public class DefectsApi {
      * </table>
      */
     public IdResponse deleteDefect(String code, Integer id) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = deleteDefectWithHttpInfo(code, id);
-        return localVarResp.getData();
+        return deleteEntity(code, id);
     }
 
     /**
@@ -263,10 +151,7 @@ public class DefectsApi {
      * </table>
      */
     public ApiResponse<IdResponse> deleteDefectWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = deleteDefectValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return deleteEntityWithHttpInfo(code, id);
     }
 
     /**
@@ -283,13 +168,10 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteDefectAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = deleteDefectValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call deleteDefectAsync(
+        String code, Integer id, final ApiCallback<IdResponse> _callback
+    ) throws QaseException {
+        return deleteEntityAsync(code, id, _callback);
     }
 
     /**
@@ -306,54 +188,7 @@ public class DefectsApi {
      * </table>
      */
     public okhttp3.Call getDefectCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/defect/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getDefectValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getDefect(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling getDefect(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getDefectCall(code, id, _callback);
-        return localVarCall;
-
+        return getEntityCall(code, id, _callback);
     }
 
     /**
@@ -370,8 +205,7 @@ public class DefectsApi {
      * </table>
      */
     public DefectResponse getDefect(String code, Integer id) throws QaseException {
-        ApiResponse<DefectResponse> localVarResp = getDefectWithHttpInfo(code, id);
-        return localVarResp.getData();
+        return getEntity(code, id);
     }
 
     /**
@@ -388,10 +222,7 @@ public class DefectsApi {
      * </table>
      */
     public ApiResponse<DefectResponse> getDefectWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = getDefectValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<DefectResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getEntityWithHttpInfo(code, id);
     }
 
     /**
@@ -408,13 +239,9 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A defect. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getDefectAsync(String code, Integer id, final ApiCallback<DefectResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = getDefectValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<DefectResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call getDefectAsync(String code, Integer id, final ApiCallback<DefectResponse> _callback)
+    throws QaseException {
+        return getEntityAsync(code, id, _callback);
     }
 
     /**
@@ -432,61 +259,10 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A list of all defects. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getDefectsCall(String code, Filters2 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/defect/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getDefectsValidateBeforeCall(String code, Filters2 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getDefects(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getDefectsCall(code, filters, limit, offset, _callback);
-        return localVarCall;
-
+    public okhttp3.Call getDefectsCall(
+        String code, Filters2 filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        return getEntitiesCall(code, filters, limit, offset, _callback);
     }
 
     /**
@@ -504,9 +280,9 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A list of all defects. </td><td>  -  </td></tr>
      * </table>
      */
-    public DefectListResponse getDefects(String code, Filters2 filters, Integer limit, Integer offset) throws QaseException {
-        ApiResponse<DefectListResponse> localVarResp = getDefectsWithHttpInfo(code, filters, limit, offset);
-        return localVarResp.getData();
+    public DefectListResponse getDefects(String code, Filters2 filters, Integer limit, Integer offset)
+    throws QaseException {
+        return getEntities(code, filters, limit, offset);
     }
 
     /**
@@ -524,11 +300,10 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A list of all defects. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<DefectListResponse> getDefectsWithHttpInfo(String code, Filters2 filters, Integer limit, Integer offset) throws QaseException {
-        okhttp3.Call localVarCall = getDefectsValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<DefectListResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<DefectListResponse> getDefectsWithHttpInfo(
+        String code, Filters2 filters, Integer limit, Integer offset
+    ) throws QaseException {
+        return getEntitiesWithHttpInfo(code, filters, limit, offset);
     }
 
     /**
@@ -547,13 +322,10 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A list of all defects. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getDefectsAsync(String code, Filters2 filters, Integer limit, Integer offset, final ApiCallback<DefectListResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = getDefectsValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<DefectListResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call getDefectsAsync(
+        String code, Filters2 filters, Integer limit, Integer offset, final ApiCallback<DefectListResponse> _callback
+    ) throws QaseException {
+        return getEntitiesAsync(code, filters, limit, offset, _callback);
     }
 
     /**
@@ -570,54 +342,7 @@ public class DefectsApi {
      * </table>
      */
     public okhttp3.Call resolveDefectCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/defect/{code}/resolve/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call resolveDefectValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling resolveDefect(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling resolveDefect(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = resolveDefectCall(code, id, _callback);
-        return localVarCall;
-
+        return resolveEntityCall(code, id, _callback);
     }
 
     /**
@@ -634,8 +359,7 @@ public class DefectsApi {
      * </table>
      */
     public IdResponse resolveDefect(String code, Integer id) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = resolveDefectWithHttpInfo(code, id);
-        return localVarResp.getData();
+        return resolveEntity(code, id);
     }
 
     /**
@@ -652,10 +376,7 @@ public class DefectsApi {
      * </table>
      */
     public ApiResponse<IdResponse> resolveDefectWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = resolveDefectValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return resolveEntityWithHttpInfo(code, id);
     }
 
     /**
@@ -672,13 +393,9 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call resolveDefectAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = resolveDefectValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call resolveDefectAsync(String code, Integer id, final ApiCallback<IdResponse> _callback)
+    throws QaseException {
+        return resolveEntityAsync(code, id, _callback);
     }
 
     /**
@@ -695,60 +412,10 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateDefectCall(String code, Integer id, DefectUpdate defectUpdate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = defectUpdate;
-
-        // create path and map variables
-        String localVarPath = "/defect/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateDefectValidateBeforeCall(String code, Integer id, DefectUpdate defectUpdate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateDefect(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateDefect(Async)");
-        }
-
-        // verify the required parameter 'defectUpdate' is set
-        if (defectUpdate == null) {
-            throw new QaseException("Missing the required parameter 'defectUpdate' when calling updateDefect(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = updateDefectCall(code, id, defectUpdate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call updateDefectCall(
+        String code, Integer id, DefectUpdate defectUpdate, final ApiCallback _callback
+    ) throws QaseException {
+        return updateEntityCall(code, id, defectUpdate, _callback);
     }
 
     /**
@@ -766,8 +433,7 @@ public class DefectsApi {
      * </table>
      */
     public IdResponse updateDefect(String code, Integer id, DefectUpdate defectUpdate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = updateDefectWithHttpInfo(code, id, defectUpdate);
-        return localVarResp.getData();
+        return updateEntity(code, id, defectUpdate);
     }
 
     /**
@@ -784,11 +450,9 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<IdResponse> updateDefectWithHttpInfo(String code, Integer id, DefectUpdate defectUpdate) throws QaseException {
-        okhttp3.Call localVarCall = updateDefectValidateBeforeCall(code, id, defectUpdate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<IdResponse> updateDefectWithHttpInfo(String code, Integer id, DefectUpdate defectUpdate)
+    throws QaseException {
+        return updateEntityWithHttpInfo(code, id, defectUpdate);
     }
 
     /**
@@ -806,13 +470,10 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateDefectAsync(String code, Integer id, DefectUpdate defectUpdate, final ApiCallback<IdResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = updateDefectValidateBeforeCall(code, id, defectUpdate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call updateDefectAsync(
+        String code, Integer id, DefectUpdate defectUpdate, final ApiCallback<IdResponse> _callback
+    ) throws QaseException {
+        return updateEntityAsync(code, id, defectUpdate, _callback);
     }
 
     /**
@@ -829,60 +490,10 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateDefectStatusCall(String code, Integer id, DefectStatus defectStatus, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = defectStatus;
-
-        // create path and map variables
-        String localVarPath = "/defect/{code}/status/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateDefectStatusValidateBeforeCall(String code, Integer id, DefectStatus defectStatus, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateDefectStatus(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateDefectStatus(Async)");
-        }
-
-        // verify the required parameter 'defectStatus' is set
-        if (defectStatus == null) {
-            throw new QaseException("Missing the required parameter 'defectStatus' when calling updateDefectStatus(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = updateDefectStatusCall(code, id, defectStatus, _callback);
-        return localVarCall;
-
+    public okhttp3.Call updateDefectStatusCall(
+        String code, Integer id, DefectStatus defectStatus, final ApiCallback _callback
+    ) throws QaseException {
+        return updateEntityStatusCall(code, id, defectStatus, _callback);
     }
 
     /**
@@ -900,8 +511,7 @@ public class DefectsApi {
      * </table>
      */
     public Response updateDefectStatus(String code, Integer id, DefectStatus defectStatus) throws QaseException {
-        ApiResponse<Response> localVarResp = updateDefectStatusWithHttpInfo(code, id, defectStatus);
-        return localVarResp.getData();
+        return updateEntityStatus(code, id, defectStatus);
     }
 
     /**
@@ -918,11 +528,9 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<Response> updateDefectStatusWithHttpInfo(String code, Integer id, DefectStatus defectStatus) throws QaseException {
-        okhttp3.Call localVarCall = updateDefectStatusValidateBeforeCall(code, id, defectStatus, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<Response> updateDefectStatusWithHttpInfo(String code, Integer id, DefectStatus defectStatus)
+    throws QaseException {
+        return updateEntityStatusWithHttpInfo(code, id, defectStatus);
     }
 
     /**
@@ -940,12 +548,14 @@ public class DefectsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateDefectStatusAsync(String code, Integer id, DefectStatus defectStatus, final ApiCallback<Response> _callback) throws QaseException {
+    public okhttp3.Call updateDefectStatusAsync(
+        String code, Integer id, DefectStatus defectStatus, final ApiCallback<Response> _callback
+    ) throws QaseException {
+        return updateEntityStatusAsync(code, id, defectStatus, _callback);
+    }
 
-        okhttp3.Call localVarCall = updateDefectStatusValidateBeforeCall(code, id, defectStatus, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    @Override
+    protected String getEntityPath() {
+        return "/defect";
     }
 }
