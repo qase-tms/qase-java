@@ -13,34 +13,21 @@
 
 package io.qase.client.api;
 
-import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class MilestonesApi {
-    private ApiClient localVarApiClient;
+public class MilestonesApi
+extends AbstractEntityApi<MilestoneCreate, MilestoneResponse, MilestoneListResponse, MilestoneUpdate, Object> {
 
     public MilestonesApi() {
-        this(Configuration.getDefaultApiClient());
+        super();
     }
 
     public MilestonesApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -56,54 +43,9 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createMilestoneCall(String code, MilestoneCreate milestoneCreate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = milestoneCreate;
-
-        // create path and map variables
-        String localVarPath = "/milestone/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createMilestoneValidateBeforeCall(String code, MilestoneCreate milestoneCreate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling createMilestone(Async)");
-        }
-
-        // verify the required parameter 'milestoneCreate' is set
-        if (milestoneCreate == null) {
-            throw new QaseException("Missing the required parameter 'milestoneCreate' when calling createMilestone(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = createMilestoneCall(code, milestoneCreate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call createMilestoneCall(String code, MilestoneCreate milestoneCreate, final ApiCallback _callback)
+    throws QaseException {
+        return createEntityCall(code, milestoneCreate, _callback);
     }
 
     /**
@@ -120,8 +62,7 @@ public class MilestonesApi {
      * </table>
      */
     public IdResponse createMilestone(String code, MilestoneCreate milestoneCreate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = createMilestoneWithHttpInfo(code, milestoneCreate);
-        return localVarResp.getData();
+        return createEntity(code, milestoneCreate);
     }
 
     /**
@@ -137,11 +78,9 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<IdResponse> createMilestoneWithHttpInfo(String code, MilestoneCreate milestoneCreate) throws QaseException {
-        okhttp3.Call localVarCall = createMilestoneValidateBeforeCall(code, milestoneCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<IdResponse> createMilestoneWithHttpInfo(String code, MilestoneCreate milestoneCreate)
+    throws QaseException {
+        return createEntityWithHttpInfo(code, milestoneCreate);
     }
 
     /**
@@ -158,13 +97,10 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createMilestoneAsync(String code, MilestoneCreate milestoneCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = createMilestoneValidateBeforeCall(code, milestoneCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call createMilestoneAsync(
+        String code, MilestoneCreate milestoneCreate, final ApiCallback<IdResponse> _callback
+    ) throws QaseException {
+        return createEntityAsync(code, milestoneCreate, _callback);
     }
 
     /**
@@ -181,54 +117,7 @@ public class MilestonesApi {
      * </table>
      */
     public okhttp3.Call deleteMilestoneCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/milestone/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteMilestoneValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteMilestone(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling deleteMilestone(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = deleteMilestoneCall(code, id, _callback);
-        return localVarCall;
-
+        return deleteEntityCall(code, id, _callback);
     }
 
     /**
@@ -245,8 +134,7 @@ public class MilestonesApi {
      * </table>
      */
     public IdResponse deleteMilestone(String code, Integer id) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = deleteMilestoneWithHttpInfo(code, id);
-        return localVarResp.getData();
+        return deleteEntity(code, id);
     }
 
     /**
@@ -263,10 +151,7 @@ public class MilestonesApi {
      * </table>
      */
     public ApiResponse<IdResponse> deleteMilestoneWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = deleteMilestoneValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return deleteEntityWithHttpInfo(code, id);
     }
 
     /**
@@ -283,13 +168,9 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteMilestoneAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = deleteMilestoneValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call deleteMilestoneAsync(String code, Integer id, final ApiCallback<IdResponse> _callback)
+    throws QaseException {
+        return deleteEntityAsync(code, id, _callback);
     }
 
     /**
@@ -306,54 +187,7 @@ public class MilestonesApi {
      * </table>
      */
     public okhttp3.Call getMilestoneCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/milestone/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMilestoneValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getMilestone(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling getMilestone(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getMilestoneCall(code, id, _callback);
-        return localVarCall;
-
+        return getEntityCall(code, id, _callback);
     }
 
     /**
@@ -370,8 +204,7 @@ public class MilestonesApi {
      * </table>
      */
     public MilestoneResponse getMilestone(String code, Integer id) throws QaseException {
-        ApiResponse<MilestoneResponse> localVarResp = getMilestoneWithHttpInfo(code, id);
-        return localVarResp.getData();
+        return getEntity(code, id);
     }
 
     /**
@@ -388,10 +221,7 @@ public class MilestonesApi {
      * </table>
      */
     public ApiResponse<MilestoneResponse> getMilestoneWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = getMilestoneValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<MilestoneResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getEntityWithHttpInfo(code, id);
     }
 
     /**
@@ -408,13 +238,9 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getMilestoneAsync(String code, Integer id, final ApiCallback<MilestoneResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = getMilestoneValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<MilestoneResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call getMilestoneAsync(String code, Integer id, final ApiCallback<MilestoneResponse> _callback)
+    throws QaseException {
+        return getEntityAsync(code, id, _callback);
     }
 
     /**
@@ -432,49 +258,12 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getMilestonesCall(String code, Filters3 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/milestone/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    public okhttp3.Call getMilestonesCall(
+        String code, Filters3 filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        return getEntitiesCall(code, filters, limit, offset, _callback);
     }
-
+/*
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getMilestonesValidateBeforeCall(String code, Filters3 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
 
@@ -487,7 +276,7 @@ public class MilestonesApi {
         okhttp3.Call localVarCall = getMilestonesCall(code, filters, limit, offset, _callback);
         return localVarCall;
 
-    }
+    }*/
 
     /**
      * Get all milestones.
@@ -504,9 +293,9 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
      * </table>
      */
-    public MilestoneListResponse getMilestones(String code, Filters3 filters, Integer limit, Integer offset) throws QaseException {
-        ApiResponse<MilestoneListResponse> localVarResp = getMilestonesWithHttpInfo(code, filters, limit, offset);
-        return localVarResp.getData();
+    public MilestoneListResponse getMilestones(String code, Filters3 filters, Integer limit, Integer offset)
+    throws QaseException {
+        return getEntities(code, filters, limit, offset);
     }
 
     /**
@@ -524,11 +313,10 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<MilestoneListResponse> getMilestonesWithHttpInfo(String code, Filters3 filters, Integer limit, Integer offset) throws QaseException {
-        okhttp3.Call localVarCall = getMilestonesValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<MilestoneListResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<MilestoneListResponse> getMilestonesWithHttpInfo(
+        String code, Filters3 filters, Integer limit, Integer offset
+    ) throws QaseException {
+        return getEntitiesWithHttpInfo(code, filters, limit, offset);
     }
 
     /**
@@ -547,13 +335,10 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getMilestonesAsync(String code, Filters3 filters, Integer limit, Integer offset, final ApiCallback<MilestoneListResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = getMilestonesValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<MilestoneListResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call getMilestonesAsync(
+        String code, Filters3 filters, Integer limit, Integer offset, final ApiCallback<MilestoneListResponse> _callback
+    ) throws QaseException {
+        return getEntitiesAsync(code, filters, limit, offset, _callback);
     }
 
     /**
@@ -570,39 +355,13 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateMilestoneCall(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = milestoneUpdate;
-
-        // create path and map variables
-        String localVarPath = "/milestone/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    public okhttp3.Call updateMilestoneCall(
+        String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback _callback
+    ) throws QaseException {
+        return updateEntityCall(code, id, milestoneUpdate, _callback);
     }
 
-    @SuppressWarnings("rawtypes")
+/*    @SuppressWarnings("rawtypes")
     private okhttp3.Call updateMilestoneValidateBeforeCall(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback _callback) throws QaseException {
 
         // verify the required parameter 'code' is set
@@ -624,7 +383,7 @@ public class MilestonesApi {
         okhttp3.Call localVarCall = updateMilestoneCall(code, id, milestoneUpdate, _callback);
         return localVarCall;
 
-    }
+    }*/
 
     /**
      * Update milestone.
@@ -641,8 +400,7 @@ public class MilestonesApi {
      * </table>
      */
     public IdResponse updateMilestone(String code, Integer id, MilestoneUpdate milestoneUpdate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = updateMilestoneWithHttpInfo(code, id, milestoneUpdate);
-        return localVarResp.getData();
+        return updateEntity(code, id, milestoneUpdate);
     }
 
     /**
@@ -659,11 +417,9 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<IdResponse> updateMilestoneWithHttpInfo(String code, Integer id, MilestoneUpdate milestoneUpdate) throws QaseException {
-        okhttp3.Call localVarCall = updateMilestoneValidateBeforeCall(code, id, milestoneUpdate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<IdResponse> updateMilestoneWithHttpInfo(String code, Integer id, MilestoneUpdate milestoneUpdate)
+    throws QaseException {
+        return updateEntityWithHttpInfo(code, id, milestoneUpdate);
     }
 
     /**
@@ -681,12 +437,14 @@ public class MilestonesApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateMilestoneAsync(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback<IdResponse> _callback) throws QaseException {
+    public okhttp3.Call updateMilestoneAsync(
+        String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback<IdResponse> _callback
+    ) throws QaseException {
+        return updateEntityAsync(code, id, milestoneUpdate, _callback);
+    }
 
-        okhttp3.Call localVarCall = updateMilestoneValidateBeforeCall(code, id, milestoneUpdate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    @Override
+    protected String getEntityPath() {
+        return "/milestone";
     }
 }
