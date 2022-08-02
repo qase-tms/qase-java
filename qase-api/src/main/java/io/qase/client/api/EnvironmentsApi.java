@@ -19,13 +19,11 @@ import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-import static io.qase.configuration.QaseModule.INJECTOR;
-
 public class EnvironmentsApi
 extends AbstractEntityApi<EnvironmentCreate, EnvironmentResponse, EnvironmentListResponse, EnvironmentUpdate, Object> {
 
     public EnvironmentsApi() {
-        this(INJECTOR.getInstance(ApiClient.class));
+        super();
     }
 
     public EnvironmentsApi(ApiClient apiClient) {
