@@ -240,7 +240,8 @@ extends AbstractEntityApi<EnvironmentCreate, EnvironmentResponse, EnvironmentLis
      * <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getEnvironmentAsync(String code, Integer id, final ApiCallback<EnvironmentResponse> _callback) throws QaseException {
+    public okhttp3.Call getEnvironmentAsync(String code, Integer id, final ApiCallback<EnvironmentResponse> _callback)
+    throws QaseException {
         return getEntityAsync(code, id, _callback);
     }
 
