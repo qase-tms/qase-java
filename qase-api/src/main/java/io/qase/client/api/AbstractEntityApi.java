@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.qase.configuration.QaseModule.INJECTOR;
+
 /**
  *
  * @param <C> a DTO type for a create-entity-call
@@ -29,7 +31,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
     private ApiClient localVarApiClient;
 
     public AbstractEntityApi() {
-        this(Configuration.getDefaultApiClient());
+        this(INJECTOR.getInstance(ApiClient.class));
     }
 
     public AbstractEntityApi(ApiClient apiClient) {
