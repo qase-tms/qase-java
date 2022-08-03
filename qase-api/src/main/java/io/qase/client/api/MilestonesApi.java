@@ -263,20 +263,6 @@ extends AbstractEntityApi<MilestoneCreate, MilestoneResponse, MilestoneListRespo
     ) throws QaseException {
         return getEntitiesCall(code, filters, limit, offset, _callback);
     }
-/*
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMilestonesValidateBeforeCall(String code, Filters3 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getMilestones(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getMilestonesCall(code, filters, limit, offset, _callback);
-        return localVarCall;
-
-    }*/
 
     /**
      * Get all milestones.
@@ -360,30 +346,6 @@ extends AbstractEntityApi<MilestoneCreate, MilestoneResponse, MilestoneListRespo
     ) throws QaseException {
         return updateEntityCall(code, id, milestoneUpdate, _callback);
     }
-
-/*    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateMilestoneValidateBeforeCall(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateMilestone(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateMilestone(Async)");
-        }
-
-        // verify the required parameter 'milestoneUpdate' is set
-        if (milestoneUpdate == null) {
-            throw new QaseException("Missing the required parameter 'milestoneUpdate' when calling updateMilestone(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = updateMilestoneCall(code, id, milestoneUpdate, _callback);
-        return localVarCall;
-
-    }*/
 
     /**
      * Update milestone.
