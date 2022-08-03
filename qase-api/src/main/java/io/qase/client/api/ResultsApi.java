@@ -54,7 +54,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinPath(getEntityPath(), getApiClient().escapeString(code), getApiClient().escapeString(id.toString())),
+            joinEntitySubpathEscaped(code, id.toString()),
             resultCreate,
             _callback
         );
@@ -143,7 +143,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinPath(getEntityPath(), getApiClient().escapeString(code), getApiClient().escapeString(id.toString())),
+            joinEntitySubpathEscaped(code, id.toString()),
             resultCreateBulk,
             _callback
         );
@@ -232,12 +232,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinPath(
-                getEntityPath(),
-                getApiClient().escapeString(code),
-                getApiClient().escapeString(id.toString()),
-                getApiClient().escapeString(hash)
-            ),
+            joinEntitySubpathEscaped(code, id.toString(), hash),
             null,
             _callback
         );
@@ -323,7 +318,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     public okhttp3.Call getResultCall(String code, String hash, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinPath(getEntityPath(), getApiClient().escapeString(code), getApiClient().escapeString(hash)),
+            joinEntitySubpathEscaped(code, hash),
             null,
             _callback
         );
@@ -408,7 +403,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinPath(getEntityPath(), getApiClient().escapeString(code)),
+            joinEntitySubpathEscaped(code),
             null,
             filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
                 put(FILTERS_QUERY_PARAMETER_NAME, filters);
@@ -508,11 +503,10 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinPath(
-                getEntityPath(),
-                getApiClient().escapeString(code),
-                getApiClient().escapeString(id.toString()),
-                getApiClient().escapeString(hash)
+            joinEntitySubpathEscaped(
+                code,
+                id.toString(),
+                hash
             ),
             resultUpdate,
             _callback

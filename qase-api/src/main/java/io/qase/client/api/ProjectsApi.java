@@ -130,7 +130,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     public okhttp3.Call deleteProjectCall(String code, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinPath(getEntityPath(), getApiClient().escapeString(code)),
+            joinEntitySubpathEscaped(code),
             null,
             _callback
         );
@@ -206,7 +206,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     public okhttp3.Call getProjectCall(String code, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinPath(getEntityPath(), getApiClient().escapeString(code)),
+            joinEntitySubpathEscaped(code),
             null,
             _callback
         );
@@ -373,7 +373,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinPath(getEntityPath(), getApiClient().escapeString(code)),
+            joinEntitySubpathEscaped(code),
             projectAccess,
             _callback
         );
@@ -453,10 +453,11 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
      * <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call revokeAccessToProjectCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call revokeAccessToProjectCall(String code, ProjectAccess projectAccess, final ApiCallback _callback)
+    throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinPath(getEntityPath(), getApiClient().escapeString(code), "access"),
+            joinEntitySubpathEscaped(code, "access"),
             projectAccess,
             _callback
         );
