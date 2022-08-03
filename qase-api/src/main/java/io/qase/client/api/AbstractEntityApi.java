@@ -835,6 +835,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
         );
     }
 
+    // TODO: the method probably needs be extended with escaping segments behavior, auto-prefixing the entity path
     protected String joinPath(String... pathSegments) {
         return String.join(URL_PATH_SEPARATOR, pathSegments);
     }
