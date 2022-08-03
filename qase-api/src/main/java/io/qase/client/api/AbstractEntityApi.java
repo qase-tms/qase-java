@@ -20,10 +20,21 @@ import static io.qase.configuration.QaseModule.INJECTOR;
 import static org.apache.http.HttpHeaders.ACCEPT;
 import static org.apache.http.HttpHeaders.CONTENT_TYPE;
 
-// TODO: refactor the class (e.g. to an encapsulated service/set of services), not all inheritors use all the methods
-public abstract class AbstractEntityApi {
+abstract class AbstractEntityApi {
 
-    private static final Object NO_FILTERS = null;
+    public static final String FILTERS_QUERY_PARAMETER_NAME = "filters";
+
+    public static final String LIMIT_QUERY_PARAMETER_NAME = "limit";
+
+    public static final String OFFSET_QUERY_PARAMETER_NAME = "offset";
+
+    public static final String INCLUDE_QUERY_PARAMETER_NAME = "include";
+
+    public static final String QUERY_QUERY_PARAMETER_NAME = "query";
+
+    public static final String FILE_FORM_PARAMETER_NAME = "file";
+
+    public static final String MULTIPART_FORM_DATA = "multipart/form-data";
 
     private static final String URL_PATH_SEPARATOR = "/";
 
@@ -33,22 +44,8 @@ public abstract class AbstractEntityApi {
 
     private static final String EMPTY_STRING = "";
 
-    protected static final String FILTERS_QUERY_PARAMETER_NAME = "filters";
-
-    protected static final String LIMIT_QUERY_PARAMETER_NAME = "limit";
-
-    protected static final String OFFSET_QUERY_PARAMETER_NAME = "offset";
-
-    protected static final String INCLUDE_QUERY_PARAMETER_NAME = "include";
-
-    protected static final String QUERY_QUERY_PARAMETER_NAME = "query";
-
-    protected static final String FILE_FORM_PARAMETER_NAME = "file";
-
-    protected static final String MULTIPART_FORM_DATA = "multipart/form-data";
-
     @Getter(AccessLevel.PROTECTED)
-    private ApiClient apiClient;
+    private final ApiClient apiClient;
 
     public AbstractEntityApi() {
         this(INJECTOR.getInstance(ApiClient.class));
@@ -69,7 +66,7 @@ public abstract class AbstractEntityApi {
     }
 
     @SuppressWarnings("rawtypes")
-    protected okhttp3.Call createEntityValidateBeforeCall(
+    public okhttp3.Call createEntityValidateBeforeCall(
         String code, Object payload, final ApiCallback _callback
     ) throws QaseException {
         // verify the required parameter 'code' is set
@@ -248,7 +245,7 @@ public abstract class AbstractEntityApi {
     public okhttp3.Call getEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpath(apiClient.escapeString(code), apiClient.escapeString(id.toString())),
+            joinEntitySubpath(code, id.toString()),
             null,
             _callback
         );
@@ -331,17 +328,15 @@ public abstract class AbstractEntityApi {
     public okhttp3.Call getEntitiesCall(
         String code, Object filters, Integer limit, Integer offset, final ApiCallback _callback
     ) throws QaseException {
-        List<Pair> queryParameters = filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
-            put(FILTERS_QUERY_PARAMETER_NAME, filters);
-            put(LIMIT_QUERY_PARAMETER_NAME, limit);
-            put(OFFSET_QUERY_PARAMETER_NAME, offset);
-        }});
-
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpath(apiClient.escapeString(code)),
+            joinEntitySubpath(code),
             null,
-            queryParameters,
+            filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
+                put(FILTERS_QUERY_PARAMETER_NAME, filters);
+                put(LIMIT_QUERY_PARAMETER_NAME, limit);
+                put(OFFSET_QUERY_PARAMETER_NAME, offset);
+            }}),
             _callback
         );
     }
@@ -349,7 +344,7 @@ public abstract class AbstractEntityApi {
     public okhttp3.Call getEntitiesCall(
         String code, Integer limit, Integer offset, final ApiCallback _callback
     ) throws QaseException {
-        return getEntitiesCall(code, NO_FILTERS, limit, offset, _callback);
+        return getEntitiesCall(code, null, limit, offset, _callback);
     }
 
     /**
@@ -373,7 +368,7 @@ public abstract class AbstractEntityApi {
     }
 
     public <T> T getEntities(String code, Integer limit, Integer offset) throws QaseException {
-        return getEntities(code, NO_FILTERS, limit, offset);
+        return getEntities(code, null, limit, offset);
     }
 
     /**
@@ -399,7 +394,7 @@ public abstract class AbstractEntityApi {
     }
 
     public <T> ApiResponse<T> getEntitiesWithHttpInfo(String code, Integer limit, Integer offset) throws QaseException {
-        return getEntitiesWithHttpInfo(code, NO_FILTERS, limit, offset);
+        return getEntitiesWithHttpInfo(code, null, limit, offset);
     }
 
     /**
@@ -429,7 +424,7 @@ public abstract class AbstractEntityApi {
 
     public <T> okhttp3.Call getEntitiesAsync(String code, Integer limit, Integer offset, final ApiCallback<T> _callback)
     throws QaseException {
-        return getEntitiesAsync(code, NO_FILTERS, limit, offset, _callback);
+        return getEntitiesAsync(code, null, limit, offset, _callback);
     }
 
     /**
@@ -448,7 +443,7 @@ public abstract class AbstractEntityApi {
     public okhttp3.Call resolveEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinEntitySubpath(apiClient.escapeString(code), "resolve", apiClient.escapeString(id.toString())),
+            joinEntitySubpath(code, "resolve", id.toString()),
             null,
             _callback
         );
@@ -532,7 +527,7 @@ public abstract class AbstractEntityApi {
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinEntitySubpath(apiClient.escapeString(code), apiClient.escapeString(id.toString())),
+            joinEntitySubpath(code, id.toString()),
             payload,
             _callback
         );
@@ -620,95 +615,13 @@ public abstract class AbstractEntityApi {
     throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinEntitySubpath(apiClient.escapeString(code), "status", apiClient.escapeString(id.toString())),
+            joinEntitySubpath(code, "status", id.toString()),
             payload,
             _callback
         );
     }
 
     protected abstract String getEntityRootPathSegment();
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateEntityValidateBeforeCall(
-        String code, Integer id, Object payload, final ApiCallback _callback
-    ) throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateEntity(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateEntity(Async)");
-        }
-
-        // verify the required parameter 'entityUpdate' is set
-        if (payload == null) {
-            throw new QaseException("Missing the required parameter 'entityUpdate' when calling updateEntity(Async)");
-        }
-
-        return updateEntityCall(code, id, payload, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteEntityValidateBeforeCall(
-        String code, Integer id, Object payload, final ApiCallback _callback
-    ) throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteEntity(Async)");
-        }
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling deleteEntity(Async)");
-        }
-
-        return deleteEntityCall(code, id, payload, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getEntityValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
-        throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getEntity(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling getEntity(Async)");
-        }
-
-        return getEntityCall(code, id, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getEntitiesValidateBeforeCall(
-        String code, Object filters, Integer limit, Integer offset, final ApiCallback _callback
-    ) throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getEntities(Async)");
-        }
-
-        return getEntitiesCall(code, filters, limit, offset, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call resolveEntityValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
-    throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling resolveEntity(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling resolveEntity(Async)");
-        }
-
-        return resolveEntityCall(code, id, _callback);
-    }
 
     protected okhttp3.Call createCallInternal(
         HttpMethod httpMethod, String path, Object body, final ApiCallback _callback
@@ -785,8 +698,90 @@ public abstract class AbstractEntityApi {
             .collect(Collectors.joining(URL_PATH_SEPARATOR, URL_PATH_SEPARATOR, EMPTY_STRING));
     }
 
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getEntitiesValidateBeforeCall(
+        String code, Object filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getEntities(Async)");
+        }
+
+        return getEntitiesCall(code, filters, limit, offset, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call resolveEntityValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling resolveEntity(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling resolveEntity(Async)");
+        }
+
+        return resolveEntityCall(code, id, _callback);
+    }
+
     private static <T> T coalesce(T first, T second) {
         return first == null ? second : first;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateEntityValidateBeforeCall(
+        String code, Integer id, Object payload, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling updateEntity(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling updateEntity(Async)");
+        }
+
+        // verify the required parameter 'entityUpdate' is set
+        if (payload == null) {
+            throw new QaseException("Missing the required parameter 'entityUpdate' when calling updateEntity(Async)");
+        }
+
+        return updateEntityCall(code, id, payload, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteEntityValidateBeforeCall(
+        String code, Integer id, Object payload, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling deleteEntity(Async)");
+        }
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling deleteEntity(Async)");
+        }
+
+        return deleteEntityCall(code, id, payload, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getEntityValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getEntity(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling getEntity(Async)");
+        }
+
+        return getEntityCall(code, id, _callback);
     }
 
     @Builder
