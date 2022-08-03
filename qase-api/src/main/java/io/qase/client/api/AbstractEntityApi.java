@@ -9,6 +9,8 @@ import io.qase.client.Pair;
 import io.qase.client.model.IdResponse;
 import io.qase.client.model.Response;
 import io.qase.enums.HttpMethod;
+import lombok.AccessLevel;
+import lombok.Getter;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -26,7 +28,9 @@ import static org.apache.http.HttpHeaders.CONTENT_TYPE;
  * @param <U> a DTO type for an update-call
  * @param <S> a type for entities` status
  * */
-public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to be used only in DefectsApi
+// TODO: <S> seems to be used only in DefectsApi
+// TODO: refactor the class (e.g. to an encapsulated service/set of services), not all inheritors use all the methods
+public abstract class AbstractEntityApi<C, R, RL, U, S> {
 
     private static final Object NO_FILTERS = null;
 
@@ -36,29 +40,32 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
 
     private static final String TOKEN_AUTH = "TokenAuth";
 
-    private ApiClient localVarApiClient;
+    protected static final String FILTERS_QUERY_PARAMETER_NAME = "filters";
+
+    protected static final String LIMIT_QUERY_PARAMETER_NAME = "limit";
+
+    protected static final String OFFSET_QUERY_PARAMETER_NAME = "offset";
+
+    @Getter(AccessLevel.PROTECTED)
+    private ApiClient apiClient;
 
     public AbstractEntityApi() {
         this(INJECTOR.getInstance(ApiClient.class));
     }
 
     public AbstractEntityApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+        this.apiClient = apiClient;
     }
 
     public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        this.apiClient = apiClient;
     }
 
     public okhttp3.Call createEntityCall(String code, C entityCreate, final ApiCallback _callback)
     throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            getEntityPath() + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code),
+            getEntityPath() + URL_PATH_SEPARATOR + apiClient.escapeString(code),
             entityCreate,
             _callback
         );
@@ -101,7 +108,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     public ApiResponse<IdResponse> createEntityWithHttpInfo(String code, C entityCreate) throws QaseException {
         okhttp3.Call localVarCall = createEntityValidateBeforeCall(code, entityCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return apiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -123,7 +130,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     ) throws QaseException {
         okhttp3.Call localVarCall = createEntityValidateBeforeCall(code, entityCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -144,7 +151,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
         return createCallInternal(
             HttpMethod.DELETE,
             joinPath(
-                getEntityPath(), localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
+                getEntityPath(), apiClient.escapeString(code), apiClient.escapeString(id.toString())
             ),
             null,
             _callback
@@ -185,7 +192,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     public ApiResponse<IdResponse> deleteEntityWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = deleteEntityValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return apiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -205,7 +212,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     public okhttp3.Call deleteEntityAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
         okhttp3.Call localVarCall = deleteEntityValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -226,7 +233,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
         return createCallInternal(
             HttpMethod.GET,
             joinPath(
-                getEntityPath(), localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
+                getEntityPath(), apiClient.escapeString(code), apiClient.escapeString(id.toString())
             ),
             null,
             _callback
@@ -267,7 +274,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     public ApiResponse<R> getEntityWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = getEntityValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<R>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return apiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -287,7 +294,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     public okhttp3.Call getEntityAsync(String code, Integer id, final ApiCallback<R> _callback) throws QaseException {
         okhttp3.Call localVarCall = getEntityValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<R>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -310,14 +317,14 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
         String code, Object filters, Integer limit, Integer offset, final ApiCallback _callback
     ) throws QaseException {
         List<Pair> queryParameters = filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
-            put("filters", filters);
-            put("limit", limit);
-            put("offset", offset);
+            put(FILTERS_QUERY_PARAMETER_NAME, filters);
+            put(LIMIT_QUERY_PARAMETER_NAME, limit);
+            put(OFFSET_QUERY_PARAMETER_NAME, offset);
         }});
 
         return createCallInternal(
             HttpMethod.GET,
-            joinPath(getEntityPath(), localVarApiClient.escapeString(code)),
+            joinPath(getEntityPath(), apiClient.escapeString(code)),
             null,
             queryParameters,
             _callback
@@ -373,7 +380,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     throws QaseException {
         okhttp3.Call localVarCall = getEntitiesValidateBeforeCall(code, filters, limit, offset, null);
         Type localVarReturnType = new TypeToken<RL>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return apiClient.execute(localVarCall, localVarReturnType);
     }
 
     public ApiResponse<RL> getEntitiesWithHttpInfo(String code, Integer limit, Integer offset)
@@ -402,7 +409,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     ) throws QaseException {
         okhttp3.Call localVarCall = getEntitiesValidateBeforeCall(code, filters, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<RL>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -429,9 +436,9 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
             HttpMethod.PATCH,
             joinPath(
                 getEntityPath(),
-                localVarApiClient.escapeString(code),
+                apiClient.escapeString(code),
                 "resolve",
-                localVarApiClient.escapeString(id.toString())
+                apiClient.escapeString(id.toString())
             ),
             null,
             _callback
@@ -472,7 +479,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     public ApiResponse<IdResponse> resolveEntityWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = resolveEntityValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return apiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -493,7 +500,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     throws QaseException {
         okhttp3.Call localVarCall = resolveEntityValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -517,7 +524,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
         return createCallInternal(
             HttpMethod.PATCH,
             joinPath(
-                getEntityPath(), localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
+                getEntityPath(), apiClient.escapeString(code), apiClient.escapeString(id.toString())
             ),
             entityUpdate,
             _callback
@@ -561,7 +568,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     throws QaseException {
         okhttp3.Call localVarCall = updateEntityValidateBeforeCall(code, id, entityUpdate, null);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return apiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -584,7 +591,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     ) throws QaseException {
         okhttp3.Call localVarCall = updateEntityValidateBeforeCall(code, id, entityUpdate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -608,9 +615,9 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
             HttpMethod.PATCH,
             joinPath(
                 getEntityPath(),
-                localVarApiClient.escapeString(code),
+                apiClient.escapeString(code),
                 "status",
-                localVarApiClient.escapeString(id.toString())
+                apiClient.escapeString(id.toString())
             ),
             entityStatus,
             _callback
@@ -654,7 +661,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     throws QaseException {
         okhttp3.Call localVarCall = updateEntityStatusValidateBeforeCall(code, id, entityStatus, null);
         Type localVarReturnType = new TypeToken<Response>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return apiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -677,7 +684,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
     ) throws QaseException {
         okhttp3.Call localVarCall = updateEntityStatusValidateBeforeCall(code, id, entityStatus, _callback);
         Type localVarReturnType = new TypeToken<Response>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -804,17 +811,17 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
         Map<String, Object> localVarFormParams = new HashMap<>();
 
         final String[] localVarAccepts = {APPLICATION_JSON};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put(ACCEPT, localVarAccept);
         }
 
         final String[] localVarContentTypes = {APPLICATION_JSON};
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put(CONTENT_TYPE, localVarContentType);
 
         String[] localVarAuthNames = new String[] {TOKEN_AUTH};
-        return localVarApiClient.buildCall(
+        return apiClient.buildCall(
             path,
             httpMethod.toString(),
             localVarQueryParams,
@@ -832,11 +839,11 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to 
         return String.join(URL_PATH_SEPARATOR, pathSegments);
     }
 
-    private List<Pair> filterNullsAndConvertToPairs(Map<String, Object> queryParameters) {
+    protected List<Pair> filterNullsAndConvertToPairs(Map<String, Object> queryParameters) {
         return queryParameters.entrySet().stream()
             .filter(nameToValue -> Objects.nonNull(nameToValue.getValue()))
             .flatMap(
-                nameToValue -> localVarApiClient.parameterToPair(nameToValue.getKey(), nameToValue.getValue()).stream()
+                nameToValue -> apiClient.parameterToPair(nameToValue.getKey(), nameToValue.getValue()).stream()
             )
             .collect(Collectors.toList());
     }
