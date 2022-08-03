@@ -13,34 +13,20 @@
 
 package io.qase.client.api;
 
-import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class SuitesApi {
-    private ApiClient localVarApiClient;
+public class SuitesApi extends AbstractEntityApi<SuiteCreate, SuiteResponse, SuiteListResponse, Object, Object> {
 
     public SuitesApi() {
-        this(Configuration.getDefaultApiClient());
+        super();
     }
 
     public SuitesApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -56,54 +42,9 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createSuiteCall(String code, SuiteCreate suiteCreate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = suiteCreate;
-
-        // create path and map variables
-        String localVarPath = "/suite/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createSuiteValidateBeforeCall(String code, SuiteCreate suiteCreate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling createSuite(Async)");
-        }
-
-        // verify the required parameter 'suiteCreate' is set
-        if (suiteCreate == null) {
-            throw new QaseException("Missing the required parameter 'suiteCreate' when calling createSuite(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = createSuiteCall(code, suiteCreate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call createSuiteCall(String code, SuiteCreate suiteCreate, final ApiCallback _callback)
+    throws QaseException {
+        return createEntityCall(code, suiteCreate, _callback);
     }
 
     /**
@@ -120,8 +61,7 @@ public class SuitesApi {
      * </table>
      */
     public IdResponse createSuite(String code, SuiteCreate suiteCreate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = createSuiteWithHttpInfo(code, suiteCreate);
-        return localVarResp.getData();
+        return createEntity(code, suiteCreate);
     }
 
     /**
@@ -138,10 +78,7 @@ public class SuitesApi {
      * </table>
      */
     public ApiResponse<IdResponse> createSuiteWithHttpInfo(String code, SuiteCreate suiteCreate) throws QaseException {
-        okhttp3.Call localVarCall = createSuiteValidateBeforeCall(code, suiteCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return createEntityWithHttpInfo(code, suiteCreate);
     }
 
     /**
@@ -158,13 +95,9 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createSuiteAsync(String code, SuiteCreate suiteCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = createSuiteValidateBeforeCall(code, suiteCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call createSuiteAsync(String code, SuiteCreate suiteCreate, final ApiCallback<IdResponse> _callback)
+    throws QaseException {
+        return createEntityAsync(code, suiteCreate, _callback);
     }
 
     /**
@@ -181,55 +114,9 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteSuiteCall(String code, Integer id, SuiteDelete suiteDelete, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = suiteDelete;
-
-        // create path and map variables
-        String localVarPath = "/suite/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteSuiteValidateBeforeCall(String code, Integer id, SuiteDelete suiteDelete, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteSuite(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling deleteSuite(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = deleteSuiteCall(code, id, suiteDelete, _callback);
-        return localVarCall;
-
+    public okhttp3.Call deleteSuiteCall(String code, Integer id, SuiteDelete suiteDelete, final ApiCallback _callback)
+    throws QaseException {
+        return deleteEntityCall(code, id, suiteDelete, _callback);
     }
 
     /**
@@ -247,8 +134,7 @@ public class SuitesApi {
      * </table>
      */
     public IdResponse deleteSuite(String code, Integer id, SuiteDelete suiteDelete) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = deleteSuiteWithHttpInfo(code, id, suiteDelete);
-        return localVarResp.getData();
+        return deleteEntity(code, id, suiteDelete);
     }
 
     /**
@@ -265,11 +151,9 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<IdResponse> deleteSuiteWithHttpInfo(String code, Integer id, SuiteDelete suiteDelete) throws QaseException {
-        okhttp3.Call localVarCall = deleteSuiteValidateBeforeCall(code, id, suiteDelete, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<IdResponse> deleteSuiteWithHttpInfo(String code, Integer id, SuiteDelete suiteDelete)
+    throws QaseException {
+        return deleteEntityWithHttpInfo(code, id, suiteDelete);
     }
 
     /**
@@ -287,13 +171,10 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteSuiteAsync(String code, Integer id, SuiteDelete suiteDelete, final ApiCallback<IdResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = deleteSuiteValidateBeforeCall(code, id, suiteDelete, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call deleteSuiteAsync(
+        String code, Integer id, SuiteDelete suiteDelete, final ApiCallback<IdResponse> _callback
+    ) throws QaseException {
+        return deleteEntityAsync(code, id, suiteDelete, _callback);
     }
 
     /**
@@ -310,54 +191,7 @@ public class SuitesApi {
      * </table>
      */
     public okhttp3.Call getSuiteCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/suite/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSuiteValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getSuite(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling getSuite(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getSuiteCall(code, id, _callback);
-        return localVarCall;
-
+        return getEntityCall(code, id, _callback);
     }
 
     /**
@@ -374,8 +208,7 @@ public class SuitesApi {
      * </table>
      */
     public SuiteResponse getSuite(String code, Integer id) throws QaseException {
-        ApiResponse<SuiteResponse> localVarResp = getSuiteWithHttpInfo(code, id);
-        return localVarResp.getData();
+        return getEntity(code, id);
     }
 
     /**
@@ -392,10 +225,7 @@ public class SuitesApi {
      * </table>
      */
     public ApiResponse<SuiteResponse> getSuiteWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = getSuiteValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<SuiteResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getEntityWithHttpInfo(code, id);
     }
 
     /**
@@ -412,13 +242,9 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getSuiteAsync(String code, Integer id, final ApiCallback<SuiteResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = getSuiteValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<SuiteResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call getSuiteAsync(String code, Integer id, final ApiCallback<SuiteResponse> _callback)
+    throws QaseException {
+        return getEntityAsync(code, id, _callback);
     }
 
     /**
@@ -436,61 +262,10 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A list of all suites of project. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getSuitesCall(String code, Filters7 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/suite/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSuitesValidateBeforeCall(String code, Filters7 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getSuites(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getSuitesCall(code, filters, limit, offset, _callback);
-        return localVarCall;
-
+    public okhttp3.Call getSuitesCall(
+        String code, Filters7 filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        return getEntitiesCall(code, filters, limit, offset, _callback);
     }
 
     /**
@@ -508,9 +283,9 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A list of all suites of project. </td><td>  -  </td></tr>
      * </table>
      */
-    public SuiteListResponse getSuites(String code, Filters7 filters, Integer limit, Integer offset) throws QaseException {
-        ApiResponse<SuiteListResponse> localVarResp = getSuitesWithHttpInfo(code, filters, limit, offset);
-        return localVarResp.getData();
+    public SuiteListResponse getSuites(String code, Filters7 filters, Integer limit, Integer offset)
+    throws QaseException {
+        return getEntities(code, filters, limit, offset);
     }
 
     /**
@@ -528,11 +303,10 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A list of all suites of project. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<SuiteListResponse> getSuitesWithHttpInfo(String code, Filters7 filters, Integer limit, Integer offset) throws QaseException {
-        okhttp3.Call localVarCall = getSuitesValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<SuiteListResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<SuiteListResponse> getSuitesWithHttpInfo(
+        String code, Filters7 filters, Integer limit, Integer offset
+    ) throws QaseException {
+        return getEntitiesWithHttpInfo(code, filters, limit, offset);
     }
 
     /**
@@ -551,13 +325,10 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A list of all suites of project. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getSuitesAsync(String code, Filters7 filters, Integer limit, Integer offset, final ApiCallback<SuiteListResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = getSuitesValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<SuiteListResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public okhttp3.Call getSuitesAsync(
+        String code, Filters7 filters, Integer limit, Integer offset, final ApiCallback<SuiteListResponse> _callback
+    ) throws QaseException {
+        return getEntitiesAsync(code, filters, limit, offset, _callback);
     }
 
     /**
@@ -574,60 +345,10 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateSuiteCall(String code, Integer id, SuiteCreate suiteCreate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = suiteCreate;
-
-        // create path and map variables
-        String localVarPath = "/suite/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateSuiteValidateBeforeCall(String code, Integer id, SuiteCreate suiteCreate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateSuite(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateSuite(Async)");
-        }
-
-        // verify the required parameter 'suiteCreate' is set
-        if (suiteCreate == null) {
-            throw new QaseException("Missing the required parameter 'suiteCreate' when calling updateSuite(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = updateSuiteCall(code, id, suiteCreate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call updateSuiteCall(
+        String code, Integer id, SuiteCreate suiteCreate, final ApiCallback _callback
+    ) throws QaseException {
+        return updateEntityCall(code, id, suiteCreate, _callback);
     }
 
     /**
@@ -663,11 +384,9 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<IdResponse> updateSuiteWithHttpInfo(String code, Integer id, SuiteCreate suiteCreate) throws QaseException {
-        okhttp3.Call localVarCall = updateSuiteValidateBeforeCall(code, id, suiteCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    public ApiResponse<IdResponse> updateSuiteWithHttpInfo(String code, Integer id, SuiteCreate suiteCreate)
+    throws QaseException {
+        return updateEntityWithHttpInfo(code, id, suiteCreate);
     }
 
     /**
@@ -685,12 +404,14 @@ public class SuitesApi {
      * <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateSuiteAsync(String code, Integer id, SuiteCreate suiteCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
+    public okhttp3.Call updateSuiteAsync(
+        String code, Integer id, SuiteCreate suiteCreate, final ApiCallback<IdResponse> _callback
+    ) throws QaseException {
+        return updateEntityAsync(code, id, suiteCreate, _callback);
+    }
 
-        okhttp3.Call localVarCall = updateSuiteValidateBeforeCall(code, id, suiteCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    @Override
+    protected String getEntityPath() {
+        return "/suite";
     }
 }
