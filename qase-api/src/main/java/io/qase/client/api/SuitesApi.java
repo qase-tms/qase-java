@@ -411,7 +411,7 @@ public class SuitesApi extends AbstractEntityApi<SuiteCreate, SuiteResponse, Sui
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/suite";
+    protected String getEntityRootPathSegment() {
+        return "suite";
     }
 }

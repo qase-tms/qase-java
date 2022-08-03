@@ -395,7 +395,7 @@ public class PlansApi extends AbstractEntityApi<PlanCreate, PlanResponse, PlanLi
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/plan";
+    protected String getEntityRootPathSegment() {
+        return "plan";
     }
 }

@@ -132,7 +132,7 @@ extends AbstractEntityApi<SharedStepCreate, SharedStepResponse, SharedStepListRe
     throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinEntitySubpathEscaped(code, hash),
+            joinEntitySubpath(code, hash),
             null,
             _callback
         );
@@ -213,7 +213,7 @@ extends AbstractEntityApi<SharedStepCreate, SharedStepResponse, SharedStepListRe
     public okhttp3.Call getSharedStepCall(String code, String hash, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpathEscaped(code, hash),
+            joinEntitySubpath(code, hash),
             null,
             _callback
         );
@@ -298,7 +298,7 @@ extends AbstractEntityApi<SharedStepCreate, SharedStepResponse, SharedStepListRe
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpathEscaped(code),
+            joinEntitySubpath(code),
             null,
             filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
                 put(FILTERS_QUERY_PARAMETER_NAME, filters);
@@ -401,7 +401,7 @@ extends AbstractEntityApi<SharedStepCreate, SharedStepResponse, SharedStepListRe
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinEntitySubpathEscaped(code, hash),
+            joinEntitySubpath(code, hash),
             sharedStepUpdate,
             _callback
         );
@@ -474,8 +474,8 @@ extends AbstractEntityApi<SharedStepCreate, SharedStepResponse, SharedStepListRe
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/shared_step";
+    protected String getEntityRootPathSegment() {
+        return "shared_step";
     }
 
     @SuppressWarnings("rawtypes")

@@ -406,7 +406,7 @@ extends AbstractEntityApi<MilestoneCreate, MilestoneResponse, MilestoneListRespo
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/milestone";
+    protected String getEntityRootPathSegment() {
+        return "milestone";
     }
 }
