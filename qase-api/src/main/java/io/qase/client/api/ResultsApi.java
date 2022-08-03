@@ -24,8 +24,7 @@ import io.qase.enums.HttpMethod;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-public class ResultsApi
-extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, ResultUpdate, Object> {
+public class ResultsApi extends AbstractEntityApi {
 
     public ResultsApi() {
         super();

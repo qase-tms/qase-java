@@ -24,8 +24,7 @@ import io.qase.enums.HttpMethod;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-public class ProjectsApi
-extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, Object, Object> {
+public class ProjectsApi extends AbstractEntityApi {
 
     public ProjectsApi() {
         super();

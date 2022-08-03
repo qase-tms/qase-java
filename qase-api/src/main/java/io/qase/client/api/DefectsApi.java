@@ -13,14 +13,16 @@
 
 package io.qase.client.api;
 
+import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiCallback;
 import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-public class DefectsApi
-extends AbstractEntityApi<DefectCreate, DefectResponse, DefectListResponse, DefectUpdate, DefectStatus> {
+import java.lang.reflect.Type;
+
+public class DefectsApi extends AbstractEntityApi {
 
     public DefectsApi() {
         super();
@@ -511,7 +513,8 @@ extends AbstractEntityApi<DefectCreate, DefectResponse, DefectListResponse, Defe
      * </table>
      */
     public Response updateDefectStatus(String code, Integer id, DefectStatus defectStatus) throws QaseException {
-        return updateEntityStatus(code, id, defectStatus);
+        ApiResponse<Response> localVarResp = updateEntityStatusWithHttpInfo(code, id, defectStatus);
+        return localVarResp.getData();
     }
 
     /**
@@ -552,6 +555,75 @@ extends AbstractEntityApi<DefectCreate, DefectResponse, DefectListResponse, Defe
         String code, Integer id, DefectStatus defectStatus, final ApiCallback<Response> _callback
     ) throws QaseException {
         return updateEntityStatusAsync(code, id, defectStatus, _callback);
+    }
+
+    /**
+     * Update a specific entity status.
+     * This method allows to update a specific entity status.
+     *
+     * @param code         Code of project, where to search entities. (required)
+     * @param id           Identifier. (required)
+     * @param entityStatus (required)
+     * @return ApiResponse&lt;Response&gt;
+     * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
+     */
+    public ApiResponse<Response> updateEntityStatusWithHttpInfo(String code, Integer id, DefectStatus entityStatus)
+        throws QaseException {
+        okhttp3.Call localVarCall = updateEntityStatusValidateBeforeCall(code, id, entityStatus, null);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateEntityStatusValidateBeforeCall(
+        String code, Integer id, DefectStatus defectStatus, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling updateEntityStatus(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling updateEntityStatus(Async)");
+        }
+
+        // verify the required parameter 'entityStatus' is set
+        if (defectStatus == null) {
+            throw new QaseException(
+                "Missing the required parameter 'entityStatus' when calling updateEntityStatus(Async)"
+            );
+        }
+
+        return updateEntityStatusCall(code, id, defectStatus, _callback);
+    }
+
+    /**
+     * Update a specific entity status. (asynchronously)
+     * This method allows to update a specific entity status.
+     *
+     * @param code         Code of project, where to search entities. (required)
+     * @param id           Identifier. (required)
+     * @param defectStatus (required)
+     * @param _callback    The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws QaseException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+     * </table>
+     */
+    public okhttp3.Call updateEntityStatusAsync(
+        String code, Integer id, DefectStatus defectStatus, final ApiCallback<Response> _callback
+    ) throws QaseException {
+        okhttp3.Call localVarCall = updateEntityStatusValidateBeforeCall(code, id, defectStatus, _callback);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
     }
 
     @Override

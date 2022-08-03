@@ -19,7 +19,7 @@ import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-public class PlansApi extends AbstractEntityApi<PlanCreate, PlanResponse, PlanListResponse, PlanUpdate, Object> {
+public class PlansApi extends AbstractEntityApi {
 
     public PlansApi() {
         super();
