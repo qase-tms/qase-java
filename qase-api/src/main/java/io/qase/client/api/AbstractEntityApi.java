@@ -58,10 +58,6 @@ public abstract class AbstractEntityApi {
         this.apiClient = apiClient;
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
     public okhttp3.Call createEntityCall(String code, Object payload, final ApiCallback _callback)
     throws QaseException {
         return createCallInternal(
