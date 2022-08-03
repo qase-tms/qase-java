@@ -15,32 +15,24 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
+import io.qase.enums.HttpMethod;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class ProjectsApi {
-    private ApiClient localVarApiClient;
+public class ProjectsApi
+extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, Object, Object> {
 
     public ProjectsApi() {
-        this(Configuration.getDefaultApiClient());
+        super();
     }
 
     public ProjectsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -55,48 +47,14 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> A result of project creation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createProjectCall(ProjectCreate projectCreate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = projectCreate;
-
-        // create path and map variables
-        String localVarPath = "/project";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createProjectValidateBeforeCall(ProjectCreate projectCreate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'projectCreate' is set
-        if (projectCreate == null) {
-            throw new QaseException("Missing the required parameter 'projectCreate' when calling createProject(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = createProjectCall(projectCreate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call createProjectCall(ProjectCreate projectCreate, final ApiCallback _callback)
+    throws QaseException {
+        return createCallInternal(
+            HttpMethod.POST,
+            getEntityPath(),
+            projectCreate,
+            _callback
+        );
     }
 
     /**
@@ -128,11 +86,11 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> A result of project creation. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<ProjectCodeResponse> createProjectWithHttpInfo(ProjectCreate projectCreate) throws QaseException {
+    public ApiResponse<ProjectCodeResponse> createProjectWithHttpInfo(ProjectCreate projectCreate)
+    throws QaseException {
         okhttp3.Call localVarCall = createProjectValidateBeforeCall(projectCreate, null);
-        Type localVarReturnType = new TypeToken<ProjectCodeResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<ProjectCodeResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -148,12 +106,12 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> A result of project creation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createProjectAsync(ProjectCreate projectCreate, final ApiCallback<ProjectCodeResponse> _callback) throws QaseException {
-
+    public okhttp3.Call createProjectAsync(
+        ProjectCreate projectCreate, final ApiCallback<ProjectCodeResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = createProjectValidateBeforeCall(projectCreate, _callback);
-        Type localVarReturnType = new TypeToken<ProjectCodeResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<ProjectCodeResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -170,48 +128,12 @@ public class ProjectsApi {
      * </table>
      */
     public okhttp3.Call deleteProjectCall(String code, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/project/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteProjectValidateBeforeCall(String code, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteProject(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = deleteProjectCall(code, _callback);
-        return localVarCall;
-
+        return createCallInternal(
+            HttpMethod.DELETE,
+            joinPath(getEntityPath(), getApiClient().escapeString(code)),
+            null,
+            _callback
+        );
     }
 
     /**
@@ -245,9 +167,8 @@ public class ProjectsApi {
      */
     public ApiResponse<Response> deleteProjectWithHttpInfo(String code) throws QaseException {
         okhttp3.Call localVarCall = deleteProjectValidateBeforeCall(code, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -264,11 +185,9 @@ public class ProjectsApi {
      * </table>
      */
     public okhttp3.Call deleteProjectAsync(String code, final ApiCallback<Response> _callback) throws QaseException {
-
         okhttp3.Call localVarCall = deleteProjectValidateBeforeCall(code, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -285,48 +204,12 @@ public class ProjectsApi {
      * </table>
      */
     public okhttp3.Call getProjectCall(String code, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/project/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getProjectValidateBeforeCall(String code, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getProject(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getProjectCall(code, _callback);
-        return localVarCall;
-
+        return createCallInternal(
+            HttpMethod.GET,
+            joinPath(getEntityPath(), getApiClient().escapeString(code)),
+            null,
+            _callback
+        );
     }
 
     /**
@@ -360,9 +243,8 @@ public class ProjectsApi {
      */
     public ApiResponse<ProjectResponse> getProjectWithHttpInfo(String code) throws QaseException {
         okhttp3.Call localVarCall = getProjectValidateBeforeCall(code, null);
-        Type localVarReturnType = new TypeToken<ProjectResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<ProjectResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -378,12 +260,11 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> A Project. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getProjectAsync(String code, final ApiCallback<ProjectResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getProjectAsync(String code, final ApiCallback<ProjectResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = getProjectValidateBeforeCall(code, _callback);
-        Type localVarReturnType = new TypeToken<ProjectResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<ProjectResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -400,51 +281,18 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getProjectsCall(Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/project";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getProjectsValidateBeforeCall(Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-
-        okhttp3.Call localVarCall = getProjectsCall(limit, offset, _callback);
-        return localVarCall;
-
+    public okhttp3.Call getProjectsCall(Integer limit, Integer offset, final ApiCallback _callback)
+    throws QaseException {
+        return createCallInternal(
+            HttpMethod.GET,
+            getEntityPath(),
+            null,
+            filterNullsAndConvertToPairs(new HashMap<String, Object>(){{
+                put(LIMIT_QUERY_PARAMETER_NAME, limit);
+                put(OFFSET_QUERY_PARAMETER_NAME, offset);
+            }}),
+            _callback
+        );
     }
 
     /**
@@ -478,11 +326,11 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<ProjectListResponse> getProjectsWithHttpInfo(Integer limit, Integer offset) throws QaseException {
+    public ApiResponse<ProjectListResponse> getProjectsWithHttpInfo(Integer limit, Integer offset)
+    throws QaseException {
         okhttp3.Call localVarCall = getProjectsValidateBeforeCall(limit, offset, null);
-        Type localVarReturnType = new TypeToken<ProjectListResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<ProjectListResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -499,12 +347,12 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getProjectsAsync(Integer limit, Integer offset, final ApiCallback<ProjectListResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getProjectsAsync(
+        Integer limit, Integer offset, final ApiCallback<ProjectListResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = getProjectsValidateBeforeCall(limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<ProjectListResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<ProjectListResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -521,54 +369,14 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call grantAccessToProjectCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = projectAccess;
-
-        // create path and map variables
-        String localVarPath = "/project/{code}/access"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call grantAccessToProjectValidateBeforeCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling grantAccessToProject(Async)");
-        }
-
-        // verify the required parameter 'projectAccess' is set
-        if (projectAccess == null) {
-            throw new QaseException("Missing the required parameter 'projectAccess' when calling grantAccessToProject(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = grantAccessToProjectCall(code, projectAccess, _callback);
-        return localVarCall;
-
+    public okhttp3.Call grantAccessToProjectCall(String code, ProjectAccess projectAccess, final ApiCallback _callback)
+    throws QaseException {
+        return createCallInternal(
+            HttpMethod.POST,
+            joinPath(getEntityPath(), getApiClient().escapeString(code)),
+            projectAccess,
+            _callback
+        );
     }
 
     /**
@@ -602,11 +410,11 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<Response> grantAccessToProjectWithHttpInfo(String code, ProjectAccess projectAccess) throws QaseException {
+    public ApiResponse<Response> grantAccessToProjectWithHttpInfo(String code, ProjectAccess projectAccess)
+    throws QaseException {
         okhttp3.Call localVarCall = grantAccessToProjectValidateBeforeCall(code, projectAccess, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -623,12 +431,12 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call grantAccessToProjectAsync(String code, ProjectAccess projectAccess, final ApiCallback<Response> _callback) throws QaseException {
-
+    public okhttp3.Call grantAccessToProjectAsync(
+        String code, ProjectAccess projectAccess, final ApiCallback<Response> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = grantAccessToProjectValidateBeforeCall(code, projectAccess, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -646,39 +454,18 @@ public class ProjectsApi {
      * </table>
      */
     public okhttp3.Call revokeAccessToProjectCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = projectAccess;
-
-        // create path and map variables
-        String localVarPath = "/project/{code}/access"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return createCallInternal(
+            HttpMethod.DELETE,
+            joinPath(getEntityPath(), getApiClient().escapeString(code), "access"),
+            projectAccess,
+            _callback
+        );
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call revokeAccessToProjectValidateBeforeCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws QaseException {
-
+    private okhttp3.Call revokeAccessToProjectValidateBeforeCall(
+        String code, ProjectAccess projectAccess, final ApiCallback _callback
+    ) throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling revokeAccessToProject(Async)");
@@ -686,13 +473,13 @@ public class ProjectsApi {
 
         // verify the required parameter 'projectAccess' is set
         if (projectAccess == null) {
-            throw new QaseException("Missing the required parameter 'projectAccess' when calling revokeAccessToProject(Async)");
+            throw new QaseException(
+                "Missing the required parameter 'projectAccess' when calling revokeAccessToProject(Async)"
+            );
         }
-
 
         okhttp3.Call localVarCall = revokeAccessToProjectCall(code, projectAccess, _callback);
         return localVarCall;
-
     }
 
     /**
@@ -726,11 +513,11 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<Response> revokeAccessToProjectWithHttpInfo(String code, ProjectAccess projectAccess) throws QaseException {
+    public ApiResponse<Response> revokeAccessToProjectWithHttpInfo(String code, ProjectAccess projectAccess)
+    throws QaseException {
         okhttp3.Call localVarCall = revokeAccessToProjectValidateBeforeCall(code, projectAccess, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -747,12 +534,77 @@ public class ProjectsApi {
      * <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call revokeAccessToProjectAsync(String code, ProjectAccess projectAccess, final ApiCallback<Response> _callback) throws QaseException {
-
+    public okhttp3.Call revokeAccessToProjectAsync(
+        String code, ProjectAccess projectAccess, final ApiCallback<Response> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = revokeAccessToProjectValidateBeforeCall(code, projectAccess, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    @Override
+    protected String getEntityPath() {
+        return "/project";
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createProjectValidateBeforeCall(ProjectCreate projectCreate, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'projectCreate' is set
+        if (projectCreate == null) {
+            throw new QaseException("Missing the required parameter 'projectCreate' when calling createProject(Async)");
+        }
+
+        okhttp3.Call localVarCall = createProjectCall(projectCreate, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteProjectValidateBeforeCall(String code, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling deleteProject(Async)");
+        }
+
+        okhttp3.Call localVarCall = deleteProjectCall(code, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getProjectValidateBeforeCall(String code, final ApiCallback _callback) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getProject(Async)");
+        }
+
+        okhttp3.Call localVarCall = getProjectCall(code, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getProjectsValidateBeforeCall(Integer limit, Integer offset, final ApiCallback _callback)
+        throws QaseException {
+        okhttp3.Call localVarCall = getProjectsCall(limit, offset, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call grantAccessToProjectValidateBeforeCall(
+        String code, ProjectAccess projectAccess, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling grantAccessToProject(Async)");
+        }
+
+        // verify the required parameter 'projectAccess' is set
+        if (projectAccess == null) {
+            throw new QaseException("Missing the required parameter 'projectAccess' when calling grantAccessToProject(Async)");
+        }
+
+        okhttp3.Call localVarCall = grantAccessToProjectCall(code, projectAccess, _callback);
         return localVarCall;
     }
 }
