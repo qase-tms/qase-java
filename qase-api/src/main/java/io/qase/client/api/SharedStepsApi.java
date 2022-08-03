@@ -51,12 +51,7 @@ extends AbstractEntityApi<SharedStepCreate, SharedStepResponse, SharedStepListRe
     public okhttp3.Call createSharedStepCall(
         String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback
     ) throws QaseException {
-        return createCallInternal(
-            HttpMethod.POST,
-            joinEntitySubpathEscaped(code),
-            sharedStepCreate,
-            _callback
-        );
+        return createEntityCall(code, sharedStepCreate, _callback);
     }
 
     /**
