@@ -43,6 +43,10 @@ public abstract class AbstractEntityApi {
 
     protected static final String QUERY_QUERY_PARAMETER_NAME = "query";
 
+    protected static final String FILE_FORM_PARAMETER_NAME = "file";
+
+    protected static final String MULTIPART_FORM_DATA = "multipart/form-data";
+
     @Getter(AccessLevel.PROTECTED)
     private ApiClient apiClient;
 
@@ -740,7 +744,9 @@ public abstract class AbstractEntityApi {
             localVarHeaderParams.put(ACCEPT, localVarAccept);
         }
 
-        final String[] localVarContentTypes = {APPLICATION_JSON};
+        final String[] localVarContentTypes = {
+            coalesce(callParameters.getContentType(), APPLICATION_JSON)
+        };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put(CONTENT_TYPE, localVarContentType);
 
@@ -783,18 +789,24 @@ public abstract class AbstractEntityApi {
             .collect(Collectors.joining(URL_PATH_SEPARATOR, URL_PATH_SEPARATOR, EMPTY_STRING));
     }
 
+    private static <T> T coalesce(T first, T second) {
+        return first == null ? second : first;
+    }
+
     @Builder
     @Getter
     public static class CallParameters {
 
-        private String path;
-
-        private Object payload;
-
         private HttpMethod httpMethod;
+
+        private String path;
 
         @Builder.Default
         private List<Pair> queryParams = new ArrayList<>();
+
+        private Object payload;
+
+        private String contentType;
 
         @Builder.Default
         private Map<String, Object> formParams = new HashMap<>();
