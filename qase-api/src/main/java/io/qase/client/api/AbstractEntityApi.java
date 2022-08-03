@@ -2,17 +2,21 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
-import io.qase.client.model.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
+import io.qase.client.Pair;
+import io.qase.client.model.IdResponse;
+import io.qase.client.model.Response;
 import io.qase.enums.HttpMethod;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static io.qase.configuration.QaseModule.INJECTOR;
+import static org.apache.http.HttpHeaders.ACCEPT;
+import static org.apache.http.HttpHeaders.CONTENT_TYPE;
 
 /**
  *
@@ -22,11 +26,15 @@ import static io.qase.configuration.QaseModule.INJECTOR;
  * @param <U> a DTO type for an update-call
  * @param <S> a type for entities` status
  * */
-public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the abstract class, refactor to a service
+public abstract class AbstractEntityApi<C, R, RL, U, S> {
 
     private static final Object NO_FILTERS = null;
 
     private static final String URL_PATH_SEPARATOR = "/";
+
+    private static final String APPLICATION_JSON = "application/json";
+
+    private static final String TOKEN_AUTH = "TokenAuth";
 
     private ApiClient localVarApiClient;
 
@@ -48,36 +56,10 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
 
     public okhttp3.Call createEntityCall(String code, C entityCreate, final ApiCallback _callback)
     throws QaseException {
-        // create path and map variables
-        String localVarPath = getEntityPath() + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code);
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {"application/json"};
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.POST.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
+        return createCallInternal(
+            HttpMethod.POST,
+            getEntityPath() + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code),
             entityCreate,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
             _callback
         );
     }
@@ -159,40 +141,12 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
      * </table>
      */
     public okhttp3.Call deleteEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = getEntityPath()
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code)
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(id.toString());
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.DELETE.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
+        return createCallInternal(
+            HttpMethod.DELETE,
+            joinPath(
+                getEntityPath(), localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
+            ),
+            null,
             _callback
         );
     }
@@ -269,40 +223,12 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
      * </table>
      */
     public okhttp3.Call getEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = getEntityPath()
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code)
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(id.toString());
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.GET.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
+        return createCallInternal(
+            HttpMethod.GET,
+            joinPath(
+                getEntityPath(), localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
+            ),
+            null,
             _callback
         );
     }
@@ -383,50 +309,17 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
     public okhttp3.Call getEntitiesCall(
         String code, Object filters, Integer limit, Integer offset, final ApiCallback _callback
     ) throws QaseException {
-        Object localVarPostBody = null;
+        List<Pair> queryParameters = filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
+            put("filters", filters);
+            put("limit", limit);
+            put("offset", offset);
+        }});
 
-        // create path and map variables
-        String localVarPath = getEntityPath() + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code);
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.GET.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
+        return createCallInternal(
+            HttpMethod.GET,
+            joinPath(getEntityPath(), localVarApiClient.escapeString(code)),
+            null,
+            queryParameters,
             _callback
         );
     }
@@ -532,41 +425,15 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
      * </table>
      */
     public okhttp3.Call resolveEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = getEntityPath()
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code)
-            + URL_PATH_SEPARATOR + "resolve"
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(id.toString());
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.PATCH.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
+        return createCallInternal(
+            HttpMethod.PATCH,
+            joinPath(
+                getEntityPath(),
+                localVarApiClient.escapeString(code),
+                "resolve",
+                localVarApiClient.escapeString(id.toString())
+            ),
+            null,
             _callback
         );
     }
@@ -644,43 +511,15 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateEntityCall( // TODO: unhardcode string values
+    public okhttp3.Call updateEntityCall(
         String code, Integer id, U entityUpdate, final ApiCallback _callback
     ) throws QaseException {
-        Object localVarPostBody = entityUpdate;
-
-        // create path and map variables
-        String localVarPath = getEntityPath()
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code)
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(id.toString());
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {"application/json"};
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.PATCH.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
+        return createCallInternal(
+            HttpMethod.PATCH,
+            joinPath(
+                getEntityPath(), localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
+            ),
+            entityUpdate,
             _callback
         );
     }
@@ -721,8 +560,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
     public ApiResponse<IdResponse> updateEntityWithHttpInfo(String code, Integer id, U entityUpdate)
     throws QaseException {
         okhttp3.Call localVarCall = updateEntityValidateBeforeCall(code, id, entityUpdate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -766,39 +604,15 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
      */
     public okhttp3.Call updateEntityStatusCall(String code, Integer id, S entityStatus, final ApiCallback _callback)
     throws QaseException {
-        // create path and map variables
-        String localVarPath = getEntityPath()
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(code)
-            + URL_PATH_SEPARATOR + "status"
-            + URL_PATH_SEPARATOR + localVarApiClient.escapeString(id.toString());
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {"application/json"};
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.PATCH.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
+        return createCallInternal(
+            HttpMethod.PATCH,
+            joinPath(
+                getEntityPath(),
+                localVarApiClient.escapeString(code),
+                "status",
+                localVarApiClient.escapeString(id.toString())
+            ),
             entityStatus,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
             _callback
         );
     }
@@ -867,9 +681,6 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
         return localVarCall;
     }
 
-    /**
-     *
-     * */
     protected abstract String getEntityPath();
 
     @SuppressWarnings("rawtypes")
@@ -975,5 +786,58 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: decompose the
         }
 
         return updateEntityStatusCall(code, id, entityStatus, _callback);
+    }
+
+    protected okhttp3.Call createCallInternal(
+        HttpMethod httpMethod, String path, Object body, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(httpMethod, path, body, Collections.emptyList(), _callback);
+    }
+
+    // TODO: check if builder pattern could make this method better
+    protected okhttp3.Call createCallInternal(
+        HttpMethod httpMethod, String path, Object body, List<Pair> queryParams, final ApiCallback _callback
+    ) throws QaseException {
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        Map<String, String> localVarHeaderParams = new HashMap<>();
+        Map<String, String> localVarCookieParams = new HashMap<>();
+        Map<String, Object> localVarFormParams = new HashMap<>();
+
+        final String[] localVarAccepts = {APPLICATION_JSON};
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put(ACCEPT, localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {APPLICATION_JSON};
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put(CONTENT_TYPE, localVarContentType);
+
+        String[] localVarAuthNames = new String[] {TOKEN_AUTH};
+        return localVarApiClient.buildCall(
+            path,
+            httpMethod.toString(),
+            localVarQueryParams,
+            queryParams,
+            body,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAuthNames,
+            _callback
+        );
+    }
+
+    protected String joinPath(String... pathSegments) {
+        return String.join(URL_PATH_SEPARATOR, pathSegments);
+    }
+
+    private List<Pair> filterNullsAndConvertToPairs(Map<String, Object> queryParameters) {
+        return queryParameters.entrySet().stream()
+            .filter(nameToValue -> Objects.nonNull(nameToValue.getValue()))
+            .flatMap(
+                nameToValue -> localVarApiClient.parameterToPair(nameToValue.getKey(), nameToValue.getValue()).stream()
+            )
+            .collect(Collectors.toList());
     }
 }
