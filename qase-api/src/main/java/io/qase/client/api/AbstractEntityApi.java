@@ -48,6 +48,8 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
 
     protected static final String INCLUDE_QUERY_PARAMETER_NAME = "include";
 
+    protected static final String QUERY_QUERY_PARAMETER_NAME = "query";
+
     @Getter(AccessLevel.PROTECTED)
     private ApiClient apiClient;
 

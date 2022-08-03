@@ -15,32 +15,23 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
 import io.qase.client.model.SearchResponse;
+import io.qase.enums.HttpMethod;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class SearchApi {
-    private ApiClient localVarApiClient;
+public class SearchApi extends AbstractEntityApi<Object, Object, Object, Object, Object> {
 
     public SearchApi() {
-        this(Configuration.getDefaultApiClient());
+        super();
     }
 
     public SearchApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -59,60 +50,19 @@ public class SearchApi {
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL). Documentation</a>
      */
-    public okhttp3.Call searchCall(String query, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/search";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (query != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("query", query));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call searchValidateBeforeCall(String query, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'query' is set
-        if (query == null) {
-            throw new QaseException("Missing the required parameter 'query' when calling search(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = searchCall(query, limit, offset, _callback);
-        return localVarCall;
-
+    public okhttp3.Call searchCall(String query, Integer limit, Integer offset, final ApiCallback _callback)
+    throws QaseException {
+        return createCallInternal(
+            HttpMethod.GET,
+            joinEntitySubpathEscaped(),
+            null,
+            filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
+                put(LIMIT_QUERY_PARAMETER_NAME, limit);
+                put(OFFSET_QUERY_PARAMETER_NAME, offset);
+                put(QUERY_QUERY_PARAMETER_NAME, query);
+            }}),
+            _callback
+        );
     }
 
     /**
@@ -152,11 +102,11 @@ public class SearchApi {
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL). Documentation</a>
      */
-    public ApiResponse<SearchResponse> searchWithHttpInfo(String query, Integer limit, Integer offset) throws QaseException {
+    public ApiResponse<SearchResponse> searchWithHttpInfo(String query, Integer limit, Integer offset)
+    throws QaseException {
         okhttp3.Call localVarCall = searchValidateBeforeCall(query, limit, offset, null);
-        Type localVarReturnType = new TypeToken<SearchResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<SearchResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -176,12 +126,29 @@ public class SearchApi {
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL). Documentation</a>
      */
-    public okhttp3.Call searchAsync(String query, Integer limit, Integer offset, final ApiCallback<SearchResponse> _callback) throws QaseException {
-
+    public okhttp3.Call searchAsync(
+        String query, Integer limit, Integer offset, final ApiCallback<SearchResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = searchValidateBeforeCall(query, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<SearchResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<SearchResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
+    }
+
+    @Override
+    protected String getEntityPath() {
+        return "/search";
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call searchValidateBeforeCall(
+        String query, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'query' is set
+        if (query == null) {
+            throw new QaseException("Missing the required parameter 'query' when calling search(Async)");
+        }
+
+        return searchCall(query, limit, offset, _callback);
     }
 }
