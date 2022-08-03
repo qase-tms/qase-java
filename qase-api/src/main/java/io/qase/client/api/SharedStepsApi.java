@@ -15,32 +15,24 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
+import io.qase.enums.HttpMethod;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class SharedStepsApi {
-    private ApiClient localVarApiClient;
+public class SharedStepsApi
+extends AbstractEntityApi<SharedStepCreate, SharedStepResponse, SharedStepListResponse, SharedStepUpdate, Object> {
 
     public SharedStepsApi() {
-        this(Configuration.getDefaultApiClient());
+        super();
     }
 
     public SharedStepsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -56,54 +48,15 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createSharedStepCall(String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = sharedStepCreate;
-
-        // create path and map variables
-        String localVarPath = "/shared_step/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createSharedStepValidateBeforeCall(String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling createSharedStep(Async)");
-        }
-
-        // verify the required parameter 'sharedStepCreate' is set
-        if (sharedStepCreate == null) {
-            throw new QaseException("Missing the required parameter 'sharedStepCreate' when calling createSharedStep(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = createSharedStepCall(code, sharedStepCreate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call createSharedStepCall(
+        String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.POST,
+            joinEntitySubpathEscaped(code),
+            sharedStepCreate,
+            _callback
+        );
     }
 
     /**
@@ -137,11 +90,11 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<HashResponse> createSharedStepWithHttpInfo(String code, SharedStepCreate sharedStepCreate) throws QaseException {
+    public ApiResponse<HashResponse> createSharedStepWithHttpInfo(String code, SharedStepCreate sharedStepCreate)
+    throws QaseException {
         okhttp3.Call localVarCall = createSharedStepValidateBeforeCall(code, sharedStepCreate, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -158,12 +111,12 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createSharedStepAsync(String code, SharedStepCreate sharedStepCreate, final ApiCallback<HashResponse> _callback) throws QaseException {
-
+    public okhttp3.Call createSharedStepAsync(
+        String code, SharedStepCreate sharedStepCreate, final ApiCallback<HashResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = createSharedStepValidateBeforeCall(code, sharedStepCreate, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -180,55 +133,14 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteSharedStepCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/shared_step/{code}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteSharedStepValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteSharedStep(Async)");
-        }
-
-        // verify the required parameter 'hash' is set
-        if (hash == null) {
-            throw new QaseException("Missing the required parameter 'hash' when calling deleteSharedStep(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = deleteSharedStepCall(code, hash, _callback);
-        return localVarCall;
-
+    public okhttp3.Call deleteSharedStepCall(String code, String hash, final ApiCallback _callback)
+    throws QaseException {
+        return createCallInternal(
+            HttpMethod.DELETE,
+            joinEntitySubpathEscaped(code, hash),
+            null,
+            _callback
+        );
     }
 
     /**
@@ -264,9 +176,8 @@ public class SharedStepsApi {
      */
     public ApiResponse<HashResponse> deleteSharedStepWithHttpInfo(String code, String hash) throws QaseException {
         okhttp3.Call localVarCall = deleteSharedStepValidateBeforeCall(code, hash, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -283,12 +194,11 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteSharedStepAsync(String code, String hash, final ApiCallback<HashResponse> _callback) throws QaseException {
-
+    public okhttp3.Call deleteSharedStepAsync(String code, String hash, final ApiCallback<HashResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = deleteSharedStepValidateBeforeCall(code, hash, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -306,54 +216,12 @@ public class SharedStepsApi {
      * </table>
      */
     public okhttp3.Call getSharedStepCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/shared_step/{code}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSharedStepValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getSharedStep(Async)");
-        }
-
-        // verify the required parameter 'hash' is set
-        if (hash == null) {
-            throw new QaseException("Missing the required parameter 'hash' when calling getSharedStep(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getSharedStepCall(code, hash, _callback);
-        return localVarCall;
-
+        return createCallInternal(
+            HttpMethod.GET,
+            joinEntitySubpathEscaped(code, hash),
+            null,
+            _callback
+        );
     }
 
     /**
@@ -389,9 +257,8 @@ public class SharedStepsApi {
      */
     public ApiResponse<SharedStepResponse> getSharedStepWithHttpInfo(String code, String hash) throws QaseException {
         okhttp3.Call localVarCall = getSharedStepValidateBeforeCall(code, hash, null);
-        Type localVarReturnType = new TypeToken<SharedStepResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<SharedStepResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -408,12 +275,11 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getSharedStepAsync(String code, String hash, final ApiCallback<SharedStepResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getSharedStepAsync(String code, String hash, final ApiCallback<SharedStepResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = getSharedStepValidateBeforeCall(code, hash, _callback);
-        Type localVarReturnType = new TypeToken<SharedStepResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<SharedStepResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -432,61 +298,20 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getSharedStepsCall(String code, Filters6 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/shared_step/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSharedStepsValidateBeforeCall(String code, Filters6 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getSharedSteps(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getSharedStepsCall(code, filters, limit, offset, _callback);
-        return localVarCall;
-
+    public okhttp3.Call getSharedStepsCall(
+        String code, Filters6 filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.GET,
+            joinEntitySubpathEscaped(code),
+            null,
+            filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
+                put(FILTERS_QUERY_PARAMETER_NAME, filters);
+                put(LIMIT_QUERY_PARAMETER_NAME, limit);
+                put(OFFSET_QUERY_PARAMETER_NAME, offset);
+            }}),
+            _callback
+        );
     }
 
     /**
@@ -504,7 +329,8 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
      * </table>
      */
-    public SharedStepListResponse getSharedSteps(String code, Filters6 filters, Integer limit, Integer offset) throws QaseException {
+    public SharedStepListResponse getSharedSteps(String code, Filters6 filters, Integer limit, Integer offset)
+    throws QaseException {
         ApiResponse<SharedStepListResponse> localVarResp = getSharedStepsWithHttpInfo(code, filters, limit, offset);
         return localVarResp.getData();
     }
@@ -524,11 +350,12 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<SharedStepListResponse> getSharedStepsWithHttpInfo(String code, Filters6 filters, Integer limit, Integer offset) throws QaseException {
+    public ApiResponse<SharedStepListResponse> getSharedStepsWithHttpInfo(
+        String code, Filters6 filters, Integer limit, Integer offset
+    ) throws QaseException {
         okhttp3.Call localVarCall = getSharedStepsValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<SharedStepListResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<SharedStepListResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -547,12 +374,16 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getSharedStepsAsync(String code, Filters6 filters, Integer limit, Integer offset, final ApiCallback<SharedStepListResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getSharedStepsAsync(
+        String code,
+        Filters6 filters,
+        Integer limit,
+        Integer offset,
+        final ApiCallback<SharedStepListResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = getSharedStepsValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<SharedStepListResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<SharedStepListResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -570,60 +401,15 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateSharedStepCall(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = sharedStepUpdate;
-
-        // create path and map variables
-        String localVarPath = "/shared_step/{code}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateSharedStepValidateBeforeCall(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateSharedStep(Async)");
-        }
-
-        // verify the required parameter 'hash' is set
-        if (hash == null) {
-            throw new QaseException("Missing the required parameter 'hash' when calling updateSharedStep(Async)");
-        }
-
-        // verify the required parameter 'sharedStepUpdate' is set
-        if (sharedStepUpdate == null) {
-            throw new QaseException("Missing the required parameter 'sharedStepUpdate' when calling updateSharedStep(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = updateSharedStepCall(code, hash, sharedStepUpdate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call updateSharedStepCall(
+        String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.PATCH,
+            joinEntitySubpathEscaped(code, hash),
+            sharedStepUpdate,
+            _callback
+        );
     }
 
     /**
@@ -640,7 +426,8 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public HashResponse updateSharedStep(String code, String hash, SharedStepUpdate sharedStepUpdate) throws QaseException {
+    public HashResponse updateSharedStep(String code, String hash, SharedStepUpdate sharedStepUpdate)
+    throws QaseException {
         ApiResponse<HashResponse> localVarResp = updateSharedStepWithHttpInfo(code, hash, sharedStepUpdate);
         return localVarResp.getData();
     }
@@ -659,11 +446,12 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<HashResponse> updateSharedStepWithHttpInfo(String code, String hash, SharedStepUpdate sharedStepUpdate) throws QaseException {
+    public ApiResponse<HashResponse> updateSharedStepWithHttpInfo(
+        String code, String hash, SharedStepUpdate sharedStepUpdate
+    ) throws QaseException {
         okhttp3.Call localVarCall = updateSharedStepValidateBeforeCall(code, hash, sharedStepUpdate, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -681,12 +469,104 @@ public class SharedStepsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateSharedStepAsync(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback<HashResponse> _callback) throws QaseException {
-
+    public okhttp3.Call updateSharedStepAsync(
+        String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback<HashResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = updateSharedStepValidateBeforeCall(code, hash, sharedStepUpdate, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
+    }
+
+    @Override
+    protected String getEntityPath() {
+        return "/shared_step";
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createSharedStepValidateBeforeCall(
+        String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling createSharedStep(Async)");
+        }
+
+        // verify the required parameter 'sharedStepCreate' is set
+        if (sharedStepCreate == null) {
+            throw new QaseException(
+                "Missing the required parameter 'sharedStepCreate' when calling createSharedStep(Async)"
+            );
+        }
+
+        return createSharedStepCall(code, sharedStepCreate, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteSharedStepValidateBeforeCall(String code, String hash, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling deleteSharedStep(Async)");
+        }
+
+        // verify the required parameter 'hash' is set
+        if (hash == null) {
+            throw new QaseException("Missing the required parameter 'hash' when calling deleteSharedStep(Async)");
+        }
+
+        return deleteSharedStepCall(code, hash, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getSharedStepValidateBeforeCall(String code, String hash, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getSharedStep(Async)");
+        }
+
+        // verify the required parameter 'hash' is set
+        if (hash == null) {
+            throw new QaseException("Missing the required parameter 'hash' when calling getSharedStep(Async)");
+        }
+
+        return getSharedStepCall(code, hash, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getSharedStepsValidateBeforeCall(
+        String code, Filters6 filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getSharedSteps(Async)");
+        }
+
+        return getSharedStepsCall(code, filters, limit, offset, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateSharedStepValidateBeforeCall(
+        String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling updateSharedStep(Async)");
+        }
+
+        // verify the required parameter 'hash' is set
+        if (hash == null) {
+            throw new QaseException("Missing the required parameter 'hash' when calling updateSharedStep(Async)");
+        }
+
+        // verify the required parameter 'sharedStepUpdate' is set
+        if (sharedStepUpdate == null) {
+            throw new QaseException(
+                "Missing the required parameter 'sharedStepUpdate' when calling updateSharedStep(Async)"
+            );
+        }
+
+        return updateSharedStepCall(code, hash, sharedStepUpdate, _callback);
     }
 }
