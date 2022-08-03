@@ -19,7 +19,7 @@ import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-public class SuitesApi extends AbstractEntityApi<SuiteCreate, SuiteResponse, SuiteListResponse, Object, Object> {
+public class SuitesApi extends AbstractEntityApi {
 
     public SuitesApi() {
         super();

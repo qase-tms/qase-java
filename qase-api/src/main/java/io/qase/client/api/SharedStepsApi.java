@@ -24,8 +24,7 @@ import io.qase.enums.HttpMethod;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-public class SharedStepsApi
-extends AbstractEntityApi<SharedStepCreate, SharedStepResponse, SharedStepListResponse, SharedStepUpdate, Object> {
+public class SharedStepsApi extends AbstractEntityApi {
 
     public SharedStepsApi() {
         super();

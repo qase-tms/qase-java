@@ -19,8 +19,7 @@ import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-public class EnvironmentsApi
-extends AbstractEntityApi<EnvironmentCreate, EnvironmentResponse, EnvironmentListResponse, EnvironmentUpdate, Object> {
+public class EnvironmentsApi extends AbstractEntityApi {
 
     public EnvironmentsApi() {
         super();

@@ -24,7 +24,7 @@ import io.qase.enums.HttpMethod;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListResponse, Object, Object> {
+public class RunsApi extends AbstractEntityApi {
 
     public RunsApi() {
         super();

@@ -24,7 +24,7 @@ import io.qase.enums.HttpMethod;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-public class SearchApi extends AbstractEntityApi<Object, Object, Object, Object, Object> {
+public class SearchApi extends AbstractEntityApi {
 
     public SearchApi() {
         super();

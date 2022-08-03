@@ -7,7 +7,6 @@ import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
 import io.qase.client.Pair;
 import io.qase.client.model.IdResponse;
-import io.qase.client.model.Response;
 import io.qase.enums.HttpMethod;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,17 +19,8 @@ import static io.qase.configuration.QaseModule.INJECTOR;
 import static org.apache.http.HttpHeaders.ACCEPT;
 import static org.apache.http.HttpHeaders.CONTENT_TYPE;
 
-/**
- *
- * @param <C> a DTO type for a create-entity-call
- * @param <R> a DTO type for a read-entity-response
- * @param <RL> a DTO type for a read-list-entity-response
- * @param <U> a DTO type for an update-call
- * @param <S> a type for entities` status
- * */
-// TODO: <S> seems to be used only in DefectsApi
 // TODO: refactor the class (e.g. to an encapsulated service/set of services), not all inheritors use all the methods
-public abstract class AbstractEntityApi<C, R, RL, U, S> {
+public abstract class AbstractEntityApi {
 
     private static final Object NO_FILTERS = null;
 
@@ -67,30 +57,30 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
         this.apiClient = apiClient;
     }
 
-    public okhttp3.Call createEntityCall(String code, C entityCreate, final ApiCallback _callback)
+    public okhttp3.Call createEntityCall(String code, Object payload, final ApiCallback _callback)
     throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
             joinEntitySubpath(code),
-            entityCreate,
+            payload,
             _callback
         );
     }
 
     @SuppressWarnings("rawtypes")
     protected okhttp3.Call createEntityValidateBeforeCall(
-        String code, C entityCreate, final ApiCallback _callback
+        String code, Object payload, final ApiCallback _callback
     ) throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling createEntity(Async)");
         }
         // verify the required parameter 'entityCreate' is set
-        if (entityCreate == null) {
+        if (payload == null) {
             throw new QaseException("Missing the required parameter 'entityCreate' when calling createEntity(Async)");
         }
 
-        return createEntityCall(code, entityCreate, _callback);
+        return createEntityCall(code, payload, _callback);
     }
 
     /**
@@ -98,7 +88,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * This method allows to create a entity in selected project.
      *
      * @param code         Code of project, where to search entities. (required)
-     * @param entityCreate (required)
+     * @param payload (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details <table summary="Response Details" border="1">
@@ -106,13 +96,13 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public IdResponse createEntity(String code, C entityCreate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = createEntityWithHttpInfo(code, entityCreate);
+    public IdResponse createEntity(String code, Object payload) throws QaseException {
+        ApiResponse<IdResponse> localVarResp = createEntityWithHttpInfo(code, payload);
         return localVarResp.getData();
     }
 
-    public ApiResponse<IdResponse> createEntityWithHttpInfo(String code, C entityCreate) throws QaseException {
-        okhttp3.Call localVarCall = createEntityValidateBeforeCall(code, entityCreate, null);
+    public ApiResponse<IdResponse> createEntityWithHttpInfo(String code, Object payload) throws QaseException {
+        okhttp3.Call localVarCall = createEntityValidateBeforeCall(code, payload, null);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
         return apiClient.execute(localVarCall, localVarReturnType);
     }
@@ -122,7 +112,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * This method allows to create an entity in selected project.
      *
      * @param code         Code of project, where to search entities. (required)
-     * @param entityCreate (required)
+     * @param payload (required)
      * @param _callback    The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
@@ -132,9 +122,9 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * </table>
      */
     public okhttp3.Call createEntityAsync(
-        String code, C entityCreate, final ApiCallback<IdResponse> _callback
+        String code, Object payload, final ApiCallback<IdResponse> _callback
     ) throws QaseException {
-        okhttp3.Call localVarCall = createEntityValidateBeforeCall(code, entityCreate, _callback);
+        okhttp3.Call localVarCall = createEntityValidateBeforeCall(code, payload, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
         apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -227,7 +217,8 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteEntityAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
+    public okhttp3.Call deleteEntityAsync(String code, Integer id, final ApiCallback<IdResponse> _callback)
+    throws QaseException {
         return deleteEntityAsync(code, id, null, _callback);
     }
 
@@ -275,8 +266,8 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> An entity. </td><td>  -  </td></tr>
      * </table>
      */
-    public R getEntity(String code, Integer id) throws QaseException {
-        ApiResponse<R> localVarResp = getEntityWithHttpInfo(code, id);
+    public <T> T getEntity(String code, Integer id) throws QaseException {
+        ApiResponse<T> localVarResp = getEntityWithHttpInfo(code, id);
         return localVarResp.getData();
     }
 
@@ -293,9 +284,9 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> An entity. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<R> getEntityWithHttpInfo(String code, Integer id) throws QaseException {
+    public <T> ApiResponse<T> getEntityWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = getEntityValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<R>() { }.getType();
+        Type localVarReturnType = new TypeToken<T>() { }.getType();
         return apiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -313,9 +304,10 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> An entity. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getEntityAsync(String code, Integer id, final ApiCallback<R> _callback) throws QaseException {
+    public <T> okhttp3.Call getEntityAsync(String code, Integer id, final ApiCallback<T> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = getEntityValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<R>() { }.getType();
+        Type localVarReturnType = new TypeToken<T>() { }.getType();
         apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -374,12 +366,12 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> A list of all entities. </td><td>  -  </td></tr>
      * </table>
      */
-    public RL getEntities(String code, Object filters, Integer limit, Integer offset) throws QaseException {
-        ApiResponse<RL> localVarResp = getEntitiesWithHttpInfo(code, filters, limit, offset);
+    public <T> T getEntities(String code, Object filters, Integer limit, Integer offset) throws QaseException {
+        ApiResponse<T> localVarResp = getEntitiesWithHttpInfo(code, filters, limit, offset);
         return localVarResp.getData();
     }
 
-    public RL getEntities(String code, Integer limit, Integer offset) throws QaseException {
+    public <T> T getEntities(String code, Integer limit, Integer offset) throws QaseException {
         return getEntities(code, NO_FILTERS, limit, offset);
     }
 
@@ -398,15 +390,14 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> A list of all entities. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<RL> getEntitiesWithHttpInfo(String code, Object filters, Integer limit, Integer offset)
+    public <T> ApiResponse<T> getEntitiesWithHttpInfo(String code, Object filters, Integer limit, Integer offset)
     throws QaseException {
         okhttp3.Call localVarCall = getEntitiesValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<RL>() { }.getType();
+        Type localVarReturnType = new TypeToken<T>() { }.getType();
         return apiClient.execute(localVarCall, localVarReturnType);
     }
 
-    public ApiResponse<RL> getEntitiesWithHttpInfo(String code, Integer limit, Integer offset)
-        throws QaseException {
+    public <T> ApiResponse<T> getEntitiesWithHttpInfo(String code, Integer limit, Integer offset) throws QaseException {
         return getEntitiesWithHttpInfo(code, NO_FILTERS, limit, offset);
     }
 
@@ -426,16 +417,16 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> A list of all entities. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getEntitiesAsync(
-        String code, Object filters, Integer limit, Integer offset, final ApiCallback<RL> _callback
+    public <T> okhttp3.Call getEntitiesAsync(
+        String code, Object filters, Integer limit, Integer offset, final ApiCallback<T> _callback
     ) throws QaseException {
         okhttp3.Call localVarCall = getEntitiesValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<RL>() { }.getType();
+        Type localVarReturnType = new TypeToken<T>() { }.getType();
         apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    public okhttp3.Call getEntitiesAsync(String code, Integer limit, Integer offset, final ApiCallback<RL> _callback)
+    public <T> okhttp3.Call getEntitiesAsync(String code, Integer limit, Integer offset, final ApiCallback<T> _callback)
     throws QaseException {
         return getEntitiesAsync(code, NO_FILTERS, limit, offset, _callback);
     }
@@ -526,7 +517,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      *
      * @param code         Code of project, where to search entities. (required)
      * @param id           Identifier. (required)
-     * @param entityUpdate (required)
+     * @param payload (required)
      * @param _callback    Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
@@ -536,12 +527,12 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * </table>
      */
     public okhttp3.Call updateEntityCall(
-        String code, Integer id, U entityUpdate, final ApiCallback _callback
+        String code, Integer id, Object payload, final ApiCallback _callback
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
             joinEntitySubpath(apiClient.escapeString(code), apiClient.escapeString(id.toString())),
-            entityUpdate,
+            payload,
             _callback
         );
     }
@@ -552,7 +543,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      *
      * @param code         Code of project, where to search entities. (required)
      * @param id           Identifier. (required)
-     * @param entityUpdate (required)
+     * @param payload (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details <table summary="Response Details" border="1">
@@ -560,8 +551,8 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public IdResponse updateEntity(String code, Integer id, U entityUpdate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = updateEntityWithHttpInfo(code, id, entityUpdate);
+    public IdResponse updateEntity(String code, Integer id, Object payload) throws QaseException {
+        ApiResponse<IdResponse> localVarResp = updateEntityWithHttpInfo(code, id, payload);
         return localVarResp.getData();
     }
 
@@ -571,7 +562,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      *
      * @param code         Code of project, where to search entities. (required)
      * @param id           Identifier. (required)
-     * @param entityUpdate (required)
+     * @param payload (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details <table summary="Response Details" border="1">
@@ -579,9 +570,9 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<IdResponse> updateEntityWithHttpInfo(String code, Integer id, U entityUpdate)
+    public ApiResponse<IdResponse> updateEntityWithHttpInfo(String code, Integer id, Object payload)
     throws QaseException {
-        okhttp3.Call localVarCall = updateEntityValidateBeforeCall(code, id, entityUpdate, null);
+        okhttp3.Call localVarCall = updateEntityValidateBeforeCall(code, id, payload, null);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
         return apiClient.execute(localVarCall, localVarReturnType);
     }
@@ -592,7 +583,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      *
      * @param code         Code of project, where to search entities. (required)
      * @param id           Identifier. (required)
-     * @param entityUpdate (required)
+     * @param payload (required)
      * @param _callback    The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
@@ -602,9 +593,9 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * </table>
      */
     public okhttp3.Call updateEntityAsync(
-        String code, Integer id, U entityUpdate, final ApiCallback<IdResponse> _callback
+        String code, Integer id, Object payload, final ApiCallback<IdResponse> _callback
     ) throws QaseException {
-        okhttp3.Call localVarCall = updateEntityValidateBeforeCall(code, id, entityUpdate, _callback);
+        okhttp3.Call localVarCall = updateEntityValidateBeforeCall(code, id, payload, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
         apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -615,7 +606,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      *
      * @param code         Code of project, where to search entities. (required)
      * @param id           Identifier. (required)
-     * @param entityStatus (required)
+     * @param payload (required)
      * @param _callback    Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
@@ -624,85 +615,21 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateEntityStatusCall(String code, Integer id, S entityStatus, final ApiCallback _callback)
+    public okhttp3.Call updateEntityStatusCall(String code, Integer id, Object payload, final ApiCallback _callback)
     throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
             joinEntitySubpath(apiClient.escapeString(code), "status", apiClient.escapeString(id.toString())),
-            entityStatus,
+            payload,
             _callback
         );
-    }
-
-    /**
-     * Update a specific entity status.
-     * This method allows to update a specific entity status.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param entityStatus (required)
-     * @return Response
-     * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
-     */
-    public Response updateEntityStatus(String code, Integer id, S entityStatus) throws QaseException {
-        ApiResponse<Response> localVarResp = updateEntityStatusWithHttpInfo(code, id, entityStatus);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Update a specific entity status.
-     * This method allows to update a specific entity status.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param entityStatus (required)
-     * @return ApiResponse&lt;Response&gt;
-     * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
-     */
-    public ApiResponse<Response> updateEntityStatusWithHttpInfo(String code, Integer id, S entityStatus)
-    throws QaseException {
-        okhttp3.Call localVarCall = updateEntityStatusValidateBeforeCall(code, id, entityStatus, null);
-        Type localVarReturnType = new TypeToken<Response>() { }.getType();
-        return apiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Update a specific entity status. (asynchronously)
-     * This method allows to update a specific entity status.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param entityStatus (required)
-     * @param _callback    The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
-     */
-    public okhttp3.Call updateEntityStatusAsync(
-        String code, Integer id, S entityStatus, final ApiCallback<Response> _callback
-    ) throws QaseException {
-        okhttp3.Call localVarCall = updateEntityStatusValidateBeforeCall(code, id, entityStatus, _callback);
-        Type localVarReturnType = new TypeToken<Response>() { }.getType();
-        apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
     }
 
     protected abstract String getEntityRootPathSegment();
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call updateEntityValidateBeforeCall(
-        String code, Integer id, U entityUpdate, final ApiCallback _callback
+        String code, Integer id, Object payload, final ApiCallback _callback
     ) throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
@@ -715,11 +642,11 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
         }
 
         // verify the required parameter 'entityUpdate' is set
-        if (entityUpdate == null) {
+        if (payload == null) {
             throw new QaseException("Missing the required parameter 'entityUpdate' when calling updateEntity(Async)");
         }
 
-        return updateEntityCall(code, id, entityUpdate, _callback);
+        return updateEntityCall(code, id, payload, _callback);
     }
 
     @SuppressWarnings("rawtypes")
@@ -780,30 +707,6 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
         }
 
         return resolveEntityCall(code, id, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateEntityStatusValidateBeforeCall(
-        String code, Integer id, S entityStatus, final ApiCallback _callback
-    ) throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateEntityStatus(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateEntityStatus(Async)");
-        }
-
-        // verify the required parameter 'entityStatus' is set
-        if (entityStatus == null) {
-            throw new QaseException(
-                "Missing the required parameter 'entityStatus' when calling updateEntityStatus(Async)"
-            );
-        }
-
-        return updateEntityStatusCall(code, id, entityStatus, _callback);
     }
 
     protected okhttp3.Call createCallInternal(

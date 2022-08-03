@@ -19,8 +19,7 @@ import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
 
-public class MilestonesApi
-extends AbstractEntityApi<MilestoneCreate, MilestoneResponse, MilestoneListResponse, MilestoneUpdate, Object> {
+public class MilestonesApi extends AbstractEntityApi {
 
     public MilestonesApi() {
         super();
