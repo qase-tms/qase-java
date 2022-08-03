@@ -26,7 +26,7 @@ import static org.apache.http.HttpHeaders.CONTENT_TYPE;
  * @param <U> a DTO type for an update-call
  * @param <S> a type for entities` status
  * */
-public abstract class AbstractEntityApi<C, R, RL, U, S> {
+public abstract class AbstractEntityApi<C, R, RL, U, S> { // TODO: <S> seems to be used only in DefectsApi
 
     private static final Object NO_FILTERS = null;
 
