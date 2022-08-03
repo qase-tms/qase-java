@@ -9,6 +9,7 @@ import io.qase.client.Pair;
 import io.qase.client.model.IdResponse;
 import io.qase.enums.HttpMethod;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.lang.reflect.Type;
@@ -715,14 +716,23 @@ public abstract class AbstractEntityApi {
         return createCallInternal(httpMethod, path, body, Collections.emptyList(), _callback);
     }
 
-    // TODO: check if builder pattern could make this method better
     protected okhttp3.Call createCallInternal(
-        HttpMethod httpMethod, String path, Object body, List<Pair> queryParams, final ApiCallback _callback
+        HttpMethod httpMethod, String path, Object payload, List<Pair> queryParams, final ApiCallback _callback
     ) throws QaseException {
-        List<Pair> localVarQueryParams = new ArrayList<>();
+        return createCallInternal(
+            CallParameters.builder()
+                .httpMethod(httpMethod)
+                .path(path)
+                .payload(payload)
+                .queryParams(queryParams)
+                .callback(_callback)
+                .build()
+        );
+    }
+
+    protected okhttp3.Call createCallInternal(CallParameters callParameters) throws QaseException {
         Map<String, String> localVarHeaderParams = new HashMap<>();
         Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
 
         final String[] localVarAccepts = {APPLICATION_JSON};
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
@@ -736,16 +746,16 @@ public abstract class AbstractEntityApi {
 
         String[] localVarAuthNames = new String[] {TOKEN_AUTH};
         return apiClient.buildCall(
-            path,
-            httpMethod.toString(),
-            localVarQueryParams,
-            queryParams,
-            body,
+            callParameters.getPath(),
+            callParameters.getHttpMethod().toString(),
+            Collections.emptyList(),
+            callParameters.getQueryParams(),
+            callParameters.getPayload(),
             localVarHeaderParams,
             localVarCookieParams,
-            localVarFormParams,
+            callParameters.getFormParams(),
             localVarAuthNames,
-            _callback
+            callParameters.getCallback()
         );
     }
 
@@ -771,5 +781,24 @@ public abstract class AbstractEntityApi {
         return Arrays.stream(pathSegments)
             .map(apiClient::escapeString)
             .collect(Collectors.joining(URL_PATH_SEPARATOR, URL_PATH_SEPARATOR, EMPTY_STRING));
+    }
+
+    @Builder
+    @Getter
+    public static class CallParameters {
+
+        private String path;
+
+        private Object payload;
+
+        private HttpMethod httpMethod;
+
+        @Builder.Default
+        private List<Pair> queryParams = new ArrayList<>();
+
+        @Builder.Default
+        private Map<String, Object> formParams = new HashMap<>();
+
+        private ApiCallback<?> callback;
     }
 }
