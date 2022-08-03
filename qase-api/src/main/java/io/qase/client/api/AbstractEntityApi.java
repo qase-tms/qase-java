@@ -40,6 +40,8 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
 
     private static final String TOKEN_AUTH = "TokenAuth";
 
+    private static final String EMPTY_STRING = "";
+
     protected static final String FILTERS_QUERY_PARAMETER_NAME = "filters";
 
     protected static final String LIMIT_QUERY_PARAMETER_NAME = "limit";
@@ -69,7 +71,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinEntitySubpathEscaped(code),
+            joinEntitySubpath(code),
             entityCreate,
             _callback
         );
@@ -159,7 +161,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinEntitySubpathEscaped(code, id.toString()),
+            joinEntitySubpath(code, id.toString()),
             payload,
             _callback
         );
@@ -696,7 +698,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
         return localVarCall;
     }
 
-    protected abstract String getEntityPath();
+    protected abstract String getEntityRootPathSegment();
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call updateEntityValidateBeforeCall(
@@ -853,23 +855,18 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
             .collect(Collectors.toList());
     }
 
-    protected String joinEntitySubpathEscaped(String... entitySubpathSegments) {
-        return joinEntitySubpath(
-            Arrays.stream(entitySubpathSegments).map(segment -> apiClient.escapeString(segment)).toArray(String[]::new)
-        );
-    }
-
-    private String joinEntitySubpath(String... entitySubpathSegments) {
+    protected String joinEntitySubpath(String... entitySubpathSegments) {
         String[] pathSegments = new String[entitySubpathSegments.length + 1];
-        pathSegments[0] = getEntityPath();
+        pathSegments[0] = getEntityRootPathSegment();
         if (entitySubpathSegments.length != 0) {
             System.arraycopy(entitySubpathSegments, 0, pathSegments, 1, entitySubpathSegments.length);
         }
         return joinPath(pathSegments);
     }
 
-    // TODO: the method probably needs be extended with escaping segments behavior
     private String joinPath(String... pathSegments) {
-        return String.join(URL_PATH_SEPARATOR, pathSegments);
+        return Arrays.stream(pathSegments)
+            .map(apiClient::escapeString)
+            .collect(Collectors.joining(URL_PATH_SEPARATOR, URL_PATH_SEPARATOR, EMPTY_STRING));
     }
 }

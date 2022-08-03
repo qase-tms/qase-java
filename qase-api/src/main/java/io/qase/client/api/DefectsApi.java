@@ -555,7 +555,7 @@ extends AbstractEntityApi<DefectCreate, DefectResponse, DefectListResponse, Defe
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/defect";
+    protected String getEntityRootPathSegment() {
+        return "defect";
     }
 }

@@ -54,7 +54,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinEntitySubpathEscaped(code, id.toString()),
+            joinEntitySubpath(code, id.toString()),
             resultCreate,
             _callback
         );
@@ -143,7 +143,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinEntitySubpathEscaped(code, id.toString()),
+            joinEntitySubpath(code, id.toString()),
             resultCreateBulk,
             _callback
         );
@@ -232,7 +232,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinEntitySubpathEscaped(code, id.toString(), hash),
+            joinEntitySubpath(code, id.toString(), hash),
             null,
             _callback
         );
@@ -318,7 +318,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     public okhttp3.Call getResultCall(String code, String hash, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpathEscaped(code, hash),
+            joinEntitySubpath(code, hash),
             null,
             _callback
         );
@@ -403,7 +403,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpathEscaped(code),
+            joinEntitySubpath(code),
             null,
             filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
                 put(FILTERS_QUERY_PARAMETER_NAME, filters);
@@ -503,11 +503,7 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinEntitySubpathEscaped(
-                code,
-                id.toString(),
-                hash
-            ),
+            joinEntitySubpath(code, id.toString(), hash),
             resultUpdate,
             _callback
         );
@@ -583,8 +579,8 @@ extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, Resu
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/result";
+    protected String getEntityRootPathSegment() {
+        return "result";
     }
 
     @SuppressWarnings("rawtypes")

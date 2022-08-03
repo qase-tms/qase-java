@@ -50,7 +50,7 @@ public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListRe
     public okhttp3.Call completeRunCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinEntitySubpathEscaped(code, id.toString()),
+            joinEntitySubpath(code, id.toString()),
             null,
             _callback
         );
@@ -132,7 +132,7 @@ public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListRe
     throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinEntitySubpathEscaped(code),
+            joinEntitySubpath(code),
             runCreate,
             _callback
         );
@@ -213,7 +213,7 @@ public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListRe
     public okhttp3.Call deleteRunCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinEntitySubpathEscaped(code, id.toString()),
+            joinEntitySubpath(code, id.toString()),
             null,
             _callback
         );
@@ -296,7 +296,7 @@ public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListRe
     throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpathEscaped(code, id.toString()),
+            joinEntitySubpath(code, id.toString()),
             null,
             filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
                 put(INCLUDE_QUERY_PARAMETER_NAME, include);
@@ -388,7 +388,7 @@ public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListRe
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpathEscaped(code),
+            joinEntitySubpath(code),
             null,
             filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
                 put(FILTERS_QUERY_PARAMETER_NAME, filters);
@@ -497,7 +497,7 @@ public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListRe
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinEntitySubpathEscaped(code, id.toString(), "public"),
+            joinEntitySubpath(code, id.toString(), "public"),
             runPublic,
             _callback
         );
@@ -568,8 +568,8 @@ public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListRe
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/run";
+    protected String getEntityRootPathSegment() {
+        return "run";
     }
 
     @SuppressWarnings("rawtypes")

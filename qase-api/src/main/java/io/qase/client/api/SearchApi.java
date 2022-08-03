@@ -54,7 +54,7 @@ public class SearchApi extends AbstractEntityApi<Object, Object, Object, Object,
     throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpathEscaped(),
+            joinEntitySubpath(),
             null,
             filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
                 put(LIMIT_QUERY_PARAMETER_NAME, limit);
@@ -136,8 +136,8 @@ public class SearchApi extends AbstractEntityApi<Object, Object, Object, Object,
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/search";
+    protected String getEntityRootPathSegment() {
+        return "search";
     }
 
     @SuppressWarnings("rawtypes")

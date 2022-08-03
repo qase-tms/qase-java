@@ -405,7 +405,7 @@ extends AbstractEntityApi<EnvironmentCreate, EnvironmentResponse, EnvironmentLis
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/environment";
+    protected String getEntityRootPathSegment() {
+        return "environment";
     }
 }

@@ -51,7 +51,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            getEntityPath(),
+            joinEntitySubpath(),
             projectCreate,
             _callback
         );
@@ -130,7 +130,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     public okhttp3.Call deleteProjectCall(String code, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinEntitySubpathEscaped(code),
+            joinEntitySubpath(code),
             null,
             _callback
         );
@@ -206,7 +206,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     public okhttp3.Call getProjectCall(String code, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinEntitySubpathEscaped(code),
+            joinEntitySubpath(code),
             null,
             _callback
         );
@@ -285,7 +285,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            getEntityPath(),
+            joinEntitySubpath(),
             null,
             filterNullsAndConvertToPairs(new HashMap<String, Object>(){{
                 put(LIMIT_QUERY_PARAMETER_NAME, limit);
@@ -373,7 +373,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            joinEntitySubpathEscaped(code),
+            joinEntitySubpath(code),
             projectAccess,
             _callback
         );
@@ -457,7 +457,7 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinEntitySubpathEscaped(code, "access"),
+            joinEntitySubpath(code, "access"),
             projectAccess,
             _callback
         );
@@ -545,8 +545,8 @@ extends AbstractEntityApi<ProjectCreate, ProjectResponse, ProjectListResponse, O
     }
 
     @Override
-    protected String getEntityPath() {
-        return "/project";
+    protected String getEntityRootPathSegment() {
+        return "project";
     }
 
     @SuppressWarnings("rawtypes")
