@@ -286,7 +286,7 @@ public class ProjectsApi extends AbstractEntityApi {
             HttpMethod.GET,
             joinEntitySubpath(),
             null,
-            filterNullsAndConvertToPairs(new HashMap<String, Object>(){{
+            filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
                 put(LIMIT_QUERY_PARAMETER_NAME, limit);
                 put(OFFSET_QUERY_PARAMETER_NAME, offset);
             }}),
