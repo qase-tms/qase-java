@@ -15,32 +15,24 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
+import io.qase.enums.HttpMethod;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class ResultsApi {
-    private ApiClient localVarApiClient;
+public class ResultsApi
+extends AbstractEntityApi<ResultCreate, ResultResponse, ResultListResponse, ResultUpdate, Object> {
 
     public ResultsApi() {
-        this(Configuration.getDefaultApiClient());
+        super();
     }
 
     public ResultsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -57,60 +49,15 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createResultCall(String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = resultCreate;
-
-        // create path and map variables
-        String localVarPath = "/result/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createResultValidateBeforeCall(String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling createResult(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling createResult(Async)");
-        }
-
-        // verify the required parameter 'resultCreate' is set
-        if (resultCreate == null) {
-            throw new QaseException("Missing the required parameter 'resultCreate' when calling createResult(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = createResultCall(code, id, resultCreate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call createResultCall(
+        String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.POST,
+            joinPath(getEntityPath(), getApiClient().escapeString(code), getApiClient().escapeString(id.toString())),
+            resultCreate,
+            _callback
+        );
     }
 
     /**
@@ -146,11 +93,11 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<Response> createResultWithHttpInfo(String code, Integer id, ResultCreate resultCreate) throws QaseException {
+    public ApiResponse<Response> createResultWithHttpInfo(String code, Integer id, ResultCreate resultCreate)
+    throws QaseException {
         okhttp3.Call localVarCall = createResultValidateBeforeCall(code, id, resultCreate, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -168,12 +115,12 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createResultAsync(String code, Integer id, ResultCreate resultCreate, final ApiCallback<Response> _callback) throws QaseException {
-
+    public okhttp3.Call createResultAsync(
+        String code, Integer id, ResultCreate resultCreate, final ApiCallback<Response> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = createResultValidateBeforeCall(code, id, resultCreate, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -191,60 +138,15 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createResultBulkCall(String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = resultCreateBulk;
-
-        // create path and map variables
-        String localVarPath = "/result/{code}/{id}/bulk"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createResultBulkValidateBeforeCall(String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling createResultBulk(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling createResultBulk(Async)");
-        }
-
-        // verify the required parameter 'resultCreateBulk' is set
-        if (resultCreateBulk == null) {
-            throw new QaseException("Missing the required parameter 'resultCreateBulk' when calling createResultBulk(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = createResultBulkCall(code, id, resultCreateBulk, _callback);
-        return localVarCall;
-
+    public okhttp3.Call createResultBulkCall(
+        String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.POST,
+            joinPath(getEntityPath(), getApiClient().escapeString(code), getApiClient().escapeString(id.toString())),
+            resultCreateBulk,
+            _callback
+        );
     }
 
     /**
@@ -280,11 +182,12 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<Response> createResultBulkWithHttpInfo(String code, Integer id, ResultCreateBulk resultCreateBulk) throws QaseException {
+    public ApiResponse<Response> createResultBulkWithHttpInfo(
+        String code, Integer id, ResultCreateBulk resultCreateBulk
+    ) throws QaseException {
         okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, resultCreateBulk, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -302,12 +205,12 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createResultBulkAsync(String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback<Response> _callback) throws QaseException {
-
+    public okhttp3.Call createResultBulkAsync(
+        String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback<Response> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, resultCreateBulk, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -325,61 +228,19 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteResultCall(String code, Integer id, String hash, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/result/{code}/{id}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteResultValidateBeforeCall(String code, Integer id, String hash, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteResult(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling deleteResult(Async)");
-        }
-
-        // verify the required parameter 'hash' is set
-        if (hash == null) {
-            throw new QaseException("Missing the required parameter 'hash' when calling deleteResult(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = deleteResultCall(code, id, hash, _callback);
-        return localVarCall;
-
+    public okhttp3.Call deleteResultCall(String code, Integer id, String hash, final ApiCallback _callback)
+    throws QaseException {
+        return createCallInternal(
+            HttpMethod.DELETE,
+            joinPath(
+                getEntityPath(),
+                getApiClient().escapeString(code),
+                getApiClient().escapeString(id.toString()),
+                getApiClient().escapeString(hash)
+            ),
+            null,
+            _callback
+        );
     }
 
     /**
@@ -415,11 +276,11 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<HashResponse> deleteResultWithHttpInfo(String code, Integer id, String hash) throws QaseException {
+    public ApiResponse<HashResponse> deleteResultWithHttpInfo(String code, Integer id, String hash)
+    throws QaseException {
         okhttp3.Call localVarCall = deleteResultValidateBeforeCall(code, id, hash, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -437,12 +298,12 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteResultAsync(String code, Integer id, String hash, final ApiCallback<HashResponse> _callback) throws QaseException {
-
+    public okhttp3.Call deleteResultAsync(
+        String code, Integer id, String hash, final ApiCallback<HashResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = deleteResultValidateBeforeCall(code, id, hash, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -460,54 +321,12 @@ public class ResultsApi {
      * </table>
      */
     public okhttp3.Call getResultCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/result/{code}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getResultValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getResult(Async)");
-        }
-
-        // verify the required parameter 'hash' is set
-        if (hash == null) {
-            throw new QaseException("Missing the required parameter 'hash' when calling getResult(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getResultCall(code, hash, _callback);
-        return localVarCall;
-
+        return createCallInternal(
+            HttpMethod.GET,
+            joinPath(getEntityPath(), getApiClient().escapeString(code), getApiClient().escapeString(hash)),
+            null,
+            _callback
+        );
     }
 
     /**
@@ -543,9 +362,8 @@ public class ResultsApi {
      */
     public ApiResponse<ResultResponse> getResultWithHttpInfo(String code, String hash) throws QaseException {
         okhttp3.Call localVarCall = getResultValidateBeforeCall(code, hash, null);
-        Type localVarReturnType = new TypeToken<ResultResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<ResultResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -562,12 +380,11 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getResultAsync(String code, String hash, final ApiCallback<ResultResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getResultAsync(String code, String hash, final ApiCallback<ResultResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = getResultValidateBeforeCall(code, hash, _callback);
-        Type localVarReturnType = new TypeToken<ResultResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<ResultResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -586,61 +403,20 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getResultsCall(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/result/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getResultsValidateBeforeCall(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getResults(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getResultsCall(code, filters, limit, offset, _callback);
-        return localVarCall;
-
+    public okhttp3.Call getResultsCall(
+        String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.GET,
+            joinPath(getEntityPath(), getApiClient().escapeString(code)),
+            null,
+            filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
+                put(FILTERS_QUERY_PARAMETER_NAME, filters);
+                put(LIMIT_QUERY_PARAMETER_NAME, limit);
+                put(OFFSET_QUERY_PARAMETER_NAME, offset);
+            }}),
+            _callback
+        );
     }
 
     /**
@@ -658,7 +434,8 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
      * </table>
      */
-    public ResultListResponse getResults(String code, Filters4 filters, Integer limit, Integer offset) throws QaseException {
+    public ResultListResponse getResults(String code, Filters4 filters, Integer limit, Integer offset)
+    throws QaseException {
         ApiResponse<ResultListResponse> localVarResp = getResultsWithHttpInfo(code, filters, limit, offset);
         return localVarResp.getData();
     }
@@ -678,11 +455,12 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<ResultListResponse> getResultsWithHttpInfo(String code, Filters4 filters, Integer limit, Integer offset) throws QaseException {
+    public ApiResponse<ResultListResponse> getResultsWithHttpInfo(
+        String code, Filters4 filters, Integer limit, Integer offset
+    ) throws QaseException {
         okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<ResultListResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<ResultListResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -701,12 +479,12 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getResultsAsync(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback<ResultListResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getResultsAsync(
+        String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback<ResultListResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<ResultListResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<ResultListResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -725,42 +503,201 @@ public class ResultsApi {
      * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateResultCall(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = resultUpdate;
+    public okhttp3.Call updateResultCall(
+        String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.PATCH,
+            joinPath(
+                getEntityPath(),
+                getApiClient().escapeString(code),
+                getApiClient().escapeString(id.toString()),
+                getApiClient().escapeString(hash)
+            ),
+            resultUpdate,
+            _callback
+        );
+    }
 
-        // create path and map variables
-        String localVarPath = "/result/{code}/{id}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+    /**
+     * Update test run result.
+     * This method allows to update test run result.
+     *
+     * @param code         Code of project, where to search entities. (required)
+     * @param id           Identifier. (required)
+     * @param hash         Hash. (required)
+     * @param resultUpdate (required)
+     * @return HashResponse
+     * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
+     * </table>
+     */
+    public HashResponse updateResult(String code, Integer id, String hash, ResultUpdate resultUpdate)
+    throws QaseException {
+        ApiResponse<HashResponse> localVarResp = updateResultWithHttpInfo(code, id, hash, resultUpdate);
+        return localVarResp.getData();
+    }
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    /**
+     * Update test run result.
+     * This method allows to update test run result.
+     *
+     * @param code         Code of project, where to search entities. (required)
+     * @param id           Identifier. (required)
+     * @param hash         Hash. (required)
+     * @param resultUpdate (required)
+     * @return ApiResponse&lt;HashResponse&gt;
+     * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
+     * </table>
+     */
+    public ApiResponse<HashResponse> updateResultWithHttpInfo(
+        String code, Integer id, String hash, ResultUpdate resultUpdate
+    ) throws QaseException {
+        okhttp3.Call localVarCall = updateResultValidateBeforeCall(code, id, hash, resultUpdate, null);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
+    }
 
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
+    /**
+     * Update test run result. (asynchronously)
+     * This method allows to update test run result.
+     *
+     * @param code         Code of project, where to search entities. (required)
+     * @param id           Identifier. (required)
+     * @param hash         Hash. (required)
+     * @param resultUpdate (required)
+     * @param _callback    The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws QaseException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details <table summary="Response Details" border="1">
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
+     * </table>
+     */
+    public okhttp3.Call updateResultAsync(
+        String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback<HashResponse> _callback
+    ) throws QaseException {
+        okhttp3.Call localVarCall = updateResultValidateBeforeCall(code, id, hash, resultUpdate, _callback);
+        Type localVarReturnType = new TypeToken<HashResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
 
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    @Override
+    protected String getEntityPath() {
+        return "/result";
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateResultValidateBeforeCall(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback) throws QaseException {
+    private okhttp3.Call createResultValidateBeforeCall(
+        String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling createResult(Async)");
+        }
 
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling createResult(Async)");
+        }
+
+        // verify the required parameter 'resultCreate' is set
+        if (resultCreate == null) {
+            throw new QaseException("Missing the required parameter 'resultCreate' when calling createResult(Async)");
+        }
+
+        okhttp3.Call localVarCall = createResultCall(code, id, resultCreate, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createResultBulkValidateBeforeCall(
+        String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling createResultBulk(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling createResultBulk(Async)");
+        }
+
+        // verify the required parameter 'resultCreateBulk' is set
+        if (resultCreateBulk == null) {
+            throw new QaseException(
+                "Missing the required parameter 'resultCreateBulk' when calling createResultBulk(Async)"
+            );
+        }
+
+        okhttp3.Call localVarCall = createResultBulkCall(code, id, resultCreateBulk, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteResultValidateBeforeCall(
+        String code, Integer id, String hash, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling deleteResult(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling deleteResult(Async)");
+        }
+
+        // verify the required parameter 'hash' is set
+        if (hash == null) {
+            throw new QaseException("Missing the required parameter 'hash' when calling deleteResult(Async)");
+        }
+
+        okhttp3.Call localVarCall = deleteResultCall(code, id, hash, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getResultValidateBeforeCall(String code, String hash, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getResult(Async)");
+        }
+
+        // verify the required parameter 'hash' is set
+        if (hash == null) {
+            throw new QaseException("Missing the required parameter 'hash' when calling getResult(Async)");
+        }
+
+        okhttp3.Call localVarCall = getResultCall(code, hash, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getResultsValidateBeforeCall(
+        String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getResults(Async)");
+        }
+
+        okhttp3.Call localVarCall = getResultsCall(code, filters, limit, offset, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateResultValidateBeforeCall(
+        String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback
+    ) throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling updateResult(Async)");
@@ -781,76 +718,6 @@ public class ResultsApi {
             throw new QaseException("Missing the required parameter 'resultUpdate' when calling updateResult(Async)");
         }
 
-
-        okhttp3.Call localVarCall = updateResultCall(code, id, hash, resultUpdate, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Update test run result.
-     * This method allows to update test run result.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param hash         Hash. (required)
-     * @param resultUpdate (required)
-     * @return HashResponse
-     * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
-     */
-    public HashResponse updateResult(String code, Integer id, String hash, ResultUpdate resultUpdate) throws QaseException {
-        ApiResponse<HashResponse> localVarResp = updateResultWithHttpInfo(code, id, hash, resultUpdate);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Update test run result.
-     * This method allows to update test run result.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param hash         Hash. (required)
-     * @param resultUpdate (required)
-     * @return ApiResponse&lt;HashResponse&gt;
-     * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
-     */
-    public ApiResponse<HashResponse> updateResultWithHttpInfo(String code, Integer id, String hash, ResultUpdate resultUpdate) throws QaseException {
-        okhttp3.Call localVarCall = updateResultValidateBeforeCall(code, id, hash, resultUpdate, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Update test run result. (asynchronously)
-     * This method allows to update test run result.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param hash         Hash. (required)
-     * @param resultUpdate (required)
-     * @param _callback    The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
-     */
-    public okhttp3.Call updateResultAsync(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback<HashResponse> _callback) throws QaseException {
-
-        okhttp3.Call localVarCall = updateResultValidateBeforeCall(code, id, hash, resultUpdate, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        return updateResultCall(code, id, hash, resultUpdate, _callback);
     }
 }
