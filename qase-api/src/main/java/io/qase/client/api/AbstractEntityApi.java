@@ -69,7 +69,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     throws QaseException {
         return createCallInternal(
             HttpMethod.POST,
-            getEntityPath() + URL_PATH_SEPARATOR + apiClient.escapeString(code),
+            joinEntitySubpathEscaped(code),
             entityCreate,
             _callback
         );
@@ -152,10 +152,15 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * </table>
      */
     public okhttp3.Call deleteEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
+        return deleteEntityCall(code, id, null, _callback);
+    }
+
+    public okhttp3.Call deleteEntityCall(String code, Integer id, Object payload, final ApiCallback _callback)
+    throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
             joinEntitySubpathEscaped(code, id.toString()),
-            null,
+            payload,
             _callback
         );
     }
@@ -174,7 +179,11 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * </table>
      */
     public IdResponse deleteEntity(String code, Integer id) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = deleteEntityWithHttpInfo(code, id);
+        return deleteEntity(code, id, null);
+    }
+
+    public IdResponse deleteEntity(String code, Integer id, Object payload) throws QaseException {
+        ApiResponse<IdResponse> localVarResp = deleteEntityWithHttpInfo(code, id, payload);
         return localVarResp.getData();
     }
 
@@ -192,7 +201,12 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * </table>
      */
     public ApiResponse<IdResponse> deleteEntityWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = deleteEntityValidateBeforeCall(code, id, null);
+        return deleteEntityWithHttpInfo(code, id, null);
+    }
+
+    public ApiResponse<IdResponse> deleteEntityWithHttpInfo(String code, Integer id, Object payload)
+    throws QaseException {
+        okhttp3.Call localVarCall = deleteEntityValidateBeforeCall(code, id, payload, null);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
         return apiClient.execute(localVarCall, localVarReturnType);
     }
@@ -212,7 +226,13 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
      * </table>
      */
     public okhttp3.Call deleteEntityAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
-        okhttp3.Call localVarCall = deleteEntityValidateBeforeCall(code, id, _callback);
+        return deleteEntityAsync(code, id, null, _callback);
+    }
+
+    public okhttp3.Call deleteEntityAsync(
+        String code, Integer id, Object payload, final ApiCallback<IdResponse> _callback
+    ) throws QaseException {
+        okhttp3.Call localVarCall = deleteEntityValidateBeforeCall(code, id, payload, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
         apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -701,8 +721,9 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteEntityValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
-        throws QaseException {
+    private okhttp3.Call deleteEntityValidateBeforeCall(
+        String code, Integer id, Object payload, final ApiCallback _callback
+    ) throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling deleteEntity(Async)");
@@ -712,7 +733,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
             throw new QaseException("Missing the required parameter 'id' when calling deleteEntity(Async)");
         }
 
-        return deleteEntityCall(code, id, _callback);
+        return deleteEntityCall(code, id, payload, _callback);
     }
 
     @SuppressWarnings("rawtypes")
