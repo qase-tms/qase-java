@@ -18,35 +18,20 @@ import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiCallback;
 import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
-import io.qase.client.Pair;
 import io.qase.client.model.*;
 import io.qase.enums.HttpMethod;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import static io.qase.configuration.QaseModule.INJECTOR;
-
-public class CustomFieldsApi {
-    private ApiClient localVarApiClient;
+public class CustomFieldsApi extends AbstractEntityApi {
 
     public CustomFieldsApi() {
-        this(INJECTOR.getInstance(ApiClient.class));
+        super();
     }
 
     public CustomFieldsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -63,54 +48,14 @@ public class CustomFieldsApi {
      */
     public okhttp3.Call createCustomFieldCall(CustomFieldCreate customFieldCreate, final ApiCallback _callback)
     throws QaseException {
-        Object localVarPostBody = customFieldCreate;
-
-        // create path and map variables
-        String localVarPath = "/custom_field";
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {"application/json"};
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.POST.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
+        return createCallInternal(
+            CallParameters.builder()
+                .httpMethod(HttpMethod.POST)
+                .path(joinEntitySubpath())
+                .payload(customFieldCreate)
+                .callback(_callback)
+                .build()
         );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createCustomFieldValidateBeforeCall(
-        CustomFieldCreate customFieldCreate, final ApiCallback _callback
-    ) throws QaseException {
-        // verify the required parameter 'customFieldCreate' is set
-        if (customFieldCreate == null) {
-            throw new QaseException(
-                "Missing the required parameter 'customFieldCreate' when calling createCustomField(Async)"
-            );
-        }
-
-        return createCustomFieldCall(customFieldCreate, _callback);
     }
 
     /**
@@ -146,7 +91,7 @@ public class CustomFieldsApi {
     throws QaseException {
         okhttp3.Call localVarCall = createCustomFieldValidateBeforeCall(customFieldCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -167,7 +112,7 @@ public class CustomFieldsApi {
     ) throws QaseException {
         okhttp3.Call localVarCall = createCustomFieldValidateBeforeCall(customFieldCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -184,50 +129,13 @@ public class CustomFieldsApi {
      * </table>
      */
     public okhttp3.Call deleteCustomFieldCall(Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/custom_field/" + localVarApiClient.escapeString(id.toString());
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.DELETE.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
+        return createCallInternal(
+            CallParameters.builder()
+                .httpMethod(HttpMethod.DELETE)
+                .path(joinEntitySubpath(id.toString()))
+                .callback(_callback)
+                .build()
         );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteCustomFieldValidateBeforeCall(Integer id, final ApiCallback _callback)
-    throws QaseException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling deleteCustomField(Async)");
-        }
-        return deleteCustomFieldCall(id, _callback);
     }
 
     /**
@@ -262,7 +170,7 @@ public class CustomFieldsApi {
     public ApiResponse<Response> deleteCustomFieldWithHttpInfo(Integer id) throws QaseException {
         okhttp3.Call localVarCall = deleteCustomFieldValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<Response>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -281,7 +189,7 @@ public class CustomFieldsApi {
     public okhttp3.Call deleteCustomFieldAsync(Integer id, final ApiCallback<Response> _callback) throws QaseException {
         okhttp3.Call localVarCall = deleteCustomFieldValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<Response>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -298,51 +206,13 @@ public class CustomFieldsApi {
      * </table>
      */
     public okhttp3.Call getCustomFieldCall(Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/custom_field/" + localVarApiClient.escapeString(id.toString());
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.GET.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
+        return createCallInternal(
+            CallParameters.builder()
+                .httpMethod(HttpMethod.GET)
+                .path(joinEntitySubpath(id.toString()))
+                .callback(_callback)
+                .build()
         );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCustomFieldValidateBeforeCall(Integer id, final ApiCallback _callback) throws QaseException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling getCustomField(Async)");
-        }
-
-        okhttp3.Call localVarCall = getCustomFieldCall(id, _callback);
-        return localVarCall;
     }
 
     /**
@@ -377,7 +247,7 @@ public class CustomFieldsApi {
     public ApiResponse<CustomFieldResponse> getCustomFieldWithHttpInfo(Integer id) throws QaseException {
         okhttp3.Call localVarCall = getCustomFieldValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<CustomFieldResponse>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -397,7 +267,7 @@ public class CustomFieldsApi {
     throws QaseException {
         okhttp3.Call localVarCall = getCustomFieldValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<CustomFieldResponse>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -418,59 +288,18 @@ public class CustomFieldsApi {
     public okhttp3.Call getCustomFieldsCall(
         Filters1 filters, Integer limit, Integer offset, final ApiCallback _callback
     ) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/custom_field";
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.GET.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
+        return createCallInternal(
+            CallParameters.builder()
+                .httpMethod(HttpMethod.GET)
+                .path(joinEntitySubpath())
+                .queryParams(filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
+                    put(FILTERS_QUERY_PARAMETER_NAME, filters);
+                    put(LIMIT_QUERY_PARAMETER_NAME, limit);
+                    put(OFFSET_QUERY_PARAMETER_NAME, offset);
+                }}))
+                .callback(_callback)
+                .build()
         );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCustomFieldsValidateBeforeCall(
-        Filters1 filters, Integer limit, Integer offset, final ApiCallback _callback
-    ) throws QaseException {
-        return getCustomFieldsCall(filters, limit, offset, _callback);
     }
 
     /**
@@ -511,7 +340,7 @@ public class CustomFieldsApi {
     ) throws QaseException {
         okhttp3.Call localVarCall = getCustomFieldsValidateBeforeCall(filters, limit, offset, null);
         Type localVarReturnType = new TypeToken<CustomFieldsResponse>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -534,7 +363,7 @@ public class CustomFieldsApi {
     ) throws QaseException {
         okhttp3.Call localVarCall = getCustomFieldsValidateBeforeCall(filters, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<CustomFieldsResponse>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -554,55 +383,14 @@ public class CustomFieldsApi {
     public okhttp3.Call updateCustomFieldCall(
         Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback _callback
     ) throws QaseException {
-        Object localVarPostBody = customFieldUpdate;
-
-        // create path and map variables
-        String localVarPath = "/custom_field/" + localVarApiClient.escapeString(id.toString());
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {"application/json"};
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.PATCH.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
+        return createCallInternal(
+            CallParameters.builder()
+                .httpMethod(HttpMethod.PATCH)
+                .path(joinEntitySubpath(id.toString()))
+                .payload(customFieldUpdate)
+                .callback(_callback)
+                .build()
         );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateCustomFieldValidateBeforeCall(Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback _callback) throws QaseException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateCustomField(Async)");
-        }
-
-        // verify the required parameter 'customFieldUpdate' is set
-        if (customFieldUpdate == null) {
-            throw new QaseException("Missing the required parameter 'customFieldUpdate' when calling updateCustomField(Async)");
-        }
-
-        return updateCustomFieldCall(id, customFieldUpdate, _callback);
     }
 
     /**
@@ -640,7 +428,7 @@ public class CustomFieldsApi {
     throws QaseException {
         okhttp3.Call localVarCall = updateCustomFieldValidateBeforeCall(id, customFieldUpdate, null);
         Type localVarReturnType = new TypeToken<Response>() { }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -662,7 +450,71 @@ public class CustomFieldsApi {
     ) throws QaseException {
         okhttp3.Call localVarCall = updateCustomFieldValidateBeforeCall(id, customFieldUpdate, _callback);
         Type localVarReturnType = new TypeToken<Response>() { }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
+    }
+
+    @Override
+    protected String getEntityRootPathSegment() {
+        return "custom_field";
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createCustomFieldValidateBeforeCall(
+        CustomFieldCreate customFieldCreate, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'customFieldCreate' is set
+        if (customFieldCreate == null) {
+            throw new QaseException(
+                "Missing the required parameter 'customFieldCreate' when calling createCustomField(Async)"
+            );
+        }
+
+        return createCustomFieldCall(customFieldCreate, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteCustomFieldValidateBeforeCall(Integer id, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling deleteCustomField(Async)");
+        }
+        return deleteCustomFieldCall(id, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getCustomFieldValidateBeforeCall(Integer id, final ApiCallback _callback) throws QaseException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling getCustomField(Async)");
+        }
+
+        okhttp3.Call localVarCall = getCustomFieldCall(id, _callback);
+        return localVarCall;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getCustomFieldsValidateBeforeCall(
+        Filters1 filters, Integer limit, Integer offset, final ApiCallback _callback
+    ) throws QaseException {
+        return getCustomFieldsCall(filters, limit, offset, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateCustomFieldValidateBeforeCall(
+        Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling updateCustomField(Async)");
+        }
+
+        // verify the required parameter 'customFieldUpdate' is set
+        if (customFieldUpdate == null) {
+            throw new QaseException("Missing the required parameter 'customFieldUpdate' when calling updateCustomField(Async)");
+        }
+
+        return updateCustomFieldCall(id, customFieldUpdate, _callback);
     }
 }
