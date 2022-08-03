@@ -13,41 +13,20 @@
 
 package io.qase.client.api;
 
-import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiCallback;
 import io.qase.client.ApiClient;
 import io.qase.client.ApiResponse;
-import io.qase.client.Pair;
 import io.qase.client.model.*;
-import io.qase.enums.HttpMethod;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static io.qase.configuration.QaseModule.INJECTOR;
-
-public class CasesApi {
-
-    private ApiClient localVarApiClient;
+public class CasesApi extends AbstractEntityApi {
 
     public CasesApi() {
-        this(INJECTOR.getInstance(ApiClient.class));
+        super();
     }
 
     public CasesApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -65,57 +44,7 @@ public class CasesApi {
      */
     public okhttp3.Call createCaseCall(String code, TestCaseCreate testCaseCreate, final ApiCallback _callback)
     throws QaseException {
-        Object localVarPostBody = testCaseCreate;
-
-        // create path and map variables
-        String localVarPath = "/case/" + localVarApiClient.escapeString(code);
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {"application/json"};
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.POST.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
-        );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createCaseValidateBeforeCall(
-        String code, TestCaseCreate testCaseCreate, final ApiCallback _callback
-    ) throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling createCase(Async)");
-        }
-
-        // verify the required parameter 'testCaseCreate' is set
-        if (testCaseCreate == null) {
-            throw new QaseException("Missing the required parameter 'testCaseCreate' when calling createCase(Async)");
-        }
-
-        return createCaseCall(code, testCaseCreate, _callback);
+        return createEntityCall(code, testCaseCreate, _callback);
     }
 
     /**
@@ -132,8 +61,7 @@ public class CasesApi {
      * </table>
      */
     public IdResponse createCase(String code, TestCaseCreate testCaseCreate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = createCaseWithHttpInfo(code, testCaseCreate);
-        return localVarResp.getData();
+        return createEntity(code, testCaseCreate);
     }
 
     /**
@@ -151,10 +79,7 @@ public class CasesApi {
      */
     public ApiResponse<IdResponse> createCaseWithHttpInfo(String code, TestCaseCreate testCaseCreate)
     throws QaseException {
-        okhttp3.Call localVarCall = createCaseValidateBeforeCall(code, testCaseCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return createEntityWithHttpInfo(code, testCaseCreate);
     }
 
     /**
@@ -174,11 +99,7 @@ public class CasesApi {
     public okhttp3.Call createCaseAsync(
         String code, TestCaseCreate testCaseCreate, final ApiCallback<IdResponse> _callback
     ) throws QaseException {
-        okhttp3.Call localVarCall = createCaseValidateBeforeCall(code, testCaseCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        return createEntityAsync(code, testCaseCreate, _callback);
     }
 
     /**
@@ -195,59 +116,7 @@ public class CasesApi {
      * </table>
      */
     public okhttp3.Call deleteCaseCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = String.format(
-            "/case/%s/%s", localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
-        );
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-
-        return localVarApiClient.buildCall(
-            localVarPath,
-            "DELETE",
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
-        );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteCaseValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
-    throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteCase(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling deleteCase(Async)");
-        }
-
-        return deleteCaseCall(code, id, _callback);
+        return deleteEntityCall(code, id, _callback);
     }
 
     /**
@@ -264,8 +133,7 @@ public class CasesApi {
      * </table>
      */
     public IdResponse deleteCase(String code, Integer id) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = deleteCaseWithHttpInfo(code, id);
-        return localVarResp.getData();
+        return deleteEntity(code, id);
     }
 
     /**
@@ -282,10 +150,7 @@ public class CasesApi {
      * </table>
      */
     public ApiResponse<IdResponse> deleteCaseWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = deleteCaseValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return deleteEntityWithHttpInfo(code, id);
     }
 
     /**
@@ -304,11 +169,7 @@ public class CasesApi {
      */
     public okhttp3.Call deleteCaseAsync(String code, Integer id, final ApiCallback<IdResponse> _callback)
     throws QaseException {
-        okhttp3.Call localVarCall = deleteCaseValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        return deleteEntityAsync(code, id, _callback);
     }
 
     /**
@@ -325,58 +186,7 @@ public class CasesApi {
      * </table>
      */
     public okhttp3.Call getCaseCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = String.format(
-            "/case/%s/%s", localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
-        );
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            "GET",
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
-        );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCaseValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
-    throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getCase(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling getCase(Async)");
-        }
-
-        return getCaseCall(code, id, _callback);
+        return getEntityCall(code, id, _callback);
     }
 
     /**
@@ -393,8 +203,7 @@ public class CasesApi {
      * </table>
      */
     public TestCaseResponse getCase(String code, Integer id) throws QaseException {
-        ApiResponse<TestCaseResponse> localVarResp = getCaseWithHttpInfo(code, id);
-        return localVarResp.getData();
+        return getEntity(code, id);
     }
 
     /**
@@ -411,10 +220,7 @@ public class CasesApi {
      * </table>
      */
     public ApiResponse<TestCaseResponse> getCaseWithHttpInfo(String code, Integer id) throws QaseException {
-        okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<TestCaseResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getEntityWithHttpInfo(code, id);
     }
 
     /**
@@ -433,11 +239,7 @@ public class CasesApi {
      */
     public okhttp3.Call getCaseAsync(String code, Integer id, final ApiCallback<TestCaseResponse> _callback)
     throws QaseException {
-        okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<TestCaseResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        return getEntityAsync(code, id, _callback);
     }
 
     /**
@@ -458,64 +260,7 @@ public class CasesApi {
     public okhttp3.Call getCasesCall(
         String code, Filters filters, Integer limit, Integer offset, final ApiCallback _callback
     ) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/case/" + localVarApiClient.escapeString(code);
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = { };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            "GET",
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
-        );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCasesValidateBeforeCall(
-        String code, Filters filters, Integer limit, Integer offset, final ApiCallback _callback
-    ) throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getCases(Async)");
-        }
-
-        return getCasesCall(code, filters, limit, offset, _callback);
+        return getEntitiesCall(code, filters, limit, offset, _callback);
     }
 
     /**
@@ -535,8 +280,7 @@ public class CasesApi {
      */
     public TestCaseListResponse getCases(String code, Filters filters, Integer limit, Integer offset)
     throws QaseException {
-        ApiResponse<TestCaseListResponse> localVarResp = getCasesWithHttpInfo(code, filters, limit, offset);
-        return localVarResp.getData();
+        return getEntities(code, filters, limit, offset);
     }
 
     /**
@@ -557,10 +301,7 @@ public class CasesApi {
     public ApiResponse<TestCaseListResponse> getCasesWithHttpInfo(
         String code, Filters filters, Integer limit, Integer offset
     ) throws QaseException {
-        okhttp3.Call localVarCall = getCasesValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<TestCaseListResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return getEntitiesWithHttpInfo(code, filters, limit, offset);
     }
 
     /**
@@ -582,11 +323,7 @@ public class CasesApi {
     public okhttp3.Call getCasesAsync(
         String code, Filters filters, Integer limit, Integer offset, final ApiCallback<TestCaseListResponse> _callback
     ) throws QaseException {
-        okhttp3.Call localVarCall = getCasesValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<TestCaseListResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        return getEntitiesAsync(code, filters, limit, offset, _callback);
     }
 
     /**
@@ -606,64 +343,7 @@ public class CasesApi {
     public okhttp3.Call updateCaseCall(
         String code, Integer id, TestCaseUpdate testCaseUpdate, final ApiCallback _callback
     ) throws QaseException {
-        Object localVarPostBody = testCaseUpdate;
-
-        // create path and map variables
-        String localVarPath = String.format(
-            "/case/%s/%s", localVarApiClient.escapeString(code), localVarApiClient.escapeString(id.toString())
-        );
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<>();
-        Map<String, String> localVarHeaderParams = new HashMap<>();
-        Map<String, String> localVarCookieParams = new HashMap<>();
-        Map<String, Object> localVarFormParams = new HashMap<>();
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {"application/json"};
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {"TokenAuth"};
-        return localVarApiClient.buildCall(
-            localVarPath,
-            HttpMethod.PATCH.toString(),
-            localVarQueryParams,
-            localVarCollectionQueryParams,
-            localVarPostBody,
-            localVarHeaderParams,
-            localVarCookieParams,
-            localVarFormParams,
-            localVarAuthNames,
-            _callback
-        );
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateCaseValidateBeforeCall(
-        String code, Integer id, TestCaseUpdate testCaseUpdate, final ApiCallback _callback
-    ) throws QaseException {
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateCase(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateCase(Async)");
-        }
-
-        // verify the required parameter 'testCaseUpdate' is set
-        if (testCaseUpdate == null) {
-            throw new QaseException("Missing the required parameter 'testCaseUpdate' when calling updateCase(Async)");
-        }
-
-        return updateCaseCall(code, id, testCaseUpdate, _callback);
+        return updateEntityCall(code, id, testCaseUpdate, _callback);
     }
 
     /**
@@ -681,8 +361,7 @@ public class CasesApi {
      * </table>
      */
     public IdResponse updateCase(String code, Integer id, TestCaseUpdate testCaseUpdate) throws QaseException {
-        ApiResponse<IdResponse> localVarResp = updateCaseWithHttpInfo(code, id, testCaseUpdate);
-        return localVarResp.getData();
+        return updateEntity(code, id, testCaseUpdate);
     }
 
     /**
@@ -702,10 +381,7 @@ public class CasesApi {
     public ApiResponse<IdResponse> updateCaseWithHttpInfo(
         String code, Integer id, TestCaseUpdate testCaseUpdate
     ) throws QaseException {
-        okhttp3.Call localVarCall = updateCaseValidateBeforeCall(code, id, testCaseUpdate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return updateEntityWithHttpInfo(code, id, testCaseUpdate);
     }
 
     /**
@@ -726,10 +402,11 @@ public class CasesApi {
     public okhttp3.Call updateCaseAsync(
         String code, Integer id, TestCaseUpdate testCaseUpdate, final ApiCallback<IdResponse> _callback
     ) throws QaseException {
-        okhttp3.Call localVarCall = updateCaseValidateBeforeCall(code, id, testCaseUpdate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        return updateEntityAsync(code, id, testCaseUpdate, _callback);
+    }
+
+    @Override
+    protected String getEntityRootPathSegment() {
+        return "case";
     }
 }
