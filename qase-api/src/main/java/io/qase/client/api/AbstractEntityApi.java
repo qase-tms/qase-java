@@ -46,6 +46,8 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
 
     protected static final String OFFSET_QUERY_PARAMETER_NAME = "offset";
 
+    protected static final String INCLUDE_QUERY_PARAMETER_NAME = "include";
+
     @Getter(AccessLevel.PROTECTED)
     private ApiClient apiClient;
 
@@ -150,9 +152,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     public okhttp3.Call deleteEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.DELETE,
-            joinPath(
-                getEntityPath(), apiClient.escapeString(code), apiClient.escapeString(id.toString())
-            ),
+            joinEntitySubpathEscaped(code, id.toString()),
             null,
             _callback
         );
@@ -232,9 +232,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     public okhttp3.Call getEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.GET,
-            joinPath(
-                getEntityPath(), apiClient.escapeString(code), apiClient.escapeString(id.toString())
-            ),
+            joinEntitySubpath(apiClient.escapeString(code), apiClient.escapeString(id.toString())),
             null,
             _callback
         );
@@ -324,7 +322,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
 
         return createCallInternal(
             HttpMethod.GET,
-            joinPath(getEntityPath(), apiClient.escapeString(code)),
+            joinEntitySubpath(apiClient.escapeString(code)),
             null,
             queryParameters,
             _callback
@@ -434,12 +432,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     public okhttp3.Call resolveEntityCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinPath(
-                getEntityPath(),
-                apiClient.escapeString(code),
-                "resolve",
-                apiClient.escapeString(id.toString())
-            ),
+            joinEntitySubpath(apiClient.escapeString(code), "resolve", apiClient.escapeString(id.toString())),
             null,
             _callback
         );
@@ -523,9 +516,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     ) throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinPath(
-                getEntityPath(), apiClient.escapeString(code), apiClient.escapeString(id.toString())
-            ),
+            joinEntitySubpath(apiClient.escapeString(code), apiClient.escapeString(id.toString())),
             entityUpdate,
             _callback
         );
@@ -613,12 +604,7 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
     throws QaseException {
         return createCallInternal(
             HttpMethod.PATCH,
-            joinPath(
-                getEntityPath(),
-                apiClient.escapeString(code),
-                "status",
-                apiClient.escapeString(id.toString())
-            ),
+            joinEntitySubpath(apiClient.escapeString(code), "status", apiClient.escapeString(id.toString())),
             entityStatus,
             _callback
         );
@@ -835,11 +821,6 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
         );
     }
 
-    // TODO: the method probably needs be extended with escaping segments behavior, auto-prefixing the entity path
-    protected String joinPath(String... pathSegments) {
-        return String.join(URL_PATH_SEPARATOR, pathSegments);
-    }
-
     protected List<Pair> filterNullsAndConvertToPairs(Map<String, Object> queryParameters) {
         return queryParameters.entrySet().stream()
             .filter(nameToValue -> Objects.nonNull(nameToValue.getValue()))
@@ -847,5 +828,25 @@ public abstract class AbstractEntityApi<C, R, RL, U, S> {
                 nameToValue -> apiClient.parameterToPair(nameToValue.getKey(), nameToValue.getValue()).stream()
             )
             .collect(Collectors.toList());
+    }
+
+    protected String joinEntitySubpathEscaped(String... entitySubpathSegments) {
+        return joinEntitySubpath(
+            Arrays.stream(entitySubpathSegments).map(segment -> apiClient.escapeString(segment)).toArray(String[]::new)
+        );
+    }
+
+    private String joinEntitySubpath(String... entitySubpathSegments) {
+        String[] pathSegments = new String[entitySubpathSegments.length + 1];
+        pathSegments[0] = getEntityPath();
+        if (entitySubpathSegments.length != 0) {
+            System.arraycopy(entitySubpathSegments, 0, pathSegments, 1, entitySubpathSegments.length);
+        }
+        return joinPath(pathSegments);
+    }
+
+    // TODO: the method probably needs be extended with escaping segments behavior
+    private String joinPath(String... pathSegments) {
+        return String.join(URL_PATH_SEPARATOR, pathSegments);
     }
 }
