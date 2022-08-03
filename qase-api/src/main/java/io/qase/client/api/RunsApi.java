@@ -15,32 +15,23 @@ package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.qase.api.exceptions.QaseException;
-import io.qase.client.*;
+import io.qase.client.ApiCallback;
+import io.qase.client.ApiClient;
+import io.qase.client.ApiResponse;
 import io.qase.client.model.*;
+import io.qase.enums.HttpMethod;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class RunsApi {
-    private ApiClient localVarApiClient;
+public class RunsApi extends AbstractEntityApi<RunCreate, RunResponse, RunListResponse, Object, Object> {
 
     public RunsApi() {
-        this(Configuration.getDefaultApiClient());
+        super();
     }
 
     public RunsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+        super(apiClient);
     }
 
     /**
@@ -57,54 +48,12 @@ public class RunsApi {
      * </table>
      */
     public okhttp3.Call completeRunCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/run/{code}/{id}/complete"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call completeRunValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling completeRun(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling completeRun(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = completeRunCall(code, id, _callback);
-        return localVarCall;
-
+        return createCallInternal(
+            HttpMethod.POST,
+            joinEntitySubpathEscaped(code, id.toString()),
+            null,
+            _callback
+        );
     }
 
     /**
@@ -140,9 +89,8 @@ public class RunsApi {
      */
     public ApiResponse<Response> completeRunWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = completeRunValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -159,12 +107,11 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call completeRunAsync(String code, Integer id, final ApiCallback<Response> _callback) throws QaseException {
-
+    public okhttp3.Call completeRunAsync(String code, Integer id, final ApiCallback<Response> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = completeRunValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<Response>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -181,54 +128,14 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createRunCall(String code, RunCreate runCreate, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = runCreate;
-
-        // create path and map variables
-        String localVarPath = "/run/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createRunValidateBeforeCall(String code, RunCreate runCreate, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling createRun(Async)");
-        }
-
-        // verify the required parameter 'runCreate' is set
-        if (runCreate == null) {
-            throw new QaseException("Missing the required parameter 'runCreate' when calling createRun(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = createRunCall(code, runCreate, _callback);
-        return localVarCall;
-
+    public okhttp3.Call createRunCall(String code, RunCreate runCreate, final ApiCallback _callback)
+    throws QaseException {
+        return createCallInternal(
+            HttpMethod.POST,
+            joinEntitySubpathEscaped(code),
+            runCreate,
+            _callback
+        );
     }
 
     /**
@@ -264,9 +171,8 @@ public class RunsApi {
      */
     public ApiResponse<IdResponse> createRunWithHttpInfo(String code, RunCreate runCreate) throws QaseException {
         okhttp3.Call localVarCall = createRunValidateBeforeCall(code, runCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -283,12 +189,11 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call createRunAsync(String code, RunCreate runCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
-
+    public okhttp3.Call createRunAsync(String code, RunCreate runCreate, final ApiCallback<IdResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = createRunValidateBeforeCall(code, runCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -306,54 +211,12 @@ public class RunsApi {
      * </table>
      */
     public okhttp3.Call deleteRunCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/run/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteRunValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling deleteRun(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling deleteRun(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = deleteRunCall(code, id, _callback);
-        return localVarCall;
-
+        return createCallInternal(
+            HttpMethod.DELETE,
+            joinEntitySubpathEscaped(code, id.toString()),
+            null,
+            _callback
+        );
     }
 
     /**
@@ -389,9 +252,8 @@ public class RunsApi {
      */
     public ApiResponse<IdResponse> deleteRunWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = deleteRunValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -408,12 +270,11 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call deleteRunAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
-
+    public okhttp3.Call deleteRunAsync(String code, Integer id, final ApiCallback<IdResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = deleteRunValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<IdResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -431,59 +292,17 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A run. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getRunCall(String code, Integer id, String include, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/run/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (include != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("include", include));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRunValidateBeforeCall(String code, Integer id, String include, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getRun(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling getRun(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getRunCall(code, id, include, _callback);
-        return localVarCall;
-
+    public okhttp3.Call getRunCall(String code, Integer id, String include, final ApiCallback _callback)
+    throws QaseException {
+        return createCallInternal(
+            HttpMethod.GET,
+            joinEntitySubpathEscaped(code, id.toString()),
+            null,
+            filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
+                put(INCLUDE_QUERY_PARAMETER_NAME, include);
+            }}),
+            _callback
+        );
     }
 
     /**
@@ -521,9 +340,8 @@ public class RunsApi {
      */
     public ApiResponse<RunResponse> getRunWithHttpInfo(String code, Integer id, String include) throws QaseException {
         okhttp3.Call localVarCall = getRunValidateBeforeCall(code, id, include, null);
-        Type localVarReturnType = new TypeToken<RunResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<RunResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -541,12 +359,11 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A run. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getRunAsync(String code, Integer id, String include, final ApiCallback<RunResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getRunAsync(String code, Integer id, String include, final ApiCallback<RunResponse> _callback)
+    throws QaseException {
         okhttp3.Call localVarCall = getRunValidateBeforeCall(code, id, include, _callback);
-        Type localVarReturnType = new TypeToken<RunResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<RunResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -566,65 +383,21 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A list of all runs. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getRunsCall(String code, Filters5 filters, Integer limit, Integer offset, String include, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/run/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (filters != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filters", filters));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (include != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("include", include));
-        }
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRunsValidateBeforeCall(String code, Filters5 filters, Integer limit, Integer offset, String include, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling getRuns(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = getRunsCall(code, filters, limit, offset, include, _callback);
-        return localVarCall;
-
+    public okhttp3.Call getRunsCall(
+        String code, Filters5 filters, Integer limit, Integer offset, String include, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.GET,
+            joinEntitySubpathEscaped(code),
+            null,
+            filterNullsAndConvertToPairs(new HashMap<String, Object>() {{
+                put(FILTERS_QUERY_PARAMETER_NAME, filters);
+                put(LIMIT_QUERY_PARAMETER_NAME, limit);
+                put(OFFSET_QUERY_PARAMETER_NAME, offset);
+                put(INCLUDE_QUERY_PARAMETER_NAME, include);
+            }}),
+            _callback
+        );
     }
 
     /**
@@ -643,7 +416,9 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A list of all runs. </td><td>  -  </td></tr>
      * </table>
      */
-    public RunListResponse getRuns(String code, Filters5 filters, Integer limit, Integer offset, String include) throws QaseException {
+    public RunListResponse getRuns(
+        String code, Filters5 filters, Integer limit, Integer offset, String include
+    ) throws QaseException {
         ApiResponse<RunListResponse> localVarResp = getRunsWithHttpInfo(code, filters, limit, offset, include);
         return localVarResp.getData();
     }
@@ -664,11 +439,12 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A list of all runs. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<RunListResponse> getRunsWithHttpInfo(String code, Filters5 filters, Integer limit, Integer offset, String include) throws QaseException {
+    public ApiResponse<RunListResponse> getRunsWithHttpInfo(
+        String code, Filters5 filters, Integer limit, Integer offset, String include
+    ) throws QaseException {
         okhttp3.Call localVarCall = getRunsValidateBeforeCall(code, filters, limit, offset, include, null);
-        Type localVarReturnType = new TypeToken<RunListResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<RunListResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -688,12 +464,17 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A list of all runs. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call getRunsAsync(String code, Filters5 filters, Integer limit, Integer offset, String include, final ApiCallback<RunListResponse> _callback) throws QaseException {
-
+    public okhttp3.Call getRunsAsync(
+        String code,
+        Filters5 filters,
+        Integer limit,
+        Integer offset,
+        String include,
+        final ApiCallback<RunListResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = getRunsValidateBeforeCall(code, filters, limit, offset, include, _callback);
-        Type localVarReturnType = new TypeToken<RunListResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<RunListResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
@@ -711,60 +492,15 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateRunPublicityCall(String code, Integer id, RunPublic runPublic, final ApiCallback _callback) throws QaseException {
-        Object localVarPostBody = runPublic;
-
-        // create path and map variables
-        String localVarPath = "/run/{code}/{id}/public"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-                "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-                "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateRunPublicityValidateBeforeCall(String code, Integer id, RunPublic runPublic, final ApiCallback _callback) throws QaseException {
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new QaseException("Missing the required parameter 'code' when calling updateRunPublicity(Async)");
-        }
-
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new QaseException("Missing the required parameter 'id' when calling updateRunPublicity(Async)");
-        }
-
-        // verify the required parameter 'runPublic' is set
-        if (runPublic == null) {
-            throw new QaseException("Missing the required parameter 'runPublic' when calling updateRunPublicity(Async)");
-        }
-
-
-        okhttp3.Call localVarCall = updateRunPublicityCall(code, id, runPublic, _callback);
-        return localVarCall;
-
+    public okhttp3.Call updateRunPublicityCall(
+        String code, Integer id, RunPublic runPublic, final ApiCallback _callback
+    ) throws QaseException {
+        return createCallInternal(
+            HttpMethod.PATCH,
+            joinEntitySubpathEscaped(code, id.toString(), "public"),
+            runPublic,
+            _callback
+        );
     }
 
     /**
@@ -800,11 +536,11 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public ApiResponse<RunPublicResponse> updateRunPublicityWithHttpInfo(String code, Integer id, RunPublic runPublic) throws QaseException {
+    public ApiResponse<RunPublicResponse> updateRunPublicityWithHttpInfo(String code, Integer id, RunPublic runPublic)
+    throws QaseException {
         okhttp3.Call localVarCall = updateRunPublicityValidateBeforeCall(code, id, runPublic, null);
-        Type localVarReturnType = new TypeToken<RunPublicResponse>() {
-        }.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        Type localVarReturnType = new TypeToken<RunPublicResponse>() { }.getType();
+        return getApiClient().execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -822,12 +558,117 @@ public class RunsApi {
      * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
      * </table>
      */
-    public okhttp3.Call updateRunPublicityAsync(String code, Integer id, RunPublic runPublic, final ApiCallback<RunPublicResponse> _callback) throws QaseException {
-
+    public okhttp3.Call updateRunPublicityAsync(
+        String code, Integer id, RunPublic runPublic, final ApiCallback<RunPublicResponse> _callback
+    ) throws QaseException {
         okhttp3.Call localVarCall = updateRunPublicityValidateBeforeCall(code, id, runPublic, _callback);
-        Type localVarReturnType = new TypeToken<RunPublicResponse>() {
-        }.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        Type localVarReturnType = new TypeToken<RunPublicResponse>() { }.getType();
+        getApiClient().executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
+    }
+
+    @Override
+    protected String getEntityPath() {
+        return "/run";
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call completeRunValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling completeRun(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling completeRun(Async)");
+        }
+
+        return completeRunCall(code, id, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createRunValidateBeforeCall(String code, RunCreate runCreate, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling createRun(Async)");
+        }
+
+        // verify the required parameter 'runCreate' is set
+        if (runCreate == null) {
+            throw new QaseException("Missing the required parameter 'runCreate' when calling createRun(Async)");
+        }
+
+        return createRunCall(code, runCreate, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteRunValidateBeforeCall(String code, Integer id, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling deleteRun(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling deleteRun(Async)");
+        }
+
+        return deleteRunCall(code, id, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getRunValidateBeforeCall(String code, Integer id, String include, final ApiCallback _callback)
+        throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getRun(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling getRun(Async)");
+        }
+
+        return getRunCall(code, id, include, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getRunsValidateBeforeCall(
+        String code, Filters5 filters, Integer limit, Integer offset, String include, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling getRuns(Async)");
+        }
+
+        return getRunsCall(code, filters, limit, offset, include, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateRunPublicityValidateBeforeCall(
+        String code, Integer id, RunPublic runPublic, final ApiCallback _callback
+    ) throws QaseException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new QaseException("Missing the required parameter 'code' when calling updateRunPublicity(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new QaseException("Missing the required parameter 'id' when calling updateRunPublicity(Async)");
+        }
+
+        // verify the required parameter 'runPublic' is set
+        if (runPublic == null) {
+            throw new QaseException(
+                "Missing the required parameter 'runPublic' when calling updateRunPublicity(Async)"
+            );
+        }
+
+        return updateRunPublicityCall(code, id, runPublic, _callback);
     }
 }
