@@ -13,6 +13,7 @@ import io.qase.client.model.AttachmentUploadsResponse;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.client.services.Attachments;
+import io.qase.client.services.QaseTestCaseListener;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -26,6 +27,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.QASE_API_TOKEN;
 import static io.qase.api.utils.TestUtils.QASE_PROJECT_CODE;
+import static io.qase.configuration.QaseModule.INJECTOR;
 import static org.apache.http.entity.mime.MIME.CONTENT_TYPE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -43,20 +45,25 @@ class AttachmentsTest {
 
     private static WireMockServer WIREMOCK_SERVER;
 
+    private static QaseTestCaseListener QASE_LISTENER;
+
     @BeforeAll
     public static void beforeAll() {
+        // Wiremock setup
         WIREMOCK_SERVER = new WireMockServer(options().dynamicPort());
         WIREMOCK_SERVER.start();
         int wiremockPort = WIREMOCK_SERVER.port();
         configureFor(wiremockPort);
-        TestUtils.setupQaseTestEnvironmentVariables(wiremockPort);
-        TestUtils.useScreenshotsSending(true);
-
         WIREMOCK_SERVER.addStubMapping(
             post("/v1/attachment/" + QASE_PROJECT_CODE)
                 .willReturn(ok(createSuccessfulSingleAttachmentUploadResponseJson()))
                 .build()
         );
+        // Environment variables setup
+        TestUtils.setupQaseTestEnvironmentVariables(wiremockPort);
+        TestUtils.useScreenshotsSending(true);
+        // Qase listener setup
+        QASE_LISTENER = INJECTOR.getInstance(QaseTestCaseListener.class);
     }
 
     @AfterAll
@@ -78,12 +85,16 @@ class AttachmentsTest {
 
     @CaseId(CASE_WITHOUT_STEPS_ID)
     public void caseWithAttachmentsWithoutSteps() throws QaseException {
+        QASE_LISTENER.onTestCaseStarted();
         Attachments.addAttachmentsToCurrentContext(getTestAttachments());
+        // No QASE_LISTENER.onTestCaseFinished() for being able to verify CaseStorage.getCurrentCase()
     }
 
     @CaseId(CASE_WITH_STEPS_ID)
     public void caseWithAttachmentsWithSteps() throws QaseException {
+        QASE_LISTENER.onTestCaseStarted();
         stepWithAttachments();
+        // No QASE_LISTENER.onTestCaseFinished() for being able to verify CaseStorage.getCurrentCase()
     }
 
     @Step(STEP_VALUE)

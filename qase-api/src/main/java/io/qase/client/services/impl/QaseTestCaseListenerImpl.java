@@ -51,6 +51,7 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
             return;
         }
 
+        CasesStorage.startCase(new ResultCreate());
         startTestCaseTimer();
     }
 
