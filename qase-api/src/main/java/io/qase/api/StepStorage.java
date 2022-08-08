@@ -1,9 +1,11 @@
 package io.qase.api;
 
 import io.qase.client.model.ResultCreateSteps;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
 
+@Slf4j
 public final class StepStorage {
 
     private static final ThreadLocal<ResultCreateSteps> STEP_IN_PROGRESS = new ThreadLocal<>();
@@ -14,7 +16,7 @@ public final class StepStorage {
     private static final ThreadLocal<Integer> STEP_POSITION = ThreadLocal.withInitial(() -> 1);
 
     public static void startStep() {
-        ensureStepIsNotInProgress();
+        checkStepIsNotInProgress();
 
         ResultCreateSteps resultCreateSteps = new ResultCreateSteps();
         int position = STEP_POSITION.get();
@@ -24,7 +26,7 @@ public final class StepStorage {
     }
 
     public static void stopStep() {
-        ensureStepIsInProgress();
+        checkStepIsInProgress();
 
         ResultCreateSteps resultCreateSteps = STEP_IN_PROGRESS.get();
         STEP_IN_PROGRESS.remove();
@@ -32,7 +34,7 @@ public final class StepStorage {
     }
 
     public static ResultCreateSteps getCurrentStep() {
-        ensureStepIsInProgress();
+        checkStepIsInProgress();
 
         return STEP_IN_PROGRESS.get();
     }
@@ -41,20 +43,20 @@ public final class StepStorage {
         return STEP_IN_PROGRESS.get() != null;
     }
 
-    private static void ensureStepIsInProgress() {
+    private static void checkStepIsInProgress() {
         if (!isStepInProgress()) {
-            throw new IllegalStateException("A step has not been started yet.");
+            log.error("A step has not been started yet.");
         }
     }
 
-    private static void ensureStepIsNotInProgress() {
+    private static void checkStepIsNotInProgress() {
         if (isStepInProgress()) {
-            throw new IllegalStateException("A previous step is still in progress.");
+            log.error("A previous step is still in progress.");
         }
     }
 
     public static LinkedList<ResultCreateSteps> stopSteps() {
-        ensureStepIsNotInProgress();
+        checkStepIsNotInProgress();
 
         LinkedList<ResultCreateSteps> resultCreateSteps = STEPS_STORAGE.get();
         STEPS_STORAGE.remove();
