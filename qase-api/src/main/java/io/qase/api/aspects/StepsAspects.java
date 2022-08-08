@@ -5,10 +5,7 @@ import io.qase.api.annotation.Step;
 import io.qase.api.utils.IntegrationUtils;
 import io.qase.client.model.ResultCreateSteps;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import java.util.Arrays;
@@ -28,6 +25,11 @@ public final class StepsAspects {
     public void method() {
     }
 
+    @Before("method() && withStepAnnotation()")
+    public void stepStarting() {
+        StepStorage.startStep();
+    }
+
     @AfterReturning(pointcut = "method() && withStepAnnotation()")
     public void stepFinished(JoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
@@ -36,10 +38,10 @@ public final class StepsAspects {
 
         stepsTitle = getTitle(joinPoint, stepsTitle);
 
-        ResultCreateSteps step = new ResultCreateSteps()
-                .action(stepsTitle)
-                .status(ResultCreateSteps.StatusEnum.PASSED);
-        StepStorage.addStep(step);
+        StepStorage.getCurrentStep()
+            .action(stepsTitle)
+            .status(ResultCreateSteps.StatusEnum.PASSED);
+        StepStorage.stopStep();
     }
 
     @AfterThrowing(pointcut = "method() && withStepAnnotation()", throwing = "e")
@@ -47,11 +49,11 @@ public final class StepsAspects {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Step stepAnnotation = methodSignature.getMethod().getAnnotation(Step.class);
         if (stepAnnotation != null) {
-            ResultCreateSteps step = new ResultCreateSteps()
-                    .action(stepAnnotation.value())
-                    .status(ResultCreateSteps.StatusEnum.FAILED)
-                    .addAttachmentsItem(IntegrationUtils.getStacktrace(e));
-            StepStorage.addStep(step);
+            StepStorage.getCurrentStep()
+                .action(stepAnnotation.value())
+                .status(ResultCreateSteps.StatusEnum.FAILED)
+                .addAttachmentsItem(IntegrationUtils.getStacktrace(e));
+            StepStorage.stopStep();
         }
     }
 

@@ -1,5 +1,6 @@
 package io.qase.testng;
 
+import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
 import io.qase.client.model.ResultCreate;
@@ -71,8 +72,8 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         if (caseId == null) {
             caseTitle = getCaseTitle(method);
         }
-        LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
-        return new ResultCreate()
+        LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
+        return CasesStorage.getCurrentCase()
                 ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)
                 .status(status)

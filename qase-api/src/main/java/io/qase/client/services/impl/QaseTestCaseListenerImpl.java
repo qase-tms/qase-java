@@ -1,6 +1,7 @@
 package io.qase.client.services.impl;
 
 import com.google.inject.Inject;
+import io.qase.api.CasesStorage;
 import io.qase.api.QaseClient;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.api.RunsApi;
@@ -60,6 +61,7 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
         }
 
         resultCreate.timeMs(stopTestCaseTimer());
+        CasesStorage.stopCase();
         if (getConfig().useBulk()) {
             resultOperations.addBulkResult(resultCreate);
         } else {

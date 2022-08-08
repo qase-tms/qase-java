@@ -1,6 +1,7 @@
 package io.qase.junit4;
 
 
+import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.CaseTitle;
@@ -82,8 +83,8 @@ public class QaseListener extends RunListener {
                 .orElse(false);
         String stacktrace = optionalThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
-        return new ResultCreate()
+        LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
+        return CasesStorage.getCurrentCase()
                 ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)
                 .status(status)

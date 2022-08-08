@@ -6,7 +6,6 @@ import io.qase.client.api.ResultsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreateBulk;
 import io.qase.client.services.ReportersResultOperations;
-import io.qase.client.services.ScreenshotsSender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,8 +18,6 @@ public class ReportersResultOperationsImpl implements ReportersResultOperations 
     private final ResultCreateBulk resultCreateBulk = new ResultCreateBulk();
 
     private final ResultsApi resultsApi;
-
-    private final ScreenshotsSender screenshotsSender;
 
     @Override
     public void addBulkResult(ResultCreate resultCreate) {
@@ -46,7 +43,6 @@ public class ReportersResultOperationsImpl implements ReportersResultOperations 
                 getConfig().runId(),
                 resultCreateBulk
             );
-            screenshotsSender.sendScreenshotsIfPermitted();
             resultCreateBulk.getResults().clear();
         } catch (QaseException e) {
             log.error(e.getMessage());

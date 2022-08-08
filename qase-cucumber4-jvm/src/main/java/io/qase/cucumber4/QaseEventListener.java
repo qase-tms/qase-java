@@ -3,6 +3,7 @@ package io.qase.cucumber4;
 import cucumber.api.Result;
 import cucumber.api.event.*;
 import gherkin.pickles.PickleTag;
+import io.qase.api.CasesStorage;
 import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
@@ -67,8 +68,8 @@ public class QaseEventListener implements ConcurrentEventListener {
             .orElse(false);
         String stacktrace = optionalThrowable
             .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
-        return new ResultCreate()
+        LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
+        return CasesStorage.getCurrentCase()
             .caseId(caseId)
             .status(status)
             .comment(comment)

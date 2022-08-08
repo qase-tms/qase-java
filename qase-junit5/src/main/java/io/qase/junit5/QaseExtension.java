@@ -1,5 +1,6 @@
 package io.qase.junit5;
 
+import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
 import io.qase.client.model.ResultCreate;
@@ -83,8 +84,8 @@ public class QaseExtension implements TestExecutionListener {
                 .orElse(false);
         String stacktrace = testExecutionResult.getThrowable()
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateSteps> steps = StepStorage.getSteps();
-        return new ResultCreate()
+        LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
+        return CasesStorage.getCurrentCase()
                 ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)
                 .status(status)
