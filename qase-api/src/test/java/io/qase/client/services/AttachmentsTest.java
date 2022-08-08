@@ -1,4 +1,4 @@
-package io.qase.client.services.impl;
+package io.qase.client.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.google.gson.Gson;
@@ -12,8 +12,6 @@ import io.qase.client.model.AttachmentGet;
 import io.qase.client.model.AttachmentUploadsResponse;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreateSteps;
-import io.qase.client.services.Attachments;
-import io.qase.client.services.QaseTestCaseListener;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
