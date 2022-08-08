@@ -1,6 +1,5 @@
 package io.qase.testng;
 
-import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
 import io.qase.client.model.ResultCreate;
@@ -41,13 +40,15 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult tr) {
-        getQaseTestCaseListener().onTestCaseFinished(getResultItem(tr, StatusEnum.PASSED));
+        getQaseTestCaseListener()
+            .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.PASSED));
         super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        getQaseTestCaseListener().onTestCaseFinished(getResultItem(tr, StatusEnum.FAILED));
+        getQaseTestCaseListener()
+            .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.FAILED));
         super.onTestFailure(tr);
     }
 
@@ -57,7 +58,7 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         super.onFinish(testContext);
     }
 
-    private ResultCreate getResultItem(ITestResult result, StatusEnum status) {
+    private void setupResultItem(ResultCreate resultCreate, ITestResult result, StatusEnum status) {
         Optional<Throwable> resultThrowable = Optional.ofNullable(result.getThrowable());
         String comment = resultThrowable
                 .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
@@ -73,13 +74,13 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
             caseTitle = getCaseTitle(method);
         }
         LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
-        return CasesStorage.getCurrentCase()
-                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
-                .caseId(caseId)
-                .status(status)
-                .comment(comment)
-                .stacktrace(stacktrace)
-                .steps(steps.isEmpty() ? null : steps)
-                .defect(isDefect);
+        resultCreate
+            ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
+            .caseId(caseId)
+            .status(status)
+            .comment(comment)
+            .stacktrace(stacktrace)
+            .steps(steps.isEmpty() ? null : steps)
+            .defect(isDefect);
     }
 }

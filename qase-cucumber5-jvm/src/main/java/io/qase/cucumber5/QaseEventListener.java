@@ -2,7 +2,6 @@ package io.qase.cucumber5;
 
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
-import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.utils.CucumberUtils;
@@ -47,10 +46,10 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void testCaseFinished(TestCaseFinished event) {
-        getQaseTestCaseListener().onTestCaseFinished(getResultItem(event));
+        getQaseTestCaseListener().onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, event));
     }
 
-    private ResultCreate getResultItem(TestCaseFinished event) {
+    private void setupResultItem(ResultCreate resultCreate, TestCaseFinished event) {
         List<String> tags = event.getTestCase().getTags();
         Long caseId = CucumberUtils.getCaseId(tags);
         StatusEnum status = convertStatus(event.getResult().getStatus());
@@ -63,7 +62,7 @@ public class QaseEventListener implements ConcurrentEventListener {
         String stacktrace = optionalThrowable
             .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
         LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
-        return CasesStorage.getCurrentCase()
+        resultCreate
             .caseId(caseId)
             .status(status)
             .comment(comment)

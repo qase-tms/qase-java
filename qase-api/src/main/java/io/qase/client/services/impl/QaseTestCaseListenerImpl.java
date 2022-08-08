@@ -11,6 +11,8 @@ import io.qase.client.services.ReportersResultOperations;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.function.Consumer;
+
 import static io.qase.api.QaseClient.getConfig;
 
 @Slf4j
@@ -56,12 +58,14 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
     }
 
     @Override
-    public void onTestCaseFinished(ResultCreate resultCreate) {
+    public void onTestCaseFinished(Consumer<ResultCreate> resultCreateConfigurer) {
         if (!QaseClient.isEnabled()) {
             return;
         }
 
+        ResultCreate resultCreate = CasesStorage.getCurrentCase();
         resultCreate.timeMs(stopTestCaseTimer());
+        resultCreateConfigurer.accept(resultCreate);
         CasesStorage.stopCase();
         if (getConfig().useBulk()) {
             resultOperations.addBulkResult(resultCreate);

@@ -1,7 +1,6 @@
 package io.qase.junit4;
 
 
-import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.CaseTitle;
@@ -45,23 +44,30 @@ public class QaseListener extends RunListener {
 
     @Override
     public void testFinished(Description description) {
-        getQaseTestCaseListener().onTestCaseFinished(getResultItem(description, PASSED, null));
+        getQaseTestCaseListener().onTestCaseFinished(
+            resultCreate -> setupResultItem(resultCreate, description, PASSED, null)
+        );
     }
 
     @Override
     public void testFailure(Failure failure) {
-        getQaseTestCaseListener()
-            .onTestCaseFinished(getResultItem(failure.getDescription(), FAILED, failure.getException()));
+        getQaseTestCaseListener().onTestCaseFinished(
+            resultCreate -> setupResultItem(resultCreate, failure.getDescription(), FAILED, failure.getException())
+        );
     }
 
     @Override
     public void testAssumptionFailure(Failure failure) {
-        getQaseTestCaseListener().onTestCaseFinished(getResultItem(failure.getDescription(), SKIPPED, null));
+        getQaseTestCaseListener().onTestCaseFinished(
+            resultCreate -> setupResultItem(resultCreate, failure.getDescription(), SKIPPED, null)
+        );
     }
 
     @Override
     public void testIgnored(Description description) {
-        getQaseTestCaseListener().onTestCaseFinished(getResultItem(description, SKIPPED, null));
+        getQaseTestCaseListener().onTestCaseFinished(
+            resultCreate -> setupResultItem(resultCreate, description, SKIPPED, null)
+        );
     }
 
     @Override
@@ -69,7 +75,7 @@ public class QaseListener extends RunListener {
         getQaseTestCaseListener().reportResults();
     }
 
-    private ResultCreate getResultItem(Description description, StatusEnum status, Throwable error) {
+    private ResultCreate setupResultItem(ResultCreate resultCreate, Description description, StatusEnum status, Throwable error) {
         Long caseId = getCaseId(description);
         String caseTitle = null;
         if (caseId == null) {
@@ -77,21 +83,21 @@ public class QaseListener extends RunListener {
         }
         Optional<Throwable> optionalThrowable = Optional.ofNullable(error);
         String comment = optionalThrowable
-                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+            .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
         Boolean isDefect = optionalThrowable
-                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-                .orElse(false);
+            .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+            .orElse(false);
         String stacktrace = optionalThrowable
-                .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+            .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
         LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
-        return CasesStorage.getCurrentCase()
-                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
-                .caseId(caseId)
-                .status(status)
-                .comment(comment)
-                .stacktrace(stacktrace)
-                .steps(steps.isEmpty() ? null : steps)
-                .defect(isDefect);
+        return resultCreate
+            ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
+            .caseId(caseId)
+            .status(status)
+            .comment(comment)
+            .stacktrace(stacktrace)
+            .steps(steps.isEmpty() ? null : steps)
+            .defect(isDefect);
     }
 
     private Long getCaseId(Description description) {

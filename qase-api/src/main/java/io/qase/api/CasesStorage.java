@@ -28,10 +28,6 @@ public final class CasesStorage {
         return CURRENT_CASE.get() != null;
     }
 
-    public static void removeCurrentCase() {
-        CURRENT_CASE.remove();
-    }
-
     private static void ensureCaseIsInProgress() {
         if (!isCaseInProgress()) {
             throw new IllegalStateException("A case has not been started yet.");

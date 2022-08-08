@@ -1,6 +1,5 @@
 package io.qase.junit5;
 
-import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
 import io.qase.client.model.ResultCreate;
@@ -56,12 +55,12 @@ public class QaseExtension implements TestExecutionListener {
             return;
         }
         TestSource testSource = testIdentifier.getSource().orElse(null);
-        Method testMethod = null;
-        if (testSource instanceof MethodSource) {
-            testMethod = getMethod((MethodSource) testSource);
-        }
+        Method testMethod = testSource instanceof MethodSource
+            ? getMethod((MethodSource) testSource)
+            : null;
 
-        getQaseTestCaseListener().onTestCaseFinished(getResultItem(testExecutionResult, testMethod));
+        getQaseTestCaseListener()
+            .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, testExecutionResult, testMethod));
     }
 
     @Override
@@ -69,30 +68,32 @@ public class QaseExtension implements TestExecutionListener {
         getQaseTestCaseListener().reportResults();
     }
 
-    private ResultCreate getResultItem(TestExecutionResult testExecutionResult, Method testMethod) {
+    private void setupResultItem(
+        ResultCreate resultCreate, TestExecutionResult testExecutionResult, Method testMethod
+    ) {
         Long caseId = getCaseId(testMethod);
         String caseTitle = null;
         if (caseId == null) {
             caseTitle = getCaseTitle(testMethod);
         }
         StatusEnum status =
-                testExecutionResult.getStatus() == SUCCESSFUL ? StatusEnum.PASSED : StatusEnum.FAILED;
+            testExecutionResult.getStatus() == SUCCESSFUL ? StatusEnum.PASSED : StatusEnum.FAILED;
         String comment = testExecutionResult.getThrowable()
-                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+            .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
         Boolean isDefect = testExecutionResult.getThrowable()
-                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-                .orElse(false);
+            .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+            .orElse(false);
         String stacktrace = testExecutionResult.getThrowable()
-                .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+            .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
         LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
-        return CasesStorage.getCurrentCase()
-                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
-                .caseId(caseId)
-                .status(status)
-                .comment(comment)
-                .stacktrace(stacktrace)
-                .steps(steps.isEmpty() ? null : steps)
-                .defect(isDefect);
+        resultCreate
+            ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
+            .caseId(caseId)
+            .status(status)
+            .comment(comment)
+            .stacktrace(stacktrace)
+            .steps(steps.isEmpty() ? null : steps)
+            .defect(isDefect);
     }
 
 
