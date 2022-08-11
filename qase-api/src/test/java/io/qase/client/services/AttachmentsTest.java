@@ -7,6 +7,8 @@ import io.qase.api.StepStorage;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.Step;
 import io.qase.api.exceptions.QaseException;
+import io.qase.api.services.Attachments;
+import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.TestUtils;
 import io.qase.client.model.AttachmentGet;
 import io.qase.client.model.AttachmentUploadsResponse;

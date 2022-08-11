@@ -1,4 +1,4 @@
-package io.qase.client.services;
+package io.qase.api.services;
 
 import io.qase.client.model.ResultCreate;
 

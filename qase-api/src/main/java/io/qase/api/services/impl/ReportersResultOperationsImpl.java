@@ -1,11 +1,11 @@
-package io.qase.client.services.impl;
+package io.qase.api.services.impl;
 
 import com.google.inject.Inject;
 import io.qase.api.exceptions.QaseException;
+import io.qase.api.services.ReportersResultOperations;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreateBulk;
-import io.qase.client.services.ReportersResultOperations;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
