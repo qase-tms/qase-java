@@ -13,6 +13,7 @@ import io.qase.client.model.AttachmentUploadsResponse;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +52,10 @@ public class Attachments {
                 addAttachmentsToCurrentTestCase(attachmentIds);
                 break;
         }
+    }
+
+    public static void addAttachmentsToCurrentContext(File... attachments) throws QaseException {
+        addAttachmentsToCurrentContext(Arrays.asList(attachments));
     }
 
     private static void addAttachmentsToCurrentTestCase(Collection<String> attachmentIds) {
