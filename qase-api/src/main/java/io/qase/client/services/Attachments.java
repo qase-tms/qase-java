@@ -6,6 +6,7 @@ import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.Step;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.exceptions.QaseException;
+import io.qase.api.exceptions.UncheckedQaseException;
 import io.qase.client.api.AttachmentsApi;
 import io.qase.client.model.AttachmentGet;
 import io.qase.client.model.AttachmentUploadsResponse;
@@ -79,16 +80,16 @@ public class Attachments {
         collectionSetter.accept(currentStepAttachments);
     }
 
-    private static AttachmentContext lookupCurrentContext() throws QaseException {
+    private static AttachmentContext lookupCurrentContext() {
         if (StepStorage.isStepInProgress()) {
             return AttachmentContext.TEST_STEP;
         }
         if (CasesStorage.getCurrentCase() != null) {
             return AttachmentContext.TEST_CASE;
         }
-        throw new QaseException(String.format(
+        throw new UncheckedQaseException(new QaseException(String.format(
             "It is expected either %s or %s-annotated method be called.", Step.class.getName(), CaseId.class.getName()
-        ));
+        )));
     }
 
     private enum AttachmentContext {
