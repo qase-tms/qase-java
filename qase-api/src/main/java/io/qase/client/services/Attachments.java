@@ -91,7 +91,7 @@ public class Attachments {
         ));
     }
 
-    private enum AttachmentContext { // TODO: remove
+    private enum AttachmentContext {
         TEST_CASE, TEST_STEP
     }
 }
