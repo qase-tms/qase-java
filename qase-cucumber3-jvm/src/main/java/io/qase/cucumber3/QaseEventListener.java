@@ -44,7 +44,7 @@ public class QaseEventListener implements Formatter {
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
-        getQaseTestCaseListener().reportResults();
+        getQaseTestCaseListener().onTestCasesSetFinished();
     }
 
     private void testCaseStarted(TestCaseStarted event) {

@@ -38,7 +38,7 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
-        getQaseTestCaseListener().reportResults();
+        getQaseTestCaseListener().onTestCasesSetFinished();
     }
 
     private void testCaseStarted(TestCaseStarted event) {

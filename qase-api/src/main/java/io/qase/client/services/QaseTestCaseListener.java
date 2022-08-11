@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 public interface QaseTestCaseListener {
 
-    void reportResults(); // TODO: rename method to onTestCaseSetFinished
+    void onTestCasesSetFinished();
 
     void onTestCaseStarted();
 

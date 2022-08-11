@@ -54,7 +54,7 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
 
     @Override
     public void onFinish(ITestContext testContext) {
-        getQaseTestCaseListener().reportResults();
+        getQaseTestCaseListener().onTestCasesSetFinished();
         super.onFinish(testContext);
     }
 

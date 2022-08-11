@@ -65,7 +65,7 @@ public class QaseExtension implements TestExecutionListener {
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
-        getQaseTestCaseListener().reportResults();
+        getQaseTestCaseListener().onTestCasesSetFinished();
     }
 
     private void setupResultItem(

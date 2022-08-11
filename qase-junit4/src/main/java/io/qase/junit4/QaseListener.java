@@ -72,7 +72,7 @@ public class QaseListener extends RunListener {
 
     @Override
     public void testRunFinished(Result result) {
-        getQaseTestCaseListener().reportResults();
+        getQaseTestCaseListener().onTestCasesSetFinished();
     }
 
     private ResultCreate setupResultItem(ResultCreate resultCreate, Description description, StatusEnum status, Throwable error) {

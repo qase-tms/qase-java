@@ -30,7 +30,7 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
     private final ReportersResultOperations resultOperations;
 
     @Override
-    public void reportResults() { // TODO: make conformant with QaseConfig.useBulk() in concurrent mode
+    public void onTestCasesSetFinished() { // TODO: make conformant with QaseConfig.useBulk() in concurrent mode
         if (!QaseClient.isEnabled()) {
             return;
         }
