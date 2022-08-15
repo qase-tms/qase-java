@@ -24,7 +24,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-junit5</artifactId>
-        <version>2.1.5</version>
+        <version>2.2.0</version>
     </dependency>
 </dependencies>
 <build>
@@ -67,7 +67,7 @@ add the below code to build.gradle:
 ```
 dependencies {
     ...
-    testImplementation 'io.qase:qase-junit5:2.1.5'
+    testImplementation 'io.qase:qase-junit5:2.2.0'
 }
 
 test {
