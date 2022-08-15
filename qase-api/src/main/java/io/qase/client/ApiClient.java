@@ -53,11 +53,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ApiClient {
+public class ApiClient { // TODO: check if unused fields and methods are worth keeping
 
     private final Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private final Map<String, String> defaultCookieMap = new HashMap<String, String>();
-    private String basePath = "https://api.qase.io/v1"; // TODO: check if the value could be unhardcoded
+    private String basePath;
     private boolean debugging = false;
     private String tempFolderPath = null;
 

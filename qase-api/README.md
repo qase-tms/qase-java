@@ -366,6 +366,84 @@ This method completely deletes an attachment.
 ```java
 boolean isDeleted = qaseApi.attachments().delete("6676b8815da03124dc039d89cc111586a4f45dc9");
 ```
+
+#### Associate an attachment with a test case or step ####
+
+There is a possibility to associate one or few files with an exact test case or a part of it (i.e. a step of a test case).
+To do so, you can do it either by using `AttachmentsApi` with setting obtained ids directly to `ResultCreate`/`ResultCreateSteps` or by utilizing `Attachments` class.
+
+There are a few `Attachments.addAttachmentsToCurrentContext` use-cases down below:
+
+##### Test case with attachments
+
+```java
+@CaseId(1)
+public void testCase() throws QaseException {
+    // your test case code here
+    Attachments.addAttachmentsToCurrentContext(
+        Collections.singletonList(Paths.get("caseScreenshot.jpg").toFile())
+    );
+    // your test case code here
+}
+```
+
+In the case above, `caseScreenshot.jpg` will be uploaded to the Qase web application, namely - to your project.
+Afterward, the running test (of id 1) case will have the id of uploaded `caseScreenshot.jpg` associated with it.
+
+##### Test step with attachments
+
+```java
+@CaseId(2)
+public void testCase() throws QaseException {
+    // your test case code here
+    testStep();
+    // your test case code here
+}
+
+@Step("A step of the test case")
+public void testStep() throws QaseException {
+    // your test step code here
+    Attachments.addAttachmentsToCurrentContext(
+        Collections.singletonList(Paths.get("stepScreenshot.jpg").toFile())
+    );
+    // your test step code here
+}
+```
+
+In the case above, `stepScreenshot.jpg` will be uploaded to the Qase web application, namely - to your project.
+Afterward, the running test (of id 1) case will have the step with `A step of the test case` action. 
+In its turn, the step will have the id of uploaded `stepScreenshot.jpg` associated with it.
+
+##### Both a case and a step with attachments
+
+```java
+@CaseId(3)
+public void testCase() throws QaseException {
+    // your test case code here
+    Attachments.addAttachmentsToCurrentContext(
+        Collections.singletonList(Paths.get("caseScreenshot.jpg").toFile())
+    );
+    testStep();
+    // your test case code here
+}
+
+@Step("A step of the test case")
+public void testStep() throws QaseException {
+    // your test step code here
+    Attachments.addAttachmentsToCurrentContext(
+        Collections.singletonList(Paths.get("stepScreenshot.jpg").toFile())
+    );
+    // your test step code here
+}
+```
+
+
+In the case above, both `caseScreenshot.jpg` and `stepScreenshot.jpg` will be uploaded to the Qase web application, namely - to your project.
+Afterward, the running test (of id 3) case will have the step and the id of uploaded `caseScreenshot.jpg` associated with it.
+In its turn, the step will have the id of uploaded `stepScreenshot.jpg` associated with it.
+
+Note, `caseScreenshot.jpg` will be associated only with the test case and `stepScreenshot.jpg` will be associated only with the step.
+
 ### Team ###
 
 #### Get all team members ####

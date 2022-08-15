@@ -13,7 +13,6 @@
 
     <name>Qase TMS Java API Client</name>
     <description>Qase TMS APIs Client Library for Java</description>
-
     <dependencies>
         <dependency>
             <groupId>org.openapitools</groupId>
@@ -81,12 +80,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
