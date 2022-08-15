@@ -32,14 +32,24 @@ Add the following dependency and repository to your pom.xml:
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M4</version>
+            <version>3.0.0-M5</version>
             <configuration>
+                <argLine>
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                </argLine>
                 <properties>
                     <configurationParameters>
                         junit.jupiter.extensions.autodetection.enabled = true
                     </configurationParameters>
                 </properties>
             </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
+            </dependencies>
         </plugin>
     </plugins>
 </build>
