@@ -33,9 +33,6 @@ public final class TestUtils {
 
     public static void useScreenshotsSending(boolean use) {
         System.setProperty(QASE_SCREENSHOT_SENDING_KEY, String.valueOf(use));
-        if (use) {
-            System.setProperty(QASE_SCREENSHOT_FOLDER_KEY, "src/test/resources");
-        }
         QaseClient.getConfig().reload();
     }
 
