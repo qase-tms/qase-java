@@ -42,7 +42,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-cucumber3-jvm</artifactId>
-        <version>2.1.5</version>
+        <version>2.2.0</version>
     </dependency>
 </dependencies>
 <build>
@@ -50,11 +50,19 @@ Add the following dependency and repository to your pom.xml:
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M4</version>
+            <version>3.0.0-M5</version>
             <configuration>
                 <argLine>
-                    -Dcucumber.options="--add-plugin io.qase.cucumber3.QaseEventListener</argLine>
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -Dcucumber.options="--add-plugin io.qase.cucumber3.QaseEventListener"
+                </argLine>
             </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
+            </dependencies>
         </plugin>
     </plugins>
 </build>

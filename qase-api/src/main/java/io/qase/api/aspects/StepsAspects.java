@@ -39,8 +39,8 @@ public final class StepsAspects {
         stepsTitle = getTitle(joinPoint, stepsTitle);
 
         StepStorage.getCurrentStep()
-            .action(stepsTitle)
-            .status(ResultCreateSteps.StatusEnum.PASSED);
+                .action(stepsTitle)
+                .status(ResultCreateSteps.StatusEnum.PASSED);
         StepStorage.stopStep();
     }
 
@@ -48,13 +48,11 @@ public final class StepsAspects {
     public void stepFailed(JoinPoint joinPoint, Throwable e) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Step stepAnnotation = methodSignature.getMethod().getAnnotation(Step.class);
-        if (stepAnnotation != null) {
-            StepStorage.getCurrentStep()
+        StepStorage.getCurrentStep()
                 .action(stepAnnotation.value())
                 .status(ResultCreateSteps.StatusEnum.FAILED)
                 .addAttachmentsItem(IntegrationUtils.getStacktrace(e));
-            StepStorage.stopStep();
-        }
+        StepStorage.stopStep();
     }
 
     private static String getTitle(JoinPoint joinPoint, String stepsTitle) {

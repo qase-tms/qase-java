@@ -24,7 +24,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-junit4</artifactId>
-        <version>2.1.5</version>
+        <version>2.2.0</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
@@ -33,8 +33,11 @@ Add the following dependency and repository to your pom.xml:
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M4</version>
+            <version>3.0.0-M5</version>
             <configuration>
+                <argLine>
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                </argLine>
                 <properties>
                     <property>
                         <name>listener</name>
@@ -42,6 +45,13 @@ Add the following dependency and repository to your pom.xml:
                     </property>
                 </properties>
             </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
+            </dependencies>
         </plugin>
     </plugins>
 </build>
