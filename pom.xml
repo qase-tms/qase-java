@@ -16,6 +16,7 @@
         <module>qase-cucumber3-jvm</module>
         <module>qase-cucumber4-jvm</module>
         <module>qase-cucumber5-jvm</module>
+        <module>qase-maven-plugin</module>
     </modules>
 
     <url>https://www.qase.io</url>

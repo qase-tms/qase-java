@@ -30,6 +30,8 @@ public interface QaseConfig extends Reloadable, Mutable {
 
     String QASE_CLIENT_REPORTER_NAME_KEY = "QASE_CLIENT_REPORTER_NAME";
 
+    String QASE_TEST_PLAN_ID_KEY = "QASE_TEST_PLAN_ID";
+
     @Key(ENABLE_KEY)
     @DefaultValue("false")
     boolean isEnabled();
