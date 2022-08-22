@@ -16,7 +16,11 @@ import io.qase.api.services.impl.ReportersResultOperationsImpl;
 
 public class QaseModule extends AbstractModule {
 
-    public static Injector INJECTOR = Guice.createInjector(new QaseModule());
+    private static Injector INJECTOR = Guice.createInjector(new QaseModule());
+
+    public static Injector getInjector() {
+        return INJECTOR;
+    }
 
     @Override
     protected void configure() {

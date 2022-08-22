@@ -21,11 +21,11 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static io.qase.configuration.QaseModule.INJECTOR;
+import static io.qase.configuration.QaseModule.getInjector;
 
 public class Attachments {
 
-    private static final AttachmentsApi ATTACHMENTS_API = INJECTOR.getInstance(AttachmentsApi.class);
+    private static final AttachmentsApi ATTACHMENTS_API = getInjector().getInstance(AttachmentsApi.class);
 
     /**
      * Adds attachments to the current context.
