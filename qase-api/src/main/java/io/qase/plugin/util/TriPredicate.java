@@ -1,4 +1,4 @@
-package io.qase.plugin.maven.util;
+package io.qase.plugin.util;
 
 public interface TriPredicate<T, U, R> {
 

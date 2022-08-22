@@ -1,4 +1,4 @@
-package io.qase.plugin.maven.testplan;
+package io.qase.plugin.testplan;
 
 public interface TestPlanExecutionSetupStrategy {
 

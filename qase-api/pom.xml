@@ -11,6 +11,10 @@
 
     <artifactId>qase-api</artifactId>
 
+    <properties>
+        <asm.version>9.3</asm.version>
+    </properties>
+
     <name>Qase TMS Java API Client</name>
     <description>Qase TMS APIs Client Library for Java</description>
     <dependencies>
@@ -65,6 +69,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>${asm.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.tomakehurst</groupId>

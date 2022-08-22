@@ -1,10 +1,10 @@
-package io.qase.plugin.maven.testplan.impl;
+package io.qase.plugin.testplan.impl;
 
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.exceptions.UncheckedQaseException;
 import io.qase.api.services.TestPlanService;
-import io.qase.plugin.maven.QaseSurefirePlugin;
-import io.qase.plugin.maven.testplan.TestPlanExecutionSetupStrategy;
+import io.qase.plugin.QasePlugin;
+import io.qase.plugin.testplan.TestPlanExecutionSetupStrategy;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collection;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class CucumberStrategy implements TestPlanExecutionSetupStrategy {
 
-    private final QaseSurefirePlugin qaseSurefirePlugin;
+    private final QasePlugin qasePlugin;
 
     private final TestPlanService testPlanService;
 
@@ -39,11 +39,11 @@ public class CucumberStrategy implements TestPlanExecutionSetupStrategy {
         String qaseGroups = casesIds.stream()
             .map(caseId -> String.format(CASE_ID_TEST_GROUP_FORMAT, caseId))
             .collect(Collectors.joining(OR, BEGIN, END));
-        String oldGroups = Optional.ofNullable(qaseSurefirePlugin.getGroups())
+        String oldGroups = Optional.ofNullable(qasePlugin.getGroups())
             .map(groups -> BEGIN + groups + END).orElse(null);
         String effectiveGroups = Stream.of(oldGroups, qaseGroups)
             .filter(Objects::nonNull)
             .collect(Collectors.joining(OR, BEGIN, END));
-        qaseSurefirePlugin.setGroups(effectiveGroups);
+        qasePlugin.setGroups(effectiveGroups);
     }
 }

@@ -1,17 +1,18 @@
-package io.qase.plugin.maven.testplan.impl;
+package io.qase.plugin.testplan.impl;
 
 import io.qase.api.annotation.CaseId;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.exceptions.UncheckedQaseException;
 import io.qase.api.services.TestPlanService;
-import io.qase.plugin.maven.QaseSurefirePlugin;
-import io.qase.plugin.maven.codeparsing.ClassParser;
-import io.qase.plugin.maven.codeparsing.MethodFilter;
-import io.qase.plugin.maven.codeparsing.criteria.CriteriaUtils;
-import io.qase.plugin.maven.codeparsing.criteria.MethodInfoCriteria;
-import io.qase.plugin.maven.codeparsing.model.ClassInfo;
-import io.qase.plugin.maven.testplan.TestPlanExecutionSetupStrategy;
+import io.qase.plugin.QasePlugin;
+import io.qase.plugin.codeparsing.ClassParser;
+import io.qase.plugin.codeparsing.MethodFilter;
+import io.qase.plugin.codeparsing.criteria.CriteriaUtils;
+import io.qase.plugin.codeparsing.criteria.MethodInfoCriteria;
+import io.qase.plugin.codeparsing.model.ClassInfo;
+import io.qase.plugin.testplan.TestPlanExecutionSetupStrategy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
+@Slf4j
 public class DefaultStrategy implements TestPlanExecutionSetupStrategy {
 
     private static final String CASE_ID_CANONICAL_NAME = CaseId.class.getCanonicalName();
@@ -37,7 +39,7 @@ public class DefaultStrategy implements TestPlanExecutionSetupStrategy {
 
     private static final String CLASS_FILE_SUFFIX = ".class";
 
-    private final QaseSurefirePlugin qaseSurefirePlugin;
+    private final QasePlugin qasePlugin;
 
     private final MethodFilter methodFilter;
 
@@ -53,7 +55,7 @@ public class DefaultStrategy implements TestPlanExecutionSetupStrategy {
         } catch (QaseException exception) {
             throw new UncheckedQaseException(exception);
         }
-        File testOutputDirectory = new File(qaseSurefirePlugin.getProject().getBuild().getTestOutputDirectory());
+        File testOutputDirectory = new File(qasePlugin.getTestOutputDirectory());
         try (Stream<Path> testOutputDirectoryContentStream = Files.walk(testOutputDirectory.toPath())) {
             String qaseTestVariable = testOutputDirectoryContentStream
                 .filter(this::isCompiledClass)
@@ -61,8 +63,8 @@ public class DefaultStrategy implements TestPlanExecutionSetupStrategy {
                 .filter(Objects::nonNull)
                 .map(classInfo -> createSetTestVariableEntryForCaseId(classInfo, casesIds))
                 .collect(Collectors.joining(TEST_PROPERTY_SEPARATOR));
-            String previousTestVariable = qaseSurefirePlugin.getTest();
-            qaseSurefirePlugin.setTest(
+            String previousTestVariable = qasePlugin.getTest();
+            qasePlugin.setTest(
                 Stream.of(previousTestVariable, qaseTestVariable)
                     .filter(Objects::nonNull)
                     .collect(Collectors.joining(TEST_PROPERTY_SEPARATOR))
@@ -80,7 +82,7 @@ public class DefaultStrategy implements TestPlanExecutionSetupStrategy {
         try (InputStream inputStream = compiledClass.toUri().toURL().openStream()) {
             return classParser.parseCompiledClass(inputStream);
         } catch (IOException exception) {
-            qaseSurefirePlugin.getLog().error(exception);
+            log.error(exception.getMessage(), exception);
             return null;
         }
     }

@@ -1,7 +1,8 @@
 package io.qase.plugin.maven;
 
 import io.qase.api.config.QaseConfig;
-import io.qase.plugin.maven.testplan.TestPlanExecutionSetupStrategyFactory;
+import io.qase.plugin.QasePlugin;
+import io.qase.plugin.testplan.TestPlanExecutionSetupStrategyFactory;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.surefire.SurefirePlugin;
@@ -10,11 +11,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
 @Mojo(
-    name = QaseSurefirePlugin.QASE_SUREFIRE_PLUGIN_GOAL_NAME,
+    name = MavenQasePlugin.QASE_SUREFIRE_PLUGIN_GOAL_NAME,
     defaultPhase = LifecyclePhase.TEST,
     requiresDependencyResolution = ResolutionScope.TEST
 )
-public class QaseSurefirePlugin extends SurefirePlugin {
+public class MavenQasePlugin extends SurefirePlugin implements QasePlugin {
     // TODO: implement support for multiple test frameworks being used
     public static final String QASE_SUREFIRE_PLUGIN_GOAL_NAME = "test";
 
@@ -38,5 +39,17 @@ public class QaseSurefirePlugin extends SurefirePlugin {
     private boolean mustRunPlan() {
         return System.getProperty(QaseConfig.QASE_TEST_PLAN_ID_KEY) != null
             && System.getProperty(QaseConfig.RUN_ID_KEY) == null;
+    }
+
+    @Override
+    public String getTestOutputDirectory() {
+        return getProject().getBuild().getTestOutputDirectory();
+    }
+
+    @Override
+    public boolean isDependencyInTestClasspath(String groupId, String artifactId) {
+        return getProject().getModel().getDependencies().stream().anyMatch(dependency ->
+            groupId.equals(dependency.getGroupId()) && artifactId.equals(dependency.getArtifactId())
+        );
     }
 }
