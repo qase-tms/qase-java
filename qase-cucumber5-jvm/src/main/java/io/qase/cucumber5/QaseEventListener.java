@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
-import static io.qase.configuration.QaseModule.INJECTOR;
+import static io.qase.configuration.QaseModule.getInjector;
 
 public class QaseEventListener implements ConcurrentEventListener {
 
     private static final String REPORTER_NAME = "Cucumber 5-JVM";
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseTestCaseListener qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
+    private final QaseTestCaseListener qaseTestCaseListener = getInjector().getInstance(QaseTestCaseListener.class);
 
     static {
         System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);

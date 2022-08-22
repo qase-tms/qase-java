@@ -23,7 +23,7 @@ import java.util.Optional;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 import static io.qase.client.model.ResultCreate.StatusEnum.*;
-import static io.qase.configuration.QaseModule.INJECTOR;
+import static io.qase.configuration.QaseModule.getInjector;
 
 @Slf4j
 public class QaseListener extends RunListener {
@@ -31,7 +31,7 @@ public class QaseListener extends RunListener {
     private static final String REPORTER_NAME = "JUnit 4";
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseTestCaseListener qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
+    private final QaseTestCaseListener qaseTestCaseListener = getInjector().getInstance(QaseTestCaseListener.class);
 
     static {
         System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
