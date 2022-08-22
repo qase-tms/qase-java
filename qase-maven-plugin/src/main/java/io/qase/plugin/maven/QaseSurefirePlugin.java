@@ -31,7 +31,7 @@ public class QaseSurefirePlugin extends SurefirePlugin {
             TestPlanExecutionSetupStrategyFactory.createStrategy(this).setupPlanExecution();
         } catch (Exception e) {
             getLog().error(e);
-            throw new MojoExecutionException(e);
+            throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
