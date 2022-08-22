@@ -3,8 +3,10 @@ package io.qase.configuration;
 import com.google.inject.*;
 import io.qase.api.Constants;
 import io.qase.api.QaseClient;
+import io.qase.api.config.QaseConfig;
 import io.qase.client.ApiClient;
 import io.qase.client.api.AttachmentsApi;
+import io.qase.client.api.PlansApi;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.api.RunsApi;
 import io.qase.api.services.QaseTestCaseListener;
@@ -27,6 +29,7 @@ public class QaseModule extends AbstractModule {
     public ApiClient apiClient() {
         ApiClient apiClient = QaseClient.getApiClient();
         apiClient.addDefaultHeader(Constants.X_CLIENT_REPORTER, QaseClient.getConfig().clientReporterName());
+        apiClient.setBasePath(System.getProperty(QaseConfig.BASE_URL_KEY));
         return apiClient;
     }
 
@@ -46,5 +49,11 @@ public class QaseModule extends AbstractModule {
     @Singleton
     public AttachmentsApi attachmentsApi(ApiClient apiClient) {
         return new AttachmentsApi(apiClient);
+    }
+
+    @Singleton
+    @Provides
+    public PlansApi plansApi(ApiClient apiClient) {
+        return new PlansApi(apiClient);
     }
 }
