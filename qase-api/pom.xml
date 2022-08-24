@@ -13,6 +13,9 @@
 
     <name>Qase TMS Java API Client</name>
     <description>Qase TMS APIs Client Library for Java</description>
+    <properties>
+        <guice.version>5.1.0</guice.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.openapitools</groupId>
@@ -80,6 +83,11 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
         </dependency>
     </dependencies>
 </project>
