@@ -1,6 +1,6 @@
 package io.qase.plugin.codeparsing.criteria;
 
-import io.qase.plugin.util.TriPredicate;
+import io.qase.utils.TriPredicate;
 import lombok.Builder;
 import lombok.Getter;
 

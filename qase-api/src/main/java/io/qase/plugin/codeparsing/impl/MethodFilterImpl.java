@@ -4,7 +4,7 @@ import io.qase.plugin.codeparsing.MethodFilter;
 import io.qase.plugin.codeparsing.model.ClassInfo;
 import io.qase.plugin.codeparsing.criteria.MethodInfoCriteria;
 import io.qase.plugin.codeparsing.model.MethodInfo;
-import io.qase.plugin.util.TriPredicate;
+import io.qase.utils.TriPredicate;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -22,7 +22,7 @@ public class MethodFilterImpl implements MethodFilter {
     private boolean satisfiesCriteria(MethodInfo methodInfo, MethodInfoCriteria methodInfoCriteria) {
         TriPredicate<String, String, Object> annotationAttributePredicate =
             methodInfoCriteria.getAnnotationAttributePredicate();
-        return methodInfo.getAnnotatedWithCollection().parallelStream().anyMatch(
+        return methodInfo.getAnnotatedWith().parallelStream().anyMatch(
             annotationInfo -> annotationInfo.getAttributes().entrySet().parallelStream()
                 .anyMatch(entry -> annotationAttributePredicate.test(
                     annotationInfo.getAnnotationClassCanonicalName(), entry.getKey(), entry.getValue()

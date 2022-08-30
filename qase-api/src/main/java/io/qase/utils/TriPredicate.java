@@ -1,4 +1,4 @@
-package io.qase.plugin.util;
+package io.qase.utils;
 
 public interface TriPredicate<T, U, R> {
 

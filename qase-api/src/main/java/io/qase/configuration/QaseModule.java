@@ -22,10 +22,17 @@ import io.qase.plugin.codeparsing.impl.MethodFilterImpl;
 
 public class QaseModule extends AbstractModule {
 
-    private static Injector injector = Guice.createInjector(new QaseModule());
+    private static final Injector injector = Guice.createInjector(new QaseModule());
 
     public static Injector getInjector() {
         return injector;
+    }
+
+    /**
+     * This is just a utility method to increase readability
+     * */
+    public static <T> T inject(Class<T> clazz) {
+        return getInjector().getInstance(clazz);
     }
 
     @Override
