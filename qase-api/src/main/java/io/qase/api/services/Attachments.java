@@ -1,6 +1,7 @@
 package io.qase.api.services;
 
 import io.qase.api.CasesStorage;
+import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.Step;
@@ -21,11 +22,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static io.qase.guice.module.QaseModule.INJECTOR;
-
 public class Attachments {
 
-    private static final AttachmentsApi ATTACHMENTS_API = INJECTOR.getInstance(AttachmentsApi.class);
+    private static final AttachmentsApi ATTACHMENTS_API = createAttachmentsApi();
 
     /**
      * Adds attachments to the current context.
@@ -99,5 +98,9 @@ public class Attachments {
 
     private enum AttachmentContext {
         TEST_CASE, TEST_STEP
+    }
+
+    private static AttachmentsApi createAttachmentsApi() {
+        return new AttachmentsApi(QaseClient.getApiClient());
     }
 }
