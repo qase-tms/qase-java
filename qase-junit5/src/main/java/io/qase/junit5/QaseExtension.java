@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import static io.qase.api.utils.IntegrationUtils.*;
-import static io.qase.configuration.QaseModule.INJECTOR;
+import static io.qase.guice.module.QaseModule.INJECTOR;
 import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
 
 @Slf4j

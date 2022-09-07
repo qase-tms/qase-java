@@ -1,4 +1,4 @@
-package io.qase.configuration;
+package io.qase.guice.module;
 
 import com.google.inject.*;
 import io.qase.api.Constants;

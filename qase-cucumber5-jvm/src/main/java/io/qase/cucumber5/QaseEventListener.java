@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
-import static io.qase.configuration.QaseModule.INJECTOR;
+import static io.qase.guice.module.QaseModule.INJECTOR;
 
 public class QaseEventListener implements ConcurrentEventListener {
 

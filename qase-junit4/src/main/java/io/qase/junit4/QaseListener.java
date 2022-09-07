@@ -23,7 +23,7 @@ import java.util.Optional;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 import static io.qase.client.model.ResultCreate.StatusEnum.*;
-import static io.qase.configuration.QaseModule.INJECTOR;
+import static io.qase.guice.module.QaseModule.INJECTOR;
 
 @Slf4j
 public class QaseListener extends RunListener {

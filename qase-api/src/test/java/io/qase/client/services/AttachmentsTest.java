@@ -27,7 +27,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.QASE_API_TOKEN;
 import static io.qase.api.utils.TestUtils.QASE_PROJECT_CODE;
-import static io.qase.configuration.QaseModule.INJECTOR;
+import static io.qase.guice.module.QaseModule.INJECTOR;
 import static org.apache.http.entity.mime.MIME.CONTENT_TYPE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

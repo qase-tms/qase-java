@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import static io.qase.api.utils.IntegrationUtils.*;
-import static io.qase.configuration.QaseModule.INJECTOR;
+import static io.qase.guice.module.QaseModule.INJECTOR;
 
 public class QaseListener extends TestListenerAdapter implements ITestListener {
 
