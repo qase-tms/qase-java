@@ -4,7 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.util.Modules;
-import io.qase.guice.module.StubsModule;
+import io.qase.guice.module.DefaultImplementationsModule;
 import io.qase.guice.module.QaseModule;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -23,6 +23,6 @@ public class Injectors {
     }
 
     private static Module combineQaseApiCoreModules() {
-        return Modules.combine(new QaseModule(), new StubsModule());
+        return Modules.combine(new QaseModule(), new DefaultImplementationsModule());
     }
 }

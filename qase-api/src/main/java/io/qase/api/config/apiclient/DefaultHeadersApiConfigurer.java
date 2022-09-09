@@ -34,6 +34,20 @@ public abstract class DefaultHeadersApiConfigurer implements ApiClientConfigurer
 
     private static final String LANGUAGE = "java";
 
+    public static ApiClientConfigurer createDefaultConfigurer() {
+        return new DefaultHeadersApiConfigurer() {
+            @Override
+            protected String getFrameworkName() {
+                return UNKNOWN;
+            }
+
+            @Override
+            protected String getFrameworkVersion() {
+                return UNKNOWN;
+            }
+        };
+    }
+
     @Override
     public void configure(ApiClient apiClient) {
         apiClient.addDefaultHeader(Constants.X_CLIENT_REPORTER, QaseClient.getConfig().clientReporterName());
