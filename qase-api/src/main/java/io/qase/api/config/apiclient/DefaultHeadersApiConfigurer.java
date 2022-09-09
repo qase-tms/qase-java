@@ -24,15 +24,15 @@ import static java.util.jar.Attributes.Name.*;
 @Slf4j
 public abstract class DefaultHeadersApiConfigurer implements ApiClientConfigurer {
 
+    public static final String QASE_API = "qaseapi";
+
+    public static final String OS = "os";
+
+    public static final String ARCH = "arch";
+
+    public static final String LANGUAGE = "java";
+
     protected static final String UNKNOWN = "unknown";
-
-    private static final String QASE_API = "qaseapi";
-
-    private static final String OS = "os";
-
-    private static final String ARCH = "arch";
-
-    private static final String LANGUAGE = "java";
 
     public static ApiClientConfigurer createDefaultConfigurer() {
         return new DefaultHeadersApiConfigurer() {
