@@ -7,7 +7,7 @@ import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.api.services.QaseTestCaseListener;
-import io.qase.junit5.module.Junit5Module;
+import io.qase.junit5.guice.module.Junit5Module;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

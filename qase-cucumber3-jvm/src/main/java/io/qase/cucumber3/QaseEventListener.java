@@ -14,7 +14,7 @@ import io.qase.api.utils.CucumberUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateSteps;
-import io.qase.cucumber3.module.Cucumber3Module;
+import io.qase.cucumber3.guice.module.Cucumber3Module;
 import lombok.AccessLevel;
 import lombok.Getter;
 

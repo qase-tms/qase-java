@@ -9,7 +9,7 @@ import io.qase.api.utils.CucumberUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateSteps;
-import io.qase.cucumber5.module.Cucumber5Module;
+import io.qase.cucumber5.guice.module.Cucumber5Module;
 import lombok.AccessLevel;
 import lombok.Getter;
 

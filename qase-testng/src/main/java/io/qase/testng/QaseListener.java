@@ -7,7 +7,7 @@ import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.api.services.QaseTestCaseListener;
-import io.qase.testng.module.TestNgModule;
+import io.qase.testng.guice.module.TestNgModule;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.testng.ITestContext;

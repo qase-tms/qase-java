@@ -11,11 +11,8 @@ import io.qase.client.ApiClient;
 import io.qase.client.api.AttachmentsApi;
 import io.qase.client.api.ResultsApi;
 import io.qase.client.api.RunsApi;
-import io.qase.guice.Injectors;
 
 public class QaseModule extends AbstractModule {
-
-    public static final Injector INJECTOR = Injectors.createDefaultInjector();
 
     @Override
     protected void configure() {

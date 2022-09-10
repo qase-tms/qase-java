@@ -1,4 +1,4 @@
-package io.qase.testng.module;
+package io.qase.testng.guice.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;

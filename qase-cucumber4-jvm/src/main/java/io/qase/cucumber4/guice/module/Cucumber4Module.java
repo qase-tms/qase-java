@@ -1,4 +1,4 @@
-package io.qase.cucumber4.module;
+package io.qase.cucumber4.guice.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
