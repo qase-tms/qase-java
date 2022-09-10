@@ -1,7 +1,6 @@
 package io.qase.api.services;
 
 import io.qase.api.CasesStorage;
-import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.Step;
@@ -11,6 +10,7 @@ import io.qase.api.exceptions.UncheckedQaseException;
 import io.qase.client.api.AttachmentsApi;
 import io.qase.client.model.AttachmentGet;
 import io.qase.client.model.AttachmentUploadsResponse;
+import io.qase.guice.Injectors;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,6 +101,7 @@ public class Attachments {
     }
 
     private static AttachmentsApi createAttachmentsApi() {
-        return new AttachmentsApi(QaseClient.getApiClient());
+        // TODO: make this very particular default injector aware about the custom modules in subprojects
+        return Injectors.createDefaultInjector().getInstance(AttachmentsApi.class);
     }
 }
