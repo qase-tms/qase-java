@@ -2,10 +2,8 @@ package io.qase.api.config.apiclient;
 
 import io.qase.client.ApiClient;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +21,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 
-@ExtendWith(MockitoExtension.class)
 class DefaultHeadersApiConfigurerTest {
 
     private static final String FRAMEWORK_NAME = "SomeTestingFrameworkForExampleJunit";
