@@ -15,9 +15,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.inject</groupId> <!--Prevents using other Guice versions during tests-->
+            <groupId>com.google.inject</groupId> <!--Prevents using other Guice versions-->
             <artifactId>guice</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.qase</groupId>
