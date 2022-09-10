@@ -9,11 +9,12 @@ import cucumber.api.formatter.Formatter;
 import gherkin.pickles.PickleTag;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
+import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateSteps;
-import io.qase.api.services.QaseTestCaseListener;
+import io.qase.cucumber3.module.Cucumber3Module;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -23,14 +24,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
-import static io.qase.guice.module.QaseModule.INJECTOR;
 
 public class QaseEventListener implements Formatter {
 
     private static final String REPORTER_NAME = "Cucumber 3-JVM";
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseTestCaseListener qaseTestCaseListener = INJECTOR.getInstance(QaseTestCaseListener.class);
+    private final QaseTestCaseListener qaseTestCaseListener = createQaseListener();
 
     static {
         System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
@@ -91,5 +91,9 @@ public class QaseEventListener implements Formatter {
             default:
                 return StatusEnum.SKIPPED;
         }
+    }
+
+    private static QaseTestCaseListener createQaseListener() {
+        return Cucumber3Module.getInjector().getInstance(QaseTestCaseListener.class);
     }
 }
