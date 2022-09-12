@@ -3,23 +3,20 @@ package io.qase.api.config.apiclient;
 import io.qase.api.QaseClient;
 import io.qase.api.constant.Constants;
 import io.qase.client.ApiClient;
-import io.qase.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.jar.Attributes;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static io.qase.api.constant.HeaderNames.X_CLIENT_HEADER_NAME;
 import static io.qase.api.constant.HeaderNames.X_PLATFORM_HEADER_NAME;
 import static io.qase.api.constant.SystemPropertyNames.*;
-import static io.qase.api.utils.ManifestUtils.tryGetManifestMainAttribute;
-import static io.qase.api.utils.ManifestUtils.tryGetManifestMainAttributeOrNull;
 import static io.qase.api.utils.StringUtils.isBlank;
-import static java.util.jar.Attributes.Name.*;
+import static io.qase.utils.CommonUtils.getFirstNonNullResult;
 
 @Slf4j
 public abstract class DefaultHeadersApiConfigurer implements ApiClientConfigurer {
@@ -61,19 +58,39 @@ public abstract class DefaultHeadersApiConfigurer implements ApiClientConfigurer
     protected abstract String getFrameworkVersion();
 
     protected String getFrameworkVersionByClassOrUnknown(Class<?> frameworkClass) {
-        ClassLoader frameworkLoader = frameworkClass.getClassLoader();
-        return CommonUtils.getFirstNonNullResult(
-            () -> tryGetManifestMainAttributeOrNull(frameworkLoader, IMPLEMENTATION_VERSION),
-            () -> tryGetManifestMainAttributeOrNull(frameworkLoader, SPECIFICATION_VERSION)
-        ).orElse(UNKNOWN);
+        return getFrameworkVersionByPackageOrUnknown(frameworkClass.getPackage());
+    }
+
+    private String getFrameworkVersionByPackageOrUnknown(Package frameworkPackage) {
+        return findFirstNonNullPackageVersionOrUnknown(frameworkPackage);
     }
 
     private String getReporterVersion() {
-        return tryGetInvokerManifestMainAttributeOrUnknown(IMPLEMENTATION_VERSION);
+        return findFirstNonNullPackageVersionOrUnknown(getClass().getPackage());
     }
 
     private String getReporterName() {
-        return tryGetInvokerManifestMainAttributeOrUnknown(IMPLEMENTATION_TITLE);
+        return findFirstNonNullPackageTitleOrUnknown(getClass().getPackage());
+    }
+
+    private String findFirstNonNullPackageInfoOrUnknown(
+        Package aPackage, List<Function<Package, String>> packageInfoGetters
+    ) {
+        return getFirstNonNullResult(aPackage, packageInfoGetters).orElse(UNKNOWN);
+    }
+
+    private String findFirstNonNullPackageVersionOrUnknown(Package aPackage) {
+        return findFirstNonNullPackageInfoOrUnknown(
+            aPackage,
+            Arrays.asList(Package::getImplementationVersion, Package::getSpecificationVersion)
+        );
+    }
+
+    private String findFirstNonNullPackageTitleOrUnknown(Package aPackage) {
+        return findFirstNonNullPackageInfoOrUnknown(
+            aPackage,
+            Arrays.asList(Package::getImplementationTitle, Package::getImplementationTitle)
+        );
     }
 
     private String buildXPlatformHeaderValue() {
@@ -88,8 +105,7 @@ public abstract class DefaultHeadersApiConfigurer implements ApiClientConfigurer
         return new HeaderFormatter(
             new HeaderPartFormatter(
                 QASE_API,
-                tryGetManifestMainAttribute(DefaultHeadersApiConfigurer.class.getClassLoader(), IMPLEMENTATION_VERSION)
-                    .orElse(null)
+                findFirstNonNullPackageVersionOrUnknown(DefaultHeadersApiConfigurer.class.getPackage())
             ),
             new HeaderPartFormatter(getReporterName(), getReporterVersion()),
             new HeaderPartFormatter(getFrameworkName(),getFrameworkVersion())
@@ -102,10 +118,6 @@ public abstract class DefaultHeadersApiConfigurer implements ApiClientConfigurer
         } else {
             log.warn("'{}' header value happens to be blank. Ignoring the header.", headerName);
         }
-    }
-
-    private String tryGetInvokerManifestMainAttributeOrUnknown(Attributes.Name attributeName) {
-        return tryGetManifestMainAttribute(getClass().getClassLoader(), attributeName).orElse(UNKNOWN);
     }
 
     private static class HeaderFormatter {
