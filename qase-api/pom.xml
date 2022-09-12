@@ -13,9 +13,6 @@
 
     <name>Qase TMS Java API Client</name>
     <description>Qase TMS APIs Client Library for Java</description>
-    <properties>
-        <guice.version>5.1.0</guice.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.openapitools</groupId>
@@ -87,7 +84,11 @@
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

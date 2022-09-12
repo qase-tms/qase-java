@@ -8,7 +8,6 @@ import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.Step;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.services.Attachments;
-import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.TestUtils;
 import io.qase.client.model.AttachmentGet;
 import io.qase.client.model.AttachmentUploadsResponse;
@@ -27,7 +26,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.QASE_API_TOKEN;
 import static io.qase.api.utils.TestUtils.QASE_PROJECT_CODE;
-import static io.qase.configuration.QaseModule.INJECTOR;
 import static org.apache.http.entity.mime.MIME.CONTENT_TYPE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -45,8 +43,6 @@ class AttachmentsTest {
 
     private static WireMockServer WIREMOCK_SERVER;
 
-    private static QaseTestCaseListener QASE_LISTENER;
-
     @BeforeAll
     public static void beforeAll() {
         // Wiremock setup
@@ -62,8 +58,6 @@ class AttachmentsTest {
         // Environment variables setup
         TestUtils.setupQaseTestEnvironmentVariables(wiremockPort);
         TestUtils.useScreenshotsSending(true);
-        // Qase listener setup
-        QASE_LISTENER = INJECTOR.getInstance(QaseTestCaseListener.class);
     }
 
     @AfterAll
@@ -75,26 +69,22 @@ class AttachmentsTest {
     @AfterEach
     public void afterEach() {
         WIREMOCK_SERVER.resetRequests();
-        if (StepStorage.isStepInProgress()) {
-            StepStorage.stopStep();
-        }
-        if (CasesStorage.isCaseInProgress()) {
-            CasesStorage.stopCase();
-        }
+        stopStepIfInProgress();
+        stopCaseIfInProgress();
     }
 
     @CaseId(CASE_WITHOUT_STEPS_ID)
     public void caseWithAttachmentsWithoutSteps() throws QaseException {
-        QASE_LISTENER.onTestCaseStarted();
+        startCase();
         Attachments.addAttachmentsToCurrentContext(getTestAttachments());
-        // No QASE_LISTENER.onTestCaseFinished() for being able to verify CaseStorage.getCurrentCase()
+        // No finishCase for being able to verify CaseStorage.getCurrentCase()
     }
 
     @CaseId(CASE_WITH_STEPS_ID)
     public void caseWithAttachmentsWithSteps() throws QaseException {
-        QASE_LISTENER.onTestCaseStarted();
+        startCase();
         stepWithAttachments();
-        // No QASE_LISTENER.onTestCaseFinished() for being able to verify CaseStorage.getCurrentCase()
+        // No finishCase for being able to verify CaseStorage.getCurrentCase()
     }
 
     @Step(STEP_VALUE)
@@ -156,5 +146,21 @@ class AttachmentsTest {
         ));
 
         return new Gson().toJson(attachmentUploadsResponse);
+    }
+
+    private void startCase() {
+        CasesStorage.startCase(new ResultCreate());
+    }
+
+    private void stopStepIfInProgress() {
+        if (StepStorage.isStepInProgress()) {
+            StepStorage.stopStep();
+        }
+    }
+
+    private void stopCaseIfInProgress() {
+        if (CasesStorage.isCaseInProgress()) {
+            CasesStorage.stopCase();
+        }
     }
 }

@@ -10,6 +10,7 @@ import io.qase.api.exceptions.UncheckedQaseException;
 import io.qase.client.api.AttachmentsApi;
 import io.qase.client.model.AttachmentGet;
 import io.qase.client.model.AttachmentUploadsResponse;
+import io.qase.guice.Injectors;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,11 +22,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static io.qase.configuration.QaseModule.INJECTOR;
-
 public class Attachments {
 
-    private static final AttachmentsApi ATTACHMENTS_API = INJECTOR.getInstance(AttachmentsApi.class);
+    private static final AttachmentsApi ATTACHMENTS_API = createAttachmentsApi();
 
     /**
      * Adds attachments to the current context.
@@ -99,5 +98,10 @@ public class Attachments {
 
     private enum AttachmentContext {
         TEST_CASE, TEST_STEP
+    }
+
+    private static AttachmentsApi createAttachmentsApi() {
+        // TODO: make this very particular default injector aware about the custom modules in subprojects
+        return Injectors.createDefaultInjector().getInstance(AttachmentsApi.class);
     }
 }
