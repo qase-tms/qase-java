@@ -15,6 +15,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.google.inject</groupId> <!--Prevents using other Guice versions-->
+            <artifactId>guice</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.qase</groupId>
             <artifactId>qase-api</artifactId>
             <version>${project.parent.version}</version>

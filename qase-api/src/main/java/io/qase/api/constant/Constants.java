@@ -1,4 +1,4 @@
-package io.qase.api;
+package io.qase.api.constant;
 
 public final class Constants {
     public static final String X_CLIENT_VERSION = "X-CLIENT-VERSION";

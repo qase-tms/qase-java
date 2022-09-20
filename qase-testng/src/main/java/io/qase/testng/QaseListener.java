@@ -7,6 +7,7 @@ import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.api.services.QaseTestCaseListener;
+import io.qase.testng.guice.module.TestNgModule;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.testng.ITestContext;
@@ -19,14 +20,13 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import static io.qase.api.utils.IntegrationUtils.*;
-import static io.qase.configuration.QaseModule.getInjector;
 
 public class QaseListener extends TestListenerAdapter implements ITestListener {
 
     private static final String REPORTER_NAME = "TestNG";
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseTestCaseListener qaseTestCaseListener = getInjector().getInstance(QaseTestCaseListener.class);
+    private final QaseTestCaseListener qaseTestCaseListener = createQaseListener();
 
     static {
         System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
@@ -82,5 +82,9 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
             .stacktrace(stacktrace)
             .steps(steps.isEmpty() ? null : steps)
             .defect(isDefect);
+    }
+
+    private static QaseTestCaseListener createQaseListener() {
+        return TestNgModule.getInjector().getInstance(QaseTestCaseListener.class);
     }
 }

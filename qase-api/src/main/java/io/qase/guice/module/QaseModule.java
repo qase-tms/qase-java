@@ -1,7 +1,7 @@
-package io.qase.configuration;
+package io.qase.guice.module;
 
 import com.google.inject.*;
-import io.qase.api.Constants;
+import io.qase.api.config.apiclient.ApiClientConfigurer;
 import io.qase.api.QaseClient;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.services.TestPlanService;
@@ -19,6 +19,10 @@ import io.qase.plugin.codeparsing.ClassParser;
 import io.qase.plugin.codeparsing.MethodFilter;
 import io.qase.plugin.codeparsing.impl.ClassParserImpl;
 import io.qase.plugin.codeparsing.impl.MethodFilterImpl;
+import io.qase.client.ApiClient;
+import io.qase.client.api.AttachmentsApi;
+import io.qase.client.api.ResultsApi;
+import io.qase.client.api.RunsApi;
 
 public class QaseModule extends AbstractModule {
 
@@ -37,16 +41,17 @@ public class QaseModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        requireBinding(ApiClientConfigurer.class);
+
         bind(ReportersResultOperations.class).to(ReportersResultOperationsImpl.class);
         bind(QaseTestCaseListener.class).to(QaseTestCaseListenerImpl.class);
     }
 
     @Provides
     @Singleton
-    public ApiClient apiClient() {
+    public ApiClient apiClient(ApiClientConfigurer apiClientConfigurer) {
         ApiClient apiClient = QaseClient.getApiClient();
-        apiClient.addDefaultHeader(Constants.X_CLIENT_REPORTER, QaseClient.getConfig().clientReporterName());
-        apiClient.setBasePath(System.getProperty(QaseConfig.BASE_URL_KEY));
+        apiClientConfigurer.configure(apiClient);
         return apiClient;
     }
 

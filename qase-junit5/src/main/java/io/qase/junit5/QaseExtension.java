@@ -7,6 +7,7 @@ import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateSteps;
 import io.qase.api.services.QaseTestCaseListener;
+import io.qase.junit5.guice.module.Junit5Module;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import static io.qase.api.utils.IntegrationUtils.*;
-import static io.qase.configuration.QaseModule.getInjector;
 import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
 
 @Slf4j
@@ -34,7 +34,7 @@ public class QaseExtension implements TestExecutionListener {
         new ConcurrentSkipListSet<>(Comparator.comparing(TestIdentifier::hashCode));
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseTestCaseListener qaseTestCaseListener = getInjector().getInstance(QaseTestCaseListener.class);
+    private final QaseTestCaseListener qaseTestCaseListener = createQaseListener();
 
     static {
         System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
@@ -107,5 +107,9 @@ public class QaseExtension implements TestExecutionListener {
             log.error(e.getMessage());
             return null;
         }
+    }
+
+    private static QaseTestCaseListener createQaseListener() {
+        return Junit5Module.getInjector().getInstance(QaseTestCaseListener.class);
     }
 }
