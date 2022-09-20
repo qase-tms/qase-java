@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+def QASE_VERSION = '2.2.0'
+def JUNIT_VERSION = '5.9.0'
+def GROUP_ID = 'io.qase'
+def PLUGIN_FULL_NAME = "$GROUP_ID.${project.name}"
+def MIN_JAVA_VERSION = JavaVersion.VERSION_1_8
+
+group "$GROUP_ID"
+version "$QASE_VERSION"
+
+sourceCompatibility = MIN_JAVA_VERSION
+targetCompatibility = MIN_JAVA_VERSION
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "$GROUP_ID:qase-api:$QASE_VERSION"
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$JUNIT_VERSION"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+gradlePlugin {
+    plugins {
+        "$PLUGIN_FULL_NAME" {
+            id = "$PLUGIN_FULL_NAME"
+            version = "$QASE_VERSION"
+            implementationClass = 'io.qase.plugin.gradle.GradleQasePlugin'
+        }
+    }
+}
