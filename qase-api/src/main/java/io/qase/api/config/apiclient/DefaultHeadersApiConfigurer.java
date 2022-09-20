@@ -1,6 +1,7 @@
 package io.qase.api.config.apiclient;
 
 import io.qase.api.QaseClient;
+import io.qase.api.config.QaseConfig;
 import io.qase.api.constant.Constants;
 import io.qase.client.ApiClient;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,7 @@ public abstract class DefaultHeadersApiConfigurer implements ApiClientConfigurer
 
     @Override
     public void configure(ApiClient apiClient) {
+        apiClient.setBasePath(System.getProperty(QaseConfig.BASE_URL_KEY));
         apiClient.addDefaultHeader(Constants.X_CLIENT_REPORTER, QaseClient.getConfig().clientReporterName());
         String xClientHeaderValue = buildXClientHeaderValue();
         addDefaultHeaderIfNotBlank(apiClient, X_CLIENT_HEADER_NAME, xClientHeaderValue);
