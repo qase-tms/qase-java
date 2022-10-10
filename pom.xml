@@ -39,8 +39,7 @@
         <cucumber5-java.version>5.7.0</cucumber5-java.version>
         <swagger-core-version>2.0.0</swagger-core-version>
         <aspectj.version>1.9.8</aspectj.version>
-        <jackson-databind.version>2.13.2.2</jackson-databind.version>
-        <jackson-core.version>2.13.2</jackson-core.version>
+        <jackson.version>2.13.4</jackson.version>
         <httpclient.version>4.5.13</httpclient.version>
         <commons-codec.version>1.15</commons-codec.version>
         <guice.version>5.1.0</guice.version>
@@ -158,17 +157,17 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>${jackson-databind.version}</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
-                <version>${jackson-core.version}</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
-                <version>${jackson-core.version}</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
