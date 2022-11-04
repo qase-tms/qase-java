@@ -13,110 +13,180 @@
 
 package io.qase.client.model;
 
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
  * SharedStepResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class SharedStepResponse {
-    public static final String SERIALIZED_NAME_STATUS = "status";
-    public static final String SERIALIZED_NAME_RESULT = "result";
-    @SerializedName(SERIALIZED_NAME_STATUS)
-    private Boolean status;
-    @SerializedName(SERIALIZED_NAME_RESULT)
-    private SharedStep result;
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
+  private Boolean status;
+
+  public static final String SERIALIZED_NAME_RESULT = "result";
+  @SerializedName(SERIALIZED_NAME_RESULT)
+  private SharedStep result;
+
+  public SharedStepResponse() {
+  }
+
+  public SharedStepResponse status(Boolean status) {
+    
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getStatus() {
+    return status;
+  }
 
 
-    public SharedStepResponse status(Boolean status) {
+  public void setStatus(Boolean status) {
+    this.status = status;
+  }
 
-        this.status = status;
-        return this;
+
+  public SharedStepResponse result(SharedStep result) {
+    
+    this.result = result;
+    return this;
+  }
+
+   /**
+   * Get result
+   * @return result
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public SharedStep getResult() {
+    return result;
+  }
+
+
+  public void setResult(SharedStep result) {
+    this.result = result;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Get status
-     *
-     * @return status
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Boolean getStatus() {
-        return status;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    SharedStepResponse sharedStepResponse = (SharedStepResponse) o;
+    return Objects.equals(this.status, sharedStepResponse.status) &&
+        Objects.equals(this.result, sharedStepResponse.result);
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(status, result);
+  }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SharedStepResponse {\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    result: ").append(toIndentedString(result)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 
-    public SharedStepResponse result(SharedStep result) {
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
-        this.result = result;
-        return this;
-    }
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("status");
+    openapiFields.add("result");
 
-    /**
-     * Get result
-     *
-     * @return result
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
 
-    public SharedStep getResult() {
-        return result;
-    }
-
-
-    public void setResult(SharedStep result) {
-        this.result = result;
-    }
-
-
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SharedStepResponse sharedStepResponse = (SharedStepResponse) o;
-        return Objects.equals(this.status, sharedStepResponse.status) &&
-                Objects.equals(this.result, sharedStepResponse.result);
-    }
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!SharedStepResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'SharedStepResponse' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<SharedStepResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(SharedStepResponse.class));
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(status, result);
-    }
+       return (TypeAdapter<T>) new TypeAdapter<SharedStepResponse>() {
+           @Override
+           public void write(JsonWriter out, SharedStepResponse value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class SharedStepResponse {\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    result: ").append(toIndentedString(result)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
+           @Override
+           public SharedStepResponse read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+       }.nullSafe();
     }
+  }
 
+ /**
+  * Create an instance of SharedStepResponse given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of SharedStepResponse
+  * @throws IOException if the JSON string is invalid with respect to SharedStepResponse
+  */
+  public static SharedStepResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, SharedStepResponse.class);
+  }
+
+ /**
+  * Convert an instance of SharedStepResponse to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

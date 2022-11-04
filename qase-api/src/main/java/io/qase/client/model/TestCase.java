@@ -13,887 +13,1039 @@
 
 package io.qase.client.model;
 
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * TestCase
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class TestCase {
-    public static final String SERIALIZED_NAME_ID = "id";
-    public static final String SERIALIZED_NAME_POSITION = "position";
-    public static final String SERIALIZED_NAME_TITLE = "title";
-    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-    public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
-    public static final String SERIALIZED_NAME_POSTCONDITIONS = "postconditions";
-    public static final String SERIALIZED_NAME_SEVERITY = "severity";
-    public static final String SERIALIZED_NAME_PRIORITY = "priority";
-    public static final String SERIALIZED_NAME_TYPE = "type";
-    public static final String SERIALIZED_NAME_LAYER = "layer";
-    public static final String SERIALIZED_NAME_IS_FLAKY = "is_flaky";
-    public static final String SERIALIZED_NAME_BEHAVIOR = "behavior";
-    public static final String SERIALIZED_NAME_AUTOMATION = "automation";
-    public static final String SERIALIZED_NAME_STATUS = "status";
-    public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
-    public static final String SERIALIZED_NAME_SUITE_ID = "suite_id";
-    public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
-    public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
-    public static final String SERIALIZED_NAME_STEPS_TYPE = "steps_type";
-    public static final String SERIALIZED_NAME_STEPS = "steps";
-    public static final String SERIALIZED_NAME_PARAMS = "params";
-    public static final String SERIALIZED_NAME_TAGS = "tags";
-    public static final String SERIALIZED_NAME_MEMBER_ID = "member_id";
-    public static final String SERIALIZED_NAME_PROJECT_ID = "project_id";
-    public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
-    public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
-    public static final String SERIALIZED_NAME_DELETED = "deleted";
-    public static final String SERIALIZED_NAME_CREATED = "created";
-    public static final String SERIALIZED_NAME_UPDATED = "updated";
-    @SerializedName(SERIALIZED_NAME_ID)
-    private Long id;
-    @SerializedName(SERIALIZED_NAME_POSITION)
-    private Integer position;
-    @SerializedName(SERIALIZED_NAME_TITLE)
-    private String title;
-    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-    private String description;
-    @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
-    private String preconditions;
-    @SerializedName(SERIALIZED_NAME_POSTCONDITIONS)
-    private String postconditions;
-    @SerializedName(SERIALIZED_NAME_SEVERITY)
-    private Integer severity;
-    @SerializedName(SERIALIZED_NAME_PRIORITY)
-    private Integer priority;
-    @SerializedName(SERIALIZED_NAME_TYPE)
-    private Integer type;
-    @SerializedName(SERIALIZED_NAME_LAYER)
-    private Integer layer;
-    @SerializedName(SERIALIZED_NAME_IS_FLAKY)
-    private Integer isFlaky;
-    @SerializedName(SERIALIZED_NAME_BEHAVIOR)
-    private Integer behavior;
-    @SerializedName(SERIALIZED_NAME_AUTOMATION)
-    private Integer automation;
-    @SerializedName(SERIALIZED_NAME_STATUS)
-    private Integer status;
-    @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
-    private Long milestoneId;
-    @SerializedName(SERIALIZED_NAME_SUITE_ID)
-    private Long suiteId;
-    @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
-    private List<CustomFieldValue> customFields = null;
-    @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-    private List<Attachment> attachments = null;
-    @SerializedName(SERIALIZED_NAME_STEPS_TYPE)
-    private String stepsType;
-    @SerializedName(SERIALIZED_NAME_STEPS)
-    private List<TestStep> steps = null;
-    @SerializedName(SERIALIZED_NAME_PARAMS)
-    private Object[] params;
-    @SerializedName(SERIALIZED_NAME_TAGS)
-    private List<TagValue> tags = null;
-    @SerializedName(SERIALIZED_NAME_MEMBER_ID)
-    private Long memberId;
-    @SerializedName(SERIALIZED_NAME_PROJECT_ID)
-    private Long projectId;
-    @SerializedName(SERIALIZED_NAME_CREATED_AT)
-    private String createdAt;
-    @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-    private String updatedAt;
-    @SerializedName(SERIALIZED_NAME_DELETED)
-    private String deleted;
-    @SerializedName(SERIALIZED_NAME_CREATED)
-    private String created;
-    @SerializedName(SERIALIZED_NAME_UPDATED)
-    private String updated;
-
-    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-    }
+  public static final String SERIALIZED_NAME_ID = "id";
+  @SerializedName(SERIALIZED_NAME_ID)
+  private Long id;
+
+  public static final String SERIALIZED_NAME_POSITION = "position";
+  @SerializedName(SERIALIZED_NAME_POSITION)
+  private Integer position;
+
+  public static final String SERIALIZED_NAME_TITLE = "title";
+  @SerializedName(SERIALIZED_NAME_TITLE)
+  private String title;
+
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  private String description;
+
+  public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
+  @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+  private String preconditions;
 
-    private static <T> int hashCodeNullable(JsonNullable<T> a) {
-        if (a == null) {
-            return 1;
-        }
-        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-    }
+  public static final String SERIALIZED_NAME_POSTCONDITIONS = "postconditions";
+  @SerializedName(SERIALIZED_NAME_POSTCONDITIONS)
+  private String postconditions;
+
+  public static final String SERIALIZED_NAME_SEVERITY = "severity";
+  @SerializedName(SERIALIZED_NAME_SEVERITY)
+  private Integer severity;
+
+  public static final String SERIALIZED_NAME_PRIORITY = "priority";
+  @SerializedName(SERIALIZED_NAME_PRIORITY)
+  private Integer priority;
+
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
+  private Integer type;
+
+  public static final String SERIALIZED_NAME_LAYER = "layer";
+  @SerializedName(SERIALIZED_NAME_LAYER)
+  private Integer layer;
+
+  public static final String SERIALIZED_NAME_IS_FLAKY = "is_flaky";
+  @SerializedName(SERIALIZED_NAME_IS_FLAKY)
+  private Integer isFlaky;
 
-    public TestCase id(Long id) {
+  public static final String SERIALIZED_NAME_BEHAVIOR = "behavior";
+  @SerializedName(SERIALIZED_NAME_BEHAVIOR)
+  private Integer behavior;
+
+  public static final String SERIALIZED_NAME_AUTOMATION = "automation";
+  @SerializedName(SERIALIZED_NAME_AUTOMATION)
+  private Integer automation;
+
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
+  private Integer status;
+
+  public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
+  @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  private Long milestoneId;
+
+  public static final String SERIALIZED_NAME_SUITE_ID = "suite_id";
+  @SerializedName(SERIALIZED_NAME_SUITE_ID)
+  private Long suiteId;
+
+  public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
+  @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
+  private List<CustomFieldValue> customFields = null;
 
-        this.id = id;
-        return this;
-    }
+  public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
+  @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+  private List<Attachment> attachments = null;
 
-    /**
-     * Get id
-     *
-     * @return id
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getId() {
-        return id;
-    }
+  public static final String SERIALIZED_NAME_STEPS_TYPE = "steps_type";
+  @SerializedName(SERIALIZED_NAME_STEPS_TYPE)
+  private String stepsType;
+
+  public static final String SERIALIZED_NAME_STEPS = "steps";
+  @SerializedName(SERIALIZED_NAME_STEPS)
+  private List<TestStep> steps = null;
+
+  public static final String SERIALIZED_NAME_PARAMS = "params";
+  @SerializedName(SERIALIZED_NAME_PARAMS)
+  private TestCaseParams params;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public static final String SERIALIZED_NAME_TAGS = "tags";
+  @SerializedName(SERIALIZED_NAME_TAGS)
+  private List<TagValue> tags = null;
 
-    public TestCase position(Integer position) {
+  public static final String SERIALIZED_NAME_MEMBER_ID = "member_id";
+  @SerializedName(SERIALIZED_NAME_MEMBER_ID)
+  private Long memberId;
 
-        this.position = position;
-        return this;
-    }
+  public static final String SERIALIZED_NAME_PROJECT_ID = "project_id";
+  @SerializedName(SERIALIZED_NAME_PROJECT_ID)
+  private Long projectId;
 
-    /**
-     * Get position
-     *
-     * @return position
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getPosition() {
-        return position;
-    }
+  public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
+  @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  private String createdAt;
+
+  public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
+  @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  private String updatedAt;
+
+  public static final String SERIALIZED_NAME_DELETED = "deleted";
+  @SerializedName(SERIALIZED_NAME_DELETED)
+  private String deleted;
 
-    public void setPosition(Integer position) {
-        this.position = position;
-    }
+  public static final String SERIALIZED_NAME_CREATED = "created";
+  @SerializedName(SERIALIZED_NAME_CREATED)
+  private String created;
 
-    public TestCase title(String title) {
+  public static final String SERIALIZED_NAME_UPDATED = "updated";
+  @SerializedName(SERIALIZED_NAME_UPDATED)
+  private String updated;
 
-        this.title = title;
-        return this;
-    }
+  public TestCase() {
+  }
 
-    /**
-     * Get title
-     *
-     * @return title
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getTitle() {
-        return title;
-    }
+  public TestCase id(Long id) {
+    
+    this.id = id;
+    return this;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+   /**
+   * Get id
+   * @return id
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase description(String description) {
+  public Long getId() {
+    return id;
+  }
 
-        this.description = description;
-        return this;
-    }
 
-    /**
-     * Get description
-     *
-     * @return description
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getDescription() {
-        return description;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
-    public TestCase preconditions(String preconditions) {
+  public TestCase position(Integer position) {
+    
+    this.position = position;
+    return this;
+  }
 
-        this.preconditions = preconditions;
-        return this;
-    }
+   /**
+   * Get position
+   * @return position
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    /**
-     * Get preconditions
-     *
-     * @return preconditions
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getPreconditions() {
-        return preconditions;
-    }
+  public Integer getPosition() {
+    return position;
+  }
 
-    public void setPreconditions(String preconditions) {
-        this.preconditions = preconditions;
-    }
 
-    public TestCase postconditions(String postconditions) {
+  public void setPosition(Integer position) {
+    this.position = position;
+  }
 
-        this.postconditions = postconditions;
-        return this;
-    }
 
-    /**
-     * Get postconditions
-     *
-     * @return postconditions
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getPostconditions() {
-        return postconditions;
-    }
+  public TestCase title(String title) {
+    
+    this.title = title;
+    return this;
+  }
 
-    public void setPostconditions(String postconditions) {
-        this.postconditions = postconditions;
-    }
+   /**
+   * Get title
+   * @return title
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase severity(Integer severity) {
+  public String getTitle() {
+    return title;
+  }
 
-        this.severity = severity;
-        return this;
-    }
 
-    /**
-     * Get severity
-     *
-     * @return severity
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getSeverity() {
-        return severity;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setSeverity(Integer severity) {
-        this.severity = severity;
-    }
 
-    public TestCase priority(Integer priority) {
+  public TestCase description(String description) {
+    
+    this.description = description;
+    return this;
+  }
 
-        this.priority = priority;
-        return this;
-    }
+   /**
+   * Get description
+   * @return description
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    /**
-     * Get priority
-     *
-     * @return priority
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getPriority() {
-        return priority;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
 
-    public TestCase type(Integer type) {
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-        this.type = type;
-        return this;
-    }
 
-    /**
-     * Get type
-     *
-     * @return type
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getType() {
-        return type;
-    }
+  public TestCase preconditions(String preconditions) {
+    
+    this.preconditions = preconditions;
+    return this;
+  }
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
+   /**
+   * Get preconditions
+   * @return preconditions
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase layer(Integer layer) {
+  public String getPreconditions() {
+    return preconditions;
+  }
 
-        this.layer = layer;
-        return this;
-    }
 
-    /**
-     * Get layer
-     *
-     * @return layer
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getLayer() {
-        return layer;
-    }
+  public void setPreconditions(String preconditions) {
+    this.preconditions = preconditions;
+  }
 
-    public void setLayer(Integer layer) {
-        this.layer = layer;
-    }
 
-    public TestCase isFlaky(Integer isFlaky) {
+  public TestCase postconditions(String postconditions) {
+    
+    this.postconditions = postconditions;
+    return this;
+  }
 
-        this.isFlaky = isFlaky;
-        return this;
-    }
+   /**
+   * Get postconditions
+   * @return postconditions
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    /**
-     * Get isFlaky
-     *
-     * @return isFlaky
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getIsFlaky() {
-        return isFlaky;
-    }
+  public String getPostconditions() {
+    return postconditions;
+  }
 
-    public void setIsFlaky(Integer isFlaky) {
-        this.isFlaky = isFlaky;
-    }
 
-    public TestCase behavior(Integer behavior) {
+  public void setPostconditions(String postconditions) {
+    this.postconditions = postconditions;
+  }
 
-        this.behavior = behavior;
-        return this;
-    }
 
-    /**
-     * Get behavior
-     *
-     * @return behavior
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getBehavior() {
-        return behavior;
-    }
+  public TestCase severity(Integer severity) {
+    
+    this.severity = severity;
+    return this;
+  }
 
-    public void setBehavior(Integer behavior) {
-        this.behavior = behavior;
-    }
+   /**
+   * Get severity
+   * @return severity
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase automation(Integer automation) {
+  public Integer getSeverity() {
+    return severity;
+  }
 
-        this.automation = automation;
-        return this;
-    }
 
-    /**
-     * Get automation
-     *
-     * @return automation
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getAutomation() {
-        return automation;
-    }
+  public void setSeverity(Integer severity) {
+    this.severity = severity;
+  }
 
-    public void setAutomation(Integer automation) {
-        this.automation = automation;
-    }
 
-    public TestCase status(Integer status) {
+  public TestCase priority(Integer priority) {
+    
+    this.priority = priority;
+    return this;
+  }
 
-        this.status = status;
-        return this;
-    }
+   /**
+   * Get priority
+   * @return priority
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    /**
-     * Get status
-     *
-     * @return status
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getStatus() {
-        return status;
-    }
+  public Integer getPriority() {
+    return priority;
+  }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
-    public TestCase milestoneId(Long milestoneId) {
+  public void setPriority(Integer priority) {
+    this.priority = priority;
+  }
 
-        this.milestoneId = milestoneId;
-        return this;
-    }
 
-    /**
-     * Get milestoneId
-     *
-     * @return milestoneId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getMilestoneId() {
-        return milestoneId;
-    }
+  public TestCase type(Integer type) {
+    
+    this.type = type;
+    return this;
+  }
 
-    public void setMilestoneId(Long milestoneId) {
-        this.milestoneId = milestoneId;
-    }
+   /**
+   * Get type
+   * @return type
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase suiteId(Long suiteId) {
+  public Integer getType() {
+    return type;
+  }
 
-        this.suiteId = suiteId;
-        return this;
-    }
 
-    /**
-     * Get suiteId
-     *
-     * @return suiteId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getSuiteId() {
-        return suiteId;
-    }
+  public void setType(Integer type) {
+    this.type = type;
+  }
 
-    public void setSuiteId(Long suiteId) {
-        this.suiteId = suiteId;
-    }
 
-    public TestCase customFields(List<CustomFieldValue> customFields) {
+  public TestCase layer(Integer layer) {
+    
+    this.layer = layer;
+    return this;
+  }
 
-        this.customFields = customFields;
-        return this;
-    }
+   /**
+   * Get layer
+   * @return layer
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase addCustomFieldsItem(CustomFieldValue customFieldsItem) {
-        if (this.customFields == null) {
-            this.customFields = new ArrayList<>();
-        }
-        this.customFields.add(customFieldsItem);
-        return this;
-    }
+  public Integer getLayer() {
+    return layer;
+  }
 
-    /**
-     * Get customFields
-     *
-     * @return customFields
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<CustomFieldValue> getCustomFields() {
-        return customFields;
-    }
 
-    public void setCustomFields(List<CustomFieldValue> customFields) {
-        this.customFields = customFields;
-    }
+  public void setLayer(Integer layer) {
+    this.layer = layer;
+  }
 
-    public TestCase attachments(List<Attachment> attachments) {
 
-        this.attachments = attachments;
-        return this;
-    }
+  public TestCase isFlaky(Integer isFlaky) {
+    
+    this.isFlaky = isFlaky;
+    return this;
+  }
 
-    public TestCase addAttachmentsItem(Attachment attachmentsItem) {
-        if (this.attachments == null) {
-            this.attachments = new ArrayList<>();
-        }
-        this.attachments.add(attachmentsItem);
-        return this;
-    }
+   /**
+   * Get isFlaky
+   * @return isFlaky
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    /**
-     * Get attachments
-     *
-     * @return attachments
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<Attachment> getAttachments() {
-        return attachments;
-    }
+  public Integer getIsFlaky() {
+    return isFlaky;
+  }
 
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
-    }
 
-    public TestCase stepsType(String stepsType) {
+  public void setIsFlaky(Integer isFlaky) {
+    this.isFlaky = isFlaky;
+  }
 
-        this.stepsType = stepsType;
-        return this;
-    }
 
-    /**
-     * Get stepsType
-     *
-     * @return stepsType
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getStepsType() {
-        return stepsType;
-    }
+  public TestCase behavior(Integer behavior) {
+    
+    this.behavior = behavior;
+    return this;
+  }
 
-    public void setStepsType(String stepsType) {
-        this.stepsType = stepsType;
-    }
+   /**
+   * Get behavior
+   * @return behavior
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase steps(List<TestStep> steps) {
+  public Integer getBehavior() {
+    return behavior;
+  }
 
-        this.steps = steps;
-        return this;
-    }
 
-    public TestCase addStepsItem(TestStep stepsItem) {
-        if (this.steps == null) {
-            this.steps = new ArrayList<>();
-        }
-        this.steps.add(stepsItem);
-        return this;
-    }
+  public void setBehavior(Integer behavior) {
+    this.behavior = behavior;
+  }
 
-    /**
-     * Get steps
-     *
-     * @return steps
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<TestStep> getSteps() {
-        return steps;
-    }
 
-    public void setSteps(List<TestStep> steps) {
-        this.steps = steps;
-    }
+  public TestCase automation(Integer automation) {
+    
+    this.automation = automation;
+    return this;
+  }
 
-    public TestCase params(Object[] params) {
+   /**
+   * Get automation
+   * @return automation
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-        this.params = params;
-        return this;
-    }
+  public Integer getAutomation() {
+    return automation;
+  }
 
-    /**
-     * Get params
-     *
-     * @return params
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Object[] getParams() {
-        return params;
-    }
 
-    public void setParams(Object[] params) {
-        this.params = params;
-    }
+  public void setAutomation(Integer automation) {
+    this.automation = automation;
+  }
 
-    public TestCase tags(List<TagValue> tags) {
 
-        this.tags = tags;
-        return this;
-    }
+  public TestCase status(Integer status) {
+    
+    this.status = status;
+    return this;
+  }
 
-    public TestCase addTagsItem(TagValue tagsItem) {
-        if (this.tags == null) {
-            this.tags = new ArrayList<>();
-        }
-        this.tags.add(tagsItem);
-        return this;
-    }
+   /**
+   * Get status
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    /**
-     * Get tags
-     *
-     * @return tags
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<TagValue> getTags() {
-        return tags;
-    }
+  public Integer getStatus() {
+    return status;
+  }
 
-    public void setTags(List<TagValue> tags) {
-        this.tags = tags;
-    }
 
-    public TestCase memberId(Long memberId) {
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
 
-        this.memberId = memberId;
-        return this;
-    }
 
-    /**
-     * Get memberId
-     *
-     * @return memberId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getMemberId() {
-        return memberId;
-    }
+  public TestCase milestoneId(Long milestoneId) {
+    
+    this.milestoneId = milestoneId;
+    return this;
+  }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
+   /**
+   * Get milestoneId
+   * @return milestoneId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase projectId(Long projectId) {
+  public Long getMilestoneId() {
+    return milestoneId;
+  }
 
-        this.projectId = projectId;
-        return this;
-    }
 
-    /**
-     * Get projectId
-     *
-     * @return projectId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getProjectId() {
-        return projectId;
-    }
+  public void setMilestoneId(Long milestoneId) {
+    this.milestoneId = milestoneId;
+  }
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
 
-    public TestCase createdAt(String createdAt) {
+  public TestCase suiteId(Long suiteId) {
+    
+    this.suiteId = suiteId;
+    return this;
+  }
 
-        this.createdAt = createdAt;
-        return this;
-    }
+   /**
+   * Get suiteId
+   * @return suiteId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    /**
-     * Get createdAt
-     *
-     * @return createdAt
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
+  public Long getSuiteId() {
+    return suiteId;
+  }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
 
-    public TestCase updatedAt(String updatedAt) {
+  public void setSuiteId(Long suiteId) {
+    this.suiteId = suiteId;
+  }
 
-        this.updatedAt = updatedAt;
-        return this;
-    }
 
-    /**
-     * Get updatedAt
-     *
-     * @return updatedAt
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
+  public TestCase customFields(List<CustomFieldValue> customFields) {
+    
+    this.customFields = customFields;
+    return this;
+  }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+  public TestCase addCustomFieldsItem(CustomFieldValue customFieldsItem) {
+    if (this.customFields == null) {
+      this.customFields = new ArrayList<>();
     }
+    this.customFields.add(customFieldsItem);
+    return this;
+  }
 
-    public TestCase deleted(String deleted) {
+   /**
+   * Get customFields
+   * @return customFields
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-        this.deleted = deleted;
-        return this;
-    }
+  public List<CustomFieldValue> getCustomFields() {
+    return customFields;
+  }
 
-    /**
-     * Get deleted
-     *
-     * @return deleted
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "")
-
-    public String getDeleted() {
-        return deleted;
-    }
 
-    public void setDeleted(String deleted) {
-        this.deleted = deleted;
-    }
+  public void setCustomFields(List<CustomFieldValue> customFields) {
+    this.customFields = customFields;
+  }
 
-    public TestCase created(String created) {
 
-        this.created = created;
-        return this;
-    }
+  public TestCase attachments(List<Attachment> attachments) {
+    
+    this.attachments = attachments;
+    return this;
+  }
 
-    /**
-     * Deprecated, use the &#x60;created_at&#x60; property instead.
-     *
-     * @return created
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "Deprecated, use the `created_at` property instead.")
-
-    public String getCreated() {
-        return created;
+  public TestCase addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<>();
     }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
 
-    public void setCreated(String created) {
-        this.created = created;
-    }
+   /**
+   * Get attachments
+   * @return attachments
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public TestCase updated(String updated) {
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
 
-        this.updated = updated;
-        return this;
-    }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
+
+  public TestCase stepsType(String stepsType) {
+    
+    this.stepsType = stepsType;
+    return this;
+  }
+
+   /**
+   * Get stepsType
+   * @return stepsType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getStepsType() {
+    return stepsType;
+  }
+
+
+  public void setStepsType(String stepsType) {
+    this.stepsType = stepsType;
+  }
 
-    /**
-     * Deprecated, use the &#x60;updated_at&#x60; property instead.
-     *
-     * @return updated
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "Deprecated, use the `updated_at` property instead.")
-
-    public String getUpdated() {
-        return updated;
+
+  public TestCase steps(List<TestStep> steps) {
+    
+    this.steps = steps;
+    return this;
+  }
+
+  public TestCase addStepsItem(TestStep stepsItem) {
+    if (this.steps == null) {
+      this.steps = new ArrayList<>();
     }
+    this.steps.add(stepsItem);
+    return this;
+  }
+
+   /**
+   * Get steps
+   * @return steps
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public List<TestStep> getSteps() {
+    return steps;
+  }
+
+
+  public void setSteps(List<TestStep> steps) {
+    this.steps = steps;
+  }
+
+
+  public TestCase params(TestCaseParams params) {
+    
+    this.params = params;
+    return this;
+  }
+
+   /**
+   * Get params
+   * @return params
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
+  public TestCaseParams getParams() {
+    return params;
+  }
+
+
+  public void setParams(TestCaseParams params) {
+    this.params = params;
+  }
+
+
+  public TestCase tags(List<TagValue> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public TestCase addTagsItem(TagValue tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
     }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+   /**
+   * Get tags
+   * @return tags
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public List<TagValue> getTags() {
+    return tags;
+  }
+
+
+  public void setTags(List<TagValue> tags) {
+    this.tags = tags;
+  }
+
+
+  public TestCase memberId(Long memberId) {
+    
+    this.memberId = memberId;
+    return this;
+  }
+
+   /**
+   * Get memberId
+   * @return memberId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getMemberId() {
+    return memberId;
+  }
+
+
+  public void setMemberId(Long memberId) {
+    this.memberId = memberId;
+  }
+
+
+  public TestCase projectId(Long projectId) {
+    
+    this.projectId = projectId;
+    return this;
+  }
+
+   /**
+   * Get projectId
+   * @return projectId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getProjectId() {
+    return projectId;
+  }
+
+
+  public void setProjectId(Long projectId) {
+    this.projectId = projectId;
+  }
+
+
+  public TestCase createdAt(String createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Get createdAt
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public TestCase updatedAt(String updatedAt) {
+    
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Get updatedAt
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
+  public TestCase deleted(String deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
 
+   /**
+   * Get deleted
+   * @return deleted
+   * @deprecated
+  **/
+  @Deprecated
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "")
+
+  public String getDeleted() {
+    return deleted;
+  }
+
+
+  public void setDeleted(String deleted) {
+    this.deleted = deleted;
+  }
+
+
+  public TestCase created(String created) {
+    
+    this.created = created;
+    return this;
+  }
+
+   /**
+   * Deprecated, use the &#x60;created_at&#x60; property instead.
+   * @return created
+   * @deprecated
+  **/
+  @Deprecated
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "Deprecated, use the `created_at` property instead.")
+
+  public String getCreated() {
+    return created;
+  }
+
+
+  public void setCreated(String created) {
+    this.created = created;
+  }
+
+
+  public TestCase updated(String updated) {
+    
+    this.updated = updated;
+    return this;
+  }
+
+   /**
+   * Deprecated, use the &#x60;updated_at&#x60; property instead.
+   * @return updated
+   * @deprecated
+  **/
+  @Deprecated
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-12-30T19:23:59.000000Z", value = "Deprecated, use the `updated_at` property instead.")
+
+  public String getUpdated() {
+    return updated;
+  }
+
+
+  public void setUpdated(String updated) {
+    this.updated = updated;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TestCase testCase = (TestCase) o;
+    return Objects.equals(this.id, testCase.id) &&
+        Objects.equals(this.position, testCase.position) &&
+        Objects.equals(this.title, testCase.title) &&
+        Objects.equals(this.description, testCase.description) &&
+        Objects.equals(this.preconditions, testCase.preconditions) &&
+        Objects.equals(this.postconditions, testCase.postconditions) &&
+        Objects.equals(this.severity, testCase.severity) &&
+        Objects.equals(this.priority, testCase.priority) &&
+        Objects.equals(this.type, testCase.type) &&
+        Objects.equals(this.layer, testCase.layer) &&
+        Objects.equals(this.isFlaky, testCase.isFlaky) &&
+        Objects.equals(this.behavior, testCase.behavior) &&
+        Objects.equals(this.automation, testCase.automation) &&
+        Objects.equals(this.status, testCase.status) &&
+        Objects.equals(this.milestoneId, testCase.milestoneId) &&
+        Objects.equals(this.suiteId, testCase.suiteId) &&
+        Objects.equals(this.customFields, testCase.customFields) &&
+        Objects.equals(this.attachments, testCase.attachments) &&
+        Objects.equals(this.stepsType, testCase.stepsType) &&
+        Objects.equals(this.steps, testCase.steps) &&
+        Objects.equals(this.params, testCase.params) &&
+        Objects.equals(this.tags, testCase.tags) &&
+        Objects.equals(this.memberId, testCase.memberId) &&
+        Objects.equals(this.projectId, testCase.projectId) &&
+        Objects.equals(this.createdAt, testCase.createdAt) &&
+        Objects.equals(this.updatedAt, testCase.updatedAt) &&
+        Objects.equals(this.deleted, testCase.deleted) &&
+        Objects.equals(this.created, testCase.created) &&
+        Objects.equals(this.updated, testCase.updated);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, projectId, createdAt, updatedAt, deleted, created, updated);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TestCase {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    position: ").append(toIndentedString(position)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    preconditions: ").append(toIndentedString(preconditions)).append("\n");
+    sb.append("    postconditions: ").append(toIndentedString(postconditions)).append("\n");
+    sb.append("    severity: ").append(toIndentedString(severity)).append("\n");
+    sb.append("    priority: ").append(toIndentedString(priority)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    layer: ").append(toIndentedString(layer)).append("\n");
+    sb.append("    isFlaky: ").append(toIndentedString(isFlaky)).append("\n");
+    sb.append("    behavior: ").append(toIndentedString(behavior)).append("\n");
+    sb.append("    automation: ").append(toIndentedString(automation)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
+    sb.append("    suiteId: ").append(toIndentedString(suiteId)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+    sb.append("    stepsType: ").append(toIndentedString(stepsType)).append("\n");
+    sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
+    sb.append("    params: ").append(toIndentedString(params)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    memberId: ").append(toIndentedString(memberId)).append("\n");
+    sb.append("    projectId: ").append(toIndentedString(projectId)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    created: ").append(toIndentedString(created)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("id");
+    openapiFields.add("position");
+    openapiFields.add("title");
+    openapiFields.add("description");
+    openapiFields.add("preconditions");
+    openapiFields.add("postconditions");
+    openapiFields.add("severity");
+    openapiFields.add("priority");
+    openapiFields.add("type");
+    openapiFields.add("layer");
+    openapiFields.add("is_flaky");
+    openapiFields.add("behavior");
+    openapiFields.add("automation");
+    openapiFields.add("status");
+    openapiFields.add("milestone_id");
+    openapiFields.add("suite_id");
+    openapiFields.add("custom_fields");
+    openapiFields.add("attachments");
+    openapiFields.add("steps_type");
+    openapiFields.add("steps");
+    openapiFields.add("params");
+    openapiFields.add("tags");
+    openapiFields.add("member_id");
+    openapiFields.add("project_id");
+    openapiFields.add("created_at");
+    openapiFields.add("updated_at");
+    openapiFields.add("deleted");
+    openapiFields.add("created");
+    openapiFields.add("updated");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        TestCase testCase = (TestCase) o;
-        return Objects.equals(this.id, testCase.id) &&
-                Objects.equals(this.position, testCase.position) &&
-                Objects.equals(this.title, testCase.title) &&
-                Objects.equals(this.description, testCase.description) &&
-                Objects.equals(this.preconditions, testCase.preconditions) &&
-                Objects.equals(this.postconditions, testCase.postconditions) &&
-                Objects.equals(this.severity, testCase.severity) &&
-                Objects.equals(this.priority, testCase.priority) &&
-                Objects.equals(this.type, testCase.type) &&
-                Objects.equals(this.layer, testCase.layer) &&
-                Objects.equals(this.isFlaky, testCase.isFlaky) &&
-                Objects.equals(this.behavior, testCase.behavior) &&
-                Objects.equals(this.automation, testCase.automation) &&
-                Objects.equals(this.status, testCase.status) &&
-                Objects.equals(this.milestoneId, testCase.milestoneId) &&
-                Objects.equals(this.suiteId, testCase.suiteId) &&
-                Objects.equals(this.customFields, testCase.customFields) &&
-                Objects.equals(this.attachments, testCase.attachments) &&
-                Objects.equals(this.stepsType, testCase.stepsType) &&
-                Objects.equals(this.steps, testCase.steps) &&
-                Objects.equals(this.params, testCase.params) &&
-                Objects.equals(this.tags, testCase.tags) &&
-                Objects.equals(this.memberId, testCase.memberId) &&
-                Objects.equals(this.projectId, testCase.projectId) &&
-                Objects.equals(this.createdAt, testCase.createdAt) &&
-                Objects.equals(this.updatedAt, testCase.updatedAt) &&
-                Objects.equals(this.deleted, testCase.deleted) &&
-                Objects.equals(this.created, testCase.created) &&
-                Objects.equals(this.updated, testCase.updated);
-    }
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!TestCase.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'TestCase' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<TestCase> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(TestCase.class));
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, projectId, createdAt, updatedAt, deleted, created, updated);
-    }
+       return (TypeAdapter<T>) new TypeAdapter<TestCase>() {
+           @Override
+           public void write(JsonWriter out, TestCase value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class TestCase {\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    position: ").append(toIndentedString(position)).append("\n");
-        sb.append("    title: ").append(toIndentedString(title)).append("\n");
-        sb.append("    description: ").append(toIndentedString(description)).append("\n");
-        sb.append("    preconditions: ").append(toIndentedString(preconditions)).append("\n");
-        sb.append("    postconditions: ").append(toIndentedString(postconditions)).append("\n");
-        sb.append("    severity: ").append(toIndentedString(severity)).append("\n");
-        sb.append("    priority: ").append(toIndentedString(priority)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    layer: ").append(toIndentedString(layer)).append("\n");
-        sb.append("    isFlaky: ").append(toIndentedString(isFlaky)).append("\n");
-        sb.append("    behavior: ").append(toIndentedString(behavior)).append("\n");
-        sb.append("    automation: ").append(toIndentedString(automation)).append("\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
-        sb.append("    suiteId: ").append(toIndentedString(suiteId)).append("\n");
-        sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
-        sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
-        sb.append("    stepsType: ").append(toIndentedString(stepsType)).append("\n");
-        sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
-        sb.append("    params: ").append(toIndentedString(params)).append("\n");
-        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-        sb.append("    memberId: ").append(toIndentedString(memberId)).append("\n");
-        sb.append("    projectId: ").append(toIndentedString(projectId)).append("\n");
-        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-        sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-        sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
-        sb.append("    created: ").append(toIndentedString(created)).append("\n");
-        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
+           @Override
+           public TestCase read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+       }.nullSafe();
     }
+  }
 
+ /**
+  * Create an instance of TestCase given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of TestCase
+  * @throws IOException if the JSON string is invalid with respect to TestCase
+  */
+  public static TestCase fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, TestCase.class);
+  }
+
+ /**
+  * Convert an instance of TestCase to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

@@ -41,7 +41,6 @@ class ProjectServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/project"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -54,8 +53,7 @@ class ProjectServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/project/PROJ"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test

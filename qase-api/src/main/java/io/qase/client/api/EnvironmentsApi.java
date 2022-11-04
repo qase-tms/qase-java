@@ -26,6 +26,8 @@ import java.util.Map;
 
 public class EnvironmentsApi {
     private ApiClient localVarApiClient;
+    private int localHostIndex;
+    private String localCustomBaseUrl;
 
     public EnvironmentsApi() {
         this(Configuration.getDefaultApiClient());
@@ -43,25 +45,60 @@ public class EnvironmentsApi {
         this.localVarApiClient = apiClient;
     }
 
+    public int getHostIndex() {
+        return localHostIndex;
+    }
+
+    public void setHostIndex(int hostIndex) {
+        this.localHostIndex = hostIndex;
+    }
+
+    public String getCustomBaseUrl() {
+        return localCustomBaseUrl;
+    }
+
+    public void setCustomBaseUrl(String customBaseUrl) {
+        this.localCustomBaseUrl = customBaseUrl;
+    }
+
     /**
      * Build call for createEnvironment
-     *
-     * @param code              Code of project, where to search entities. (required)
-     * @param environmentCreate (required)
-     * @param _callback         Callback for upload/download progress
+     * @param code Code of project, where to search entities. (required)
+     * @param environmentCreate  (required)
+     * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call createEnvironmentCall(String code, EnvironmentCreate environmentCreate, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = environmentCreate;
 
         // create path and map variables
         String localVarPath = "/environment/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -70,7 +107,7 @@ public class EnvironmentsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -78,18 +115,19 @@ public class EnvironmentsApi {
         }
 
         final String[] localVarContentTypes = {
-                "application/json"
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call createEnvironmentValidateBeforeCall(String code, EnvironmentCreate environmentCreate, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling createEnvironment(Async)");
@@ -100,24 +138,28 @@ public class EnvironmentsApi {
             throw new QaseException("Missing the required parameter 'environmentCreate' when calling createEnvironment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = createEnvironmentCall(code, environmentCreate, _callback);
-        return localVarCall;
+        return createEnvironmentCall(code, environmentCreate, _callback);
 
     }
 
     /**
      * Create a new environment.
-     * This method allows to create an environment in selected project.
-     *
-     * @param code              Code of project, where to search entities. (required)
-     * @param environmentCreate (required)
+     * This method allows to create an environment in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param environmentCreate  (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public IdResponse createEnvironment(String code, EnvironmentCreate environmentCreate) throws QaseException {
         ApiResponse<IdResponse> localVarResp = createEnvironmentWithHttpInfo(code, environmentCreate);
@@ -126,67 +168,94 @@ public class EnvironmentsApi {
 
     /**
      * Create a new environment.
-     * This method allows to create an environment in selected project.
-     *
-     * @param code              Code of project, where to search entities. (required)
-     * @param environmentCreate (required)
+     * This method allows to create an environment in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param environmentCreate  (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<IdResponse> createEnvironmentWithHttpInfo(String code, EnvironmentCreate environmentCreate) throws QaseException {
         okhttp3.Call localVarCall = createEnvironmentValidateBeforeCall(code, environmentCreate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Create a new environment. (asynchronously)
-     * This method allows to create an environment in selected project.
-     *
-     * @param code              Code of project, where to search entities. (required)
-     * @param environmentCreate (required)
-     * @param _callback         The callback to be executed when the API call finishes
+     * This method allows to create an environment in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param environmentCreate  (required)
+     * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call createEnvironmentAsync(String code, EnvironmentCreate environmentCreate, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = createEnvironmentValidateBeforeCall(code, environmentCreate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for deleteEnvironment
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param id        Identifier. (required)
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call deleteEnvironmentCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/environment/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -195,7 +264,7 @@ public class EnvironmentsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -203,18 +272,18 @@ public class EnvironmentsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call deleteEnvironmentValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling deleteEnvironment(Async)");
@@ -225,24 +294,27 @@ public class EnvironmentsApi {
             throw new QaseException("Missing the required parameter 'id' when calling deleteEnvironment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = deleteEnvironmentCall(code, id, _callback);
-        return localVarCall;
+        return deleteEnvironmentCall(code, id, _callback);
 
     }
 
     /**
      * Delete environment.
-     * This method completely deletes an environment from repository.
-     *
+     * This method completely deletes an environment from repository. 
      * @param code Code of project, where to search entities. (required)
-     * @param id   Identifier. (required)
+     * @param id Identifier. (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public IdResponse deleteEnvironment(String code, Integer id) throws QaseException {
         ApiResponse<IdResponse> localVarResp = deleteEnvironmentWithHttpInfo(code, id);
@@ -251,67 +323,92 @@ public class EnvironmentsApi {
 
     /**
      * Delete environment.
-     * This method completely deletes an environment from repository.
-     *
+     * This method completely deletes an environment from repository. 
      * @param code Code of project, where to search entities. (required)
-     * @param id   Identifier. (required)
+     * @param id Identifier. (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<IdResponse> deleteEnvironmentWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = deleteEnvironmentValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Delete environment. (asynchronously)
-     * This method completely deletes an environment from repository.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param id        Identifier. (required)
+     * This method completely deletes an environment from repository. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call deleteEnvironmentAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = deleteEnvironmentValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for getEnvironment
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param id        Identifier. (required)
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getEnvironmentCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/environment/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -320,7 +417,7 @@ public class EnvironmentsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -328,18 +425,18 @@ public class EnvironmentsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getEnvironmentValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling getEnvironment(Async)");
@@ -350,24 +447,27 @@ public class EnvironmentsApi {
             throw new QaseException("Missing the required parameter 'id' when calling getEnvironment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = getEnvironmentCall(code, id, _callback);
-        return localVarCall;
+        return getEnvironmentCall(code, id, _callback);
 
     }
 
     /**
      * Get a specific environment.
-     * This method allows to retrieve a specific environment.
-     *
+     * This method allows to retrieve a specific environment. 
      * @param code Code of project, where to search entities. (required)
-     * @param id   Identifier. (required)
+     * @param id Identifier. (required)
      * @return EnvironmentResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public EnvironmentResponse getEnvironment(String code, Integer id) throws QaseException {
         ApiResponse<EnvironmentResponse> localVarResp = getEnvironmentWithHttpInfo(code, id);
@@ -376,67 +476,92 @@ public class EnvironmentsApi {
 
     /**
      * Get a specific environment.
-     * This method allows to retrieve a specific environment.
-     *
+     * This method allows to retrieve a specific environment. 
      * @param code Code of project, where to search entities. (required)
-     * @param id   Identifier. (required)
+     * @param id Identifier. (required)
      * @return ApiResponse&lt;EnvironmentResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<EnvironmentResponse> getEnvironmentWithHttpInfo(String code, Integer id) throws QaseException {
         okhttp3.Call localVarCall = getEnvironmentValidateBeforeCall(code, id, null);
-        Type localVarReturnType = new TypeToken<EnvironmentResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<EnvironmentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get a specific environment. (asynchronously)
-     * This method allows to retrieve a specific environment.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param id        Identifier. (required)
+     * This method allows to retrieve a specific environment. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getEnvironmentAsync(String code, Integer id, final ApiCallback<EnvironmentResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getEnvironmentValidateBeforeCall(code, id, _callback);
-        Type localVarReturnType = new TypeToken<EnvironmentResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<EnvironmentResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for getEnvironments
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param limit     A number of entities in result set. (optional, default to 10)
-     * @param offset    How many entities should be skipped. (optional, default to 0)
+     * @param code Code of project, where to search entities. (required)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getEnvironmentsCall(String code, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/environment/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -453,7 +578,7 @@ public class EnvironmentsApi {
         }
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -461,42 +586,45 @@ public class EnvironmentsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getEnvironmentsValidateBeforeCall(String code, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling getEnvironments(Async)");
         }
 
-
-        okhttp3.Call localVarCall = getEnvironmentsCall(code, limit, offset, _callback);
-        return localVarCall;
+        return getEnvironmentsCall(code, limit, offset, _callback);
 
     }
 
     /**
      * Get all environments.
-     * This method allows to retrieve all environments stored in selected project.
-     *
-     * @param code   Code of project, where to search entities. (required)
-     * @param limit  A number of entities in result set. (optional, default to 10)
+     * This method allows to retrieve all environments stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
      * @return EnvironmentListResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public EnvironmentListResponse getEnvironments(String code, Integer limit, Integer offset) throws QaseException {
         ApiResponse<EnvironmentListResponse> localVarResp = getEnvironmentsWithHttpInfo(code, limit, offset);
@@ -505,70 +633,95 @@ public class EnvironmentsApi {
 
     /**
      * Get all environments.
-     * This method allows to retrieve all environments stored in selected project.
-     *
-     * @param code   Code of project, where to search entities. (required)
-     * @param limit  A number of entities in result set. (optional, default to 10)
+     * This method allows to retrieve all environments stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
      * @return ApiResponse&lt;EnvironmentListResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<EnvironmentListResponse> getEnvironmentsWithHttpInfo(String code, Integer limit, Integer offset) throws QaseException {
         okhttp3.Call localVarCall = getEnvironmentsValidateBeforeCall(code, limit, offset, null);
-        Type localVarReturnType = new TypeToken<EnvironmentListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<EnvironmentListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get all environments. (asynchronously)
-     * This method allows to retrieve all environments stored in selected project.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param limit     A number of entities in result set. (optional, default to 10)
-     * @param offset    How many entities should be skipped. (optional, default to 0)
+     * This method allows to retrieve all environments stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getEnvironmentsAsync(String code, Integer limit, Integer offset, final ApiCallback<EnvironmentListResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getEnvironmentsValidateBeforeCall(code, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<EnvironmentListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<EnvironmentListResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for updateEnvironment
-     *
-     * @param code              Code of project, where to search entities. (required)
-     * @param id                Identifier. (required)
-     * @param environmentUpdate (required)
-     * @param _callback         Callback for upload/download progress
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param environmentUpdate  (required)
+     * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call updateEnvironmentCall(String code, Integer id, EnvironmentUpdate environmentUpdate, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = environmentUpdate;
 
         // create path and map variables
         String localVarPath = "/environment/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -577,7 +730,7 @@ public class EnvironmentsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -585,18 +738,19 @@ public class EnvironmentsApi {
         }
 
         final String[] localVarContentTypes = {
-                "application/json"
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call updateEnvironmentValidateBeforeCall(String code, Integer id, EnvironmentUpdate environmentUpdate, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling updateEnvironment(Async)");
@@ -612,25 +766,28 @@ public class EnvironmentsApi {
             throw new QaseException("Missing the required parameter 'environmentUpdate' when calling updateEnvironment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = updateEnvironmentCall(code, id, environmentUpdate, _callback);
-        return localVarCall;
+        return updateEnvironmentCall(code, id, environmentUpdate, _callback);
 
     }
 
     /**
      * Update environment.
-     * This method updates an environment.
-     *
-     * @param code              Code of project, where to search entities. (required)
-     * @param id                Identifier. (required)
-     * @param environmentUpdate (required)
+     * This method updates an environment. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param environmentUpdate  (required)
      * @return IdResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public IdResponse updateEnvironment(String code, Integer id, EnvironmentUpdate environmentUpdate) throws QaseException {
         ApiResponse<IdResponse> localVarResp = updateEnvironmentWithHttpInfo(code, id, environmentUpdate);
@@ -639,45 +796,53 @@ public class EnvironmentsApi {
 
     /**
      * Update environment.
-     * This method updates an environment.
-     *
-     * @param code              Code of project, where to search entities. (required)
-     * @param id                Identifier. (required)
-     * @param environmentUpdate (required)
+     * This method updates an environment. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param environmentUpdate  (required)
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<IdResponse> updateEnvironmentWithHttpInfo(String code, Integer id, EnvironmentUpdate environmentUpdate) throws QaseException {
         okhttp3.Call localVarCall = updateEnvironmentValidateBeforeCall(code, id, environmentUpdate, null);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Update environment. (asynchronously)
-     * This method updates an environment.
-     *
-     * @param code              Code of project, where to search entities. (required)
-     * @param id                Identifier. (required)
-     * @param environmentUpdate (required)
-     * @param _callback         The callback to be executed when the API call finishes
+     * This method updates an environment. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param environmentUpdate  (required)
+     * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call updateEnvironmentAsync(String code, Integer id, EnvironmentUpdate environmentUpdate, final ApiCallback<IdResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = updateEnvironmentValidateBeforeCall(code, id, environmentUpdate, _callback);
-        Type localVarReturnType = new TypeToken<IdResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

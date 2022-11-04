@@ -44,7 +44,6 @@ class AttachmentServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/attachment"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -58,8 +57,7 @@ class AttachmentServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/attachment/2497be4bc95f807d2fe3c2203793673f6e5140e8"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test
@@ -84,7 +82,6 @@ class AttachmentServiceTest {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/attachment/2497be4bc95f807d2fe3c2203793673f6e5140e8"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 }

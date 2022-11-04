@@ -13,334 +13,447 @@
 
 package io.qase.client.model;
 
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * RunCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class RunCreate {
-    public static final String SERIALIZED_NAME_TITLE = "title";
-    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-    public static final String SERIALIZED_NAME_INCLUDE_ALL_CASES = "include_all_cases";
-    public static final String SERIALIZED_NAME_CASES = "cases";
-    public static final String SERIALIZED_NAME_IS_AUTOTEST = "is_autotest";
-    public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environment_id";
-    public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
-    public static final String SERIALIZED_NAME_PLAN_ID = "plan_id";
-    public static final String SERIALIZED_NAME_TAGS = "tags";
-    @SerializedName(SERIALIZED_NAME_TITLE)
-    private String title;
-    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-    private String description;
-    @SerializedName(SERIALIZED_NAME_INCLUDE_ALL_CASES)
-    private Boolean includeAllCases;
-    @SerializedName(SERIALIZED_NAME_CASES)
-    private List<Long> cases = null;
-    @SerializedName(SERIALIZED_NAME_IS_AUTOTEST)
-    private Boolean isAutotest;
-    @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
-    private Long environmentId;
-    @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
-    private Long milestoneId;
-    @SerializedName(SERIALIZED_NAME_PLAN_ID)
-    private Long planId;
-    @SerializedName(SERIALIZED_NAME_TAGS)
-    private List<String> tags = null;
+  public static final String SERIALIZED_NAME_TITLE = "title";
+  @SerializedName(SERIALIZED_NAME_TITLE)
+  private String title;
+
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  private String description;
+
+  public static final String SERIALIZED_NAME_INCLUDE_ALL_CASES = "include_all_cases";
+  @SerializedName(SERIALIZED_NAME_INCLUDE_ALL_CASES)
+  private Boolean includeAllCases;
+
+  public static final String SERIALIZED_NAME_CASES = "cases";
+  @SerializedName(SERIALIZED_NAME_CASES)
+  private List<Long> cases = null;
+
+  public static final String SERIALIZED_NAME_IS_AUTOTEST = "is_autotest";
+  @SerializedName(SERIALIZED_NAME_IS_AUTOTEST)
+  private Boolean isAutotest;
+
+  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environment_id";
+  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  private Long environmentId;
+
+  public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
+  @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  private Long milestoneId;
+
+  public static final String SERIALIZED_NAME_PLAN_ID = "plan_id";
+  @SerializedName(SERIALIZED_NAME_PLAN_ID)
+  private Long planId;
+
+  public static final String SERIALIZED_NAME_TAGS = "tags";
+  @SerializedName(SERIALIZED_NAME_TAGS)
+  private List<String> tags = null;
+
+  public static final String SERIALIZED_NAME_CUSTOM_FIELD = "custom_field";
+  @SerializedName(SERIALIZED_NAME_CUSTOM_FIELD)
+  private Map<String, String> customField = null;
+
+  public RunCreate() {
+  }
+
+  public RunCreate title(String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+   /**
+   * Get title
+   * @return title
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+
+  public String getTitle() {
+    return title;
+  }
 
 
-    public RunCreate title(String title) {
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-        this.title = title;
-        return this;
+
+  public RunCreate description(String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Get description
+   * @return description
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+
+  public RunCreate includeAllCases(Boolean includeAllCases) {
+    
+    this.includeAllCases = includeAllCases;
+    return this;
+  }
+
+   /**
+   * Get includeAllCases
+   * @return includeAllCases
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getIncludeAllCases() {
+    return includeAllCases;
+  }
+
+
+  public void setIncludeAllCases(Boolean includeAllCases) {
+    this.includeAllCases = includeAllCases;
+  }
+
+
+  public RunCreate cases(List<Long> cases) {
+    
+    this.cases = cases;
+    return this;
+  }
+
+  public RunCreate addCasesItem(Long casesItem) {
+    if (this.cases == null) {
+      this.cases = new ArrayList<>();
     }
+    this.cases.add(casesItem);
+    return this;
+  }
 
-    /**
-     * Get title
-     *
-     * @return title
-     **/
-    @javax.annotation.Nonnull
-    @ApiModelProperty(required = true, value = "")
+   /**
+   * Get cases
+   * @return cases
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public String getTitle() {
-        return title;
+  public List<Long> getCases() {
+    return cases;
+  }
+
+
+  public void setCases(List<Long> cases) {
+    this.cases = cases;
+  }
+
+
+  public RunCreate isAutotest(Boolean isAutotest) {
+    
+    this.isAutotest = isAutotest;
+    return this;
+  }
+
+   /**
+   * Get isAutotest
+   * @return isAutotest
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getIsAutotest() {
+    return isAutotest;
+  }
+
+
+  public void setIsAutotest(Boolean isAutotest) {
+    this.isAutotest = isAutotest;
+  }
+
+
+  public RunCreate environmentId(Long environmentId) {
+    
+    this.environmentId = environmentId;
+    return this;
+  }
+
+   /**
+   * Get environmentId
+   * minimum: 1
+   * @return environmentId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getEnvironmentId() {
+    return environmentId;
+  }
+
+
+  public void setEnvironmentId(Long environmentId) {
+    this.environmentId = environmentId;
+  }
+
+
+  public RunCreate milestoneId(Long milestoneId) {
+    
+    this.milestoneId = milestoneId;
+    return this;
+  }
+
+   /**
+   * Get milestoneId
+   * minimum: 1
+   * @return milestoneId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getMilestoneId() {
+    return milestoneId;
+  }
+
+
+  public void setMilestoneId(Long milestoneId) {
+    this.milestoneId = milestoneId;
+  }
+
+
+  public RunCreate planId(Long planId) {
+    
+    this.planId = planId;
+    return this;
+  }
+
+   /**
+   * Get planId
+   * minimum: 1
+   * @return planId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getPlanId() {
+    return planId;
+  }
+
+
+  public void setPlanId(Long planId) {
+    this.planId = planId;
+  }
+
+
+  public RunCreate tags(List<String> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public RunCreate addTagsItem(String tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
     }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+   /**
+   * Get tags
+   * @return tags
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public List<String> getTags() {
+    return tags;
+  }
 
 
-    public void setTitle(String title) {
-        this.title = title;
+  public void setTags(List<String> tags) {
+    this.tags = tags;
+  }
+
+
+  public RunCreate customField(Map<String, String> customField) {
+    
+    this.customField = customField;
+    return this;
+  }
+
+  public RunCreate putCustomFieldItem(String key, String customFieldItem) {
+    if (this.customField == null) {
+      this.customField = new HashMap<>();
     }
+    this.customField.put(key, customFieldItem);
+    return this;
+  }
+
+   /**
+   * A map of custom fields values (id &#x3D;&gt; value)
+   * @return customField
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "A map of custom fields values (id => value)")
+
+  public Map<String, String> getCustomField() {
+    return customField;
+  }
 
 
-    public RunCreate description(String description) {
+  public void setCustomField(Map<String, String> customField) {
+    this.customField = customField;
+  }
 
-        this.description = description;
-        return this;
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Get description
-     *
-     * @return description
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getDescription() {
-        return description;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    RunCreate runCreate = (RunCreate) o;
+    return Objects.equals(this.title, runCreate.title) &&
+        Objects.equals(this.description, runCreate.description) &&
+        Objects.equals(this.includeAllCases, runCreate.includeAllCases) &&
+        Objects.equals(this.cases, runCreate.cases) &&
+        Objects.equals(this.isAutotest, runCreate.isAutotest) &&
+        Objects.equals(this.environmentId, runCreate.environmentId) &&
+        Objects.equals(this.milestoneId, runCreate.milestoneId) &&
+        Objects.equals(this.planId, runCreate.planId) &&
+        Objects.equals(this.tags, runCreate.tags) &&
+        Objects.equals(this.customField, runCreate.customField);
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, description, includeAllCases, cases, isAutotest, environmentId, milestoneId, planId, tags, customField);
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class RunCreate {\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    includeAllCases: ").append(toIndentedString(includeAllCases)).append("\n");
+    sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
+    sb.append("    isAutotest: ").append(toIndentedString(isAutotest)).append("\n");
+    sb.append("    environmentId: ").append(toIndentedString(environmentId)).append("\n");
+    sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
+    sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    customField: ").append(toIndentedString(customField)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 
-    public RunCreate includeAllCases(Boolean includeAllCases) {
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
-        this.includeAllCases = includeAllCases;
-        return this;
-    }
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("title");
+    openapiFields.add("description");
+    openapiFields.add("include_all_cases");
+    openapiFields.add("cases");
+    openapiFields.add("is_autotest");
+    openapiFields.add("environment_id");
+    openapiFields.add("milestone_id");
+    openapiFields.add("plan_id");
+    openapiFields.add("tags");
+    openapiFields.add("custom_field");
 
-    /**
-     * Get includeAllCases
-     *
-     * @return includeAllCases
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("title");
+  }
 
-    public Boolean getIncludeAllCases() {
-        return includeAllCases;
-    }
-
-
-    public void setIncludeAllCases(Boolean includeAllCases) {
-        this.includeAllCases = includeAllCases;
-    }
-
-
-    public RunCreate cases(List<Long> cases) {
-
-        this.cases = cases;
-        return this;
-    }
-
-    public RunCreate addCasesItem(Long casesItem) {
-        if (this.cases == null) {
-            this.cases = new ArrayList<>();
-        }
-        this.cases.add(casesItem);
-        return this;
-    }
-
-    /**
-     * Get cases
-     *
-     * @return cases
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<Long> getCases() {
-        return cases;
-    }
-
-
-    public void setCases(List<Long> cases) {
-        this.cases = cases;
-    }
-
-
-    public RunCreate isAutotest(Boolean isAutotest) {
-
-        this.isAutotest = isAutotest;
-        return this;
-    }
-
-    /**
-     * Get isAutotest
-     *
-     * @return isAutotest
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Boolean getIsAutotest() {
-        return isAutotest;
-    }
-
-
-    public void setIsAutotest(Boolean isAutotest) {
-        this.isAutotest = isAutotest;
-    }
-
-
-    public RunCreate environmentId(Long environmentId) {
-
-        this.environmentId = environmentId;
-        return this;
-    }
-
-    /**
-     * Get environmentId
-     * minimum: 1
-     *
-     * @return environmentId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getEnvironmentId() {
-        return environmentId;
-    }
-
-
-    public void setEnvironmentId(Long environmentId) {
-        this.environmentId = environmentId;
-    }
-
-
-    public RunCreate milestoneId(Long milestoneId) {
-
-        this.milestoneId = milestoneId;
-        return this;
-    }
-
-    /**
-     * Get milestoneId
-     * minimum: 1
-     *
-     * @return milestoneId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getMilestoneId() {
-        return milestoneId;
-    }
-
-
-    public void setMilestoneId(Long milestoneId) {
-        this.milestoneId = milestoneId;
-    }
-
-
-    public RunCreate planId(Long planId) {
-
-        this.planId = planId;
-        return this;
-    }
-
-    /**
-     * Get planId
-     * minimum: 1
-     *
-     * @return planId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getPlanId() {
-        return planId;
-    }
-
-
-    public void setPlanId(Long planId) {
-        this.planId = planId;
-    }
-
-
-    public RunCreate tags(List<String> tags) {
-
-        this.tags = tags;
-        return this;
-    }
-
-    public RunCreate addTagsItem(String tagsItem) {
-        if (this.tags == null) {
-            this.tags = new ArrayList<>();
-        }
-        this.tags.add(tagsItem);
-        return this;
-    }
-
-    /**
-     * Get tags
-     *
-     * @return tags
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        RunCreate runCreate = (RunCreate) o;
-        return Objects.equals(this.title, runCreate.title) &&
-                Objects.equals(this.description, runCreate.description) &&
-                Objects.equals(this.includeAllCases, runCreate.includeAllCases) &&
-                Objects.equals(this.cases, runCreate.cases) &&
-                Objects.equals(this.isAutotest, runCreate.isAutotest) &&
-                Objects.equals(this.environmentId, runCreate.environmentId) &&
-                Objects.equals(this.milestoneId, runCreate.milestoneId) &&
-                Objects.equals(this.planId, runCreate.planId) &&
-                Objects.equals(this.tags, runCreate.tags);
-    }
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!RunCreate.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'RunCreate' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<RunCreate> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(RunCreate.class));
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, description, includeAllCases, cases, isAutotest, environmentId, milestoneId, planId, tags);
-    }
+       return (TypeAdapter<T>) new TypeAdapter<RunCreate>() {
+           @Override
+           public void write(JsonWriter out, RunCreate value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class RunCreate {\n");
-        sb.append("    title: ").append(toIndentedString(title)).append("\n");
-        sb.append("    description: ").append(toIndentedString(description)).append("\n");
-        sb.append("    includeAllCases: ").append(toIndentedString(includeAllCases)).append("\n");
-        sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
-        sb.append("    isAutotest: ").append(toIndentedString(isAutotest)).append("\n");
-        sb.append("    environmentId: ").append(toIndentedString(environmentId)).append("\n");
-        sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
-        sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
-        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
+           @Override
+           public RunCreate read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+       }.nullSafe();
     }
+  }
 
+ /**
+  * Create an instance of RunCreate given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of RunCreate
+  * @throws IOException if the JSON string is invalid with respect to RunCreate
+  */
+  public static RunCreate fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RunCreate.class);
+  }
+
+ /**
+  * Convert an instance of RunCreate to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

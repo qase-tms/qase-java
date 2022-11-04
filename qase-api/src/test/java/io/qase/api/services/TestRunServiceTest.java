@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.RunsApi;
-import io.qase.client.model.Filters5;
+import io.qase.client.model.GetRunsFiltersParameter;
 import io.qase.client.model.RunCreate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,13 +38,12 @@ class TestRunServiceTest {
     @Test
     void getAllWithoutInclude() {
         try {
-            runsApi.getRuns("PRJ", new Filters5(), 100, 0, null);
+            runsApi.getRuns("PRJ", new GetRunsFiltersParameter(), 100, 0, null);
         } catch (QaseException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0"))
                 .withQueryParam("include", absent()));
@@ -53,13 +52,12 @@ class TestRunServiceTest {
     @Test
     void getAllWithInclude() {
         try {
-            runsApi.getRuns("PRJ", new Filters5(), 100, 0, "cases");
+            runsApi.getRuns("PRJ", new GetRunsFiltersParameter(), 100, 0, "cases");
         } catch (QaseException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0"))
                 .withQueryParam("include", equalTo("cases")));
@@ -68,14 +66,13 @@ class TestRunServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            runsApi.getRuns("PRJ", new Filters5().status("complete"), 33, 3, "cases");
+            runsApi.getRuns("PRJ", new GetRunsFiltersParameter().status("complete"), 33, 3, "cases");
 
         } catch (QaseException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("33"))
                 .withQueryParam("offset", equalTo("3"))
                 .withQueryParam("include", equalTo("cases"))
@@ -91,7 +88,6 @@ class TestRunServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ/1"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("include", absent()));
     }
 
@@ -143,7 +139,6 @@ class TestRunServiceTest {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/run/PRJ/22"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 }

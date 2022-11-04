@@ -13,178 +13,250 @@
 
 package io.qase.client.model;
 
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * MilestoneListResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class MilestoneListResponseAllOfResult {
-    public static final String SERIALIZED_NAME_TOTAL = "total";
-    public static final String SERIALIZED_NAME_FILTERED = "filtered";
-    public static final String SERIALIZED_NAME_COUNT = "count";
-    public static final String SERIALIZED_NAME_ENTITIES = "entities";
-    @SerializedName(SERIALIZED_NAME_TOTAL)
-    private Integer total;
-    @SerializedName(SERIALIZED_NAME_FILTERED)
-    private Integer filtered;
-    @SerializedName(SERIALIZED_NAME_COUNT)
-    private Integer count;
-    @SerializedName(SERIALIZED_NAME_ENTITIES)
-    private List<Milestone> entities = null;
+  public static final String SERIALIZED_NAME_TOTAL = "total";
+  @SerializedName(SERIALIZED_NAME_TOTAL)
+  private Integer total;
+
+  public static final String SERIALIZED_NAME_FILTERED = "filtered";
+  @SerializedName(SERIALIZED_NAME_FILTERED)
+  private Integer filtered;
+
+  public static final String SERIALIZED_NAME_COUNT = "count";
+  @SerializedName(SERIALIZED_NAME_COUNT)
+  private Integer count;
+
+  public static final String SERIALIZED_NAME_ENTITIES = "entities";
+  @SerializedName(SERIALIZED_NAME_ENTITIES)
+  private List<Milestone> entities = null;
+
+  public MilestoneListResponseAllOfResult() {
+  }
+
+  public MilestoneListResponseAllOfResult total(Integer total) {
+    
+    this.total = total;
+    return this;
+  }
+
+   /**
+   * Get total
+   * @return total
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getTotal() {
+    return total;
+  }
 
 
-    public MilestoneListResponseAllOfResult total(Integer total) {
+  public void setTotal(Integer total) {
+    this.total = total;
+  }
 
-        this.total = total;
-        return this;
+
+  public MilestoneListResponseAllOfResult filtered(Integer filtered) {
+    
+    this.filtered = filtered;
+    return this;
+  }
+
+   /**
+   * Get filtered
+   * @return filtered
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getFiltered() {
+    return filtered;
+  }
+
+
+  public void setFiltered(Integer filtered) {
+    this.filtered = filtered;
+  }
+
+
+  public MilestoneListResponseAllOfResult count(Integer count) {
+    
+    this.count = count;
+    return this;
+  }
+
+   /**
+   * Get count
+   * @return count
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getCount() {
+    return count;
+  }
+
+
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+
+  public MilestoneListResponseAllOfResult entities(List<Milestone> entities) {
+    
+    this.entities = entities;
+    return this;
+  }
+
+  public MilestoneListResponseAllOfResult addEntitiesItem(Milestone entitiesItem) {
+    if (this.entities == null) {
+      this.entities = new ArrayList<>();
     }
+    this.entities.add(entitiesItem);
+    return this;
+  }
 
-    /**
-     * Get total
-     *
-     * @return total
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
+   /**
+   * Get entities
+   * @return entities
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public Integer getTotal() {
-        return total;
+  public List<Milestone> getEntities() {
+    return entities;
+  }
+
+
+  public void setEntities(List<Milestone> entities) {
+    this.entities = entities;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-
-    public void setTotal(Integer total) {
-        this.total = total;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    MilestoneListResponseAllOfResult milestoneListResponseAllOfResult = (MilestoneListResponseAllOfResult) o;
+    return Objects.equals(this.total, milestoneListResponseAllOfResult.total) &&
+        Objects.equals(this.filtered, milestoneListResponseAllOfResult.filtered) &&
+        Objects.equals(this.count, milestoneListResponseAllOfResult.count) &&
+        Objects.equals(this.entities, milestoneListResponseAllOfResult.entities);
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(total, filtered, count, entities);
+  }
 
-    public MilestoneListResponseAllOfResult filtered(Integer filtered) {
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MilestoneListResponseAllOfResult {\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    filtered: ").append(toIndentedString(filtered)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    entities: ").append(toIndentedString(entities)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-        this.filtered = filtered;
-        return this;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    /**
-     * Get filtered
-     *
-     * @return filtered
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getFiltered() {
-        return filtered;
-    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 
-    public void setFiltered(Integer filtered) {
-        this.filtered = filtered;
-    }
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("total");
+    openapiFields.add("filtered");
+    openapiFields.add("count");
+    openapiFields.add("entities");
 
-    public MilestoneListResponseAllOfResult count(Integer count) {
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
 
-        this.count = count;
-        return this;
-    }
-
-    /**
-     * Get count
-     *
-     * @return count
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Integer getCount() {
-        return count;
-    }
-
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-
-    public MilestoneListResponseAllOfResult entities(List<Milestone> entities) {
-
-        this.entities = entities;
-        return this;
-    }
-
-    public MilestoneListResponseAllOfResult addEntitiesItem(Milestone entitiesItem) {
-        if (this.entities == null) {
-            this.entities = new ArrayList<>();
-        }
-        this.entities.add(entitiesItem);
-        return this;
-    }
-
-    /**
-     * Get entities
-     *
-     * @return entities
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<Milestone> getEntities() {
-        return entities;
-    }
-
-
-    public void setEntities(List<Milestone> entities) {
-        this.entities = entities;
-    }
-
-
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MilestoneListResponseAllOfResult milestoneListResponseAllOfResult = (MilestoneListResponseAllOfResult) o;
-        return Objects.equals(this.total, milestoneListResponseAllOfResult.total) &&
-                Objects.equals(this.filtered, milestoneListResponseAllOfResult.filtered) &&
-                Objects.equals(this.count, milestoneListResponseAllOfResult.count) &&
-                Objects.equals(this.entities, milestoneListResponseAllOfResult.entities);
-    }
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!MilestoneListResponseAllOfResult.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'MilestoneListResponseAllOfResult' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<MilestoneListResponseAllOfResult> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(MilestoneListResponseAllOfResult.class));
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(total, filtered, count, entities);
-    }
+       return (TypeAdapter<T>) new TypeAdapter<MilestoneListResponseAllOfResult>() {
+           @Override
+           public void write(JsonWriter out, MilestoneListResponseAllOfResult value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class MilestoneListResponseAllOfResult {\n");
-        sb.append("    total: ").append(toIndentedString(total)).append("\n");
-        sb.append("    filtered: ").append(toIndentedString(filtered)).append("\n");
-        sb.append("    count: ").append(toIndentedString(count)).append("\n");
-        sb.append("    entities: ").append(toIndentedString(entities)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
+           @Override
+           public MilestoneListResponseAllOfResult read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+       }.nullSafe();
     }
+  }
 
+ /**
+  * Create an instance of MilestoneListResponseAllOfResult given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of MilestoneListResponseAllOfResult
+  * @throws IOException if the JSON string is invalid with respect to MilestoneListResponseAllOfResult
+  */
+  public static MilestoneListResponseAllOfResult fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, MilestoneListResponseAllOfResult.class);
+  }
+
+ /**
+  * Convert an instance of MilestoneListResponseAllOfResult to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

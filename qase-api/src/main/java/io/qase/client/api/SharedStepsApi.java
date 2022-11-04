@@ -26,6 +26,8 @@ import java.util.Map;
 
 public class SharedStepsApi {
     private ApiClient localVarApiClient;
+    private int localHostIndex;
+    private String localCustomBaseUrl;
 
     public SharedStepsApi() {
         this(Configuration.getDefaultApiClient());
@@ -43,25 +45,60 @@ public class SharedStepsApi {
         this.localVarApiClient = apiClient;
     }
 
+    public int getHostIndex() {
+        return localHostIndex;
+    }
+
+    public void setHostIndex(int hostIndex) {
+        this.localHostIndex = hostIndex;
+    }
+
+    public String getCustomBaseUrl() {
+        return localCustomBaseUrl;
+    }
+
+    public void setCustomBaseUrl(String customBaseUrl) {
+        this.localCustomBaseUrl = customBaseUrl;
+    }
+
     /**
      * Build call for createSharedStep
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param sharedStepCreate (required)
-     * @param _callback        Callback for upload/download progress
+     * @param code Code of project, where to search entities. (required)
+     * @param sharedStepCreate  (required)
+     * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call createSharedStepCall(String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = sharedStepCreate;
 
         // create path and map variables
         String localVarPath = "/shared_step/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -70,7 +107,7 @@ public class SharedStepsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -78,18 +115,19 @@ public class SharedStepsApi {
         }
 
         final String[] localVarContentTypes = {
-                "application/json"
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call createSharedStepValidateBeforeCall(String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling createSharedStep(Async)");
@@ -100,24 +138,28 @@ public class SharedStepsApi {
             throw new QaseException("Missing the required parameter 'sharedStepCreate' when calling createSharedStep(Async)");
         }
 
-
-        okhttp3.Call localVarCall = createSharedStepCall(code, sharedStepCreate, _callback);
-        return localVarCall;
+        return createSharedStepCall(code, sharedStepCreate, _callback);
 
     }
 
     /**
      * Create a new shared step.
-     * This method allows to create a shared step in selected project.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param sharedStepCreate (required)
+     * This method allows to create a shared step in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param sharedStepCreate  (required)
      * @return HashResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public HashResponse createSharedStep(String code, SharedStepCreate sharedStepCreate) throws QaseException {
         ApiResponse<HashResponse> localVarResp = createSharedStepWithHttpInfo(code, sharedStepCreate);
@@ -126,67 +168,94 @@ public class SharedStepsApi {
 
     /**
      * Create a new shared step.
-     * This method allows to create a shared step in selected project.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param sharedStepCreate (required)
+     * This method allows to create a shared step in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param sharedStepCreate  (required)
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<HashResponse> createSharedStepWithHttpInfo(String code, SharedStepCreate sharedStepCreate) throws QaseException {
         okhttp3.Call localVarCall = createSharedStepValidateBeforeCall(code, sharedStepCreate, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Create a new shared step. (asynchronously)
-     * This method allows to create a shared step in selected project.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param sharedStepCreate (required)
-     * @param _callback        The callback to be executed when the API call finishes
+     * This method allows to create a shared step in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param sharedStepCreate  (required)
+     * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call createSharedStepAsync(String code, SharedStepCreate sharedStepCreate, final ApiCallback<HashResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = createSharedStepValidateBeforeCall(code, sharedStepCreate, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for deleteSharedStep
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param hash      Hash. (required)
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call deleteSharedStepCall(String code, String hash, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/shared_step/{code}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "hash" + "}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -195,7 +264,7 @@ public class SharedStepsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -203,18 +272,18 @@ public class SharedStepsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call deleteSharedStepValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling deleteSharedStep(Async)");
@@ -225,24 +294,27 @@ public class SharedStepsApi {
             throw new QaseException("Missing the required parameter 'hash' when calling deleteSharedStep(Async)");
         }
 
-
-        okhttp3.Call localVarCall = deleteSharedStepCall(code, hash, _callback);
-        return localVarCall;
+        return deleteSharedStepCall(code, hash, _callback);
 
     }
 
     /**
      * Delete shared step.
-     * This method completely deletes a shared step from repository.
-     *
+     * This method completely deletes a shared step from repository. 
      * @param code Code of project, where to search entities. (required)
      * @param hash Hash. (required)
      * @return HashResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public HashResponse deleteSharedStep(String code, String hash) throws QaseException {
         ApiResponse<HashResponse> localVarResp = deleteSharedStepWithHttpInfo(code, hash);
@@ -251,67 +323,92 @@ public class SharedStepsApi {
 
     /**
      * Delete shared step.
-     * This method completely deletes a shared step from repository.
-     *
+     * This method completely deletes a shared step from repository. 
      * @param code Code of project, where to search entities. (required)
      * @param hash Hash. (required)
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<HashResponse> deleteSharedStepWithHttpInfo(String code, String hash) throws QaseException {
         okhttp3.Call localVarCall = deleteSharedStepValidateBeforeCall(code, hash, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Delete shared step. (asynchronously)
-     * This method completely deletes a shared step from repository.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param hash      Hash. (required)
+     * This method completely deletes a shared step from repository. 
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call deleteSharedStepAsync(String code, String hash, final ApiCallback<HashResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = deleteSharedStepValidateBeforeCall(code, hash, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for getSharedStep
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param hash      Hash. (required)
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getSharedStepCall(String code, String hash, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/shared_step/{code}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "hash" + "}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -320,7 +417,7 @@ public class SharedStepsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -328,18 +425,18 @@ public class SharedStepsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getSharedStepValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling getSharedStep(Async)");
@@ -350,24 +447,27 @@ public class SharedStepsApi {
             throw new QaseException("Missing the required parameter 'hash' when calling getSharedStep(Async)");
         }
 
-
-        okhttp3.Call localVarCall = getSharedStepCall(code, hash, _callback);
-        return localVarCall;
+        return getSharedStepCall(code, hash, _callback);
 
     }
 
     /**
      * Get a specific shared step.
-     * This method allows to retrieve a specific shared step.
-     *
+     * This method allows to retrieve a specific shared step. 
      * @param code Code of project, where to search entities. (required)
      * @param hash Hash. (required)
      * @return SharedStepResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public SharedStepResponse getSharedStep(String code, String hash) throws QaseException {
         ApiResponse<SharedStepResponse> localVarResp = getSharedStepWithHttpInfo(code, hash);
@@ -376,68 +476,93 @@ public class SharedStepsApi {
 
     /**
      * Get a specific shared step.
-     * This method allows to retrieve a specific shared step.
-     *
+     * This method allows to retrieve a specific shared step. 
      * @param code Code of project, where to search entities. (required)
      * @param hash Hash. (required)
      * @return ApiResponse&lt;SharedStepResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<SharedStepResponse> getSharedStepWithHttpInfo(String code, String hash) throws QaseException {
         okhttp3.Call localVarCall = getSharedStepValidateBeforeCall(code, hash, null);
-        Type localVarReturnType = new TypeToken<SharedStepResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<SharedStepResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get a specific shared step. (asynchronously)
-     * This method allows to retrieve a specific shared step.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param hash      Hash. (required)
+     * This method allows to retrieve a specific shared step. 
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getSharedStepAsync(String code, String hash, final ApiCallback<SharedStepResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getSharedStepValidateBeforeCall(code, hash, _callback);
-        Type localVarReturnType = new TypeToken<SharedStepResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<SharedStepResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for getSharedSteps
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param filters   (optional)
-     * @param limit     A number of entities in result set. (optional, default to 10)
-     * @param offset    How many entities should be skipped. (optional, default to 0)
+     * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public okhttp3.Call getSharedStepsCall(String code, Filters6 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call getSharedStepsCall(String code, GetMilestonesFiltersParameter filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/shared_step/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -458,7 +583,7 @@ public class SharedStepsApi {
         }
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -466,117 +591,145 @@ public class SharedStepsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSharedStepsValidateBeforeCall(String code, Filters6 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
+    private okhttp3.Call getSharedStepsValidateBeforeCall(String code, GetMilestonesFiltersParameter filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling getSharedSteps(Async)");
         }
 
-
-        okhttp3.Call localVarCall = getSharedStepsCall(code, filters, limit, offset, _callback);
-        return localVarCall;
+        return getSharedStepsCall(code, filters, limit, offset, _callback);
 
     }
 
     /**
      * Get all shared steps.
-     * This method allows to retrieve all shared steps stored in selected project.
-     *
-     * @param code    Code of project, where to search entities. (required)
-     * @param filters (optional)
-     * @param limit   A number of entities in result set. (optional, default to 10)
-     * @param offset  How many entities should be skipped. (optional, default to 0)
+     * This method allows to retrieve all shared steps stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @return SharedStepListResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public SharedStepListResponse getSharedSteps(String code, Filters6 filters, Integer limit, Integer offset) throws QaseException {
+    public SharedStepListResponse getSharedSteps(String code, GetMilestonesFiltersParameter filters, Integer limit, Integer offset) throws QaseException {
         ApiResponse<SharedStepListResponse> localVarResp = getSharedStepsWithHttpInfo(code, filters, limit, offset);
         return localVarResp.getData();
     }
 
     /**
      * Get all shared steps.
-     * This method allows to retrieve all shared steps stored in selected project.
-     *
-     * @param code    Code of project, where to search entities. (required)
-     * @param filters (optional)
-     * @param limit   A number of entities in result set. (optional, default to 10)
-     * @param offset  How many entities should be skipped. (optional, default to 0)
+     * This method allows to retrieve all shared steps stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @return ApiResponse&lt;SharedStepListResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public ApiResponse<SharedStepListResponse> getSharedStepsWithHttpInfo(String code, Filters6 filters, Integer limit, Integer offset) throws QaseException {
+    public ApiResponse<SharedStepListResponse> getSharedStepsWithHttpInfo(String code, GetMilestonesFiltersParameter filters, Integer limit, Integer offset) throws QaseException {
         okhttp3.Call localVarCall = getSharedStepsValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<SharedStepListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<SharedStepListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get all shared steps. (asynchronously)
-     * This method allows to retrieve all shared steps stored in selected project.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param filters   (optional)
-     * @param limit     A number of entities in result set. (optional, default to 10)
-     * @param offset    How many entities should be skipped. (optional, default to 0)
+     * This method allows to retrieve all shared steps stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public okhttp3.Call getSharedStepsAsync(String code, Filters6 filters, Integer limit, Integer offset, final ApiCallback<SharedStepListResponse> _callback) throws QaseException {
+    public okhttp3.Call getSharedStepsAsync(String code, GetMilestonesFiltersParameter filters, Integer limit, Integer offset, final ApiCallback<SharedStepListResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getSharedStepsValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<SharedStepListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<SharedStepListResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for updateSharedStep
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param hash             Hash. (required)
-     * @param sharedStepUpdate (required)
-     * @param _callback        Callback for upload/download progress
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
+     * @param sharedStepUpdate  (required)
+     * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call updateSharedStepCall(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = sharedStepUpdate;
 
         // create path and map variables
         String localVarPath = "/shared_step/{code}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "hash" + "}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -585,7 +738,7 @@ public class SharedStepsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -593,18 +746,19 @@ public class SharedStepsApi {
         }
 
         final String[] localVarContentTypes = {
-                "application/json"
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call updateSharedStepValidateBeforeCall(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling updateSharedStep(Async)");
@@ -620,25 +774,28 @@ public class SharedStepsApi {
             throw new QaseException("Missing the required parameter 'sharedStepUpdate' when calling updateSharedStep(Async)");
         }
 
-
-        okhttp3.Call localVarCall = updateSharedStepCall(code, hash, sharedStepUpdate, _callback);
-        return localVarCall;
+        return updateSharedStepCall(code, hash, sharedStepUpdate, _callback);
 
     }
 
     /**
      * Update shared step.
-     * This method updates a shared step.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param hash             Hash. (required)
-     * @param sharedStepUpdate (required)
+     * This method updates a shared step. 
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
+     * @param sharedStepUpdate  (required)
      * @return HashResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public HashResponse updateSharedStep(String code, String hash, SharedStepUpdate sharedStepUpdate) throws QaseException {
         ApiResponse<HashResponse> localVarResp = updateSharedStepWithHttpInfo(code, hash, sharedStepUpdate);
@@ -647,45 +804,53 @@ public class SharedStepsApi {
 
     /**
      * Update shared step.
-     * This method updates a shared step.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param hash             Hash. (required)
-     * @param sharedStepUpdate (required)
+     * This method updates a shared step. 
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
+     * @param sharedStepUpdate  (required)
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<HashResponse> updateSharedStepWithHttpInfo(String code, String hash, SharedStepUpdate sharedStepUpdate) throws QaseException {
         okhttp3.Call localVarCall = updateSharedStepValidateBeforeCall(code, hash, sharedStepUpdate, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Update shared step. (asynchronously)
-     * This method updates a shared step.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param hash             Hash. (required)
-     * @param sharedStepUpdate (required)
-     * @param _callback        The callback to be executed when the API call finishes
+     * This method updates a shared step. 
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
+     * @param sharedStepUpdate  (required)
+     * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call updateSharedStepAsync(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback<HashResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = updateSharedStepValidateBeforeCall(code, hash, sharedStepUpdate, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

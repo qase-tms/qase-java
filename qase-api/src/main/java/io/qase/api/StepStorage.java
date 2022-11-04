@@ -1,6 +1,6 @@
 package io.qase.api;
 
-import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.model.ResultCreateStepsInner;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
@@ -8,9 +8,9 @@ import java.util.LinkedList;
 @Slf4j
 public final class StepStorage {
 
-    private static final ThreadLocal<ResultCreateSteps> STEP_IN_PROGRESS = new ThreadLocal<>();
+    private static final ThreadLocal<ResultCreateStepsInner> STEP_IN_PROGRESS = new ThreadLocal<>();
 
-    private static final ThreadLocal<LinkedList<ResultCreateSteps>> STEPS_STORAGE =
+    private static final ThreadLocal<LinkedList<ResultCreateStepsInner>> STEPS_STORAGE =
         ThreadLocal.withInitial(LinkedList::new);
 
     private static final ThreadLocal<Integer> STEP_POSITION = ThreadLocal.withInitial(() -> 1);
@@ -18,7 +18,7 @@ public final class StepStorage {
     public static void startStep() {
         checkStepIsNotInProgress();
 
-        ResultCreateSteps resultCreateSteps = new ResultCreateSteps();
+        ResultCreateStepsInner resultCreateSteps = new ResultCreateStepsInner();
         int position = STEP_POSITION.get();
         resultCreateSteps.position(position);
         STEP_POSITION.set(++position);
@@ -28,12 +28,12 @@ public final class StepStorage {
     public static void stopStep() {
         checkStepIsInProgress();
 
-        ResultCreateSteps resultCreateSteps = STEP_IN_PROGRESS.get();
+        ResultCreateStepsInner resultCreateSteps = STEP_IN_PROGRESS.get();
         STEP_IN_PROGRESS.remove();
         STEPS_STORAGE.get().add(resultCreateSteps);
     }
 
-    public static ResultCreateSteps getCurrentStep() {
+    public static ResultCreateStepsInner getCurrentStep() {
         checkStepIsInProgress();
 
         return STEP_IN_PROGRESS.get();
@@ -55,10 +55,10 @@ public final class StepStorage {
         }
     }
 
-    public static LinkedList<ResultCreateSteps> stopSteps() {
+    public static LinkedList<ResultCreateStepsInner> stopSteps() {
         checkStepIsNotInProgress();
 
-        LinkedList<ResultCreateSteps> resultCreateSteps = STEPS_STORAGE.get();
+        LinkedList<ResultCreateStepsInner> resultCreateSteps = STEPS_STORAGE.get();
         STEPS_STORAGE.remove();
         STEP_POSITION.set(1);
         return resultCreateSteps;

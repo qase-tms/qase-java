@@ -44,7 +44,6 @@ class TestPlanServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/plan/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -57,8 +56,7 @@ class TestPlanServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/plan/PRJ/2"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test
@@ -127,7 +125,6 @@ class TestPlanServiceTest {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/plan/PRJ/2"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 }

@@ -4,10 +4,7 @@ package io.qase.testng;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.utils.TestUtils;
 import io.qase.testng.samples.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
@@ -36,7 +33,7 @@ class QaseListenerTest {
         TestUtils.setupQaseTestEnvironmentVariables(wireMockServer.port());
     }
 
-    @AfterEach
+    @BeforeEach
     public void resetRequests() {
         wireMockServer.resetRequests();
     }
@@ -60,8 +57,7 @@ class QaseListenerTest {
         useRunAutocomplete(true);
         runTest(Passed.class);
         verify(exactly(1), postRequestedFor(urlPathEqualTo(RUN_COMPELTE_URL))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test

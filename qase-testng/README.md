@@ -21,7 +21,7 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-testng</artifactId>
-    <version>2.2.1</version>
+    <version>3.0.0</version>
     <scope>test</scope>
 </dependency>
 

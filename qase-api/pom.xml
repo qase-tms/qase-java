@@ -5,7 +5,7 @@
     <parent>
         <artifactId>qase-java</artifactId>
         <groupId>io.qase</groupId>
-        <version>2.2.1</version>
+        <version>3.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,11 +13,15 @@
 
     <name>Qase TMS Java API Client</name>
     <description>Qase TMS APIs Client Library for Java</description>
+    <properties>
+        <javax.ws.rs-api-version>2.1.1</javax.ws.rs-api-version>
+        <jsr311-api-version>1.1.1</jsr311-api-version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.1</version>
+            <version>0.2.4</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -35,7 +39,7 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>1.6.3</version>
+            <version>1.6.8</version>
         </dependency>
         <dependency>
             <groupId>io.gsonfire</groupId>
@@ -45,7 +49,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>logging-interceptor</artifactId>
-            <version>4.9.2</version>
+            <version>4.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -90,5 +94,61 @@
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>${jsr311-api-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>${javax.ws.rs-api-version}</version>
+        </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>codegen</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>6.2.1</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <inputSpec>https://github.com/qase-tms/specs/raw/master/api.yaml</inputSpec>
+                                    <generatorName>java</generatorName>
+                                    <modelPackage>io.qase.client.model</modelPackage>
+                                    <apiPackage>io.qase.client.api</apiPackage>
+                                    <library>okhttp-gson</library>
+                                    <httpUserAgent>Qase API Client</httpUserAgent>
+                                    <generateModelTests>false</generateModelTests>
+                                    <generateApiTests>false</generateApiTests>
+                                    <templateDirectory>${project.basedir}/src/main/resources/templates
+                                    </templateDirectory>
+                                    <typeMappings>
+                                        <typeMapping>LocalDateTime=String</typeMapping>
+                                        <typeMapping>OneOfTestCaseDefectRunResultPlanRequirement=Object</typeMapping>
+                                        <typeMapping>OneOfRunResultRequirementqqlTestCaseqqlDefectqqlPlan=Object
+                                        </typeMapping>
+                                        <typeMapping>AnyOfarrayobject=Object[]</typeMapping>
+                                    </typeMappings>
+                                    <configOptions>
+                                        <useSwaggerAnnotations>false</useSwaggerAnnotations>
+                                        <dateLibrary>java8-localdatetime</dateLibrary>
+                                        <java8>true</java8>
+                                        <sourceFolder>src/gen/java/main</sourceFolder>
+                                    </configOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

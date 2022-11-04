@@ -40,7 +40,6 @@ class CustomFieldServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/custom_field"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -53,7 +52,6 @@ class CustomFieldServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/custom_field/123"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 }

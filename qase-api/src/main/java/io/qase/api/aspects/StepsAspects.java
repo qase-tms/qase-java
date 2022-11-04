@@ -3,7 +3,7 @@ package io.qase.api.aspects;
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.Step;
 import io.qase.api.utils.IntegrationUtils;
-import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.model.ResultCreateStepsInner;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -40,7 +40,7 @@ public final class StepsAspects {
 
         StepStorage.getCurrentStep()
                 .action(stepsTitle)
-                .status(ResultCreateSteps.StatusEnum.PASSED);
+                .status(ResultCreateStepsInner.StatusEnum.PASSED);
         StepStorage.stopStep();
     }
 
@@ -50,7 +50,7 @@ public final class StepsAspects {
         Step stepAnnotation = methodSignature.getMethod().getAnnotation(Step.class);
         StepStorage.getCurrentStep()
                 .action(stepAnnotation.value())
-                .status(ResultCreateSteps.StatusEnum.FAILED)
+                .status(ResultCreateStepsInner.StatusEnum.FAILED)
                 .addAttachmentsItem(IntegrationUtils.getStacktrace(e));
         StepStorage.stopStep();
     }

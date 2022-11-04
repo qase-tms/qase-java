@@ -13,331 +13,413 @@
 
 package io.qase.client.model;
 
-import com.google.gson.TypeAdapter;
+import com.google.gson.*;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * ResultUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class ResultUpdate {
-    public static final String SERIALIZED_NAME_STATUS = "status";
-    public static final String SERIALIZED_NAME_TIME_MS = "time_ms";
-    public static final String SERIALIZED_NAME_DEFECT = "defect";
-    public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
-    public static final String SERIALIZED_NAME_STACKTRACE = "stacktrace";
-    public static final String SERIALIZED_NAME_COMMENT = "comment";
-    public static final String SERIALIZED_NAME_STEPS = "steps";
-    @SerializedName(SERIALIZED_NAME_STATUS)
-    private StatusEnum status;
-    @SerializedName(SERIALIZED_NAME_TIME_MS)
-    private Long timeMs;
-    @SerializedName(SERIALIZED_NAME_DEFECT)
-    private Boolean defect;
-    @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-    private List<String> attachments = null;
-    @SerializedName(SERIALIZED_NAME_STACKTRACE)
-    private String stacktrace;
-    @SerializedName(SERIALIZED_NAME_COMMENT)
-    private String comment;
-    @SerializedName(SERIALIZED_NAME_STEPS)
-    private List<ResultUpdateSteps> steps = null;
+  /**
+   * Gets or Sets status
+   */
+  @JsonAdapter(StatusEnum.Adapter.class)
+  public enum StatusEnum {
+    IN_PROGRESS("in_progress"),
+    
+    PASSED("passed"),
+    
+    FAILED("failed"),
+    
+    BLOCKED("blocked"),
+    
+    SKIPPED("skipped");
 
-    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
     }
 
-    private static <T> int hashCodeNullable(JsonNullable<T> a) {
-        if (a == null) {
-            return 1;
-        }
-        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-    }
-
-    public ResultUpdate status(StatusEnum status) {
-
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return status
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public StatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
-
-    public ResultUpdate timeMs(Long timeMs) {
-
-        this.timeMs = timeMs;
-        return this;
-    }
-
-    /**
-     * Get timeMs
-     * minimum: 0
-     * maximum: 31536000000
-     *
-     * @return timeMs
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getTimeMs() {
-        return timeMs;
-    }
-
-    public void setTimeMs(Long timeMs) {
-        this.timeMs = timeMs;
-    }
-
-    public ResultUpdate defect(Boolean defect) {
-
-        this.defect = defect;
-        return this;
-    }
-
-    /**
-     * Get defect
-     *
-     * @return defect
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Boolean getDefect() {
-        return defect;
-    }
-
-    public void setDefect(Boolean defect) {
-        this.defect = defect;
-    }
-
-    public ResultUpdate attachments(List<String> attachments) {
-
-        this.attachments = attachments;
-        return this;
-    }
-
-    public ResultUpdate addAttachmentsItem(String attachmentsItem) {
-        if (this.attachments == null) {
-            this.attachments = new ArrayList<>();
-        }
-        this.attachments.add(attachmentsItem);
-        return this;
-    }
-
-    /**
-     * Get attachments
-     *
-     * @return attachments
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<String> getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(List<String> attachments) {
-        this.attachments = attachments;
-    }
-
-    public ResultUpdate stacktrace(String stacktrace) {
-
-        this.stacktrace = stacktrace;
-        return this;
-    }
-
-    /**
-     * Get stacktrace
-     *
-     * @return stacktrace
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getStacktrace() {
-        return stacktrace;
-    }
-
-    public void setStacktrace(String stacktrace) {
-        this.stacktrace = stacktrace;
-    }
-
-    public ResultUpdate comment(String comment) {
-
-        this.comment = comment;
-        return this;
-    }
-
-    /**
-     * Get comment
-     *
-     * @return comment
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public ResultUpdate steps(List<ResultUpdateSteps> steps) {
-
-        this.steps = steps;
-        return this;
-    }
-
-    public ResultUpdate addStepsItem(ResultUpdateSteps stepsItem) {
-        if (this.steps == null) {
-            this.steps = new ArrayList<>();
-        }
-        this.steps.add(stepsItem);
-        return this;
-    }
-
-    /**
-     * Get steps
-     *
-     * @return steps
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<ResultUpdateSteps> getSteps() {
-        return steps;
-    }
-
-    public void setSteps(List<ResultUpdateSteps> steps) {
-        this.steps = steps;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ResultUpdate resultUpdate = (ResultUpdate) o;
-        return Objects.equals(this.status, resultUpdate.status) &&
-                Objects.equals(this.timeMs, resultUpdate.timeMs) &&
-                Objects.equals(this.defect, resultUpdate.defect) &&
-                Objects.equals(this.attachments, resultUpdate.attachments) &&
-                Objects.equals(this.stacktrace, resultUpdate.stacktrace) &&
-                Objects.equals(this.comment, resultUpdate.comment) &&
-                Objects.equals(this.steps, resultUpdate.steps);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(status, timeMs, defect, attachments, stacktrace, comment, steps);
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ResultUpdate {\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    timeMs: ").append(toIndentedString(timeMs)).append("\n");
-        sb.append("    defect: ").append(toIndentedString(defect)).append("\n");
-        sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
-        sb.append("    stacktrace: ").append(toIndentedString(stacktrace)).append("\n");
-        sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
-        sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
 
-    /**
-     * Gets or Sets status
-     */
-    @JsonAdapter(StatusEnum.Adapter.class)
-    public enum StatusEnum {
-        IN_PROGRESS("in_progress"),
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
 
-        PASSED("passed"),
-
-        FAILED("failed"),
-
-        BLOCKED("blocked"),
-
-        SKIPPED("skipped");
-
-        private String value;
-
-        StatusEnum(String value) {
-            this.value = value;
-        }
-
-        public static StatusEnum fromValue(String value) {
-            for (StatusEnum b : StatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class Adapter extends TypeAdapter<StatusEnum> {
-            @Override
-            public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
-                jsonWriter.value(enumeration.getValue());
-            }
-
-            @Override
-            public StatusEnum read(final JsonReader jsonReader) throws IOException {
-                String value = jsonReader.nextString();
-                return StatusEnum.fromValue(value);
-            }
-        }
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return StatusEnum.fromValue(value);
+      }
     }
+  }
 
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
+  private StatusEnum status;
+
+  public static final String SERIALIZED_NAME_TIME_MS = "time_ms";
+  @SerializedName(SERIALIZED_NAME_TIME_MS)
+  private Long timeMs;
+
+  public static final String SERIALIZED_NAME_DEFECT = "defect";
+  @SerializedName(SERIALIZED_NAME_DEFECT)
+  private Boolean defect;
+
+  public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
+  @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+  private List<String> attachments = null;
+
+  public static final String SERIALIZED_NAME_STACKTRACE = "stacktrace";
+  @SerializedName(SERIALIZED_NAME_STACKTRACE)
+  private String stacktrace;
+
+  public static final String SERIALIZED_NAME_COMMENT = "comment";
+  @SerializedName(SERIALIZED_NAME_COMMENT)
+  private String comment;
+
+  public static final String SERIALIZED_NAME_STEPS = "steps";
+  @SerializedName(SERIALIZED_NAME_STEPS)
+  private List<ResultUpdateStepsInner> steps = null;
+
+  public ResultUpdate() {
+  }
+
+  public ResultUpdate status(StatusEnum status) {
+    
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public ResultUpdate timeMs(Long timeMs) {
+    
+    this.timeMs = timeMs;
+    return this;
+  }
+
+   /**
+   * Get timeMs
+   * minimum: 0
+   * maximum: 31536000000
+   * @return timeMs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getTimeMs() {
+    return timeMs;
+  }
+
+
+  public void setTimeMs(Long timeMs) {
+    this.timeMs = timeMs;
+  }
+
+
+  public ResultUpdate defect(Boolean defect) {
+    
+    this.defect = defect;
+    return this;
+  }
+
+   /**
+   * Get defect
+   * @return defect
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getDefect() {
+    return defect;
+  }
+
+
+  public void setDefect(Boolean defect) {
+    this.defect = defect;
+  }
+
+
+  public ResultUpdate attachments(List<String> attachments) {
+    
+    this.attachments = attachments;
+    return this;
+  }
+
+  public ResultUpdate addAttachmentsItem(String attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * Get attachments
+   * @return attachments
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public List<String> getAttachments() {
+    return attachments;
+  }
+
+
+  public void setAttachments(List<String> attachments) {
+    this.attachments = attachments;
+  }
+
+
+  public ResultUpdate stacktrace(String stacktrace) {
+    
+    this.stacktrace = stacktrace;
+    return this;
+  }
+
+   /**
+   * Get stacktrace
+   * @return stacktrace
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getStacktrace() {
+    return stacktrace;
+  }
+
+
+  public void setStacktrace(String stacktrace) {
+    this.stacktrace = stacktrace;
+  }
+
+
+  public ResultUpdate comment(String comment) {
+    
+    this.comment = comment;
+    return this;
+  }
+
+   /**
+   * Get comment
+   * @return comment
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getComment() {
+    return comment;
+  }
+
+
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
+
+
+  public ResultUpdate steps(List<ResultUpdateStepsInner> steps) {
+    
+    this.steps = steps;
+    return this;
+  }
+
+  public ResultUpdate addStepsItem(ResultUpdateStepsInner stepsItem) {
+    if (this.steps == null) {
+      this.steps = new ArrayList<>();
+    }
+    this.steps.add(stepsItem);
+    return this;
+  }
+
+   /**
+   * Get steps
+   * @return steps
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public List<ResultUpdateStepsInner> getSteps() {
+    return steps;
+  }
+
+
+  public void setSteps(List<ResultUpdateStepsInner> steps) {
+    this.steps = steps;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ResultUpdate resultUpdate = (ResultUpdate) o;
+    return Objects.equals(this.status, resultUpdate.status) &&
+        Objects.equals(this.timeMs, resultUpdate.timeMs) &&
+        Objects.equals(this.defect, resultUpdate.defect) &&
+        Objects.equals(this.attachments, resultUpdate.attachments) &&
+        Objects.equals(this.stacktrace, resultUpdate.stacktrace) &&
+        Objects.equals(this.comment, resultUpdate.comment) &&
+        Objects.equals(this.steps, resultUpdate.steps);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(status, timeMs, defect, attachments, stacktrace, comment, steps);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ResultUpdate {\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    timeMs: ").append(toIndentedString(timeMs)).append("\n");
+    sb.append("    defect: ").append(toIndentedString(defect)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+    sb.append("    stacktrace: ").append(toIndentedString(stacktrace)).append("\n");
+    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
+    sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("status");
+    openapiFields.add("time_ms");
+    openapiFields.add("defect");
+    openapiFields.add("attachments");
+    openapiFields.add("stacktrace");
+    openapiFields.add("comment");
+    openapiFields.add("steps");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!ResultUpdate.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ResultUpdate' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<ResultUpdate> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ResultUpdate.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<ResultUpdate>() {
+           @Override
+           public void write(JsonWriter out, ResultUpdate value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public ResultUpdate read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of ResultUpdate given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of ResultUpdate
+  * @throws IOException if the JSON string is invalid with respect to ResultUpdate
+  */
+  public static ResultUpdate fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ResultUpdate.class);
+  }
+
+ /**
+  * Convert an instance of ResultUpdate to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

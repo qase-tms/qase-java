@@ -9,7 +9,7 @@ import io.qase.api.services.QaseTestCaseListener;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
-import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.model.ResultCreateStepsInner;
 import io.qase.junit4.guice.module.Junit4Module;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -89,7 +89,7 @@ public class QaseListener extends RunListener {
             .orElse(false);
         String stacktrace = optionalThrowable
             .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
+        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
         return resultCreate
             ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
             .caseId(caseId)

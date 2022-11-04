@@ -13,81 +13,150 @@
 
 package io.qase.client.model;
 
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
  * ProjectListResponseAllOf
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class ProjectListResponseAllOf {
-    public static final String SERIALIZED_NAME_RESULT = "result";
-    @SerializedName(SERIALIZED_NAME_RESULT)
-    private ProjectListResponseAllOfResult result;
+  public static final String SERIALIZED_NAME_RESULT = "result";
+  @SerializedName(SERIALIZED_NAME_RESULT)
+  private ProjectListResponseAllOfResult result;
+
+  public ProjectListResponseAllOf() {
+  }
+
+  public ProjectListResponseAllOf result(ProjectListResponseAllOfResult result) {
+    
+    this.result = result;
+    return this;
+  }
+
+   /**
+   * Get result
+   * @return result
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public ProjectListResponseAllOfResult getResult() {
+    return result;
+  }
 
 
-    public ProjectListResponseAllOf result(ProjectListResponseAllOfResult result) {
+  public void setResult(ProjectListResponseAllOfResult result) {
+    this.result = result;
+  }
 
-        this.result = result;
-        return this;
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Get result
-     *
-     * @return result
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public ProjectListResponseAllOfResult getResult() {
-        return result;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    ProjectListResponseAllOf projectListResponseAllOf = (ProjectListResponseAllOf) o;
+    return Objects.equals(this.result, projectListResponseAllOf.result);
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(result);
+  }
 
-    public void setResult(ProjectListResponseAllOfResult result) {
-        this.result = result;
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProjectListResponseAllOf {\n");
+    sb.append("    result: ").append(toIndentedString(result)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("result");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ProjectListResponseAllOf projectListResponseAllOf = (ProjectListResponseAllOf) o;
-        return Objects.equals(this.result, projectListResponseAllOf.result);
-    }
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!ProjectListResponseAllOf.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ProjectListResponseAllOf' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<ProjectListResponseAllOf> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ProjectListResponseAllOf.class));
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(result);
-    }
+       return (TypeAdapter<T>) new TypeAdapter<ProjectListResponseAllOf>() {
+           @Override
+           public void write(JsonWriter out, ProjectListResponseAllOf value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ProjectListResponseAllOf {\n");
-        sb.append("    result: ").append(toIndentedString(result)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
+           @Override
+           public ProjectListResponseAllOf read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+       }.nullSafe();
     }
+  }
 
+ /**
+  * Create an instance of ProjectListResponseAllOf given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of ProjectListResponseAllOf
+  * @throws IOException if the JSON string is invalid with respect to ProjectListResponseAllOf
+  */
+  public static ProjectListResponseAllOf fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ProjectListResponseAllOf.class);
+  }
+
+ /**
+  * Convert an instance of ProjectListResponseAllOf to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 
