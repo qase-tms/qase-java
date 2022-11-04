@@ -47,7 +47,6 @@ class TestRunResultServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/result/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -61,7 +60,7 @@ class TestRunResultServiceTest {
         String fromString = DateTimeFormatter.ofPattern(timeFormat).format(from);
         String toString = DateTimeFormatter.ofPattern(timeFormat).format(to);
         try {
-            resultsApi.getResults("PRJ", new Filters4()
+            resultsApi.getResults("PRJ", new GetResultsFiltersParameter()
                     .caseId("1")
                     .member("2")
                     .run("3")
@@ -73,7 +72,6 @@ class TestRunResultServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/result/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("33"))
                 .withQueryParam("offset", equalTo("3"))
                 .withQueryParam("filters%5Bstatus%5D", equalTo("in_progress"))
@@ -92,8 +90,7 @@ class TestRunResultServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/result/PRJ/6efce6e4f9de887a2ee863e8197cb74ab626a273"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test
@@ -126,12 +123,12 @@ class TestRunResultServiceTest {
                             .time(120L)
                             .steps(
                                     Arrays.asList(
-                                            new ResultCreateSteps()
+                                            new ResultCreateStepsInner()
                                                     .position(1)
-                                                    .status(ResultCreateSteps.StatusEnum.PASSED),
-                                            new ResultCreateSteps()
+                                                    .status(ResultCreateStepsInner.StatusEnum.PASSED),
+                                            new ResultCreateStepsInner()
                                                     .position(2)
-                                                    .status(ResultCreateSteps.StatusEnum.FAILED))
+                                                    .status(ResultCreateStepsInner.StatusEnum.FAILED))
                             ));
         } catch (QaseException e) {
             //ignore
@@ -163,12 +160,12 @@ class TestRunResultServiceTest {
                             .time(120L)
                             .steps(
                                     Arrays.asList(
-                                            new ResultCreateSteps()
+                                            new ResultCreateStepsInner()
                                                     .position(1)
-                                                    .status(ResultCreateSteps.StatusEnum.PASSED),
-                                            new ResultCreateSteps()
+                                                    .status(ResultCreateStepsInner.StatusEnum.PASSED),
+                                            new ResultCreateStepsInner()
                                                     .position(2)
-                                                    .status(ResultCreateSteps.StatusEnum.FAILED))
+                                                    .status(ResultCreateStepsInner.StatusEnum.FAILED))
                             ));
         } catch (QaseException e) {
             //ignore
@@ -237,7 +234,7 @@ class TestRunResultServiceTest {
                             .comment("Failed via API")
                             .defect(false)
                             .steps(Collections.singletonList(
-                                    new ResultUpdateSteps().position(2).status(ResultUpdateSteps.StatusEnum.PASSED))));
+                                    new ResultUpdateStepsInner().position(2).status(ResultUpdateStepsInner.StatusEnum.PASSED))));
         } catch (QaseException e) {
             //ignore
         }
@@ -264,7 +261,6 @@ class TestRunResultServiceTest {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/result/PRJ/1/2898ba7f3b4d857cec8bee4a852cdc85f8b33132"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 }

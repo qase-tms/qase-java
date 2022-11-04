@@ -30,6 +30,8 @@ import java.util.Map;
 
 public class AttachmentsApi {
     private ApiClient localVarApiClient;
+    private int localHostIndex;
+    private String localCustomBaseUrl;
 
     public AttachmentsApi() {
         this(Configuration.getDefaultApiClient());
@@ -47,24 +49,58 @@ public class AttachmentsApi {
         this.localVarApiClient = apiClient;
     }
 
+    public int getHostIndex() {
+        return localHostIndex;
+    }
+
+    public void setHostIndex(int hostIndex) {
+        this.localHostIndex = hostIndex;
+    }
+
+    public String getCustomBaseUrl() {
+        return localCustomBaseUrl;
+    }
+
+    public void setCustomBaseUrl(String customBaseUrl) {
+        this.localCustomBaseUrl = customBaseUrl;
+    }
+
     /**
      * Build call for deleteAttachment
-     *
-     * @param hash      Hash. (required)
+     * @param hash Hash. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call deleteAttachmentCall(String hash, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/attachment/{hash}"
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+            .replace("{" + "hash" + "}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -73,7 +109,7 @@ public class AttachmentsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -81,40 +117,43 @@ public class AttachmentsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call deleteAttachmentValidateBeforeCall(String hash, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'hash' is set
         if (hash == null) {
             throw new QaseException("Missing the required parameter 'hash' when calling deleteAttachment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = deleteAttachmentCall(hash, _callback);
-        return localVarCall;
+        return deleteAttachmentCall(hash, _callback);
 
     }
 
     /**
      * Remove attachment by Hash.
-     * This method allows to remove attachment by Hash.
-     *
+     * This method allows to remove attachment by Hash. 
      * @param hash Hash. (required)
      * @return HashResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public HashResponse deleteAttachment(String hash) throws QaseException {
         ApiResponse<HashResponse> localVarResp = deleteAttachmentWithHttpInfo(hash);
@@ -123,63 +162,88 @@ public class AttachmentsApi {
 
     /**
      * Remove attachment by Hash.
-     * This method allows to remove attachment by Hash.
-     *
+     * This method allows to remove attachment by Hash. 
      * @param hash Hash. (required)
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<HashResponse> deleteAttachmentWithHttpInfo(String hash) throws QaseException {
         okhttp3.Call localVarCall = deleteAttachmentValidateBeforeCall(hash, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Remove attachment by Hash. (asynchronously)
-     * This method allows to remove attachment by Hash.
-     *
-     * @param hash      Hash. (required)
+     * This method allows to remove attachment by Hash. 
+     * @param hash Hash. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call deleteAttachmentAsync(String hash, final ApiCallback<HashResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = deleteAttachmentValidateBeforeCall(hash, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for getAttachment
-     *
-     * @param hash      Hash. (required)
+     * @param hash Hash. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Single attachment. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getAttachmentCall(String hash, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/attachment/{hash}"
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+            .replace("{" + "hash" + "}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -188,7 +252,7 @@ public class AttachmentsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -196,40 +260,43 @@ public class AttachmentsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getAttachmentValidateBeforeCall(String hash, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'hash' is set
         if (hash == null) {
             throw new QaseException("Missing the required parameter 'hash' when calling getAttachment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = getAttachmentCall(hash, _callback);
-        return localVarCall;
+        return getAttachmentCall(hash, _callback);
 
     }
 
     /**
      * Get attachment by Hash.
-     * This method allows to retrieve attachment by Hash.
-     *
+     * This method allows to retrieve attachment by Hash. 
      * @param hash Hash. (required)
      * @return AttachmentResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Single attachment. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public AttachmentResponse getAttachment(String hash) throws QaseException {
         ApiResponse<AttachmentResponse> localVarResp = getAttachmentWithHttpInfo(hash);
@@ -238,59 +305,85 @@ public class AttachmentsApi {
 
     /**
      * Get attachment by Hash.
-     * This method allows to retrieve attachment by Hash.
-     *
+     * This method allows to retrieve attachment by Hash. 
      * @param hash Hash. (required)
      * @return ApiResponse&lt;AttachmentResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Single attachment. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<AttachmentResponse> getAttachmentWithHttpInfo(String hash) throws QaseException {
         okhttp3.Call localVarCall = getAttachmentValidateBeforeCall(hash, null);
-        Type localVarReturnType = new TypeToken<AttachmentResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<AttachmentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get attachment by Hash. (asynchronously)
-     * This method allows to retrieve attachment by Hash.
-     *
-     * @param hash      Hash. (required)
+     * This method allows to retrieve attachment by Hash. 
+     * @param hash Hash. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Single attachment. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getAttachmentAsync(String hash, final ApiCallback<AttachmentResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getAttachmentValidateBeforeCall(hash, _callback);
-        Type localVarReturnType = new TypeToken<AttachmentResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<AttachmentResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for getAttachments
-     *
-     * @param limit     A number of entities in result set. (optional, default to 10)
-     * @param offset    How many entities should be skipped. (optional, default to 0)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getAttachmentsCall(Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -311,7 +404,7 @@ public class AttachmentsApi {
         }
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -319,36 +412,40 @@ public class AttachmentsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getAttachmentsValidateBeforeCall(Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
-
-        okhttp3.Call localVarCall = getAttachmentsCall(limit, offset, _callback);
-        return localVarCall;
+        return getAttachmentsCall(limit, offset, _callback);
 
     }
 
     /**
      * Get all attachments.
-     * This method allows to retrieve attachments.
-     *
-     * @param limit  A number of entities in result set. (optional, default to 10)
+     * This method allows to retrieve attachments. 
+     * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
      * @return AttachmentListResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public AttachmentListResponse getAttachments(Integer limit, Integer offset) throws QaseException {
         ApiResponse<AttachmentListResponse> localVarResp = getAttachmentsWithHttpInfo(limit, offset);
@@ -357,66 +454,94 @@ public class AttachmentsApi {
 
     /**
      * Get all attachments.
-     * This method allows to retrieve attachments.
-     *
-     * @param limit  A number of entities in result set. (optional, default to 10)
+     * This method allows to retrieve attachments. 
+     * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
      * @return ApiResponse&lt;AttachmentListResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<AttachmentListResponse> getAttachmentsWithHttpInfo(Integer limit, Integer offset) throws QaseException {
         okhttp3.Call localVarCall = getAttachmentsValidateBeforeCall(limit, offset, null);
-        Type localVarReturnType = new TypeToken<AttachmentListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<AttachmentListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get all attachments. (asynchronously)
-     * This method allows to retrieve attachments.
-     *
-     * @param limit     A number of entities in result set. (optional, default to 10)
-     * @param offset    How many entities should be skipped. (optional, default to 0)
+     * This method allows to retrieve attachments. 
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getAttachmentsAsync(Integer limit, Integer offset, final ApiCallback<AttachmentListResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getAttachmentsValidateBeforeCall(limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<AttachmentListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<AttachmentListResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for uploadAttachment
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param file      (optional)
+     * @param code Code of project, where to search entities. (required)
+     * @param _file  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public okhttp3.Call uploadAttachmentCall(String code, List<File> file, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call uploadAttachmentCall(String code, List<File> _file, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/attachment/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -424,12 +549,12 @@ public class AttachmentsApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (file != null) {
-            localVarFormParams.put("file", file);
+        if (_file != null) {
+            localVarFormParams.put("file", _file);
         }
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -437,86 +562,101 @@ public class AttachmentsApi {
         }
 
         final String[] localVarContentTypes = {
-                "multipart/form-data"
+            "multipart/form-data"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call uploadAttachmentValidateBeforeCall(String code, List<File> file, final ApiCallback _callback) throws QaseException {
-
+    private okhttp3.Call uploadAttachmentValidateBeforeCall(String code, List<File> _file, final ApiCallback _callback) throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling uploadAttachment(Async)");
         }
 
-
-        okhttp3.Call localVarCall = uploadAttachmentCall(code, file, _callback);
-        return localVarCall;
+        return uploadAttachmentCall(code, _file, _callback);
 
     }
 
     /**
      * Upload attachment.
-     * This method allows to upload attachment to Qase. Max upload size: * Up to 32 Mb per file * Up to 128 Mb per single request * Up to 20 files per single request  If there is no free space left in your team account, you will receive an error with code 507 - Insufficient Storage.
-     *
+     * This method allows to upload attachment to Qase. Max upload size: * Up to 32 Mb per file * Up to 128 Mb per single request * Up to 20 files per single request  If there is no free space left in your team account, you will receive an error with code 507 - Insufficient Storage. 
      * @param code Code of project, where to search entities. (required)
-     * @param file (optional)
+     * @param _file  (optional)
      * @return AttachmentUploadsResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public AttachmentUploadsResponse uploadAttachment(String code, List<File> file) throws QaseException {
-        ApiResponse<AttachmentUploadsResponse> localVarResp = uploadAttachmentWithHttpInfo(code, file);
+    public AttachmentUploadsResponse uploadAttachment(String code, List<File> _file) throws QaseException {
+        ApiResponse<AttachmentUploadsResponse> localVarResp = uploadAttachmentWithHttpInfo(code, _file);
         return localVarResp.getData();
     }
 
     /**
      * Upload attachment.
-     * This method allows to upload attachment to Qase. Max upload size: * Up to 32 Mb per file * Up to 128 Mb per single request * Up to 20 files per single request  If there is no free space left in your team account, you will receive an error with code 507 - Insufficient Storage.
-     *
+     * This method allows to upload attachment to Qase. Max upload size: * Up to 32 Mb per file * Up to 128 Mb per single request * Up to 20 files per single request  If there is no free space left in your team account, you will receive an error with code 507 - Insufficient Storage. 
      * @param code Code of project, where to search entities. (required)
-     * @param file (optional)
+     * @param _file  (optional)
      * @return ApiResponse&lt;AttachmentUploadsResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public ApiResponse<AttachmentUploadsResponse> uploadAttachmentWithHttpInfo(String code, List<File> file) throws QaseException {
-        okhttp3.Call localVarCall = uploadAttachmentValidateBeforeCall(code, file, null);
-        Type localVarReturnType = new TypeToken<AttachmentUploadsResponse>() {
-        }.getType();
+    public ApiResponse<AttachmentUploadsResponse> uploadAttachmentWithHttpInfo(String code, List<File> _file) throws QaseException {
+        okhttp3.Call localVarCall = uploadAttachmentValidateBeforeCall(code, _file, null);
+        Type localVarReturnType = new TypeToken<AttachmentUploadsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Upload attachment. (asynchronously)
-     * This method allows to upload attachment to Qase. Max upload size: * Up to 32 Mb per file * Up to 128 Mb per single request * Up to 20 files per single request  If there is no free space left in your team account, you will receive an error with code 507 - Insufficient Storage.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param file      (optional)
+     * This method allows to upload attachment to Qase. Max upload size: * Up to 32 Mb per file * Up to 128 Mb per single request * Up to 20 files per single request  If there is no free space left in your team account, you will receive an error with code 507 - Insufficient Storage. 
+     * @param code Code of project, where to search entities. (required)
+     * @param _file  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public okhttp3.Call uploadAttachmentAsync(String code, List<File> file, final ApiCallback<AttachmentUploadsResponse> _callback) throws QaseException {
+    public okhttp3.Call uploadAttachmentAsync(String code, List<File> _file, final ApiCallback<AttachmentUploadsResponse> _callback) throws QaseException {
 
-        okhttp3.Call localVarCall = uploadAttachmentValidateBeforeCall(code, file, _callback);
-        Type localVarReturnType = new TypeToken<AttachmentUploadsResponse>() {
-        }.getType();
+        okhttp3.Call localVarCall = uploadAttachmentValidateBeforeCall(code, _file, _callback);
+        Type localVarReturnType = new TypeToken<AttachmentUploadsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

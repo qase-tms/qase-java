@@ -5,7 +5,7 @@ import io.qase.api.config.QaseConfig;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
-import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.model.ResultCreateStepsInner;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.junit5.guice.module.Junit5Module;
 import lombok.AccessLevel;
@@ -85,7 +85,7 @@ public class QaseExtension implements TestExecutionListener {
             .orElse(false);
         String stacktrace = testExecutionResult.getThrowable()
             .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
+        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
         resultCreate
             ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
             .caseId(caseId)

@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later.
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -16,9 +16,9 @@ package io.qase.client;
 import com.google.gson.*;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import io.gsonfire.GsonFireBuilder;
+import io.qase.client.model.*;
 import okio.ByteString;
 
 import java.io.IOException;
@@ -27,23 +27,33 @@ import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Map;
 
+/*
+ * A JSON utility class
+ *
+ * NOTE: in the future, this class may be converted to static, which may break
+ *       backward-compatibility
+ */
 public class JSON {
-    private Gson gson;
-    private boolean isLenientOnJson = false;
-    private final DateTypeAdapter dateTypeAdapter = new DateTypeAdapter();
-    private final SqlDateTypeAdapter sqlDateTypeAdapter = new SqlDateTypeAdapter();
-    private final OffsetDateTimeTypeAdapter offsetDateTimeTypeAdapter = new OffsetDateTimeTypeAdapter();
-    private final LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
+    private static Gson gson;
+    private static boolean isLenientOnJson = false;
+    private static DateTypeAdapter dateTypeAdapter = new DateTypeAdapter();
+    private static SqlDateTypeAdapter sqlDateTypeAdapter = new SqlDateTypeAdapter();
+    private static OffsetDateTimeTypeAdapter offsetDateTimeTypeAdapter = new OffsetDateTimeTypeAdapter();
+    private static LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
+    private static ByteArrayAdapter byteArrayAdapter = new ByteArrayAdapter();
 
     @SuppressWarnings("unchecked")
     public static GsonBuilder createGson() {
-        GsonFireBuilder fireBuilder = new GsonFireBuilder();
-        return fireBuilder.createGsonBuilder();
+        GsonFireBuilder fireBuilder = new GsonFireBuilder()
+        ;
+        GsonBuilder builder = fireBuilder.createGsonBuilder();
+        return builder;
     }
 
     private static String getDiscriminatorValue(JsonElement readElement, String discriminatorField) {
@@ -58,7 +68,7 @@ public class JSON {
      * Returns the Java class that implements the OpenAPI schema for the specified discriminator value.
      *
      * @param classByDiscriminatorValue The map of discriminator values to Java classes.
-     * @param discriminatorValue        The value of the OpenAPI discriminator in the input data.
+     * @param discriminatorValue The value of the OpenAPI discriminator in the input data.
      * @return The Java class that implements the OpenAPI schema
      */
     private static Class getClassByDiscriminator(Map classByDiscriminatorValue, String discriminatorValue) {
@@ -69,20 +79,165 @@ public class JSON {
         return clazz;
     }
 
-    public JSON() {
-        ByteArrayAdapter byteArrayAdapter = new ByteArrayAdapter();
-        gson = createGson()
-                .registerTypeAdapter(Date.class, dateTypeAdapter)
-                .registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter)
-                .registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter)
-                .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
-                        (json, type, jsonDeserializationContext) -> {
-                            String date = json.getAsJsonPrimitive().getAsString();
-                            return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                        })
-                .registerTypeAdapter(LocalDate.class, localDateTypeAdapter)
-                .registerTypeAdapter(byte[].class, byteArrayAdapter)
-                .create();
+    {
+        GsonBuilder gsonBuilder = createGson();
+        gsonBuilder.registerTypeAdapter(Date.class, dateTypeAdapter);
+        gsonBuilder.registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter);
+        gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
+        gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
+        gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
+        gsonBuilder.registerTypeAdapterFactory(new Attachment.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentGet.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentHash.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentUploadsResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new AttachmentUploadsResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CreateResult200Response.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CreateResult200ResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CreateResult200ResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomField.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldCreateValueInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldValue.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldsResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldsResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new CustomFieldsResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Defect.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new DefectCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new DefectListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new DefectListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new DefectListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new DefectResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new DefectResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new DefectStatus.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new DefectUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Environment.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new EnvironmentCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new EnvironmentListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new EnvironmentListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new EnvironmentListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new EnvironmentResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new EnvironmentResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new EnvironmentUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new GetCasesFiltersParameter.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new GetCustomFieldsFiltersParameter.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new GetDefectsFiltersParameter.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new GetMilestonesFiltersParameter.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new GetResultsFiltersParameter.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new GetRunsFiltersParameter.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new HashResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new HashResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new HashResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new IdResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new IdResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new IdResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Milestone.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new MilestoneCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new MilestoneListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new MilestoneListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new MilestoneListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new MilestoneResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new MilestoneResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new MilestoneUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Plan.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanDetailed.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanDetailedAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanDetailedAllOfCases.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new PlanUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Project.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectAccess.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectCodeResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectCodeResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectCodeResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectCounts.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectCountsDefects.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectCountsRuns.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ProjectResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new QqlDefect.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new QqlPlan.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new QqlTestCase.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Requirement.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Response.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Result.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultCreateBulk.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultCreateCase.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultCreateStepsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultStepsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new ResultUpdateStepsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Run.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunEnvironment.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunMilestone.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunPublic.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunPublicResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunPublicResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunPublicResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new RunStats.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SearchResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SearchResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SearchResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStep.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepCreateStepsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepStepsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SharedStepUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new Suite.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SuiteCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SuiteDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SuiteListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SuiteListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SuiteListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SuiteResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SuiteResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new SuiteUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TagValue.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCase.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseCreateStepsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseListResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseParams.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseResponseAllOf.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestCaseUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new TestStep.CustomTypeAdapterFactory());
+        gson = gsonBuilder.create();
     }
 
     /**
@@ -90,7 +245,7 @@ public class JSON {
      *
      * @return Gson
      */
-    public Gson getGson() {
+    public static Gson getGson() {
         return gson;
     }
 
@@ -98,16 +253,13 @@ public class JSON {
      * Set Gson.
      *
      * @param gson Gson
-     * @return JSON
      */
-    public JSON setGson(Gson gson) {
-        this.gson = gson;
-        return this;
+    public static void setGson(Gson gson) {
+        JSON.gson = gson;
     }
 
-    public JSON setLenientOnJson(boolean lenientOnJson) {
+    public static void setLenientOnJson(boolean lenientOnJson) {
         isLenientOnJson = lenientOnJson;
-        return this;
     }
 
     /**
@@ -116,7 +268,7 @@ public class JSON {
      * @param obj Object
      * @return String representation of the JSON
      */
-    public String serialize(Object obj) {
+    public static String serialize(Object obj) {
         return gson.toJson(obj);
     }
 
@@ -129,7 +281,7 @@ public class JSON {
      * @return The deserialized Java object
      */
     @SuppressWarnings("unchecked")
-    public <T> T deserialize(String body, Type returnType) {
+    public static <T> T deserialize(String body, Type returnType) {
         try {
             if (isLenientOnJson) {
                 JsonReader jsonReader = new JsonReader(new StringReader(body));
@@ -153,7 +305,7 @@ public class JSON {
     /**
      * Gson TypeAdapter for Byte Array type
      */
-    public class ByteArrayAdapter extends TypeAdapter<byte[]> {
+    public static class ByteArrayAdapter extends TypeAdapter<byte[]> {
 
         @Override
         public void write(JsonWriter out, byte[] value) throws IOException {
@@ -166,13 +318,15 @@ public class JSON {
 
         @Override
         public byte[] read(JsonReader in) throws IOException {
-            if (in.peek() == JsonToken.NULL) {
-                in.nextNull();
-                return null;
+            switch (in.peek()) {
+                case NULL:
+                    in.nextNull();
+                    return null;
+                default:
+                    String bytesAsBase64 = in.nextString();
+                    ByteString byteString = ByteString.decodeBase64(bytesAsBase64);
+                    return byteString.toByteArray();
             }
-            String bytesAsBase64 = in.nextString();
-            ByteString byteString = ByteString.decodeBase64(bytesAsBase64);
-            return byteString.toByteArray();
         }
     }
 
@@ -206,22 +360,24 @@ public class JSON {
 
         @Override
         public OffsetDateTime read(JsonReader in) throws IOException {
-            if (in.peek() == JsonToken.NULL) {
-                in.nextNull();
-                return null;
+            switch (in.peek()) {
+                case NULL:
+                    in.nextNull();
+                    return null;
+                default:
+                    String date = in.nextString();
+                    if (date.endsWith("+0000")) {
+                        date = date.substring(0, date.length()-5) + "Z";
+                    }
+                    return OffsetDateTime.parse(date, formatter);
             }
-            String date = in.nextString();
-            if (date.endsWith("+0000")) {
-                date = date.substring(0, date.length() - 5) + "Z";
-            }
-            return OffsetDateTime.parse(date, formatter);
         }
     }
 
     /**
      * Gson TypeAdapter for JSR310 LocalDate type
      */
-    public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
+    public static class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
 
         private DateTimeFormatter formatter;
 
@@ -248,23 +404,23 @@ public class JSON {
 
         @Override
         public LocalDate read(JsonReader in) throws IOException {
-            if (in.peek() == JsonToken.NULL) {
-                in.nextNull();
-                return null;
+            switch (in.peek()) {
+                case NULL:
+                    in.nextNull();
+                    return null;
+                default:
+                    String date = in.nextString();
+                    return LocalDate.parse(date, formatter);
             }
-            String date = in.nextString();
-            return LocalDate.parse(date, formatter);
         }
     }
 
-    public JSON setOffsetDateTimeFormat(DateTimeFormatter dateFormat) {
+    public static void setOffsetDateTimeFormat(DateTimeFormatter dateFormat) {
         offsetDateTimeTypeAdapter.setFormat(dateFormat);
-        return this;
     }
 
-    public JSON setLocalDateFormat(DateTimeFormatter dateFormat) {
+    public static void setLocalDateFormat(DateTimeFormatter dateFormat) {
         localDateTypeAdapter.setFormat(dateFormat);
-        return this;
     }
 
     /**
@@ -276,8 +432,7 @@ public class JSON {
 
         private DateFormat dateFormat;
 
-        public SqlDateTypeAdapter() {
-        }
+        public SqlDateTypeAdapter() {}
 
         public SqlDateTypeAdapter(DateFormat dateFormat) {
             this.dateFormat = dateFormat;
@@ -304,18 +459,20 @@ public class JSON {
 
         @Override
         public java.sql.Date read(JsonReader in) throws IOException {
-            if (in.peek() == JsonToken.NULL) {
-                in.nextNull();
-                return null;
-            }
-            String date = in.nextString();
-            try {
-                if (dateFormat != null) {
-                    return new java.sql.Date(dateFormat.parse(date).getTime());
-                }
-                return new java.sql.Date(ISO8601Utils.parse(date, new ParsePosition(0)).getTime());
-            } catch (ParseException e) {
-                throw new JsonParseException(e);
+            switch (in.peek()) {
+                case NULL:
+                    in.nextNull();
+                    return null;
+                default:
+                    String date = in.nextString();
+                    try {
+                        if (dateFormat != null) {
+                            return new java.sql.Date(dateFormat.parse(date).getTime());
+                        }
+                        return new java.sql.Date(ISO8601Utils.parse(date, new ParsePosition(0)).getTime());
+                    } catch (ParseException e) {
+                        throw new JsonParseException(e);
+                    }
             }
         }
     }
@@ -328,8 +485,7 @@ public class JSON {
 
         private DateFormat dateFormat;
 
-        public DateTypeAdapter() {
-        }
+        public DateTypeAdapter() {}
 
         public DateTypeAdapter(DateFormat dateFormat) {
             this.dateFormat = dateFormat;
@@ -357,18 +513,20 @@ public class JSON {
         @Override
         public Date read(JsonReader in) throws IOException {
             try {
-                if (in.peek() == JsonToken.NULL) {
-                    in.nextNull();
-                    return null;
-                }
-                String date = in.nextString();
-                try {
-                    if (dateFormat != null) {
-                        return dateFormat.parse(date);
-                    }
-                    return ISO8601Utils.parse(date, new ParsePosition(0));
-                } catch (ParseException e) {
-                    throw new JsonParseException(e);
+                switch (in.peek()) {
+                    case NULL:
+                        in.nextNull();
+                        return null;
+                    default:
+                        String date = in.nextString();
+                        try {
+                            if (dateFormat != null) {
+                                return dateFormat.parse(date);
+                            }
+                            return ISO8601Utils.parse(date, new ParsePosition(0));
+                        } catch (ParseException e) {
+                            throw new JsonParseException(e);
+                        }
                 }
             } catch (IllegalArgumentException e) {
                 throw new JsonParseException(e);
@@ -376,14 +534,11 @@ public class JSON {
         }
     }
 
-    public JSON setDateFormat(DateFormat dateFormat) {
+    public static void setDateFormat(DateFormat dateFormat) {
         dateTypeAdapter.setFormat(dateFormat);
-        return this;
     }
 
-    public JSON setSqlDateFormat(DateFormat dateFormat) {
+    public static void setSqlDateFormat(DateFormat dateFormat) {
         sqlDateTypeAdapter.setFormat(dateFormat);
-        return this;
     }
-
 }

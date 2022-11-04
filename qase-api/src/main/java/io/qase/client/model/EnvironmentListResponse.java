@@ -13,110 +13,180 @@
 
 package io.qase.client.model;
 
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
  * EnvironmentListResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class EnvironmentListResponse {
-    public static final String SERIALIZED_NAME_STATUS = "status";
-    public static final String SERIALIZED_NAME_RESULT = "result";
-    @SerializedName(SERIALIZED_NAME_STATUS)
-    private Boolean status;
-    @SerializedName(SERIALIZED_NAME_RESULT)
-    private EnvironmentListResponseAllOfResult result;
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
+  private Boolean status;
+
+  public static final String SERIALIZED_NAME_RESULT = "result";
+  @SerializedName(SERIALIZED_NAME_RESULT)
+  private EnvironmentListResponseAllOfResult result;
+
+  public EnvironmentListResponse() {
+  }
+
+  public EnvironmentListResponse status(Boolean status) {
+    
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getStatus() {
+    return status;
+  }
 
 
-    public EnvironmentListResponse status(Boolean status) {
+  public void setStatus(Boolean status) {
+    this.status = status;
+  }
 
-        this.status = status;
-        return this;
+
+  public EnvironmentListResponse result(EnvironmentListResponseAllOfResult result) {
+    
+    this.result = result;
+    return this;
+  }
+
+   /**
+   * Get result
+   * @return result
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public EnvironmentListResponseAllOfResult getResult() {
+    return result;
+  }
+
+
+  public void setResult(EnvironmentListResponseAllOfResult result) {
+    this.result = result;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Get status
-     *
-     * @return status
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Boolean getStatus() {
-        return status;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    EnvironmentListResponse environmentListResponse = (EnvironmentListResponse) o;
+    return Objects.equals(this.status, environmentListResponse.status) &&
+        Objects.equals(this.result, environmentListResponse.result);
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(status, result);
+  }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class EnvironmentListResponse {\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    result: ").append(toIndentedString(result)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 
-    public EnvironmentListResponse result(EnvironmentListResponseAllOfResult result) {
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
-        this.result = result;
-        return this;
-    }
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("status");
+    openapiFields.add("result");
 
-    /**
-     * Get result
-     *
-     * @return result
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
 
-    public EnvironmentListResponseAllOfResult getResult() {
-        return result;
-    }
-
-
-    public void setResult(EnvironmentListResponseAllOfResult result) {
-        this.result = result;
-    }
-
-
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        EnvironmentListResponse environmentListResponse = (EnvironmentListResponse) o;
-        return Objects.equals(this.status, environmentListResponse.status) &&
-                Objects.equals(this.result, environmentListResponse.result);
-    }
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!EnvironmentListResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'EnvironmentListResponse' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<EnvironmentListResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(EnvironmentListResponse.class));
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(status, result);
-    }
+       return (TypeAdapter<T>) new TypeAdapter<EnvironmentListResponse>() {
+           @Override
+           public void write(JsonWriter out, EnvironmentListResponse value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class EnvironmentListResponse {\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    result: ").append(toIndentedString(result)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
+           @Override
+           public EnvironmentListResponse read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+       }.nullSafe();
     }
+  }
 
+ /**
+  * Create an instance of EnvironmentListResponse given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of EnvironmentListResponse
+  * @throws IOException if the JSON string is invalid with respect to EnvironmentListResponse
+  */
+  public static EnvironmentListResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, EnvironmentListResponse.class);
+  }
+
+ /**
+  * Convert an instance of EnvironmentListResponse to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

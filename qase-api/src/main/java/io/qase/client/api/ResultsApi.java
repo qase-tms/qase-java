@@ -26,6 +26,8 @@ import java.util.Map;
 
 public class ResultsApi {
     private ApiClient localVarApiClient;
+    private int localHostIndex;
+    private String localCustomBaseUrl;
 
     public ResultsApi() {
         this(Configuration.getDefaultApiClient());
@@ -43,27 +45,62 @@ public class ResultsApi {
         this.localVarApiClient = apiClient;
     }
 
+    public int getHostIndex() {
+        return localHostIndex;
+    }
+
+    public void setHostIndex(int hostIndex) {
+        this.localHostIndex = hostIndex;
+    }
+
+    public String getCustomBaseUrl() {
+        return localCustomBaseUrl;
+    }
+
+    public void setCustomBaseUrl(String customBaseUrl) {
+        this.localCustomBaseUrl = customBaseUrl;
+    }
+
     /**
      * Build call for createResult
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param resultCreate (required)
-     * @param _callback    Callback for upload/download progress
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param resultCreate  (required)
+     * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call createResultCall(String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = resultCreate;
 
         // create path and map variables
         String localVarPath = "/result/{code}/{id}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -72,7 +109,7 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -80,18 +117,19 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-                "application/json"
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call createResultValidateBeforeCall(String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling createResult(Async)");
@@ -107,97 +145,130 @@ public class ResultsApi {
             throw new QaseException("Missing the required parameter 'resultCreate' when calling createResult(Async)");
         }
 
-
-        okhttp3.Call localVarCall = createResultCall(code, id, resultCreate, _callback);
-        return localVarCall;
+        return createResultCall(code, id, resultCreate, _callback);
 
     }
 
     /**
      * Create test run result.
-     * This method allows to create test run result by Run Id.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param resultCreate (required)
-     * @return Response
+     * This method allows to create test run result by Run Id. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param resultCreate  (required)
+     * @return CreateResult200Response
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public Response createResult(String code, Integer id, ResultCreate resultCreate) throws QaseException {
-        ApiResponse<Response> localVarResp = createResultWithHttpInfo(code, id, resultCreate);
+    public CreateResult200Response createResult(String code, Integer id, ResultCreate resultCreate) throws QaseException {
+        ApiResponse<CreateResult200Response> localVarResp = createResultWithHttpInfo(code, id, resultCreate);
         return localVarResp.getData();
     }
 
     /**
      * Create test run result.
-     * This method allows to create test run result by Run Id.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param resultCreate (required)
-     * @return ApiResponse&lt;Response&gt;
+     * This method allows to create test run result by Run Id. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param resultCreate  (required)
+     * @return ApiResponse&lt;CreateResult200Response&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public ApiResponse<Response> createResultWithHttpInfo(String code, Integer id, ResultCreate resultCreate) throws QaseException {
+    public ApiResponse<CreateResult200Response> createResultWithHttpInfo(String code, Integer id, ResultCreate resultCreate) throws QaseException {
         okhttp3.Call localVarCall = createResultValidateBeforeCall(code, id, resultCreate, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<CreateResult200Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Create test run result. (asynchronously)
-     * This method allows to create test run result by Run Id.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param resultCreate (required)
-     * @param _callback    The callback to be executed when the API call finishes
+     * This method allows to create test run result by Run Id. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param resultCreate  (required)
+     * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public okhttp3.Call createResultAsync(String code, Integer id, ResultCreate resultCreate, final ApiCallback<Response> _callback) throws QaseException {
+    public okhttp3.Call createResultAsync(String code, Integer id, ResultCreate resultCreate, final ApiCallback<CreateResult200Response> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = createResultValidateBeforeCall(code, id, resultCreate, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<CreateResult200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for createResultBulk
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param id               Identifier. (required)
-     * @param resultCreateBulk (required)
-     * @param _callback        Callback for upload/download progress
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param resultCreateBulk  (required)
+     * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call createResultBulkCall(String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = resultCreateBulk;
 
         // create path and map variables
         String localVarPath = "/result/{code}/{id}/bulk"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -206,7 +277,7 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -214,18 +285,19 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-                "application/json"
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call createResultBulkValidateBeforeCall(String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling createResultBulk(Async)");
@@ -241,25 +313,30 @@ public class ResultsApi {
             throw new QaseException("Missing the required parameter 'resultCreateBulk' when calling createResultBulk(Async)");
         }
 
-
-        okhttp3.Call localVarCall = createResultBulkCall(code, id, resultCreateBulk, _callback);
-        return localVarCall;
+        return createResultBulkCall(code, id, resultCreateBulk, _callback);
 
     }
 
     /**
      * Bulk create test run result.
-     * This method allows to create a lot of test run result at once.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param id               Identifier. (required)
-     * @param resultCreateBulk (required)
+     * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param resultCreateBulk  (required)
      * @return Response
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public Response createResultBulk(String code, Integer id, ResultCreateBulk resultCreateBulk) throws QaseException {
         ApiResponse<Response> localVarResp = createResultBulkWithHttpInfo(code, id, resultCreateBulk);
@@ -268,71 +345,100 @@ public class ResultsApi {
 
     /**
      * Bulk create test run result.
-     * This method allows to create a lot of test run result at once.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param id               Identifier. (required)
-     * @param resultCreateBulk (required)
+     * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param resultCreateBulk  (required)
      * @return ApiResponse&lt;Response&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<Response> createResultBulkWithHttpInfo(String code, Integer id, ResultCreateBulk resultCreateBulk) throws QaseException {
         okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, resultCreateBulk, null);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Bulk create test run result. (asynchronously)
-     * This method allows to create a lot of test run result at once.
-     *
-     * @param code             Code of project, where to search entities. (required)
-     * @param id               Identifier. (required)
-     * @param resultCreateBulk (required)
-     * @param _callback        The callback to be executed when the API call finishes
+     * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param resultCreateBulk  (required)
+     * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call createResultBulkAsync(String code, Integer id, ResultCreateBulk resultCreateBulk, final ApiCallback<Response> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, resultCreateBulk, _callback);
-        Type localVarReturnType = new TypeToken<Response>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for deleteResult
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param id        Identifier. (required)
-     * @param hash      Hash. (required)
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param hash Hash. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call deleteResultCall(String code, Integer id, String hash, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/result/{code}/{id}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()))
+            .replace("{" + "hash" + "}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -341,7 +447,7 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -349,18 +455,18 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call deleteResultValidateBeforeCall(String code, Integer id, String hash, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling deleteResult(Async)");
@@ -376,25 +482,28 @@ public class ResultsApi {
             throw new QaseException("Missing the required parameter 'hash' when calling deleteResult(Async)");
         }
 
-
-        okhttp3.Call localVarCall = deleteResultCall(code, id, hash, _callback);
-        return localVarCall;
+        return deleteResultCall(code, id, hash, _callback);
 
     }
 
     /**
      * Delete test run result.
-     * This method allows to delete test run result.
-     *
+     * This method allows to delete test run result. 
      * @param code Code of project, where to search entities. (required)
-     * @param id   Identifier. (required)
+     * @param id Identifier. (required)
      * @param hash Hash. (required)
      * @return HashResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public HashResponse deleteResult(String code, Integer id, String hash) throws QaseException {
         ApiResponse<HashResponse> localVarResp = deleteResultWithHttpInfo(code, id, hash);
@@ -403,69 +512,94 @@ public class ResultsApi {
 
     /**
      * Delete test run result.
-     * This method allows to delete test run result.
-     *
+     * This method allows to delete test run result. 
      * @param code Code of project, where to search entities. (required)
-     * @param id   Identifier. (required)
+     * @param id Identifier. (required)
      * @param hash Hash. (required)
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<HashResponse> deleteResultWithHttpInfo(String code, Integer id, String hash) throws QaseException {
         okhttp3.Call localVarCall = deleteResultValidateBeforeCall(code, id, hash, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Delete test run result. (asynchronously)
-     * This method allows to delete test run result.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param id        Identifier. (required)
-     * @param hash      Hash. (required)
+     * This method allows to delete test run result. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param hash Hash. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call deleteResultAsync(String code, Integer id, String hash, final ApiCallback<HashResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = deleteResultValidateBeforeCall(code, id, hash, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for getResult
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param hash      Hash. (required)
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getResultCall(String code, String hash, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/result/{code}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "hash" + "}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -474,7 +608,7 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -482,18 +616,18 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getResultValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling getResult(Async)");
@@ -504,24 +638,27 @@ public class ResultsApi {
             throw new QaseException("Missing the required parameter 'hash' when calling getResult(Async)");
         }
 
-
-        okhttp3.Call localVarCall = getResultCall(code, hash, _callback);
-        return localVarCall;
+        return getResultCall(code, hash, _callback);
 
     }
 
     /**
      * Get test run result by code.
-     * This method allows to retrieve a specific test run result by Hash.
-     *
+     * This method allows to retrieve a specific test run result by Hash. 
      * @param code Code of project, where to search entities. (required)
      * @param hash Hash. (required)
      * @return ResultResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ResultResponse getResult(String code, String hash) throws QaseException {
         ApiResponse<ResultResponse> localVarResp = getResultWithHttpInfo(code, hash);
@@ -530,68 +667,93 @@ public class ResultsApi {
 
     /**
      * Get test run result by code.
-     * This method allows to retrieve a specific test run result by Hash.
-     *
+     * This method allows to retrieve a specific test run result by Hash. 
      * @param code Code of project, where to search entities. (required)
      * @param hash Hash. (required)
      * @return ApiResponse&lt;ResultResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<ResultResponse> getResultWithHttpInfo(String code, String hash) throws QaseException {
         okhttp3.Call localVarCall = getResultValidateBeforeCall(code, hash, null);
-        Type localVarReturnType = new TypeToken<ResultResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<ResultResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get test run result by code. (asynchronously)
-     * This method allows to retrieve a specific test run result by Hash.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param hash      Hash. (required)
+     * This method allows to retrieve a specific test run result by Hash. 
+     * @param code Code of project, where to search entities. (required)
+     * @param hash Hash. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call getResultAsync(String code, String hash, final ApiCallback<ResultResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getResultValidateBeforeCall(code, hash, _callback);
-        Type localVarReturnType = new TypeToken<ResultResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<ResultResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for getResults
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param filters   (optional)
-     * @param limit     A number of entities in result set. (optional, default to 10)
-     * @param offset    How many entities should be skipped. (optional, default to 0)
+     * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public okhttp3.Call getResultsCall(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
+    public okhttp3.Call getResultsCall(String code, GetResultsFiltersParameter filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = null;
 
         // create path and map variables
         String localVarPath = "/result/{code}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -612,7 +774,7 @@ public class ResultsApi {
         }
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -620,119 +782,148 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getResultsValidateBeforeCall(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
-
+    private okhttp3.Call getResultsValidateBeforeCall(String code, GetResultsFiltersParameter filters, Integer limit, Integer offset, final ApiCallback _callback) throws QaseException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling getResults(Async)");
         }
 
-
-        okhttp3.Call localVarCall = getResultsCall(code, filters, limit, offset, _callback);
-        return localVarCall;
+        return getResultsCall(code, filters, limit, offset, _callback);
 
     }
 
     /**
      * Get all test run results.
-     * This method allows to retrieve all test run results stored in selected project.
-     *
-     * @param code    Code of project, where to search entities. (required)
-     * @param filters (optional)
-     * @param limit   A number of entities in result set. (optional, default to 10)
-     * @param offset  How many entities should be skipped. (optional, default to 0)
+     * This method allows to retrieve all test run results stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @return ResultListResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public ResultListResponse getResults(String code, Filters4 filters, Integer limit, Integer offset) throws QaseException {
+    public ResultListResponse getResults(String code, GetResultsFiltersParameter filters, Integer limit, Integer offset) throws QaseException {
         ApiResponse<ResultListResponse> localVarResp = getResultsWithHttpInfo(code, filters, limit, offset);
         return localVarResp.getData();
     }
 
     /**
      * Get all test run results.
-     * This method allows to retrieve all test run results stored in selected project.
-     *
-     * @param code    Code of project, where to search entities. (required)
-     * @param filters (optional)
-     * @param limit   A number of entities in result set. (optional, default to 10)
-     * @param offset  How many entities should be skipped. (optional, default to 0)
+     * This method allows to retrieve all test run results stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @return ApiResponse&lt;ResultListResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public ApiResponse<ResultListResponse> getResultsWithHttpInfo(String code, Filters4 filters, Integer limit, Integer offset) throws QaseException {
+    public ApiResponse<ResultListResponse> getResultsWithHttpInfo(String code, GetResultsFiltersParameter filters, Integer limit, Integer offset) throws QaseException {
         okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, filters, limit, offset, null);
-        Type localVarReturnType = new TypeToken<ResultListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<ResultListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Get all test run results. (asynchronously)
-     * This method allows to retrieve all test run results stored in selected project.
-     *
-     * @param code      Code of project, where to search entities. (required)
-     * @param filters   (optional)
-     * @param limit     A number of entities in result set. (optional, default to 10)
-     * @param offset    How many entities should be skipped. (optional, default to 0)
+     * This method allows to retrieve all test run results stored in selected project. 
+     * @param code Code of project, where to search entities. (required)
+     * @param filters  (optional)
+     * @param limit A number of entities in result set. (optional, default to 10)
+     * @param offset How many entities should be skipped. (optional, default to 0)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
-    public okhttp3.Call getResultsAsync(String code, Filters4 filters, Integer limit, Integer offset, final ApiCallback<ResultListResponse> _callback) throws QaseException {
+    public okhttp3.Call getResultsAsync(String code, GetResultsFiltersParameter filters, Integer limit, Integer offset, final ApiCallback<ResultListResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, filters, limit, offset, _callback);
-        Type localVarReturnType = new TypeToken<ResultListResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<ResultListResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
-
     /**
      * Build call for updateResult
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param hash         Hash. (required)
-     * @param resultUpdate (required)
-     * @param _callback    Callback for upload/download progress
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param hash Hash. (required)
+     * @param resultUpdate  (required)
+     * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws QaseException If fail to serialize the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call updateResultCall(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback) throws QaseException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
         Object localVarPostBody = resultUpdate;
 
         // create path and map variables
         String localVarPath = "/result/{code}/{id}/{hash}"
-                .replaceAll("\\{" + "code" + "\\}", localVarApiClient.escapeString(code))
-                .replaceAll("\\{" + "id" + "\\}", localVarApiClient.escapeString(id.toString()))
-                .replaceAll("\\{" + "hash" + "\\}", localVarApiClient.escapeString(hash));
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()))
+            .replace("{" + "hash" + "}", localVarApiClient.escapeString(hash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -741,7 +932,7 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-                "application/json"
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -749,18 +940,19 @@ public class ResultsApi {
         }
 
         final String[] localVarContentTypes = {
-                "application/json"
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
 
-        String[] localVarAuthNames = new String[]{"TokenAuth"};
-        return localVarApiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call updateResultValidateBeforeCall(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback) throws QaseException {
-
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new QaseException("Missing the required parameter 'code' when calling updateResult(Async)");
@@ -781,26 +973,30 @@ public class ResultsApi {
             throw new QaseException("Missing the required parameter 'resultUpdate' when calling updateResult(Async)");
         }
 
-
-        okhttp3.Call localVarCall = updateResultCall(code, id, hash, resultUpdate, _callback);
-        return localVarCall;
+        return updateResultCall(code, id, hash, resultUpdate, _callback);
 
     }
 
     /**
      * Update test run result.
-     * This method allows to update test run result.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param hash         Hash. (required)
-     * @param resultUpdate (required)
+     * This method allows to update test run result. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param hash Hash. (required)
+     * @param resultUpdate  (required)
      * @return HashResponse
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public HashResponse updateResult(String code, Integer id, String hash, ResultUpdate resultUpdate) throws QaseException {
         ApiResponse<HashResponse> localVarResp = updateResultWithHttpInfo(code, id, hash, resultUpdate);
@@ -809,47 +1005,57 @@ public class ResultsApi {
 
     /**
      * Update test run result.
-     * This method allows to update test run result.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param hash         Hash. (required)
-     * @param resultUpdate (required)
+     * This method allows to update test run result. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param hash Hash. (required)
+     * @param resultUpdate  (required)
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws QaseException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public ApiResponse<HashResponse> updateResultWithHttpInfo(String code, Integer id, String hash, ResultUpdate resultUpdate) throws QaseException {
         okhttp3.Call localVarCall = updateResultValidateBeforeCall(code, id, hash, resultUpdate, null);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Update test run result. (asynchronously)
-     * This method allows to update test run result.
-     *
-     * @param code         Code of project, where to search entities. (required)
-     * @param id           Identifier. (required)
-     * @param hash         Hash. (required)
-     * @param resultUpdate (required)
-     * @param _callback    The callback to be executed when the API call finishes
+     * This method allows to update test run result. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param hash Hash. (required)
+     * @param resultUpdate  (required)
+     * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws QaseException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details <table summary="Response Details" border="1">
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> A result </td><td>  -  </td></tr>
-     * </table>
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
      */
     public okhttp3.Call updateResultAsync(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback<HashResponse> _callback) throws QaseException {
 
         okhttp3.Call localVarCall = updateResultValidateBeforeCall(code, id, hash, resultUpdate, _callback);
-        Type localVarReturnType = new TypeToken<HashResponse>() {
-        }.getType();
+        Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

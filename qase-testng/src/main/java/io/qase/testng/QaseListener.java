@@ -5,7 +5,7 @@ import io.qase.api.config.QaseConfig;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
-import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.model.ResultCreateStepsInner;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.testng.guice.module.TestNgModule;
 import lombok.AccessLevel;
@@ -73,7 +73,7 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         if (caseId == null) {
             caseTitle = getCaseTitle(method);
         }
-        LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
+        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
         resultCreate
             ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
             .caseId(caseId)

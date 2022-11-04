@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.CasesApi;
-import io.qase.client.model.Filters;
+import io.qase.client.model.GetCasesFiltersParameter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,6 @@ class TestCaseServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -49,7 +48,7 @@ class TestCaseServiceTest {
     @Test
     void getAllWithFilter() {
         try {
-            casesApi.getCases("PRJ", new Filters()
+            casesApi.getCases("PRJ", new GetCasesFiltersParameter()
                     .automation("is-not-automated,to-be-automated")
                     .behavior("positive")
                     .milestoneId(11)
@@ -64,7 +63,6 @@ class TestCaseServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0"))
                 .withQueryParam("filters%5Bmilestone_id%5D", equalTo("11"))
@@ -86,8 +84,7 @@ class TestCaseServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ/8"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test
@@ -98,7 +95,6 @@ class TestCaseServiceTest {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/case/PRJ/8"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 }

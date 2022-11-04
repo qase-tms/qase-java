@@ -4,8 +4,9 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.SuitesApi;
-import io.qase.client.model.Filters7;
+import io.qase.client.model.GetMilestonesFiltersParameter;
 import io.qase.client.model.SuiteCreate;
+import io.qase.client.model.SuiteUpdate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,6 @@ class SuiteServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -50,13 +50,12 @@ class SuiteServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            suitesApi.getSuites("PRJ", new Filters7().search("title"), 55, 2);
+            suitesApi.getSuites("PRJ", new GetMilestonesFiltersParameter().search("title"), 55, 2);
         } catch (QaseException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("55"))
                 .withQueryParam("offset", equalTo("2"))
                 .withQueryParam("filters%5Bsearch%5D", equalTo("title")));
@@ -70,8 +69,7 @@ class SuiteServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test
@@ -149,7 +147,7 @@ class SuiteServiceTest {
     @Test
     void update() {
         try {
-            suitesApi.updateSuite("PRJ", 1, new SuiteCreate().title("Test suite"));
+            suitesApi.updateSuite("PRJ", 1, new SuiteUpdate().title("Test suite"));
         } catch (QaseException e) {
             //ignore
         }
@@ -164,7 +162,7 @@ class SuiteServiceTest {
     void updateWithDescription() {
         try {
             suitesApi.updateSuite("PRJ", 1,
-                    new SuiteCreate()
+                    new SuiteUpdate()
                             .title("Test suite")
                             .description("Suite description"));
         } catch (QaseException e) {
@@ -182,7 +180,7 @@ class SuiteServiceTest {
     void updateWithPreconditions() {
         try {
             suitesApi.updateSuite("PRJ", 1,
-                    new SuiteCreate()
+                    new SuiteUpdate()
                             .title("Test suite")
                             .description("Suite description")
                             .preconditions("Suite preconditions"));
@@ -202,7 +200,7 @@ class SuiteServiceTest {
     void updateWithParent() {
         try {
             suitesApi.updateSuite("PRJ", 1,
-                    new SuiteCreate()
+                    new SuiteUpdate()
                             .title("Test suite")
                             .description("Suite description")
                             .preconditions("Suite preconditions")

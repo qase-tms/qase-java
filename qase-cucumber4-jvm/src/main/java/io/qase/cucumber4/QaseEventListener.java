@@ -10,7 +10,7 @@ import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
-import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.model.ResultCreateStepsInner;
 import io.qase.cucumber4.guice.module.Cucumber4Module;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -67,7 +67,7 @@ public class QaseEventListener implements ConcurrentEventListener {
             .orElse(false);
         String stacktrace = optionalThrowable
             .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateSteps> steps = StepStorage.stopSteps();
+        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
         return resultCreate
             .caseId(caseId)
             .status(status)

@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.MilestonesApi;
-import io.qase.client.model.Filters3;
+import io.qase.client.model.GetMilestonesFiltersParameter;
 import io.qase.client.model.MilestoneCreate;
 import io.qase.client.model.MilestoneUpdate;
 import org.junit.jupiter.api.AfterAll;
@@ -43,7 +43,6 @@ class MilestoneServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -51,13 +50,12 @@ class MilestoneServiceTest {
     @Test
     void getAllWithFilter() {
         try {
-            milestonesApi.getMilestones("PROJ", new Filters3().search("title"), 100, 0);
+            milestonesApi.getMilestones("PROJ", new GetMilestonesFiltersParameter().search("title"), 100, 0);
         } catch (QaseException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0"))
                 .withQueryParam("filters%5Bsearch%5D", equalTo("title")));
@@ -71,8 +69,7 @@ class MilestoneServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/milestone/PROJ/65"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test
@@ -112,8 +109,7 @@ class MilestoneServiceTest {
             // ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/milestone/PROJ/123"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test

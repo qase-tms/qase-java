@@ -12,7 +12,7 @@ import io.qase.api.utils.TestUtils;
 import io.qase.client.model.AttachmentGet;
 import io.qase.client.model.AttachmentUploadsResponse;
 import io.qase.client.model.ResultCreate;
-import io.qase.client.model.ResultCreateSteps;
+import io.qase.client.model.ResultCreateStepsInner;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -121,7 +121,7 @@ class AttachmentsTest {
     }
 
     private void assertStepsStorageContainsTestAttachment() {
-        LinkedList<ResultCreateSteps> resultCreateSteps = StepStorage.stopSteps();
+        LinkedList<ResultCreateStepsInner> resultCreateSteps = StepStorage.stopSteps();
         Assertions.assertEquals(resultCreateSteps.size(), 1);
         Assertions.assertEquals(resultCreateSteps.get(0).getAttachments().size(), 1);
         Assertions.assertEquals(resultCreateSteps.get(0).getAttachments().get(0), TEST_HASH);

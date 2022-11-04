@@ -4,10 +4,7 @@ package io.qase.cucumber3;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import cucumber.api.cli.Main;
 import io.qase.api.utils.TestUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
@@ -28,7 +25,7 @@ class QaseEventListenerTests {
         wireMockServer.stop();
     }
 
-    @AfterEach
+    @BeforeEach
     void resetRequests() {
         wireMockServer.resetRequests();
     }

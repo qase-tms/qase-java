@@ -13,213 +13,287 @@
 
 package io.qase.client.model;
 
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * SharedStepUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class SharedStepUpdate {
-    public static final String SERIALIZED_NAME_TITLE = "title";
-    public static final String SERIALIZED_NAME_ACTION = "action";
-    public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
-    public static final String SERIALIZED_NAME_DATA = "data";
-    public static final String SERIALIZED_NAME_STEPS = "steps";
-    @SerializedName(SERIALIZED_NAME_TITLE)
-    private String title;
-    @SerializedName(SERIALIZED_NAME_ACTION)
-    private String action;
-    @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
-    private String expectedResult;
-    @SerializedName(SERIALIZED_NAME_DATA)
-    private String data;
-    @SerializedName(SERIALIZED_NAME_STEPS)
-    private List<SharedStepCreateSteps> steps = null;
+  public static final String SERIALIZED_NAME_TITLE = "title";
+  @SerializedName(SERIALIZED_NAME_TITLE)
+  private String title;
+
+  public static final String SERIALIZED_NAME_ACTION = "action";
+  @SerializedName(SERIALIZED_NAME_ACTION)
+  private String action;
+
+  public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
+  @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+  private String expectedResult;
+
+  public static final String SERIALIZED_NAME_DATA = "data";
+  @SerializedName(SERIALIZED_NAME_DATA)
+  private String data;
+
+  public static final String SERIALIZED_NAME_STEPS = "steps";
+  @SerializedName(SERIALIZED_NAME_STEPS)
+  private List<SharedStepCreateStepsInner> steps = null;
+
+  public SharedStepUpdate() {
+  }
+
+  public SharedStepUpdate title(String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+   /**
+   * Get title
+   * @return title
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+
+  public String getTitle() {
+    return title;
+  }
 
 
-    public SharedStepUpdate title(String title) {
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-        this.title = title;
-        return this;
+
+  public SharedStepUpdate action(String action) {
+    
+    this.action = action;
+    return this;
+  }
+
+   /**
+   * Deprecated, use the &#x60;steps&#x60; property instead.
+   * @return action
+   * @deprecated
+  **/
+  @Deprecated
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Deprecated, use the `steps` property instead.")
+
+  public String getAction() {
+    return action;
+  }
+
+
+  public void setAction(String action) {
+    this.action = action;
+  }
+
+
+  public SharedStepUpdate expectedResult(String expectedResult) {
+    
+    this.expectedResult = expectedResult;
+    return this;
+  }
+
+   /**
+   * Deprecated, use the &#x60;steps&#x60; property instead.
+   * @return expectedResult
+   * @deprecated
+  **/
+  @Deprecated
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Deprecated, use the `steps` property instead.")
+
+  public String getExpectedResult() {
+    return expectedResult;
+  }
+
+
+  public void setExpectedResult(String expectedResult) {
+    this.expectedResult = expectedResult;
+  }
+
+
+  public SharedStepUpdate data(String data) {
+    
+    this.data = data;
+    return this;
+  }
+
+   /**
+   * Deprecated, use the &#x60;steps&#x60; property instead.
+   * @return data
+   * @deprecated
+  **/
+  @Deprecated
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Deprecated, use the `steps` property instead.")
+
+  public String getData() {
+    return data;
+  }
+
+
+  public void setData(String data) {
+    this.data = data;
+  }
+
+
+  public SharedStepUpdate steps(List<SharedStepCreateStepsInner> steps) {
+    
+    this.steps = steps;
+    return this;
+  }
+
+  public SharedStepUpdate addStepsItem(SharedStepCreateStepsInner stepsItem) {
+    if (this.steps == null) {
+      this.steps = new ArrayList<>();
     }
+    this.steps.add(stepsItem);
+    return this;
+  }
 
-    /**
-     * Get title
-     *
-     * @return title
-     **/
-    @javax.annotation.Nonnull
-    @ApiModelProperty(required = true, value = "")
+   /**
+   * Get steps
+   * @return steps
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public String getTitle() {
-        return title;
+  public List<SharedStepCreateStepsInner> getSteps() {
+    return steps;
+  }
+
+
+  public void setSteps(List<SharedStepCreateStepsInner> steps) {
+    this.steps = steps;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-
-    public void setTitle(String title) {
-        this.title = title;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    SharedStepUpdate sharedStepUpdate = (SharedStepUpdate) o;
+    return Objects.equals(this.title, sharedStepUpdate.title) &&
+        Objects.equals(this.action, sharedStepUpdate.action) &&
+        Objects.equals(this.expectedResult, sharedStepUpdate.expectedResult) &&
+        Objects.equals(this.data, sharedStepUpdate.data) &&
+        Objects.equals(this.steps, sharedStepUpdate.steps);
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, action, expectedResult, data, steps);
+  }
 
-    public SharedStepUpdate action(String action) {
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SharedStepUpdate {\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    action: ").append(toIndentedString(action)).append("\n");
+    sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-        this.action = action;
-        return this;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    /**
-     * Deprecated, use the &#x60;steps&#x60; property instead.
-     *
-     * @return action
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "Deprecated, use the `steps` property instead.")
-
-    public String getAction() {
-        return action;
-    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 
-    public void setAction(String action) {
-        this.action = action;
-    }
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("title");
+    openapiFields.add("action");
+    openapiFields.add("expected_result");
+    openapiFields.add("data");
+    openapiFields.add("steps");
 
-    public SharedStepUpdate expectedResult(String expectedResult) {
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("title");
+  }
 
-        this.expectedResult = expectedResult;
-        return this;
-    }
-
-    /**
-     * Deprecated, use the &#x60;steps&#x60; property instead.
-     *
-     * @return expectedResult
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "Deprecated, use the `steps` property instead.")
-
-    public String getExpectedResult() {
-        return expectedResult;
-    }
-
-
-    public void setExpectedResult(String expectedResult) {
-        this.expectedResult = expectedResult;
-    }
-
-
-    public SharedStepUpdate data(String data) {
-
-        this.data = data;
-        return this;
-    }
-
-    /**
-     * Deprecated, use the &#x60;steps&#x60; property instead.
-     *
-     * @return data
-     * @deprecated
-     **/
-    @Deprecated
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "Deprecated, use the `steps` property instead.")
-
-    public String getData() {
-        return data;
-    }
-
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-
-    public SharedStepUpdate steps(List<SharedStepCreateSteps> steps) {
-
-        this.steps = steps;
-        return this;
-    }
-
-    public SharedStepUpdate addStepsItem(SharedStepCreateSteps stepsItem) {
-        if (this.steps == null) {
-            this.steps = new ArrayList<>();
-        }
-        this.steps.add(stepsItem);
-        return this;
-    }
-
-    /**
-     * Get steps
-     *
-     * @return steps
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<SharedStepCreateSteps> getSteps() {
-        return steps;
-    }
-
-
-    public void setSteps(List<SharedStepCreateSteps> steps) {
-        this.steps = steps;
-    }
-
-
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SharedStepUpdate sharedStepUpdate = (SharedStepUpdate) o;
-        return Objects.equals(this.title, sharedStepUpdate.title) &&
-                Objects.equals(this.action, sharedStepUpdate.action) &&
-                Objects.equals(this.expectedResult, sharedStepUpdate.expectedResult) &&
-                Objects.equals(this.data, sharedStepUpdate.data) &&
-                Objects.equals(this.steps, sharedStepUpdate.steps);
-    }
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!SharedStepUpdate.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'SharedStepUpdate' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<SharedStepUpdate> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(SharedStepUpdate.class));
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, action, expectedResult, data, steps);
-    }
+       return (TypeAdapter<T>) new TypeAdapter<SharedStepUpdate>() {
+           @Override
+           public void write(JsonWriter out, SharedStepUpdate value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class SharedStepUpdate {\n");
-        sb.append("    title: ").append(toIndentedString(title)).append("\n");
-        sb.append("    action: ").append(toIndentedString(action)).append("\n");
-        sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
-        sb.append("    data: ").append(toIndentedString(data)).append("\n");
-        sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
+           @Override
+           public SharedStepUpdate read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+       }.nullSafe();
     }
+  }
 
+ /**
+  * Create an instance of SharedStepUpdate given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of SharedStepUpdate
+  * @throws IOException if the JSON string is invalid with respect to SharedStepUpdate
+  */
+  public static SharedStepUpdate fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, SharedStepUpdate.class);
+  }
+
+ /**
+  * Convert an instance of SharedStepUpdate to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

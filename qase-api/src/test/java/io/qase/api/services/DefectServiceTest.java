@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.exceptions.QaseException;
 import io.qase.client.ApiClient;
 import io.qase.client.api.DefectsApi;
-import io.qase.client.model.Filters2;
+import io.qase.client.model.GetDefectsFiltersParameter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,6 @@ class DefectServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0")));
     }
@@ -49,13 +48,12 @@ class DefectServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            defectsApi.getDefects("PROJ", new Filters2().status(Filters2.StatusEnum.OPEN), 88, 12);
+            defectsApi.getDefects("PROJ", new GetDefectsFiltersParameter().status(GetDefectsFiltersParameter.StatusEnum.OPEN), 88, 12);
         } catch (QaseException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json"))
                 .withQueryParam("filters%5Bstatus%5D", equalTo("open"))
                 .withQueryParam("limit", equalTo("88"))
                 .withQueryParam("offset", equalTo("12")));
@@ -69,8 +67,7 @@ class DefectServiceTest {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ/99"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test
@@ -81,8 +78,7 @@ class DefectServiceTest {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/defect/PROJ/resolve/88"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 
     @Test
@@ -93,7 +89,6 @@ class DefectServiceTest {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/defect/PROJ/77"))
-                .withHeader("Token", equalTo("secret-token"))
-                .withHeader("Content-Type", equalTo("application/json")));
+                .withHeader("Token", equalTo("secret-token")));
     }
 }

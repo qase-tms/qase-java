@@ -13,495 +13,605 @@
 
 package io.qase.client.model;
 
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.qase.client.JSON;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * QqlDefect
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-03-05T00:04:57.018823+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-04T01:02:11.281898+03:00[Europe/Moscow]")
 public class QqlDefect {
-    public static final String SERIALIZED_NAME_ID = "id";
-    public static final String SERIALIZED_NAME_TITLE = "title";
-    public static final String SERIALIZED_NAME_ACTUAL_RESULT = "actual_result";
-    public static final String SERIALIZED_NAME_SEVERITY = "severity";
-    public static final String SERIALIZED_NAME_STATUS = "status";
-    public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
-    public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
-    public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
-    public static final String SERIALIZED_NAME_RESOLVED = "resolved";
-    public static final String SERIALIZED_NAME_PROJECT_ID = "project_id";
-    public static final String SERIALIZED_NAME_MEMBER_ID = "member_id";
-    public static final String SERIALIZED_NAME_EXTERNAL_DATA = "external_data";
-    public static final String SERIALIZED_NAME_TAGS = "tags";
-    public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
-    public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
-    @SerializedName(SERIALIZED_NAME_ID)
-    private Long id;
-    @SerializedName(SERIALIZED_NAME_TITLE)
-    private String title;
-    @SerializedName(SERIALIZED_NAME_ACTUAL_RESULT)
-    private String actualResult;
-    @SerializedName(SERIALIZED_NAME_SEVERITY)
-    private String severity;
-    @SerializedName(SERIALIZED_NAME_STATUS)
-    private String status;
-    @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
-    private Long milestoneId;
-    @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
-    private List<CustomFieldValue> customFields = null;
-    @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-    private List<Attachment> attachments = null;
-    @SerializedName(SERIALIZED_NAME_RESOLVED)
-    private String resolved;
-    @SerializedName(SERIALIZED_NAME_PROJECT_ID)
-    private Long projectId;
-    @SerializedName(SERIALIZED_NAME_MEMBER_ID)
-    private Long memberId;
-    @SerializedName(SERIALIZED_NAME_EXTERNAL_DATA)
-    private String externalData;
-    @SerializedName(SERIALIZED_NAME_TAGS)
-    private List<TagValue> tags = null;
-    @SerializedName(SERIALIZED_NAME_CREATED_AT)
-    private String createdAt;
-    @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-    private String updatedAt;
+  public static final String SERIALIZED_NAME_ID = "id";
+  @SerializedName(SERIALIZED_NAME_ID)
+  private Long id;
 
-    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-        return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  public static final String SERIALIZED_NAME_TITLE = "title";
+  @SerializedName(SERIALIZED_NAME_TITLE)
+  private String title;
+
+  public static final String SERIALIZED_NAME_ACTUAL_RESULT = "actual_result";
+  @SerializedName(SERIALIZED_NAME_ACTUAL_RESULT)
+  private String actualResult;
+
+  public static final String SERIALIZED_NAME_SEVERITY = "severity";
+  @SerializedName(SERIALIZED_NAME_SEVERITY)
+  private String severity;
+
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
+  private String status;
+
+  public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
+  @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  private Long milestoneId;
+
+  public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
+  @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
+  private List<CustomFieldValue> customFields = null;
+
+  public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
+  @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+  private List<Attachment> attachments = null;
+
+  public static final String SERIALIZED_NAME_RESOLVED = "resolved";
+  @SerializedName(SERIALIZED_NAME_RESOLVED)
+  private String resolved;
+
+  public static final String SERIALIZED_NAME_PROJECT_ID = "project_id";
+  @SerializedName(SERIALIZED_NAME_PROJECT_ID)
+  private Long projectId;
+
+  public static final String SERIALIZED_NAME_MEMBER_ID = "member_id";
+  @SerializedName(SERIALIZED_NAME_MEMBER_ID)
+  private Long memberId;
+
+  public static final String SERIALIZED_NAME_EXTERNAL_DATA = "external_data";
+  @SerializedName(SERIALIZED_NAME_EXTERNAL_DATA)
+  private String externalData;
+
+  public static final String SERIALIZED_NAME_TAGS = "tags";
+  @SerializedName(SERIALIZED_NAME_TAGS)
+  private List<TagValue> tags = null;
+
+  public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
+  @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  private String createdAt;
+
+  public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
+  @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  private String updatedAt;
+
+  public QqlDefect() {
+  }
+
+  public QqlDefect id(Long id) {
+    
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Get id
+   * @return id
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getId() {
+    return id;
+  }
+
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+
+  public QqlDefect title(String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+   /**
+   * Get title
+   * @return title
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getTitle() {
+    return title;
+  }
+
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+
+  public QqlDefect actualResult(String actualResult) {
+    
+    this.actualResult = actualResult;
+    return this;
+  }
+
+   /**
+   * Get actualResult
+   * @return actualResult
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getActualResult() {
+    return actualResult;
+  }
+
+
+  public void setActualResult(String actualResult) {
+    this.actualResult = actualResult;
+  }
+
+
+  public QqlDefect severity(String severity) {
+    
+    this.severity = severity;
+    return this;
+  }
+
+   /**
+   * Get severity
+   * @return severity
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getSeverity() {
+    return severity;
+  }
+
+
+  public void setSeverity(String severity) {
+    this.severity = severity;
+  }
+
+
+  public QqlDefect status(String status) {
+    
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getStatus() {
+    return status;
+  }
+
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+
+  public QqlDefect milestoneId(Long milestoneId) {
+    
+    this.milestoneId = milestoneId;
+    return this;
+  }
+
+   /**
+   * Get milestoneId
+   * @return milestoneId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getMilestoneId() {
+    return milestoneId;
+  }
+
+
+  public void setMilestoneId(Long milestoneId) {
+    this.milestoneId = milestoneId;
+  }
+
+
+  public QqlDefect customFields(List<CustomFieldValue> customFields) {
+    
+    this.customFields = customFields;
+    return this;
+  }
+
+  public QqlDefect addCustomFieldsItem(CustomFieldValue customFieldsItem) {
+    if (this.customFields == null) {
+      this.customFields = new ArrayList<>();
     }
+    this.customFields.add(customFieldsItem);
+    return this;
+  }
 
-    private static <T> int hashCodeNullable(JsonNullable<T> a) {
-        if (a == null) {
-            return 1;
-        }
-        return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+   /**
+   * Get customFields
+   * @return customFields
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public List<CustomFieldValue> getCustomFields() {
+    return customFields;
+  }
+
+
+  public void setCustomFields(List<CustomFieldValue> customFields) {
+    this.customFields = customFields;
+  }
+
+
+  public QqlDefect attachments(List<Attachment> attachments) {
+    
+    this.attachments = attachments;
+    return this;
+  }
+
+  public QqlDefect addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<>();
     }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
 
-    public QqlDefect id(Long id) {
+   /**
+   * Get attachments
+   * @return attachments
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-        this.id = id;
-        return this;
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
+
+  public QqlDefect resolved(String resolved) {
+    
+    this.resolved = resolved;
+    return this;
+  }
+
+   /**
+   * Get resolved
+   * @return resolved
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getResolved() {
+    return resolved;
+  }
+
+
+  public void setResolved(String resolved) {
+    this.resolved = resolved;
+  }
+
+
+  public QqlDefect projectId(Long projectId) {
+    
+    this.projectId = projectId;
+    return this;
+  }
+
+   /**
+   * Get projectId
+   * @return projectId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getProjectId() {
+    return projectId;
+  }
+
+
+  public void setProjectId(Long projectId) {
+    this.projectId = projectId;
+  }
+
+
+  public QqlDefect memberId(Long memberId) {
+    
+    this.memberId = memberId;
+    return this;
+  }
+
+   /**
+   * Get memberId
+   * @return memberId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Long getMemberId() {
+    return memberId;
+  }
+
+
+  public void setMemberId(Long memberId) {
+    this.memberId = memberId;
+  }
+
+
+  public QqlDefect externalData(String externalData) {
+    
+    this.externalData = externalData;
+    return this;
+  }
+
+   /**
+   * Get externalData
+   * @return externalData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getExternalData() {
+    return externalData;
+  }
+
+
+  public void setExternalData(String externalData) {
+    this.externalData = externalData;
+  }
+
+
+  public QqlDefect tags(List<TagValue> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public QqlDefect addTagsItem(TagValue tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
     }
+    this.tags.add(tagsItem);
+    return this;
+  }
 
-    /**
-     * Get id
-     *
-     * @return id
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
+   /**
+   * Get tags
+   * @return tags
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-    public Long getId() {
-        return id;
+  public List<TagValue> getTags() {
+    return tags;
+  }
+
+
+  public void setTags(List<TagValue> tags) {
+    this.tags = tags;
+  }
+
+
+  public QqlDefect createdAt(String createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Get createdAt
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public QqlDefect updatedAt(String updatedAt) {
+    
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Get updatedAt
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
+
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    QqlDefect qqlDefect = (QqlDefect) o;
+    return Objects.equals(this.id, qqlDefect.id) &&
+        Objects.equals(this.title, qqlDefect.title) &&
+        Objects.equals(this.actualResult, qqlDefect.actualResult) &&
+        Objects.equals(this.severity, qqlDefect.severity) &&
+        Objects.equals(this.status, qqlDefect.status) &&
+        Objects.equals(this.milestoneId, qqlDefect.milestoneId) &&
+        Objects.equals(this.customFields, qqlDefect.customFields) &&
+        Objects.equals(this.attachments, qqlDefect.attachments) &&
+        Objects.equals(this.resolved, qqlDefect.resolved) &&
+        Objects.equals(this.projectId, qqlDefect.projectId) &&
+        Objects.equals(this.memberId, qqlDefect.memberId) &&
+        Objects.equals(this.externalData, qqlDefect.externalData) &&
+        Objects.equals(this.tags, qqlDefect.tags) &&
+        Objects.equals(this.createdAt, qqlDefect.createdAt) &&
+        Objects.equals(this.updatedAt, qqlDefect.updatedAt);
+  }
 
-    public QqlDefect title(String title) {
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
 
-        this.title = title;
-        return this;
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, title, actualResult, severity, status, milestoneId, customFields, attachments, resolved, projectId, memberId, externalData, tags, createdAt, updatedAt);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
     }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
 
-    /**
-     * Get title
-     *
-     * @return title
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class QqlDefect {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    actualResult: ").append(toIndentedString(actualResult)).append("\n");
+    sb.append("    severity: ").append(toIndentedString(severity)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+    sb.append("    resolved: ").append(toIndentedString(resolved)).append("\n");
+    sb.append("    projectId: ").append(toIndentedString(projectId)).append("\n");
+    sb.append("    memberId: ").append(toIndentedString(memberId)).append("\n");
+    sb.append("    externalData: ").append(toIndentedString(externalData)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-    public String getTitle() {
-        return title;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public QqlDefect actualResult(String actualResult) {
-
-        this.actualResult = actualResult;
-        return this;
-    }
-
-    /**
-     * Get actualResult
-     *
-     * @return actualResult
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getActualResult() {
-        return actualResult;
-    }
-
-    public void setActualResult(String actualResult) {
-        this.actualResult = actualResult;
-    }
-
-    public QqlDefect severity(String severity) {
-
-        this.severity = severity;
-        return this;
-    }
-
-    /**
-     * Get severity
-     *
-     * @return severity
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
-
-    public QqlDefect status(String status) {
-
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return status
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public QqlDefect milestoneId(Long milestoneId) {
-
-        this.milestoneId = milestoneId;
-        return this;
-    }
-
-    /**
-     * Get milestoneId
-     *
-     * @return milestoneId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getMilestoneId() {
-        return milestoneId;
-    }
-
-    public void setMilestoneId(Long milestoneId) {
-        this.milestoneId = milestoneId;
-    }
-
-    public QqlDefect customFields(List<CustomFieldValue> customFields) {
-
-        this.customFields = customFields;
-        return this;
-    }
-
-    public QqlDefect addCustomFieldsItem(CustomFieldValue customFieldsItem) {
-        if (this.customFields == null) {
-            this.customFields = new ArrayList<>();
-        }
-        this.customFields.add(customFieldsItem);
-        return this;
-    }
-
-    /**
-     * Get customFields
-     *
-     * @return customFields
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<CustomFieldValue> getCustomFields() {
-        return customFields;
-    }
-
-    public void setCustomFields(List<CustomFieldValue> customFields) {
-        this.customFields = customFields;
-    }
-
-    public QqlDefect attachments(List<Attachment> attachments) {
-
-        this.attachments = attachments;
-        return this;
-    }
-
-    public QqlDefect addAttachmentsItem(Attachment attachmentsItem) {
-        if (this.attachments == null) {
-            this.attachments = new ArrayList<>();
-        }
-        this.attachments.add(attachmentsItem);
-        return this;
-    }
-
-    /**
-     * Get attachments
-     *
-     * @return attachments
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<Attachment> getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
-    }
-
-    public QqlDefect resolved(String resolved) {
-
-        this.resolved = resolved;
-        return this;
-    }
-
-    /**
-     * Get resolved
-     *
-     * @return resolved
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getResolved() {
-        return resolved;
-    }
-
-    public void setResolved(String resolved) {
-        this.resolved = resolved;
-    }
-
-    public QqlDefect projectId(Long projectId) {
-
-        this.projectId = projectId;
-        return this;
-    }
-
-    /**
-     * Get projectId
-     *
-     * @return projectId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
-
-    public QqlDefect memberId(Long memberId) {
-
-        this.memberId = memberId;
-        return this;
-    }
-
-    /**
-     * Get memberId
-     *
-     * @return memberId
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
-
-    public QqlDefect externalData(String externalData) {
-
-        this.externalData = externalData;
-        return this;
-    }
-
-    /**
-     * Get externalData
-     *
-     * @return externalData
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public String getExternalData() {
-        return externalData;
-    }
-
-    public void setExternalData(String externalData) {
-        this.externalData = externalData;
-    }
-
-    public QqlDefect tags(List<TagValue> tags) {
-
-        this.tags = tags;
-        return this;
-    }
-
-    public QqlDefect addTagsItem(TagValue tagsItem) {
-        if (this.tags == null) {
-            this.tags = new ArrayList<>();
-        }
-        this.tags.add(tagsItem);
-        return this;
-    }
-
-    /**
-     * Get tags
-     *
-     * @return tags
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(value = "")
-
-    public List<TagValue> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<TagValue> tags) {
-        this.tags = tags;
-    }
-
-    public QqlDefect createdAt(String createdAt) {
-
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return createdAt
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public QqlDefect updatedAt(String updatedAt) {
-
-        this.updatedAt = updatedAt;
-        return this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return updatedAt
-     **/
-    @javax.annotation.Nullable
-    @ApiModelProperty(example = "2021-12-30T19:23:59Z", value = "")
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("id");
+    openapiFields.add("title");
+    openapiFields.add("actual_result");
+    openapiFields.add("severity");
+    openapiFields.add("status");
+    openapiFields.add("milestone_id");
+    openapiFields.add("custom_fields");
+    openapiFields.add("attachments");
+    openapiFields.add("resolved");
+    openapiFields.add("project_id");
+    openapiFields.add("member_id");
+    openapiFields.add("external_data");
+    openapiFields.add("tags");
+    openapiFields.add("created_at");
+    openapiFields.add("updated_at");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        QqlDefect qqlDefect = (QqlDefect) o;
-        return Objects.equals(this.id, qqlDefect.id) &&
-                Objects.equals(this.title, qqlDefect.title) &&
-                Objects.equals(this.actualResult, qqlDefect.actualResult) &&
-                Objects.equals(this.severity, qqlDefect.severity) &&
-                Objects.equals(this.status, qqlDefect.status) &&
-                Objects.equals(this.milestoneId, qqlDefect.milestoneId) &&
-                Objects.equals(this.customFields, qqlDefect.customFields) &&
-                Objects.equals(this.attachments, qqlDefect.attachments) &&
-                Objects.equals(this.resolved, qqlDefect.resolved) &&
-                Objects.equals(this.projectId, qqlDefect.projectId) &&
-                Objects.equals(this.memberId, qqlDefect.memberId) &&
-                Objects.equals(this.externalData, qqlDefect.externalData) &&
-                Objects.equals(this.tags, qqlDefect.tags) &&
-                Objects.equals(this.createdAt, qqlDefect.createdAt) &&
-                Objects.equals(this.updatedAt, qqlDefect.updatedAt);
-    }
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!QqlDefect.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'QqlDefect' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<QqlDefect> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(QqlDefect.class));
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, actualResult, severity, status, milestoneId, customFields, attachments, resolved, projectId, memberId, externalData, tags, createdAt, updatedAt);
-    }
+       return (TypeAdapter<T>) new TypeAdapter<QqlDefect>() {
+           @Override
+           public void write(JsonWriter out, QqlDefect value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class QqlDefect {\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    title: ").append(toIndentedString(title)).append("\n");
-        sb.append("    actualResult: ").append(toIndentedString(actualResult)).append("\n");
-        sb.append("    severity: ").append(toIndentedString(severity)).append("\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
-        sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
-        sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
-        sb.append("    resolved: ").append(toIndentedString(resolved)).append("\n");
-        sb.append("    projectId: ").append(toIndentedString(projectId)).append("\n");
-        sb.append("    memberId: ").append(toIndentedString(memberId)).append("\n");
-        sb.append("    externalData: ").append(toIndentedString(externalData)).append("\n");
-        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-        sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
+           @Override
+           public QqlDefect read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+       }.nullSafe();
     }
+  }
 
+ /**
+  * Create an instance of QqlDefect given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of QqlDefect
+  * @throws IOException if the JSON string is invalid with respect to QqlDefect
+  */
+  public static QqlDefect fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, QqlDefect.class);
+  }
+
+ /**
+  * Convert an instance of QqlDefect to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

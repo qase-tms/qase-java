@@ -1,6 +1,6 @@
 /*
  * Qase.io API
- * # Introduction  You can use our API to access [Qase.io](https://qase.io) API endpoints, which allows to retrieve information about entities stored in database and perform actions with them. The API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).  # API Rate limits  Your application can make up to 200 API requests per minute.  Once the limit is exceeded, clients receive an HTTP 429 with a Retry-After: X header to indicate how long their timeout period is before they will be able to send requests again. The timeout period is set to 60 seconds once the limit is exceeded.  # Authentication  To authorize, use this code:  ```shell # With shell, you can just pass the correct header with each request curl \"https://api.qase.io/v1/api_endpoint\"   -H \"Token: api_token\"   -H \"Content-Type: application/json\" ```  Make sure to replace `api_token` with your API key.  Qase.io uses API tokens to authenticate requests. You can view an manage your API keys in [API tokens pages](https://app.qase.io/user/api/token).  Your API keys has the same access rights as your role in the app, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.  Qase API expects for the API key to be included in all API requests to the server in a header that looks like the following:  `Token: api_token`  You must replace `api_token` with your personal API key.  All API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made over plain HTTP will fail. API requests without authentication will also fail.  # Access rights  Qase.io is using Role-based Access Control system to restrict some features usage in Web interface and the same rules are applied to API methods. In description for each method you will find a rule name, that is required to perform an action through API. If you don't have enough access rights, you will receive an error with `403` status code.  # Errors  Qase API uses the following error codes:  Code | Meaning ---------- | ------- 400 | Bad Request - Your request is invalid. 401 | Unauthorized - Your API key is wrong. 403 | Forbidden - Your role doesn't have enough permissions to perform this action 404 | Not Found - The resource could not be found. 405 | Method Not Allowed - You tried to access a resource with an invalid method. 406 | Not Acceptable - You requested a format that isn't json. 410 | Gone - The resource requested has been removed from our servers. 429 | Too Many Requests - You're performing too many requests! Slow down! 500 | Internal Server Error - We had a problem with our server. Try again later. 503 | Service Unavailable - We're temporarily offline for maintenance. Please try again later.
+ * Qase API Specification.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@qase.io
@@ -23,6 +23,7 @@ import okhttp3.internal.http.HttpMethod;
 import okhttp3.internal.tls.OkHostnameVerifier;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+import okio.Buffer;
 import okio.BufferedSink;
 import okio.Okio;
 
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.file.Files;
@@ -53,12 +55,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ApiClient { // TODO: check if unused fields and methods are worth keeping
+/**
+ * <p>ApiClient class.</p>
+ */
+public class ApiClient {
 
-    private final Map<String, String> defaultHeaderMap = new HashMap<String, String>();
-    private final Map<String, String> defaultCookieMap = new HashMap<String, String>();
-    private String basePath;
+    private String basePath = "https://api.qase.io/v1";
     private boolean debugging = false;
+    private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
+    private Map<String, String> defaultCookieMap = new HashMap<String, String>();
     private String tempFolderPath = null;
 
     private Map<String, Authentication> authentications;
@@ -77,7 +82,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
 
     private HttpLoggingInterceptor loggingInterceptor;
 
-    /*
+    /**
      * Basic constructor for ApiClient
      */
     public ApiClient() {
@@ -85,12 +90,15 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
         initHttpClient();
 
         // Setup authentications (key: authentication name, value: authentication).
+        authentications.put("TokenAuth", new ApiKeyAuth("header", "Token"));
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
     }
 
-    /*
+    /**
      * Basic constructor with custom OkHttpClient
+     *
+     * @param client a {@link OkHttpClient} object
      */
     public ApiClient(OkHttpClient client) {
         init();
@@ -98,18 +106,19 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
         httpClient = client;
 
         // Setup authentications (key: authentication name, value: authentication).
+        authentications.put("TokenAuth", new ApiKeyAuth("header", "Token"));
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
     }
 
     private void initHttpClient() {
-        initHttpClient(Collections.emptyList());
+        initHttpClient(Collections.<Interceptor>emptyList());
     }
 
     private void initHttpClient(List<Interceptor> interceptors) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addNetworkInterceptor(getProgressInterceptor());
-        for (Interceptor interceptor : interceptors) {
+        for (Interceptor interceptor: interceptors) {
             builder.addInterceptor(interceptor);
         }
 
@@ -123,8 +132,8 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
 
         // Set default User-Agent.
         setUserAgent("Qase API Client");
-        authentications = new HashMap<>();
-        authentications.put("TokenAuth", new ApiKeyAuth("header", "Token"));
+
+        authentications = new HashMap<String, Authentication>();
     }
 
     /**
@@ -233,6 +242,11 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
         return this;
     }
 
+    /**
+     * <p>Getter for the field <code>keyManagers</code>.</p>
+     *
+     * @return an array of {@link KeyManager} objects
+     */
     public KeyManager[] getKeyManagers() {
         return keyManagers;
     }
@@ -250,32 +264,67 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
         return this;
     }
 
+    /**
+     * <p>Getter for the field <code>dateFormat</code>.</p>
+     *
+     * @return a {@link DateFormat} object
+     */
     public DateFormat getDateFormat() {
         return dateFormat;
     }
 
+    /**
+     * <p>Setter for the field <code>dateFormat</code>.</p>
+     *
+     * @param dateFormat a {@link DateFormat} object
+     * @return a {@link ApiClient} object
+     */
     public ApiClient setDateFormat(DateFormat dateFormat) {
-        this.json.setDateFormat(dateFormat);
+        JSON.setDateFormat(dateFormat);
         return this;
     }
 
+    /**
+     * <p>Set SqlDateFormat.</p>
+     *
+     * @param dateFormat a {@link DateFormat} object
+     * @return a {@link ApiClient} object
+     */
     public ApiClient setSqlDateFormat(DateFormat dateFormat) {
-        this.json.setSqlDateFormat(dateFormat);
+        JSON.setSqlDateFormat(dateFormat);
         return this;
     }
 
+    /**
+     * <p>Set OffsetDateTimeFormat.</p>
+     *
+     * @param dateFormat a {@link DateTimeFormatter} object
+     * @return a {@link ApiClient} object
+     */
     public ApiClient setOffsetDateTimeFormat(DateTimeFormatter dateFormat) {
-        this.json.setOffsetDateTimeFormat(dateFormat);
+        JSON.setOffsetDateTimeFormat(dateFormat);
         return this;
     }
 
+    /**
+     * <p>Set LocalDateFormat.</p>
+     *
+     * @param dateFormat a {@link DateTimeFormatter} object
+     * @return a {@link ApiClient} object
+     */
     public ApiClient setLocalDateFormat(DateTimeFormatter dateFormat) {
-        this.json.setLocalDateFormat(dateFormat);
+        JSON.setLocalDateFormat(dateFormat);
         return this;
     }
 
+    /**
+     * <p>Set LenientOnJson.</p>
+     *
+     * @param lenientOnJson a boolean
+     * @return a {@link ApiClient} object
+     */
     public ApiClient setLenientOnJson(boolean lenientOnJson) {
-        this.json.setLenientOnJson(lenientOnJson);
+        JSON.setLenientOnJson(lenientOnJson);
         return this;
     }
 
@@ -382,7 +431,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * Add a default header.
      *
-     * @param key   The header's key
+     * @param key The header's key
      * @param value The header's value
      * @return ApiClient
      */
@@ -394,7 +443,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * Add a default cookie.
      *
-     * @param key   The cookie's key
+     * @param key The cookie's key
      * @param value The cookie's value
      * @return ApiClient
      */
@@ -440,8 +489,8 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
      * with file response. The default value is <code>null</code>, i.e. using
      * the system's default temporary folder.
      *
-     * @return Temporary folder path
      * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html#createTempFile(java.lang.String,%20java.lang.String,%20java.nio.file.attribute.FileAttribute...)">createTempFile</a>
+     * @return Temporary folder path
      */
     public String getTempFolderPath() {
         return tempFolderPath;
@@ -536,7 +585,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
             return "";
         } else if (param instanceof Date || param instanceof OffsetDateTime || param instanceof LocalDate) {
             //Serialize to json string and remove the " enclosing characters
-            String jsonStr = json.serialize(param);
+            String jsonStr = JSON.serialize(param);
             return jsonStr.substring(1, jsonStr.length() - 1);
         } else if (param instanceof Collection) {
             StringBuilder b = new StringBuilder();
@@ -554,19 +603,18 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
 
     /**
      * Formats the specified query parameter to a list containing a single {@code Pair} object.
-     * <p>
+     *
      * Note that {@code value} must not be a collection.
      *
-     * @param name  The name of the parameter.
+     * @param name The name of the parameter.
      * @param value The value of the parameter.
      * @return A list containing a single {@code Pair} object.
      */
     public List<Pair> parameterToPair(String name, Object value) {
+        List<Pair> params = new ArrayList<Pair>();
         if (name.equals("filters")) {
             return FilterHelper.getFilterPairs(value);
         }
-        List<Pair> params = new ArrayList<>();
-
         // preconditions
         if (name == null || name.isEmpty() || value == null || value instanceof Collection) {
             return params;
@@ -578,12 +626,12 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
 
     /**
      * Formats the specified collection query parameters to a list of {@code Pair} objects.
-     * <p>
+     *
      * Note that the values of each of the returned Pair objects are percent-encoded.
      *
      * @param collectionFormat The collection format of the parameter.
-     * @param name             The name of the parameter.
-     * @param value            The value of the parameter.
+     * @param name The name of the parameter.
+     * @param value The value of the parameter.
      * @return A list of {@code Pair} objects.
      */
     public List<Pair> parameterToPairs(String collectionFormat, String name, Collection value) {
@@ -630,7 +678,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
      * Formats the specified collection path parameter to a string value.
      *
      * @param collectionFormat The collection format of the parameter.
-     * @param value            The value of the parameter.
+     * @param value The value of the parameter.
      * @return String representation of the parameter
      */
     public String collectionPathParameterToString(String collectionFormat, Collection value) {
@@ -651,7 +699,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
             delimiter = "|";
         }
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder() ;
         for (Object item : value) {
             sb.append(delimiter);
             sb.append(parameterToString(item));
@@ -674,12 +722,11 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * Check if the given MIME is a JSON MIME.
      * JSON MIME examples:
-     * application/json
-     * application/json; charset=UTF8
-     * APPLICATION/JSON
-     * application/vnd.company+json
+     *   application/json
+     *   application/json; charset=UTF8
+     *   APPLICATION/JSON
+     *   application/vnd.company+json
      * "* / *" is also default to JSON
-     *
      * @param mime MIME (Multipurpose Internet Mail Extensions)
      * @return True if the given MIME is JSON, false otherwise.
      */
@@ -690,12 +737,12 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
 
     /**
      * Select the Accept header's value from the given accepts array:
-     * if JSON exists in the given array, use it;
-     * otherwise use all of them (joining into a string)
+     *   if JSON exists in the given array, use it;
+     *   otherwise use all of them (joining into a string)
      *
      * @param accepts The accepts array to select from
      * @return The Accept header to use. If the given array is empty,
-     * null will be returned (not to set the Accept header explicitly).
+     *   null will be returned (not to set the Accept header explicitly).
      */
     public String selectHeaderAccept(String[] accepts) {
         if (accepts.length == 0) {
@@ -711,22 +758,28 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
 
     /**
      * Select the Content-Type header's value from the given array:
-     * if JSON exists in the given array, use it;
-     * otherwise use the first one of the array.
+     *   if JSON exists in the given array, use it;
+     *   otherwise use the first one of the array.
      *
      * @param contentTypes The Content-Type array to select from
      * @return The Content-Type header to use. If the given array is empty,
-     * or matches "any", JSON will be used.
+     *   returns null. If it matches "any", JSON will be used.
      */
     public String selectHeaderContentType(String[] contentTypes) {
-        if (contentTypes.length == 0 || contentTypes[0].equals("*/*")) {
+        if (contentTypes.length == 0) {
+            return null;
+        }
+
+        if (contentTypes[0].equals("*/*")) {
             return "application/json";
         }
+
         for (String contentType : contentTypes) {
             if (isJsonMime(contentType)) {
                 return contentType;
             }
         }
+
         return contentTypes[0];
     }
 
@@ -748,12 +801,12 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
      * Deserialize response body to Java object, according to the return type and
      * the Content-Type response header.
      *
-     * @param <T>        Type
-     * @param response   HTTP response
+     * @param <T> Type
+     * @param response HTTP response
      * @param returnType The type of the Java object
      * @return The deserialized Java object
-     * @throws QaseException If fail to deserialize response body, i.e. cannot read response body
-     *                       or the Content-Type of the response is not supported.
+     * @throws io.qase.client.QaseException If fail to deserialize response body, i.e. cannot read response body
+     *   or the Content-Type of the response is not supported.
      */
     @SuppressWarnings("unchecked")
     public <T> T deserialize(Response response, Type returnType) throws QaseException {
@@ -793,7 +846,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
             contentType = "application/json";
         }
         if (isJsonMime(contentType)) {
-            return json.deserialize(respBody, returnType);
+            return JSON.deserialize(respBody, returnType);
         } else if (returnType.equals(String.class)) {
             // Expecting string, return the raw response body.
             return (T) respBody;
@@ -810,10 +863,10 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
      * Serialize the given Java object into request body according to the object's
      * class and the request Content-Type.
      *
-     * @param obj         The Java object
+     * @param obj The Java object
      * @param contentType The request Content-Type
      * @return The serialized request body
-     * @throws QaseException If fail to serialize the given object
+     * @throws io.qase.client.QaseException If fail to serialize the given object
      */
     public RequestBody serialize(Object obj, String contentType) throws QaseException {
         if (obj instanceof byte[]) {
@@ -822,14 +875,18 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
         } else if (obj instanceof File) {
             // File body parameter support.
             return RequestBody.create((File) obj, MediaType.parse(contentType));
+        } else if ("text/plain".equals(contentType) && obj instanceof String) {
+            return RequestBody.create((String) obj, MediaType.parse(contentType));
         } else if (isJsonMime(contentType)) {
             String content;
             if (obj != null) {
-                content = json.serialize(obj);
+                content = JSON.serialize(obj);
             } else {
                 content = null;
             }
             return RequestBody.create(content, MediaType.parse(contentType));
+        } else if (obj instanceof String) {
+            return RequestBody.create((String) obj, MediaType.parse(contentType));
         } else {
             throw new QaseException("Content type \"" + contentType + "\" is not supported");
         }
@@ -839,8 +896,8 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
      * Download file from the given response.
      *
      * @param response An instance of the Response object
+     * @throws io.qase.client.QaseException If fail to read file content from response and write to disk
      * @return Downloaded file
-     * @throws QaseException If fail to read file content from response and write to disk
      */
     public File downloadFileFromResponse(Response response) throws QaseException {
         try {
@@ -900,10 +957,10 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * {@link #execute(Call, Type)}
      *
-     * @param <T>  Type
+     * @param <T> Type
      * @param call An instance of the Call object
      * @return ApiResponse&lt;T&gt;
-     * @throws QaseException If fail to execute the call
+     * @throws io.qase.client.QaseException If fail to execute the call
      */
     public <T> ApiResponse<T> execute(Call call) throws QaseException {
         return execute(call, null);
@@ -913,12 +970,12 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
      * Execute HTTP call and deserialize the HTTP response body into the given return type.
      *
      * @param returnType The return type used to deserialize HTTP response body
-     * @param <T>        The return type corresponding to (same with) returnType
-     * @param call       Call
+     * @param <T> The return type corresponding to (same with) returnType
+     * @param call Call
      * @return ApiResponse object containing response status, headers and
-     * data, which is a Java object deserialized from response body and would be null
-     * when returnType is null.
-     * @throws QaseException If fail to execute the call
+     *   data, which is a Java object deserialized from response body and would be null
+     *   when returnType is null.
+     * @throws io.qase.client.QaseException If fail to execute the call
      */
     public <T> ApiResponse<T> execute(Call call, Type returnType) throws QaseException {
         try {
@@ -933,8 +990,8 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * {@link #executeAsync(Call, Type, ApiCallback)}
      *
-     * @param <T>      Type
-     * @param call     An instance of the Call object
+     * @param <T> Type
+     * @param call An instance of the Call object
      * @param callback ApiCallback&lt;T&gt;
      */
     public <T> void executeAsync(Call call, ApiCallback<T> callback) {
@@ -944,10 +1001,10 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * Execute HTTP call asynchronously.
      *
-     * @param <T>        Type
-     * @param call       The callback to be executed when the API call finishes
+     * @param <T> Type
+     * @param call The callback to be executed when the API call finishes
      * @param returnType Return type
-     * @param callback   ApiCallback
+     * @param callback ApiCallback
      * @see #execute(Call, Type)
      */
     @SuppressWarnings("unchecked")
@@ -962,7 +1019,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
             public void onResponse(Call call, Response response) throws IOException {
                 T result;
                 try {
-                    result = handleResponse(response, returnType);
+                    result = (T) handleResponse(response, returnType);
                 } catch (QaseException e) {
                     callback.onFailure(e, response.code(), response.headers().toMultimap());
                     return;
@@ -978,12 +1035,12 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * Handle the given response, return the deserialized object when the response is successful.
      *
-     * @param <T>        Type
-     * @param response   Response
+     * @param <T> Type
+     * @param response Response
      * @param returnType Return type
      * @return Type
-     * @throws QaseException If the response has an unsuccessful status code or
-     *                       fail to deserialize the response body
+     * @throws io.qase.client.QaseException If the response has an unsuccessful status code or
+     *                      fail to deserialize the response body
      */
     public <T> T handleResponse(Response response, Type returnType) throws QaseException {
         if (response.isSuccessful()) {
@@ -1010,29 +1067,29 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
                     throw new QaseException(response.message(), e, response.code(), response.headers().toMultimap());
                 }
             }
-            throw new QaseException(response.code() + " - " + (response.message().isEmpty() ? respBody : response.message()),
-                    response.code(), response.headers().toMultimap(), respBody);
+            throw new QaseException(response.message(), response.code(), response.headers().toMultimap(), respBody);
         }
     }
 
     /**
      * Build HTTP call with the given options.
      *
-     * @param path                  The sub-path of the HTTP URL
-     * @param method                The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and "DELETE"
-     * @param queryParams           The query parameters
+     * @param baseUrl The base URL
+     * @param path The sub-path of the HTTP URL
+     * @param method The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and "DELETE"
+     * @param queryParams The query parameters
      * @param collectionQueryParams The collection query parameters
-     * @param body                  The request body object
-     * @param headerParams          The header parameters
-     * @param cookieParams          The cookie parameters
-     * @param formParams            The form parameters
-     * @param authNames             The authentications to apply
-     * @param callback              Callback for upload/download progress
+     * @param body The request body object
+     * @param headerParams The header parameters
+     * @param cookieParams The cookie parameters
+     * @param formParams The form parameters
+     * @param authNames The authentications to apply
+     * @param callback Callback for upload/download progress
      * @return The HTTP call
-     * @throws QaseException If fail to serialize the request body object
+     * @throws io.qase.client.QaseException If fail to serialize the request body object
      */
-    public Call buildCall(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, String> cookieParams, Map<String, Object> formParams, String[] authNames, ApiCallback callback) throws QaseException {
-        Request request = buildRequest(path, method, queryParams, collectionQueryParams, body, headerParams, cookieParams, formParams, authNames, callback);
+    public Call buildCall(String baseUrl, String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, String> cookieParams, Map<String, Object> formParams, String[] authNames, ApiCallback callback) throws QaseException {
+        Request request = buildRequest(baseUrl, path, method, queryParams, collectionQueryParams, body, headerParams, cookieParams, formParams, authNames, callback);
 
         return httpClient.newCall(request);
     }
@@ -1040,34 +1097,31 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * Build an HTTP request with the given options.
      *
-     * @param path                  The sub-path of the HTTP URL
-     * @param method                The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and "DELETE"
-     * @param queryParams           The query parameters
+     * @param baseUrl The base URL
+     * @param path The sub-path of the HTTP URL
+     * @param method The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and "DELETE"
+     * @param queryParams The query parameters
      * @param collectionQueryParams The collection query parameters
-     * @param body                  The request body object
-     * @param headerParams          The header parameters
-     * @param cookieParams          The cookie parameters
-     * @param formParams            The form parameters
-     * @param authNames             The authentications to apply
-     * @param callback              Callback for upload/download progress
+     * @param body The request body object
+     * @param headerParams The header parameters
+     * @param cookieParams The cookie parameters
+     * @param formParams The form parameters
+     * @param authNames The authentications to apply
+     * @param callback Callback for upload/download progress
      * @return The HTTP request
-     * @throws QaseException If fail to serialize the request body object
+     * @throws io.qase.client.QaseException If fail to serialize the request body object
      */
-    public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, String> cookieParams, Map<String, Object> formParams, String[] authNames, ApiCallback callback) throws QaseException {
-        updateParamsForAuth(authNames, queryParams, headerParams, cookieParams);
+    public Request buildRequest(String baseUrl, String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, String> cookieParams, Map<String, Object> formParams, String[] authNames, ApiCallback callback) throws QaseException {
+        // aggregate queryParams (non-collection) and collectionQueryParams into allQueryParams
+        List<Pair> allQueryParams = new ArrayList<Pair>(queryParams);
+        allQueryParams.addAll(collectionQueryParams);
 
-        final String url = buildUrl(path, queryParams, collectionQueryParams);
-        final Request.Builder reqBuilder = new Request.Builder().url(url);
-        processHeaderParams(headerParams, reqBuilder);
-        processCookieParams(cookieParams, reqBuilder);
+        final String url = buildUrl(baseUrl, path, queryParams, collectionQueryParams);
 
-        String contentType = headerParams.get("Content-Type");
-        // ensuring a default content type
-        if (contentType == null) {
-            contentType = "application/json";
-        }
-
+        // prepare HTTP request body
         RequestBody reqBody;
+        String contentType = headerParams.get("Content-Type");
+
         if (!HttpMethod.permitsRequestBody(method)) {
             reqBody = null;
         } else if ("application/x-www-form-urlencoded".equals(contentType)) {
@@ -1080,11 +1134,18 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
                 reqBody = null;
             } else {
                 // use an empty request body (for POST, PUT and PATCH)
-                reqBody = RequestBody.create("", MediaType.parse(contentType));
+                reqBody = RequestBody.create("", contentType == null ? null : MediaType.parse(contentType));
             }
         } else {
             reqBody = serialize(body, contentType);
         }
+
+        // update parameters with authentication settings
+        updateParamsForAuth(authNames, allQueryParams, headerParams, cookieParams, requestBodyToString(reqBody), method, URI.create(url));
+
+        final Request.Builder reqBuilder = new Request.Builder().url(url);
+        processHeaderParams(headerParams, reqBuilder);
+        processCookieParams(cookieParams, reqBuilder);
 
         // Associate callback with request (if not null) so interceptor can
         // access it when creating ProgressResponseBody
@@ -1105,14 +1166,19 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * Build full URL by concatenating base path, the given sub path and query parameters.
      *
-     * @param path                  The sub path
-     * @param queryParams           The query parameters
+     * @param baseUrl The base URL
+     * @param path The sub path
+     * @param queryParams The query parameters
      * @param collectionQueryParams The collection query parameters
      * @return The full URL
      */
-    public String buildUrl(String path, List<Pair> queryParams, List<Pair> collectionQueryParams) {
+    public String buildUrl(String baseUrl, String path, List<Pair> queryParams, List<Pair> collectionQueryParams) {
         final StringBuilder url = new StringBuilder();
-        url.append(basePath).append(path);
+        if (baseUrl != null) {
+            url.append(baseUrl).append(path);
+        } else {
+            url.append(basePath).append(path);
+        }
 
         if (queryParams != null && !queryParams.isEmpty()) {
             // support (constant) query string in `path`, e.g. "/posts?draft=1"
@@ -1155,7 +1221,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
      * Set header parameters to the request builder, including default headers.
      *
      * @param headerParams Header parameters in the form of Map
-     * @param reqBuilder   Request.Builder
+     * @param reqBuilder Request.Builder
      */
     public void processHeaderParams(Map<String, String> headerParams, Request.Builder reqBuilder) {
         for (Entry<String, String> param : headerParams.entrySet()) {
@@ -1172,7 +1238,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
      * Set cookie parameters to the request builder, including default cookies.
      *
      * @param cookieParams Cookie parameters in the form of Map
-     * @param reqBuilder   Request.Builder
+     * @param reqBuilder Request.Builder
      */
     public void processCookieParams(Map<String, String> cookieParams, Request.Builder reqBuilder) {
         for (Entry<String, String> param : cookieParams.entrySet()) {
@@ -1188,18 +1254,23 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     /**
      * Update query and header parameters based on authentication settings.
      *
-     * @param authNames    The authentications to apply
-     * @param queryParams  List of query parameters
+     * @param authNames The authentications to apply
+     * @param queryParams List of query parameters
      * @param headerParams Map of header parameters
      * @param cookieParams Map of cookie parameters
+     * @param payload HTTP request body
+     * @param method HTTP method
+     * @param uri URI
+     * @throws io.qase.client.QaseException If fails to update the parameters
      */
-    public void updateParamsForAuth(String[] authNames, List<Pair> queryParams, Map<String, String> headerParams, Map<String, String> cookieParams) {
+    public void updateParamsForAuth(String[] authNames, List<Pair> queryParams, Map<String, String> headerParams,
+                                    Map<String, String> cookieParams, String payload, String method, URI uri) throws QaseException {
         for (String authName : authNames) {
             Authentication auth = authentications.get(authName);
             if (auth == null) {
                 throw new RuntimeException("Authentication undefined: " + authName);
             }
-            auth.applyToParams(queryParams, headerParams, cookieParams);
+            auth.applyToParams(queryParams, headerParams, cookieParams, payload, method, uri);
         }
     }
 
@@ -1227,23 +1298,23 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     public RequestBody buildRequestBodyMultipart(Map<String, Object> formParams) {
         MultipartBody.Builder mpBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         for (Entry<String, Object> param : formParams.entrySet()) {
-            if (param.getValue() instanceof List) {
-                ((List) param.getValue()).stream().filter(p -> p instanceof File)
-                        .forEach(p -> buildFileBody((File) p, param, mpBuilder));
-            } else if (param.getValue() instanceof File) {
-                buildFileBody((File) param.getValue(), param, mpBuilder);
+            if (param.getValue() instanceof File) {
+                File file = (File) param.getValue();
+                addPartToMultiPartBuilder(mpBuilder, param.getKey(), file);
+            } else if (param.getValue() instanceof List) {
+                List list = (List) param.getValue();
+                for (Object item: list) {
+                    if (item instanceof File) {
+                        addPartToMultiPartBuilder(mpBuilder, param.getKey(), (File) item);
+                    } else {
+                        addPartToMultiPartBuilder(mpBuilder, param.getKey(), param.getValue());
+                    }
+                }
             } else {
-                Headers partHeaders = Headers.of("Content-Disposition", "form-data; name=\"" + param.getKey() + "\"");
-                mpBuilder.addPart(partHeaders, RequestBody.create(parameterToString(param.getValue()), null));
+                addPartToMultiPartBuilder(mpBuilder, param.getKey(), param.getValue());
             }
         }
         return mpBuilder.build();
-    }
-
-    private void buildFileBody(File file, Entry<String, Object> param, MultipartBody.Builder mpBuilder) {
-        Headers partHeaders = Headers.of("Content-Disposition", "form-data; name=\"" + param.getKey() + "\"; filename=\"" + file.getName() + "\"");
-        MediaType mediaType = MediaType.parse(guessContentTypeFromFile(file));
-        mpBuilder.addPart(partHeaders, RequestBody.create(file, mediaType));
     }
 
     /**
@@ -1262,6 +1333,44 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
     }
 
     /**
+     * Add a Content-Disposition Header for the given key and file to the MultipartBody Builder.
+     *
+     * @param mpBuilder MultipartBody.Builder 
+     * @param key The key of the Header element
+     * @param file The file to add to the Header
+     */ 
+    private void addPartToMultiPartBuilder(MultipartBody.Builder mpBuilder, String key, File file) {
+        Headers partHeaders = Headers.of("Content-Disposition", "form-data; name=\"" + key + "\"; filename=\"" + file.getName() + "\"");
+        MediaType mediaType = MediaType.parse(guessContentTypeFromFile(file));
+        mpBuilder.addPart(partHeaders, RequestBody.create(file, mediaType));
+    }
+
+    /**
+     * Add a Content-Disposition Header for the given key and complex object to the MultipartBody Builder.
+     *
+     * @param mpBuilder MultipartBody.Builder
+     * @param key The key of the Header element
+     * @param obj The complex object to add to the Header
+     */
+    private void addPartToMultiPartBuilder(MultipartBody.Builder mpBuilder, String key, Object obj) {
+        RequestBody requestBody;
+        if (obj instanceof String) {
+            requestBody = RequestBody.create((String) obj, MediaType.parse("text/plain"));
+        } else {
+            String content;
+            if (obj != null) {
+                content = JSON.serialize(obj);
+            } else {
+                content = null;
+            }
+            requestBody = RequestBody.create(content, MediaType.parse("application/json"));
+        }
+
+        Headers partHeaders = Headers.of("Content-Disposition", "form-data; name=\"" + key + "\"");
+        mpBuilder.addPart(partHeaders, requestBody);
+    }
+
+    /**
      * Get network interceptor to add it to the httpClient to track download progress for
      * async requests.
      */
@@ -1274,8 +1383,8 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
                 if (request.tag() instanceof ApiCallback) {
                     final ApiCallback callback = (ApiCallback) request.tag();
                     return originalResponse.newBuilder()
-                            .body(new ProgressResponseBody(originalResponse.body(), callback))
-                            .build();
+                        .body(new ProgressResponseBody(originalResponse.body(), callback))
+                        .build();
                 }
                 return originalResponse;
             }
@@ -1328,7 +1437,7 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
                     KeyStore caKeyStore = newEmptyKeyStore(password);
                     int index = 0;
                     for (Certificate certificate : certificates) {
-                        String certificateAlias = "ca" + index++;
+                        String certificateAlias = "ca" + (index++);
                         caKeyStore.setCertificateEntry(certificateAlias, certificate);
                     }
                     trustManagerFactory.init(caKeyStore);
@@ -1340,9 +1449,9 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(keyManagers, trustManagers, new SecureRandom());
             httpClient = httpClient.newBuilder()
-                    .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0])
-                    .hostnameVerifier(hostnameVerifier)
-                    .build();
+                            .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0])
+                            .hostnameVerifier(hostnameVerifier)
+                            .build();
         } catch (GeneralSecurityException e) {
             throw new RuntimeException(e);
         }
@@ -1356,5 +1465,27 @@ public class ApiClient { // TODO: check if unused fields and methods are worth k
         } catch (IOException e) {
             throw new AssertionError(e);
         }
+    }
+
+    /**
+     * Convert the HTTP request body to a string.
+     *
+     * @param requestBody The HTTP request object
+     * @return The string representation of the HTTP request body
+     * @throws io.qase.client.QaseException If fail to serialize the request body object into a string
+     */
+    private String requestBodyToString(RequestBody requestBody) throws QaseException {
+        if (requestBody != null) {
+            try {
+                final Buffer buffer = new Buffer();
+                requestBody.writeTo(buffer);
+                return buffer.readUtf8();
+            } catch (final IOException e) {
+                throw new QaseException(e);
+            }
+        }
+
+        // empty http request body
+        return "";
     }
 }
