@@ -48,8 +48,11 @@ public final class StepsAspects {
     public void stepFailed(JoinPoint joinPoint, Throwable e) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Step stepAnnotation = methodSignature.getMethod().getAnnotation(Step.class);
+        String stepsTitle = stepAnnotation.value();
+        stepsTitle = getTitle(joinPoint, stepsTitle);
+
         StepStorage.getCurrentStep()
-                .action(stepAnnotation.value())
+                .action(stepsTitle)
                 .status(ResultCreateStepsInner.StatusEnum.FAILED)
                 .addAttachmentsItem(IntegrationUtils.getStacktrace(e));
         StepStorage.stopStep();

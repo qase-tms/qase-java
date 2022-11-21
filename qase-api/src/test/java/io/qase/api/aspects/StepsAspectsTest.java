@@ -12,6 +12,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StepsAspectsTest {
+    @Step("Step {string}")
+    public void stepFailed(String string) {
+        throw new AssertionError();
+    }
+
     @Step("Step {string} and {integer}")
     public void step(String string, int integer) {
     }
@@ -150,5 +155,16 @@ class StepsAspectsTest {
         LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step null", steps.get(0).getAction());
+    }
+
+    @Test
+    void stepFailedTest() {
+        try {
+            stepFailed("string");
+        } catch (AssertionError ignore) {
+        }
+        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        assertEquals(1, steps.size());
+        assertEquals("Step string", steps.get(0).getAction());
     }
 }
