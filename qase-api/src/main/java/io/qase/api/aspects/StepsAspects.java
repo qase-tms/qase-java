@@ -71,6 +71,9 @@ public final class StepsAspects {
     }
 
     private static String getString(Object args) {
+        if (args == null) {
+            return "null";
+        }
         if (args.getClass().isArray()) {
             if (args instanceof int[]) {
                 return Arrays.toString((int[]) args);

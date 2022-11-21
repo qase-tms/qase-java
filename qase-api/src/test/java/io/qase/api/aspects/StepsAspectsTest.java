@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StepsAspectsTest {
     @Step("Step {string} and {integer}")
@@ -142,5 +142,13 @@ class StepsAspectsTest {
         LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [1, 2, 3]", steps.get(0).getAction());
+    }
+
+    @Test
+    void stepWithNull() {
+        stepWithStringVararg(null);
+        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        assertEquals(1, steps.size());
+        assertEquals("Step null", steps.get(0).getAction());
     }
 }
