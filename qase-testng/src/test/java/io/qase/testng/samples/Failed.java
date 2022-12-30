@@ -1,12 +1,12 @@
 package io.qase.testng.samples;
 
-import io.qase.api.annotation.CaseId;
+import io.qase.api.annotation.QaseId;
 import org.testng.annotations.Test;
 
 
 public class Failed {
     @Test
-    @CaseId(321)
+    @QaseId(321)
     public void failedTest() {
         throw new AssertionError("Error message");
     }

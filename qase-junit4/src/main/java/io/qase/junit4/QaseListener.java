@@ -4,6 +4,8 @@ package io.qase.junit4;
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.CaseTitle;
+import io.qase.api.annotation.QaseId;
+import io.qase.api.annotation.QaseTitle;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.client.model.ResultCreate;
@@ -101,12 +103,30 @@ public class QaseListener extends RunListener {
     }
 
     private Long getCaseId(Description description) {
+        Long qaseId = getQaseId(description);
+        if (qaseId != null) {
+            return qaseId;
+        }
         CaseId caseIdAnnotation = description.getAnnotation(CaseId.class);
         return caseIdAnnotation != null ? caseIdAnnotation.value() : null;
     }
 
     private String getCaseTitle(Description description) {
+        String qaseTitle = getQaseTitle(description);
+        if (qaseTitle != null) {
+            return qaseTitle;
+        }
         CaseTitle caseTitleAnnotation = description.getAnnotation(CaseTitle.class);
+        return caseTitleAnnotation != null ? caseTitleAnnotation.value() : null;
+    }
+
+    private Long getQaseId(Description description) {
+        QaseId caseIdAnnotation = description.getAnnotation(QaseId.class);
+        return caseIdAnnotation != null ? caseIdAnnotation.value() : null;
+    }
+
+    private String getQaseTitle(Description description) {
+        QaseTitle caseTitleAnnotation = description.getAnnotation(QaseTitle.class);
         return caseTitleAnnotation != null ? caseTitleAnnotation.value() : null;
     }
 

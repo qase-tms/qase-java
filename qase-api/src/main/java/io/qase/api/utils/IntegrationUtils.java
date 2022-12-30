@@ -2,6 +2,8 @@ package io.qase.api.utils;
 
 import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.CaseTitle;
+import io.qase.api.annotation.QaseId;
+import io.qase.api.annotation.QaseTitle;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -24,6 +26,10 @@ public final class IntegrationUtils {
     }
 
     public static Long getCaseId(Method method) {
+        Long qaseId = getQaseId(method);
+        if (qaseId != null) {
+            return qaseId;
+        }
         if (method.isAnnotationPresent(CaseId.class)) {
             return method
                     .getDeclaredAnnotation(CaseId.class).value();
@@ -32,8 +38,27 @@ public final class IntegrationUtils {
     }
 
     public static String getCaseTitle(Method method) {
+        String qaseTitle = getQaseTitle(method);
+        if (qaseTitle != null) {
+            return qaseTitle;
+        }
         if (method.isAnnotationPresent(CaseTitle.class)) {
             return method.getDeclaredAnnotation(CaseTitle.class).value();
+        }
+        return null;
+    }
+
+    private static Long getQaseId(Method method) {
+        if (method.isAnnotationPresent(QaseId.class)) {
+            return method
+                    .getDeclaredAnnotation(QaseId.class).value();
+        }
+        return null;
+    }
+
+    private static String getQaseTitle(Method method) {
+        if (method.isAnnotationPresent(QaseTitle.class)) {
+            return method.getDeclaredAnnotation(QaseTitle.class).value();
         }
         return null;
     }

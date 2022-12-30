@@ -2,7 +2,7 @@ package io.qase.api.services;
 
 import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
-import io.qase.api.annotation.CaseId;
+import io.qase.api.annotation.QaseId;
 import io.qase.api.annotation.Step;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.exceptions.QaseException;
@@ -13,11 +13,7 @@ import io.qase.client.model.AttachmentUploadsResponse;
 import io.qase.guice.Injectors;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -28,7 +24,7 @@ public class Attachments {
 
     /**
      * Adds attachments to the current context.
-     * The context could be either {@link io.qase.api.annotation.CaseId} or {@link io.qase.api.annotation.Step}
+     * The context could be either {@link io.qase.api.annotation.QaseId} or {@link io.qase.api.annotation.Step}
      *
      * @throws QaseException if the invocation context can not be found
      * */
@@ -92,7 +88,7 @@ public class Attachments {
             return AttachmentContext.TEST_CASE;
         }
         throw new UncheckedQaseException(new QaseException(String.format(
-            "It is expected either %s or %s-annotated method be called.", Step.class.getName(), CaseId.class.getName()
+            "It is expected either %s or %s-annotated method be called.", Step.class.getName(), QaseId.class.getName()
         )));
     }
 

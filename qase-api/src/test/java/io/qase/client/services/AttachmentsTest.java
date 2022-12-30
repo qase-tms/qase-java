@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.google.gson.Gson;
 import io.qase.api.CasesStorage;
 import io.qase.api.StepStorage;
-import io.qase.api.annotation.CaseId;
+import io.qase.api.annotation.QaseId;
 import io.qase.api.annotation.Step;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.services.Attachments;
@@ -73,14 +73,14 @@ class AttachmentsTest {
         stopCaseIfInProgress();
     }
 
-    @CaseId(CASE_WITHOUT_STEPS_ID)
+    @QaseId(CASE_WITHOUT_STEPS_ID)
     public void caseWithAttachmentsWithoutSteps() throws QaseException {
         startCase();
         Attachments.addAttachmentsToCurrentContext(getTestAttachments());
         // No finishCase for being able to verify CaseStorage.getCurrentCase()
     }
 
-    @CaseId(CASE_WITH_STEPS_ID)
+    @QaseId(CASE_WITH_STEPS_ID)
     public void caseWithAttachmentsWithSteps() throws QaseException {
         startCase();
         stepWithAttachments();
