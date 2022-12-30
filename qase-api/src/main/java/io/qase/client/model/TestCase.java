@@ -112,7 +112,7 @@ public class TestCase {
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
   @SerializedName(SERIALIZED_NAME_PARAMS)
-  private TestCaseParams params;
+  private List<Object> params;
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
@@ -150,7 +150,7 @@ public class TestCase {
   }
 
   public TestCase id(Long id) {
-    
+
     this.id = id;
     return this;
   }
@@ -173,7 +173,7 @@ public class TestCase {
 
 
   public TestCase position(Integer position) {
-    
+
     this.position = position;
     return this;
   }
@@ -196,7 +196,7 @@ public class TestCase {
 
 
   public TestCase title(String title) {
-    
+
     this.title = title;
     return this;
   }
@@ -219,7 +219,7 @@ public class TestCase {
 
 
   public TestCase description(String description) {
-    
+
     this.description = description;
     return this;
   }
@@ -242,7 +242,7 @@ public class TestCase {
 
 
   public TestCase preconditions(String preconditions) {
-    
+
     this.preconditions = preconditions;
     return this;
   }
@@ -265,7 +265,7 @@ public class TestCase {
 
 
   public TestCase postconditions(String postconditions) {
-    
+
     this.postconditions = postconditions;
     return this;
   }
@@ -288,7 +288,7 @@ public class TestCase {
 
 
   public TestCase severity(Integer severity) {
-    
+
     this.severity = severity;
     return this;
   }
@@ -311,7 +311,7 @@ public class TestCase {
 
 
   public TestCase priority(Integer priority) {
-    
+
     this.priority = priority;
     return this;
   }
@@ -334,7 +334,7 @@ public class TestCase {
 
 
   public TestCase type(Integer type) {
-    
+
     this.type = type;
     return this;
   }
@@ -357,7 +357,7 @@ public class TestCase {
 
 
   public TestCase layer(Integer layer) {
-    
+
     this.layer = layer;
     return this;
   }
@@ -380,7 +380,7 @@ public class TestCase {
 
 
   public TestCase isFlaky(Integer isFlaky) {
-    
+
     this.isFlaky = isFlaky;
     return this;
   }
@@ -403,7 +403,7 @@ public class TestCase {
 
 
   public TestCase behavior(Integer behavior) {
-    
+
     this.behavior = behavior;
     return this;
   }
@@ -426,7 +426,7 @@ public class TestCase {
 
 
   public TestCase automation(Integer automation) {
-    
+
     this.automation = automation;
     return this;
   }
@@ -449,7 +449,7 @@ public class TestCase {
 
 
   public TestCase status(Integer status) {
-    
+
     this.status = status;
     return this;
   }
@@ -472,7 +472,7 @@ public class TestCase {
 
 
   public TestCase milestoneId(Long milestoneId) {
-    
+
     this.milestoneId = milestoneId;
     return this;
   }
@@ -495,7 +495,7 @@ public class TestCase {
 
 
   public TestCase suiteId(Long suiteId) {
-    
+
     this.suiteId = suiteId;
     return this;
   }
@@ -518,7 +518,7 @@ public class TestCase {
 
 
   public TestCase customFields(List<CustomFieldValue> customFields) {
-    
+
     this.customFields = customFields;
     return this;
   }
@@ -549,7 +549,7 @@ public class TestCase {
 
 
   public TestCase attachments(List<Attachment> attachments) {
-    
+
     this.attachments = attachments;
     return this;
   }
@@ -580,7 +580,7 @@ public class TestCase {
 
 
   public TestCase stepsType(String stepsType) {
-    
+
     this.stepsType = stepsType;
     return this;
   }
@@ -603,7 +603,7 @@ public class TestCase {
 
 
   public TestCase steps(List<TestStep> steps) {
-    
+
     this.steps = steps;
     return this;
   }
@@ -633,8 +633,8 @@ public class TestCase {
   }
 
 
-  public TestCase params(TestCaseParams params) {
-    
+  public TestCase params(List<Object> params) {
+
     this.params = params;
     return this;
   }
@@ -646,18 +646,18 @@ public class TestCase {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public TestCaseParams getParams() {
+  public List<Object> getParams() {
     return params;
   }
 
 
-  public void setParams(TestCaseParams params) {
+  public void setParams(List<Object> params) {
     this.params = params;
   }
 
 
   public TestCase tags(List<TagValue> tags) {
-    
+
     this.tags = tags;
     return this;
   }
@@ -688,7 +688,7 @@ public class TestCase {
 
 
   public TestCase memberId(Long memberId) {
-    
+
     this.memberId = memberId;
     return this;
   }
@@ -711,7 +711,7 @@ public class TestCase {
 
 
   public TestCase projectId(Long projectId) {
-    
+
     this.projectId = projectId;
     return this;
   }
@@ -734,7 +734,7 @@ public class TestCase {
 
 
   public TestCase createdAt(String createdAt) {
-    
+
     this.createdAt = createdAt;
     return this;
   }
@@ -757,7 +757,7 @@ public class TestCase {
 
 
   public TestCase updatedAt(String updatedAt) {
-    
+
     this.updatedAt = updatedAt;
     return this;
   }
@@ -780,7 +780,7 @@ public class TestCase {
 
 
   public TestCase deleted(String deleted) {
-    
+
     this.deleted = deleted;
     return this;
   }
@@ -805,7 +805,7 @@ public class TestCase {
 
 
   public TestCase created(String created) {
-    
+
     this.created = created;
     return this;
   }
@@ -830,7 +830,7 @@ public class TestCase {
 
 
   public TestCase updated(String updated) {
-    
+
     this.updated = updated;
     return this;
   }
