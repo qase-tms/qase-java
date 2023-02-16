@@ -22,7 +22,7 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
     /**
      * @see #startTestCaseTimer
      * @see #stopTestCaseTimer
-     * */
+     */
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     private final RunsApi runsApi;
@@ -64,9 +64,16 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
         }
 
         ResultCreate resultCreate = CasesStorage.getCurrentCase();
+        if (resultCreate == null) {
+            return;
+        }
         resultCreate.timeMs(stopTestCaseTimer());
         resultCreateConfigurer.accept(resultCreate);
         CasesStorage.stopCase();
+        if (resultCreate.getCaseId() == null
+                && (resultCreate.getCase() == null || resultCreate.getCase().getTitle() == null)) {
+            return;
+        }
         if (getConfig().useBulk()) {
             resultOperations.addBulkResult(resultCreate);
         } else {
