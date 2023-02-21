@@ -19,8 +19,8 @@ Qase.io uses API tokens to authenticate requests. You can view a manage your API
 You must replace api_token with your personal API key.
  
 ```java
-ApiClient qaseApi = Configuration.getDefaultApiClient();
-qaseApi.setApiKey("api_token");
+ApiClient apiClient = QaseClient.getApiClient();
+apiClient.setApiKey("api_token");
 ```
 
 ### Projects ###
@@ -59,25 +59,32 @@ String code = projectsApi.createProject(project).getResult().getCode()
 This method allows to retrieve all test cases stored in selected project. You can you limit and offset params to paginate.
 
 ```java
-Filter filter = qaseApi.testCases().filter()
-    .type(Type.other)
-    .priority(Priority.high);
-TestCases testCases = qaseApi.testCases().getAll("PRJCODE", filter);
-List<TestCase> testCaseList = testCases.getTestCaseList();
+GetCasesFiltersParameter filters = new GetCasesFiltersParameter()
+        .automation("is-not-automated,to-be-automated")
+        .behavior("positive")
+        .milestoneId(11)
+        .suiteId(2)
+        .severity("critical")
+        .priority("high,medium")
+        .status("actual")
+        .type("functional,acceptance")
+        .search("title");
+List<TestCase> testCases = casesApi.getCases("PRJCODE", filters, 100, 0)
+        .getResult().getEntities();
 ```
 
 #### Get a specific test case ####
 This method allows to retrieve a specific test case.
 
 ```java
-TestCase testCase = qaseApi.testCases().get("PRJCODE", 4);
+TestCase testCase = casesApi.getCase("PRJCODE", 4).getResult();
 ```
 
 #### Delete test case ####
 This method completely deletes a test case from repository.
 
 ```java
-boolean isDeleted = qaseApi.testCases().delete("PRJCODE", 4);
+casesApi.deleteCase("PRJCODE", 4);
 ```
 
 ### Suites ###
@@ -86,36 +93,39 @@ boolean isDeleted = qaseApi.testCases().delete("PRJCODE", 4);
 This method allows to retrieve all test suites stored in selected project. You can you limit and offset params to paginate.
 
 ```java
-Suites suites = qaseApi.suites().getAll("PRJCODE");
-List<Suite> suiteList = suites.getSuiteList();
+SuitesApi suitesApi = new SuitesApi(qaseApi);
+
+List<Suite> suites = suitesApi.getSuites("PRJCODE", null, 100, 0)
+        .getResult().getEntities();
 ```
 
 #### Get a specific test suite ####
 This method allows to retrieve a specific test suite.
 
 ```java
-Suite suite = qaseApi.suites().get("PRJCODE", 18);
+Suite suite = suitesApi.getSuite("PRJCODE", 18).getResult();
 ```
 
 #### Create a new test suite ####
 This method is used to create a new test suite through API.
 
 ```java
-long id = qaseApi.suites().create("PRJCODE", "SuiteTitle", "Description");
+Long id = suitesApi.createSuite("PRJCODE", new SuiteCreate().title("SuiteTitle"))
+        .getResult().getId();
 ```
 
 #### Update test suite ####
 This method is used to update a test suite through API. 
 
 ```java
-qaseApi.suites().update("PRJCODE", 18, "NewSuiteTitle");
+suitesApi.updateSuite("PRJCODE", 18, new SuiteUpdate().title("NewSuiteTitle"));
 ```
 
 #### Delete test suite ####
 This method completely deletes a test suite from repository.
 
 ```java
-boolean isDeleted = qaseApi.suites().delete("PRJCODE", 18)
+suitesApi.deleteSuite("PRJCODE", 18, null);
 ```
 
 ### Milestones ###
@@ -123,34 +133,38 @@ boolean isDeleted = qaseApi.suites().delete("PRJCODE", 18)
 This method allows to retrieve all milestones stored in selected project. You can you limit and offset params to paginate.
 
 ```java
-Milestones milestones = qaseApi.milestones().getAll("PRJCODE");
-List<Milestone> milestoneList = milestones.getMilestoneList();
+GetMilestonesFiltersParameter filters = new GetMilestonesFiltersParameter().search("title");
+List<Milestone> milestones = milestonesApi.getMilestones("PRJCODE", filters, 100, 0)
+        .getResult().getEntities();
 ```
 
 #### Get a specific milestone ####
 This method allows to retrieve a specific milestone.
 
 ```java
-Milestone milestone = qaseApi.milestones().get("PRJCODE", 1)
+Milestone milestone = milestonesApi.getMilestone("PRJCODE", 1)
+        .getResult();
 ```
 
 #### Create a new milestone ####
 This method is used to create a new milestone through API.
 
 ```java
-long id = qaseApi.milestones().create("PRJCODE", "MilestoneTitle", "MilestoneDescription")
+Long id = milestonesApi.createMilestone("PRJCODE", new MilestoneCreate().title("MilestoneTitle"))
+        .getResult().getId();
 ```
 #### Update milestone ####
 This method is used to update a milestone through API.
 
 ```java
-long id = qaseApi.milestones().update("PRJCODE", 6, "NewMilestoneTitle");
+Long id = milestonesApi.updateMilestone("PRJCODE", 6, new MilestoneUpdate().title("NewMilestoneTitle"))
+        .getResult().getId();
 ```
 
 #### Delete milestone ####
 This method completely deletes a milestone from repository
 ```java
-boolean isDeleted = qaseApi.milestones().delete("PRJCODE", 6);
+milestonesApi.deleteMilestone("PRJCODE", 6);
 ```
 
 ### Shared steps ###
@@ -158,35 +172,39 @@ boolean isDeleted = qaseApi.milestones().delete("PRJCODE", 6);
 #### Get all shared steps ####
 This method allows to retrieve all shared steps stored in selected project. You can you limit and offset params to paginate.
 ```java
-SharedSteps sharedSteps = qaseApi.sharedSteps().getAll("PRJCODE");
-List<SharedStep> sharedStepList = sharedSteps.getSharedStepList();
+SharedStepsApi sharedStepsApi = new SharedStepsApi(qaseApi);
+GetMilestonesFiltersParameter filters = new GetMilestonesFiltersParameter()
+        .search("title");
+List<SharedStep> sharedSteps = sharedStepsApi.getSharedSteps("PRJCODE", filters, 100, 0)
+        .getResult().getEntities();
 ```
 
 #### Get a specific shared step #####
 This method allows to retrieve a specific shared step.
 ```java
-SharedStep sharedStep = qaseApi.sharedSteps().get("PRJCODE", "6676b8815da03124dc039d89cc111586a4f45dc9");
+SharedStep sharedStep = sharedStepsApi.getSharedStep("PRJCODE", "6676b8815da03124dc039d89cc111586a4f45dc9").getResult();
 ```
 
 #### Create a new shared step ####
 This method is used to create a new shared step through API.
 
 ```java
-String stepHashCode = qaseApi.sharedSteps().create("PRJCODE", "title", "step action", "step expected result");
+String hash = sharedStepsApi.createSharedStep("PRJCODE", new SharedStepCreate().title("title").action("step action")).getResult().getHash();
 ```
 
 #### Update shared step ####
 This method is used to update a shared step through API. 
 
 ```java
-String stepHashCode = qaseApi.sharedSteps().update("PRJCODE", "6676b8815da03124dc039d89cc111586a4f45dc9", "title", "step action", "step expected result");
+String hash = sharedStepsApi.updateSharedStep("PRJCODE", "6676b8815da03124dc039d89cc111586a4f45dc9",
+        new SharedStepUpdate().title("title").action("step action")).getResult().getHash();
 ```
 
 #### Delete shared step ####
 This method completely deletes a shared step from repository. Also it will be removed from all test cases.
 
 ```java
-boolean isDeleted = qaseApi.sharedSteps().delete("PRJCODE", "6676b8815da03124dc039d89cc111586a4f45dc9");
+sharedStepsApi.deleteSharedStep("PRJCODE", "6676b8815da03124dc039d89cc111586a4f45dc9");
 ```
 
 ### Test plans ###
@@ -195,36 +213,38 @@ boolean isDeleted = qaseApi.sharedSteps().delete("PRJCODE", "6676b8815da03124dc0
 This method allows to retrieve all test plans stored in selected project. You can you limit and offset params to paginate.
 
 ```java
-TestPlans testPlans = qaseApi.testPlans().getAll("PRJCODE");
-List<TestPlan> testPlanList = testPlans.getTestPlanList();
+PlansApi plansApi = new PlansApi(qaseApi);
+List<Plan> plans = plansApi.getPlans("PRJCODE", 100, 0).getResult().getEntities();
 ```
 
 #### Get a specific test plan ####
 This method allows to retrieve a specific test plan with detailed information about test cases in that plan and assignee.
 
 ```java
-TestPlan testPlan = qaseApi.testPlans().get("PRJCODE", 1);
+PlanDetailed planDetailed = plansApi.getPlan("PRJCODE", 1).getResult();
 ```
 
 #### Create a new plan ####
 This method is used to create a new test plan through API.
 
 ```java
-long id = qaseApi.testPlans().create("PRJCODE", "title", "description", 1, 2, 3);
+Long id = plansApi.createPlan("PRJCODE", new PlanCreate().title("title").cases(Arrays.asList(1L, 2L, 3L)))
+        .getResult().getId();
 ```
 
 #### Update test plan ####
 This method is used to update a test plan through API.
 
 ```java
-long id = qaseApi.testPlans().update("PRJCODE", 1, "title", "description", 1, 2, 3);
+Long id = plansApi.updatePlan("PRJCODE", 1, new PlanUpdate().title("title").description("description").cases(Arrays.asList(1L, 2L, 3L)))
+        .getResult().getId();
 ```
 
 #### Delete test plan #### 
 This method completely deletes a test plan from repository
 
 ```java
-boolean isDeleted = qaseApi.testPlans().delete("PRJCODE", 1);
+plansApi.deletePlan("PRJCODE", 1);
 ```
 
 ### Test runs ###
