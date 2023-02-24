@@ -30,6 +30,7 @@ This method allows to retrieve all projects available for your account. You can 
 
 ```java
 ProjectsApi projectsApi = new ProjectsApi(qaseApi);
+
 List<Project> projects = projectsApi.getProjects(100, 0).getResult().getEntities();
 ```
 
@@ -37,7 +38,6 @@ List<Project> projects = projectsApi.getProjects(100, 0).getResult().getEntities
 This method allows to retrieve a specific project.
 
 ```java
-ProjectsApi projectsApi = new ProjectsApi(qaseApi);
 Project project = projectsApi.getProject("PROJ").getResult();
 ```
 
@@ -45,7 +45,6 @@ Project project = projectsApi.getProject("PROJ").getResult();
 This method is used to create a new project through API.
 
 ```java
-ProjectsApi projectsApi = new ProjectsApi(qaseApi);
 ProjectCreate project = new ProjectCreate()
     .code("PROJ")
     .title("Project title")
@@ -59,6 +58,8 @@ String code = projectsApi.createProject(project).getResult().getCode()
 This method allows to retrieve all test cases stored in selected project. You can you limit and offset params to paginate.
 
 ```java
+CasesApi casesApi = new CasesApi(qaseApi);
+
 GetCasesFiltersParameter filters = new GetCasesFiltersParameter()
         .automation("is-not-automated,to-be-automated")
         .behavior("positive")
@@ -133,6 +134,8 @@ suitesApi.deleteSuite("PRJCODE", 18, null);
 This method allows to retrieve all milestones stored in selected project. You can you limit and offset params to paginate.
 
 ```java
+MilestonesApi milestonesApi = new MilestonesApi(qaseApi);
+
 GetMilestonesFiltersParameter filters = new GetMilestonesFiltersParameter().search("title");
 List<Milestone> milestones = milestonesApi.getMilestones("PRJCODE", filters, 100, 0)
         .getResult().getEntities();
@@ -173,6 +176,7 @@ milestonesApi.deleteMilestone("PRJCODE", 6);
 This method allows to retrieve all shared steps stored in selected project. You can you limit and offset params to paginate.
 ```java
 SharedStepsApi sharedStepsApi = new SharedStepsApi(qaseApi);
+
 GetMilestonesFiltersParameter filters = new GetMilestonesFiltersParameter()
         .search("title");
 List<SharedStep> sharedSteps = sharedStepsApi.getSharedSteps("PRJCODE", filters, 100, 0)
@@ -214,6 +218,7 @@ This method allows to retrieve all test plans stored in selected project. You ca
 
 ```java
 PlansApi plansApi = new PlansApi(qaseApi);
+
 List<Plan> plans = plansApi.getPlans("PRJCODE", 100, 0).getResult().getEntities();
 ```
 
@@ -253,30 +258,36 @@ plansApi.deletePlan("PRJCODE", 1);
 This method allows to retrieve all test runs stored in selected project. You can you limit and offset params to paginate.
 
 ```java
-TestRunService.Filter filter = qaseApi.testRuns().filter().status(active, complete);
-TestRuns testRuns = qaseApi.testRuns().getAll("PRJCODE", 50, 0, filter, true);
-List<TestRun> testRunList = testRuns.getTestRunList();
+RunsApi runsApi = new RunsApi(qaseApi);
+
+GetRunsFiltersParameter filters = new GetRunsFiltersParameter().status("complete");
+List<Run> runs = runsApi.getRuns("PRJCODE", filters, 50, 0, "cases")
+        .getResult().getEntities();
 ```
 
 #### Get a specific test run ####
 This method allows to retrieve a specific test run.
 
 ```java
-TestRun testRun = qaseApi.testRuns().get("PRJCODE", 1, false);
+Run run = runsApi.getRun("PRJ", 1, null).getResult();
 ```
 
 #### Create a new test run ####
 This method is used to create a new test run through API.
 
 ```java
-qaseApi.testRuns().create("PRJCODE", "title", 1, 2, 3, 4);
+RunCreate newTestRun = new RunCreate()
+        .title("New test run")
+        .cases(Arrays.asList(1L, 2L, 3L, 55L));
+Long id = runsApi.createRun("PRJCODE", newTestRun)
+        .getResult().getId();
 ```
 
 #### Delete test run ####
 This method completely deletes a test run from repository
 
 ```java
-boolean isDeleted = qaseApi.testRuns().delete("PRJCODE", 1);
+runsApi.deleteRun("PRJCODE", 1);
 ```
 
 ### Test run results ###
@@ -285,33 +296,43 @@ boolean isDeleted = qaseApi.testRuns().delete("PRJCODE", 1);
 This method allows to retrieve all test run results stored in selected project. You can you limit and offset params to paginate. Also you can use various filters to get specific results.
 
 ```java
-TestRunResultService.Filter filter = qaseApi.testRunResults().filter().status(passed);
-TestRunResults runResultsResponse = qaseApi.testRunResults().getAll("PRJCODE", 50, 0, filter);
-List<TestRunResult> testRunResultList = runResultsResponse.getTestRunResultList();
+ResultsApi resultsApi = new ResultsApi(qaseApi);
+
+GetResultsFiltersParameter filters = new GetResultsFiltersParameter()
+        .status("in_progress");
+List<Result> results = resultsApi.getResults("PRJ", filters, 33, 3)
+        .getResult().getEntities();
 ```
 
 #### Get a specific test run result ####
 This method allows to retrieve a specific test run result by hash.
 ```java
-TestRunResult testRunResult = qaseApi.testRunResults().get("PRJCODE", "6676b8815da03124dc039d89cc111586a4f45dc9");
+Result result = resultsApi.getResult("PRJCODE", "6676b8815da03124dc039d89cc111586a4f45dc9")
+        .getResult();
 ```
 
 #### Add a new test run result ####
 This method allows to add a new test run result through API.
 ```java
-String hash = qaseApi.testRunResults().create("PRJCODE", 1, 58, RunResultStatus.passed);
+ResultCreate resultCreate = new ResultCreate()
+        .caseId(1L)
+        .status(ResultCreate.StatusEnum.PASSED);
+String hash = resultsApi.createResult("PRJCODE", 1, resultCreate)
+        .getResult().getHash();
 ```
 
 #### Update test run result ####
 This method allows to update test run result through API. 
 ```java
-String hash = qaseApi.testRunResults().update("PRJCODE", 1, "6676b8815da03124dc039d89cc111586a4f45dc9", passed, Duration.ofHours(2));
+ResultUpdate resultUpdate = new ResultUpdate().status(ResultUpdate.StatusEnum.FAILED);
+resultsApi.updateResult("PRJCODE", 1, "6676b8815da03124dc039d89cc111586a4f45dc9",
+        resultUpdate);
 ```
 
 #### Delete test run result ####
 This method completely deletes a test run result from repository
 ```java
-boolean isDeleted = qaseApi.testRunResults().delete("PRJCODE", 1, "6676b8815da03124dc039d89cc111586a4f45dc9");
+resultsApi.deleteResult("PRJCODE", 1, "6676b8815da03124dc039d89cc111586a4f45dc9");
 ```
 
 ### Defects ###
@@ -319,27 +340,29 @@ boolean isDeleted = qaseApi.testRunResults().delete("PRJCODE", 1, "6676b8815da03
 #### Get all defects ####
 This method allows to retrieve all defects stored in selected project. You can you limit and offset params to paginate.
 ```java
-DefectService.Filter filter = qaseApi.defects().filter().status(open);
-Defects defects = qaseApi.defects().getAll("PRJCODE", 50, 0, filter);
-List<Defect> defectList = defects.getDefectList();
+DefectsApi defectsApi = new DefectsApi(qaseApi);
+
+GetDefectsFiltersParameter filters = new GetDefectsFiltersParameter()
+        .status(GetDefectsFiltersParameter.StatusEnum.OPEN);
+List<Defect> defects = defectsApi.getDefects("PROJ", filters, 88, 12).getResult().getEntities();
 ```
 
 #### Get a specific defect ####
 This method allows to retrieve a specific defect.
 ```java
-Defect defect = qaseApi.defects().get("PRJCODE", 1);
+Defect defect = defectsApi.getDefect("PRJCODE", 1).getResult();
 ```
 
 #### Resolve ####
 This method is used to resolve defect through API.
 ```java
-boolean isResolved = qaseApi.defects().resolve("PRJCODE", 1);
+defectsApi.resolveDefect("PRJCODE", 1)
 ```
 
 #### Delete defect ####
 This method completely deletes a defect from repository
 ```java
-boolean isDeleted = qaseApi.defects().delete("PRJCODE", 1);
+defectsApi.deleteDefect("PRJCODE", 1);
 ```
 
 ### Custom Fields ###
@@ -347,14 +370,15 @@ boolean isDeleted = qaseApi.defects().delete("PRJCODE", 1);
 #### Get all custom fields ####
 This method allows to retrieve all custom fields for a specific project. You can you limit and offset params to paginate.
 ```java
-CustomFields customFields = qaseApi.customFields().getAll("PRJCODE");
-List<CustomField> customFieldList = customFields.getCustomFieldList();
+CustomFieldsApi customFieldsApi = new CustomFieldsApi(qaseApi);
+
+List<CustomField> customFields = customFieldsApi.getCustomFields(null, 100, 0).getResult().getEntities();
 ```
 
 #### Get a specific custom field ####
 This method allows to retrieve one custom fields for specific project by id
 ```java
-CustomField customField = qaseApi.customFields().get("PRJCODE", 1);
+CustomField customField = customFieldsApi.getCustomField(1).getResult();
 ```
 
 ### Attachments ###
@@ -363,28 +387,31 @@ CustomField customField = qaseApi.customFields().get("PRJCODE", 1);
 This method allows to retrieve all attachments uploaded into your projects. You can you limit and offset params to paginate.
 
 ```java
-Attachments attachments = qaseApi.attachments().getAll();
-List<Attachment> attachmentList = attachments.getAttachmentList();
+AttachmentsApi attachmentsApi = new AttachmentsApi(qaseApi);
+
+List<AttachmentGet> attachments = attachmentsApi.getAttachments(100, 0).getResult().getEntities();
 ```
 
 #### Get a specific attachment ####
 This method allows to retrieve a specific attachment by hash.
 
 ```java
-Attachment attachment = qaseApi.attachments().get("6676b8815da03124dc039d89cc111586a4f45dc9");
+AttachmentGet attachment = attachmentsApi.getAttachment("6676b8815da03124dc039d89cc111586a4f45dc9").getResult();
 ```
 
 #### Upload attachment ####
 This method allows to upload attachment to Qase. Max upload size: * Up to 32 Mb per file.
 ```java
 File file = new File("1.png");
-List<Attachment> attachment = qaseApi.attachments().add("PRJCODE", file);
+List<AttachmentGet> attachments = attachmentsApi.uploadAttachment("PRJCODE",
+        Collections.singletonList(file))
+        .getResult();
 ```
 
 #### Delete attachment ####
 This method completely deletes an attachment.
 ```java
-boolean isDeleted = qaseApi.attachments().delete("6676b8815da03124dc039d89cc111586a4f45dc9");
+attachmentsApi.deleteAttachment("6676b8815da03124dc039d89cc111586a4f45dc9");
 ```
 
 #### Associate an attachment with a test case or step ####
@@ -463,20 +490,3 @@ Afterward, the running test (of id 3) case will have the step and the id of uplo
 In its turn, the step will have the id of uploaded `stepScreenshot.jpg` associated with it.
 
 Note, `caseScreenshot.jpg` will be associated only with the test case and `stepScreenshot.jpg` will be associated only with the step.
-
-### Team ###
-
-#### Get all team members ####
-This method allows to retrieve all users in your team. You can you limit and offset params to paginate.
-
-```java
-Users users = qaseApi.team().getAll();
-List<User> userList = users.getUserList();
-```
-
-#### Get a specific team member
-This method allows to retrieve a specific team member by id.
-
-```java
-User user = qaseApi.team().get(1);
-```
