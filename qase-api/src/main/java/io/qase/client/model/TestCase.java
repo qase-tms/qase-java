@@ -112,7 +112,7 @@ public class TestCase {
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
   @SerializedName(SERIALIZED_NAME_PARAMS)
-  private List<Object> params;
+  private Object params;
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
@@ -646,12 +646,12 @@ public class TestCase {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public List<Object> getParams() {
+  public Object getParams() {
     return params;
   }
 
 
-  public void setParams(List<Object> params) {
+  public void setParams(Object params) {
     this.params = params;
   }
 
