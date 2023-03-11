@@ -1,23 +1,21 @@
 package io.qase.api.utils;
 
-import io.qase.api.annotation.CaseId;
-import io.qase.api.annotation.CaseTitle;
-import io.qase.api.annotation.QaseId;
-import io.qase.api.annotation.QaseTitle;
+import io.qase.api.annotation.Qase;
+import io.qase.client.model.ResultCreate;
+import io.qase.client.model.ResultCreateCase;
+import lombok.experimental.UtilityClass;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static io.qase.api.annotation.Qase.DEFAULT_VALUE;
+
+@UtilityClass
 public final class IntegrationUtils {
     public static final List<String> CASE_TAGS = Collections.unmodifiableList(Arrays.asList("@caseId", "@tmsLink"));
-
-    private IntegrationUtils() throws IllegalAccessException {
-        throw new IllegalAccessException("Utils class");
-    }
 
     public static String getStacktrace(Throwable throwable) {
         StringWriter stringWriter = new StringWriter();
@@ -25,41 +23,24 @@ public final class IntegrationUtils {
         return stringWriter.toString();
     }
 
-    public static Long getCaseId(Method method) {
-        Long qaseId = getQaseId(method);
-        if (qaseId != null) {
-            return qaseId;
+    public static ResultCreate enrichResult(ResultCreate resultCreate, Qase qaseAnnotation) {
+        ResultCreateCase aCase = new ResultCreateCase();
+        if (!qaseAnnotation.title().equals(DEFAULT_VALUE)) {
+            aCase.title(qaseAnnotation.title());
         }
-        if (method.isAnnotationPresent(CaseId.class)) {
-            return method
-                    .getDeclaredAnnotation(CaseId.class).value();
+        if (!qaseAnnotation.description().equals(DEFAULT_VALUE)) {
+            aCase.description(qaseAnnotation.description());
         }
-        return null;
-    }
-
-    public static String getCaseTitle(Method method) {
-        String qaseTitle = getQaseTitle(method);
-        if (qaseTitle != null) {
-            return qaseTitle;
+        if (!qaseAnnotation.layer().equals(DEFAULT_VALUE)) {
+            aCase.layer(qaseAnnotation.layer());
         }
-        if (method.isAnnotationPresent(CaseTitle.class)) {
-            return method.getDeclaredAnnotation(CaseTitle.class).value();
+        if (!qaseAnnotation.severity().equals(DEFAULT_VALUE)) {
+            aCase.severity(qaseAnnotation.severity());
         }
-        return null;
-    }
-
-    private static Long getQaseId(Method method) {
-        if (method.isAnnotationPresent(QaseId.class)) {
-            return method
-                    .getDeclaredAnnotation(QaseId.class).value();
+        if (qaseAnnotation.testId() != 0L) {
+            resultCreate
+                    .caseId(qaseAnnotation.testId());
         }
-        return null;
-    }
-
-    private static String getQaseTitle(Method method) {
-        if (method.isAnnotationPresent(QaseTitle.class)) {
-            return method.getDeclaredAnnotation(QaseTitle.class).value();
-        }
-        return null;
+        return resultCreate._case(aCase);
     }
 }
