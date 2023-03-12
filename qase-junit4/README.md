@@ -4,7 +4,7 @@
 ## Description ##
 This integration uploads test run results to Qase TMS via API.
 
-To link autotest to test case in Qase TMS use annotation `@CaseId`
+To link autotest to test case in Qase TMS use annotation `@Qase`
 
 ### Required params ###
 All required params are passed through system properties or environment variables:
@@ -24,7 +24,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-junit4</artifactId>
-        <version>3.0.4</version>
+        <version>4.0.0</version>
         <scope>test</scope>
     </dependency>
 </dependencies>

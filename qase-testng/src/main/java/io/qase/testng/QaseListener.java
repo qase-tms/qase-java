@@ -1,12 +1,13 @@
 package io.qase.testng;
 
 import io.qase.api.StepStorage;
+import io.qase.api.annotation.Qase;
 import io.qase.api.config.QaseConfig;
+import io.qase.api.services.QaseTestCaseListener;
+import io.qase.api.utils.IntegrationUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
-import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateStepsInner;
-import io.qase.api.services.QaseTestCaseListener;
 import io.qase.testng.guice.module.TestNgModule;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.Optional;
 
-import static io.qase.api.utils.IntegrationUtils.*;
+import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
 public class QaseListener extends TestListenerAdapter implements ITestListener {
 
@@ -41,14 +42,14 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult tr) {
         getQaseTestCaseListener()
-            .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.PASSED));
+                .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.PASSED));
         super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
         getQaseTestCaseListener()
-            .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.FAILED));
+                .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.FAILED));
         super.onTestFailure(tr);
     }
 
@@ -68,20 +69,16 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         Method method = result.getMethod()
                 .getConstructorOrMethod()
                 .getMethod();
-        Long caseId = getCaseId(method);
-        String caseTitle = null;
-        if (caseId == null) {
-            caseTitle = getCaseTitle(method);
-        }
         LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        if (method.isAnnotationPresent(Qase.class)) {
+            IntegrationUtils.enrichResult(resultCreate, method.getDeclaredAnnotation(Qase.class));
+        }
         resultCreate
-            ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
-            .caseId(caseId)
-            .status(status)
-            .comment(comment)
-            .stacktrace(stacktrace)
-            .steps(steps.isEmpty() ? null : steps)
-            .defect(isDefect);
+                .status(status)
+                .comment(comment)
+                .stacktrace(stacktrace)
+                .steps(steps.isEmpty() ? null : steps)
+                .defect(isDefect);
     }
 
     private static QaseTestCaseListener createQaseListener() {
