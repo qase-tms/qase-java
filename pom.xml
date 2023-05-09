@@ -29,7 +29,7 @@
         <wiremock-jre8.version>2.26.3</wiremock-jre8.version>
         <apiguardian-api.version>1.1.0</apiguardian-api.version>
         <junit4.version>4.13.1</junit4.version>
-        <testng.version>7.1.0</testng.version>
+        <testng.version>7.5.1</testng.version>
         <unirest-java.version>3.4.00</unirest-java.version>
         <junit-platform-engine.version>1.6.2</junit-platform-engine.version>
         <logback.version>1.2.9</logback.version>
