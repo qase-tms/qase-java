@@ -1,12 +1,12 @@
 package io.qase.testng.samples;
 
-import io.qase.api.annotation.Qase;
+import io.qase.api.annotation.QaseId;
 import org.testng.annotations.Test;
 
 
 public class Passed {
     @Test
-    @Qase(testId = 123)
+    @QaseId(123)
     public void passedTest() {
 
     }

@@ -1,13 +1,13 @@
 package io.qase.junit.samples;
 
-import io.qase.api.annotation.Qase;
+import io.qase.api.annotation.QaseTitle;
 import io.qase.junit.samples.steps.Steps;
 import org.junit.Test;
 
 
 public class NewCase {
     @Test
-    @Qase(title = "Case Title")
+    @QaseTitle("Case Title")
     public void passedTest() {
         Steps steps = new Steps();
         steps.successStep();

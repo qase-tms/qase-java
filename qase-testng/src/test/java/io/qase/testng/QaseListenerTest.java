@@ -4,10 +4,7 @@ package io.qase.testng;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.qase.api.utils.TestUtils;
 import io.qase.testng.samples.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
@@ -73,7 +70,6 @@ class QaseListenerTest {
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"results\" : [ {\n" +
-                        "  \"case\" : { },\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
@@ -93,7 +89,6 @@ class QaseListenerTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"results\" : [ {\n" +
                         "    \"case_id\" : 123,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
@@ -123,7 +118,6 @@ class QaseListenerTest {
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"results\" : [ {\n" +
-                        "  \"case\" : { },\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
@@ -143,7 +137,6 @@ class QaseListenerTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"results\" : [ {\n" +
                         "    \"case_id\" : 321,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
@@ -164,7 +157,6 @@ class QaseListenerTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"results\" : [ {\n" +
                         "    \"case_id\" : 321,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
@@ -186,19 +178,16 @@ class QaseListenerTest {
                 .withRequestBody(equalToJson("{\n" +
                         "  \"results\" : [ {\n" +
                         "    \"case_id\" : 123,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : false\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 123,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : false\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 321,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
@@ -206,7 +195,6 @@ class QaseListenerTest {
                         "    \"comment\" : \"java.lang.AssertionError: Error message\"\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 123,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
@@ -224,7 +212,6 @@ class QaseListenerTest {
                         "    } ]\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 41332,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : false,\n" +
@@ -235,7 +222,6 @@ class QaseListenerTest {
                         "    } ]\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 321,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
@@ -255,7 +241,6 @@ class QaseListenerTest {
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 123,\n" +
-                        "  \"case\" : { },\n" +
                         "  \"status\" : \"passed\",\n" +
                         "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "  \"defect\" : false\n" +
@@ -272,7 +257,6 @@ class QaseListenerTest {
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "  \"case_id\" : 123,\n" +
-                        "  \"case\" : { },\n" +
                         "  \"status\" : \"failed\",\n" +
                         "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "  \"defect\" : true,\n" +
@@ -331,7 +315,6 @@ class QaseListenerTest {
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
                         "    \"case_id\" : 321,\n" +
-                        "    \"case\" : { },\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
