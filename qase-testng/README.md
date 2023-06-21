@@ -21,7 +21,7 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-testng</artifactId>
-    <version>4.0.0</version>
+    <version>3.0.4</version>
     <scope>test</scope>
 </dependency>
 
@@ -92,13 +92,11 @@ mvn clean test -DQASE_ENABLE=true -DQASE_PROJECT_CODE=PRJ -DQASE_RUN_ID=123 -DQA
 
 ### Link autotests with test-cases
 
-To link tests with test-cases in Qase TMS you should use annotation `@io.qase.api.annotation.Qase`:
+To link tests with test-cases in Qase TMS you should use annotation `@io.qase.api.annotation.QaseId`:
 
 ```java
-import io.qase.api.annotation.Qase;
-
 @Test
-@Qase(testId = 123)
+@CaseId(123)
 public void someTest(){
         ...
         }
@@ -106,13 +104,11 @@ public void someTest(){
 
 ### TestCase as a Code
 
-For using Test Case as a Code, you could mark your test by annotation `@io.qase.api.annotation.Qase`:
+For using Test Case as a Code, you could mark your test by annotation `@io.qase.api.annotation.QaseTitle`:
 
 ```java
-import io.qase.api.annotation.Qase;
-
 @Test
-@Qase(title = "Case Title")
+@CaseTitle("Case Title")
 public void someTest(){
         steps.someStep1();
         steps.someStep2();

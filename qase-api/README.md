@@ -8,7 +8,7 @@ Add the following dependency and repository to your pom.xml:
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-api</artifactId>
-    <version>4.0.0</version>
+    <version>3.0.4</version>
 </dependency>
 
 ```
