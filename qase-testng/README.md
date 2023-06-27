@@ -18,12 +18,20 @@ Add the following dependency to your pom.xml:
     <aspectj.version>1.9.8</aspectj.version>
 </properties>
 
-<dependency>
-    <groupId>io.qase</groupId>
-    <artifactId>qase-testng</artifactId>
-    <version>3.0.5</version>
-    <scope>test</scope>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>io.qase</groupId>
+        <artifactId>qase-testng</artifactId>
+        <version>3.0.5</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>7.1.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
 
 <build>
     <plugins>
@@ -60,6 +68,11 @@ configurations {
 dependencies {
     aspectjweaver "org.aspectj:aspectjweaver:1.9.8"
     testImplementation 'io.qase:qase-testng:3.0.5'
+    testImplementation 'org.testng:testng:7.1.0'
+}
+
+test {
+    systemProperties = System.properties
 }
 
 test.doFirst {

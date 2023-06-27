@@ -27,6 +27,12 @@ Add the following dependency and repository to your pom.xml:
         <version>3.0.5</version>
         <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+    </dependency>
 </dependencies>
 <build>
     <plugins>
@@ -58,8 +64,40 @@ Add the following dependency and repository to your pom.xml:
 
 ```
 
+### Gradle
+
+Add the following dependency to build.gradle:
+
+```groovy
+configurations {
+    aspectjweaver
+}
+
+dependencies {
+    aspectjweaver "org.aspectj:aspectjweaver:1.9.8"
+    testImplementation 'io.qase:qase-api:3.0.5'
+    testImplementation 'io.qase:qase-junit4:3.0.5'
+    testImplementation 'io.qase:qase-junit4-aspect:3.0.5'
+    testImplementation 'junit:junit:4.13.2'
+}
+
+test {
+    systemProperties = System.properties
+}
+
+test.doFirst {
+    jvmArgs "-javaagent:${configurations.aspectjweaver.singleFile}"
+}
+```
+
 ## Run example ##
 
 ```
 mvn clean test -DQASE_ENABLE=true -DQASE_PROJECT_CODE=PRJ -DQASE_RUN_ID=123 -DQASE_API_TOKEN=secret-token
+```
+
+or
+
+```
+gradle clean test -DQASE_ENABLE=true -DQASE_PROJECT_CODE=PRJ -DQASE_RUN_ID=123 -DQASE_API_TOKEN=secret-token
 ```
