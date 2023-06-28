@@ -53,7 +53,7 @@ Add the following dependency and repository to your pom.xml:
             <version>3.0.0-M5</version>
             <configuration>
                 <argLine>
-                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -Dcucumber.options="--add-plugin io.qase.cucumber5.QaseEventListener"
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -Dcucumber.plugin="io.qase.cucumber5.QaseEventListener"
                 </argLine>
             </configuration>
             <dependencies>
