@@ -4,18 +4,6 @@
 ## Description ##
 This integration uploads test run results to Qase TMS via API.
 
-To link autotest to test case in Qase TMS use annotation `@CaseId`
-
-### Required params ###
-All required params are passed through system properties or environment variables:
-
-|  Key              | Description |
-| :---------------: | :----------: |
-| QASE_ENABLE       | Enable Integration |
-| QASE_PROJECT_CODE | Project Code |
-| QASE_RUN_ID       | Run Id |
-| QASE_API_TOKEN    | Qase API Token |
-
 ## Maven ##
 
 Add the following dependency and repository to your pom.xml:
