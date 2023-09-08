@@ -34,6 +34,20 @@ class QaseEventListenerTests {
     }
 
     @Test
+    void newCase() {
+        String[] args = new String[]{
+                "-g", "io.qase.cucumber5",
+                "--add-plugin", "io.qase.cucumber5.QaseEventListener",
+                "classpath:features/new_case.feature"
+        };
+        Main.run(args, Thread.currentThread().getContextClassLoader());
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{}"))); // TODO: 09.09.2023
+    }
+
+    @Test
     void bulk() {
         useBulk(true);
         String[] args = new String[]{
