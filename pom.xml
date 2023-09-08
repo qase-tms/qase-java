@@ -27,7 +27,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <junit5.version>5.6.3</junit5.version>
         <lombok.version>1.18.24</lombok.version>
-        <wiremock-jre8.version>2.26.3</wiremock-jre8.version>
+        <wiremock-jre8.version>2.35.1</wiremock-jre8.version>
         <apiguardian-api.version>1.1.0</apiguardian-api.version>
         <junit4.version>4.13.1</junit4.version>
         <testng.version>7.1.0</testng.version>
