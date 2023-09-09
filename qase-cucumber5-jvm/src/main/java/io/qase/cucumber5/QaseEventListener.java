@@ -6,6 +6,7 @@ import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.CucumberUtils;
+import io.qase.api.utils.IntegrationUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
@@ -36,17 +37,48 @@ public class QaseEventListener implements ConcurrentEventListener {
         publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
         publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
         publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
-        publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
         publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
+        publisher.registerHandlerFor(TestStepStarted.class, this::testCaseStarted);
 
+    }
+
+    private void testCaseStarted(TestStepStarted testStepStarted) {
+        if (testStepStarted.getTestStep() instanceof PickleStepTestStep) {
+            StepStorage.startStep();
+        }
     }
 
     private void testStepFinished(TestStepFinished testStepFinished) {
-// TODO: 09.09.2023
-    }
-
-    private void testStepStarted(TestStepStarted testStepStarted) {
-// TODO: 09.09.2023
+        if (testStepFinished.getTestStep() instanceof PickleStepTestStep) {
+            PickleStepTestStep step = (PickleStepTestStep) testStepFinished.getTestStep();
+            String stepText = step.getStep().getText();
+            Result result = testStepFinished.getResult();
+            switch (result.getStatus()) {
+                case PASSED:
+                    StepStorage.getCurrentStep()
+                            .action(stepText)
+                            .status(ResultCreateStepsInner.StatusEnum.PASSED);
+                    StepStorage.stopStep();
+                    break;
+                case SKIPPED:
+                    break;
+                case PENDING:
+                    break;
+                case UNDEFINED:
+                    break;
+                case AMBIGUOUS:
+                    break;
+                case FAILED:
+                    StepStorage.getCurrentStep()
+                            .action(stepText)
+                            .status(ResultCreateStepsInner.StatusEnum.FAILED)
+                            .addAttachmentsItem(IntegrationUtils.getStacktrace(result.getError()));
+                    StepStorage.stopStep();
+                    break;
+                case UNUSED:
+                    break;
+            }
+        }
     }
 
     private void testRunFinished(TestRunFinished testRunFinished) {
