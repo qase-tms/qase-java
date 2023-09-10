@@ -51,7 +51,7 @@ public class QaseEventListener implements ConcurrentEventListener {
     private void testStepFinished(TestStepFinished testStepFinished) {
         if (testStepFinished.getTestStep() instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.getTestStep();
-            String stepText = step.getStep().getText();
+            String stepText = step.getStep().getKeyWord() + step.getStep().getText();
             Result result = testStepFinished.getResult();
             switch (result.getStatus()) {
                 case PASSED:

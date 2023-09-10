@@ -35,6 +35,7 @@ class QaseEventListenerTests {
 
     @Test
     void newCase() {
+        useBulk(false);
         String[] args = new String[]{
                 "-g", "io.qase.cucumber5",
                 "--add-plugin", "io.qase.cucumber5.QaseEventListener",
@@ -44,7 +45,24 @@ class QaseEventListenerTests {
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
-                .withRequestBody(equalToJson("{}"))); // TODO: 09.09.2023
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"Given success step\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : \"${json-unit.ignore}\"," +
+                        "    \"action\" : \"Given failed step\"\n" +
+                        "  } ]\n" +
+                        "}")));
     }
 
     @Test
@@ -67,24 +85,71 @@ class QaseEventListenerTests {
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
-                        "    \"comment\" : \"java.lang.AssertionError\"\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\"," +
+                        "      \"action\" : \"Given failed step\"\n" +
+                        "    } ]\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
-                        "    \"comment\" : \"java.lang.AssertionError\"\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"When timeout 3 seconds\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\"," +
+                        "      \"action\" : \"Given failed step\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case_id\" : 123,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\"," +
+                        "      \"action\" : \"Given failed step\"\n" +
+                        "    } ]\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "    \"defect\" : false\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step\"\n" +
+                        "    } ]\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "    \"defect\" : false\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given timeout 5 seconds\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step\"\n" +
+                        "    } ]\n" +
                         "  } ]\n" +
                         "}")));
     }
@@ -102,11 +167,18 @@ class QaseEventListenerTests {
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
-                .withRequestBody(equalToJson("{\n  " +
-                        "\"case_id\": 123,\n  " +
-                        "\"status\": \"passed\",\n  " +
-                        "\"defect\" : false,\n" +
-                        "\"time_ms\": \"${json-unit.ignore}\"\n}")));
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"passed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : false,\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"Given success step\"\n" +
+                        "  } ]" +
+                        "}")));
+
     }
 
     @Test
@@ -123,10 +195,19 @@ class QaseEventListenerTests {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "\"case_id\" : 123,\n" +
-                        "\"status\" : \"passed\",\n" +
-                        "\"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "\"defect\" : false\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"passed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : false,\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"Given timeout 5 seconds\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"Given success step\"\n" +
+                        "  } ]\n" +
                         "}")));
     }
 
@@ -144,12 +225,18 @@ class QaseEventListenerTests {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "\"case_id\" : 123,\n" +
-                        "\"status\" : \"failed\",\n" +
-                        "\"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "\"comment\" : \"java.lang.AssertionError\",\n" +
-                        "\"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "\"defect\" : true\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : \"${json-unit.ignore}\"," +
+                        "    \"action\" : \"Given failed step\"\n" +
+                        "  } ]\n" +
                         "}")));
     }
 
@@ -167,12 +254,22 @@ class QaseEventListenerTests {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "\"case_id\" : 123,\n" +
-                        "\"status\" : \"failed\",\n" +
-                        "\"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "\"comment\" : \"java.lang.AssertionError\",\n" +
-                        "\"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "\"defect\" : true\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"When timeout 3 seconds\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : \"${json-unit.ignore}\"," +
+                        "    \"action\" : \"Given failed step\"\n" +
+                        "  } ]\n" +
                         "}")));
     }
 }
