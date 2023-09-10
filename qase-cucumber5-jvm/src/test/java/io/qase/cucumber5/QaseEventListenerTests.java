@@ -46,7 +46,9 @@ class QaseEventListenerTests {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "  \"case_id\" : 123,\n" +
+                        "  \"case\" : {\n" +
+                        "    \"title\" : \"Failed scenario\"\n" +
+                        "  },\n" +
                         "  \"status\" : \"failed\",\n" +
                         "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "  \"defect\" : true,\n" +
@@ -110,7 +112,9 @@ class QaseEventListenerTests {
                         "      \"action\" : \"Given failed step\"\n" +
                         "    } ]\n" +
                         "  }, {\n" +
-                        "    \"case_id\" : 123,\n" +
+                        "    \"case\" : {\n" +
+                        "      \"title\" : \"Failed scenario\"\n" +
+                        "    },\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
