@@ -2,6 +2,7 @@ package io.qase.cucumber5;
 
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
+import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
@@ -34,12 +35,13 @@ public class QaseEventListener implements ConcurrentEventListener {
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-        publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
-        publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-        publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
-        publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
-        publisher.registerHandlerFor(TestStepStarted.class, this::testCaseStarted);
-
+        if (QaseClient.isEnabled()) {
+            publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
+            publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
+            publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+            publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
+            publisher.registerHandlerFor(TestStepStarted.class, this::testCaseStarted);
+        }
     }
 
     private void testCaseStarted(TestStepStarted testStepStarted) {
