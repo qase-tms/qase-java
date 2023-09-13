@@ -4,7 +4,10 @@ package io.qase.cucumber3;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import cucumber.api.cli.Main;
 import io.qase.api.utils.TestUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
@@ -30,6 +33,41 @@ class QaseEventListenerTests {
         wireMockServer.resetRequests();
     }
 
+
+    @Test
+    void newCase() {
+        useBulk(false);
+        String[] args = new String[]{
+                "-g", "io.qase.cucumber3",
+                "--add-plugin", io.qase.cucumber3.QaseEventListener.class.getCanonicalName(),
+                "classpath:features/new_case.feature"
+        };
+        Main.run(args, Thread.currentThread().getContextClassLoader());
+        verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
+                .withHeader("Token", equalTo("secret-token"))
+                .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case\" : {\n" +
+                        "    \"title\" : \"Failed scenario\"\n" +
+                        "  },\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"success step\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : \"${json-unit.ignore}\"," +
+                        "    \"action\" : \"failed step\"\n" +
+                        "  } ]\n" +
+                        "}")));
+    }
+
     @Test
     void bulk() {
         useBulk(true);
@@ -50,26 +88,75 @@ class QaseEventListenerTests {
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
-                        "    \"comment\" : \"java.lang.AssertionError\"\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\"," +
+                        "      \"action\" : \"failed step\"\n" +
+                        "    } ]\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"failed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
                         "    \"defect\" : true,\n" +
                         "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
-                        "    \"comment\" : \"java.lang.AssertionError\"\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"timeout 3 seconds\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\"," +
+                        "      \"action\" : \"failed step\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case\" : {\n" +
+                        "      \"title\" : \"Failed scenario\"\n" +
+                        "    },\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : true,\n" +
+                        "    \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "    \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"failed\",\n" +
+                        "      \"attachments\" : \"${json-unit.ignore}\"," +
+                        "      \"action\" : \"failed step\"\n" +
+                        "    } ]\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "    \"defect\" : false\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    } ]\n" +
                         "  }, {\n" +
                         "    \"case_id\" : 123,\n" +
                         "    \"status\" : \"passed\",\n" +
                         "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "    \"defect\" : false\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"timeout 5 seconds\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"success step\"\n" +
+                        "    } ]\n" +
                         "  } ]\n" +
-                        "}", true, false)));
+                        "}")));
     }
 
     @Test
@@ -85,11 +172,17 @@ class QaseEventListenerTests {
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
-                .withRequestBody(equalToJson("{\n  " +
-                        "\"case_id\": 123,\n  " +
-                        "\"status\": \"passed\",\n  " +
-                        "\"defect\" : false,\n" +
-                        "\"time_ms\": \"${json-unit.ignore}\"\n}")));
+                .withRequestBody(equalToJson("{\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"passed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : false,\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"success step\"\n" +
+                        "  } ]" +
+                        "}")));
     }
 
     @Test
@@ -106,10 +199,19 @@ class QaseEventListenerTests {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "\"case_id\" : 123,\n" +
-                        "\"status\" : \"passed\",\n" +
-                        "\"defect\" : false,\n" +
-                        "\"time_ms\" : \"${json-unit.ignore}\"\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"passed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : false,\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"timeout 5 seconds\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"success step\"\n" +
+                        "  } ]\n" +
                         "}")));
     }
 
@@ -127,12 +229,18 @@ class QaseEventListenerTests {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "\"case_id\" : 123,\n" +
-                        "\"status\" : \"failed\",\n" +
-                        "\"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "\"comment\" : \"java.lang.AssertionError\",\n" +
-                        "\"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "\"defect\" : true\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : \"${json-unit.ignore}\"," +
+                        "    \"action\" : \"failed step\"\n" +
+                        "  } ]\n" +
                         "}")));
     }
 
@@ -150,12 +258,22 @@ class QaseEventListenerTests {
                 .withHeader("Token", equalTo("secret-token"))
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n" +
-                        "\"case_id\" : 123,\n" +
-                        "\"status\" : \"failed\",\n" +
-                        "\"time_ms\" : \"${json-unit.ignore}\",\n" +
-                        "\"comment\" : \"java.lang.AssertionError\",\n" +
-                        "\"stacktrace\" : \"${json-unit.ignore}\"," +
-                        "\"defect\" : true\n" +
+                        "  \"case_id\" : 123,\n" +
+                        "  \"status\" : \"failed\",\n" +
+                        "  \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "  \"defect\" : true,\n" +
+                        "  \"stacktrace\" : \"${json-unit.ignore}\",\n" +
+                        "  \"comment\" : \"java.lang.AssertionError\",\n" +
+                        "  \"steps\" : [ {\n" +
+                        "    \"position\" : 1,\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"action\" : \"timeout 3 seconds\"\n" +
+                        "  }, {\n" +
+                        "    \"position\" : 2,\n" +
+                        "    \"status\" : \"failed\",\n" +
+                        "    \"attachments\" : \"${json-unit.ignore}\"," +
+                        "    \"action\" : \"failed step\"\n" +
+                        "  } ]\n" +
                         "}")));
     }
 }

@@ -39,7 +39,7 @@ class QaseEventListenerTests {
         String[] args = new String[]{
                 "-g", "io.qase.cucumber4",
                 "--add-plugin", "io.qase.cucumber4.QaseEventListener",
-                "classpath:features/"
+                "classpath:features/new_case.feature"
         };
         Main.run(args, Thread.currentThread().getContextClassLoader());
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/777"))
