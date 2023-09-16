@@ -12,7 +12,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-junit5</artifactId>
-        <version>3.0.5</version>
+        <version>3.1.0</version>
     </dependency>
 </dependencies>
 <build>
@@ -55,7 +55,7 @@ add the below code to build.gradle:
 ```
 dependencies {
     ...
-    testImplementation 'io.qase:qase-junit5:3.0.5'
+    testImplementation 'io.qase:qase-junit5:3.1.0'
 }
 
 test {

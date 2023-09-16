@@ -22,7 +22,7 @@ Add the following dependency to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-testng</artifactId>
-        <version>3.0.5</version>
+        <version>3.1.0</version>
         <scope>test</scope>
     </dependency>
     <dependency>
@@ -67,7 +67,7 @@ configurations {
 
 dependencies {
     aspectjweaver "org.aspectj:aspectjweaver:1.9.8"
-    testImplementation 'io.qase:qase-testng:3.0.5'
+    testImplementation 'io.qase:qase-testng:3.1.0'
     testImplementation 'org.testng:testng:7.1.0'
 }
 
