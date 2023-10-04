@@ -12,7 +12,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-junit4</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
         <scope>test</scope>
     </dependency>
     <dependency>
@@ -63,9 +63,9 @@ configurations {
 
 dependencies {
     aspectjweaver "org.aspectj:aspectjweaver:1.9.8"
-    testImplementation 'io.qase:qase-api:3.1.0'
-    testImplementation 'io.qase:qase-junit4:3.1.0'
-    testImplementation 'io.qase:qase-junit4-aspect:3.1.0'
+    testImplementation 'io.qase:qase-api:3.1.1'
+    testImplementation 'io.qase:qase-junit4:3.1.1'
+    testImplementation 'io.qase:qase-junit4-aspect:3.1.1'
     testImplementation 'junit:junit:4.13.2'
 }
 

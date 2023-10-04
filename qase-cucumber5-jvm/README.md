@@ -42,7 +42,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-cucumber5-jvm</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
     </dependency>
 </dependencies>
 <build>
