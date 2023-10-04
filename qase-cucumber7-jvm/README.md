@@ -1,4 +1,4 @@
-# Qase TMS Cucumber 4 JVM Integration #
+# Qase TMS Cucumber 5 JVM Integration #
 [![License](https://lxgaming.github.io/badges/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## Description ##
@@ -41,7 +41,7 @@ Add the following dependency and repository to your pom.xml:
 <dependencies>
     <dependency>
         <groupId>io.qase</groupId>
-        <artifactId>qase-cucumber4-jvm</artifactId>
+        <artifactId>qase-cucumber7-jvm</artifactId>
         <version>3.1.1</version>
     </dependency>
 </dependencies>
@@ -53,7 +53,7 @@ Add the following dependency and repository to your pom.xml:
             <version>3.0.0-M5</version>
             <configuration>
                 <argLine>
-                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -Dcucumber.options="--add-plugin io.qase.cucumber4.QaseEventListener"
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -Dcucumber.plugin="io.qase.cucumber5.QaseEventListener"
                 </argLine>
             </configuration>
             <dependencies>

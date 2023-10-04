@@ -11,6 +11,7 @@ public class Multiple {
     @Test
     @QaseId(123)
     public void failedWithStepsTest() {
+        System.out.println(Thread.currentThread().getId());
         Steps steps = new Steps();
         steps.successStep();
         steps.failureStep();
@@ -19,6 +20,8 @@ public class Multiple {
     @Test
     @QaseId(456)
     public void passedWithStepsTest() {
+        System.out.println(Thread.currentThread().getId());
+
         Steps steps = new Steps();
         steps.successStep();
     }
@@ -26,6 +29,7 @@ public class Multiple {
     @Test
     @QaseId(321)
     public void failedTest() throws InterruptedException {
+        System.out.println(Thread.currentThread().getId());
         Thread.sleep(TimeUnit.SECONDS.toMillis(2));
         throw new AssertionError("Error message");
     }
