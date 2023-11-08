@@ -154,6 +154,98 @@ class QaseEventListenerTests {
                         "      \"status\" : \"passed\",\n" +
                         "      \"action\" : \"Given success step\"\n" +
                         "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case\" : {\n" +
+                        "      \"title\" : \"success with Positive Examples\"\n" +
+                        "    },\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"param\" : {\n" +
+                        "      \"a\" : \"\\\"1\\\"\",\n" +
+                        "      \"b\" : \"\\\"2\\\"\"\n" +
+                        "    },\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step with parameter \\\"1\\\"\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step with parameter \\\"2\\\"\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case\" : {\n" +
+                        "      \"title\" : \"success with Positive Examples\"\n" +
+                        "    },\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"param\" : {\n" +
+                        "      \"a\" : \"\\\"3\\\"\",\n" +
+                        "      \"b\" : \"\\\"4\\\"\"\n" +
+                        "    },\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step with parameter \\\"3\\\"\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step with parameter \\\"4\\\"\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case\" : {\n" +
+                        "      \"title\" : \"success with Positive Examples\"\n" +
+                        "    },\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"param\" : {\n" +
+                        "      \"a\" : \"\\\"5\\\"\",\n" +
+                        "      \"b\" : \"\\\"6\\\"\"\n" +
+                        "    },\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step with parameter \\\"5\\\"\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step with parameter \\\"6\\\"\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case\" : {\n" +
+                        "      \"title\" : \"success with Positive Examples\"\n" +
+                        "    },\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"param\" : {\n" +
+                        "      \"a\" : \"\\\"7\\\"\",\n" +
+                        "      \"b\" : \"\\\"8\\\"\"\n" +
+                        "    },\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step with parameter \\\"7\\\"\"\n" +
+                        "    }, {\n" +
+                        "      \"position\" : 2,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step with parameter \\\"8\\\"\"\n" +
+                        "    } ]\n" +
+                        "  }, {\n" +
+                        "    \"case\" : {\n" +
+                        "      \"title\" : \"Success scenario\"\n" +
+                        "    },\n" +
+                        "    \"status\" : \"passed\",\n" +
+                        "    \"time_ms\" : \"${json-unit.ignore}\",\n" +
+                        "    \"defect\" : false,\n" +
+                        "    \"steps\" : [ {\n" +
+                        "      \"position\" : 1,\n" +
+                        "      \"status\" : \"passed\",\n" +
+                        "      \"action\" : \"Given success step\"\n" +
+                        "    } ]\n" +
                         "  } ]\n" +
                         "}")));
     }
