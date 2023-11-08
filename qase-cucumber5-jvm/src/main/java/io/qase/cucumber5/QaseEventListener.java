@@ -1,5 +1,8 @@
 package io.qase.cucumber5;
 
+import gherkin.AstBuilder;
+import gherkin.Parser;
+import gherkin.ast.*;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import io.qase.api.QaseClient;
@@ -15,17 +18,23 @@ import io.qase.client.model.ResultCreateStepsInner;
 import io.qase.cucumber5.guice.module.Cucumber5Module;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
+import static io.qase.api.utils.CucumberUtils.getHash;
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
+@Slf4j
 public class QaseEventListener implements ConcurrentEventListener {
 
+    private static final Map<Integer, Map<String, String>> EXAMPLES = new HashMap<>();
     private static final String REPORTER_NAME = "Cucumber 5-JVM";
-
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
     private final QaseTestCaseListener qaseTestCaseListener = createQaseListener();
 
@@ -44,9 +53,45 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
     }
 
-    private void testCaseStarted(TestStepStarted testStepStarted) {
-        if (testStepStarted.getTestStep() instanceof PickleStepTestStep) {
+    private void testCaseStarted(TestStepStarted event) {
+        if (EXAMPLES.get(getHash(event.getTestCase().getUri(), (long) event.getTestCase().getLine())) == null) {
+            TestCase testCase = event.getTestCase();
+            URI uri = testCase.getUri();
+            Parser<GherkinDocument> gherkinParser = new Parser<>(new AstBuilder());
+            try {
+                GherkinDocument gherkinDocument = gherkinParser.parse(new String(Files.readAllBytes(Paths.get(this.getClass().getClassLoader()
+                        .getResource(uri.toString().replace("classpath:", "")).toURI()))));
+                parseExamples(uri, gherkinDocument);
+            } catch (URISyntaxException | IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+        if (event.getTestStep() instanceof PickleStepTestStep) {
             StepStorage.startStep();
+        }
+    }
+
+    private void parseExamples(URI uri, GherkinDocument gherkinDocument) {
+        Feature feature = gherkinDocument.getFeature();
+        List<ScenarioDefinition> children = feature.getChildren();
+        for (ScenarioDefinition child : children) {
+            if (child instanceof ScenarioOutline) {
+                ScenarioOutline scenario = (ScenarioOutline) child;
+                for (Examples exampleItem : scenario.getExamples()) {
+                    List<String> headers = new ArrayList<>();
+                    exampleItem.getTableHeader().getCells().forEach(h -> headers.add(h.getValue()));
+                    List<TableRow> tableBody = exampleItem.getTableBody();
+                    for (TableRow tableRow : tableBody) {
+                        List<TableCell> cells = tableRow.getCells();
+                        HashMap<String, String> example = new HashMap<>();
+                        for (int k = 0; k < cells.size(); k++) {
+                            String value = cells.get(k).getValue();
+                            example.put(headers.get(k), value);
+                        }
+                        EXAMPLES.put(getHash(uri, (long) tableRow.getLocation().getLine()), example);
+                    }
+                }
+            }
         }
     }
 
@@ -96,12 +141,13 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void setupResultItem(ResultCreate resultCreate, TestCaseFinished event) {
-        List<String> tags = event.getTestCase().getTags();
+        TestCase testCase = event.getTestCase();
+        List<String> tags = testCase.getTags();
         Long caseId = CucumberUtils.getCaseId(tags);
 
         String caseTitle = null;
         if (caseId == null) {
-            caseTitle = event.getTestCase().getName();
+            caseTitle = testCase.getName();
         }
 
         StatusEnum status = convertStatus(event.getResult().getStatus());
@@ -122,6 +168,8 @@ public class QaseEventListener implements ConcurrentEventListener {
                 .stacktrace(stacktrace)
                 .steps(steps.isEmpty() ? null : steps)
                 .defect(isDefect);
+        Map<String, String> params = EXAMPLES.get(getHash(testCase.getUri(), (long) testCase.getLine()));
+        resultCreate.param(params);
     }
 
     private StatusEnum convertStatus(Status status) {
