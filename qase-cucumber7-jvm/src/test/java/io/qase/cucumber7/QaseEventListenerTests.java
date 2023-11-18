@@ -75,7 +75,7 @@ class QaseEventListenerTests {
                 "-g", "io.qase.cucumber7",
                 "--plugin", "io.qase.cucumber7.QaseEventListener",
                 "classpath:features/",
-                "--threads", "2"
+                "--threads", "4"
         };
         Main.run(args, Thread.currentThread().getContextClassLoader());
 

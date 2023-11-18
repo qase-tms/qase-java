@@ -10,6 +10,10 @@ public class Steps {
     public void success() {
     }
 
+    @Given("success step with parameter {string}")
+    public void success_step_with_parameter(String string) {
+    }
+
     @Given("timeout {int} seconds")
     public void success(int integer) throws InterruptedException {
         TimeUnit.SECONDS.sleep(integer);

@@ -1,5 +1,8 @@
 package io.qase.cucumber6;
 
+import io.cucumber.gherkin.Gherkin;
+import io.cucumber.messages.IdGenerator;
+import io.cucumber.messages.Messages;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import io.qase.api.QaseClient;
@@ -16,18 +19,22 @@ import io.qase.cucumber6.guice.module.Cucumber6Module;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.net.URI;
+import java.util.*;
+import java.util.stream.Stream;
 
+import static io.cucumber.gherkin.Gherkin.makeSourceEnvelope;
+import static io.qase.api.utils.CucumberUtils.getHash;
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements ConcurrentEventListener {
 
+    private static final Map<Integer, Map<String, String>> EXAMPLES = new HashMap<>();
     private static final String REPORTER_NAME = "Cucumber 6-JVM";
 
     @Getter(lazy = true, value = AccessLevel.PRIVATE)
     private final QaseTestCaseListener qaseTestCaseListener = createQaseListener();
+    private final Map<URI, String> sources = new HashMap<>();
 
     static {
         System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
@@ -36,12 +43,17 @@ public class QaseEventListener implements ConcurrentEventListener {
     @Override
     public void setEventPublisher(EventPublisher publisher) {
         if (QaseClient.isEnabled()) {
+            publisher.registerHandlerFor(TestSourceRead.class, this::testSourceRead);
             publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
             publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
             publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
             publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
             publisher.registerHandlerFor(TestStepStarted.class, this::testCaseStarted);
         }
+    }
+
+    private void testSourceRead(TestSourceRead testSourceRead) {
+        sources.put(testSourceRead.getUri(), testSourceRead.getSource());
     }
 
     private void testCaseStarted(TestStepStarted testStepStarted) {
@@ -88,7 +100,49 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void testCaseStarted(TestCaseStarted event) {
+        URI uri = event.getTestCase().getUri();
+        if (EXAMPLES.get(getHash(uri, (long) event.getTestCase().getLine())) == null && sources.containsKey(uri)) {
+
+            Messages.Envelope envelope = makeSourceEnvelope(this.sources.get(uri), uri.toString());
+
+            Stream<Messages.Envelope> envelopes = Gherkin.fromSources(
+                    Collections.singletonList(envelope),
+                    true,
+                    true,
+                    true,
+                    new IdGenerator.UUID());
+
+            envelopes
+                    .filter(Messages.Envelope::hasGherkinDocument)
+                    .map(Messages.Envelope::getGherkinDocument)
+                    .findFirst()
+                    .ifPresent(gherkinDocument -> parseExamples(uri, gherkinDocument));
+        }
         getQaseTestCaseListener().onTestCaseStarted();
+    }
+
+    private void parseExamples(URI uri, Messages.GherkinDocument gherkinDocument) {
+        Messages.GherkinDocument.Feature feature = gherkinDocument.getFeature();
+        List<Messages.GherkinDocument.Feature.FeatureChild> childrenList = feature.getChildrenList();
+        for (int i = 0; i < childrenList.size(); i++) {
+            List<Messages.GherkinDocument.Feature.Scenario.Examples> examplesList = childrenList.get(i).getScenario().getExamplesList();
+            for (int j = 0; j < examplesList.size(); j++) {
+                List<String> headers = new ArrayList<>();
+                Messages.GherkinDocument.Feature.TableRow tableHeader = examplesList.get(j).getTableHeader();
+                tableHeader.getCellsList().forEach(h -> headers.add(h.getValue()));
+                List<Messages.GherkinDocument.Feature.TableRow> tableBodyList = examplesList.get(j).getTableBodyList();
+                for (int k = 0; k < tableBodyList.size(); k++) {
+                    Messages.GherkinDocument.Feature.TableRow tableRow = tableBodyList.get(k);
+                    List<Messages.GherkinDocument.Feature.TableRow.TableCell> cellsList = tableRow.getCellsList();
+                    HashMap<String, String> example = new HashMap<>();
+                    for (int l = 0; l < cellsList.size(); l++) {
+                        String value = cellsList.get(l).getValue();
+                        example.put(headers.get(l), value);
+                    }
+                    EXAMPLES.put(getHash(uri, (long) tableRow.getLocation().getLine()), example);
+                }
+            }
+        }
     }
 
     private void testCaseFinished(TestCaseFinished event) {
@@ -96,12 +150,13 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void setupResultItem(ResultCreate resultCreate, TestCaseFinished event) {
-        List<String> tags = event.getTestCase().getTags();
+        TestCase testCase = event.getTestCase();
+        List<String> tags = testCase.getTags();
         Long caseId = CucumberUtils.getCaseId(tags);
 
         String caseTitle = null;
         if (caseId == null) {
-            caseTitle = event.getTestCase().getName();
+            caseTitle = testCase.getName();
         }
 
         StatusEnum status = convertStatus(event.getResult().getStatus());
@@ -122,6 +177,8 @@ public class QaseEventListener implements ConcurrentEventListener {
                 .stacktrace(stacktrace)
                 .steps(steps.isEmpty() ? null : steps)
                 .defect(isDefect);
+        Map<String, String> params = EXAMPLES.get(getHash(testCase.getUri(), (long) testCase.getLocation().getLine()));
+        resultCreate.param(params);
     }
 
     private StatusEnum convertStatus(Status status) {
