@@ -73,7 +73,8 @@ class QaseEventListenerTests {
         String[] args = new String[]{
                 "-g", "io.qase.cucumber5",
                 "--add-plugin", "io.qase.cucumber5.QaseEventListener",
-                "classpath:features/"
+                "classpath:features/",
+                "--threads", "4"
         };
         Main.run(args, Thread.currentThread().getContextClassLoader());
 
@@ -247,7 +248,7 @@ class QaseEventListenerTests {
                         "      \"action\" : \"Given success step\"\n" +
                         "    } ]\n" +
                         "  } ]\n" +
-                        "}")));
+                        "}", true, false)));
     }
 
     @Test
