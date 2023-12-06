@@ -1,5 +1,6 @@
 package io.qase.api.utils;
 
+import java.net.URI;
 import java.util.List;
 
 import static io.qase.api.utils.IntegrationUtils.CASE_TAGS;
@@ -19,5 +20,9 @@ public final class CucumberUtils {
             }
         }
         return null;
+    }
+
+    public static int getHash(URI uri, Long line) {
+        return (uri.toString() + line).hashCode();
     }
 }
