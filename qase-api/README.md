@@ -424,7 +424,7 @@ There are a few `Attachments.addAttachmentsToCurrentContext` use-cases down belo
 ##### Test case with attachments
 
 ```java
-@CaseId(1)
+@QaseId(1)
 public void testCase() throws QaseException {
     // your test case code here
     Attachments.addAttachmentsToCurrentContext(
@@ -440,7 +440,7 @@ Afterward, the running test (of id 1) case will have the id of uploaded `caseScr
 ##### Test step with attachments
 
 ```java
-@CaseId(2)
+@QaseId(2)
 public void testCase() throws QaseException {
     // your test case code here
     testStep();
@@ -464,7 +464,7 @@ In its turn, the step will have the id of uploaded `stepScreenshot.jpg` associat
 ##### Both a case and a step with attachments
 
 ```java
-@CaseId(3)
+@QaseId(3)
 public void testCase() throws QaseException {
     // your test case code here
     Attachments.addAttachmentsToCurrentContext(

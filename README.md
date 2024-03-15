@@ -35,7 +35,7 @@ To link tests with test-cases in Qase TMS you should use annotation `@io.qase.ap
 
 ```java
 @Test
-@CaseId(123)
+@QaseId(123)
 public void someTest(){
         ...
         }
