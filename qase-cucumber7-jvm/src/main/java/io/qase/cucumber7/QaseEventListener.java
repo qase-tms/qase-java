@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -129,20 +130,28 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void testCaseStarted(TestCaseStarted event) {
+        parseGherkinFile(event);
+        getQaseTestCaseListener().onTestCaseStarted();
+    }
+
+    private void parseGherkinFile(TestCaseStarted event) {
         if (EXAMPLES.get(getHash(event.getTestCase().getUri(), (long) event.getTestCase().getLocation().getLine())) == null) {
             TestCase testCase = event.getTestCase();
             URI uri = testCase.getUri();
             GherkinParser gherkinParser = GherkinParser.builder().build();
             try {
-                Path path = Paths.get(this.getClass().getClassLoader()
-                        .getResource(uri.toString().replace("classpath:", "")).toURI());
+                URL resource = this.getClass().getClassLoader()
+                        .getResource(uri.toString().replace("classpath:", ""));
+                if (resource == null) {
+                    return;
+                }
+                Path path = Paths.get(resource.toURI());
                 Stream<Envelope> envelopes = gherkinParser.parse(path);
                 envelopes.forEach(e -> parseExamples(uri, e));
             } catch (IOException | URISyntaxException e) {
                 log.error(e.getMessage());
             }
         }
-        getQaseTestCaseListener().onTestCaseStarted();
     }
 
     private void testCaseFinished(TestCaseFinished event) {
