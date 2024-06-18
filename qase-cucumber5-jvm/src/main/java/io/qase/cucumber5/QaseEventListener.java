@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -59,8 +60,12 @@ public class QaseEventListener implements ConcurrentEventListener {
             URI uri = testCase.getUri();
             Parser<GherkinDocument> gherkinParser = new Parser<>(new AstBuilder());
             try {
-                GherkinDocument gherkinDocument = gherkinParser.parse(new String(Files.readAllBytes(Paths.get(this.getClass().getClassLoader()
-                        .getResource(uri.toString().replace("classpath:", "")).toURI()))));
+                URL resource = this.getClass().getClassLoader()
+                        .getResource(uri.toString().replace("classpath:", ""));
+                if (resource == null) {
+                    return;
+                }
+                GherkinDocument gherkinDocument = gherkinParser.parse(new String(Files.readAllBytes(Paths.get(resource.toURI()))));
                 parseExamples(uri, gherkinDocument);
             } catch (URISyntaxException | IOException e) {
                 log.error(e.getMessage());
