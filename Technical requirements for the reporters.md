@@ -120,3 +120,20 @@ This method should contain the path or paths to the files and create the attachm
 
 Each reporter should support the parametrize tests.
 The reporter should collect the parameters and the values as key-value pairs.
+
+### Signature
+
+Each reporter should support the signature. It is a unique identifier for the test.
+The signature should be collected automatically and be unique for each test. 
+
+Signature should be in lower case and without spaces (replace to `_`).
+
+The signature should contain the following information:
+- the test package, for example: `com/qase/tests/MyTest.java` -> `com::qase::tests::mytest.java`
+- the test class name, for example: `mytest`
+- the test method name, for example: `testmethod`
+- the qase id if it is defined, for example: `123`
+- the parameters if they are defined, for example: `{param1:value1}`
+
+Example of the signature: `com::qase::tests::mytest.java::mytest::testmethod::123::{param1:value1}::{param2::value2}`
+
