@@ -42,7 +42,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-cucumber5-jvm</artifactId>
-        <version>3.0.5</version>
+        <version>3.2.1</version>
     </dependency>
 </dependencies>
 <build>
@@ -53,7 +53,7 @@ Add the following dependency and repository to your pom.xml:
             <version>3.0.0-M5</version>
             <configuration>
                 <argLine>
-                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -Dcucumber.options="--add-plugin io.qase.cucumber5.QaseEventListener"
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -Dcucumber.plugin="io.qase.cucumber5.QaseEventListener"
                 </argLine>
             </configuration>
             <dependencies>

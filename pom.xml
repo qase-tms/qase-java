@@ -7,7 +7,7 @@
     <groupId>io.qase</groupId>
     <artifactId>qase-java</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.5</version>
+    <version>3.2.1</version>
     <modules>
         <module>qase-api</module>
         <module>qase-testng</module>
@@ -16,6 +16,8 @@
         <module>qase-cucumber3-jvm</module>
         <module>qase-cucumber4-jvm</module>
         <module>qase-cucumber5-jvm</module>
+        <module>qase-cucumber6-jvm</module>
+        <module>qase-cucumber7-jvm</module>
         <module>qase-junit4-aspect</module>
     </modules>
 
@@ -38,6 +40,8 @@
         <cucumber3-java.version>3.0.2</cucumber3-java.version>
         <cucumber4-java.version>4.8.1</cucumber4-java.version>
         <cucumber5-java.version>5.7.0</cucumber5-java.version>
+        <cucumber6-java.version>6.11.0</cucumber6-java.version>
+        <cucumber7-java.version>7.14.0</cucumber7-java.version>
         <swagger-core-version>2.0.0</swagger-core-version>
         <aspectj.version>1.9.8</aspectj.version>
         <jackson.version>2.13.4</jackson.version>
@@ -77,11 +81,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 

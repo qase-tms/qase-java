@@ -4,18 +4,6 @@
 ## Description ##
 This integration uploads test run results to Qase TMS via API.
 
-To link autotest to test case in Qase TMS use annotation `@CaseId`
-
-### Required params ###
-All required params are passed through system properties or environment variables:
-
-|  Key              | Description |
-| :---------------: | :----------: |
-| QASE_ENABLE       | Enable Integration |
-| QASE_PROJECT_CODE | Project Code |
-| QASE_RUN_ID       | Run Id |
-| QASE_API_TOKEN    | Qase API Token |
-
 ## Maven ##
 
 Add the following dependency and repository to your pom.xml:
@@ -24,7 +12,7 @@ Add the following dependency and repository to your pom.xml:
     <dependency>
         <groupId>io.qase</groupId>
         <artifactId>qase-junit5</artifactId>
-        <version>3.0.5</version>
+        <version>3.2.1</version>
     </dependency>
 </dependencies>
 <build>
@@ -67,7 +55,7 @@ add the below code to build.gradle:
 ```
 dependencies {
     ...
-    testImplementation 'io.qase:qase-junit5:3.0.5'
+    testImplementation 'io.qase:qase-junit5:3.2.1'
 }
 
 test {

@@ -1,5 +1,6 @@
 package io.qase.cucumber4;
 
+import cucumber.api.PickleStepTestStep;
 import cucumber.api.Result;
 import cucumber.api.event.*;
 import gherkin.pickles.PickleTag;
@@ -8,8 +9,10 @@ import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.CucumberUtils;
+import io.qase.api.utils.IntegrationUtils;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
+import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateStepsInner;
 import io.qase.cucumber4.guice.module.Cucumber4Module;
 import lombok.AccessLevel;
@@ -39,6 +42,47 @@ public class QaseEventListener implements ConcurrentEventListener {
             publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
             publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
             publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+            publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
+            publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
+        }
+    }
+
+    private void testStepStarted(TestStepStarted testStepStarted) {
+        if (testStepStarted.testStep instanceof PickleStepTestStep) {
+            StepStorage.startStep();
+        }
+    }
+
+    private void testStepFinished(TestStepFinished testStepFinished) {
+        if (testStepFinished.testStep instanceof PickleStepTestStep) {
+            PickleStepTestStep step = (PickleStepTestStep) testStepFinished.testStep;
+            String stepText = step.getStepText();
+            Result result = testStepFinished.result;
+            switch (result.getStatus()) {
+                case PASSED:
+                    StepStorage.getCurrentStep()
+                            .action(stepText)
+                            .status(ResultCreateStepsInner.StatusEnum.PASSED);
+                    StepStorage.stopStep();
+                    break;
+                case SKIPPED:
+                    break;
+                case PENDING:
+                    break;
+                case UNDEFINED:
+                    break;
+                case AMBIGUOUS:
+                    break;
+                case FAILED:
+                    StepStorage.getCurrentStep()
+                            .action(stepText)
+                            .status(ResultCreateStepsInner.StatusEnum.FAILED)
+                            .addAttachmentsItem(IntegrationUtils.getStacktrace(result.getError()));
+                    StepStorage.stopStep();
+                    break;
+                case UNUSED:
+                    break;
+            }
         }
     }
 
@@ -51,30 +95,37 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private void testCaseFinished(TestCaseFinished event) {
-        getQaseTestCaseListener().onTestCaseFinished(resultCreate ->  setupResultItem(resultCreate, event));
+        getQaseTestCaseListener().onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, event));
     }
 
     private ResultCreate setupResultItem(ResultCreate resultCreate, TestCaseFinished event) {
         List<PickleTag> pickleTags = event.testCase.getTags();
         List<String> tags = pickleTags.stream().map(PickleTag::getName).collect(Collectors.toList());
         Long caseId = CucumberUtils.getCaseId(tags);
+
+        String caseTitle = null;
+        if (caseId == null) {
+            caseTitle = event.getTestCase().getName();
+        }
+
         StatusEnum status = convertStatus(event.result.getStatus());
         Optional<Throwable> optionalThrowable = Optional.ofNullable(event.result.getError());
         String comment = optionalThrowable
-            .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
         Boolean isDefect = optionalThrowable
-            .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-            .orElse(false);
+                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                .orElse(false);
         String stacktrace = optionalThrowable
-            .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+                .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
         LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
         return resultCreate
-            .caseId(caseId)
-            .status(status)
-            .comment(comment)
-            .stacktrace(stacktrace)
-            .steps(steps.isEmpty() ? null : steps)
-            .defect(isDefect);
+                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
+                .caseId(caseId)
+                .status(status)
+                .comment(comment)
+                .stacktrace(stacktrace)
+                .steps(steps.isEmpty() ? null : steps)
+                .defect(isDefect);
     }
 
     private ResultCreate.StatusEnum convertStatus(Result.Type status) {

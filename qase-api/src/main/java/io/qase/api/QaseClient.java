@@ -48,13 +48,14 @@ public final class QaseClient {
                                             .description(getConfig().runDescription())
                                             .isAutotest(true))
                             .getResult().getId();
+                    getConfig().setProperty(RUN_ID_KEY, String.valueOf(id));
+                    logger.info("Qase run id - {}", getConfig().runId());
                 } catch (QaseException e) {
-                    throw new IllegalStateException(e);
+                    isEnabled = false;
+                    logger.error(e.getMessage());
                 }
-                getConfig().setProperty(RUN_ID_KEY, String.valueOf(id));
             }
         }
-        logger.info("Qase run id - {}", getConfig().runId());
         return client;
     }
 
