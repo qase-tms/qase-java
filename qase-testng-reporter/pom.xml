@@ -9,20 +9,24 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>qase-cucumber7-jvm</artifactId>
+    <artifactId>qase-testng-reporter</artifactId>
 
-    <name>Cucumber 7 Integration with Qase TMS</name>
+    <name>TestNG Integration with Qase TMS</name>
 
     <dependencies>
         <dependency>
+            <groupId>com.google.inject</groupId> <!--Prevents using other Guice versions-->
+            <artifactId>guice</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.qase</groupId>
-            <artifactId>qase-api</artifactId>
+            <artifactId>qase-api-client</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
@@ -30,9 +34,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber7-java.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

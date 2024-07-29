@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>io.qase</groupId>
-            <artifactId>qase-junit4</artifactId>
+            <artifactId>qase-junit4-reporter</artifactId>
             <version>${parent.version}</version>
             <scope>provided</scope>
         </dependency>

@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.qase.api.utils.TestUtils.QASE_API_TOKEN;

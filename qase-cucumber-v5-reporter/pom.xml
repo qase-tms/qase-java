@@ -9,20 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>qase-junit4</artifactId>
+    <artifactId>qase-cucumber-v5-reporter</artifactId>
 
-    <name>JUnit 4 Integration with Qase TMS</name>
+    <name>Cucumber 5 Integration with Qase TMS</name>
 
     <dependencies>
         <dependency>
             <groupId>io.qase</groupId>
-            <artifactId>qase-api</artifactId>
+            <artifactId>qase-api-client</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>provided</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
@@ -30,9 +30,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber5-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>gherkin</artifactId>
+            <version>5.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

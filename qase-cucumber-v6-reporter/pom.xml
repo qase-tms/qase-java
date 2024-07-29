@@ -9,14 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>qase-cucumber3-jvm</artifactId>
+    <artifactId>qase-cucumber-v6-reporter</artifactId>
 
-    <name>Cucumber 3 Integration with Qase TMS</name>
+    <name>Cucumber 6 Integration with Qase TMS</name>
 
     <dependencies>
         <dependency>
             <groupId>io.qase</groupId>
-            <artifactId>qase-api</artifactId>
+            <artifactId>qase-api-client</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
@@ -32,12 +32,16 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>${cucumber3-java.version}</version>
+            <version>${cucumber6-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>gherkin</artifactId>
+            <version>18.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
