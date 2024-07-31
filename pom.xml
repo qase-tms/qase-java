@@ -9,43 +9,48 @@
     <packaging>pom</packaging>
     <version>4.0.0</version>
     <modules>
-        <module>qase-api</module>
-        <module>qase-testng</module>
-        <module>qase-junit4</module>
-        <module>qase-junit5</module>
-        <module>qase-cucumber3-jvm</module>
-        <module>qase-cucumber4-jvm</module>
-        <module>qase-cucumber5-jvm</module>
+        <module>qase-api-client</module>
+        <module>qase-testng-reporter</module>
+        <module>qase-junit4-reporter</module>
+        <module>qase-junit5-reporter</module>
+        <module>qase-cucumber-v3-reporter</module>
+        <module>qase-cucumber-v4-reporter</module>
+        <module>qase-cucumber-v5-reporter</module>
+        <module>qase-cucumber-v6-reporter</module>
+        <module>qase-cucumber-v7-reporter</module>
+        <module>qase-junit4-aspect</module>
     </modules>
 
     <url>https://www.qase.io</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <junit5.version>5.6.3</junit5.version>
-        <lombok.version>1.18.24</lombok.version>
-        <wiremock-jre8.version>2.26.3</wiremock-jre8.version>
+        <lombok.version>1.18.34</lombok.version>
         <apiguardian-api.version>1.1.0</apiguardian-api.version>
         <junit4.version>4.13.1</junit4.version>
         <testng.version>7.1.0</testng.version>
         <unirest-java.version>3.4.00</unirest-java.version>
         <junit-platform-engine.version>1.6.2</junit-platform-engine.version>
-        <logback.version>1.2.9</logback.version>
+        <logback.version>1.4.14</logback.version>
         <slf4j-api.version>1.7.32</slf4j-api.version>
         <cucumber3-java.version>3.0.2</cucumber3-java.version>
         <cucumber4-java.version>4.8.1</cucumber4-java.version>
         <cucumber5-java.version>5.7.0</cucumber5-java.version>
+        <cucumber6-java.version>6.11.0</cucumber6-java.version>
+        <cucumber7-java.version>7.14.0</cucumber7-java.version>
         <swagger-core-version>2.0.0</swagger-core-version>
         <aspectj.version>1.9.8</aspectj.version>
-        <jackson.version>2.13.4</jackson.version>
+        <jackson.version>2.17.2</jackson.version>
         <httpclient.version>4.5.13</httpclient.version>
         <commons-codec.version>1.15</commons-codec.version>
         <guice.version>5.1.0</guice.version>
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
         <mockito-core.version>4.6.1</mockito-core.version>
+        <wiremock.version>2.26.3</wiremock.version>
     </properties>
 
     <name>Qase TMS Java Libraries</name>
@@ -76,11 +81,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
@@ -117,7 +122,7 @@
             <dependency>
                 <groupId>com.github.tomakehurst</groupId>
                 <artifactId>wiremock-jre8</artifactId>
-                <version>${wiremock-jre8.version}</version>
+                <version>${wiremock.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.platform</groupId>
@@ -228,15 +233,6 @@
     <profiles>
         <profile>
             <id>release</id>
-            <modules>
-                <module>qase-testng</module>
-                <module>qase-api</module>
-                <module>qase-junit4</module>
-                <module>qase-junit5</module>
-                <module>qase-cucumber3-jvm</module>
-                <module>qase-cucumber4-jvm</module>
-                <module>qase-cucumber5-jvm</module>
-            </modules>
             <build>
                 <plugins>
                     <plugin>
