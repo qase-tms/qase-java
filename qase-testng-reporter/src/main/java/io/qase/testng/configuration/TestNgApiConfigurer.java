@@ -1,7 +1,7 @@
 package io.qase.testng.configuration;
 
 import com.google.inject.Singleton;
-import io.qase.api.config.apiclient.DefaultHeadersApiConfigurer;
+import io.qase.config.DefaultHeadersApiConfigurer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.testng.annotations.Test;

@@ -2,7 +2,7 @@ package io.qase.cucumber6.configuration;
 
 import com.google.inject.Singleton;
 import io.cucumber.java.After;
-import io.qase.api.config.apiclient.DefaultHeadersApiConfigurer;
+import io.qase.config.DefaultHeadersApiConfigurer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

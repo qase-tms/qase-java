@@ -14,7 +14,6 @@
 package io.qase.client.api;
 
 import com.google.gson.reflect.TypeToken;
-import io.qase.api.exceptions.QaseException;
 import io.qase.client.*;
 import io.qase.client.model.*;
 

@@ -13,7 +13,6 @@
 
 package io.qase.client;
 
-import io.qase.api.exceptions.QaseException;
 
 import java.util.List;
 import java.util.Map;

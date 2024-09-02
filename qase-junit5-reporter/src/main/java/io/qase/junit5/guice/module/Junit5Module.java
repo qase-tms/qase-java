@@ -3,7 +3,7 @@ package io.qase.junit5.guice.module;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
-import io.qase.api.config.apiclient.ApiClientConfigurer;
+import io.qase.config.ApiClientConfigurer;
 import io.qase.guice.Injectors;
 import io.qase.junit5.configuration.Junit5ApiConfigurer;
 import lombok.Getter;

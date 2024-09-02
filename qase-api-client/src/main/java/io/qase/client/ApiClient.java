@@ -13,11 +13,10 @@
 
 package io.qase.client;
 
-import io.qase.api.exceptions.QaseException;
-import io.qase.api.inner.FilterHelper;
 import io.qase.client.auth.ApiKeyAuth;
 import io.qase.client.auth.Authentication;
 import io.qase.client.auth.HttpBasicAuth;
+import io.qase.client.inner.FilterHelper;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
 import okhttp3.internal.tls.OkHostnameVerifier;
@@ -118,7 +117,7 @@ public class ApiClient {
     private void initHttpClient(List<Interceptor> interceptors) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addNetworkInterceptor(getProgressInterceptor());
-        for (Interceptor interceptor: interceptors) {
+        for (Interceptor interceptor : interceptors) {
             builder.addInterceptor(interceptor);
         }
 
@@ -431,7 +430,7 @@ public class ApiClient {
     /**
      * Add a default header.
      *
-     * @param key The header's key
+     * @param key   The header's key
      * @param value The header's value
      * @return ApiClient
      */
@@ -443,7 +442,7 @@ public class ApiClient {
     /**
      * Add a default cookie.
      *
-     * @param key The cookie's key
+     * @param key   The cookie's key
      * @param value The cookie's value
      * @return ApiClient
      */
@@ -489,8 +488,8 @@ public class ApiClient {
      * with file response. The default value is <code>null</code>, i.e. using
      * the system's default temporary folder.
      *
-     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html#createTempFile(java.lang.String,%20java.lang.String,%20java.nio.file.attribute.FileAttribute...)">createTempFile</a>
      * @return Temporary folder path
+     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html#createTempFile(java.lang.String,%20java.lang.String,%20java.nio.file.attribute.FileAttribute...)">createTempFile</a>
      */
     public String getTempFolderPath() {
         return tempFolderPath;
@@ -603,10 +602,10 @@ public class ApiClient {
 
     /**
      * Formats the specified query parameter to a list containing a single {@code Pair} object.
-     *
+     * <p>
      * Note that {@code value} must not be a collection.
      *
-     * @param name The name of the parameter.
+     * @param name  The name of the parameter.
      * @param value The value of the parameter.
      * @return A list containing a single {@code Pair} object.
      */
@@ -626,12 +625,12 @@ public class ApiClient {
 
     /**
      * Formats the specified collection query parameters to a list of {@code Pair} objects.
-     *
+     * <p>
      * Note that the values of each of the returned Pair objects are percent-encoded.
      *
      * @param collectionFormat The collection format of the parameter.
-     * @param name The name of the parameter.
-     * @param value The value of the parameter.
+     * @param name             The name of the parameter.
+     * @param value            The value of the parameter.
      * @return A list of {@code Pair} objects.
      */
     public List<Pair> parameterToPairs(String collectionFormat, String name, Collection value) {
@@ -678,7 +677,7 @@ public class ApiClient {
      * Formats the specified collection path parameter to a string value.
      *
      * @param collectionFormat The collection format of the parameter.
-     * @param value The value of the parameter.
+     * @param value            The value of the parameter.
      * @return String representation of the parameter
      */
     public String collectionPathParameterToString(String collectionFormat, Collection value) {
@@ -699,7 +698,7 @@ public class ApiClient {
             delimiter = "|";
         }
 
-        StringBuilder sb = new StringBuilder() ;
+        StringBuilder sb = new StringBuilder();
         for (Object item : value) {
             sb.append(delimiter);
             sb.append(parameterToString(item));
@@ -722,11 +721,12 @@ public class ApiClient {
     /**
      * Check if the given MIME is a JSON MIME.
      * JSON MIME examples:
-     *   application/json
-     *   application/json; charset=UTF8
-     *   APPLICATION/JSON
-     *   application/vnd.company+json
+     * application/json
+     * application/json; charset=UTF8
+     * APPLICATION/JSON
+     * application/vnd.company+json
      * "* / *" is also default to JSON
+     *
      * @param mime MIME (Multipurpose Internet Mail Extensions)
      * @return True if the given MIME is JSON, false otherwise.
      */
@@ -737,12 +737,12 @@ public class ApiClient {
 
     /**
      * Select the Accept header's value from the given accepts array:
-     *   if JSON exists in the given array, use it;
-     *   otherwise use all of them (joining into a string)
+     * if JSON exists in the given array, use it;
+     * otherwise use all of them (joining into a string)
      *
      * @param accepts The accepts array to select from
      * @return The Accept header to use. If the given array is empty,
-     *   null will be returned (not to set the Accept header explicitly).
+     * null will be returned (not to set the Accept header explicitly).
      */
     public String selectHeaderAccept(String[] accepts) {
         if (accepts.length == 0) {
@@ -758,12 +758,12 @@ public class ApiClient {
 
     /**
      * Select the Content-Type header's value from the given array:
-     *   if JSON exists in the given array, use it;
-     *   otherwise use the first one of the array.
+     * if JSON exists in the given array, use it;
+     * otherwise use the first one of the array.
      *
      * @param contentTypes The Content-Type array to select from
      * @return The Content-Type header to use. If the given array is empty,
-     *   returns null. If it matches "any", JSON will be used.
+     * returns null. If it matches "any", JSON will be used.
      */
     public String selectHeaderContentType(String[] contentTypes) {
         if (contentTypes.length == 0) {
@@ -801,12 +801,12 @@ public class ApiClient {
      * Deserialize response body to Java object, according to the return type and
      * the Content-Type response header.
      *
-     * @param <T> Type
-     * @param response HTTP response
+     * @param <T>        Type
+     * @param response   HTTP response
      * @param returnType The type of the Java object
      * @return The deserialized Java object
      * @throws io.qase.client.QaseException If fail to deserialize response body, i.e. cannot read response body
-     *   or the Content-Type of the response is not supported.
+     *                                      or the Content-Type of the response is not supported.
      */
     @SuppressWarnings("unchecked")
     public <T> T deserialize(Response response, Type returnType) throws QaseException {
@@ -863,7 +863,7 @@ public class ApiClient {
      * Serialize the given Java object into request body according to the object's
      * class and the request Content-Type.
      *
-     * @param obj The Java object
+     * @param obj         The Java object
      * @param contentType The request Content-Type
      * @return The serialized request body
      * @throws io.qase.client.QaseException If fail to serialize the given object
@@ -896,8 +896,8 @@ public class ApiClient {
      * Download file from the given response.
      *
      * @param response An instance of the Response object
-     * @throws io.qase.client.QaseException If fail to read file content from response and write to disk
      * @return Downloaded file
+     * @throws io.qase.client.QaseException If fail to read file content from response and write to disk
      */
     public File downloadFileFromResponse(Response response) throws QaseException {
         try {
@@ -957,7 +957,7 @@ public class ApiClient {
     /**
      * {@link #execute(Call, Type)}
      *
-     * @param <T> Type
+     * @param <T>  Type
      * @param call An instance of the Call object
      * @return ApiResponse&lt;T&gt;
      * @throws io.qase.client.QaseException If fail to execute the call
@@ -970,11 +970,11 @@ public class ApiClient {
      * Execute HTTP call and deserialize the HTTP response body into the given return type.
      *
      * @param returnType The return type used to deserialize HTTP response body
-     * @param <T> The return type corresponding to (same with) returnType
-     * @param call Call
+     * @param <T>        The return type corresponding to (same with) returnType
+     * @param call       Call
      * @return ApiResponse object containing response status, headers and
-     *   data, which is a Java object deserialized from response body and would be null
-     *   when returnType is null.
+     * data, which is a Java object deserialized from response body and would be null
+     * when returnType is null.
      * @throws io.qase.client.QaseException If fail to execute the call
      */
     public <T> ApiResponse<T> execute(Call call, Type returnType) throws QaseException {
@@ -990,8 +990,8 @@ public class ApiClient {
     /**
      * {@link #executeAsync(Call, Type, ApiCallback)}
      *
-     * @param <T> Type
-     * @param call An instance of the Call object
+     * @param <T>      Type
+     * @param call     An instance of the Call object
      * @param callback ApiCallback&lt;T&gt;
      */
     public <T> void executeAsync(Call call, ApiCallback<T> callback) {
@@ -1001,10 +1001,10 @@ public class ApiClient {
     /**
      * Execute HTTP call asynchronously.
      *
-     * @param <T> Type
-     * @param call The callback to be executed when the API call finishes
+     * @param <T>        Type
+     * @param call       The callback to be executed when the API call finishes
      * @param returnType Return type
-     * @param callback ApiCallback
+     * @param callback   ApiCallback
      * @see #execute(Call, Type)
      */
     @SuppressWarnings("unchecked")
@@ -1035,12 +1035,12 @@ public class ApiClient {
     /**
      * Handle the given response, return the deserialized object when the response is successful.
      *
-     * @param <T> Type
-     * @param response Response
+     * @param <T>        Type
+     * @param response   Response
      * @param returnType Return type
      * @return Type
      * @throws io.qase.client.QaseException If the response has an unsuccessful status code or
-     *                      fail to deserialize the response body
+     *                                      fail to deserialize the response body
      */
     public <T> T handleResponse(Response response, Type returnType) throws QaseException {
         if (response.isSuccessful()) {
@@ -1074,17 +1074,17 @@ public class ApiClient {
     /**
      * Build HTTP call with the given options.
      *
-     * @param baseUrl The base URL
-     * @param path The sub-path of the HTTP URL
-     * @param method The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and "DELETE"
-     * @param queryParams The query parameters
+     * @param baseUrl               The base URL
+     * @param path                  The sub-path of the HTTP URL
+     * @param method                The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and "DELETE"
+     * @param queryParams           The query parameters
      * @param collectionQueryParams The collection query parameters
-     * @param body The request body object
-     * @param headerParams The header parameters
-     * @param cookieParams The cookie parameters
-     * @param formParams The form parameters
-     * @param authNames The authentications to apply
-     * @param callback Callback for upload/download progress
+     * @param body                  The request body object
+     * @param headerParams          The header parameters
+     * @param cookieParams          The cookie parameters
+     * @param formParams            The form parameters
+     * @param authNames             The authentications to apply
+     * @param callback              Callback for upload/download progress
      * @return The HTTP call
      * @throws io.qase.client.QaseException If fail to serialize the request body object
      */
@@ -1097,17 +1097,17 @@ public class ApiClient {
     /**
      * Build an HTTP request with the given options.
      *
-     * @param baseUrl The base URL
-     * @param path The sub-path of the HTTP URL
-     * @param method The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and "DELETE"
-     * @param queryParams The query parameters
+     * @param baseUrl               The base URL
+     * @param path                  The sub-path of the HTTP URL
+     * @param method                The request method, one of "GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH" and "DELETE"
+     * @param queryParams           The query parameters
      * @param collectionQueryParams The collection query parameters
-     * @param body The request body object
-     * @param headerParams The header parameters
-     * @param cookieParams The cookie parameters
-     * @param formParams The form parameters
-     * @param authNames The authentications to apply
-     * @param callback Callback for upload/download progress
+     * @param body                  The request body object
+     * @param headerParams          The header parameters
+     * @param cookieParams          The cookie parameters
+     * @param formParams            The form parameters
+     * @param authNames             The authentications to apply
+     * @param callback              Callback for upload/download progress
      * @return The HTTP request
      * @throws io.qase.client.QaseException If fail to serialize the request body object
      */
@@ -1166,9 +1166,9 @@ public class ApiClient {
     /**
      * Build full URL by concatenating base path, the given sub path and query parameters.
      *
-     * @param baseUrl The base URL
-     * @param path The sub path
-     * @param queryParams The query parameters
+     * @param baseUrl               The base URL
+     * @param path                  The sub path
+     * @param queryParams           The query parameters
      * @param collectionQueryParams The collection query parameters
      * @return The full URL
      */
@@ -1221,7 +1221,7 @@ public class ApiClient {
      * Set header parameters to the request builder, including default headers.
      *
      * @param headerParams Header parameters in the form of Map
-     * @param reqBuilder Request.Builder
+     * @param reqBuilder   Request.Builder
      */
     public void processHeaderParams(Map<String, String> headerParams, Request.Builder reqBuilder) {
         for (Entry<String, String> param : headerParams.entrySet()) {
@@ -1238,7 +1238,7 @@ public class ApiClient {
      * Set cookie parameters to the request builder, including default cookies.
      *
      * @param cookieParams Cookie parameters in the form of Map
-     * @param reqBuilder Request.Builder
+     * @param reqBuilder   Request.Builder
      */
     public void processCookieParams(Map<String, String> cookieParams, Request.Builder reqBuilder) {
         for (Entry<String, String> param : cookieParams.entrySet()) {
@@ -1254,13 +1254,13 @@ public class ApiClient {
     /**
      * Update query and header parameters based on authentication settings.
      *
-     * @param authNames The authentications to apply
-     * @param queryParams List of query parameters
+     * @param authNames    The authentications to apply
+     * @param queryParams  List of query parameters
      * @param headerParams Map of header parameters
      * @param cookieParams Map of cookie parameters
-     * @param payload HTTP request body
-     * @param method HTTP method
-     * @param uri URI
+     * @param payload      HTTP request body
+     * @param method       HTTP method
+     * @param uri          URI
      * @throws io.qase.client.QaseException If fails to update the parameters
      */
     public void updateParamsForAuth(String[] authNames, List<Pair> queryParams, Map<String, String> headerParams,
@@ -1303,7 +1303,7 @@ public class ApiClient {
                 addPartToMultiPartBuilder(mpBuilder, param.getKey(), file);
             } else if (param.getValue() instanceof List) {
                 List list = (List) param.getValue();
-                for (Object item: list) {
+                for (Object item : list) {
                     if (item instanceof File) {
                         addPartToMultiPartBuilder(mpBuilder, param.getKey(), (File) item);
                     } else {
@@ -1335,10 +1335,10 @@ public class ApiClient {
     /**
      * Add a Content-Disposition Header for the given key and file to the MultipartBody Builder.
      *
-     * @param mpBuilder MultipartBody.Builder 
-     * @param key The key of the Header element
-     * @param file The file to add to the Header
-     */ 
+     * @param mpBuilder MultipartBody.Builder
+     * @param key       The key of the Header element
+     * @param file      The file to add to the Header
+     */
     private void addPartToMultiPartBuilder(MultipartBody.Builder mpBuilder, String key, File file) {
         Headers partHeaders = Headers.of("Content-Disposition", "form-data; name=\"" + key + "\"; filename=\"" + file.getName() + "\"");
         MediaType mediaType = MediaType.parse(guessContentTypeFromFile(file));
@@ -1349,8 +1349,8 @@ public class ApiClient {
      * Add a Content-Disposition Header for the given key and complex object to the MultipartBody Builder.
      *
      * @param mpBuilder MultipartBody.Builder
-     * @param key The key of the Header element
-     * @param obj The complex object to add to the Header
+     * @param key       The key of the Header element
+     * @param obj       The complex object to add to the Header
      */
     private void addPartToMultiPartBuilder(MultipartBody.Builder mpBuilder, String key, Object obj) {
         RequestBody requestBody;
@@ -1383,8 +1383,8 @@ public class ApiClient {
                 if (request.tag() instanceof ApiCallback) {
                     final ApiCallback callback = (ApiCallback) request.tag();
                     return originalResponse.newBuilder()
-                        .body(new ProgressResponseBody(originalResponse.body(), callback))
-                        .build();
+                            .body(new ProgressResponseBody(originalResponse.body(), callback))
+                            .build();
                 }
                 return originalResponse;
             }
@@ -1449,9 +1449,9 @@ public class ApiClient {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(keyManagers, trustManagers, new SecureRandom());
             httpClient = httpClient.newBuilder()
-                            .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0])
-                            .hostnameVerifier(hostnameVerifier)
-                            .build();
+                    .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0])
+                    .hostnameVerifier(hostnameVerifier)
+                    .build();
         } catch (GeneralSecurityException e) {
             throw new RuntimeException(e);
         }

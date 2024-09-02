@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
     <version>4.0.0</version>
     <modules>
+        <module>qase-java-commons</module>
         <module>qase-api-client</module>
         <module>qase-testng-reporter</module>
         <module>qase-junit4-reporter</module>
