@@ -13,7 +13,6 @@
 
 package io.qase.client.auth;
 
-import io.qase.api.exceptions.QaseException;
 import io.qase.client.Pair;
 import okhttp3.Credentials;
 
@@ -43,7 +42,7 @@ public class HttpBasicAuth implements Authentication {
 
     @Override
     public void applyToParams(List<Pair> queryParams, Map<String, String> headerParams, Map<String, String> cookieParams,
-                              String payload, String method, URI uri) throws QaseException {
+                              String payload, String method, URI uri) {
         if (username == null && password == null) {
             return;
         }

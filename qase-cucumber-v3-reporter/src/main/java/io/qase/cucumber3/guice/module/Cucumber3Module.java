@@ -3,7 +3,7 @@ package io.qase.cucumber3.guice.module;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
-import io.qase.api.config.apiclient.ApiClientConfigurer;
+import io.qase.config.ApiClientConfigurer;
 import io.qase.cucumber3.configuration.Cucumber3ApiConfigurer;
 import io.qase.guice.Injectors;
 import lombok.Getter;

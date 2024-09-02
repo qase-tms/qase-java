@@ -1,13 +1,18 @@
 package io.qase.testng;
 
+import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
+import io.qase.api.services.QaseTestCaseListener;
+import io.qase.api.services.ReportersResultOperations;
+import io.qase.api.services.impl.QaseTestCaseListenerImpl;
+import io.qase.api.services.impl.ReportersResultOperationsImpl;
+import io.qase.client.api.ResultsApi;
+import io.qase.client.api.RunsApi;
 import io.qase.client.model.ResultCreate;
 import io.qase.client.model.ResultCreate.StatusEnum;
 import io.qase.client.model.ResultCreateCase;
 import io.qase.client.model.ResultCreateStepsInner;
-import io.qase.api.services.QaseTestCaseListener;
-import io.qase.testng.guice.module.TestNgModule;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.testng.ITestContext;
@@ -41,14 +46,14 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult tr) {
         getQaseTestCaseListener()
-            .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.PASSED));
+                .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.PASSED));
         super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
         getQaseTestCaseListener()
-            .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.FAILED));
+                .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.FAILED));
         super.onTestFailure(tr);
     }
 
@@ -75,16 +80,19 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         }
         LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
         resultCreate
-            ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
-            .caseId(caseId)
-            .status(status)
-            .comment(comment)
-            .stacktrace(stacktrace)
-            .steps(steps.isEmpty() ? null : steps)
-            .defect(isDefect);
+                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
+                .caseId(caseId)
+                .status(status)
+                .comment(comment)
+                .stacktrace(stacktrace)
+                .steps(steps.isEmpty() ? null : steps)
+                .defect(isDefect);
     }
 
     private static QaseTestCaseListener createQaseListener() {
-        return TestNgModule.getInjector().getInstance(QaseTestCaseListener.class);
+        RunsApi runsApi = new RunsApi(QaseClient.getApiClient());
+        ResultsApi resultsApi = new ResultsApi(QaseClient.getApiClient());
+        ReportersResultOperations resultOperations = new ReportersResultOperationsImpl(resultsApi);
+        return new QaseTestCaseListenerImpl(runsApi, resultOperations);
     }
 }

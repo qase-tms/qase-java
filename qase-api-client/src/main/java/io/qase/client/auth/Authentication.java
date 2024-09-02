@@ -13,8 +13,8 @@
 
 package io.qase.client.auth;
 
-import io.qase.api.exceptions.QaseException;
 import io.qase.client.Pair;
+import io.qase.client.QaseException;
 
 import java.net.URI;
 import java.util.List;
