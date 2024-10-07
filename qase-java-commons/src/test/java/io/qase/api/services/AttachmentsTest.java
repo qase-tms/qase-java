@@ -7,11 +7,8 @@ import io.qase.api.StepStorage;
 import io.qase.api.annotation.QaseId;
 import io.qase.api.annotation.Step;
 import io.qase.api.utils.TestUtils;
-import io.qase.client.QaseException;
-import io.qase.client.model.AttachmentGet;
-import io.qase.client.model.AttachmentUploadsResponse;
-import io.qase.client.model.ResultCreate;
-import io.qase.client.model.ResultCreateStepsInner;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.models.*;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -73,26 +70,26 @@ class AttachmentsTest {
     }
 
     @QaseId(CASE_WITHOUT_STEPS_ID)
-    public void caseWithAttachmentsWithoutSteps() throws QaseException {
+    public void caseWithAttachmentsWithoutSteps() throws ApiException {
         startCase();
         Attachments.addAttachmentsToCurrentContext(getTestAttachments());
         // No finishCase for being able to verify CaseStorage.getCurrentCase()
     }
 
     @QaseId(CASE_WITH_STEPS_ID)
-    public void caseWithAttachmentsWithSteps() throws QaseException {
+    public void caseWithAttachmentsWithSteps() throws ApiException {
         startCase();
         stepWithAttachments();
         // No finishCase for being able to verify CaseStorage.getCurrentCase()
     }
 
     @Step(STEP_VALUE)
-    public void stepWithAttachments() throws QaseException {
+    public void stepWithAttachments() throws ApiException {
         Attachments.addAttachmentsToCurrentContext(getTestAttachments());
     }
 
     @Test
-    public void addAttachmentsToCurrentContext_addInStep_attachmentAssociatedWithStep() throws QaseException {
+    public void addAttachmentsToCurrentContext_addInStep_attachmentAssociatedWithStep() throws ApiException {
         stepWithAttachments();
 
         verifyAttachmentHasBeenSent();
@@ -101,7 +98,7 @@ class AttachmentsTest {
     }
 
     @Test
-    public void addAttachmentsToCurrentContext_addInCase_attachmentAssociatedWithCase() throws QaseException {
+    public void addAttachmentsToCurrentContext_addInCase_attachmentAssociatedWithCase() throws ApiException {
         caseWithAttachmentsWithoutSteps();
 
         verifyAttachmentHasBeenSent();
@@ -111,7 +108,7 @@ class AttachmentsTest {
     }
 
     @Test
-    public void addAttachmentsToCurrentContext_addInCaseStep_attachmentAssociatedWithStep() throws QaseException {
+    public void addAttachmentsToCurrentContext_addInCaseStep_attachmentAssociatedWithStep() throws ApiException {
         caseWithAttachmentsWithSteps();
 
         verifyAttachmentHasBeenSent();
@@ -120,7 +117,7 @@ class AttachmentsTest {
     }
 
     private void assertStepsStorageContainsTestAttachment() {
-        LinkedList<ResultCreateStepsInner> resultCreateSteps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> resultCreateSteps = StepStorage.stopSteps();
         Assertions.assertEquals(resultCreateSteps.size(), 1);
         Assertions.assertEquals(resultCreateSteps.get(0).getAttachments().size(), 1);
         Assertions.assertEquals(resultCreateSteps.get(0).getAttachments().get(0), TEST_HASH);
@@ -141,7 +138,7 @@ class AttachmentsTest {
         AttachmentUploadsResponse attachmentUploadsResponse = new AttachmentUploadsResponse();
         attachmentUploadsResponse.setStatus(true);
         attachmentUploadsResponse.setResult(Collections.singletonList(
-                new AttachmentGet().hash(TEST_HASH)
+                new Attachmentupload().hash(TEST_HASH)
         ));
 
         return new Gson().toJson(attachmentUploadsResponse);

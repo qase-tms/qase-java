@@ -6,11 +6,10 @@ import io.qase.api.StepStorage;
 import io.qase.api.annotation.QaseId;
 import io.qase.api.annotation.Step;
 import io.qase.api.config.QaseConfig;
-import io.qase.client.QaseException;
-import io.qase.client.exceptions.UncheckedQaseException;
-import io.qase.client.api.AttachmentsApi;
-import io.qase.client.model.AttachmentGet;
-import io.qase.client.model.AttachmentUploadsResponse;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.api.AttachmentsApi;
+import io.qase.client.v1.models.AttachmentUploadsResponse;
+import io.qase.client.v1.models.Attachmentupload;
 
 import java.io.File;
 import java.util.*;
@@ -26,9 +25,9 @@ public class Attachments {
      * Adds attachments to the current context.
      * The context could be either {@link io.qase.api.annotation.QaseId} or {@link io.qase.api.annotation.Step}
      *
-     * @throws QaseException if the invocation context can not be found
+     * @throws ApiException if the invocation context can not be found
      */
-    public static void addAttachmentsToCurrentContext(Collection<File> attachments) throws QaseException {
+    public static void addAttachmentsToCurrentContext(Collection<File> attachments) throws ApiException {
         AttachmentContext attachmentContext = lookupCurrentContext();
         AttachmentUploadsResponse attachmentUploadsResponse = ATTACHMENTS_API.uploadAttachment(
                 System.getProperty(QaseConfig.PROJECT_CODE_KEY),
@@ -37,7 +36,7 @@ public class Attachments {
         Collection<String> attachmentIds = Optional.ofNullable(attachmentUploadsResponse.getResult())
                 .orElseGet(ArrayList::new)
                 .stream()
-                .map(AttachmentGet::getHash)
+                .map(Attachmentupload::getHash)
                 .collect(Collectors.toList());
         switch (attachmentContext) {
             case TEST_STEP:
@@ -49,7 +48,7 @@ public class Attachments {
         }
     }
 
-    public static void addAttachmentsToCurrentContext(File... attachments) throws QaseException {
+    public static void addAttachmentsToCurrentContext(File... attachments) throws ApiException {
         addAttachmentsToCurrentContext(Arrays.asList(attachments));
     }
 
@@ -80,16 +79,16 @@ public class Attachments {
         collectionSetter.accept(currentStepAttachments);
     }
 
-    private static AttachmentContext lookupCurrentContext() {
+    private static AttachmentContext lookupCurrentContext() throws ApiException {
         if (StepStorage.isStepInProgress()) {
             return AttachmentContext.TEST_STEP;
         }
         if (CasesStorage.getCurrentCase() != null) {
             return AttachmentContext.TEST_CASE;
         }
-        throw new UncheckedQaseException(new QaseException(String.format(
+        throw new ApiException(String.format(
                 "It is expected either %s or %s-annotated method be called.", Step.class.getName(), QaseId.class.getName()
-        )));
+        ));
     }
 
     private enum AttachmentContext {

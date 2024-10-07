@@ -1,11 +1,10 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.RunsApi;
-import io.qase.client.model.GetRunsFiltersParameter;
-import io.qase.client.model.RunCreate;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.RunsApi;
+import io.qase.client.v1.models.RunCreate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,8 +37,8 @@ class TestRunServiceTest {
     @Test
     void getAllWithoutInclude() {
         try {
-            runsApi.getRuns("PRJ", new GetRunsFiltersParameter(), 100, 0, null);
-        } catch (QaseException e) {
+            runsApi.getRuns("PRJ", null, null, null, null,null,null,100,0,null);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
@@ -52,8 +51,8 @@ class TestRunServiceTest {
     @Test
     void getAllWithInclude() {
         try {
-            runsApi.getRuns("PRJ", new GetRunsFiltersParameter(), 100, 0, "cases");
-        } catch (QaseException e) {
+            runsApi.getRuns("PRJ", null, null, null, 1,null,null,100,0,null);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
@@ -66,9 +65,8 @@ class TestRunServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            runsApi.getRuns("PRJ", new GetRunsFiltersParameter().status("complete"), 33, 3, "cases");
-
-        } catch (QaseException e) {
+            runsApi.getRuns("PRJ", null, "complete", null, 1,null,null,33,3,null);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
@@ -83,7 +81,7 @@ class TestRunServiceTest {
     void get() {
         try {
             runsApi.getRun("PRJ", 1, null);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/run/PRJ/1"))
@@ -98,7 +96,7 @@ class TestRunServiceTest {
                     new RunCreate()
                             .title("New test run")
                             .cases(Arrays.asList(1L, 2L, 3L, 55L)));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
@@ -118,7 +116,7 @@ class TestRunServiceTest {
                             .environmentId(1L)
                             .description("Awesome run by API")
                             .cases(Arrays.asList(1L, 2L, 3L, 55L)));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/run/PRJ"))
@@ -135,7 +133,7 @@ class TestRunServiceTest {
     void delete() {
         try {
             runsApi.deleteRun("PRJ", 22);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/run/PRJ/22"))

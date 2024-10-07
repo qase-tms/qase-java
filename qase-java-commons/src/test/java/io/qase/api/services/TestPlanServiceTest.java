@@ -1,11 +1,11 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.PlansApi;
-import io.qase.client.model.PlanCreate;
-import io.qase.client.model.PlanUpdate;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.PlansApi;
+import io.qase.client.v1.models.PlanCreate;
+import io.qase.client.v1.models.PlanUpdate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class TestPlanServiceTest {
     void getAll() {
         try {
             plansApi.getPlans("PRJ", 100, 0);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/plan/PRJ"))
@@ -52,7 +52,7 @@ class TestPlanServiceTest {
     void get() {
         try {
             plansApi.getPlan("PRJ", 2);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/plan/PRJ/2"))
@@ -66,7 +66,7 @@ class TestPlanServiceTest {
                     new PlanCreate()
                             .title("New plan")
                             .cases(Arrays.asList(1L, 2L, 3L, 55L)));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/plan/PRJ"))
@@ -85,7 +85,7 @@ class TestPlanServiceTest {
                             .title("New plan")
                             .description("Awesome plan")
                             .cases(Arrays.asList(1L, 2L, 3L, 55L)));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/plan/PRJ"))
@@ -105,7 +105,7 @@ class TestPlanServiceTest {
                             .title("Updated plan")
                             .description("Updated description")
                             .cases(Arrays.asList(55L, 3L, 2L, 1L)));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/plan/PRJ/2"))
@@ -121,7 +121,7 @@ class TestPlanServiceTest {
     void delete() {
         try {
             plansApi.deletePlan("PRJ", 2);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/plan/PRJ/2"))

@@ -2,7 +2,7 @@ package io.qase.api.aspects;
 
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.Step;
-import io.qase.client.model.ResultCreateStepsInner;
+import io.qase.client.v1.models.TestStepResultCreate;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -64,7 +64,7 @@ class StepsAspectsTest {
     @Test
     void stepWithParameters() {
         step("str", 1);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step str and 1", steps.get(0).getAction());
     }
@@ -72,7 +72,7 @@ class StepsAspectsTest {
     @Test
     void stepWithStringVararg() {
         stepWithStringVararg("one", "two", "three");
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step one, two, three", steps.get(0).getAction());
     }
@@ -80,7 +80,7 @@ class StepsAspectsTest {
     @Test
     void stepWithIntVararg() {
         stepWithIntVararg(1, 2, 3);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [1, 2, 3]", steps.get(0).getAction());
     }
@@ -88,7 +88,7 @@ class StepsAspectsTest {
     @Test
     void stepWithLongVararg() {
         stepWithLongVararg(1L, 2L, 3L);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [1, 2, 3]", steps.get(0).getAction());
     }
@@ -96,7 +96,7 @@ class StepsAspectsTest {
     @Test
     void stepWithDoubleVararg() {
         stepWithDoubleVararg(1.1, 1.2, 1.3);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [1.1, 1.2, 1.3]", steps.get(0).getAction());
     }
@@ -104,7 +104,7 @@ class StepsAspectsTest {
     @Test
     void stepWithFloatVararg() {
         stepWithFloatVararg(1.1f, 1.2f, 1.3f);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [1.1, 1.2, 1.3]", steps.get(0).getAction());
     }
@@ -112,7 +112,7 @@ class StepsAspectsTest {
     @Test
     void stepWithCharVararg() {
         stepWithCharVararg('a', 'A', 'b', '2');
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [a, A, b, 2]", steps.get(0).getAction());
     }
@@ -120,7 +120,7 @@ class StepsAspectsTest {
     @Test
     void stepWithBooleanVararg() {
         stepWithBooleanVararg(true, false);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [true, false]", steps.get(0).getAction());
     }
@@ -128,7 +128,7 @@ class StepsAspectsTest {
     @Test
     void stepWithShortVararg() {
         stepWithShortVararg((short) 1, (short) 2);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [1, 2]", steps.get(0).getAction());
     }
@@ -136,7 +136,7 @@ class StepsAspectsTest {
     @Test
     void stepWithByteVararg() {
         stepWithByteVararg((byte) 1, (byte) 2);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [1, 2]", steps.get(0).getAction());
     }
@@ -144,7 +144,7 @@ class StepsAspectsTest {
     @Test
     void stepWithList() {
         stepWithList(Arrays.asList("1", "2", "3"));
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step [1, 2, 3]", steps.get(0).getAction());
     }
@@ -152,7 +152,7 @@ class StepsAspectsTest {
     @Test
     void stepWithNull() {
         stepWithStringVararg(null);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step null", steps.get(0).getAction());
     }
@@ -163,7 +163,7 @@ class StepsAspectsTest {
             stepFailed("string");
         } catch (AssertionError ignore) {
         }
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         assertEquals(1, steps.size());
         assertEquals("Step string", steps.get(0).getAction());
     }

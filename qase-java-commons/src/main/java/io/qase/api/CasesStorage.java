@@ -1,6 +1,6 @@
 package io.qase.api;
 
-import io.qase.client.model.ResultCreate;
+import io.qase.client.v1.models.ResultCreate;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

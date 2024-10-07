@@ -1,10 +1,9 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.DefectsApi;
-import io.qase.client.model.GetDefectsFiltersParameter;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.DefectsApi;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -36,7 +35,7 @@ class DefectServiceTest {
     void getAll() {
         try {
             defectsApi.getDefects("PROJ", null, 100, 0);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
@@ -48,8 +47,8 @@ class DefectServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            defectsApi.getDefects("PROJ", new GetDefectsFiltersParameter().status(GetDefectsFiltersParameter.StatusEnum.OPEN), 88, 12);
-        } catch (QaseException e) {
+            defectsApi.getDefects("PROJ", "open", 88, 12);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
@@ -63,7 +62,7 @@ class DefectServiceTest {
     void get() {
         try {
             defectsApi.getDefect("PROJ", 99);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ/99"))
@@ -74,7 +73,7 @@ class DefectServiceTest {
     void resolve() {
         try {
             defectsApi.resolveDefect("PROJ", 88);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/defect/PROJ/resolve/88"))
@@ -85,7 +84,7 @@ class DefectServiceTest {
     void delete() {
         try {
             defectsApi.deleteDefect("PROJ", 77);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/defect/PROJ/77"))

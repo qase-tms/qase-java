@@ -1,9 +1,9 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.CustomFieldsApi;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.CustomFieldsApi;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -34,8 +34,8 @@ class CustomFieldServiceTest {
     @Test
     void getAll() {
         try {
-            customFieldsApi.getCustomFields(null, 100, 0);
-        } catch (QaseException e) {
+            customFieldsApi.getCustomFields(null, "100", 0, 0);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/custom_field"))
@@ -48,7 +48,7 @@ class CustomFieldServiceTest {
     void get() {
         try {
             customFieldsApi.getCustomField(123);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/custom_field/123"))

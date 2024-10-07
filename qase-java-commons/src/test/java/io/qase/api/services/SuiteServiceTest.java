@@ -1,12 +1,11 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.SuitesApi;
-import io.qase.client.model.GetMilestonesFiltersParameter;
-import io.qase.client.model.SuiteCreate;
-import io.qase.client.model.SuiteUpdate;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.SuitesApi;
+import io.qase.client.v1.models.SuiteCreate;
+import io.qase.client.v1.models.SuiteUpdate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ class SuiteServiceTest {
     void getAll() {
         try {
             suitesApi.getSuites("PRJ", null, 100, 0);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
@@ -50,8 +49,8 @@ class SuiteServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            suitesApi.getSuites("PRJ", new GetMilestonesFiltersParameter().search("title"), 55, 2);
-        } catch (QaseException e) {
+            suitesApi.getSuites("PRJ", "title", 55, 2);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
@@ -65,7 +64,7 @@ class SuiteServiceTest {
     void get() {
         try {
             suitesApi.getSuite("PRJ", 1);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
@@ -76,7 +75,7 @@ class SuiteServiceTest {
     void create() {
         try {
             suitesApi.createSuite("PRJ", new SuiteCreate().title("Test suite"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
@@ -91,7 +90,7 @@ class SuiteServiceTest {
         try {
             suitesApi.createSuite("PRJ",
                     new SuiteCreate().title("Test suite").description("Suite description"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
@@ -110,7 +109,7 @@ class SuiteServiceTest {
                             .title("Test suite")
                             .description("Suite description")
                             .preconditions("Suite preconditions"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
@@ -131,7 +130,7 @@ class SuiteServiceTest {
                             .description("Suite description")
                             .preconditions("Suite preconditions")
                             .parentId(12L));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/suite/PRJ"))
@@ -148,7 +147,7 @@ class SuiteServiceTest {
     void update() {
         try {
             suitesApi.updateSuite("PRJ", 1, new SuiteUpdate().title("Test suite"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
@@ -165,7 +164,7 @@ class SuiteServiceTest {
                     new SuiteUpdate()
                             .title("Test suite")
                             .description("Suite description"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
@@ -184,7 +183,7 @@ class SuiteServiceTest {
                             .title("Test suite")
                             .description("Suite description")
                             .preconditions("Suite preconditions"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
@@ -205,7 +204,7 @@ class SuiteServiceTest {
                             .description("Suite description")
                             .preconditions("Suite preconditions")
                             .parentId(2L));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))
@@ -222,7 +221,7 @@ class SuiteServiceTest {
     void delete() {
         try {
             suitesApi.deleteSuite("PRJ", 1, null);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/suite/PRJ/1"))

@@ -1,10 +1,10 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.ProjectsApi;
-import io.qase.client.model.ProjectCreate;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.ProjectsApi;
+import io.qase.client.v1.models.ProjectCreate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class ProjectServiceTest {
     void getAll() {
         try {
             projectsApi.getProjects(100, 0);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/project"))
@@ -49,7 +49,7 @@ class ProjectServiceTest {
     void get() {
         try {
             projectsApi.getProject("PROJ");
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/project/PROJ"))
@@ -64,7 +64,7 @@ class ProjectServiceTest {
                             .code("PROJ")
                             .title("Project title")
                             .access(ProjectCreate.AccessEnum.NONE));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/project"))
@@ -85,7 +85,7 @@ class ProjectServiceTest {
                             .title("Project title")
                             .description("Awesome project")
                             .access(ProjectCreate.AccessEnum.NONE));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/project"))
@@ -108,7 +108,7 @@ class ProjectServiceTest {
                             .description("Awesome project")
                             .access(ProjectCreate.AccessEnum.GROUP)
                             .group("groupHash"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/project"))
