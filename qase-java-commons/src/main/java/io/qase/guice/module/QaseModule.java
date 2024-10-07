@@ -7,10 +7,10 @@ import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.services.ReportersResultOperations;
 import io.qase.api.services.impl.QaseTestCaseListenerImpl;
 import io.qase.api.services.impl.ReportersResultOperationsImpl;
-import io.qase.client.ApiClient;
-import io.qase.client.api.AttachmentsApi;
-import io.qase.client.api.ResultsApi;
-import io.qase.client.api.RunsApi;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.AttachmentsApi;
+import io.qase.client.v1.api.ResultsApi;
+import io.qase.client.v1.api.RunsApi;
 
 public class QaseModule extends AbstractModule {
 

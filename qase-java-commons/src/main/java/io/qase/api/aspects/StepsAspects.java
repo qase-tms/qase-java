@@ -3,7 +3,7 @@ package io.qase.api.aspects;
 import io.qase.api.StepStorage;
 import io.qase.api.annotation.Step;
 import io.qase.api.utils.IntegrationUtils;
-import io.qase.client.model.ResultCreateStepsInner;
+import io.qase.client.v1.models.TestStepResultCreate;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -40,7 +40,7 @@ public final class StepsAspects {
 
         StepStorage.getCurrentStep()
                 .action(stepsTitle)
-                .status(ResultCreateStepsInner.StatusEnum.PASSED);
+                .status(TestStepResultCreate.StatusEnum.PASSED);
         StepStorage.stopStep();
     }
 
@@ -53,7 +53,7 @@ public final class StepsAspects {
 
         StepStorage.getCurrentStep()
                 .action(stepsTitle)
-                .status(ResultCreateStepsInner.StatusEnum.FAILED)
+                .status(TestStepResultCreate.StatusEnum.FAILED)
                 .addAttachmentsItem(IntegrationUtils.getStacktrace(e));
         StepStorage.stopStep();
     }
@@ -67,7 +67,7 @@ public final class StepsAspects {
         }
         for (Map.Entry<String, String> entry : params.entrySet()) {
             if (stepsTitle.contains(entry.getKey())) {
-                stepsTitle = stepsTitle.replaceAll("\\" + entry.getKey(), entry.getValue());
+                stepsTitle = stepsTitle.replaceAll("\\\\" + entry.getKey(), entry.getValue());
             }
         }
         return stepsTitle;

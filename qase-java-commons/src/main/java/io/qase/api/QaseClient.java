@@ -1,10 +1,10 @@
 package io.qase.api;
 
 import io.qase.api.config.QaseConfig;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.RunsApi;
-import io.qase.client.model.RunCreate;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.RunsApi;
+import io.qase.client.v1.models.RunCreate;
 import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +50,7 @@ public final class QaseClient {
                             .getResult().getId();
                     getConfig().setProperty(RUN_ID_KEY, String.valueOf(id));
                     logger.info("Qase run id - {}", getConfig().runId());
-                } catch (QaseException e) {
+                } catch (ApiException e) {
                     isEnabled = false;
                     logger.error(e.getMessage());
                 }

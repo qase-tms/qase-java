@@ -1,11 +1,11 @@
 package io.qase.api.services.impl;
 
 import com.google.inject.Inject;
-import io.qase.client.QaseException;
+import io.qase.client.v1.ApiException;
 import io.qase.api.services.ReportersResultOperations;
-import io.qase.client.api.ResultsApi;
-import io.qase.client.model.ResultCreate;
-import io.qase.client.model.ResultCreateBulk;
+import io.qase.client.v1.api.ResultsApi;
+import io.qase.client.v1.models.ResultCreate;
+import io.qase.client.v1.models.ResultCreateBulk;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +30,7 @@ public class ReportersResultOperationsImpl implements ReportersResultOperations 
             resultsApi.createResult(getConfig().projectCode(),
                 getConfig().runId(),
                 resultCreate);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             log.error(e.getMessage());
         }
     }
@@ -44,7 +44,7 @@ public class ReportersResultOperationsImpl implements ReportersResultOperations 
                 resultCreateBulk
             );
             resultCreateBulk.getResults().clear();
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             log.error(e.getMessage());
         }
     }

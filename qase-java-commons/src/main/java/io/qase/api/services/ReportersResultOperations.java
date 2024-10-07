@@ -1,6 +1,6 @@
 package io.qase.api.services;
 
-import io.qase.client.model.ResultCreate;
+import io.qase.client.v1.models.ResultCreate;
 
 public interface ReportersResultOperations {
 

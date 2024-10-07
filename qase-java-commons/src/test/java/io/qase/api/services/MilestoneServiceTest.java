@@ -1,12 +1,11 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.MilestonesApi;
-import io.qase.client.model.GetMilestonesFiltersParameter;
-import io.qase.client.model.MilestoneCreate;
-import io.qase.client.model.MilestoneUpdate;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.MilestonesApi;
+import io.qase.client.v1.models.MilestoneCreate;
+import io.qase.client.v1.models.MilestoneUpdate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ class MilestoneServiceTest {
     void getAll() {
         try {
             milestonesApi.getMilestones("PROJ", null, 100, 0);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
@@ -51,8 +50,8 @@ class MilestoneServiceTest {
     @Test
     void getAllWithFilter() {
         try {
-            milestonesApi.getMilestones("PROJ", new GetMilestonesFiltersParameter().search("title"), 100, 0);
-        } catch (QaseException e) {
+            milestonesApi.getMilestones("PROJ", "title", 100, 0);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
@@ -66,7 +65,7 @@ class MilestoneServiceTest {
     void get() {
         try {
             milestonesApi.getMilestone("PROJ", 65);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/milestone/PROJ/65"))
@@ -77,7 +76,7 @@ class MilestoneServiceTest {
     void create() {
         try {
             milestonesApi.createMilestone("PROJ", new MilestoneCreate().title("MTitle"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             // ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
@@ -93,7 +92,7 @@ class MilestoneServiceTest {
                     new MilestoneCreate()
                             .title("MTitle")
                             .description("MDescription"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             // ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/milestone/PROJ"))
@@ -106,7 +105,7 @@ class MilestoneServiceTest {
     void delete() {
         try {
             milestonesApi.deleteMilestone("PROJ", 123);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             // ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/milestone/PROJ/123"))
@@ -117,7 +116,7 @@ class MilestoneServiceTest {
     void update() {
         try {
             milestonesApi.updateMilestone("PROJ", 123, new MilestoneUpdate().title("newMTitle"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             // ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/milestone/PROJ/123"))
@@ -133,7 +132,7 @@ class MilestoneServiceTest {
                     new MilestoneUpdate()
                             .title("newMTitle")
                             .description("newMDescription"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             // ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/milestone/PROJ/123"))

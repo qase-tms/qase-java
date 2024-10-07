@@ -1,12 +1,11 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.SharedStepsApi;
-import io.qase.client.model.GetMilestonesFiltersParameter;
-import io.qase.client.model.SharedStepCreate;
-import io.qase.client.model.SharedStepUpdate;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.SharedStepsApi;
+import io.qase.client.v1.models.SharedStepCreate;
+import io.qase.client.v1.models.SharedStepUpdate;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ class SharedStepServiceTest {
     void getAll() {
         try {
             sharedStepsApi.getSharedSteps("PRJ", null, 100, 0);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ"))
@@ -50,9 +49,8 @@ class SharedStepServiceTest {
     @Test
     void getAllWithFilter() {
         try {
-            sharedStepsApi.getSharedSteps("PRJ", new GetMilestonesFiltersParameter()
-                    .search("title"), 100, 0);
-        } catch (QaseException e) {
+            sharedStepsApi.getSharedSteps("PRJ", "title", 100, 0);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ"))
@@ -67,7 +65,7 @@ class SharedStepServiceTest {
     void get() {
         try {
             sharedStepsApi.getSharedStep("PRJ", "0223905c291bada23e6049d415385982af92d758");
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ/0223905c291bada23e6049d415385982af92d758"))
@@ -81,7 +79,7 @@ class SharedStepServiceTest {
                     new SharedStepCreate()
                             .title("Shared step")
                             .action("Open URL"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ"))
@@ -100,7 +98,7 @@ class SharedStepServiceTest {
                             .title("Shared step")
                             .action("Open URL")
                             .expectedResult("URL is opened"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ"))
@@ -116,7 +114,7 @@ class SharedStepServiceTest {
     void delete() {
         try {
             sharedStepsApi.deleteSharedStep("PRJ", "0223905c291bada23e6049d415385982af92d758");
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ/0223905c291bada23e6049d415385982af92d758"))
@@ -130,7 +128,7 @@ class SharedStepServiceTest {
                     new SharedStepUpdate()
                             .title("Shared step")
                             .action("Open URL"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ/0223905c291bada23e6049d415385982af92d758"))
@@ -149,7 +147,7 @@ class SharedStepServiceTest {
                             .title("Shared step")
                             .action("Open URL")
                             .expectedResult("URL is opened"));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/shared_step/PRJ/0223905c291bada23e6049d415385982af92d758"))

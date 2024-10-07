@@ -1,10 +1,9 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.CasesApi;
-import io.qase.client.model.GetCasesFiltersParameter;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.CasesApi;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,8 +34,8 @@ class TestCaseServiceTest {
     @Test
     void getAll() {
         try {
-            casesApi.getCases("PRJ", null, 100, 0);
-        } catch (QaseException e) {
+            casesApi.getCases("PRJ", "", null, null, null, null, null, null, null, null, null, null, null, 100, 0);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ"))
@@ -48,17 +47,8 @@ class TestCaseServiceTest {
     @Test
     void getAllWithFilter() {
         try {
-            casesApi.getCases("PRJ", new GetCasesFiltersParameter()
-                    .automation("is-not-automated,to-be-automated")
-                    .behavior("positive")
-                    .milestoneId(11)
-                    .suiteId(2)
-                    .severity("critical")
-                    .priority("high,medium")
-                    .status("actual")
-                    .type("functional,acceptance")
-                    .search("title"), 100, 0);
-        } catch (QaseException e) {
+            casesApi.getCases("PRJ", "title", 11, 2, "critical", "high,medium", "functional,acceptance", "positive", "is-not-automated,to-be-automated", "actual", null, null, null, 100, 0);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ"))
@@ -80,7 +70,7 @@ class TestCaseServiceTest {
     void get() {
         try {
             casesApi.getCase("PRJ", 8);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/case/PRJ/8"))
@@ -91,7 +81,7 @@ class TestCaseServiceTest {
     void delete() {
         try {
             casesApi.deleteCase("PRJ", 8);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/case/PRJ/8"))

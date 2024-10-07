@@ -1,10 +1,10 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.QaseException;
-import io.qase.client.ApiClient;
-import io.qase.client.api.ResultsApi;
-import io.qase.client.model.*;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.api.ResultsApi;
+import io.qase.client.v1.models.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -41,8 +41,8 @@ class TestRunResultServiceTest {
     @Test
     void getAll() {
         try {
-            resultsApi.getResults("PRJ", null, 100, 0);
-        } catch (QaseException e) {
+            resultsApi.getResults("PRJ", null, null, null, null, null, null, null, 100, 0);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/result/PRJ"))
@@ -60,14 +60,8 @@ class TestRunResultServiceTest {
         String fromString = DateTimeFormatter.ofPattern(timeFormat).format(from);
         String toString = DateTimeFormatter.ofPattern(timeFormat).format(to);
         try {
-            resultsApi.getResults("PRJ", new GetResultsFiltersParameter()
-                    .caseId("1")
-                    .member("2")
-                    .run("3")
-                    .status("in_progress")
-                    .fromEndTime(fromString)
-                    .toEndTime(toString), 33, 3);
-        } catch (QaseException e) {
+            resultsApi.getResults("PRJ", "in_progress", "3", "1", "2", null, fromString, toString, 33, 3);
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/result/PRJ"))
@@ -86,7 +80,7 @@ class TestRunResultServiceTest {
     void get() {
         try {
             resultsApi.getResult("PRJ", "6efce6e4f9de887a2ee863e8197cb74ab626a273");
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/result/PRJ/6efce6e4f9de887a2ee863e8197cb74ab626a273"))
@@ -99,8 +93,8 @@ class TestRunResultServiceTest {
             resultsApi.createResult("PRJ", 2,
                     new ResultCreate()
                             .caseId(1L)
-                            .status(ResultCreate.StatusEnum.PASSED));
-        } catch (QaseException e) {
+                            .status("passed"));
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/2"))
@@ -117,20 +111,20 @@ class TestRunResultServiceTest {
             resultsApi.createResult("PRJ", 2,
                     new ResultCreate()
                             .caseId(1L)
-                            .status(ResultCreate.StatusEnum.PASSED)
+                            .status("passed")
                             .comment("Failed via API")
                             .defect(true)
                             .time(120L)
                             .steps(
                                     Arrays.asList(
-                                            new ResultCreateStepsInner()
+                                            new TestStepResultCreate()
                                                     .position(1)
-                                                    .status(ResultCreateStepsInner.StatusEnum.PASSED),
-                                            new ResultCreateStepsInner()
+                                                    .status(TestStepResultCreate.StatusEnum.PASSED),
+                                            new TestStepResultCreate()
                                                     .position(2)
-                                                    .status(ResultCreateStepsInner.StatusEnum.FAILED))
+                                                    .status(TestStepResultCreate.StatusEnum.FAILED))
                             ));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/2"))
@@ -153,21 +147,21 @@ class TestRunResultServiceTest {
             resultsApi.createResult("PRJ", 2,
                     new ResultCreate()
                             .caseId(1L)
-                            .status(ResultCreate.StatusEnum.PASSED)
+                            .status("passed")
                             .comment("Failed via API")
                             .stacktrace("Exception Stacktrace")
                             .defect(true)
                             .time(120L)
                             .steps(
                                     Arrays.asList(
-                                            new ResultCreateStepsInner()
+                                            new TestStepResultCreate()
                                                     .position(1)
-                                                    .status(ResultCreateStepsInner.StatusEnum.PASSED),
-                                            new ResultCreateStepsInner()
+                                                    .status(TestStepResultCreate.StatusEnum.PASSED),
+                                            new TestStepResultCreate()
                                                     .position(2)
-                                                    .status(ResultCreateStepsInner.StatusEnum.FAILED))
+                                                    .status(TestStepResultCreate.StatusEnum.FAILED))
                             ));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/result/PRJ/2"))
@@ -195,7 +189,7 @@ class TestRunResultServiceTest {
         try {
             resultsApi.updateResult("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132",
                     new ResultUpdate().status(ResultUpdate.StatusEnum.FAILED));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/result/PRJ/1/2898ba7f3b4d857cec8bee4a852cdc85f8b33132"))
@@ -213,7 +207,7 @@ class TestRunResultServiceTest {
                     new ResultUpdate()
                             .status(ResultUpdate.StatusEnum.FAILED)
                             .timeMs(Duration.ofMinutes(3).toMillis()));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/result/PRJ/1/2898ba7f3b4d857cec8bee4a852cdc85f8b33132"))
@@ -234,8 +228,8 @@ class TestRunResultServiceTest {
                             .comment("Failed via API")
                             .defect(false)
                             .steps(Collections.singletonList(
-                                    new ResultUpdateStepsInner().position(2).status(ResultUpdateStepsInner.StatusEnum.PASSED))));
-        } catch (QaseException e) {
+                                    new TestStepResultCreate().position(2).status(TestStepResultCreate.StatusEnum.PASSED))));
+        } catch (ApiException e) {
             //ignore
         }
         verify(patchRequestedFor(urlPathEqualTo("/v1/result/PRJ/1/2898ba7f3b4d857cec8bee4a852cdc85f8b33132"))
@@ -257,7 +251,7 @@ class TestRunResultServiceTest {
     void delete() {
         try {
             resultsApi.deleteResult("PRJ", 1, "2898ba7f3b4d857cec8bee4a852cdc85f8b33132");
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/result/PRJ/1/2898ba7f3b4d857cec8bee4a852cdc85f8b33132"))

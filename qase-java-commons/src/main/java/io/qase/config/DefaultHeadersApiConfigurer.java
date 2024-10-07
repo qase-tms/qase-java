@@ -2,7 +2,7 @@ package io.qase.config;
 
 import io.qase.api.QaseClient;
 import io.qase.api.constant.Constants;
-import io.qase.client.ApiClient;
+import io.qase.client.v1.ApiClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

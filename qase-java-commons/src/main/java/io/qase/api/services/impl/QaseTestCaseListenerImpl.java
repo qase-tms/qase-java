@@ -3,11 +3,11 @@ package io.qase.api.services.impl;
 import com.google.inject.Inject;
 import io.qase.api.CasesStorage;
 import io.qase.api.QaseClient;
-import io.qase.client.QaseException;
+import io.qase.client.v1.ApiException;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.services.ReportersResultOperations;
-import io.qase.client.api.RunsApi;
-import io.qase.client.model.ResultCreate;
+import io.qase.client.v1.api.RunsApi;
+import io.qase.client.v1.models.ResultCreate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +41,7 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
         if (getConfig().runAutocomplete()) {
             try {
                 runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
-            } catch (QaseException e) {
+            } catch (ApiException e) {
                 log.error(e.getMessage());
             }
         }

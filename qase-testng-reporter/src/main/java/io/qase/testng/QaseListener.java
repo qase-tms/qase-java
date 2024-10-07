@@ -7,12 +7,12 @@ import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.services.ReportersResultOperations;
 import io.qase.api.services.impl.QaseTestCaseListenerImpl;
 import io.qase.api.services.impl.ReportersResultOperationsImpl;
-import io.qase.client.api.ResultsApi;
-import io.qase.client.api.RunsApi;
-import io.qase.client.model.ResultCreate;
-import io.qase.client.model.ResultCreate.StatusEnum;
-import io.qase.client.model.ResultCreateCase;
-import io.qase.client.model.ResultCreateStepsInner;
+import io.qase.client.v1.api.ResultsApi;
+import io.qase.client.v1.api.RunsApi;
+import io.qase.client.v1.models.ResultCreate;
+import io.qase.client.v1.models.ResultCreate.StatusEnum;
+import io.qase.client.v1.models.ResultCreateCase;
+import io.qase.client.v1.models.TestStepResultCreate;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.testng.ITestContext;
@@ -78,7 +78,7 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         if (caseId == null) {
             caseTitle = getCaseTitle(method);
         }
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         resultCreate
                 ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)

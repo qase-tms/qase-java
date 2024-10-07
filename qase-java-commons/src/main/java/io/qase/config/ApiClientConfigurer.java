@@ -1,6 +1,6 @@
 package io.qase.config;
 
-import io.qase.client.ApiClient;
+import io.qase.client.v1.ApiClient;
 
 public interface ApiClientConfigurer {
 

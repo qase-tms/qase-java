@@ -1,10 +1,10 @@
 package io.qase.api.services;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.qase.client.ApiClient;
-import io.qase.client.Configuration;
-import io.qase.client.QaseException;
-import io.qase.client.api.AttachmentsApi;
+import io.qase.client.v1.ApiClient;
+import io.qase.client.v1.Configuration;
+import io.qase.client.v1.ApiException;
+import io.qase.client.v1.api.AttachmentsApi;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class AttachmentServiceTest {
     void getAll() {
         try {
             attachmentsApi.getAttachments(100, 0);
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/attachment"))
@@ -53,7 +53,7 @@ class AttachmentServiceTest {
     void get() {
         try {
             attachmentsApi.getAttachment("2497be4bc95f807d2fe3c2203793673f6e5140e8");
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/attachment/2497be4bc95f807d2fe3c2203793673f6e5140e8"))
@@ -65,7 +65,7 @@ class AttachmentServiceTest {
         try {
             attachmentsApi.uploadAttachment("2497be4bc95f807d2fe3c2203793673f6e5140e8",
                     Collections.singletonList(Paths.get("src/test/resources/logo.jpg").toFile()));
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(postRequestedFor(urlPathEqualTo("/v1/attachment/2497be4bc95f807d2fe3c2203793673f6e5140e8"))
@@ -78,7 +78,7 @@ class AttachmentServiceTest {
     void delete() {
         try {
             attachmentsApi.deleteAttachment("2497be4bc95f807d2fe3c2203793673f6e5140e8");
-        } catch (QaseException e) {
+        } catch (ApiException e) {
             //ignore
         }
         verify(deleteRequestedFor(urlPathEqualTo("/v1/attachment/2497be4bc95f807d2fe3c2203793673f6e5140e8"))
