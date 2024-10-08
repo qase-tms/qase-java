@@ -22,13 +22,10 @@ public final class TestUtils {
     }
 
     public static void useBulk(boolean use) {
-        System.setProperty(USE_BULK_KEY, String.valueOf(use));
-        QaseClient.getConfig().reload();
     }
 
     public static void useRunAutocomplete(boolean use) {
-        System.setProperty(RUN_AUTOCOMPLETE_KEY, String.valueOf(use));
-        QaseClient.getConfig().reload();
+        QaseClient.getConfig().testops.run.complete = use;
     }
 
     public static void useScreenshotsSending(boolean use) {

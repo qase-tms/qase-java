@@ -1,77 +1,49 @@
 package io.qase.api.config;
 
-import org.aeonbits.owner.Config;
-import org.aeonbits.owner.Mutable;
-import org.aeonbits.owner.Reloadable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static org.aeonbits.owner.Config.DisableableFeature.PARAMETER_FORMATTING;
-import static org.aeonbits.owner.Config.DisableableFeature.VARIABLE_EXPANSION;
+public class QaseConfig {
+    private static final Logger logger = LoggerFactory.getLogger(QaseConfig.class);
 
-@Config.LoadPolicy(Config.LoadType.MERGE)
-@Config.Sources({
-        "system:properties",
-        "system:env"})
-@Config.DisableFeature({PARAMETER_FORMATTING, VARIABLE_EXPANSION})
-public interface QaseConfig extends Reloadable, Mutable {
-    String API_TOKEN_KEY = "QASE_API_TOKEN";
-    String PROJECT_CODE_KEY = "QASE_PROJECT_CODE";
-    String RUN_ID_KEY = "QASE_RUN_ID";
-    String ENABLE_KEY = "QASE_ENABLE";
-    String USE_BULK_KEY = "QASE_USE_BULK";
-    String BASE_URL_KEY = "QASE_URL";
-    String RUN_NAME_KEY = "QASE_RUN_NAME";
-    String RUN_DESCRIPTION_KEY = "QASE_RUN_DESCRIPTION";
-    String RUN_AUTOCOMPLETE_KEY = "QASE_RUN_AUTOCOMPLETE";
-    String QASE_ENVIRONMENT_ID_KEY = "QASE_ENVIRONMENT_ID";
+    public Mode mode;
+    public Mode fallback;
+    public String environment;
+    public String rootSuite;
+    public boolean debug = false;
+    // public ExecutionPlan executionPlan;
+    public TestopsConfig testops;
+    public ReportConfig report;
 
-    String QASE_RUN_COMPLETE_KEY = "QASE_RUN_COMPLETE";
+    public QaseConfig() {
+        this.testops = new TestopsConfig();
+        this.report = new ReportConfig();
+    }
 
-    String QASE_SCREENSHOT_SENDING_KEY = "QASE_SCREENSHOT_SENDING";
+    public void setMode(String mode) {
+        try {
+            this.mode = Mode.valueOf(mode.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            this.mode = Mode.OFF;
+            logger.error("Unknown mode: {}. Supported modes: {}", mode, Mode.values());
+        }
+    }
 
-    String QASE_CLIENT_REPORTER_NAME_KEY = "QASE_CLIENT_REPORTER_NAME";
+    public void setFallback(String fallback) {
+        try {
+            this.fallback = Mode.valueOf(fallback.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            this.fallback = Mode.OFF;
+            logger.error("Unknown fallback mode: {}. Supported modes: {}", fallback, Mode.values());
+        }
+    }
 
-    @Key(ENABLE_KEY)
-    @DefaultValue("false")
-    boolean isEnabled();
+    public String getMode() {
+        return mode.toString();
+    }
 
-    @Key(USE_BULK_KEY)
-    @DefaultValue("true")
-    boolean useBulk();
-
-    @Key(PROJECT_CODE_KEY)
-    String projectCode();
-
-    @Key(RUN_ID_KEY)
-    Integer runId();
-
-    @Key(API_TOKEN_KEY)
-    String apiToken();
-
-    @DefaultValue("https://api.qase.io/v1")
-    @Key(BASE_URL_KEY)
-    String baseUrl();
-
-    @Key(RUN_NAME_KEY)
-    String runName();
-
-    @Key(RUN_DESCRIPTION_KEY)
-    String runDescription();
-
-    @Key(QASE_ENVIRONMENT_ID_KEY)
-    Long environmentId();
-
-    @Key(QASE_RUN_COMPLETE_KEY)
-    Boolean runComplete();
-
-    @Key(QASE_SCREENSHOT_SENDING_KEY)
-    @DefaultValue("false")
-    Boolean screenshotSendingPermitted();
-
-    @Key(RUN_AUTOCOMPLETE_KEY)
-    @DefaultValue("false")
-    boolean runAutocomplete();
-
-    @Key(QASE_CLIENT_REPORTER_NAME_KEY)
-    @DefaultValue("qase-java")
-    String clientReporterName();
+    public String getFallback() {
+        return fallback.toString();
+    }
 }
+

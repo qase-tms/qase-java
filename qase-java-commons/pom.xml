@@ -50,11 +50,6 @@
             <artifactId>guice</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.aeonbits.owner</groupId>
-            <artifactId>owner-java8</artifactId>
-            <version>1.0.12</version>
-        </dependency>
-        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>1.8.9</version>
@@ -63,6 +58,11 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
         </dependency>
     </dependencies>
 </project>

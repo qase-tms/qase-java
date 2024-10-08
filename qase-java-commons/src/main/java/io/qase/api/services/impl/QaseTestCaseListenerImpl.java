@@ -35,12 +35,11 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
             return;
         }
 
-        if (getConfig().useBulk()) {
-            resultOperations.sendBulkResult();
-        }
-        if (getConfig().runAutocomplete()) {
+        resultOperations.sendBulkResult();
+
+        if (getConfig().testops.run.complete) {
             try {
-                runsApi.completeRun(getConfig().projectCode(), getConfig().runId());
+                runsApi.completeRun(getConfig().testops.project, getConfig().testops.run.id);
             } catch (ApiException e) {
                 log.error(e.getMessage());
             }
@@ -74,11 +73,8 @@ public class QaseTestCaseListenerImpl implements QaseTestCaseListener {
                 && (resultCreate.getCase() == null || resultCreate.getCase().getTitle() == null)) {
             return;
         }
-        if (getConfig().useBulk()) {
-            resultOperations.addBulkResult(resultCreate);
-        } else {
-            resultOperations.send(resultCreate);
-        }
+
+        resultOperations.addBulkResult(resultCreate);
     }
 
     private void startTestCaseTimer() {
