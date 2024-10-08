@@ -27,9 +27,9 @@ public class ReportersResultOperationsImpl implements ReportersResultOperations 
     @Override
     public void send(ResultCreate resultCreate) {
         try {
-            resultsApi.createResult(getConfig().projectCode(),
-                getConfig().runId(),
-                resultCreate);
+            resultsApi.createResult(getConfig().testops.project,
+                    getConfig().testops.run.id,
+                    resultCreate);
         } catch (ApiException e) {
             log.error(e.getMessage());
         }
@@ -39,9 +39,9 @@ public class ReportersResultOperationsImpl implements ReportersResultOperations 
     public void sendBulkResult() {
         try {
             resultsApi.createResultBulk(
-                getConfig().projectCode(),
-                getConfig().runId(),
-                resultCreateBulk
+                    getConfig().testops.project,
+                    getConfig().testops.run.id,
+                    resultCreateBulk
             );
             resultCreateBulk.getResults().clear();
         } catch (ApiException e) {

@@ -1,61 +1,56 @@
 package io.qase.api;
 
+import io.qase.api.config.ConfigFactory;
+import io.qase.api.config.Mode;
 import io.qase.api.config.QaseConfig;
 import io.qase.client.v1.ApiException;
 import io.qase.client.v1.ApiClient;
 import io.qase.client.v1.api.RunsApi;
 import io.qase.client.v1.models.RunCreate;
-import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static io.qase.api.Messages.REQUIRED_PARAMETERS_WARNING_MESSAGE;
-import static io.qase.api.Messages.REQUIRED_PARAMETER_WARNING_MESSAGE;
-import static io.qase.api.config.QaseConfig.*;
-
 public final class QaseClient {
     private static final Logger logger = LoggerFactory.getLogger(QaseClient.class);
-    private static final QaseConfig qaseConfig = ConfigFactory.create(QaseConfig.class);
-    private static boolean isEnabled = qaseConfig.isEnabled();
+    private static final QaseConfig qaseConfig = ConfigFactory.loadConfig();
     private static final ThreadLocal<ApiClient> apiClient = new InheritableThreadLocal<>();
 
     private static ApiClient initApiClient() {
         ApiClient client = new ApiClient();
-        String apiToken = getConfig().apiToken();
-        if (apiToken == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, API_TOKEN_KEY);
-        }
-        client.setBasePath(getConfig().baseUrl());
-        client.setApiKey(apiToken);
 
-        if (getConfig().projectCode() == null) {
-            isEnabled = false;
-            logger.info(REQUIRED_PARAMETER_WARNING_MESSAGE, PROJECT_CODE_KEY);
-        }
-        logger.info("Qase project code - {}", getConfig().projectCode());
+        client.setBasePath(qaseConfig.testops.api.host);
+        client.setApiKey(qaseConfig.testops.api.token);
 
-        if (getConfig().runId() == null) {
-            if (getConfig().runName() == null) {
-                isEnabled = false;
-                logger.info(REQUIRED_PARAMETERS_WARNING_MESSAGE, RUN_ID_KEY, RUN_NAME_KEY);
-            } else {
-                Long id;
-                try {
-                    id = new RunsApi(client).createRun(getConfig().projectCode(),
-                                    new RunCreate()
-                                            .title(getConfig().runName())
-                                            .description(getConfig().runDescription())
-                                            .isAutotest(true))
-                            .getResult().getId();
-                    getConfig().setProperty(RUN_ID_KEY, String.valueOf(id));
-                    logger.info("Qase run id - {}", getConfig().runId());
-                } catch (ApiException e) {
-                    isEnabled = false;
-                    logger.error(e.getMessage());
+        logger.info("Qase project code - {}", qaseConfig.testops.project);
+
+        if (qaseConfig.testops.run.id == 0) {
+            Long id;
+            try {
+                RunCreate model = new RunCreate().title(qaseConfig.testops.run.title).isAutotest(true);
+
+                if (qaseConfig.testops.run.description != null) {
+                    model.setDescription(qaseConfig.testops.run.description);
                 }
+
+                if (qaseConfig.environment != null) {
+                    model.setEnvironmentSlug(qaseConfig.environment);
+                }
+
+                if (qaseConfig.testops.plan.id != 0) {
+                    model.setPlanId((long) qaseConfig.testops.plan.id);
+                }
+
+                id = new RunsApi(client).createRun(qaseConfig.testops.project, model).getResult().getId();
+
+                qaseConfig.testops.run.id = id.intValue();
+
+                logger.info("Qase run id - {}", id);
+            } catch (ApiException e) {
+                qaseConfig.mode = Mode.OFF;
+                logger.error("Failed to create a run in Qase: {}", e.getResponseBody());
             }
         }
+
         return client;
     }
 
@@ -75,10 +70,6 @@ public final class QaseClient {
     }
 
     public static boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public static void setEnabled(boolean isEnabled) {
-        QaseClient.isEnabled = isEnabled;
+        return qaseConfig.mode != Mode.OFF;
     }
 }
