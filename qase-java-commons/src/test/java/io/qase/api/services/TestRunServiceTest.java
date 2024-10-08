@@ -51,7 +51,7 @@ class TestRunServiceTest {
     @Test
     void getAllWithInclude() {
         try {
-            runsApi.getRuns("PRJ", null, null, null, 1,null,null,100,0,null);
+            runsApi.getRuns("PRJ", null, null, null, 1,null,null,100,0,"cases");
         } catch (ApiException e) {
             //ignore
         }
@@ -65,7 +65,7 @@ class TestRunServiceTest {
     @Test
     void getAllWithParamsAndFilter() {
         try {
-            runsApi.getRuns("PRJ", null, "complete", null, 1,null,null,33,3,null);
+            runsApi.getRuns("PRJ", null, "complete", null, 1,null,null,33,3,"cases");
         } catch (ApiException e) {
             //ignore
         }
@@ -74,7 +74,7 @@ class TestRunServiceTest {
                 .withQueryParam("limit", equalTo("33"))
                 .withQueryParam("offset", equalTo("3"))
                 .withQueryParam("include", equalTo("cases"))
-                .withQueryParam("filters%5Bstatus%5D", equalTo("complete")));
+                .withQueryParam("status", equalTo("complete")));
     }
 
     @Test
@@ -104,7 +104,9 @@ class TestRunServiceTest {
                 .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
                 .withRequestBody(equalToJson("{\n  " +
                         "\"title\": \"New test run\",\n  " +
-                        "\"cases\": [\n    1,\n    2,\n    3,\n    55\n  ]\n}")));
+                        "\"cases\": [\n    1,\n    2,\n    3,\n    55\n  ], " +
+                        "\"custom_field\": { }" +
+                        "\n}")));
     }
 
     @Test
@@ -126,7 +128,9 @@ class TestRunServiceTest {
                         "\"title\": \"New test run\",\n  " +
                         "\"description\": \"Awesome run by API\",\n  " +
                         "\"cases\": [\n    1,\n    2,\n    3,\n    55\n  ],\n  " +
-                        "\"environment_id\": 1\n}")));
+                        "\"environment_id\": 1," +
+                        "\"custom_field\": { }" +
+                        "\n}")));
     }
 
     @Test

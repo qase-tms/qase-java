@@ -34,7 +34,7 @@ class CustomFieldServiceTest {
     @Test
     void getAll() {
         try {
-            customFieldsApi.getCustomFields(null, "100", 0, 0);
+            customFieldsApi.getCustomFields(null, "100", 100, 0);
         } catch (ApiException e) {
             //ignore
         }

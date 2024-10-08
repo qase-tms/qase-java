@@ -67,7 +67,7 @@ public final class StepsAspects {
         }
         for (Map.Entry<String, String> entry : params.entrySet()) {
             if (stepsTitle.contains(entry.getKey())) {
-                stepsTitle = stepsTitle.replaceAll("\\\\" + entry.getKey(), entry.getValue());
+                stepsTitle = stepsTitle.replaceAll("\\" + entry.getKey(), entry.getValue());
             }
         }
         return stepsTitle;

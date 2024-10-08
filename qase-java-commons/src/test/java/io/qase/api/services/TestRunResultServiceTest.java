@@ -68,12 +68,12 @@ class TestRunResultServiceTest {
                 .withHeader("Token", equalTo("secret-token"))
                 .withQueryParam("limit", equalTo("33"))
                 .withQueryParam("offset", equalTo("3"))
-                .withQueryParam("filters%5Bstatus%5D", equalTo("in_progress"))
-                .withQueryParam("filters%5Bmember%5D", equalTo("2"))
-                .withQueryParam("filters%5Brun%5D", equalTo("3"))
-                .withQueryParam("filters%5Bcase_id%5D", equalTo("1"))
-                .withQueryParam("filters%5Bfrom_end_time%5D", equalTo(fromString))
-                .withQueryParam("filters%5Bto_end_time%5D", equalTo(toString)));
+                .withQueryParam("status", equalTo("in_progress"))
+                .withQueryParam("member", equalTo("2"))
+                .withQueryParam("run", equalTo("3"))
+                .withQueryParam("case_id", equalTo("1"))
+                .withQueryParam("from_end_time", equalTo(fromString))
+                .withQueryParam("to_end_time", equalTo(toString)));
     }
 
     @Test

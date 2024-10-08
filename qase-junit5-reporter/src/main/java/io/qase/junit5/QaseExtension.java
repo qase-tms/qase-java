@@ -2,10 +2,9 @@ package io.qase.junit5;
 
 import io.qase.api.StepStorage;
 import io.qase.api.config.QaseConfig;
-import io.qase.client.model.ResultCreate;
-import io.qase.client.model.ResultCreate.StatusEnum;
-import io.qase.client.model.ResultCreateCase;
-import io.qase.client.model.ResultCreateStepsInner;
+import io.qase.client.v1.models.ResultCreate;
+import io.qase.client.v1.models.ResultCreateCase;
+import io.qase.client.v1.models.TestStepResultCreate;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.junit5.guice.module.Junit5Module;
 import lombok.AccessLevel;
@@ -76,8 +75,8 @@ public class QaseExtension implements TestExecutionListener {
         if (caseId == null) {
             caseTitle = getCaseTitle(testMethod);
         }
-        StatusEnum status =
-            testExecutionResult.getStatus() == SUCCESSFUL ? StatusEnum.PASSED : StatusEnum.FAILED;
+        String status =
+            testExecutionResult.getStatus() == SUCCESSFUL ? "passed" : "failed";
         String comment = testExecutionResult.getThrowable()
             .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
         Boolean isDefect = testExecutionResult.getThrowable()
@@ -85,7 +84,7 @@ public class QaseExtension implements TestExecutionListener {
             .orElse(false);
         String stacktrace = testExecutionResult.getThrowable()
             .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         resultCreate
             ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
             .caseId(caseId)

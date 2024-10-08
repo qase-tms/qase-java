@@ -10,7 +10,6 @@ import io.qase.api.services.impl.ReportersResultOperationsImpl;
 import io.qase.client.v1.api.ResultsApi;
 import io.qase.client.v1.api.RunsApi;
 import io.qase.client.v1.models.ResultCreate;
-import io.qase.client.v1.models.ResultCreate.StatusEnum;
 import io.qase.client.v1.models.ResultCreateCase;
 import io.qase.client.v1.models.TestStepResultCreate;
 import lombok.AccessLevel;
@@ -46,14 +45,14 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult tr) {
         getQaseTestCaseListener()
-                .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.PASSED));
+                .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, "passed"));
         super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
         getQaseTestCaseListener()
-                .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, StatusEnum.FAILED));
+                .onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, tr, "failed"));
         super.onTestFailure(tr);
     }
 
@@ -63,7 +62,7 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         super.onFinish(testContext);
     }
 
-    private void setupResultItem(ResultCreate resultCreate, ITestResult result, StatusEnum status) {
+    private void setupResultItem(ResultCreate resultCreate, ITestResult result, String status) {
         Optional<Throwable> resultThrowable = Optional.ofNullable(result.getThrowable());
         String comment = resultThrowable
                 .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);

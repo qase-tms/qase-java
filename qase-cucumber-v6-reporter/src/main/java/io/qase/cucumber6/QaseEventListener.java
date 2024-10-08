@@ -11,10 +11,9 @@ import io.qase.api.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.api.utils.IntegrationUtils;
-import io.qase.client.model.ResultCreate;
-import io.qase.client.model.ResultCreate.StatusEnum;
-import io.qase.client.model.ResultCreateCase;
-import io.qase.client.model.ResultCreateStepsInner;
+import io.qase.client.v1.models.ResultCreate;
+import io.qase.client.v1.models.ResultCreateCase;
+import io.qase.client.v1.models.TestStepResultCreate;
 import io.qase.cucumber6.guice.module.Cucumber6Module;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -71,7 +70,7 @@ public class QaseEventListener implements ConcurrentEventListener {
                 case PASSED:
                     StepStorage.getCurrentStep()
                             .action(stepText)
-                            .status(ResultCreateStepsInner.StatusEnum.PASSED);
+                            .status(TestStepResultCreate.StatusEnum.PASSED);
                     StepStorage.stopStep();
                     break;
                 case SKIPPED:
@@ -85,7 +84,7 @@ public class QaseEventListener implements ConcurrentEventListener {
                 case FAILED:
                     StepStorage.getCurrentStep()
                             .action(stepText)
-                            .status(ResultCreateStepsInner.StatusEnum.FAILED)
+                            .status(TestStepResultCreate.StatusEnum.FAILED)
                             .addAttachmentsItem(IntegrationUtils.getStacktrace(result.getError()));
                     StepStorage.stopStep();
                     break;
@@ -159,7 +158,7 @@ public class QaseEventListener implements ConcurrentEventListener {
             caseTitle = testCase.getName();
         }
 
-        StatusEnum status = convertStatus(event.getResult().getStatus());
+        String status = convertStatus(event.getResult().getStatus());
         Optional<Throwable> optionalThrowable = Optional.ofNullable(event.getResult().getError());
         String comment = optionalThrowable
                 .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
@@ -168,7 +167,7 @@ public class QaseEventListener implements ConcurrentEventListener {
                 .orElse(false);
         String stacktrace = optionalThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         resultCreate
                 ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)
@@ -181,19 +180,19 @@ public class QaseEventListener implements ConcurrentEventListener {
         resultCreate.param(params);
     }
 
-    private StatusEnum convertStatus(Status status) {
+    private String convertStatus(Status status) {
         switch (status) {
             case FAILED:
-                return StatusEnum.FAILED;
+                return "failed";
             case PASSED:
-                return StatusEnum.PASSED;
+                return "passed";
             case PENDING:
             case SKIPPED:
             case AMBIGUOUS:
             case UNDEFINED:
             case UNUSED:
             default:
-                return StatusEnum.SKIPPED;
+                return "skipped";
         }
     }
 

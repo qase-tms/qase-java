@@ -53,7 +53,7 @@ class DefectServiceTest {
         }
         verify(getRequestedFor(urlPathEqualTo("/v1/defect/PROJ"))
                 .withHeader("Token", equalTo("secret-token"))
-                .withQueryParam("filters%5Bstatus%5D", equalTo("open"))
+                .withQueryParam("status", equalTo("open"))
                 .withQueryParam("limit", equalTo("88"))
                 .withQueryParam("offset", equalTo("12")));
     }

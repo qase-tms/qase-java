@@ -57,7 +57,7 @@ class SuiteServiceTest {
                 .withHeader("Token", equalTo("secret-token"))
                 .withQueryParam("limit", equalTo("55"))
                 .withQueryParam("offset", equalTo("2"))
-                .withQueryParam("filters%5Bsearch%5D", equalTo("title")));
+                .withQueryParam("search", equalTo("title")));
     }
 
     @Test
