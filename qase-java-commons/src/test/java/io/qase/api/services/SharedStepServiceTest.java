@@ -57,7 +57,7 @@ class SharedStepServiceTest {
                 .withHeader("Token", equalTo("secret-token"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0"))
-                .withQueryParam("filters%5Bsearch%5D", equalTo("title"))
+                .withQueryParam("search", equalTo("title"))
         );
     }
 

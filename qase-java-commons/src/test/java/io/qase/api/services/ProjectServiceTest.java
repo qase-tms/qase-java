@@ -73,7 +73,9 @@ class ProjectServiceTest {
                 .withRequestBody(
                         equalToJson("{\n  \"code\": \"PROJ\",\n  " +
                                 "\"title\": \"Project title\",\n  " +
-                                "\"access\": \"none\"\n}")));
+                                "\"access\": \"none\"," +
+                                "\"settings\": { }" +
+                                "\n}")));
     }
 
     @Test
@@ -95,7 +97,9 @@ class ProjectServiceTest {
                         equalToJson("{\n  \"code\": \"PROJ\",\n  " +
                                 "\"title\": \"Project title\",\n  " +
                                 "\"description\": \"Awesome project\",\n  " +
-                                "\"access\": \"none\"\n}")));
+                                "\"access\": \"none\"," +
+                                "\"settings\": { }" +
+                                "\n}")));
     }
 
     @Test
@@ -119,6 +123,8 @@ class ProjectServiceTest {
                                 "\"title\": \"Project title\",\n  " +
                                 "\"description\": \"Awesome project\",\n  " +
                                 "\"access\": \"group\",\n  " +
-                                "\"group\": \"groupHash\"\n}")));
+                                "\"group\": \"groupHash\"," +
+                                "\"settings\": { }" +
+                                "\n}")));
     }
 }

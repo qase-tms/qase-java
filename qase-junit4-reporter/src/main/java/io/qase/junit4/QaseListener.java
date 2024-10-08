@@ -8,10 +8,9 @@ import io.qase.api.annotation.QaseId;
 import io.qase.api.annotation.QaseTitle;
 import io.qase.api.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
-import io.qase.client.model.ResultCreate;
-import io.qase.client.model.ResultCreate.StatusEnum;
-import io.qase.client.model.ResultCreateCase;
-import io.qase.client.model.ResultCreateStepsInner;
+import io.qase.client.v1.models.ResultCreate;
+import io.qase.client.v1.models.ResultCreateCase;
+import io.qase.client.v1.models.TestStepResultCreate;
 import io.qase.junit4.guice.module.Junit4Module;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,7 +26,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
-import static io.qase.client.model.ResultCreate.StatusEnum.*;
 
 @Slf4j
 public class QaseListener extends RunListener {
@@ -52,7 +50,7 @@ public class QaseListener extends RunListener {
     public void testFinished(Description description) {
         if (addIfNotPresent(description)) {
             getQaseTestCaseListener().onTestCaseFinished(
-                    resultCreate -> setupResultItem(resultCreate, description, PASSED, null)
+                    resultCreate -> setupResultItem(resultCreate, description, "passed", null)
             );
         }
     }
@@ -61,7 +59,7 @@ public class QaseListener extends RunListener {
     public void testFailure(Failure failure) {
         if (addIfNotPresent(failure.getDescription())) {
             getQaseTestCaseListener().onTestCaseFinished(
-                    resultCreate -> setupResultItem(resultCreate, failure.getDescription(), FAILED, failure.getException())
+                    resultCreate -> setupResultItem(resultCreate, failure.getDescription(), "failed", failure.getException())
             );
         }
     }
@@ -70,7 +68,7 @@ public class QaseListener extends RunListener {
     public void testAssumptionFailure(Failure failure) {
         if (addIfNotPresent(failure.getDescription())) {
             getQaseTestCaseListener().onTestCaseFinished(
-                    resultCreate -> setupResultItem(resultCreate, failure.getDescription(), SKIPPED, null)
+                    resultCreate -> setupResultItem(resultCreate, failure.getDescription(), "skipped", null)
             );
         }
     }
@@ -79,7 +77,7 @@ public class QaseListener extends RunListener {
     public void testIgnored(Description description) {
         if (addIfNotPresent(description)) {
             getQaseTestCaseListener().onTestCaseFinished(
-                    resultCreate -> setupResultItem(resultCreate, description, SKIPPED, null)
+                    resultCreate -> setupResultItem(resultCreate, description, "skipped", null)
             );
         }
     }
@@ -98,7 +96,7 @@ public class QaseListener extends RunListener {
         return true;
     }
 
-    private ResultCreate setupResultItem(ResultCreate resultCreate, Description description, StatusEnum status, Throwable error) {
+    private ResultCreate setupResultItem(ResultCreate resultCreate, Description description, String status, Throwable error) {
         methods.add(description.getClassName() + description.getMethodName());
         Long caseId = getCaseId(description);
         String caseTitle = null;
@@ -113,7 +111,7 @@ public class QaseListener extends RunListener {
                 .orElse(false);
         String stacktrace = optionalThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<ResultCreateStepsInner> steps = StepStorage.stopSteps();
+        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
         return resultCreate
                 ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
                 .caseId(caseId)

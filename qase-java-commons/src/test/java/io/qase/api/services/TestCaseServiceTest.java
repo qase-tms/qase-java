@@ -55,15 +55,15 @@ class TestCaseServiceTest {
                 .withHeader("Token", equalTo("secret-token"))
                 .withQueryParam("limit", equalTo("100"))
                 .withQueryParam("offset", equalTo("0"))
-                .withQueryParam("filters%5Bmilestone_id%5D", equalTo("11"))
-                .withQueryParam("filters%5Bseverity%5D", equalTo("critical"))
-                .withQueryParam("filters%5Bbehavior%5D", equalTo("positive"))
-                .withQueryParam("filters%5Bautomation%5D", equalTo("is-not-automated,to-be-automated"))
-                .withQueryParam("filters%5Bsearch%5D", equalTo("title"))
-                .withQueryParam("filters%5Bpriority%5D", equalTo("high,medium"))
-                .withQueryParam("filters%5Btype%5D", equalTo("functional,acceptance"))
-                .withQueryParam("filters%5Bstatus%5D", equalTo("actual"))
-                .withQueryParam("filters%5Bsuite_id%5D", equalTo("2")));
+                .withQueryParam("milestone_id", equalTo("11"))
+                .withQueryParam("severity", equalTo("critical"))
+                .withQueryParam("behavior", equalTo("positive"))
+                .withQueryParam("automation", equalTo("is-not-automated,to-be-automated"))
+                .withQueryParam("search", equalTo("title"))
+                .withQueryParam("priority", equalTo("high,medium"))
+                .withQueryParam("type", equalTo("functional,acceptance"))
+                .withQueryParam("status", equalTo("actual"))
+                .withQueryParam("suite_id", equalTo("2")));
     }
 
     @Test
