@@ -1,4 +1,4 @@
-package io.qase.api.config;
+package io.qase.commons.config;
 
 import io.qase.api.utils.StringUtils;
 

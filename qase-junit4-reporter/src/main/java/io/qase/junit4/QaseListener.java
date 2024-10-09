@@ -6,7 +6,7 @@ import io.qase.api.annotation.CaseId;
 import io.qase.api.annotation.CaseTitle;
 import io.qase.api.annotation.QaseId;
 import io.qase.api.annotation.QaseTitle;
-import io.qase.api.config.QaseConfig;
+import io.qase.commons.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.client.v1.models.ResultCreate;
 import io.qase.client.v1.models.ResultCreateCase;

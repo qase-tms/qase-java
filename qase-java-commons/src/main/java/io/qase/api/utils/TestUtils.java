@@ -2,8 +2,6 @@ package io.qase.api.utils;
 
 import io.qase.api.QaseClient;
 
-import static io.qase.api.config.QaseConfig.*;
-
 /**
  * this class is needed only for tests
  */

@@ -1,4 +1,4 @@
-package io.qase.api.config;
+package io.qase.commons.config;
 
 public class TestopsConfig {
     public String project;

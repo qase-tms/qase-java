@@ -1,8 +1,8 @@
 package io.qase.api;
 
-import io.qase.api.config.ConfigFactory;
-import io.qase.api.config.Mode;
-import io.qase.api.config.QaseConfig;
+import io.qase.commons.config.ConfigFactory;
+import io.qase.commons.config.Mode;
+import io.qase.commons.config.QaseConfig;
 import io.qase.client.v1.ApiException;
 import io.qase.client.v1.ApiClient;
 import io.qase.client.v1.api.RunsApi;

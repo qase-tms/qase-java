@@ -1,4 +1,4 @@
-package io.qase.api.config;
+package io.qase.commons.config;
 
 public class PlanConfig {
     public int id;

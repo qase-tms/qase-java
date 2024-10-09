@@ -2,7 +2,7 @@ package io.qase.testng;
 
 import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
-import io.qase.api.config.QaseConfig;
+import io.qase.commons.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.services.ReportersResultOperations;
 import io.qase.api.services.impl.QaseTestCaseListenerImpl;
