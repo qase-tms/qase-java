@@ -1,4 +1,4 @@
-package io.qase.api.config;
+package io.qase.commons.config;
 
 public class ConnectionConfig {
     public Format format = Format.JSON;

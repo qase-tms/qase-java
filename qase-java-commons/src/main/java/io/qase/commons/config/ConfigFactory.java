@@ -1,4 +1,4 @@
-package io.qase.api.config;
+package io.qase.commons.config;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;

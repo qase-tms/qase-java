@@ -6,7 +6,7 @@ import cucumber.api.event.*;
 import gherkin.pickles.PickleTag;
 import io.qase.api.QaseClient;
 import io.qase.api.StepStorage;
-import io.qase.api.config.QaseConfig;
+import io.qase.commons.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.CucumberUtils;
 import io.qase.api.utils.IntegrationUtils;
