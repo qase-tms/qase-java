@@ -30,12 +30,21 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
     private final QaseConfig config;
     private final ApiClient client;
+    private final String url;
 
     public ApiClientV1(QaseConfig config) {
         this.config = config;
         this.client = new ApiClient();
 
-        this.client.setBasePath(config.testops.api.host);
+        if (config.testops.api.host.equals("qase.io")) {
+            this.client.setBasePath("https://api.qase.io/v1");
+            this.url = "https://app.qase.io/";
+        } else {
+            String url = "https://api-" + config.testops.api.host + "/v1";
+            this.client.setBasePath(url);
+            this.url = "https://app-" + config.testops.api.host + "/";
+        }
+
         this.client.setApiKey(config.testops.api.token);
     }
 
@@ -68,6 +77,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
     public void completeTestRun(Long runId) throws ApiException {
         new RunsApi(client)
                 .completeRun(this.config.testops.project, runId.intValue());
+        logger.info("Test run link: {}/run/{}/dashboard/{}", this.url, this.config.testops.project, runId);
     }
 
     @Override

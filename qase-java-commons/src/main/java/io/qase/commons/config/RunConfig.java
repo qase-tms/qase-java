@@ -6,5 +6,5 @@ public class RunConfig {
     public String title = "Automated run " + StringUtils.getDateTime();
     public String description;
     public boolean complete = true;
-    public int id;
+    public Integer id;
 }
