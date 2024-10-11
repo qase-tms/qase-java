@@ -1,10 +1,10 @@
-package io.qase.commons.models;
+package io.qase.commons.models.domain;
 
 import java.util.*;
 
 
 public class TestResult {
-    public String id;
+    public String id = UUID.randomUUID().toString();
     public String title;
     public String signature;
     public String runId;

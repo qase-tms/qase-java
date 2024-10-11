@@ -1,9 +1,9 @@
 package io.qase.commons.reporters;
 
-import io.qase.client.v1.ApiException;
+import io.qase.commons.QaseException;
 import io.qase.commons.client.ApiClient;
 import io.qase.commons.config.TestopsConfig;
-import io.qase.commons.models.TestResult;
+import io.qase.commons.models.domain.TestResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +33,7 @@ public class TestopsReporterTest {
     }
 
     @Test
-    public void testStartTestRunWithExistingRunId() throws ApiException {
+    public void testStartTestRunWithExistingRunId() throws QaseException {
         mockConfig.run.id = 123;
 
         reporter.startTestRun();
@@ -42,7 +42,7 @@ public class TestopsReporterTest {
     }
 
     @Test
-    public void testStartTestRunWithoutExistingRunId() throws ApiException {
+    public void testStartTestRunWithoutExistingRunId() throws QaseException {
         mockConfig.run.id = 0;
         when(mockClient.createTestRun()).thenReturn(456L);
 
@@ -52,7 +52,7 @@ public class TestopsReporterTest {
     }
 
     @Test
-    public void testCompleteTestRun() throws ApiException {
+    public void testCompleteTestRun() throws QaseException {
         reporter.testRunId = 123L;
 
         reporter.completeTestRun();
@@ -61,7 +61,7 @@ public class TestopsReporterTest {
     }
 
     @Test
-    public void testAddResultAndUploadWhenBatchSizeReached() throws ApiException {
+    public void testAddResultAndUploadWhenBatchSizeReached() throws QaseException {
         TestResult result1 = new TestResult();
         TestResult result2 = new TestResult();
         List<TestResult> results = new ArrayList<>();
@@ -76,7 +76,7 @@ public class TestopsReporterTest {
     }
 
     @Test
-    public void testUploadResultsWithPartialBatch() throws ApiException {
+    public void testUploadResultsWithPartialBatch() throws QaseException {
         TestResult result1 = new TestResult();
         TestResult result2 = new TestResult();
         TestResult result3 = new TestResult();
@@ -89,7 +89,7 @@ public class TestopsReporterTest {
     }
 
     @Test
-    public void testUploadResultsWithExactBatch() throws ApiException {
+    public void testUploadResultsWithExactBatch() throws QaseException {
         TestResult result1 = new TestResult();
         TestResult result2 = new TestResult();
 
