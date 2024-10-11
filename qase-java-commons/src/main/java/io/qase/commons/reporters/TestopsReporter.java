@@ -1,9 +1,9 @@
 package io.qase.commons.reporters;
 
-import io.qase.client.v1.ApiException;
+import io.qase.commons.QaseException;
 import io.qase.commons.client.ApiClient;
 import io.qase.commons.config.TestopsConfig;
-import io.qase.commons.models.TestResult;
+import io.qase.commons.models.domain.TestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ public class TestopsReporter implements Reporter {
     }
 
     @Override
-    public void startTestRun() throws ApiException {
+    public void startTestRun() throws QaseException {
         if (config.run.id != 0) {
             this.testRunId = config.run.id.longValue();
             return;
@@ -35,13 +35,13 @@ public class TestopsReporter implements Reporter {
     }
 
     @Override
-    public void completeTestRun() throws ApiException {
+    public void completeTestRun() throws QaseException {
         this.client.completeTestRun(this.testRunId);
         logger.info("Test run {} completed", this.testRunId);
     }
 
     @Override
-    public void addResult(TestResult result) throws ApiException {
+    public void addResult(TestResult result) throws QaseException {
         this.results.add(result);
 
         if (this.results.size() >= this.config.batch.size) {
@@ -51,7 +51,7 @@ public class TestopsReporter implements Reporter {
     }
 
     @Override
-    public void uploadResults() throws ApiException {
+    public void uploadResults() throws QaseException {
         int batchSize = this.config.batch.size;
         int totalResults = this.results.size();
 

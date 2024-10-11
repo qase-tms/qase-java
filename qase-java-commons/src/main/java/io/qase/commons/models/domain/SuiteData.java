@@ -1,4 +1,4 @@
-package io.qase.commons.models;
+package io.qase.commons.models.domain;
 
 public class SuiteData {
     public String title;

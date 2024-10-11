@@ -1,14 +1,14 @@
 package io.qase.commons.client;
 
-import io.qase.client.v1.ApiException;
-import io.qase.commons.models.TestResult;
+import io.qase.commons.QaseException;
+import io.qase.commons.models.domain.TestResult;
 
 import java.util.List;
 
 public interface ApiClient {
-    Long createTestRun() throws ApiException;
+    Long createTestRun() throws QaseException;
 
-    void completeTestRun(Long runId) throws ApiException;
+    void completeTestRun(Long runId) throws QaseException;
 
-    void uploadResults(Long runId, List<TestResult> results) throws ApiException;
+    void uploadResults(Long runId, List<TestResult> results) throws QaseException;
 }

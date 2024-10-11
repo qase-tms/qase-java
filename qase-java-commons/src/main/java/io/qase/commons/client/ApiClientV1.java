@@ -6,10 +6,11 @@ import io.qase.client.v1.api.AttachmentsApi;
 import io.qase.client.v1.api.ResultsApi;
 import io.qase.client.v1.api.RunsApi;
 import io.qase.client.v1.models.*;
+import io.qase.commons.QaseException;
 import io.qase.commons.config.QaseConfig;
-import io.qase.commons.models.Attachment;
-import io.qase.commons.models.StepResult;
-import io.qase.commons.models.TestResult;
+import io.qase.commons.models.domain.Attachment;
+import io.qase.commons.models.domain.StepResult;
+import io.qase.commons.models.domain.TestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +50,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
     }
 
     @Override
-    public Long createTestRun() throws ApiException {
+    public Long createTestRun() throws QaseException {
         RunCreate model = new RunCreate()
                 .title(this.config.testops.run.title)
                 .isAutotest(true);
@@ -66,31 +67,43 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             model.setPlanId((long) this.config.testops.plan.id);
         }
 
-        return Objects.requireNonNull(
-                new RunsApi(client)
-                        .createRun(this.config.testops.project, model)
-                        .getResult()
-        ).getId();
+        try {
+            return Objects.requireNonNull(
+                    new RunsApi(client)
+                            .createRun(this.config.testops.project, model)
+                            .getResult()
+            ).getId();
+        } catch (ApiException e) {
+            throw new QaseException("Failed to create test run: " + e.getResponseBody(), e.getCause());
+        }
     }
 
     @Override
-    public void completeTestRun(Long runId) throws ApiException {
-        new RunsApi(client)
-                .completeRun(this.config.testops.project, runId.intValue());
+    public void completeTestRun(Long runId) throws QaseException {
+        try {
+            new RunsApi(client)
+                    .completeRun(this.config.testops.project, runId.intValue());
+        } catch (ApiException e) {
+            throw new QaseException("Failed to complete test run: " + e.getResponseBody(), e.getCause());
+        }
+
         logger.info("Test run link: {}/run/{}/dashboard/{}", this.url, this.config.testops.project, runId);
     }
 
     @Override
-    public void uploadResults(Long runId, List<TestResult> results) throws ApiException {
+    public void uploadResults(Long runId, List<TestResult> results) throws QaseException {
         List<ResultCreate> models = results.stream()
                 .map(this::convertResult)
                 .collect(Collectors.toList());
 
-
-        new ResultsApi(client)
-                .createResultBulk(this.config.testops.project,
-                        runId.intValue(),
-                        new ResultCreateBulk().results(models));
+        try {
+            new ResultsApi(client)
+                    .createResultBulk(this.config.testops.project,
+                            runId.intValue(),
+                            new ResultCreateBulk().results(models));
+        } catch (ApiException e) {
+            throw new QaseException("Failed to upload test results: " + e.getResponseBody(), e.getCause());
+        }
     }
 
     private ResultCreate convertResult(TestResult result) {
