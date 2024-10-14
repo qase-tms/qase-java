@@ -6,7 +6,7 @@ import gherkin.ast.*;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import io.qase.api.QaseClient;
-import io.qase.api.StepStorage;
+import io.qase.commons.StepStorage;
 import io.qase.commons.config.QaseConfig;
 import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.CucumberUtils;

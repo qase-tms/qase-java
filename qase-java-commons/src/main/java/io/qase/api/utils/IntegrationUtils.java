@@ -1,9 +1,9 @@
 package io.qase.api.utils;
 
-import io.qase.api.annotation.CaseId;
-import io.qase.api.annotation.CaseTitle;
-import io.qase.api.annotation.QaseId;
-import io.qase.api.annotation.QaseTitle;
+import io.qase.commons.annotation.CaseId;
+import io.qase.commons.annotation.CaseTitle;
+import io.qase.commons.annotation.QaseId;
+import io.qase.commons.annotation.QaseTitle;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

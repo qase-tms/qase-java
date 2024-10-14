@@ -19,4 +19,13 @@ public class TestResult {
     public Relations relations;
     public boolean muted;
     public String message;
+
+    public TestResult(){
+        this.attachments = new ArrayList<>();
+        this.steps = new ArrayList<>();
+        this.params = new HashMap<>();
+        this.paramGroups = new ArrayList<>();
+        this.relations = new Relations();
+        this.execution = new TestResultExecution();
+    }
 }

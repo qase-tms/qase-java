@@ -1,6 +1,6 @@
 package io.qase.junit.samples;
 
-import io.qase.api.annotation.QaseTitle;
+import io.qase.commons.annotation.QaseTitle;
 import io.qase.junit.samples.steps.Steps;
 import org.junit.Test;
 

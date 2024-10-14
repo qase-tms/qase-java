@@ -1,7 +1,7 @@
 package io.qase.junit5.samples;
 
 
-import io.qase.api.annotation.QaseId;
+import io.qase.commons.annotation.QaseId;
 import org.junit.jupiter.api.Test;
 
 public class Failed {

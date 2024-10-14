@@ -2,7 +2,8 @@ package io.qase.commons.reporters;
 
 import io.qase.commons.QaseException;
 import io.qase.commons.client.ApiClient;
-import io.qase.commons.config.TestopsConfig;
+import io.qase.commons.config.ConfigFactory;
+import io.qase.commons.config.QaseConfig;
 import io.qase.commons.models.domain.TestResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,92 +11,112 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
-public class TestopsReporterTest {
+class TestopsReporterTest {
 
-    private ApiClient mockClient;
-    private TestopsConfig mockConfig;
     private TestopsReporter reporter;
+    private ApiClient clientMock;
+    private QaseConfig configMock;
 
     @BeforeEach
-    public void setUp() {
-        mockClient = mock(ApiClient.class);
-        mockConfig = mock(TestopsConfig.class);
+    void setUp() {
+        clientMock = mock(ApiClient.class);
 
-        mockConfig = new TestopsConfig();
-        mockConfig.batch.size = 2;
-        mockConfig.run.id = 0;
+        configMock = ConfigFactory.loadConfig();
+        configMock.testops.run.id = 0;
+        configMock.testops.batch.size = 2;
 
-        reporter = new TestopsReporter(mockConfig, mockClient);
+        reporter = new TestopsReporter(configMock.testops, clientMock);
     }
 
     @Test
-    public void testStartTestRunWithExistingRunId() throws QaseException {
-        mockConfig.run.id = 123;
+    void testStartTestRunWithExistingRunId() throws QaseException {
+        configMock.testops.run.id = 123;
 
         reporter.startTestRun();
 
-        verify(mockClient, never()).createTestRun();
+        verify(clientMock, never()).createTestRun();
+        assertEquals(123L, reporter.testRunId);
     }
 
     @Test
-    public void testStartTestRunWithoutExistingRunId() throws QaseException {
-        mockConfig.run.id = 0;
-        when(mockClient.createTestRun()).thenReturn(456L);
+    void testStartTestRunWithNewRunId() throws QaseException {
+        when(clientMock.createTestRun()).thenReturn(456L);
 
         reporter.startTestRun();
 
-        verify(mockClient, times(1)).createTestRun();
+        verify(clientMock, times(1)).createTestRun();
+        assertEquals(456L, reporter.testRunId);
     }
 
     @Test
-    public void testCompleteTestRun() throws QaseException {
-        reporter.testRunId = 123L;
+    void testCompleteTestRun() throws QaseException {
+        reporter.testRunId = 789L;
 
         reporter.completeTestRun();
 
-        verify(mockClient, times(1)).completeTestRun(123L);
+        verify(clientMock, times(1)).completeTestRun(789L);
     }
 
     @Test
-    public void testAddResultAndUploadWhenBatchSizeReached() throws QaseException {
+    void testAddResultAndUploadResultsWhenBatchIsReached() throws QaseException {
+        reporter.testRunId = 789L;
+
         TestResult result1 = new TestResult();
         TestResult result2 = new TestResult();
+
+        reporter.addResult(result1);
+        assertEquals(1, reporter.getResults().size());
+
+        reporter.addResult(result2);
+        assertEquals(0, reporter.getResults().size());
+
+        verify(clientMock, times(1)).uploadResults(anyLong(), anyList());
+    }
+
+    @Test
+    void testUploadResultsLessThanBatchSize() throws QaseException {
+        reporter.testRunId = 789L;
+        TestResult result = new TestResult();
+        reporter.addResult(result);
+
+        reporter.uploadResults();
+
+        verify(clientMock, times(1)).uploadResults(anyLong(), anyList());
+        assertEquals(0, reporter.getResults().size());
+    }
+
+    @Test
+    void testUploadResultsMoreThanBatchSize() throws QaseException {
+        reporter.testRunId = 789L;
         List<TestResult> results = new ArrayList<>();
-        results.add(result1);
-        results.add(result2);
+        results.add(new TestResult());
+        results.add(new TestResult());
+        results.add(new TestResult());
+        reporter.setResults(results);
 
-        reporter.addResult(result1);
-        reporter.addResult(result2);
+        reporter.uploadResults();
 
-        verify(mockClient, times(1)).uploadResults(any(Long.class), eq(results));
-        assertDoesNotThrow(() -> reporter.addResult(result1));
+        verify(clientMock, times(2)).uploadResults(anyLong(), anyList());
+        assertEquals(0, reporter.getResults().size());
     }
 
     @Test
-    public void testUploadResultsWithPartialBatch() throws QaseException {
-        TestResult result1 = new TestResult();
-        TestResult result2 = new TestResult();
-        TestResult result3 = new TestResult();
+    void testSetResults() {
+        List<TestResult> newResults = new ArrayList<>();
+        TestResult testResult = new TestResult();
+        testResult.id = "test1";
+        newResults.add(testResult);
 
-        reporter.addResult(result1);
-        reporter.addResult(result2);
-        reporter.addResult(result3);
+        reporter.setResults(newResults);
 
-        verify(mockClient, times(2)).uploadResults(any(Long.class), anyList());
-    }
-
-    @Test
-    public void testUploadResultsWithExactBatch() throws QaseException {
-        TestResult result1 = new TestResult();
-        TestResult result2 = new TestResult();
-
-        reporter.addResult(result1);
-        reporter.addResult(result2);
-
-        verify(mockClient, times(1)).uploadResults(any(Long.class), anyList());
+        List<TestResult> results = reporter.getResults();
+        assertEquals(1, results.size());
+        assertEquals("test1", results.get(0).id);
     }
 }
+

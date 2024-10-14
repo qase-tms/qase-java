@@ -1,6 +1,6 @@
 package io.qase.junit.samples;
 
-import io.qase.api.annotation.QaseId;
+import io.qase.commons.annotation.QaseId;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;

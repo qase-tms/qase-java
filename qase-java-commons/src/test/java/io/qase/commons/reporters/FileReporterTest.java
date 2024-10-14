@@ -1,98 +1,111 @@
 package io.qase.commons.reporters;
 
-import com.google.gson.Gson;
 import io.qase.commons.QaseException;
+import io.qase.commons.config.ConfigFactory;
 import io.qase.commons.config.QaseConfig;
 import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.models.domain.TestResultStatus;
+import io.qase.commons.models.report.ReportResult;
 import io.qase.commons.models.report.Run;
+import io.qase.commons.writers.Writer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-public class FileReporterTest {
+class FileReporterTest {
     private FileReporter fileReporter;
+    private Writer writerMock;
 
     @BeforeEach
-    public void setUp() {
-        QaseConfig config = mock(QaseConfig.class);
-        config.report.connection.path = "test-reports";
-        fileReporter = new FileReporter(config);
+    void setUp() {
+        writerMock = mock(Writer.class);
+
+        QaseConfig qaseConfig = ConfigFactory.loadConfig();
+        qaseConfig.testops.run.title = "Test Run Title";
+        qaseConfig.environment = "Test Environment";
+
+        fileReporter = new FileReporter(qaseConfig, writerMock);
     }
 
     @Test
-    public void testStartTestRun() {
-        assertDoesNotThrow(() -> {
-            fileReporter.startTestRun();
-        });
-
-        Path rootPath = Paths.get(System.getProperty("user.dir"), "test-reports");
-        assert Files.exists(rootPath);
-
-        Path resultsPath = Paths.get(rootPath.toString(), "results");
-        assert Files.exists(resultsPath);
-
-        Path attachmentPath = Paths.get(rootPath.toString(), "attachments");
-        assert Files.exists(attachmentPath);
-    }
-
-    @Test
-    public void testCompleteTestRun() throws QaseException, FileNotFoundException {
+    void testStartTestRun() throws QaseException {
         fileReporter.startTestRun();
 
-        assertDoesNotThrow(() -> {
-            fileReporter.completeTestRun();
-        });
-
-        File runFile = new File(Paths.get(System.getProperty("user.dir"), "test-reports", "run.json").toString());
-        assert runFile.exists();
-
-        Gson gson = new Gson();
-        Run run = gson.fromJson(new FileReader(runFile), Run.class);
-        assert run != null;
+        verify(writerMock, times(1)).prepare();
     }
 
     @Test
-    public void testAddResult() throws QaseException {
-        TestResult result = mock(TestResult.class);
-        fileReporter.addResult(result);
+    void testCompleteTestRun() throws QaseException {
+        TestResult testResult = this.prepareResult();
+        when(writerMock.writeAttachment(any())).thenReturn("attachment-path");
 
-        assertEquals(1, fileReporter.results.size());
+        fileReporter.startTestRun();
+        fileReporter.addResult(testResult);
+        fileReporter.completeTestRun();
+
+        verify(writerMock, times(1)).writeResult(any(ReportResult.class));
+        verify(writerMock, times(1)).writeRun(any(Run.class));
     }
 
     @Test
-    public void testUploadResults() throws QaseException {
-        TestResult result = mock(TestResult.class);
-        fileReporter.addResult(result);
+    void testAddResult() throws QaseException {
+        TestResult testResult = this.prepareResult();
 
-        assertDoesNotThrow(() -> {
-            fileReporter.uploadResults();
-        });
+        fileReporter.addResult(testResult);
 
-        String resultFileName = Paths.get(System.getProperty("user.dir"), "test-reports", "results", result.id + ".json").toString();
-        File resultFile = new File(resultFileName);
-        assert resultFile.exists();
+        List<TestResult> results = fileReporter.getResults();
+        assertEquals(1, results.size());
+        assertEquals("test1", results.get(0).id);
     }
 
     @Test
-    public void testSaveAttachment() {
-        Attachment attachment = mock(Attachment.class);
-        attachment.filePath = "path/to/file";
+    void testConvertTestResult() throws QaseException {
+        TestResult testResult = this.prepareResult();
 
-        assertDoesNotThrow(() -> {
-            String savedPath = fileReporter.saveAttachment(attachment);
-            File savedFile = new File(savedPath);
-            assert savedFile.exists();
-        });
+        when(writerMock.writeAttachment(any())).thenReturn("attachment-path");
+
+        fileReporter.startTestRun();
+        fileReporter.addResult(testResult);
+        fileReporter.completeTestRun();
+
+        verify(writerMock, times(1)).writeResult(any(ReportResult.class));
+        verify(writerMock, times(1)).writeAttachment(any());
+    }
+
+    @Test
+    void testSetResults() {
+        List<TestResult> newResults = new ArrayList<>();
+        TestResult testResult = this.prepareResult();
+        newResults.add(testResult);
+
+        fileReporter.setResults(newResults);
+
+        List<TestResult> results = fileReporter.getResults();
+        assertEquals(1, results.size());
+        assertEquals("test1", results.get(0).id);
+    }
+
+    private TestResult prepareResult(){
+        TestResult testResult = new TestResult();
+        testResult.id = "test1";
+        testResult.title = "Test Title";
+        testResult.testopsId = 123L;
+
+        testResult.execution.status = TestResultStatus.PASSED;
+        testResult.execution.duration = 1000;
+        testResult.execution.thread = "main";
+        testResult.execution.startTime = 1000L;
+        testResult.execution.endTime = 2000L;
+        testResult.execution.stacktrace = "";
+        testResult.attachments.add(new Attachment());
+
+        return testResult;
     }
 }

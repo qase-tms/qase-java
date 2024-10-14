@@ -2,109 +2,71 @@ package io.qase.commons.reporters;
 
 import io.qase.commons.QaseException;
 import io.qase.commons.config.QaseConfig;
-import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.domain.Data;
 import io.qase.commons.models.domain.StepResult;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.report.*;
+import io.qase.commons.writers.Writer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FileReporter implements Reporter {
+public class FileReporter implements InternalReporter {
     private static final Logger logger = LoggerFactory.getLogger(FileReporter.class);
 
     private final QaseConfig config;
-    final List<ReportResult> results;
+    final List<TestResult> results;
     private Long startTime;
 
-    private final String rootPath;
-    private final String resultsPath;
-    private final String attachmentPath;
+    private final Writer writer;
 
-    public FileReporter(QaseConfig config) {
+    public FileReporter(QaseConfig config, Writer writer) {
         this.config = config;
         this.results = new ArrayList<>();
-
-        this.rootPath = Paths.get(System.getProperty("user.dir"), this.config.report.connection.path).toString();
-        this.resultsPath = Paths.get(this.rootPath, "results").toString();
-        this.attachmentPath = Paths.get(this.rootPath, "attachments").toString();
+        this.writer = writer;
     }
 
     @Override
     public void startTestRun() throws QaseException {
         this.startTime = System.currentTimeMillis();
-
-        Path path = Paths.get(this.rootPath);
-        this.createDirectory(path);
-
-        Path resultsPath = Paths.get(this.resultsPath);
-        this.createDirectory(resultsPath);
-
-        Path attachmentPath = Paths.get(this.attachmentPath);
-        this.createDirectory(attachmentPath);
+        this.writer.prepare();
     }
 
     @Override
     public void completeTestRun() throws QaseException {
         long endTime = System.currentTimeMillis();
-        Run run = new Run(this.config.testops.run.title,
-                this.startTime, endTime, this.config.environment);
-
-        run.addResults(this.results);
 
         Gson gson = new Gson();
 
-        String path = Paths.get(this.rootPath, "run.json").toString();
-        File file = new File(path);
+        List<ReportResult> results = this.results.stream()
+                .map(this::convertTestResult)
+                .collect(Collectors.toList());
 
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write(gson.toJson(run));
-        } catch (IOException e) {
-            throw new QaseException("Failed to write run result to file: " + path, e.getCause());
+        for (ReportResult result : results) {
+            this.writer.writeResult(result);
         }
+
+        Run run = new Run(this.config.testops.run.title,
+                this.startTime, endTime, this.config.environment);
+
+        run.addResults(results);
+
+        this.writer.writeRun(run);
     }
 
     @Override
     public void addResult(TestResult result) throws QaseException {
-        this.results.add(this.convertTestResult(result));
+        this.results.add(result);
     }
 
     @Override
     public void uploadResults() throws QaseException {
-        Gson gson = new Gson();
-
-        for (ReportResult result : this.results) {
-            String path = Paths.get(this.resultsPath, (result.id + ".json")).toString();
-            File file = new File(path);
-
-            try (FileWriter fileWriter = new FileWriter(file)) {
-                fileWriter.write(gson.toJson(result));
-            } catch (IOException e) {
-                throw new QaseException("Failed to write report result to file: " + path, e.getCause());
-            }
-        }
-    }
-
-    private void createDirectory(Path path) throws QaseException {
-        if (!Files.exists(path)) {
-            try {
-                Files.createDirectories(path);
-            } catch (IOException e) {
-                throw new QaseException("Failed to create directory for report: " + path, e.getCause());
-            }
-        }
+        // Do nothing
     }
 
     private ReportResult convertTestResult(TestResult result) {
@@ -127,7 +89,7 @@ public class FileReporter implements Reporter {
                 .map(this::convertStepResult)
                 .collect(Collectors.toList());
         reportResult.attachments = result.attachments.stream()
-                .map(this::saveAttachment)
+                .map(this.writer::writeAttachment)
                 .filter(attachment -> !attachment.isEmpty())
                 .collect(Collectors.toList());
 
@@ -145,7 +107,7 @@ public class FileReporter implements Reporter {
                 .collect(Collectors.toList());
 
         reportStepResult.attachments = stepResult.attachments.stream()
-                .map(this::saveAttachment)
+                .map(this.writer::writeAttachment)
                 .filter(attachment -> !attachment.isEmpty())
                 .collect(Collectors.toList());
 
@@ -159,36 +121,22 @@ public class FileReporter implements Reporter {
         reportData.inputData = data.inputData;
 
         reportData.attachments = data.attachments.stream()
-                .map(this::saveAttachment)
+                .map(this.writer::writeAttachment)
                 .filter(attachment -> !attachment.isEmpty())
                 .collect(Collectors.toList());
 
         return reportData;
     }
 
-    String saveAttachment(Attachment attachment) {
-        if (attachment.filePath != null) {
-            Path source = Paths.get(attachment.filePath);
-            Path destination = Paths.get(this.attachmentPath, (attachment.id + "-" + source.getFileName().toString()));
 
-            try {
-                Files.copy(source, destination);
-                return destination.toString();
-            } catch (IOException e) {
-                logger.error("Failed to save attachment: {}", attachment.filePath, e);
-            }
-            return "";
-        }
+    @Override
+    public List<TestResult> getResults() {
+        return this.results;
+    }
 
-        String destination = Paths.get(this.attachmentPath, (attachment.id + "-" + attachment.fileName)).toString();
-        File file = new File(destination);
-
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write(attachment.content);
-            return destination;
-        } catch (IOException e) {
-            logger.error("Failed to write attachment content to file: {}", e.getMessage(), e);
-            return "";
-        }
+    @Override
+    public void setResults(List<TestResult> results) {
+        this.results.clear();
+        this.results.addAll(results);
     }
 }

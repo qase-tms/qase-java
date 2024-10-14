@@ -1,14 +1,10 @@
-package io.qase.api.annotation;
+package io.qase.commons.annotation;
 
 import java.lang.annotation.*;
 
-/**
- * @deprecated use {@link QaseId} instead.
- */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Deprecated
-public @interface CaseId {
+public @interface QaseId {
     long value();
 }

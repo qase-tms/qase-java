@@ -1,14 +1,10 @@
-package io.qase.api.annotation;
+package io.qase.commons.annotation;
 
 import java.lang.annotation.*;
 
-
-/**
- * @deprecated use {@link QaseTitle} instead.
- */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface CaseTitle {
+public @interface Step {
     String value();
 }

@@ -1,7 +1,7 @@
 package io.qase.junit.samples;
 
 
-import io.qase.api.annotation.QaseId;
+import io.qase.commons.annotation.QaseId;
 import org.junit.Test;
 
 public class Passed {
