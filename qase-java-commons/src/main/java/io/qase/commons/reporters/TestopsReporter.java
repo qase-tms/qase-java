@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestopsReporter implements Reporter {
+public class TestopsReporter implements InternalReporter {
     private static final Logger logger = LoggerFactory.getLogger(TestopsReporter.class);
 
     private final TestopsConfig config;
@@ -67,5 +67,16 @@ public class TestopsReporter implements Reporter {
         }
 
         this.results.clear();
+    }
+
+    @Override
+    public List<TestResult> getResults() {
+        return this.results;
+    }
+
+    @Override
+    public void setResults(List<TestResult> results) {
+        this.results.clear();
+        this.results.addAll(results);
     }
 }

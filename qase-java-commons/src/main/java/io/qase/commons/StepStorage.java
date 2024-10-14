@@ -1,6 +1,6 @@
-package io.qase.api;
+package io.qase.commons;
 
-import io.qase.client.v1.models.TestStepResultCreate;
+import io.qase.commons.models.domain.StepResult;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
@@ -8,19 +8,19 @@ import java.util.LinkedList;
 @Slf4j
 public final class StepStorage {
 
-    private static final ThreadLocal<TestStepResultCreate> STEP_IN_PROGRESS = new ThreadLocal<>();
+    private static final ThreadLocal<StepResult> STEP_IN_PROGRESS = new ThreadLocal<>();
 
-    private static final ThreadLocal<LinkedList<TestStepResultCreate>> STEPS_STORAGE =
-        ThreadLocal.withInitial(LinkedList::new);
+    private static final ThreadLocal<LinkedList<StepResult>> STEPS_STORAGE =
+            ThreadLocal.withInitial(LinkedList::new);
 
     private static final ThreadLocal<Integer> STEP_POSITION = ThreadLocal.withInitial(() -> 1);
 
     public static void startStep() {
         checkStepIsNotInProgress();
 
-        TestStepResultCreate resultCreateSteps = new TestStepResultCreate();
+        StepResult resultCreateSteps = new StepResult();
         int position = STEP_POSITION.get();
-        resultCreateSteps.position(position);
+//        resultCreateSteps.position(position);
         STEP_POSITION.set(++position);
         STEP_IN_PROGRESS.set(resultCreateSteps);
     }
@@ -28,12 +28,13 @@ public final class StepStorage {
     public static void stopStep() {
         checkStepIsInProgress();
 
-        TestStepResultCreate resultCreateSteps = STEP_IN_PROGRESS.get();
+        StepResult resultCreateSteps = STEP_IN_PROGRESS.get();
+        resultCreateSteps.execution.stop();
         STEP_IN_PROGRESS.remove();
         STEPS_STORAGE.get().add(resultCreateSteps);
     }
 
-    public static TestStepResultCreate getCurrentStep() {
+    public static StepResult getCurrentStep() {
         checkStepIsInProgress();
 
         return STEP_IN_PROGRESS.get();
@@ -55,10 +56,10 @@ public final class StepStorage {
         }
     }
 
-    public static LinkedList<TestStepResultCreate> stopSteps() {
+    public static LinkedList<StepResult> stopSteps() {
         checkStepIsNotInProgress();
 
-        LinkedList<TestStepResultCreate> resultCreateSteps = STEPS_STORAGE.get();
+        LinkedList<StepResult> resultCreateSteps = STEPS_STORAGE.get();
         STEPS_STORAGE.remove();
         STEP_POSITION.set(1);
         return resultCreateSteps;

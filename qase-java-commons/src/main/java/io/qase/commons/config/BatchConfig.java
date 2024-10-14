@@ -1,8 +1,10 @@
 package io.qase.commons.config;
 
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Getter
 public class BatchConfig {
     private static final Logger logger = LoggerFactory.getLogger(BatchConfig.class);
 
@@ -17,7 +19,4 @@ public class BatchConfig {
         this.size = size;
     }
 
-    public int getSize() {
-        return size;
-    }
 }

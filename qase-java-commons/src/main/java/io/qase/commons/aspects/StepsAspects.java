@@ -1,9 +1,9 @@
-package io.qase.api.aspects;
+package io.qase.commons.aspects;
 
-import io.qase.api.StepStorage;
-import io.qase.api.annotation.Step;
-import io.qase.api.utils.IntegrationUtils;
-import io.qase.client.v1.models.TestStepResultCreate;
+import io.qase.commons.StepStorage;
+import io.qase.commons.annotation.Step;
+import io.qase.commons.models.domain.StepResult;
+import io.qase.commons.models.domain.StepResultStatus;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -38,9 +38,10 @@ public final class StepsAspects {
 
         stepsTitle = getTitle(joinPoint, stepsTitle);
 
-        StepStorage.getCurrentStep()
-                .action(stepsTitle)
-                .status(TestStepResultCreate.StatusEnum.PASSED);
+        StepResult step = StepStorage.getCurrentStep();
+        step.data.action = stepsTitle;
+        step.execution.status = StepResultStatus.PASSED;
+
         StepStorage.stopStep();
     }
 
@@ -51,10 +52,11 @@ public final class StepsAspects {
         String stepsTitle = stepAnnotation.value();
         stepsTitle = getTitle(joinPoint, stepsTitle);
 
-        StepStorage.getCurrentStep()
-                .action(stepsTitle)
-                .status(TestStepResultCreate.StatusEnum.FAILED)
-                .addAttachmentsItem(IntegrationUtils.getStacktrace(e));
+        StepResult step = StepStorage.getCurrentStep();
+        step.data.action = stepsTitle;
+        step.execution.status = StepResultStatus.FAILED;
+        step.throwable = e;
+
         StepStorage.stopStep();
     }
 

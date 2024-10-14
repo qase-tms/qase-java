@@ -10,12 +10,17 @@ public class QaseConfig {
     public Mode fallback;
     public String environment;
     public String rootSuite;
-    public boolean debug = false;
+    public boolean debug;
     // public ExecutionPlan executionPlan;
     public TestopsConfig testops;
     public ReportConfig report;
 
     public QaseConfig() {
+        this.mode = Mode.OFF;
+        this.fallback = Mode.OFF;
+        this.environment = "";
+        this.rootSuite = "";
+        this.debug = false;
         this.testops = new TestopsConfig();
         this.report = new ReportConfig();
     }

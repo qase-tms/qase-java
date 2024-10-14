@@ -1,6 +1,6 @@
 package io.qase.junit5.samples;
 
-import io.qase.api.annotation.QaseId;
+import io.qase.commons.annotation.QaseId;
 import io.qase.junit5.samples.Steps.Steps;
 import org.junit.jupiter.api.Test;
 

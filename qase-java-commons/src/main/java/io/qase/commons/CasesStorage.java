@@ -1,14 +1,14 @@
-package io.qase.api;
+package io.qase.commons;
 
-import io.qase.client.v1.models.ResultCreate;
+import io.qase.commons.models.domain.TestResult;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class CasesStorage {
 
-    private static final ThreadLocal<ResultCreate> CURRENT_CASE = new ThreadLocal<>();
+    private static final ThreadLocal<TestResult> CURRENT_CASE = new ThreadLocal<>();
 
-    public static void startCase(ResultCreate resultCreate) {
+    public static void startCase(TestResult resultCreate) {
         checkCaseIsNotInProgress();
 
         CURRENT_CASE.set(resultCreate);
@@ -20,7 +20,7 @@ public final class CasesStorage {
         CURRENT_CASE.remove();
     }
 
-    public static ResultCreate getCurrentCase() {
+    public static TestResult getCurrentCase() {
         checkCaseIsInProgress();
 
         return CURRENT_CASE.get();

@@ -8,7 +8,15 @@ public class StepResult {
     public Data data;
     public String parentId;
     public StepExecution execution;
+    public Throwable throwable;
     public List<Attachment> attachments;
     public List<StepResult> steps;
+
+    public StepResult() {
+        this.attachments = new ArrayList<>();
+        this.steps = new ArrayList<>();
+        this.execution = new StepExecution();
+        this.data = new Data();
+    }
 }
 

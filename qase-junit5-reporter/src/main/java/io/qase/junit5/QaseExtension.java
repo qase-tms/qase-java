@@ -1,6 +1,6 @@
 package io.qase.junit5;
 
-import io.qase.api.StepStorage;
+import io.qase.commons.StepStorage;
 import io.qase.commons.config.QaseConfig;
 import io.qase.client.v1.models.ResultCreate;
 import io.qase.client.v1.models.ResultCreateCase;

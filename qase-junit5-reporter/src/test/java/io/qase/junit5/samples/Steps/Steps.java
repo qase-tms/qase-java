@@ -1,6 +1,6 @@
 package io.qase.junit5.samples.Steps;
 
-import io.qase.api.annotation.Step;
+import io.qase.commons.annotation.Step;
 
 public class Steps {
     @Step("success step")
