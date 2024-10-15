@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public final class StepsAspects {
     private static final String DELIMITER = ", ";
 
-    @Pointcut("@annotation(io.qase.api.annotation.Step)")
+    @Pointcut("@annotation(io.qase.commons.annotation.Step)")
     public void withStepAnnotation() {
     }
 

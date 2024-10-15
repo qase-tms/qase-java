@@ -69,8 +69,8 @@ public class ConfigFactory {
         qaseConfig.testops.batch.setSize(getIntEnv("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
 
         qaseConfig.report.setDriver(getEnv("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
-        qaseConfig.report.connection.setFormat(getEnv("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.getFormat()));
-        qaseConfig.report.connection.path = getEnv("QASE_REPORT_CONNECTION_PATH", qaseConfig.report.connection.path);
+        qaseConfig.report.connection.local.setFormat(getEnv("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
+        qaseConfig.report.connection.local.path = getEnv("QASE_REPORT_CONNECTION_PATH", qaseConfig.report.connection.local.path);
 
         return qaseConfig;
     }
@@ -94,8 +94,8 @@ public class ConfigFactory {
         qaseConfig.testops.batch.setSize(getIntProperty("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
 
         qaseConfig.report.setDriver(getProperty("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
-        qaseConfig.report.connection.setFormat(getProperty("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.getFormat()));
-        qaseConfig.report.connection.path = getProperty("QASE_REPORT_CONNECTION_PATH", qaseConfig.report.connection.path);
+        qaseConfig.report.connection.local.setFormat(getProperty("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
+        qaseConfig.report.connection.local.path = getProperty("QASE_REPORT_CONNECTION_PATH", qaseConfig.report.connection.local.path);
 
         return qaseConfig;
     }
@@ -223,10 +223,16 @@ public class ConfigFactory {
             if (report.has("connection")) {
                 JSONObject connection = report.getJSONObject("connection");
 
-                qaseConfig.report.connection.setFormat(connection.getString("format"));
+                if (connection.has("local")) {
+                    JSONObject local = connection.getJSONObject("local");
 
-                if (connection.has("path")) {
-                    qaseConfig.report.connection.path = connection.getString("path");
+                    if (local.has("format")) {
+                        qaseConfig.report.connection.local.setFormat(local.getString("format"));
+                    }
+
+                    if (local.has("path")) {
+                        qaseConfig.report.connection.local.path = local.getString("path");
+                    }
                 }
             }
         }

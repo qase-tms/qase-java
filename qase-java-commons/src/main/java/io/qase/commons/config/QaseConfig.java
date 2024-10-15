@@ -1,5 +1,6 @@
 package io.qase.commons.config;
 
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +50,12 @@ public class QaseConfig {
 
     public String getFallback() {
         return fallback.toString();
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }
 

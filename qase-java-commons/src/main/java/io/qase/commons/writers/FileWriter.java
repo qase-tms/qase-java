@@ -23,7 +23,7 @@ public class FileWriter implements Writer {
     final String attachmentPath;
 
     public FileWriter(ConnectionConfig config) {
-        this.rootPath = Paths.get(System.getProperty("user.dir"), config.path).toString();
+        this.rootPath = Paths.get(System.getProperty("user.dir"), config.local.path).toString();
         this.resultsPath = Paths.get(this.rootPath, "results").toString();
         this.attachmentPath = Paths.get(this.rootPath, "attachments").toString();
     }

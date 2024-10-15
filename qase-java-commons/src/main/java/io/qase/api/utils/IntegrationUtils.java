@@ -45,7 +45,7 @@ public final class IntegrationUtils {
         if (method.isAnnotationPresent(CaseTitle.class)) {
             return method.getDeclaredAnnotation(CaseTitle.class).value();
         }
-        return null;
+        return method.getName();
     }
 
     private static Long getQaseId(Method method) {
