@@ -87,7 +87,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             throw new QaseException("Failed to complete test run: " + e.getResponseBody(), e.getCause());
         }
 
-        logger.info("Test run link: {}/run/{}/dashboard/{}", this.url, this.config.testops.project, runId);
+        logger.info("Test run link: {}run/{}/dashboard/{}", this.url, this.config.testops.project, runId);
     }
 
     @Override
@@ -96,28 +96,59 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                 .map(this::convertResult)
                 .collect(Collectors.toList());
 
+        ResultCreateBulk model = new ResultCreateBulk().results(models);
+
+        logger.debug("Uploading results: {}", model);
+
         try {
             new ResultsApi(client)
                     .createResultBulk(this.config.testops.project,
                             runId.intValue(),
-                            new ResultCreateBulk().results(models));
+                            model);
         } catch (ApiException e) {
             throw new QaseException("Failed to upload test results: " + e.getResponseBody(), e.getCause());
         }
     }
 
     private ResultCreate convertResult(TestResult result) {
+        ResultCreateCase caseModel = new ResultCreateCase()
+                .title(result.title);
+
+        if (result.fields.containsKey("description")) {
+            caseModel.setDescription(result.fields.get("description"));
+        }
+
+        if (result.fields.containsKey("severity")) {
+            caseModel.setSeverity(result.fields.get("severity"));
+        }
+
+        if (result.fields.containsKey("priority")) {
+            caseModel.setPriority(result.fields.get("priority"));
+        }
+
+        if (result.fields.containsKey("preconditions")) {
+            caseModel.setPreconditions(result.fields.get("preconditions"));
+        }
+
+        if (result.fields.containsKey("postconditions")) {
+            caseModel.setPostconditions(result.fields.get("postconditions"));
+        }
+
+        if (result.fields.containsKey("layer")) {
+            caseModel.setLayer(result.fields.get("layer"));
+        }
+
         ResultCreate model = new ResultCreate()
                 .caseId(result.testopsId)
                 .status(result.execution.status.toString().toLowerCase())
                 .comment(result.message)
                 .defect(this.config.testops.defect)
-                .startTime(result.execution.startTime.intValue())
-                .time(result.execution.endTime)
                 .timeMs(result.execution.duration.longValue())
                 .stacktrace(result.execution.stacktrace)
                 .param(result.params)
                 .paramGroups(result.paramGroups);
+
+        model.setCase(caseModel);
 
         List<TestStepResultCreate> steps = result.steps.stream()
                 .map(this::convertStepResult).collect(Collectors.toList());

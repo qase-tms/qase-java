@@ -7,14 +7,8 @@ import io.qase.commons.config.QaseConfig;
 import io.qase.commons.models.domain.StepResult;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.domain.TestResultStatus;
-import io.qase.commons.reporters.CoreReporter;
 import io.qase.commons.reporters.CoreReporterFactory;
-import lombok.AccessLevel;
-import lombok.Getter;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
+import org.testng.*;
 import org.testng.annotations.Parameters;
 import org.testng.xml.XmlTest;
 
@@ -26,37 +20,35 @@ import static io.qase.api.utils.IntegrationUtils.*;
 
 public class QaseListener extends TestListenerAdapter implements ITestListener {
 
-    @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final CoreReporter qaseTestCaseListener = createQaseListener();
+    private final io.qase.commons.reporters.Reporter qaseTestCaseListener;
+
+    public QaseListener() {
+        QaseConfig config = ConfigFactory.loadConfig();
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance(config);
+    }
 
     @Override
     public void onStart(ITestContext testContext) {
-        getQaseTestCaseListener().startTestRun();
+        this.qaseTestCaseListener.startTestRun();
         super.onStart(testContext);
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        getQaseTestCaseListener().uploadResults();
-        getQaseTestCaseListener().completeTestRun();
+        this.qaseTestCaseListener.uploadResults();
+        this.qaseTestCaseListener.completeTestRun();
         super.onFinish(context);
     }
 
-//    @Override
-//    public void onTestStart(ITestResult result) {
-//        getQaseTestCaseListener().startTestRun();
-//        super.onTestStart(result);
-//    }
-
     @Override
     public void onTestSuccess(ITestResult tr) {
-        getQaseTestCaseListener().addResult(setupResultItem(tr, TestResultStatus.PASSED));
+        this.qaseTestCaseListener.addResult(setupResultItem(tr, TestResultStatus.PASSED));
         super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        getQaseTestCaseListener().addResult(setupResultItem(tr, TestResultStatus.FAILED));
+        this.qaseTestCaseListener.addResult(setupResultItem(tr, TestResultStatus.FAILED));
         super.onTestFailure(tr);
     }
 
@@ -83,11 +75,6 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         resultCreate.params = parameters;
 
         return resultCreate;
-    }
-
-    private static CoreReporter createQaseListener() {
-        QaseConfig config = ConfigFactory.loadConfig();
-        return CoreReporterFactory.getInstance(config);
     }
 
     private Map<String, String> getParameters(final ITestResult testResult) {

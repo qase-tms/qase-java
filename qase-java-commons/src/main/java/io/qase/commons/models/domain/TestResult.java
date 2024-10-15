@@ -1,5 +1,7 @@
 package io.qase.commons.models.domain;
 
+import com.google.gson.Gson;
+
 import java.util.*;
 
 
@@ -27,5 +29,12 @@ public class TestResult {
         this.paramGroups = new ArrayList<>();
         this.relations = new Relations();
         this.execution = new TestResultExecution();
+        this.fields = new HashMap<>();
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }
