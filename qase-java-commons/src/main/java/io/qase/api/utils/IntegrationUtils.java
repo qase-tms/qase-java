@@ -1,16 +1,12 @@
 package io.qase.api.utils;
 
-import io.qase.commons.annotation.CaseId;
-import io.qase.commons.annotation.CaseTitle;
-import io.qase.commons.annotation.QaseId;
-import io.qase.commons.annotation.QaseTitle;
+import io.qase.commons.annotation.*;
+import io.qase.commons.models.annotation.Field;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public final class IntegrationUtils {
     public static final List<String> CASE_TAGS = Collections.unmodifiableList(Arrays.asList("@caseId", "@tmsLink"));
@@ -59,6 +55,32 @@ public final class IntegrationUtils {
     private static String getQaseTitle(Method method) {
         if (method.isAnnotationPresent(QaseTitle.class)) {
             return method.getDeclaredAnnotation(QaseTitle.class).value();
+        }
+        return null;
+    }
+
+    public static Map<String, String> getQaseFields(Method method) {
+        Map<String, String> fields = new HashMap<>();
+
+        if (method.isAnnotationPresent(QaseFields.class)) {
+            QaseFields annotation = method.getDeclaredAnnotation(QaseFields.class);
+            if (annotation != null) {
+                for (Field field : annotation.value()) {
+                    fields.put(field.key(), field.value());
+                }
+            }
+        }
+
+        return fields;
+    }
+
+    public static boolean getQaseIgnore(Method method) {
+        return method.isAnnotationPresent(QaseIgnore.class);
+    }
+
+    public static String getQaseSuite(Method method) {
+        if (method.isAnnotationPresent(QaseSuite.class)) {
+            return method.getDeclaredAnnotation(QaseSuite.class).value();
         }
         return null;
     }

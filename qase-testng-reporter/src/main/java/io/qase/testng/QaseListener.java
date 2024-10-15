@@ -4,9 +4,7 @@ package io.qase.testng;
 import io.qase.commons.StepStorage;
 import io.qase.commons.config.ConfigFactory;
 import io.qase.commons.config.QaseConfig;
-import io.qase.commons.models.domain.StepResult;
-import io.qase.commons.models.domain.TestResult;
-import io.qase.commons.models.domain.TestResultStatus;
+import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import org.testng.*;
 import org.testng.annotations.Parameters;
@@ -42,13 +40,25 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult tr) {
-        this.qaseTestCaseListener.addResult(setupResultItem(tr, TestResultStatus.PASSED));
+        TestResult result = setupResultItem(tr, TestResultStatus.PASSED);
+
+        if (result == null) {
+            return;
+        }
+
+        this.qaseTestCaseListener.addResult(result);
         super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        this.qaseTestCaseListener.addResult(setupResultItem(tr, TestResultStatus.FAILED));
+        TestResult result = setupResultItem(tr, TestResultStatus.FAILED);
+
+        if (result == null) {
+            return;
+        }
+
+        this.qaseTestCaseListener.addResult(result);
         super.onTestFailure(tr);
     }
 
@@ -57,10 +67,29 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         String comment = resultThrowable.flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
         String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
         Method method = result.getMethod().getConstructorOrMethod().getMethod();
+        boolean ignore = getQaseIgnore(method);
+        if (ignore) {
+            return null;
+        }
         Long caseId = getCaseId(method);
         String caseTitle = getCaseTitle(method);
         LinkedList<StepResult> steps = StepStorage.stopSteps();
         Map<String, String> parameters = this.getParameters(result);
+        Map<String, String> fields = getQaseFields(method);
+        String suite = getQaseSuite(method);
+        Relations relations = new Relations();
+        if (suite != null) {
+            String[] parts = suite.split("\t");
+            for (String part : parts) {
+                SuiteData data = new SuiteData();
+                data.title = part;
+                relations.suite.data.add(data);
+            }
+        } else {
+            SuiteData className = new SuiteData();
+            className.title = method.getDeclaringClass().getName();
+            relations.suite.data.add(className);
+        }
 
         TestResult resultCreate = new TestResult();
         resultCreate.execution.status = status;
@@ -73,6 +102,8 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         resultCreate.steps = steps;
         resultCreate.title = caseTitle;
         resultCreate.params = parameters;
+        resultCreate.fields = fields;
+        resultCreate.relations = relations;
 
         return resultCreate;
     }
