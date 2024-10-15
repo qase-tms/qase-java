@@ -138,6 +138,11 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             caseModel.setLayer(result.fields.get("layer"));
         }
 
+        if (result.relations != null) {
+            String suite = result.relations.suite.data.stream().map(suiteData -> suiteData.title).collect(Collectors.joining("\t"));
+            caseModel.setSuiteTitle(suite);
+        }
+
         ResultCreate model = new ResultCreate()
                 .caseId(result.testopsId)
                 .status(result.execution.status.toString().toLowerCase())
