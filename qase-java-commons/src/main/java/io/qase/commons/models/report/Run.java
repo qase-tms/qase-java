@@ -30,7 +30,7 @@ public class Run {
             ShortReportResult shortResult = new ShortReportResult();
             shortResult.id = result.id;
             shortResult.title = result.title;
-            shortResult.status = result.execution.status.toString();
+            shortResult.status = result.execution.status.toString().toLowerCase();
             shortResult.duration = result.execution.duration;
             shortResult.thread = result.execution.thread;
 
