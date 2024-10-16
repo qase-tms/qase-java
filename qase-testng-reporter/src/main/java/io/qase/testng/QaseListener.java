@@ -1,9 +1,8 @@
 package io.qase.testng;
 
 
+import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
-import io.qase.commons.config.ConfigFactory;
-import io.qase.commons.config.QaseConfig;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import org.testng.*;
@@ -16,68 +15,115 @@ import java.util.stream.Stream;
 
 import static io.qase.api.utils.IntegrationUtils.*;
 
-public class QaseListener extends TestListenerAdapter implements ITestListener {
+public class QaseListener implements ISuiteListener,
+        ITestListener,
+        IClassListener,
+        IInvokedMethodListener,
+        IConfigurationListener,
+        IMethodInterceptor {
 
     private final io.qase.commons.reporters.Reporter qaseTestCaseListener;
 
     public QaseListener() {
-        QaseConfig config = ConfigFactory.loadConfig();
-        this.qaseTestCaseListener = CoreReporterFactory.getInstance(config);
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance();
     }
 
     @Override
-    public void onStart(ITestContext testContext) {
+    public void onStart(final ISuite suite) {
         this.qaseTestCaseListener.startTestRun();
-        super.onStart(testContext);
     }
 
     @Override
-    public void onFinish(ITestContext context) {
+    public void onFinish(final ISuite suite) {
         this.qaseTestCaseListener.uploadResults();
         this.qaseTestCaseListener.completeTestRun();
-        super.onFinish(context);
+    }
+
+    @Override
+    public void onTestStart(ITestResult tr) {
+        TestResult result = startTestCase(tr);
+        CasesStorage.startCase(result);
     }
 
     @Override
     public void onTestSuccess(ITestResult tr) {
-        TestResult result = setupResultItem(tr, TestResultStatus.PASSED);
+        TestResult result = this.stopTestCase(tr, TestResultStatus.PASSED);
 
         if (result == null) {
             return;
         }
 
         this.qaseTestCaseListener.addResult(result);
-        super.onTestSuccess(tr);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        TestResult result = setupResultItem(tr, TestResultStatus.FAILED);
+        TestResult result = this.stopTestCase(tr, TestResultStatus.FAILED);
 
         if (result == null) {
             return;
         }
 
         this.qaseTestCaseListener.addResult(result);
-        super.onTestFailure(tr);
     }
 
-    private TestResult setupResultItem(ITestResult result, TestResultStatus status) {
+    @Override
+    public void onTestSkipped(ITestResult tr) {
+        TestResult result = this.stopTestCase(tr, TestResultStatus.SKIPPED);
+
+        if (result == null) {
+            return;
+        }
+
+        this.qaseTestCaseListener.addResult(result);
+    }
+
+    private TestResult stopTestCase(ITestResult result, TestResultStatus status) {
+        TestResult resultCreate = CasesStorage.getCurrentCase();
+        CasesStorage.stopCase();
+        if (resultCreate.ignore) {
+            return null;
+        }
+
         Optional<Throwable> resultThrowable = Optional.ofNullable(result.getThrowable());
         String comment = resultThrowable.flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
         String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        LinkedList<StepResult> steps = StepStorage.stopSteps();
+
+        resultCreate.execution.status = status;
+        resultCreate.execution.endTime = result.getEndMillis();
+        resultCreate.execution.duration = (int) (result.getEndMillis() - result.getStartMillis());
+        resultCreate.execution.stacktrace = stacktrace;
+        resultCreate.steps = steps;
+
+        if (comment != null) {
+            if (resultCreate.message != null) {
+                resultCreate.message += "\n\n" + comment;
+            } else {
+                resultCreate.message = comment;
+            }
+        }
+
+        return resultCreate;
+    }
+
+    private TestResult startTestCase(ITestResult result) {
+        TestResult resultCreate = new TestResult();
         Method method = result.getMethod().getConstructorOrMethod().getMethod();
         boolean ignore = getQaseIgnore(method);
+
         if (ignore) {
-            return null;
+            resultCreate.ignore = true;
+            return resultCreate;
         }
+
         Long caseId = getCaseId(method);
         String caseTitle = getCaseTitle(method);
-        LinkedList<StepResult> steps = StepStorage.stopSteps();
         Map<String, String> parameters = this.getParameters(result);
         Map<String, String> fields = getQaseFields(method);
         String suite = getQaseSuite(method);
         Relations relations = new Relations();
+
         if (suite != null) {
             String[] parts = suite.split("\t");
             for (String part : parts) {
@@ -91,15 +137,8 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
             relations.suite.data.add(className);
         }
 
-        TestResult resultCreate = new TestResult();
-        resultCreate.execution.status = status;
         resultCreate.execution.startTime = result.getStartMillis();
-        resultCreate.execution.endTime = result.getEndMillis();
-        resultCreate.execution.duration = (int) (result.getEndMillis() - result.getStartMillis());
-        resultCreate.execution.stacktrace = stacktrace;
-        resultCreate.message = comment;
         resultCreate.testopsId = caseId;
-        resultCreate.steps = steps;
         resultCreate.title = caseTitle;
         resultCreate.params = parameters;
         resultCreate.fields = fields;
@@ -149,5 +188,11 @@ public class QaseListener extends TestListenerAdapter implements ITestListener {
         }
 
         return testParameters;
+    }
+
+    // TODO: implement filtration
+    @Override
+    public List<IMethodInstance> intercept(List<IMethodInstance> list, ITestContext iTestContext) {
+        return list;
     }
 }

@@ -4,9 +4,12 @@ import io.qase.commons.QaseException;
 import io.qase.commons.client.ApiClient;
 import io.qase.commons.config.TestopsConfig;
 import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.models.domain.TestResultStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +47,10 @@ public class TestopsReporter implements InternalReporter {
     public void addResult(TestResult result) throws QaseException {
         this.results.add(result);
 
+        if (result.execution.status == TestResultStatus.FAILED) {
+            logger.info("See why this test failed: {}", this.prepareLink(result.testopsId, result.title));
+        }
+
         if (this.results.size() >= this.config.batch.size) {
             this.client.uploadResults(this.testRunId, this.results);
             this.results.clear();
@@ -78,5 +85,31 @@ public class TestopsReporter implements InternalReporter {
     public void setResults(List<TestResult> results) {
         this.results.clear();
         this.results.addAll(results);
+    }
+
+    private String prepareLink(Long id, String title) {
+        String baseLink = this.getBaseUrl(this.config.api.host) + "/run/"
+                + this.config.project + "/dashboard/" + this.testRunId
+                + "?source=logs&status=%5B2%5D&search=";
+
+        if (id != null) {
+            return baseLink + id;
+        }
+
+        try {
+            String encodedTitle = URLEncoder.encode(title, "UTF-8");
+            return baseLink + encodedTitle;
+        } catch (UnsupportedEncodingException e) {
+            logger.error("Error while encoding title", e);
+            return null;
+        }
+    }
+
+    private String getBaseUrl(String host) {
+        if (host.equals("qase.io")) {
+            return "https://app.qase.io";
+        }
+
+        return "https://" + host.replace("api", "app");
     }
 }

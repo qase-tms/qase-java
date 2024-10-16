@@ -190,41 +190,36 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
     private String uploadAttachment(Attachment attachment) {
         AttachmentsApi api = new AttachmentsApi(client);
-        File file = createOrGetFile(attachment);
+        File file;
+        boolean removeFile = false;
 
-        if (file == null) {
-            return "";
+        if (attachment.filePath != null) {
+            file = new File(attachment.filePath);
+        } else {
+            String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
+            file = new File(tempPath);
+
+            try (FileWriter fileWriter = new FileWriter(file)) {
+                fileWriter.write(attachment.content);
+                removeFile = true;
+            } catch (IOException e) {
+                logger.error("Failed to write attachment content to file: {}", e.getMessage());
+                return "";
+            }
         }
 
         try {
             List<Attachmentupload> response = api.uploadAttachment(this.config.testops.project, Collections.singletonList(file)).getResult();
-            return processUploadResponse(response, file);
+            return processUploadResponse(response, file, removeFile);
         } catch (ApiException e) {
-            logger.error("Failed to upload attachment: {}", e.getResponseBody());
+            logger.error("Failed to upload attachment: {}", e.getMessage());
             return "";
         }
     }
 
-    private File createOrGetFile(Attachment attachment) {
-        if (attachment.filePath != null) {
-            return new File(attachment.filePath);
-        }
 
-        String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
-        File file = new File(tempPath);
-
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write(attachment.content);
-        } catch (IOException e) {
-            logger.error("Failed to write attachment content to file: {}", e.getMessage());
-            return null;
-        }
-
-        return file;
-    }
-
-    private String processUploadResponse(List<Attachmentupload> response, File file) {
-        if (file != null && file.exists()) {
+    private String processUploadResponse(List<Attachmentupload> response, File file, boolean removeFile) {
+        if (file != null && file.exists() && removeFile) {
             file.delete();
         }
 

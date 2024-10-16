@@ -4,7 +4,7 @@ package io.qase.commons.models.domain;
 import java.util.*;
 
 public class StepResult {
-    public String id;
+    public String id = UUID.randomUUID().toString();
     public Data data;
     public String parentId;
     public StepExecution execution;

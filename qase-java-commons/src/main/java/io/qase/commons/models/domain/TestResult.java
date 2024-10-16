@@ -21,8 +21,9 @@ public class TestResult {
     public Relations relations;
     public boolean muted;
     public String message;
+    public boolean ignore = false;
 
-    public TestResult(){
+    public TestResult() {
         this.attachments = new ArrayList<>();
         this.steps = new ArrayList<>();
         this.params = new HashMap<>();
