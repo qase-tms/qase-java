@@ -3,6 +3,7 @@ package io.qase.commons.writers;
 import com.google.gson.Gson;
 import io.qase.commons.QaseException;
 import io.qase.commons.config.ConnectionConfig;
+import io.qase.commons.config.Format;
 import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.report.ReportResult;
 import io.qase.commons.models.report.Run;
@@ -21,8 +22,10 @@ public class FileWriter implements Writer {
     private final String rootPath;
     final String resultsPath;
     final String attachmentPath;
+    final Format format;
 
     public FileWriter(ConnectionConfig config) {
+        this.format = config.local.format;
         this.rootPath = Paths.get(System.getProperty("user.dir"), config.local.path).toString();
         this.resultsPath = Paths.get(this.rootPath, "results").toString();
         this.attachmentPath = Paths.get(this.rootPath, "attachments").toString();
@@ -47,7 +50,11 @@ public class FileWriter implements Writer {
         File file = new File(path);
 
         try (java.io.FileWriter fileWriter = new java.io.FileWriter(file)) {
-            fileWriter.write(gson.toJson(run));
+            String content = gson.toJson(run);
+            if (this.format == Format.JSONP) {
+                content = "qaseJsonp(" + content + ");";
+            }
+            fileWriter.write(content);
         } catch (IOException e) {
             throw new QaseException("Failed to write run result to file: " + path, e.getCause());
         }
@@ -60,14 +67,18 @@ public class FileWriter implements Writer {
         File file = new File(path);
 
         try (java.io.FileWriter fileWriter = new java.io.FileWriter(file)) {
-            fileWriter.write(gson.toJson(result));
+            String content = gson.toJson(result);
+            if (this.format == Format.JSONP) {
+                content = "qaseJsonp(" + content + ");";
+            }
+            fileWriter.write(content);
         } catch (IOException e) {
             throw new QaseException("Failed to write report result to file: " + path, e.getCause());
         }
     }
 
     @Override
-    public String writeAttachment(Attachment attachment){
+    public String writeAttachment(Attachment attachment) {
         if (attachment.filePath != null) {
             Path source = Paths.get(attachment.filePath);
             Path destination = Paths.get(this.attachmentPath, (attachment.id + "-" + source.getFileName().toString()));

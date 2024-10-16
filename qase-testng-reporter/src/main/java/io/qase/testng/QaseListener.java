@@ -11,6 +11,7 @@ import org.testng.xml.XmlTest;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static io.qase.api.utils.IntegrationUtils.*;
@@ -143,6 +144,7 @@ public class QaseListener implements ISuiteListener,
         resultCreate.params = parameters;
         resultCreate.fields = fields;
         resultCreate.relations = relations;
+        resultCreate.signature = generateSignature(method, caseId, parameters);
 
         return resultCreate;
     }
@@ -155,12 +157,12 @@ public class QaseListener implements ISuiteListener,
         List<Class<?>> injectedTypes = Arrays.asList(ITestContext.class, ITestResult.class, XmlTest.class, Method.class, Object[].class);
 
         final Class<?>[] parameterTypes = method.getParameterTypes();
+
         if (parameterTypes.length != parameters.length) {
             return testParameters;
         }
 
         final String[] providedNames = Optional.ofNullable(method.getAnnotation(Parameters.class)).map(Parameters::value).orElse(new String[]{});
-
         final String[] reflectionNames = Stream.of(method.getParameters()).map(java.lang.reflect.Parameter::getName).toArray(String[]::new);
 
         int skippedCount = 0;
@@ -194,5 +196,19 @@ public class QaseListener implements ISuiteListener,
     @Override
     public List<IMethodInstance> intercept(List<IMethodInstance> list, ITestContext iTestContext) {
         return list;
+    }
+
+    private static String generateSignature(Method testMethod, Long qaseId, Map<String, String> parameters) {
+        String packageName = testMethod.getDeclaringClass().getPackage().getName().toLowerCase().replace('.', ':');
+        String className = testMethod.getDeclaringClass().getSimpleName().toLowerCase();
+        String methodName = testMethod.getName().toLowerCase();
+        String qaseIdPart = qaseId != null ? "::" + qaseId : "";
+        String parametersPart = parameters != null && !parameters.isEmpty()
+                ? "::" + parameters.entrySet().stream()
+                .map(entry -> entry.getKey().toLowerCase() + "::" + entry.getValue().toLowerCase().replace(" ", "_"))
+                .collect(Collectors.joining("::"))
+                : "";
+
+        return String.format("%s::%s.java::%s::%s%s", packageName, className, className, methodName, qaseIdPart + parametersPart);
     }
 }
