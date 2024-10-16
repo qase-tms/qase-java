@@ -4,25 +4,30 @@ import io.qase.commons.models.domain.StepResult;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public final class StepStorage {
 
     private static final ThreadLocal<StepResult> STEP_IN_PROGRESS = new ThreadLocal<>();
-
+    private static final ThreadLocal<String> STEP_ID = new ThreadLocal<>();
     private static final ThreadLocal<LinkedList<StepResult>> STEPS_STORAGE =
             ThreadLocal.withInitial(LinkedList::new);
-
-    private static final ThreadLocal<Integer> STEP_POSITION = ThreadLocal.withInitial(() -> 1);
+    private static final Map<String, StepResult> STEPS_MAP = new ConcurrentHashMap<>();
 
     public static void startStep() {
-        checkStepIsNotInProgress();
-
         StepResult resultCreateSteps = new StepResult();
-        int position = STEP_POSITION.get();
-//        resultCreateSteps.position(position);
-        STEP_POSITION.set(++position);
+
+        if (isStepInProgress()) {
+            StepResult currentStep = getCurrentStep();
+            resultCreateSteps.parentId = currentStep.id;
+            currentStep.steps.add(resultCreateSteps);
+        }
+
+        STEP_ID.set(resultCreateSteps.id);
         STEP_IN_PROGRESS.set(resultCreateSteps);
+        STEPS_MAP.put(resultCreateSteps.id, resultCreateSteps);
     }
 
     public static void stopStep() {
@@ -30,6 +35,13 @@ public final class StepStorage {
 
         StepResult resultCreateSteps = STEP_IN_PROGRESS.get();
         resultCreateSteps.execution.stop();
+
+        if (resultCreateSteps.parentId != null) {
+            STEP_ID.set(resultCreateSteps.parentId);
+            STEP_IN_PROGRESS.set(STEPS_MAP.get(resultCreateSteps.parentId));
+            return;
+        }
+
         STEP_IN_PROGRESS.remove();
         STEPS_STORAGE.get().add(resultCreateSteps);
     }
@@ -61,7 +73,7 @@ public final class StepStorage {
 
         LinkedList<StepResult> resultCreateSteps = STEPS_STORAGE.get();
         STEPS_STORAGE.remove();
-        STEP_POSITION.set(1);
+
         return resultCreateSteps;
     }
 }
