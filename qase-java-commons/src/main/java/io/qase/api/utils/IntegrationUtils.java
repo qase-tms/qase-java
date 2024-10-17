@@ -66,7 +66,7 @@ public final class IntegrationUtils {
             QaseFields annotation = method.getDeclaredAnnotation(QaseFields.class);
             if (annotation != null) {
                 for (Field field : annotation.value()) {
-                    fields.put(field.key(), field.value());
+                    fields.put(field.name(), field.value());
                 }
             }
         }
