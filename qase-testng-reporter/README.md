@@ -19,7 +19,7 @@ Add the following dependency to your pom.xml:
 <dependencies>
 <dependency>
     <groupId>io.qase</groupId>
-    <artifactId>qase-testng</artifactId>
+    <artifactId>qase-testng-reporter</artifactId>
     <version>4.0.0</version>
     <scope>test</scope>
 </dependency>
@@ -70,7 +70,7 @@ tasks.withType(JavaCompile).configureEach {
 
 dependencies {
     aspectjweaver "org.aspectj:aspectjweaver:1.9.22"
-    testImplementation 'io.qase:qase-testng:4.0.0'
+    testImplementation 'io.qase:qase-testng-reporter:4.0.0'
     testImplementation 'org.testng:testng:7.1.0'
 }
 

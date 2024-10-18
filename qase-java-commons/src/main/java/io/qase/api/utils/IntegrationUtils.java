@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public final class IntegrationUtils {
     public static final List<String> CASE_TAGS = Collections.unmodifiableList(Arrays.asList("@caseId", "@tmsLink"));
@@ -83,5 +84,19 @@ public final class IntegrationUtils {
             return method.getDeclaredAnnotation(QaseSuite.class).value();
         }
         return null;
+    }
+
+    public static String generateSignature(Method testMethod, Long qaseId, Map<String, String> parameters) {
+        String packageName = testMethod.getDeclaringClass().getPackage().getName().toLowerCase().replace('.', ':');
+        String className = testMethod.getDeclaringClass().getSimpleName().toLowerCase();
+        String methodName = testMethod.getName().toLowerCase();
+        String qaseIdPart = qaseId != null ? "::" + qaseId : "";
+        String parametersPart = parameters != null && !parameters.isEmpty()
+                ? "::" + parameters.entrySet().stream()
+                .map(entry -> entry.getKey().toLowerCase() + "::" + entry.getValue().toLowerCase().replace(" ", "_"))
+                .collect(Collectors.joining("::"))
+                : "";
+
+        return String.format("%s::%s.java::%s::%s%s", packageName, className, className, methodName, qaseIdPart + parametersPart);
     }
 }
