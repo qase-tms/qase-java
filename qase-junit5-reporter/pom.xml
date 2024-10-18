@@ -16,11 +16,6 @@
     <dependencies>
         <dependency>
             <groupId>io.qase</groupId>
-            <artifactId>qase-api-client</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.qase</groupId>
             <artifactId>qase-java-commons</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
