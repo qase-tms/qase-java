@@ -10,8 +10,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public final class IntegrationUtils {
-    public static final List<String> CASE_TAGS = Collections.unmodifiableList(Arrays.asList("@caseId", "@tmsLink"));
-
     private IntegrationUtils() throws IllegalAccessException {
         throw new IllegalAccessException("Utils class");
     }
