@@ -5,7 +5,6 @@ import cucumber.api.Result;
 import cucumber.api.event.*;
 import cucumber.api.formatter.Formatter;
 import gherkin.pickles.PickleTag;
-import io.qase.api.QaseClient;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
 import io.qase.api.utils.CucumberUtils;
@@ -14,7 +13,6 @@ import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
 import okio.Path;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,14 +30,13 @@ public class QaseEventListener implements Formatter {
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-        if (QaseClient.isEnabled()) {
-            publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
-            publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-            publisher.registerHandlerFor(TestRunStarted.class, this::testRunStarted);
-            publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
-            publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
-            publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
-        }
+        publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
+        publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
+        publisher.registerHandlerFor(TestRunStarted.class, this::testRunStarted);
+        publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+        publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
+        publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
+
     }
 
     private void testRunStarted(TestRunStarted testRunStarted) {
@@ -61,11 +58,9 @@ public class QaseEventListener implements Formatter {
     private void testStepFinished(TestStepFinished testStepFinished) {
         if (testStepFinished.testStep instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.testStep;
-            String stepText = step.getStepText();
-            Result result = testStepFinished.result;
             StepResult stepResult = StepStorage.getCurrentStep();
-            stepResult.data.action = stepText;
-            stepResult.execution.status = this.convertStepStatus(result.getStatus());
+            stepResult.data.action = step.getStepText();
+            stepResult.execution.status = this.convertStepStatus(testStepFinished.result.getStatus());
             StepStorage.stopStep();
         }
     }
@@ -87,8 +82,11 @@ public class QaseEventListener implements Formatter {
 
     private TestResult startTestCase(TestCaseStarted event) {
         TestResult resultCreate = new TestResult();
-        List<PickleTag> pickleTags = event.testCase.getTags();
-        List<String> tags = pickleTags.stream().map(PickleTag::getName).collect(Collectors.toList());
+        List<String> tags = event.testCase
+                .getTags()
+                .stream()
+                .map(PickleTag::getName)
+                .collect(Collectors.toList());
 
         boolean ignore = CucumberUtils.getCaseIgnore(tags);
         if (ignore) {
@@ -99,8 +97,8 @@ public class QaseEventListener implements Formatter {
         Long caseId = CucumberUtils.getCaseId(tags);
         Map<String, String> fields = CucumberUtils.getCaseFields(tags);
 
-        String caseTitle = CucumberUtils.getCaseTitle(tags);
-        caseTitle = caseTitle != null ? caseTitle : event.testCase.getName();
+        String caseTitle = Optional.ofNullable(CucumberUtils.getCaseTitle(tags))
+                .orElse(event.testCase.getName());
 
         String suite = CucumberUtils.getCaseSuite(tags);
         Relations relations = new Relations();
@@ -139,21 +137,17 @@ public class QaseEventListener implements Formatter {
                 .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
         String stacktrace = optionalThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<StepResult> steps = StepStorage.stopSteps();
 
         resultCreate.execution.status = convertStatus(event.result.getStatus());
         resultCreate.execution.endTime = System.currentTimeMillis();
         resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
         resultCreate.execution.stacktrace = stacktrace;
-        resultCreate.steps = steps;
+        resultCreate.steps = StepStorage.stopSteps();;
 
-        if (comment != null) {
-            if (resultCreate.message != null) {
-                resultCreate.message += "\n\n" + comment;
-            } else {
-                resultCreate.message = comment;
-            }
-        }
+        optionalThrowable.ifPresent(throwable ->
+                resultCreate.message = Optional.ofNullable(resultCreate.message)
+                        .map(msg -> msg + "\n\n" + throwable.toString())
+                        .orElse(throwable.toString()));
 
         return resultCreate;
     }

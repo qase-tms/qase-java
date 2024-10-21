@@ -37,13 +37,10 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
-        //this.qaseTestCaseListener.startTestRun();
     }
 
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
-//        this.qaseTestCaseListener.uploadResults();
-//        this.qaseTestCaseListener.completeTestRun();
     }
 
     @Override
@@ -52,7 +49,6 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
             ReflectiveInvocationContext<Method> invocationContext,
             ExtensionContext extensionContext
     ) throws Throwable {
-        System.out.println("interceptTestTemplateMethod");
         TestResult result = startTestCase(extensionContext.getRequiredTestMethod(), invocationContext);
         CasesStorage.startCase(result);
 
@@ -65,8 +61,6 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
             ReflectiveInvocationContext<Method> invocationContext,
             ExtensionContext extensionContext
     ) throws Throwable {
-
-        System.out.println("interceptTestMethod");
         TestResult result = startTestCase(extensionContext.getRequiredTestMethod(), invocationContext);
         CasesStorage.startCase(result);
 
