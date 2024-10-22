@@ -246,9 +246,6 @@ Example `qase.config.json` config:
 }
 ```
 
-Check out the example of configuration for multiple reporters in the
-[demo project](../examples/cypress/cypress.config.js).
-
 ## Requirements
 
 `junit5 >= 5.0.0`

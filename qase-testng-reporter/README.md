@@ -219,9 +219,6 @@ Example `qase.config.json` config:
 }
 ```
 
-Check out the example of configuration for multiple reporters in the
-[demo project](../examples/cypress/cypress.config.js).
-
 ## Requirements
 
 `testng >= 7.0.0`
