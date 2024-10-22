@@ -1,10 +1,16 @@
-# How add QaseID to a test
+# Qase Integration in Cucumber 7
 
-You can add QaseID to a test in Cucumber 7 by using the `@QaseId` annotation. This annotation can receive a single ID in
-the
-form of an integer.
+This guide provides instructions for integrating Qase with Cucumber 7, showing how to add Qase IDs, titles, fields,
+suites, comments, and file attachments to your scenarios.
 
-Example:
+---
+
+## How to Add QaseID to a Test
+
+To associate a QaseID with a test scenario in Cucumber 7, use the `@QaseId` annotation. This annotation accepts a single
+integer representing the test case ID in Qase.
+
+### Example:
 
 ```gherkin
 Feature: Simple tests
@@ -15,13 +21,14 @@ Feature: Simple tests
     Then return true
 ```
 
-# How add Title to a test
+---
 
-You can add a title to a test in Cucumber 7 by using the `@QaseTitle` annotation. This annotation can receive a single
-title
-in the form of a string. If you don't use this annotation then the title will be the name of the test method.
+## How to Add a Title to a Test
 
-Example:
+You can set a custom title for a scenario in Cucumber 7 using the `@QaseTitle` annotation. It accepts a string as the
+title. If not provided, the scenario name will be used as the default title.
+
+### Example:
 
 ```gherkin
 Feature: Simple tests
@@ -32,20 +39,23 @@ Feature: Simple tests
     Then return true
 ```
 
-# How add Fields to a test
+---
 
-You can add fields to a test in Cucumber 7 by using the `@QaseFields` annotation. You can add multiple fields to a test.
+## How to Add Fields to a Test
 
-List of system fields:
+In Cucumber 7, you can enrich a test case with custom fields by using the `@QaseFields` annotation. Multiple fields can
+be added to provide additional information about the test case.
 
-- `description` - description of the test case
-- `preconditions` - preconditions of the test case
-- `postconditions` - postconditions of the test case
-- `severity` - severity of the test case
-- `priority` - priority of the test case
-- `layer` - layer of the test case
+### System Fields:
 
-Example:
+- `description` — Description of the test case.
+- `preconditions` — Preconditions for the test case.
+- `postconditions` — Postconditions for the test case.
+- `severity` — Severity of the test case (e.g., `critical`, `major`).
+- `priority` — Priority of the test case (e.g., `high`, `low`).
+- `layer` — Test layer (e.g., `UI`, `API`).
+
+### Example:
 
 ```gherkin
 Feature: Simple tests
@@ -56,13 +66,14 @@ Feature: Simple tests
     Then return true
 ```
 
-# How add Suite to a test
+---
 
-You can add a suite to a test in Cucumber 7 by using the `@QaseSuite` annotation. This annotation can receive a single
-suite
-and a multiple sub-suite in the form of a string.
+## How to Add a Suite to a Test
 
-Example:
+You can organize your scenarios into suites and sub-suites in Cucumber 7 using the `@QaseSuite` annotation. This
+annotation can receive a single suite name, and optionally sub-suite names, as strings.
+
+### Example:
 
 ```gherkin
 Feature: Simple tests
@@ -77,13 +88,14 @@ Feature: Simple tests
     Then return true
 ```
 
-# How ignore a test
+---
 
-You can ignore a test in Cucumber 7 by using the `@QaseIgnore` annotation. This annotation will ignore the test in Qase.
-The
-test will be executed, but the results will not be sent to Qase.
+## How to Ignore a Test
 
-Example:
+To prevent a scenario from being reported in Qase, use the `@QaseIgnore` annotation. The scenario will still be
+executed, but the results will not be sent to Qase.
+
+### Example:
 
 ```gherkin
 Feature: Simple tests
@@ -94,14 +106,14 @@ Feature: Simple tests
     Then return true
 ```
 
-# How add a comment to a test
+---
 
-You can add a comment to a test in Cucumber 7 by using the `Qase.comment` method. This method can receive a single
-comment
-in
-the form of a string. This comment will be added to the test result in Qase.
+## How to Add a Comment to a Test
 
-Example:
+You can add a comment to a test result in Qase using the `Qase.comment` method. This comment will be attached to the
+scenario's result in Qase.
+
+### Example:
 
 ```java
 package org.example;
@@ -117,14 +129,14 @@ public class Steps {
 }
 ```
 
-# How attach a file to a test
+---
 
-You can attach a file to a test in Cucumber 7 by using the `Qase.attach` method. This method can receive a single file
-or a
-multiple files in the form of an array of strings. Also, you can specify a name of the file, comment and type of the
-file. These files will be attached to the test result in Qase.
+## How to Attach a File to a Test
 
-Example:
+In Cucumber 7, files can be attached to test results in Qase using the `Qase.attach` method. This method supports
+attaching single or multiple files, and allows specifying a file name, comment, and type.
+
+### Example:
 
 ```java
 package org.example;
@@ -144,4 +156,6 @@ public class Steps {
         Qase.attach("file.txt", "Content", "text/plain");
     }
 }
+```
+
 ```

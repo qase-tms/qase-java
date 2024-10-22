@@ -1,9 +1,16 @@
-# How add QaseID to a test
+# Qase Integration in JUnit5
 
-You can add QaseID to a test in Junit5 by using the `@QaseId` annotation. This annotation can receive a single ID in the
-form of an integer.
+This guide demonstrates how to integrate Qase with JUnit5, providing instructions on how to add Qase IDs, titles,
+fields, suites, comments, and file attachments to your test cases.
 
-Example:
+---
+
+## How to Add QaseID to a Test
+
+You can associate a QaseID with a test in JUnit5 by using the `@QaseId` annotation. This annotation accepts a single
+integer representing the test case ID in Qase.
+
+### Example:
 
 ```java
 package org.example;
@@ -21,12 +28,14 @@ public class SimpleTests {
 }
 ```
 
-# How add Title to a test
+---
 
-You can add a title to a test in Junit5 by using the `@QaseTitle` annotation. This annotation can receive a single title
-in the form of a string. If you don't use this annotation then the title will be the name of the test method.
+## How to Add a Title to a Test
 
-Example:
+To set a custom title for a test in JUnit5, use the `@QaseTitle` annotation. This annotation accepts a string as the
+title. If you don't specify a title, the method name of the test will be used as the default title.
+
+### Example:
 
 ```java
 package org.example;
@@ -44,20 +53,23 @@ public class SimpleTests {
 }
 ```
 
-# How add Fields to a test
+---
 
-You can add fields to a test in Junit5 by using the `@QaseFields` annotation. You can add multiple fields to a test.
+## How to Add Fields to a Test
 
-List of system fields:
+You can enrich a test case with additional metadata by using the `@QaseFields` annotation in JUnit5. This annotation
+allows adding multiple fields that describe the test case.
 
-- `description` - description of the test case
-- `preconditions` - preconditions of the test case
-- `postconditions` - postconditions of the test case
-- `severity` - severity of the test case
-- `priority` - priority of the test case
-- `layer` - layer of the test case
+### System Fields:
 
-Example:
+- `description` — Description of the test case.
+- `preconditions` — Preconditions for the test case.
+- `postconditions` — Postconditions for the test case.
+- `severity` — Severity of the test case (e.g., `critical`, `major`).
+- `priority` — Priority of the test case (e.g., `high`, `low`).
+- `layer` — Test layer (e.g., `UI`, `API`).
+
+### Example:
 
 ```java
 package org.example;
@@ -83,12 +95,14 @@ public class SimpleTests {
 }
 ```
 
-# How add Suite to a test
+---
 
-You can add a suite to a test in Junit5 by using the `@QaseSuite` annotation. This annotation can receive a single suite
-and a multiple sub-suite in the form of a string.
+## How to Add a Suite to a Test
 
-Example:
+To categorize your test into a suite or sub-suite, use the `@QaseSuite` annotation in JUnit5. This annotation can
+receive a suite and optionally sub-suites as strings.
+
+### Example:
 
 ```java
 package org.example;
@@ -100,24 +114,26 @@ public class SimpleTests {
 
     @Test
     @QaseSuite("Suite")
-    public void test() {
+    public void testSuite() {
         System.out.println("Example test");
     }
 
     @Test
     @QaseSuite("Suite\tSubSuite")
-    public void test() {
+    public void testSubSuite() {
         System.out.println("Example test");
     }
 }
 ```
 
-# How ignore a test
+---
 
-You can ignore a test in Junit5 by using the `@QaseIgnore` annotation. This annotation will ignore the test in Qase. The
-test will be executed, but the results will not be sent to Qase.
+## How to Ignore a Test
 
-Example:
+To exclude a test from being reported in Qase, use the `@QaseIgnore` annotation in JUnit5. The test will still be
+executed, but its results will not be sent to Qase.
+
+### Example:
 
 ```java
 package org.example;
@@ -129,19 +145,20 @@ public class SimpleTests {
 
     @Test
     @QaseIgnore
-    public void test() {
+    public void ignoredTest() {
         System.out.println("Example test");
     }
 }
 ```
 
-# How add a comment to a test
+---
 
-You can add a comment to a test in Junit5 by using the `Qase.comment` method. This method can receive a single comment
-in
-the form of a string. This comment will be added to the test result in Qase.
+## How to Add a Comment to a Test
 
-Example:
+You can attach a comment to a test result in Qase using the `Qase.comment` method. This comment will be visible in the
+test result within Qase.
+
+### Example:
 
 ```java
 package org.example;
@@ -152,20 +169,21 @@ import org.junit.jupiter.api.Test;
 public class SimpleTests {
 
     @Test
-    public void test() {
+    public void testWithComment() {
         System.out.println("Example test");
-        Qase.comment("Example comment");
+        Qase.comment("This is a comment for the test result.");
     }
 }
 ```
 
-# How attach a file to a test
+---
 
-You can attach a file to a test in Junit5 by using the `Qase.attach` method. This method can receive a single file or a
-multiple files in the form of an array of strings. Also, you can specify a name of the file, comment and type of the
-file. These files will be attached to the test result in Qase.
+## How to Attach Files to a Test
 
-Example:
+You can attach files to a test result in Qase using the `Qase.attach` method. It supports attaching one or multiple
+files. You can also specify a file name, a comment, and a file type (MIME type).
+
+### Example:
 
 ```java
 package org.example;
@@ -176,11 +194,11 @@ import org.junit.jupiter.api.Test;
 public class SimpleTests {
 
     @Test
-    public void test() {
+    public void testWithAttachments() {
         System.out.println("Example test");
-        Qase.attach("path/to/file.txt");
-        Qase.attach("path/to/file.txt", "path/to/file1.txt");
-        Qase.attach("file.txt", "Example comment", "text/plain");
+        Qase.attach("path/to/file.txt");  // Attach a single file
+        Qase.attach("path/to/file.txt", "path/to/file1.txt");  // Attach multiple files
+        Qase.attach("file.txt", "Attached with comment", "text/plain");  // Attach with comment and type
     }
 }
 ```
