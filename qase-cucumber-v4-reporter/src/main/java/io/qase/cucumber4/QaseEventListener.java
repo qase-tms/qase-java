@@ -132,8 +132,6 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
 
         Optional<Throwable> optionalThrowable = Optional.ofNullable(event.result.getError());
-        String comment = optionalThrowable
-                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
         String stacktrace = optionalThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
 
