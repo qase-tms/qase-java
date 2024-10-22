@@ -19,7 +19,7 @@ Add the following dependency to your pom.xml:
 <dependencies>
 <dependency>
     <groupId>io.qase</groupId>
-    <artifactId>qase-testng-reporter</artifactId>
+    <artifactId>qase-cucumber-v3-reporter</artifactId>
     <version>4.0.0</version>
     <scope>test</scope>
 </dependency>

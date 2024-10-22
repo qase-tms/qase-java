@@ -62,6 +62,10 @@ public class TestopsReporter implements InternalReporter {
         int batchSize = this.config.batch.size;
         int totalResults = this.results.size();
 
+        if (totalResults == 0){
+            return;
+        }
+
         if (totalResults <= batchSize) {
             this.client.uploadResults(this.testRunId, this.results);
             this.results.clear();

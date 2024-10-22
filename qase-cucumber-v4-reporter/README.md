@@ -19,7 +19,7 @@ Add the following dependency to your pom.xml:
 <dependencies>
 <dependency>
     <groupId>io.qase</groupId>
-    <artifactId>qase-testng-reporter</artifactId>
+    <artifactId>qase-cucumber-v4-reporter</artifactId>
     <version>4.0.0</version>
     <scope>test</scope>
 </dependency>
@@ -100,7 +100,7 @@ dependencies {
     testImplementation("io.cucumber:cucumber-core:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-java:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
-    testImplementation("io.qase:qase-cucumber-v3-reporter:4.0.0")
+    testImplementation("io.qase:qase-cucumber-v4-reporter:4.0.0")
 }
 
 test {
