@@ -4,21 +4,16 @@ import cucumber.api.PickleStepTestStep;
 import cucumber.api.Result;
 import cucumber.api.event.*;
 import gherkin.pickles.PickleTag;
-import io.qase.api.QaseClient;
+import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
-import io.qase.commons.config.QaseConfig;
-import io.qase.api.services.QaseTestCaseListener;
 import io.qase.api.utils.CucumberUtils;
-import io.qase.api.utils.IntegrationUtils;
-import io.qase.client.v1.models.ResultCreate;
-import io.qase.client.v1.models.ResultCreateCase;
-import io.qase.client.v1.models.TestStepResultCreate;
-import io.qase.cucumber4.guice.module.Cucumber4Module;
-import lombok.AccessLevel;
-import lombok.Getter;
+import io.qase.commons.models.domain.*;
+import io.qase.commons.reporters.CoreReporterFactory;
+import io.qase.commons.reporters.Reporter;
+import okio.Path;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -26,25 +21,32 @@ import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements ConcurrentEventListener {
 
-    private static final String REPORTER_NAME = "Cucumber 4-JVM";
+    private final Reporter qaseTestCaseListener;
 
-    @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseTestCaseListener qaseTestCaseListener = createQaseListener();
-
-    static {
-        System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
+    public QaseEventListener() {
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance();
     }
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-        if (QaseClient.isEnabled()) {
-            publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
-            publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-            publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
-            publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
-            publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
-        }
+        publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
+        publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
+        publisher.registerHandlerFor(TestRunStarted.class, this::testRunStarted);
+        publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
+        publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
+        publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
+
     }
+
+    private void testRunStarted(TestRunStarted testRunStarted) {
+        this.qaseTestCaseListener.startTestRun();
+    }
+
+    private void testRunFinished(TestRunFinished testRunFinished) {
+        this.qaseTestCaseListener.uploadResults();
+        this.qaseTestCaseListener.completeTestRun();
+    }
+
 
     private void testStepStarted(TestStepStarted testStepStarted) {
         if (testStepStarted.testStep instanceof PickleStepTestStep) {
@@ -55,94 +57,127 @@ public class QaseEventListener implements ConcurrentEventListener {
     private void testStepFinished(TestStepFinished testStepFinished) {
         if (testStepFinished.testStep instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.testStep;
-            String stepText = step.getStepText();
-            Result result = testStepFinished.result;
-            switch (result.getStatus()) {
-                case PASSED:
-                    StepStorage.getCurrentStep()
-                            .action(stepText)
-                            .status(TestStepResultCreate.StatusEnum.PASSED);
-                    StepStorage.stopStep();
-                    break;
-                case SKIPPED:
-                    break;
-                case PENDING:
-                    break;
-                case UNDEFINED:
-                    break;
-                case AMBIGUOUS:
-                    break;
-                case FAILED:
-                    StepStorage.getCurrentStep()
-                            .action(stepText)
-                            .status(TestStepResultCreate.StatusEnum.FAILED)
-                            .addAttachmentsItem(IntegrationUtils.getStacktrace(result.getError()));
-                    StepStorage.stopStep();
-                    break;
-                case UNUSED:
-                    break;
-            }
+            StepResult stepResult = StepStorage.getCurrentStep();
+            stepResult.data.action = step.getStepText();
+            stepResult.execution.status = this.convertStepStatus(testStepFinished.result.getStatus());
+            StepStorage.stopStep();
         }
-    }
-
-    private void testRunFinished(TestRunFinished testRunFinished) {
-        getQaseTestCaseListener().onTestCasesSetFinished();
     }
 
     private void testCaseStarted(TestCaseStarted event) {
-        getQaseTestCaseListener().onTestCaseStarted();
+        TestResult resultCreate = startTestCase(event);
+        CasesStorage.startCase(resultCreate);
     }
 
     private void testCaseFinished(TestCaseFinished event) {
-        getQaseTestCaseListener().onTestCaseFinished(resultCreate -> setupResultItem(resultCreate, event));
-    }
+        TestResult result = this.stopTestCase(event);
 
-    private ResultCreate setupResultItem(ResultCreate resultCreate, TestCaseFinished event) {
-        List<PickleTag> pickleTags = event.testCase.getTags();
-        List<String> tags = pickleTags.stream().map(PickleTag::getName).collect(Collectors.toList());
-        Long caseId = CucumberUtils.getCaseId(tags);
-
-        String caseTitle = null;
-        if (caseId == null) {
-            caseTitle = event.getTestCase().getName();
+        if (result == null) {
+            return;
         }
 
-        String status = convertStatus(event.result.getStatus());
+        this.qaseTestCaseListener.addResult(result);
+    }
+
+    private TestResult startTestCase(TestCaseStarted event) {
+        TestResult resultCreate = new TestResult();
+        List<String> tags = event.testCase
+                .getTags()
+                .stream()
+                .map(PickleTag::getName)
+                .collect(Collectors.toList());
+
+        boolean ignore = CucumberUtils.getCaseIgnore(tags);
+        if (ignore) {
+            resultCreate.ignore = true;
+            return resultCreate;
+        }
+
+        Long caseId = CucumberUtils.getCaseId(tags);
+        Map<String, String> fields = CucumberUtils.getCaseFields(tags);
+
+        String caseTitle = Optional.ofNullable(CucumberUtils.getCaseTitle(tags))
+                .orElse(event.testCase.getName());
+
+        String suite = CucumberUtils.getCaseSuite(tags);
+        Relations relations = new Relations();
+        if (suite != null) {
+            String[] parts = suite.split("\t");
+            for (String part : parts) {
+                SuiteData data = new SuiteData();
+                data.title = part;
+                relations.suite.data.add(data);
+            }
+        } else {
+            SuiteData className = new SuiteData();
+            String[] parts = event.testCase.getScenarioDesignation().split(":")[0].split(Path.DIRECTORY_SEPARATOR);
+            className.title = parts[parts.length - 1];
+            relations.suite.data.add(className);
+        }
+
+        resultCreate.title = caseTitle;
+        resultCreate.testopsId = caseId;
+        resultCreate.execution.startTime = System.currentTimeMillis();
+        resultCreate.fields = fields;
+        resultCreate.relations = relations;
+
+        return resultCreate;
+    }
+
+    private TestResult stopTestCase(TestCaseFinished event) {
+        TestResult resultCreate = CasesStorage.getCurrentCase();
+        CasesStorage.stopCase();
+        if (resultCreate.ignore) {
+            return null;
+        }
+
         Optional<Throwable> optionalThrowable = Optional.ofNullable(event.result.getError());
         String comment = optionalThrowable
                 .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-        Boolean isDefect = optionalThrowable
-                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-                .orElse(false);
         String stacktrace = optionalThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
-        return resultCreate
-                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
-                .caseId(caseId)
-                .status(status)
-                .comment(comment)
-                .stacktrace(stacktrace)
-                .steps(steps.isEmpty() ? null : steps)
-                .defect(isDefect);
+
+        resultCreate.execution.status = convertStatus(event.result.getStatus());
+        resultCreate.execution.endTime = System.currentTimeMillis();
+        resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
+        resultCreate.execution.stacktrace = stacktrace;
+        resultCreate.steps = StepStorage.stopSteps();;
+
+        optionalThrowable.ifPresent(throwable ->
+                resultCreate.message = Optional.ofNullable(resultCreate.message)
+                        .map(msg -> msg + "\n\n" + throwable.toString())
+                        .orElse(throwable.toString()));
+
+        return resultCreate;
     }
 
-    private String convertStatus(Result.Type status) {
+    private TestResultStatus convertStatus(Result.Type status) {
         switch (status) {
             case FAILED:
-                return "failed";
+                return TestResultStatus.FAILED;
             case PASSED:
-                return "passed";
+                return TestResultStatus.PASSED;
             case PENDING:
             case SKIPPED:
             case AMBIGUOUS:
             case UNDEFINED:
             default:
-                return "skipped";
+                return TestResultStatus.SKIPPED;
         }
     }
 
-    private static QaseTestCaseListener createQaseListener() {
-        return Cucumber4Module.getInjector().getInstance(QaseTestCaseListener.class);
+    private StepResultStatus convertStepStatus(Result.Type status) {
+        switch (status) {
+            case PASSED:
+                return StepResultStatus.PASSED;
+            case FAILED:
+                return StepResultStatus.FAILED;
+            case PENDING:
+            case UNDEFINED:
+            case AMBIGUOUS:
+            case SKIPPED:
+            default:
+                return StepResultStatus.BLOCKED;
+        }
     }
 }
