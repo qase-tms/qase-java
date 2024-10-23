@@ -1,90 +1,100 @@
 package io.qase.junit4;
 
 
+import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
-import io.qase.commons.annotation.CaseId;
-import io.qase.commons.annotation.CaseTitle;
-import io.qase.commons.annotation.QaseId;
-import io.qase.commons.annotation.QaseTitle;
-import io.qase.commons.config.QaseConfig;
-import io.qase.api.services.QaseTestCaseListener;
-import io.qase.client.v1.models.ResultCreate;
-import io.qase.client.v1.models.ResultCreateCase;
-import io.qase.client.v1.models.TestStepResultCreate;
-import io.qase.junit4.guice.module.Junit4Module;
-import lombok.AccessLevel;
-import lombok.Getter;
+import io.qase.commons.annotation.*;
+import io.qase.commons.models.annotation.Field;
+import io.qase.commons.models.domain.*;
+import io.qase.commons.reporters.CoreReporterFactory;
+import io.qase.commons.reporters.Reporter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.Description;
-import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static io.qase.api.utils.IntegrationUtils.getStacktrace;
+import static io.qase.api.utils.IntegrationUtils.*;
 
 @Slf4j
+@RunListener.ThreadSafe
 public class QaseListener extends RunListener {
-
-    public static final String REPORTER_NAME = "JUnit 4";
-
-    @Getter(lazy = true, value = AccessLevel.PRIVATE)
-    private final QaseTestCaseListener qaseTestCaseListener = createQaseListener();
-
     private final Set<String> methods = new HashSet<>();
+    private final Reporter qaseTestCaseListener;
 
-    static {
-        System.setProperty(QaseConfig.QASE_CLIENT_REPORTER_NAME_KEY, REPORTER_NAME);
+    public QaseListener() {
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance();
+    }
+
+    @Override
+    public void testSuiteStarted(Description description) {
+        this.qaseTestCaseListener.startTestRun();
+    }
+
+    @Override
+    public void testSuiteFinished(Description result) {
+        this.qaseTestCaseListener.uploadResults();
+        this.qaseTestCaseListener.completeTestRun();
     }
 
     @Override
     public void testStarted(Description description) {
-        getQaseTestCaseListener().onTestCaseStarted();
+        TestResult resultCreate = startTestCase(description);
+        CasesStorage.startCase(resultCreate);
     }
 
     @Override
     public void testFinished(Description description) {
         if (addIfNotPresent(description)) {
-            getQaseTestCaseListener().onTestCaseFinished(
-                    resultCreate -> setupResultItem(resultCreate, description, "passed", null)
-            );
+            TestResult result = this.stopTestCase(TestResultStatus.PASSED, null);
+
+            if (result == null) {
+                return;
+            }
+
+            this.qaseTestCaseListener.addResult(result);
         }
     }
 
     @Override
     public void testFailure(Failure failure) {
         if (addIfNotPresent(failure.getDescription())) {
-            getQaseTestCaseListener().onTestCaseFinished(
-                    resultCreate -> setupResultItem(resultCreate, failure.getDescription(), "failed", failure.getException())
-            );
+            TestResult result = this.stopTestCase(TestResultStatus.FAILED, failure.getException());
+
+            if (result == null) {
+                return;
+            }
+
+            this.qaseTestCaseListener.addResult(result);
         }
     }
 
     @Override
     public void testAssumptionFailure(Failure failure) {
         if (addIfNotPresent(failure.getDescription())) {
-            getQaseTestCaseListener().onTestCaseFinished(
-                    resultCreate -> setupResultItem(resultCreate, failure.getDescription(), "skipped", null)
-            );
+            TestResult result = this.stopTestCase(TestResultStatus.FAILED, failure.getException());
+
+            if (result == null) {
+                return;
+            }
+
+            this.qaseTestCaseListener.addResult(result);
         }
     }
 
     @Override
     public void testIgnored(Description description) {
         if (addIfNotPresent(description)) {
-            getQaseTestCaseListener().onTestCaseFinished(
-                    resultCreate -> setupResultItem(resultCreate, description, "skipped", null)
-            );
-        }
-    }
+            TestResult result = this.stopTestCase(TestResultStatus.SKIPPED, null);
 
-    @Override
-    public void testRunFinished(Result result) {
-        getQaseTestCaseListener().onTestCasesSetFinished();
+            if (result == null) {
+                return;
+            }
+
+            this.qaseTestCaseListener.addResult(result);
+        }
     }
 
     private boolean addIfNotPresent(Description description) {
@@ -96,30 +106,71 @@ public class QaseListener extends RunListener {
         return true;
     }
 
-    private ResultCreate setupResultItem(ResultCreate resultCreate, Description description, String status, Throwable error) {
-        methods.add(description.getClassName() + description.getMethodName());
-        Long caseId = getCaseId(description);
-        String caseTitle = null;
-        if (caseId == null) {
-            caseTitle = getCaseTitle(description);
+    private TestResult startTestCase(Description description) {
+        TestResult resultCreate = new TestResult();
+        boolean ignore = getQaseIgnore(description);
+
+        if (ignore) {
+            resultCreate.ignore = true;
+            return resultCreate;
         }
-        Optional<Throwable> optionalThrowable = Optional.ofNullable(error);
-        String comment = optionalThrowable
-                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-        Boolean isDefect = optionalThrowable
-                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-                .orElse(false);
-        String stacktrace = optionalThrowable
-                .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<TestStepResultCreate> steps = StepStorage.stopSteps();
-        return resultCreate
-                ._case(caseTitle == null ? null : new ResultCreateCase().title(caseTitle))
-                .caseId(caseId)
-                .status(status)
-                .comment(comment)
-                .stacktrace(stacktrace)
-                .steps(steps.isEmpty() ? null : steps)
-                .defect(isDefect);
+
+        Long caseId = getCaseId(description);
+        String caseTitle = getCaseTitle(description);
+        Map<String, String> fields = getQaseFields(description);
+        String suite = getQaseSuite(description);
+        Relations relations = new Relations();
+
+        if (suite != null) {
+            String[] parts = suite.split("\t");
+            for (String part : parts) {
+                SuiteData data = new SuiteData();
+                data.title = part;
+                relations.suite.data.add(data);
+            }
+        } else {
+            SuiteData className = new SuiteData();
+            className.title = description.getClassName();
+            relations.suite.data.add(className);
+        }
+
+        resultCreate.execution.startTime = System.currentTimeMillis();
+        resultCreate.testopsId = caseId;
+        resultCreate.title = caseTitle;
+        resultCreate.fields = fields;
+        resultCreate.relations = relations;
+        resultCreate.signature = generateSignature(description, caseId, null);
+
+        return resultCreate;
+    }
+
+    private TestResult stopTestCase(TestResultStatus status, Throwable error) {
+        TestResult resultCreate = CasesStorage.getCurrentCase();
+        CasesStorage.stopCase();
+        if (resultCreate.ignore) {
+            return null;
+        }
+
+        Optional<Throwable> resultThrowable = Optional.ofNullable(error);
+        String comment = resultThrowable.flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+        String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        LinkedList<StepResult> steps = StepStorage.stopSteps();
+
+        resultCreate.execution.status = status;
+        resultCreate.execution.endTime = System.currentTimeMillis();
+        resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
+        resultCreate.execution.stacktrace = stacktrace;
+        resultCreate.steps = steps;
+
+        if (comment != null) {
+            if (resultCreate.message != null) {
+                resultCreate.message += "\n\n" + comment;
+            } else {
+                resultCreate.message = comment;
+            }
+        }
+
+        return resultCreate;
     }
 
     private Long getCaseId(Description description) {
@@ -137,7 +188,7 @@ public class QaseListener extends RunListener {
             return qaseTitle;
         }
         CaseTitle caseTitleAnnotation = description.getAnnotation(CaseTitle.class);
-        return caseTitleAnnotation != null ? caseTitleAnnotation.value() : null;
+        return caseTitleAnnotation != null ? caseTitleAnnotation.value() : description.getMethodName();
     }
 
     private Long getQaseId(Description description) {
@@ -150,7 +201,41 @@ public class QaseListener extends RunListener {
         return caseTitleAnnotation != null ? caseTitleAnnotation.value() : null;
     }
 
-    private static QaseTestCaseListener createQaseListener() {
-        return Junit4Module.getInjector().getInstance(QaseTestCaseListener.class);
+    private boolean getQaseIgnore(Description description) {
+        return description.getAnnotation(QaseIgnore.class) != null;
+    }
+
+    private String getQaseSuite(Description description) {
+        if (description.getAnnotation(QaseSuite.class) != null) {
+            return description.getAnnotation(QaseSuite.class).value();
+        }
+        return null;
+    }
+
+    private Map<String, String> getQaseFields(Description description) {
+        Map<String, String> fields = new HashMap<>();
+
+        QaseFields annotation = description.getAnnotation(QaseFields.class);
+        if (annotation != null) {
+            for (Field field : annotation.value()) {
+                fields.put(field.name(), field.value());
+            }
+        }
+
+        return fields;
+    }
+
+    private String generateSignature(Description description, Long qaseId, Map<String, String> parameters) {
+        String className = description.getClassName().toLowerCase().replace(".", ":");
+        String[] parts = description.getMethodName().split("\\.");
+        String methodName = parts[parts.length - 1].toLowerCase();
+        String qaseIdPart = qaseId != null ? "::" + qaseId : "";
+        String parametersPart = parameters != null && !parameters.isEmpty()
+                ? "::" + parameters.entrySet().stream()
+                .map(entry -> entry.getKey().toLowerCase() + "::" + entry.getValue().toLowerCase().replace(" ", "_"))
+                .collect(Collectors.joining("::"))
+                : "";
+
+        return String.format("%s.java::%s::%s%s", className, className, methodName, qaseIdPart + parametersPart);
     }
 }

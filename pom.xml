@@ -19,7 +19,6 @@
         <module>qase-cucumber-v5-reporter</module>
         <module>qase-cucumber-v6-reporter</module>
         <module>qase-cucumber-v7-reporter</module>
-        <module>qase-junit4-aspect</module>
     </modules>
 
     <url>https://www.qase.io</url>

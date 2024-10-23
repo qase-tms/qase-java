@@ -1,6 +1,6 @@
 <aspectj>
     <weaver options="-warn:none -Xlint:ignore"/>
     <aspects>
-        <aspect name="io.qase.api.aspects.QaseJunit4Aspects"/>
+        <aspect name="io.qase.junit4.QaseJunit4Aspects"/>
     </aspects>
 </aspectj>
