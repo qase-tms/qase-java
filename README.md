@@ -10,7 +10,7 @@ For all of our reporters, there are two versions:
 If you're just starting, pick v4.
 If your project is using a v3 reporter, check out the reporter's readme for the migration guide.
 
-| Name                     | Package name                | v4 series                                                                                      | v1 series                                                                                   |
+| Name                     | Package name                | v4 series                                                                                      | v3 series                                                                                   |
 |:-------------------------|:----------------------------|:-----------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------|
 | **Qase Java Reporters**  |
 | Cucumber3                | `qase-cucumber-v3-reporter` | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-cucumber-v3-reporter#readme) | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-cucumber3-jvm#readme) |
