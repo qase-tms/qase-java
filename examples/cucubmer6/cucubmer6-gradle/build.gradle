@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = "utf-8"
+}
+
+def cucumberVersion = "6.11.0"
+
+dependencies {
+    testImplementation 'org.testng:testng:7.5'
+    testImplementation("io.cucumber:cucumber-core:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-java:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
+    testImplementation("io.qase:qase-cucumber-v6-reporter:4.0.0")
+}
+
+test {
+    useTestNG()
+    systemProperties(System.getProperties())
+}

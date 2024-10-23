@@ -1,0 +1,31 @@
+{
+  "mode": "testops",
+  "fallback": "off",
+  "debug": true,
+  "report": {
+    "driver": "local",
+    "connection": {
+      "local": {
+        "path": "./build/qase-report",
+        "format": "jsonp"
+      }
+    }
+  },
+  "testops": {
+    "api": {
+      "token": "45a0b4c1e0cc6c64580a82565d939779490097e0d7a7d8ccfe77393346b426fb",
+      "host": "qase.io"
+    },
+    "run": {
+      "title": "Cucumber3 new version run",
+      "description": "Cucumber3 examples",
+      "complete": true
+    },
+    "defect": false,
+    "project": "DEVX",
+    "batch": {
+      "size": 200
+    },
+    "useV2": false
+  }
+}

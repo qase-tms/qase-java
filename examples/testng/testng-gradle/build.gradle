@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+configurations {
+    aspectConfig
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = "utf-8"
+    // Allows the adapter to accept real parameter names
+    options.compilerArgs.add("-parameters")
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    testImplementation "org.aspectj:aspectjrt:1.9.22"
+    testImplementation "org.testng:testng:7.5"
+    testImplementation 'io.qase:qase-testng-reporter:4.0.0'
+    aspectConfig "org.aspectj:aspectjweaver:1.9.22"
+}
+
+test {
+    useTestNG()
+    doFirst {
+        def weaver = configurations.aspectConfig.find { it.name.contains("aspectjweaver") }
+        jvmArgs += "-javaagent:$weaver"
+    }
+}
