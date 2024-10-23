@@ -1,103 +1,44 @@
-# Qase TMS Java Integrations #
-[![License](https://lxgaming.github.io/badges/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+# [Qase TestOps](https://qase.io) reporters for Java
 
-## Description ##
-The repository contains Java Libraries for the Qase TMS integration
+Monorepo with [Qase TestOps](https://qase.io) reporters for Java testing frameworks.
 
-## Usage
+For all of our reporters, there are two versions:
 
-### Configuration
+* The latest v4 series, either already released or in the beta stage.
+* The v3 series, stable and receiving only bugfixes.
 
-Use the following options to configure integration:
+If you're just starting, pick v4.
+If your project is using a v3 reporter, check out the reporter's readme for the migration guide.
 
-|          Key          |  Type   |                          Description                          |
-|:---------------------:|:-------:|:-------------------------------------------------------------:|
-|      QASE_ENABLE      | boolean |                         Use Qase TMS                          |
-|   QASE_PROJECT_CODE   | string  |                   Project Code in Qase TMS                    |
-|      QASE_RUN_ID      | integer |                    Test Run ID in Qase TMS                    |
-|    QASE_API_TOKEN     | string  |                    API Token for Qase TMS                     |
-|     QASE_USE_BULK     | boolean |                 Use Bulk Send (default: true)                 |
-|     QASE_RUN_NAME     | string  |    Name of the new Test Run (only if QASE_RUN_ID not set)     |
-| QASE_RUN_DESCRIPTION  | string  | Description of the new Test Run (only if QASE_RUN_ID not set) |
-| QASE_RUN_AUTOCOMPLETE | boolean |           Complete test run after passing autotests           |
+| Name                     | Package name                | v4 series                                                                                      | v1 series                                                                                   |
+|:-------------------------|:----------------------------|:-----------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------|
+| **Qase Java Reporters**  |
+| Cucumber3                | `qase-cucumber-v3-reporter` | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-cucumber-v3-reporter#readme) | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-cucumber3-jvm#readme) |
+| Cucumber4                | `qase-cucumber-v4-reporter` | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-cucumber-v4-reporter#readme) | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-cucumber4-jvm#readme) |
+| Cucumber5                | `qase-cucumber-v5-reporter` | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-cucumber-v5-reporter#readme) | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-cucumber5-jvm#readme) |
+| Cucumber6                | `qase-cucumber-v6-reporter` | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-cucumber-v6-reporter#readme) | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-cucumber6-jvm#readme) |
+| Cucumber7                | `qase-cucumber-v7-reporter` | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-cucumber-v7-reporter#readme) | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-cucumber7-jvm#readme) |
+| Junit4                   | `qase-junit4-reporter`      | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-junit4-reporter#readme)      | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-junit4#readme)        |
+| Junit5                   | `qase-junit5-reporter`      | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-junit5-reporter#readme)      | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-junit5#readme)        |
+| TestNG                   | `qase-testng-reporter`      | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-testng-reporter#readme)      | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-testng#readme)        |
+| **Qase Java SDK**        |
+| Common functions library | `qase-java-commons`         | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-java-commons#readme)         | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-api#readme)           |
+| Java API client          | `qase-api-client`           | [✅ released](https://github.com/qase-tms/qase-java/tree/main/qase-api-client#readme)           | [🗿deprecated](https://github.com/qase-tms/qase-java/tree/master/qase-api#readme)           |
 
-All options could be provided by both system properties and environment variables.
+What each status means:
 
-For example, you can provide options by system properties using CLI:
+* The "✅ released" reporters are stable and well-tested versions.
+  They will receive more new features as well as bugfixes, should we find bugs.
 
-```bash
-mvn clean test -DQASE_ENABLE=true -DQASE_PROJECT_CODE=PRJ -DQASE_RUN_ID=123 -DQASE_API_TOKEN=secret-token
-```
+* The "🧪 open beta" reporters are in active development and rigorous testing.
+  It's completely usable (and much more fun to use than v3), but there can be some bugs and minor syntax changes.
+  When starting a new test project, the "🧪 open beta" versions are the recommended choice.
+  For existing projects, we recommend planning a migration — see the migration section in each
+  reporter's readme and try out the new features.
 
-### Link autotests with test-cases
+* The "🧰 closed beta" reporters are in active development, and
+  can still have major bugs and future syntax changes.
+  However, we encourage experimenting with them.
+  Your feedback is always welcome.
 
-To link tests with test-cases in Qase TMS you should use annotation `@io.qase.api.annotation.QaseId`:
-
-```java
-@Test
-@QaseId(123)
-public void someTest(){
-        ...
-        }
-```
-
-### TestCase as a Code
-
-For using Test Case as a Code, you could mark your test by annotation `@io.qase.api.annotation.QaseTitle`:
-
-```java
-@Test
-@CaseTitle("Case Title")
-public void someTest(){
-        steps.someStep1();
-        steps.someStep2();
-        }
-```
-
-The steps of the test case you can mark by annotation `@io.qase.api.annotation.Step`:
-
-```java
-@Step("Some step1")
-public void someStep1(){
-        // do something
-        }
-
-@Step("Some step2")
-public void someStep2(){
-        // do something
-        }
-```
-
-You can add the method argument value to the step name by using the argument name in the placeholder:
-
-```java
-@Step("Step {arg1} and {arg2}")
-public void step(String arg1,int arg2){
-        // do something
-        }
-```
-
-After the test run is completed, a test case will be created if it did not already exist.
-
-### Sending tests to existing Test Run in Qase TMS
-
-Test Run in TMS will contain only those test results, which are presented in testrun:
-
-```bash
-mvn clean test \
-      -DQASE_ENABLE=true \
-      -DQASE_PROJECT_CODE=PRJ \ # project, where your testrun exists in
-      -DQASE_RUN_ID=123 \ # testrun id
-      -DQASE_API_TOKEN=<your api token here>
-```
-
-### Creating Test Run in Qase TMS base on Autotest's test run
-
-```bash
-mvn clean test \
-      -DQASE_ENABLE=true \
-      -DQASE_PROJECT_CODE=PRJ \ # the project where your test run will be created
-      -DQASE_RUN_NAME=NEW_RUN_NAME \ # name of new test run creating in Qase TMS
-      -DQASE_RUN_DESCRIPTION=NEW_RUN_DESCRIPTION \ # description of new test run creating in Qase TMS
-      -DQASE_API_TOKEN=<your api token here>
-```
+* The v3 series reporters in the "🗿stable" or "🗿deprecated" status only get some fixes, but no new features.
