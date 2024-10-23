@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
 
-import static io.qase.api.utils.IntegrationUtils.*;
+import static io.qase.commons.utils.IntegrationUtils.*;
 
 
 public class QaseListener implements TestExecutionListener, Extension, BeforeAllCallback, AfterAllCallback, InvocationInterceptor, TestWatcher {

@@ -3,7 +3,7 @@ package io.qase.cucumber5;
 import io.cucumber.plugin.event.*;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
-import io.qase.api.utils.CucumberUtils;
+import io.qase.commons.utils.CucumberUtils;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.cucumber.plugin.ConcurrentEventListener;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static io.qase.api.utils.IntegrationUtils.getStacktrace;
+import static io.qase.commons.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements ConcurrentEventListener {
 

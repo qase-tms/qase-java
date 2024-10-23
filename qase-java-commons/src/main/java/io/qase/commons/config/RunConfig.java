@@ -1,6 +1,6 @@
 package io.qase.commons.config;
 
-import io.qase.api.utils.StringUtils;
+import io.qase.commons.utils.StringUtils;
 
 public class RunConfig {
     public String title = "Automated run " + StringUtils.getDateTime();

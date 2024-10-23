@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static io.qase.api.utils.IntegrationUtils.*;
+import static io.qase.commons.utils.IntegrationUtils.*;
 
 public class QaseListener implements ISuiteListener,
         ITestListener,

@@ -16,7 +16,7 @@ import org.junit.runner.notification.RunListener;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static io.qase.api.utils.IntegrationUtils.*;
+import static io.qase.commons.utils.IntegrationUtils.*;
 
 @Slf4j
 @RunListener.ThreadSafe

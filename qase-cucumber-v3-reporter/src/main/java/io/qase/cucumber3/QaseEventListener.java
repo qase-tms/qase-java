@@ -7,7 +7,7 @@ import cucumber.api.formatter.Formatter;
 import gherkin.pickles.PickleTag;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
-import io.qase.api.utils.CucumberUtils;
+import io.qase.commons.utils.CucumberUtils;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static io.qase.api.utils.IntegrationUtils.getStacktrace;
+import static io.qase.commons.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements Formatter {
 

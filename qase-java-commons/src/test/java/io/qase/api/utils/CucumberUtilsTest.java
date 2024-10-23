@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static io.qase.api.utils.CucumberUtils.getCaseId;
+import static io.qase.commons.utils.CucumberUtils.getCaseId;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CucumberUtilsTest {
