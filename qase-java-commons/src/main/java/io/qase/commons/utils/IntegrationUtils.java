@@ -1,4 +1,4 @@
-package io.qase.api.utils;
+package io.qase.commons.utils;
 
 import io.qase.commons.annotation.*;
 import io.qase.commons.models.annotation.Field;
