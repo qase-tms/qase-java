@@ -1,4 +1,4 @@
-# Qase TMS Java API Client
+# Qase TMS Java API V2 Client
 
 ## Installation
 
@@ -12,7 +12,7 @@ Add the following dependency to your `pom.xml`:
 
 <dependency>
     <groupId>io.qase</groupId>
-    <artifactId>qase-api-client</artifactId>
+    <artifactId>qase-api-v2-client</artifactId>
     <version>4.0.0</version>
 </dependency>
 ```
@@ -22,7 +22,7 @@ Add the following dependency to your `pom.xml`:
 Add the following dependency to your `build.gradle`:
 
 ```groovy
-testImplementation 'io.qase:qase-api-client:4.0.0'
+testImplementation 'io.qase:qase-api-v2-client:4.0.0'
 ```
 
 ## Usage
@@ -35,42 +35,40 @@ the [API tokens page](https://app.qase.io/user/api/token).
 Replace `api_token` with your personal API key:
 
 ```java
-import io.qase.client.ApiClient;
+import io.qase.client.v2.ApiClient;
 
 public class Example {
     public static void main(String[] args) {
         ApiClient apiClient = new ApiClient();
-        apiClient.setBasePath("https://api.qase.io/v1");
+        apiClient.setBasePath("https://api.qase.io/v2");
         apiClient.setApiKey("api_token");
     }
 }
 ```
 
-### Example: Creating a New Test Run
+### Example: Uploading Test Results
 
-To create a new test run, use the following:
+To upload test results, use the following:
 
 ```java
-import io.qase.client.api.RunsApi;
-import io.qase.client.model.RunCreate;
-import io.qase.client.model.RunCreateResponse;
-import io.qase.client.ApiClient;
+import io.qase.client.v2.api.ResultsApi;
+import io.qase.client.v2.model.ResultCreate;
+import io.qase.client.v2.model.CreateResultV2422Response;
+import io.qase.client.v2.ApiClient;
 
-public class TestRunExample {
+public class UploadTestResultExample {
     public static void main(String[] args) {
         ApiClient apiClient = new ApiClient();
-        apiClient.setBasePath("https://api.qase.io/v1");
+        apiClient.setBasePath("https://api.qase.io/v2");
         apiClient.setApiKey("api_token");
 
-        RunsApi runsApi = new RunsApi(apiClient);
+        ResultsApi resultsApi = new ResultsApi(apiClient);
         String projectCode = "YOUR_PROJECT_CODE"; // Replace with your project code
 
-        RunCreate runCreate = new RunCreate();
-        runCreate.setTitle("Automated Test Run");
-
+        ResultCreate resultCreate = new ResultCreate();
+        Long testRunId = 1L; // Replace with your test run ID
         try {
-            RunCreateResponse response = runsApi.createRun(projectCode, runCreate);
-            System.out.println("Created Test Run with ID: " + response.getResult().getId());
+            CreateResultV2422Response response = resultsApi.createResultV2(projectCode, testRunId, resultCreate);
         } catch (Exception e) {
             e.printStackTrace();
         }

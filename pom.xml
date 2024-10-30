@@ -11,6 +11,7 @@
     <modules>
         <module>qase-java-commons</module>
         <module>qase-api-client</module>
+        <module>qase-api-v2-client</module>
         <module>qase-testng-reporter</module>
         <module>qase-junit4-reporter</module>
         <module>qase-junit5-reporter</module>
