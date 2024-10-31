@@ -6,11 +6,10 @@
     <parent>
         <groupId>io.qase</groupId>
         <artifactId>qase-java</artifactId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
     </parent>
 
     <artifactId>qase-java-commons</artifactId>
-
     <name>Qase TMS Java Common</name>
     <description>Qase TMS Reporter's common classes</description>
 
@@ -18,12 +17,12 @@
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>qase-api-client</artifactId>
-            <version>4.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>qase-api-v2-client</artifactId>
-            <version>4.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

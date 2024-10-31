@@ -5,12 +5,11 @@
     <parent>
         <artifactId>qase-java</artifactId>
         <groupId>io.qase</groupId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>qase-api-client</artifactId>
-
     <name>Qase TMS Java API Client</name>
     <description>Qase TMS APIs Client Library for Java</description>
 

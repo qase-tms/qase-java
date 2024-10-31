@@ -6,11 +6,10 @@
     <parent>
         <groupId>io.qase</groupId>
         <artifactId>qase-java</artifactId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
     </parent>
 
     <artifactId>qase-api-v2-client</artifactId>
-
     <name>Qase TMS Java API V2 Client</name>
     <description>Qase TMS APIs V2 Client Library for Java</description>
 
