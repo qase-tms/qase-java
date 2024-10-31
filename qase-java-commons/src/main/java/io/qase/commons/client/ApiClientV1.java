@@ -188,7 +188,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         return model;
     }
 
-    private String uploadAttachment(Attachment attachment) {
+    public String uploadAttachment(Attachment attachment) {
         AttachmentsApi api = new AttachmentsApi(client);
         File file;
         boolean removeFile = false;
@@ -229,5 +229,4 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
         return response.get(0).getHash();
     }
-
 }

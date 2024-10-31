@@ -18,7 +18,12 @@
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>qase-api-client</artifactId>
-            <version>${project.parent.version}</version>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>qase-api-v2-client</artifactId>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
