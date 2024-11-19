@@ -5,7 +5,7 @@
     <parent>
         <artifactId>qase-java</artifactId>
         <groupId>io.qase</groupId>
-        <version>4.0.1</version>
+        <version>4.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
