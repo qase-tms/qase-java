@@ -1,0 +1,55 @@
+name: Deploy to Maven Central
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build and Deploy to Maven Central
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          server-id: 'ossrh'
+          server-username: ${{ secrets.OSSRH_USERNAME }}
+          server-password: ${{ secrets.OSSRH_PASSWORD }}
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Build and Deploy
+        run: |
+          mvn clean deploy -P release
+
+      - name: Create Release Tag
+        id: create_tag
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin "v$VERSION"
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          COMMITS=$(git log --pretty=format:"- %h %s (by %an)" $(git describe --tags --abbrev=0)..HEAD)
+          echo "## Release v$VERSION" > changelog.md
+          echo "$COMMITS" >> changelog.md
+          echo "::set-output name=changelog::$(cat changelog.md)"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: "v$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
+          release_name: "v$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
