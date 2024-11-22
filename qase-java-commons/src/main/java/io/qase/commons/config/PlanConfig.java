@@ -1,5 +1,5 @@
 package io.qase.commons.config;
 
 public class PlanConfig {
-    public int id = 0;
+    public Integer id = 0;
 }

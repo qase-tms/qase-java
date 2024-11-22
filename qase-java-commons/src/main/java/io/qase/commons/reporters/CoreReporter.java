@@ -12,6 +12,8 @@ import io.qase.commons.writers.Writer;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
+import java.util.List;
+
 
 public class CoreReporter implements Reporter {
     private static final Logger logger = LoggerFactory.getLogger(CoreReporter.class);
@@ -52,6 +54,10 @@ public class CoreReporter implements Reporter {
         logger.info("Uploading results");
 
         executeWithFallback(() -> reporter.uploadResults(), "upload results");
+    }
+
+    public List<Long> getTestCaseIdsForExecution() {
+        return reporter.getTestCaseIdsForExecution();
     }
 
     private void executeWithFallback(ReporterAction action, String actionName) {

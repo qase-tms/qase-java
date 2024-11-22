@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -138,5 +139,10 @@ public class FileReporter implements InternalReporter {
     public void setResults(List<TestResult> results) {
         this.results.clear();
         this.results.addAll(results);
+    }
+
+    @Override
+    public List<Long> getTestCaseIdsForExecution() {
+        return Collections.emptyList();
     }
 }

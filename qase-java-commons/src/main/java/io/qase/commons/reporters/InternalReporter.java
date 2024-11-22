@@ -17,4 +17,6 @@ public interface InternalReporter {
     List<TestResult> getResults();
 
     void setResults(List<TestResult> results);
+
+    List<Long> getTestCaseIdsForExecution();
 }
