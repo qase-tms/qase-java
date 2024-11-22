@@ -1,17 +1,47 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
+          cache-dependency-path: '**/pom.xml'
       - name: Maven Verify
         run: mvn -B clean verify
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: test
+    if: startsWith(github.event.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          cache: 'maven'
+          cache-dependency-path: '**/pom.xml'
+          server-id: 'ossrh'
+          server-username: OSSRH_USERNAME
+          server-password: OSSRH_CENTRAL_TOKEN
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: OSSRH_GPG_PASSPHRASE
+      - name: Publish to Apache Maven Central
+        run: mvn clean deploy -P release
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_CENTRAL_TOKEN: ${{ secrets.OSSRH_PASSWORD }}
+          OSSRH_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
