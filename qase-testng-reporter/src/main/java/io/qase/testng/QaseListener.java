@@ -11,6 +11,7 @@ import org.testng.xml.XmlTest;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static io.qase.commons.utils.IntegrationUtils.*;
@@ -191,9 +192,22 @@ public class QaseListener implements ISuiteListener,
         return testParameters;
     }
 
-    // TODO: implement filtration
     @Override
-    public List<IMethodInstance> intercept(List<IMethodInstance> list, ITestContext iTestContext) {
-        return list;
+    public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) {
+        List<Long> caseIdsToExecute = qaseTestCaseListener.getTestCaseIdsForExecution();
+
+        if (caseIdsToExecute.isEmpty()) {
+            return methods;
+        }
+
+        return methods.stream()
+                .filter(this::hasMatchingCaseId)
+                .collect(Collectors.toList());
+    }
+
+    private boolean hasMatchingCaseId(IMethodInstance methodInstance) {
+        Method method = methodInstance.getMethod().getConstructorOrMethod().getMethod();
+        Long caseId = getCaseId(method);
+        return caseId != null && qaseTestCaseListener.getTestCaseIdsForExecution().contains(caseId);
     }
 }

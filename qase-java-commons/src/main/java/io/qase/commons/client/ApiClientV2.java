@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,6 +66,11 @@ public class ApiClientV2 implements ApiClient {
         } catch (ApiException e) {
             throw new QaseException("Failed to upload test results: " + e.getResponseBody(), e.getCause());
         }
+    }
+
+    @Override
+    public List<Long> getTestCaseIdsForExecution() throws QaseException {
+        return this.apiClientV1.getTestCaseIdsForExecution();
     }
 
     private ResultCreate convertResult(TestResult result) {

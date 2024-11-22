@@ -3,6 +3,7 @@ package io.qase.commons.client;
 import io.qase.client.v1.ApiClient;
 import io.qase.client.v1.ApiException;
 import io.qase.client.v1.api.AttachmentsApi;
+import io.qase.client.v1.api.PlansApi;
 import io.qase.client.v1.api.ResultsApi;
 import io.qase.client.v1.api.RunsApi;
 import io.qase.client.v1.models.*;
@@ -109,6 +110,29 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             throw new QaseException("Failed to upload test results: " + e.getResponseBody(), e.getCause());
         }
     }
+
+    @Override
+    public List<Long> getTestCaseIdsForExecution() throws QaseException {
+        if (this.config.testops.plan.id == 0) {
+            return Collections.emptyList();
+        }
+
+        try {
+            PlanResponse response = new PlansApi(client)
+                    .getPlan(this.config.testops.project, this.config.testops.plan.id);
+
+            return Objects.requireNonNull(
+                            Objects.requireNonNull(response.getResult())
+                                    .getCases())
+                    .stream()
+                    .map(PlanDetailedAllOfCases::getCaseId)
+                    .collect(Collectors.toList()
+                    );
+        } catch (ApiException e) {
+            throw new QaseException("Failed to get test case ids for execution: " + e.getResponseBody(), e.getCause());
+        }
+    }
+
 
     private ResultCreate convertResult(TestResult result) {
         ResultCreateCase caseModel = new ResultCreateCase()

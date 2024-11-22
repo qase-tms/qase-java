@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TestopsReporter implements InternalReporter {
@@ -63,7 +64,7 @@ public class TestopsReporter implements InternalReporter {
         int batchSize = this.config.batch.size;
         int totalResults = this.results.size();
 
-        if (totalResults == 0){
+        if (totalResults == 0) {
             return;
         }
 
@@ -90,6 +91,15 @@ public class TestopsReporter implements InternalReporter {
     public void setResults(List<TestResult> results) {
         this.results.clear();
         this.results.addAll(results);
+    }
+
+    @Override
+    public List<Long> getTestCaseIdsForExecution() {
+        try {
+            return this.client.getTestCaseIdsForExecution();
+        } catch (QaseException e) {
+            return Collections.emptyList();
+        }
     }
 
     private String prepareLink(Long id, String title) {
