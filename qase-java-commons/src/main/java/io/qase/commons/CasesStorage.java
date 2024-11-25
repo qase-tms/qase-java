@@ -1,11 +1,11 @@
 package io.qase.commons;
 
 import io.qase.commons.models.domain.TestResult;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public final class CasesStorage {
-
+    private static final Logger logger = LoggerFactory.getLogger(CasesStorage.class);
     private static final ThreadLocal<TestResult> CURRENT_CASE = new ThreadLocal<>();
 
     public static void startCase(TestResult resultCreate) {
@@ -32,13 +32,13 @@ public final class CasesStorage {
 
     private static void checkCaseIsInProgress() {
         if (!isCaseInProgress()) {
-            log.error("A case has not been started yet.");
+            logger.error("A case has not been started yet.");
         }
     }
 
     private static void checkCaseIsNotInProgress() {
         if (isCaseInProgress()) {
-            log.error("Previous case is still in progress.");
+            logger.error("Previous case is still in progress.");
         }
     }
 }
