@@ -4,15 +4,15 @@ All URIs are relative to *https://api.qase.io/v2*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createResultV2**](ResultsApi.md#createResultV2) | **POST** /{project_code}/run/{run_id}/result | (Beta) Create test run result |
-| [**createResultsV2**](ResultsApi.md#createResultsV2) | **POST** /{project_code}/run/{run_id}/results | (Beta) Bulk create test run result |
+| [**createResultV2**](ResultsApi.md#createResultV2) | **POST** /{project_code}/run/{run_id}/result | Create test run result |
+| [**createResultsV2**](ResultsApi.md#createResultsV2) | **POST** /{project_code}/run/{run_id}/results | Bulk create test run result |
 
 
 <a id="createResultV2"></a>
 # **createResultV2**
 > createResultV2(projectCode, runId, resultCreate)
 
-(Beta) Create test run result
+Create test run result
 
 This method allows to create single test run result.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
 
@@ -73,7 +73,7 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -89,7 +89,7 @@ null (empty response body)
 # **createResultsV2**
 > createResultsV2(projectCode, runId, createResultsRequestV2)
 
-(Beta) Bulk create test run result
+Bulk create test run result
 
 This method allows to create several test run results at once.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
 
@@ -150,7 +150,7 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
