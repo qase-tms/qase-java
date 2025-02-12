@@ -49,10 +49,9 @@ import java.util.Set;
 import io.qase.client.v1.JSON;
 
 /**
- * Requirement
+ * RequirementQuery
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")
-public class Requirement {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")public class RequirementQuery {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
   private Long id;
@@ -211,10 +210,10 @@ public class Requirement {
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
   private OffsetDateTime updatedAt;
 
-  public Requirement() {
+  public RequirementQuery() {
   }
 
-  public Requirement id(Long id) {
+  public RequirementQuery id(Long id) {
     this.id = id;
     return this;
   }
@@ -233,7 +232,7 @@ public class Requirement {
   }
 
 
-  public Requirement requirementId(Long requirementId) {
+  public RequirementQuery requirementId(Long requirementId) {
     this.requirementId = requirementId;
     return this;
   }
@@ -242,7 +241,7 @@ public class Requirement {
    * Get requirementId
    * @return requirementId
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Long getRequirementId() {
     return requirementId;
   }
@@ -252,7 +251,7 @@ public class Requirement {
   }
 
 
-  public Requirement parentId(Long parentId) {
+  public RequirementQuery parentId(Long parentId) {
     this.parentId = parentId;
     return this;
   }
@@ -271,7 +270,7 @@ public class Requirement {
   }
 
 
-  public Requirement memberId(Long memberId) {
+  public RequirementQuery memberId(Long memberId) {
     this.memberId = memberId;
     return this;
   }
@@ -290,7 +289,7 @@ public class Requirement {
   }
 
 
-  public Requirement title(String title) {
+  public RequirementQuery title(String title) {
     this.title = title;
     return this;
   }
@@ -309,7 +308,7 @@ public class Requirement {
   }
 
 
-  public Requirement description(String description) {
+  public RequirementQuery description(String description) {
     this.description = description;
     return this;
   }
@@ -328,7 +327,7 @@ public class Requirement {
   }
 
 
-  public Requirement status(StatusEnum status) {
+  public RequirementQuery status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -347,7 +346,7 @@ public class Requirement {
   }
 
 
-  public Requirement type(TypeEnum type) {
+  public RequirementQuery type(TypeEnum type) {
     this.type = type;
     return this;
   }
@@ -366,7 +365,7 @@ public class Requirement {
   }
 
 
-  public Requirement createdAt(OffsetDateTime createdAt) {
+  public RequirementQuery createdAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -385,7 +384,7 @@ public class Requirement {
   }
 
 
-  public Requirement updatedAt(OffsetDateTime updatedAt) {
+  public RequirementQuery updatedAt(OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
@@ -413,17 +412,17 @@ public class Requirement {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Requirement requirement = (Requirement) o;
-    return Objects.equals(this.id, requirement.id) &&
-        Objects.equals(this.requirementId, requirement.requirementId) &&
-        Objects.equals(this.parentId, requirement.parentId) &&
-        Objects.equals(this.memberId, requirement.memberId) &&
-        Objects.equals(this.title, requirement.title) &&
-        Objects.equals(this.description, requirement.description) &&
-        Objects.equals(this.status, requirement.status) &&
-        Objects.equals(this.type, requirement.type) &&
-        Objects.equals(this.createdAt, requirement.createdAt) &&
-        Objects.equals(this.updatedAt, requirement.updatedAt);
+    RequirementQuery requirementQuery = (RequirementQuery) o;
+    return Objects.equals(this.id, requirementQuery.id) &&
+        Objects.equals(this.requirementId, requirementQuery.requirementId) &&
+        Objects.equals(this.parentId, requirementQuery.parentId) &&
+        Objects.equals(this.memberId, requirementQuery.memberId) &&
+        Objects.equals(this.title, requirementQuery.title) &&
+        Objects.equals(this.description, requirementQuery.description) &&
+        Objects.equals(this.status, requirementQuery.status) &&
+        Objects.equals(this.type, requirementQuery.type) &&
+        Objects.equals(this.createdAt, requirementQuery.createdAt) &&
+        Objects.equals(this.updatedAt, requirementQuery.updatedAt);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -445,7 +444,7 @@ public class Requirement {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Requirement {\n");
+    sb.append("class RequirementQuery {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    requirementId: ").append(toIndentedString(requirementId)).append("\n");
     sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
@@ -491,26 +490,34 @@ public class Requirement {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("requirement_id");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Requirement
+  * @throws IOException if the JSON Element is invalid with respect to RequirementQuery
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!Requirement.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Requirement is not found in the empty JSON string", Requirement.openapiRequiredFields.toString()));
+        if (!RequirementQuery.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in RequirementQuery is not found in the empty JSON string", RequirementQuery.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!Requirement.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Requirement` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!RequirementQuery.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `RequirementQuery` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : RequirementQuery.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -540,22 +547,22 @@ public class Requirement {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Requirement.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Requirement' and its subtypes
+       if (!RequirementQuery.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'RequirementQuery' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Requirement> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Requirement.class));
+       final TypeAdapter<RequirementQuery> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(RequirementQuery.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Requirement>() {
+       return (TypeAdapter<T>) new TypeAdapter<RequirementQuery>() {
            @Override
-           public void write(JsonWriter out, Requirement value) throws IOException {
+           public void write(JsonWriter out, RequirementQuery value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public Requirement read(JsonReader in) throws IOException {
+           public RequirementQuery read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -566,18 +573,18 @@ public class Requirement {
   }
 
  /**
-  * Create an instance of Requirement given an JSON string
+  * Create an instance of RequirementQuery given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of Requirement
-  * @throws IOException if the JSON string is invalid with respect to Requirement
+  * @return An instance of RequirementQuery
+  * @throws IOException if the JSON string is invalid with respect to RequirementQuery
   */
-  public static Requirement fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Requirement.class);
+  public static RequirementQuery fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RequirementQuery.class);
   }
 
  /**
-  * Convert an instance of Requirement to an JSON string
+  * Convert an instance of RequirementQuery to an JSON string
   *
   * @return JSON string
   */

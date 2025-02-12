@@ -56,10 +56,9 @@ import java.util.Set;
 import io.qase.client.v1.JSON;
 
 /**
- * Run
+ * RunQuery
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")
-public class Run {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")public class RunQuery {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
   private Long id;
@@ -128,10 +127,10 @@ public class Run {
   @SerializedName(SERIALIZED_NAME_PLAN_ID)
   private Long planId;
 
-  public Run() {
+  public RunQuery() {
   }
 
-  public Run id(Long id) {
+  public RunQuery id(Long id) {
     this.id = id;
     return this;
   }
@@ -150,7 +149,7 @@ public class Run {
   }
 
 
-  public Run runId(Long runId) {
+  public RunQuery runId(Long runId) {
     this.runId = runId;
     return this;
   }
@@ -159,7 +158,7 @@ public class Run {
    * Get runId
    * @return runId
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Long getRunId() {
     return runId;
   }
@@ -169,7 +168,7 @@ public class Run {
   }
 
 
-  public Run title(String title) {
+  public RunQuery title(String title) {
     this.title = title;
     return this;
   }
@@ -188,7 +187,7 @@ public class Run {
   }
 
 
-  public Run description(String description) {
+  public RunQuery description(String description) {
     this.description = description;
     return this;
   }
@@ -207,7 +206,7 @@ public class Run {
   }
 
 
-  public Run status(Integer status) {
+  public RunQuery status(Integer status) {
     this.status = status;
     return this;
   }
@@ -226,7 +225,7 @@ public class Run {
   }
 
 
-  public Run statusText(String statusText) {
+  public RunQuery statusText(String statusText) {
     this.statusText = statusText;
     return this;
   }
@@ -245,7 +244,7 @@ public class Run {
   }
 
 
-  public Run startTime(OffsetDateTime startTime) {
+  public RunQuery startTime(OffsetDateTime startTime) {
     this.startTime = startTime;
     return this;
   }
@@ -264,7 +263,7 @@ public class Run {
   }
 
 
-  public Run endTime(OffsetDateTime endTime) {
+  public RunQuery endTime(OffsetDateTime endTime) {
     this.endTime = endTime;
     return this;
   }
@@ -283,7 +282,7 @@ public class Run {
   }
 
 
-  public Run _public(Boolean _public) {
+  public RunQuery _public(Boolean _public) {
     this._public = _public;
     return this;
   }
@@ -302,7 +301,7 @@ public class Run {
   }
 
 
-  public Run stats(RunStats stats) {
+  public RunQuery stats(RunStats stats) {
     this.stats = stats;
     return this;
   }
@@ -321,7 +320,7 @@ public class Run {
   }
 
 
-  public Run timeSpent(Long timeSpent) {
+  public RunQuery timeSpent(Long timeSpent) {
     this.timeSpent = timeSpent;
     return this;
   }
@@ -340,7 +339,7 @@ public class Run {
   }
 
 
-  public Run environment(RunEnvironment environment) {
+  public RunQuery environment(RunEnvironment environment) {
     this.environment = environment;
     return this;
   }
@@ -359,7 +358,7 @@ public class Run {
   }
 
 
-  public Run milestone(RunMilestone milestone) {
+  public RunQuery milestone(RunMilestone milestone) {
     this.milestone = milestone;
     return this;
   }
@@ -378,12 +377,12 @@ public class Run {
   }
 
 
-  public Run customFields(List<CustomFieldValue> customFields) {
+  public RunQuery customFields(List<CustomFieldValue> customFields) {
     this.customFields = customFields;
     return this;
   }
 
-  public Run addCustomFieldsItem(CustomFieldValue customFieldsItem) {
+  public RunQuery addCustomFieldsItem(CustomFieldValue customFieldsItem) {
     if (this.customFields == null) {
       this.customFields = new ArrayList<>();
     }
@@ -405,12 +404,12 @@ public class Run {
   }
 
 
-  public Run tags(List<TagValue> tags) {
+  public RunQuery tags(List<TagValue> tags) {
     this.tags = tags;
     return this;
   }
 
-  public Run addTagsItem(TagValue tagsItem) {
+  public RunQuery addTagsItem(TagValue tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -432,12 +431,12 @@ public class Run {
   }
 
 
-  public Run cases(List<Long> cases) {
+  public RunQuery cases(List<Long> cases) {
     this.cases = cases;
     return this;
   }
 
-  public Run addCasesItem(Long casesItem) {
+  public RunQuery addCasesItem(Long casesItem) {
     if (this.cases == null) {
       this.cases = new ArrayList<>();
     }
@@ -459,7 +458,7 @@ public class Run {
   }
 
 
-  public Run planId(Long planId) {
+  public RunQuery planId(Long planId) {
     this.planId = planId;
     return this;
   }
@@ -487,24 +486,24 @@ public class Run {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Run run = (Run) o;
-    return Objects.equals(this.id, run.id) &&
-        Objects.equals(this.runId, run.runId) &&
-        Objects.equals(this.title, run.title) &&
-        Objects.equals(this.description, run.description) &&
-        Objects.equals(this.status, run.status) &&
-        Objects.equals(this.statusText, run.statusText) &&
-        Objects.equals(this.startTime, run.startTime) &&
-        Objects.equals(this.endTime, run.endTime) &&
-        Objects.equals(this._public, run._public) &&
-        Objects.equals(this.stats, run.stats) &&
-        Objects.equals(this.timeSpent, run.timeSpent) &&
-        Objects.equals(this.environment, run.environment) &&
-        Objects.equals(this.milestone, run.milestone) &&
-        Objects.equals(this.customFields, run.customFields) &&
-        Objects.equals(this.tags, run.tags) &&
-        Objects.equals(this.cases, run.cases) &&
-        Objects.equals(this.planId, run.planId);
+    RunQuery runQuery = (RunQuery) o;
+    return Objects.equals(this.id, runQuery.id) &&
+        Objects.equals(this.runId, runQuery.runId) &&
+        Objects.equals(this.title, runQuery.title) &&
+        Objects.equals(this.description, runQuery.description) &&
+        Objects.equals(this.status, runQuery.status) &&
+        Objects.equals(this.statusText, runQuery.statusText) &&
+        Objects.equals(this.startTime, runQuery.startTime) &&
+        Objects.equals(this.endTime, runQuery.endTime) &&
+        Objects.equals(this._public, runQuery._public) &&
+        Objects.equals(this.stats, runQuery.stats) &&
+        Objects.equals(this.timeSpent, runQuery.timeSpent) &&
+        Objects.equals(this.environment, runQuery.environment) &&
+        Objects.equals(this.milestone, runQuery.milestone) &&
+        Objects.equals(this.customFields, runQuery.customFields) &&
+        Objects.equals(this.tags, runQuery.tags) &&
+        Objects.equals(this.cases, runQuery.cases) &&
+        Objects.equals(this.planId, runQuery.planId);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -526,7 +525,7 @@ public class Run {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Run {\n");
+    sb.append("class RunQuery {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
@@ -586,26 +585,34 @@ public class Run {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("run_id");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Run
+  * @throws IOException if the JSON Element is invalid with respect to RunQuery
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!Run.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Run is not found in the empty JSON string", Run.openapiRequiredFields.toString()));
+        if (!RunQuery.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in RunQuery is not found in the empty JSON string", RunQuery.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!Run.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Run` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!RunQuery.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `RunQuery` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : RunQuery.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -668,22 +675,22 @@ public class Run {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Run.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Run' and its subtypes
+       if (!RunQuery.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'RunQuery' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Run> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Run.class));
+       final TypeAdapter<RunQuery> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(RunQuery.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Run>() {
+       return (TypeAdapter<T>) new TypeAdapter<RunQuery>() {
            @Override
-           public void write(JsonWriter out, Run value) throws IOException {
+           public void write(JsonWriter out, RunQuery value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public Run read(JsonReader in) throws IOException {
+           public RunQuery read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -694,18 +701,18 @@ public class Run {
   }
 
  /**
-  * Create an instance of Run given an JSON string
+  * Create an instance of RunQuery given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of Run
-  * @throws IOException if the JSON string is invalid with respect to Run
+  * @return An instance of RunQuery
+  * @throws IOException if the JSON string is invalid with respect to RunQuery
   */
-  public static Run fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Run.class);
+  public static RunQuery fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RunQuery.class);
   }
 
  /**
-  * Convert an instance of Run to an JSON string
+  * Convert an instance of RunQuery to an JSON string
   *
   * @return JSON string
   */

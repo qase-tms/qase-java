@@ -239,6 +239,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
@@ -320,6 +321,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
@@ -344,6 +346,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
@@ -370,6 +373,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
@@ -396,6 +400,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
@@ -477,6 +482,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
@@ -501,6 +507,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
@@ -527,6 +534,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity. </td><td>  -  </td></tr>
@@ -1037,6 +1045,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> A list of all cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
@@ -1180,6 +1189,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> A list of all cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
@@ -1216,6 +1226,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> A list of all cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
@@ -1254,6 +1265,7 @@ public class CasesApi {
         <tr><td> 200 </td><td> A list of all cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>

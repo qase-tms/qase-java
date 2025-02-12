@@ -8,6 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **Long** |  |  [optional] |
+|**defectId** | **Long** |  |  |
 |**title** | **String** |  |  [optional] |
 |**actualResult** | **String** |  |  [optional] |
 |**severity** | **String** |  |  [optional] |

@@ -1,6 +1,6 @@
 
 
-# Result
+# ResultQuery
 
 
 ## Properties
@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**hash** | **String** |  |  [optional] |
-|**resultHash** | **String** |  |  [optional] |
+|**resultHash** | **String** |  |  |
 |**comment** | **String** |  |  [optional] |
 |**stacktrace** | **String** |  |  [optional] |
 |**runId** | **Long** |  |  [optional] |

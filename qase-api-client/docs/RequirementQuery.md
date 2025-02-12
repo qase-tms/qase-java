@@ -1,6 +1,6 @@
 
 
-# Requirement
+# RequirementQuery
 
 
 ## Properties
@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **Long** |  |  [optional] |
-|**requirementId** | **Long** |  |  [optional] |
+|**requirementId** | **Long** |  |  |
 |**parentId** | **Long** |  |  [optional] |
 |**memberId** | **Long** |  |  [optional] |
 |**title** | **String** |  |  [optional] |

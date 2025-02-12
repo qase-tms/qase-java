@@ -57,6 +57,10 @@ public class PlanQuery {
   @SerializedName(SERIALIZED_NAME_ID)
   private Long id;
 
+  public static final String SERIALIZED_NAME_PLAN_ID = "plan_id";
+  @SerializedName(SERIALIZED_NAME_PLAN_ID)
+  private Long planId;
+
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
   private String title;
@@ -96,6 +100,25 @@ public class PlanQuery {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+
+  public PlanQuery planId(Long planId) {
+    this.planId = planId;
+    return this;
+  }
+
+   /**
+   * Get planId
+   * @return planId
+  **/
+  @javax.annotation.Nonnull
+  public Long getPlanId() {
+    return planId;
+  }
+
+  public void setPlanId(Long planId) {
+    this.planId = planId;
   }
 
 
@@ -205,6 +228,7 @@ public class PlanQuery {
     }
     PlanQuery planQuery = (PlanQuery) o;
     return Objects.equals(this.id, planQuery.id) &&
+        Objects.equals(this.planId, planQuery.planId) &&
         Objects.equals(this.title, planQuery.title) &&
         Objects.equals(this.description, planQuery.description) &&
         Objects.equals(this.casesCount, planQuery.casesCount) &&
@@ -218,7 +242,7 @@ public class PlanQuery {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, title, description, casesCount, createdAt, updatedAt);
+    return Objects.hash(id, planId, title, description, casesCount, createdAt, updatedAt);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -233,6 +257,7 @@ public class PlanQuery {
     StringBuilder sb = new StringBuilder();
     sb.append("class PlanQuery {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    casesCount: ").append(toIndentedString(casesCount)).append("\n");
@@ -261,6 +286,7 @@ public class PlanQuery {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("id");
+    openapiFields.add("plan_id");
     openapiFields.add("title");
     openapiFields.add("description");
     openapiFields.add("cases_count");
@@ -269,6 +295,7 @@ public class PlanQuery {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("plan_id");
   }
 
  /**
@@ -289,6 +316,13 @@ public class PlanQuery {
       for (Map.Entry<String, JsonElement> entry : entries) {
         if (!PlanQuery.openapiFields.contains(entry.getKey())) {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PlanQuery` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : PlanQuery.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
