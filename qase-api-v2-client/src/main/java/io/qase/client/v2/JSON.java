@@ -100,10 +100,6 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
-        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.BaseErrorFieldResponse.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.BaseErrorFieldResponseErrorFieldsInner.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.BaseErrorResponse.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.CreateResultV2422Response.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.CreateResultsRequestV2.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.RelationSuite.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.RelationSuiteItem.CustomTypeAdapterFactory());

@@ -27,7 +27,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import io.qase.client.v2.models.CreateResultV2422Response;
 import io.qase.client.v2.models.CreateResultsRequestV2;
 import io.qase.client.v2.models.ResultCreate;
 
@@ -121,7 +120,6 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -162,7 +160,7 @@ public class ResultsApi {
     }
 
     /**
-     * (Beta) Create test run result
+     * Create test run result
      * This method allows to create single test run result.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param projectCode  (required)
      * @param runId  (required)
@@ -184,7 +182,7 @@ public class ResultsApi {
     }
 
     /**
-     * (Beta) Create test run result
+     * Create test run result
      * This method allows to create single test run result.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param projectCode  (required)
      * @param runId  (required)
@@ -208,7 +206,7 @@ public class ResultsApi {
     }
 
     /**
-     * (Beta) Create test run result (asynchronously)
+     * Create test run result (asynchronously)
      * This method allows to create single test run result.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param projectCode  (required)
      * @param runId  (required)
@@ -280,7 +278,6 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -321,7 +318,7 @@ public class ResultsApi {
     }
 
     /**
-     * (Beta) Bulk create test run result
+     * Bulk create test run result
      * This method allows to create several test run results at once.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param projectCode  (required)
      * @param runId  (required)
@@ -343,7 +340,7 @@ public class ResultsApi {
     }
 
     /**
-     * (Beta) Bulk create test run result
+     * Bulk create test run result
      * This method allows to create several test run results at once.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param projectCode  (required)
      * @param runId  (required)
@@ -367,7 +364,7 @@ public class ResultsApi {
     }
 
     /**
-     * (Beta) Bulk create test run result (asynchronously)
+     * Bulk create test run result (asynchronously)
      * This method allows to create several test run results at once.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param projectCode  (required)
      * @param runId  (required)

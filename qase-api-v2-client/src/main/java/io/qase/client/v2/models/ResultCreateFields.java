@@ -95,6 +95,10 @@ public class ResultCreateFields {
   @SerializedName(SERIALIZED_NAME_IS_FLAKY)
   private String isFlaky;
 
+  public static final String SERIALIZED_NAME_EXECUTED_BY = "executed_by";
+  @SerializedName(SERIALIZED_NAME_EXECUTED_BY)
+  private String executedBy;
+
   public ResultCreateFields() {
   }
 
@@ -104,7 +108,7 @@ public class ResultCreateFields {
   }
 
    /**
-   * Get author
+   * Author of the related test case (member id, name or email). If set and test case auto-creation is enabled, the author will be used to create the test case
    * @return author
   **/
   @javax.annotation.Nullable
@@ -306,6 +310,25 @@ public class ResultCreateFields {
     this.isFlaky = isFlaky;
   }
 
+
+  public ResultCreateFields executedBy(String executedBy) {
+    this.executedBy = executedBy;
+    return this;
+  }
+
+   /**
+   * User who executed the test (member id, name or email)
+   * @return executedBy
+  **/
+  @javax.annotation.Nullable
+  public String getExecutedBy() {
+    return executedBy;
+  }
+
+  public void setExecutedBy(String executedBy) {
+    this.executedBy = executedBy;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -371,13 +394,14 @@ public class ResultCreateFields {
         Objects.equals(this.behavior, resultCreateFields.behavior) &&
         Objects.equals(this.type, resultCreateFields.type) &&
         Objects.equals(this.muted, resultCreateFields.muted) &&
-        Objects.equals(this.isFlaky, resultCreateFields.isFlaky)&&
+        Objects.equals(this.isFlaky, resultCreateFields.isFlaky) &&
+        Objects.equals(this.executedBy, resultCreateFields.executedBy)&&
         Objects.equals(this.additionalProperties, resultCreateFields.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(author, description, preconditions, postconditions, layer, severity, priority, behavior, type, muted, isFlaky, additionalProperties);
+    return Objects.hash(author, description, preconditions, postconditions, layer, severity, priority, behavior, type, muted, isFlaky, executedBy, additionalProperties);
   }
 
   @Override
@@ -395,6 +419,7 @@ public class ResultCreateFields {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    muted: ").append(toIndentedString(muted)).append("\n");
     sb.append("    isFlaky: ").append(toIndentedString(isFlaky)).append("\n");
+    sb.append("    executedBy: ").append(toIndentedString(executedBy)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -429,6 +454,7 @@ public class ResultCreateFields {
     openapiFields.add("type");
     openapiFields.add("muted");
     openapiFields.add("is_flaky");
+    openapiFields.add("executed_by");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -479,6 +505,9 @@ public class ResultCreateFields {
       }
       if ((jsonObj.get("is_flaky") != null && !jsonObj.get("is_flaky").isJsonNull()) && !jsonObj.get("is_flaky").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `is_flaky` to be a primitive type in the JSON string but got `%s`", jsonObj.get("is_flaky").toString()));
+      }
+      if ((jsonObj.get("executed_by") != null && !jsonObj.get("executed_by").isJsonNull()) && !jsonObj.get("executed_by").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `executed_by` to be a primitive type in the JSON string but got `%s`", jsonObj.get("executed_by").toString()));
       }
   }
 
