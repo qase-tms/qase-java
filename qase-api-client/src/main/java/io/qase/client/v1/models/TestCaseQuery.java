@@ -64,6 +64,10 @@ public class TestCaseQuery {
   @SerializedName(SERIALIZED_NAME_ID)
   private Long id;
 
+  public static final String SERIALIZED_NAME_TEST_CASE_ID = "test_case_id";
+  @SerializedName(SERIALIZED_NAME_TEST_CASE_ID)
+  private Long testCaseId;
+
   public static final String SERIALIZED_NAME_POSITION = "position";
   @SerializedName(SERIALIZED_NAME_POSITION)
   private Integer position;
@@ -184,6 +188,25 @@ public class TestCaseQuery {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+
+  public TestCaseQuery testCaseId(Long testCaseId) {
+    this.testCaseId = testCaseId;
+    return this;
+  }
+
+   /**
+   * Get testCaseId
+   * @return testCaseId
+  **/
+  @javax.annotation.Nonnull
+  public Long getTestCaseId() {
+    return testCaseId;
+  }
+
+  public void setTestCaseId(Long testCaseId) {
+    this.testCaseId = testCaseId;
   }
 
 
@@ -709,6 +732,7 @@ public class TestCaseQuery {
     }
     TestCaseQuery testCaseQuery = (TestCaseQuery) o;
     return Objects.equals(this.id, testCaseQuery.id) &&
+        Objects.equals(this.testCaseId, testCaseQuery.testCaseId) &&
         Objects.equals(this.position, testCaseQuery.position) &&
         Objects.equals(this.title, testCaseQuery.title) &&
         Objects.equals(this.description, testCaseQuery.description) &&
@@ -742,7 +766,7 @@ public class TestCaseQuery {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, authorId, createdAt, updatedAt);
+    return Objects.hash(id, testCaseId, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, authorId, createdAt, updatedAt);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -757,6 +781,7 @@ public class TestCaseQuery {
     StringBuilder sb = new StringBuilder();
     sb.append("class TestCaseQuery {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    testCaseId: ").append(toIndentedString(testCaseId)).append("\n");
     sb.append("    position: ").append(toIndentedString(position)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -805,6 +830,7 @@ public class TestCaseQuery {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("id");
+    openapiFields.add("test_case_id");
     openapiFields.add("position");
     openapiFields.add("title");
     openapiFields.add("description");
@@ -833,6 +859,7 @@ public class TestCaseQuery {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("test_case_id");
   }
 
  /**
@@ -853,6 +880,13 @@ public class TestCaseQuery {
       for (Map.Entry<String, JsonElement> entry : entries) {
         if (!TestCaseQuery.openapiFields.contains(entry.getKey())) {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `TestCaseQuery` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : TestCaseQuery.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();

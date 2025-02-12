@@ -62,6 +62,10 @@ public class DefectQuery {
   @SerializedName(SERIALIZED_NAME_ID)
   private Long id;
 
+  public static final String SERIALIZED_NAME_DEFECT_ID = "defect_id";
+  @SerializedName(SERIALIZED_NAME_DEFECT_ID)
+  private Long defectId;
+
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
   private String title;
@@ -138,6 +142,25 @@ public class DefectQuery {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+
+  public DefectQuery defectId(Long defectId) {
+    this.defectId = defectId;
+    return this;
+  }
+
+   /**
+   * Get defectId
+   * @return defectId
+  **/
+  @javax.annotation.Nonnull
+  public Long getDefectId() {
+    return defectId;
+  }
+
+  public void setDefectId(Long defectId) {
+    this.defectId = defectId;
   }
 
 
@@ -446,6 +469,7 @@ public class DefectQuery {
     }
     DefectQuery defectQuery = (DefectQuery) o;
     return Objects.equals(this.id, defectQuery.id) &&
+        Objects.equals(this.defectId, defectQuery.defectId) &&
         Objects.equals(this.title, defectQuery.title) &&
         Objects.equals(this.actualResult, defectQuery.actualResult) &&
         Objects.equals(this.severity, defectQuery.severity) &&
@@ -468,7 +492,7 @@ public class DefectQuery {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, title, actualResult, severity, status, milestoneId, customFields, attachments, resolved, memberId, authorId, externalData, tags, createdAt, updatedAt);
+    return Objects.hash(id, defectId, title, actualResult, severity, status, milestoneId, customFields, attachments, resolved, memberId, authorId, externalData, tags, createdAt, updatedAt);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -483,6 +507,7 @@ public class DefectQuery {
     StringBuilder sb = new StringBuilder();
     sb.append("class DefectQuery {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    defectId: ").append(toIndentedString(defectId)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    actualResult: ").append(toIndentedString(actualResult)).append("\n");
     sb.append("    severity: ").append(toIndentedString(severity)).append("\n");
@@ -520,6 +545,7 @@ public class DefectQuery {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("id");
+    openapiFields.add("defect_id");
     openapiFields.add("title");
     openapiFields.add("actual_result");
     openapiFields.add("severity");
@@ -537,6 +563,7 @@ public class DefectQuery {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("defect_id");
   }
 
  /**
@@ -557,6 +584,13 @@ public class DefectQuery {
       for (Map.Entry<String, JsonElement> entry : entries) {
         if (!DefectQuery.openapiFields.contains(entry.getKey())) {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `DefectQuery` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : DefectQuery.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();

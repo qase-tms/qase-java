@@ -1,6 +1,6 @@
 
 
-# Run
+# RunQuery
 
 
 ## Properties
@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **Long** |  |  [optional] |
-|**runId** | **Long** |  |  [optional] |
+|**runId** | **Long** |  |  |
 |**title** | **String** |  |  [optional] |
 |**description** | **String** |  |  [optional] |
 |**status** | **Integer** |  |  [optional] |

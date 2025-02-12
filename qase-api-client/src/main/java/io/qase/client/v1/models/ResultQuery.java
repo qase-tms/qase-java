@@ -53,10 +53,9 @@ import java.util.Set;
 import io.qase.client.v1.JSON;
 
 /**
- * Result
+ * ResultQuery
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")
-public class Result {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")public class ResultQuery {
   public static final String SERIALIZED_NAME_HASH = "hash";
   @SerializedName(SERIALIZED_NAME_HASH)
   private String hash;
@@ -105,10 +104,10 @@ public class Result {
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
   private List<Attachment> attachments;
 
-  public Result() {
+  public ResultQuery() {
   }
 
-  public Result hash(String hash) {
+  public ResultQuery hash(String hash) {
     this.hash = hash;
     return this;
   }
@@ -127,7 +126,7 @@ public class Result {
   }
 
 
-  public Result resultHash(String resultHash) {
+  public ResultQuery resultHash(String resultHash) {
     this.resultHash = resultHash;
     return this;
   }
@@ -136,7 +135,7 @@ public class Result {
    * Get resultHash
    * @return resultHash
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getResultHash() {
     return resultHash;
   }
@@ -146,7 +145,7 @@ public class Result {
   }
 
 
-  public Result comment(String comment) {
+  public ResultQuery comment(String comment) {
     this.comment = comment;
     return this;
   }
@@ -165,7 +164,7 @@ public class Result {
   }
 
 
-  public Result stacktrace(String stacktrace) {
+  public ResultQuery stacktrace(String stacktrace) {
     this.stacktrace = stacktrace;
     return this;
   }
@@ -184,7 +183,7 @@ public class Result {
   }
 
 
-  public Result runId(Long runId) {
+  public ResultQuery runId(Long runId) {
     this.runId = runId;
     return this;
   }
@@ -203,7 +202,7 @@ public class Result {
   }
 
 
-  public Result caseId(Long caseId) {
+  public ResultQuery caseId(Long caseId) {
     this.caseId = caseId;
     return this;
   }
@@ -222,12 +221,12 @@ public class Result {
   }
 
 
-  public Result steps(List<TestStepResult> steps) {
+  public ResultQuery steps(List<TestStepResult> steps) {
     this.steps = steps;
     return this;
   }
 
-  public Result addStepsItem(TestStepResult stepsItem) {
+  public ResultQuery addStepsItem(TestStepResult stepsItem) {
     if (this.steps == null) {
       this.steps = new ArrayList<>();
     }
@@ -249,7 +248,7 @@ public class Result {
   }
 
 
-  public Result status(String status) {
+  public ResultQuery status(String status) {
     this.status = status;
     return this;
   }
@@ -268,7 +267,7 @@ public class Result {
   }
 
 
-  public Result isApiResult(Boolean isApiResult) {
+  public ResultQuery isApiResult(Boolean isApiResult) {
     this.isApiResult = isApiResult;
     return this;
   }
@@ -287,7 +286,7 @@ public class Result {
   }
 
 
-  public Result timeSpentMs(Long timeSpentMs) {
+  public ResultQuery timeSpentMs(Long timeSpentMs) {
     this.timeSpentMs = timeSpentMs;
     return this;
   }
@@ -306,7 +305,7 @@ public class Result {
   }
 
 
-  public Result endTime(OffsetDateTime endTime) {
+  public ResultQuery endTime(OffsetDateTime endTime) {
     this.endTime = endTime;
     return this;
   }
@@ -325,12 +324,12 @@ public class Result {
   }
 
 
-  public Result attachments(List<Attachment> attachments) {
+  public ResultQuery attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
-  public Result addAttachmentsItem(Attachment attachmentsItem) {
+  public ResultQuery addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<>();
     }
@@ -361,19 +360,19 @@ public class Result {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Result result = (Result) o;
-    return Objects.equals(this.hash, result.hash) &&
-        Objects.equals(this.resultHash, result.resultHash) &&
-        Objects.equals(this.comment, result.comment) &&
-        Objects.equals(this.stacktrace, result.stacktrace) &&
-        Objects.equals(this.runId, result.runId) &&
-        Objects.equals(this.caseId, result.caseId) &&
-        Objects.equals(this.steps, result.steps) &&
-        Objects.equals(this.status, result.status) &&
-        Objects.equals(this.isApiResult, result.isApiResult) &&
-        Objects.equals(this.timeSpentMs, result.timeSpentMs) &&
-        Objects.equals(this.endTime, result.endTime) &&
-        Objects.equals(this.attachments, result.attachments);
+    ResultQuery resultQuery = (ResultQuery) o;
+    return Objects.equals(this.hash, resultQuery.hash) &&
+        Objects.equals(this.resultHash, resultQuery.resultHash) &&
+        Objects.equals(this.comment, resultQuery.comment) &&
+        Objects.equals(this.stacktrace, resultQuery.stacktrace) &&
+        Objects.equals(this.runId, resultQuery.runId) &&
+        Objects.equals(this.caseId, resultQuery.caseId) &&
+        Objects.equals(this.steps, resultQuery.steps) &&
+        Objects.equals(this.status, resultQuery.status) &&
+        Objects.equals(this.isApiResult, resultQuery.isApiResult) &&
+        Objects.equals(this.timeSpentMs, resultQuery.timeSpentMs) &&
+        Objects.equals(this.endTime, resultQuery.endTime) &&
+        Objects.equals(this.attachments, resultQuery.attachments);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -395,7 +394,7 @@ public class Result {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Result {\n");
+    sb.append("class ResultQuery {\n");
     sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
     sb.append("    resultHash: ").append(toIndentedString(resultHash)).append("\n");
     sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
@@ -445,33 +444,41 @@ public class Result {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("result_hash");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Result
+  * @throws IOException if the JSON Element is invalid with respect to ResultQuery
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!Result.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Result is not found in the empty JSON string", Result.openapiRequiredFields.toString()));
+        if (!ResultQuery.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ResultQuery is not found in the empty JSON string", ResultQuery.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!Result.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Result` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!ResultQuery.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ResultQuery` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ResultQuery.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if ((jsonObj.get("hash") != null && !jsonObj.get("hash").isJsonNull()) && !jsonObj.get("hash").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `hash` to be a primitive type in the JSON string but got `%s`", jsonObj.get("hash").toString()));
       }
-      if ((jsonObj.get("result_hash") != null && !jsonObj.get("result_hash").isJsonNull()) && !jsonObj.get("result_hash").isJsonPrimitive()) {
+      if (!jsonObj.get("result_hash").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `result_hash` to be a primitive type in the JSON string but got `%s`", jsonObj.get("result_hash").toString()));
       }
       if ((jsonObj.get("comment") != null && !jsonObj.get("comment").isJsonNull()) && !jsonObj.get("comment").isJsonPrimitive()) {
@@ -517,22 +524,22 @@ public class Result {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Result.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Result' and its subtypes
+       if (!ResultQuery.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ResultQuery' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Result> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Result.class));
+       final TypeAdapter<ResultQuery> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ResultQuery.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Result>() {
+       return (TypeAdapter<T>) new TypeAdapter<ResultQuery>() {
            @Override
-           public void write(JsonWriter out, Result value) throws IOException {
+           public void write(JsonWriter out, ResultQuery value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public Result read(JsonReader in) throws IOException {
+           public ResultQuery read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -543,18 +550,18 @@ public class Result {
   }
 
  /**
-  * Create an instance of Result given an JSON string
+  * Create an instance of ResultQuery given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of Result
-  * @throws IOException if the JSON string is invalid with respect to Result
+  * @return An instance of ResultQuery
+  * @throws IOException if the JSON string is invalid with respect to ResultQuery
   */
-  public static Result fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Result.class);
+  public static ResultQuery fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ResultQuery.class);
   }
 
  /**
-  * Convert an instance of Result to an JSON string
+  * Convert an instance of ResultQuery to an JSON string
   *
   * @return JSON string
   */

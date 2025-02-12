@@ -163,6 +163,7 @@ public class Example {
 | **200** | OK. |  -  |
 | **400** | Bad Request. |  -  |
 | **401** | Unauthorized. |  -  |
+| **402** | Payment Required. |  -  |
 | **403** | Forbidden. |  -  |
 | **404** | Not Found. |  -  |
 | **422** | Unprocessable Entity. |  -  |
@@ -240,6 +241,7 @@ public class Example {
 | **200** | OK. |  -  |
 | **400** | Bad Request. |  -  |
 | **401** | Unauthorized. |  -  |
+| **402** | Payment Required. |  -  |
 | **403** | Forbidden. |  -  |
 | **404** | Not Found. |  -  |
 | **422** | Unprocessable Entity. |  -  |
@@ -574,6 +576,7 @@ public class Example {
 | **200** | A list of all cases. |  -  |
 | **400** | Bad Request. |  -  |
 | **401** | Unauthorized. |  -  |
+| **402** | Payment Required. |  -  |
 | **403** | Forbidden. |  -  |
 | **404** | Not Found. |  -  |
 | **429** | Too Many Requests. |  -  |
