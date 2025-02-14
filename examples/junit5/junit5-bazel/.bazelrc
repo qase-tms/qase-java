@@ -1,0 +1,1 @@
+test --jvmopt="--add-opens=java.base/java.lang=ALL-UNNAMED" --jvmopt="-Djunit.jupiter.extensions.autodetection.enabled=true"

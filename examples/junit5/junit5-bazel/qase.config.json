@@ -1,0 +1,31 @@
+{
+  "mode": "testops",
+  "fallback": "report",
+  "debug": true,
+  "report": {
+    "driver": "local",
+    "connection": {
+      "local": {
+        "path": "./build/qase-report",
+        "format": "json"
+      }
+    }
+  },
+  "testops": {
+    "api": {
+      "token": "<token>",
+      "host": "qase.io"
+    },
+    "run": {
+      "title": "Junit5 test run",
+      "description": "Junit5 examples",
+      "complete": true
+    },
+    "defect": false,
+    "project": "<project_code>",
+    "batch": {
+      "size": 200
+    },
+    "useV2": true
+  }
+}
