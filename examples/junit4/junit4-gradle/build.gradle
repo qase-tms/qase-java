@@ -17,7 +17,7 @@ repositories {
 dependencies {
     testImplementation 'junit:junit:4.13.1'
     testImplementation "org.junit.platform:junit-platform-runner:1.6.3"
-    testImplementation("io.qase:qase-junit4-reporter:4.0.0")
+    testImplementation("io.qase:qase-junit4-reporter:4.0.6")
     aspectConfig "org.aspectj:aspectjweaver:1.9.22"
 }
 

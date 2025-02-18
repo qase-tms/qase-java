@@ -1,3 +1,10 @@
+# qase-java 4.0.6
+
+## What's new
+
+- Resolved issues with listener connection when using aspects and Maven integration in Junit4.
+- Updated documentation to guide proper listener setup.
+
 # qase-java 4.0.4
 
 ## What's new
