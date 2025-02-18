@@ -13,7 +13,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.22</aspectj.version>
-        <qase.version>4.0.0</qase.version>
+        <qase.version>4.0.6</qase.version>
     </properties>
 
     <dependencies>
@@ -53,11 +53,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.0.0</version>
                 <configuration>
                     <argLine>
                         -javaagent:"${user.home}/.m2/repository/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qase.junit4.QaseListener</value>
+                        </property>
+                    </properties>
                 </configuration>
                 <dependencies>
                     <dependency>

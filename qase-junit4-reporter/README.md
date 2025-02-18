@@ -27,7 +27,7 @@ Add the following dependency to your `pom.xml`:
         <dependency>
             <groupId>io.qase</groupId>
             <artifactId>qase-junit4-reporter</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -55,6 +55,12 @@ Add the following dependency to your `pom.xml`:
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qase.junit4.QaseListener</value>
+                        </property>
+                    </properties>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -71,7 +77,7 @@ Add the following dependency to your `pom.xml`:
 
 ### Gradle
 
-Add the following dependencies to your `build.gradle`:
+1. Add the following dependencies to your `build.gradle`:
 
 ```groovy
 configurations {
@@ -87,7 +93,7 @@ dependencies {
     aspectjweaver "org.aspectj:aspectjweaver:1.9.22"
     testImplementation 'junit:junit:4.13.1'
     testImplementation "org.junit.platform:junit-platform-runner:1.6.3"
-    testImplementation("io.qase:qase-junit4-reporter:4.0.0")
+    testImplementation("io.qase:qase-junit4-reporter:4.0.6")
 }
 
 test {
@@ -103,6 +109,18 @@ test.doFirst {
     def weaver = configurations.aspectjweaver.find { it.name.contains("aspectjweaver") }
     jvmArgs += "-javaagent:$weaver"
 }
+```
+
+2. Create a `aop-ajc.xml` file in the `src/test/resources/META-INF` directory with the following content:
+
+```xml
+
+<aspectj>
+    <weaver options="-warn:none -Xlint:ignore"/>
+    <aspects>
+        <aspect name="io.qase.junit4.QaseJunit4Aspects"/>
+    </aspects>
+</aspectj>
 ```
 
 ## Updating from v3 to v4

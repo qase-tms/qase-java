@@ -1,6 +1,7 @@
 package io.qase.commons.models.domain;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.*;
 
@@ -35,7 +36,9 @@ public class TestResult {
 
     @Override
     public String toString() {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Throwable.class, new ThrowableAdapter())
+                .create();
         return gson.toJson(this);
     }
 }
