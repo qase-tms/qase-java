@@ -1,3 +1,9 @@
+# qase-java 4.0.7
+
+## What's new
+
+Resolved PatternSyntaxException in Cucumber reporters caused by unescaped trailing backslash in regular expressions.
+
 # qase-java 4.0.6
 
 ## What's new

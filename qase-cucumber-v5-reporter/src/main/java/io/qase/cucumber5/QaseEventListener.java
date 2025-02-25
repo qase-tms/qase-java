@@ -8,7 +8,6 @@ import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.qase.commons.reporters.Reporter;
-import okio.Path;
 
 import java.util.List;
 import java.util.Map;
@@ -102,7 +101,7 @@ public class QaseEventListener implements ConcurrentEventListener {
             }
         } else {
             SuiteData className = new SuiteData();
-            String[] parts = event.getTestCase().getScenarioDesignation().split(":")[0].split(Path.DIRECTORY_SEPARATOR);
+            String[] parts = event.getTestCase().getUri().toString().split("/");
             className.title = parts[parts.length - 1];
             relations.suite.data.add(className);
         }
