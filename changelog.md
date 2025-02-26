@@ -1,3 +1,9 @@
+# qase-java 4.0.8
+
+## What's new
+
+Added a new `attach` method in Cucumber reporters that allows passing a byte array to attach files to test results.
+
 # qase-java 4.0.7
 
 ## What's new

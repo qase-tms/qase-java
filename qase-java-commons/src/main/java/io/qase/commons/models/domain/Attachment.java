@@ -7,5 +7,6 @@ public class Attachment {
     public String fileName;
     public String mimeType;
     public String content;
+    public byte[] contentBytes;
     public String filePath;
 }

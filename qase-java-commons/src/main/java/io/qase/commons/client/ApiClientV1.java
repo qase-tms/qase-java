@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -219,12 +220,23 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
         if (attachment.filePath != null) {
             file = new File(attachment.filePath);
-        } else {
+        } else if (attachment.content != null) {
             String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
             file = new File(tempPath);
 
             try (FileWriter fileWriter = new FileWriter(file)) {
                 fileWriter.write(attachment.content);
+                removeFile = true;
+            } catch (IOException e) {
+                logger.error("Failed to write attachment content to file: {}", e.getMessage());
+                return "";
+            }
+        } else {
+            String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
+            file = new File(tempPath);
+
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                fos.write(attachment.contentBytes);
                 removeFile = true;
             } catch (IOException e) {
                 logger.error("Failed to write attachment content to file: {}", e.getMessage());

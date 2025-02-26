@@ -43,4 +43,17 @@ public class Methods {
             CasesStorage.getCurrentCase().attachments.add(attachment);
         }
     }
+
+    public static void addAttachment(String fileName, byte[] content, String contentType) {
+        Attachment attachment = new Attachment();
+        attachment.fileName = fileName;
+        attachment.contentBytes = content;
+        attachment.mimeType = contentType;
+
+        if (StepStorage.isStepInProgress()) {
+            StepStorage.getCurrentStep().attachments.add(attachment);
+        } else {
+            CasesStorage.getCurrentCase().attachments.add(attachment);
+        }
+    }
 }
