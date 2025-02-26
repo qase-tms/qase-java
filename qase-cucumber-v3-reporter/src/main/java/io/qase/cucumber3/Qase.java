@@ -14,4 +14,8 @@ public class Qase {
     public static void attach(String fileName, String content, String contentType) {
         Methods.addAttachment(fileName, content, contentType);
     }
+
+    public static void attach(String fileName, byte[] content, String contentType) {
+        Methods.addAttachment(fileName, content, contentType);
+    }
 }
