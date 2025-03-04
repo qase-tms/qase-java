@@ -11,6 +11,7 @@ import org.junit.platform.launcher.TestPlan;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.time.Instant;
 import java.util.*;
 
 import static io.qase.commons.utils.IntegrationUtils.*;
@@ -96,7 +97,8 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
             relations.suite.data.add(className);
         }
 
-        resultCreate.execution.startTime = System.currentTimeMillis();
+        resultCreate.execution.startTime = Instant.now().toEpochMilli();
+        resultCreate.execution.thread = Thread.currentThread().getName();
         resultCreate.testopsId = caseId;
         resultCreate.title = caseTitle;
         resultCreate.params = parameters;
@@ -174,7 +176,7 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
         LinkedList<StepResult> steps = StepStorage.stopSteps();
 
         resultCreate.execution.status = status;
-        resultCreate.execution.endTime = System.currentTimeMillis();
+        resultCreate.execution.endTime = Instant.now().toEpochMilli();
         resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
         resultCreate.execution.stacktrace = stacktrace;
         resultCreate.steps = steps;

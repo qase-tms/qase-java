@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -168,6 +167,9 @@ public class ApiClientV2 implements ApiClient {
 
         ResultStepExecution execution = new ResultStepExecution()
                 .status(ResultStepStatus.fromValue(step.execution.status.toString().toLowerCase()))
+                .startTime(step.execution.startTime / 1000.0)
+                .endTime(step.execution.endTime / 1000.0)
+                .duration(step.execution.duration)
                 .attachments(attachments);
         List<Object> steps = step.steps.stream()
                 .map(this::convertStepResult).collect(Collectors.toList());
