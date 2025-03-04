@@ -13,6 +13,7 @@ import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -134,7 +135,8 @@ public class QaseListener extends RunListener {
             relations.suite.data.add(className);
         }
 
-        resultCreate.execution.startTime = System.currentTimeMillis();
+        resultCreate.execution.startTime = Instant.now().toEpochMilli();
+        resultCreate.execution.thread = Thread.currentThread().getName();
         resultCreate.testopsId = caseId;
         resultCreate.title = caseTitle;
         resultCreate.fields = fields;
@@ -157,7 +159,7 @@ public class QaseListener extends RunListener {
         LinkedList<StepResult> steps = StepStorage.stopSteps();
 
         resultCreate.execution.status = status;
-        resultCreate.execution.endTime = System.currentTimeMillis();
+        resultCreate.execution.endTime = Instant.now().toEpochMilli();
         resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
         resultCreate.execution.stacktrace = stacktrace;
         resultCreate.steps = steps;

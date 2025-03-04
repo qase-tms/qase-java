@@ -9,6 +9,7 @@ import io.qase.commons.reporters.CoreReporterFactory;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.qase.commons.reporters.Reporter;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,7 +54,7 @@ public class QaseEventListener implements ConcurrentEventListener {
         if (testStepFinished.getTestStep() instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.getTestStep();
             StepResult stepResult = StepStorage.getCurrentStep();
-            stepResult.data.action = step.getStepText();
+            stepResult.data.action = step.getStep().getText();
             stepResult.execution.status = this.convertStepStatus(testStepFinished.getResult().getStatus());
             StepStorage.stopStep();
         }
@@ -108,7 +109,8 @@ public class QaseEventListener implements ConcurrentEventListener {
 
         resultCreate.title = caseTitle;
         resultCreate.testopsId = caseId;
-        resultCreate.execution.startTime = System.currentTimeMillis();
+        resultCreate.execution.startTime = Instant.now().toEpochMilli();
+        resultCreate.execution.thread = Thread.currentThread().getName();
         resultCreate.fields = fields;
         resultCreate.relations = relations;
 
@@ -127,7 +129,7 @@ public class QaseEventListener implements ConcurrentEventListener {
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
 
         resultCreate.execution.status = convertStatus(event.getResult().getStatus());
-        resultCreate.execution.endTime = System.currentTimeMillis();
+        resultCreate.execution.endTime = Instant.now().toEpochMilli();
         resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
         resultCreate.execution.stacktrace = stacktrace;
         resultCreate.steps = StepStorage.stopSteps();

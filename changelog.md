@@ -1,3 +1,10 @@
+# qase-java 4.0.9
+
+## What's new
+
+Resolved an issue where `execution.start_time` was not in UTC, leading to submission errors (
+`The execution.start time must be at least {unix time}`).
+
 # qase-java 4.0.8
 
 ## What's new

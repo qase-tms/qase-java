@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,13 +35,13 @@ public class FileReporter implements InternalReporter {
 
     @Override
     public void startTestRun() throws QaseException {
-        this.startTime = System.currentTimeMillis();
+        this.startTime = Instant.now().toEpochMilli();
         this.writer.prepare();
     }
 
     @Override
     public void completeTestRun() throws QaseException {
-        long endTime = System.currentTimeMillis();
+        long endTime = Instant.now().toEpochMilli();
 
         Gson gson = new Gson();
 

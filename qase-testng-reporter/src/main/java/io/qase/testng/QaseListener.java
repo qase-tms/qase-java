@@ -139,6 +139,7 @@ public class QaseListener implements ISuiteListener,
         }
 
         resultCreate.execution.startTime = result.getStartMillis();
+        resultCreate.execution.thread = Thread.currentThread().getName();
         resultCreate.testopsId = caseId;
         resultCreate.title = caseTitle;
         resultCreate.params = parameters;

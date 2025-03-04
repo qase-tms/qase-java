@@ -13,6 +13,7 @@ import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
 import okio.Path;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -118,7 +119,8 @@ public class QaseEventListener implements Formatter {
 
         resultCreate.title = caseTitle;
         resultCreate.testopsId = caseId;
-        resultCreate.execution.startTime = System.currentTimeMillis();
+        resultCreate.execution.startTime = Instant.now().toEpochMilli();
+        resultCreate.execution.thread = Thread.currentThread().getName();
         resultCreate.fields = fields;
         resultCreate.relations = relations;
 
@@ -137,10 +139,10 @@ public class QaseEventListener implements Formatter {
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
 
         resultCreate.execution.status = convertStatus(event.result.getStatus());
-        resultCreate.execution.endTime = System.currentTimeMillis();
+        resultCreate.execution.endTime = Instant.now().toEpochMilli();
         resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
         resultCreate.execution.stacktrace = stacktrace;
-        resultCreate.steps = StepStorage.stopSteps();;
+        resultCreate.steps = StepStorage.stopSteps();
 
         optionalThrowable.ifPresent(throwable ->
                 resultCreate.message = Optional.ofNullable(resultCreate.message)

@@ -1,19 +1,21 @@
 package io.qase.commons.models.domain;
 
+import java.time.Instant;
+
 public class StepExecution {
     public StepResultStatus status;
-    public long startTime;
-    public long endTime;
-    public int duration;
+    public Long startTime;
+    public Long endTime;
+    public Long duration;
 
     public StepExecution() {
-        this.startTime = System.currentTimeMillis();
+        this.startTime = Instant.now().toEpochMilli();
         this.status = StepResultStatus.UNTESTED;
     }
 
     public void stop() {
-        this.endTime = System.currentTimeMillis();
-        this.duration = (int) (this.endTime - this.startTime);
+        this.endTime = Instant.now().toEpochMilli();
+        this.duration = this.endTime - this.startTime;
     }
 }
 
