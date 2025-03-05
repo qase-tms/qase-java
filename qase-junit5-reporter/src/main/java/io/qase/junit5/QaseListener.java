@@ -132,42 +132,25 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
     @Override
     public void testSuccessful(ExtensionContext context) {
-        TestResult result = this.stopTestCase(TestResultStatus.PASSED, null);
-
-        if (result == null) {
-            return;
-        }
-
-        this.qaseTestCaseListener.addResult(result);
+       this.stopTestCase(TestResultStatus.PASSED, null);
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
-        TestResult result = this.stopTestCase(TestResultStatus.SKIPPED, cause);
-
-        if (result == null) {
-            return;
-        }
-
-        this.qaseTestCaseListener.addResult(result);
+        this.stopTestCase(TestResultStatus.SKIPPED, cause);
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        TestResult result = this.stopTestCase(TestResultStatus.FAILED, cause);
-
-        if (result == null) {
-            return;
-        }
-
-        this.qaseTestCaseListener.addResult(result);
+        this.stopTestCase(TestResultStatus.FAILED, cause);
     }
 
-    private TestResult stopTestCase(TestResultStatus status, Throwable cause) {
+    private void stopTestCase(TestResultStatus status, Throwable cause) {
         TestResult resultCreate = CasesStorage.getCurrentCase();
-        CasesStorage.stopCase();
+
         if (resultCreate.ignore) {
-            return null;
+            CasesStorage.stopCase();
+            return;
         }
 
         Optional<Throwable> resultThrowable = Optional.ofNullable(cause);
@@ -189,6 +172,7 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
             }
         }
 
-        return resultCreate;
+        this.qaseTestCaseListener.addResult(resultCreate);
+        CasesStorage.stopCase();
     }
 }

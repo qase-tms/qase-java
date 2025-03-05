@@ -48,42 +48,24 @@ public class QaseListener implements ISuiteListener,
 
     @Override
     public void onTestSuccess(ITestResult tr) {
-        TestResult result = this.stopTestCase(tr, TestResultStatus.PASSED);
-
-        if (result == null) {
-            return;
-        }
-
-        this.qaseTestCaseListener.addResult(result);
+        this.stopTestCase(tr, TestResultStatus.PASSED);
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        TestResult result = this.stopTestCase(tr, TestResultStatus.FAILED);
-
-        if (result == null) {
-            return;
-        }
-
-        this.qaseTestCaseListener.addResult(result);
+        this.stopTestCase(tr, TestResultStatus.FAILED);
     }
 
     @Override
     public void onTestSkipped(ITestResult tr) {
-        TestResult result = this.stopTestCase(tr, TestResultStatus.SKIPPED);
-
-        if (result == null) {
-            return;
-        }
-
-        this.qaseTestCaseListener.addResult(result);
+        this.stopTestCase(tr, TestResultStatus.SKIPPED);
     }
 
-    private TestResult stopTestCase(ITestResult result, TestResultStatus status) {
+    private void stopTestCase(ITestResult result, TestResultStatus status) {
         TestResult resultCreate = CasesStorage.getCurrentCase();
-        CasesStorage.stopCase();
         if (resultCreate.ignore) {
-            return null;
+            CasesStorage.stopCase();
+            return;
         }
 
         Optional<Throwable> resultThrowable = Optional.ofNullable(result.getThrowable());
@@ -105,7 +87,8 @@ public class QaseListener implements ISuiteListener,
             }
         }
 
-        return resultCreate;
+        this.qaseTestCaseListener.addResult(resultCreate);
+        CasesStorage.stopCase();
     }
 
     private TestResult startTestCase(ITestResult result) {

@@ -88,3 +88,41 @@ All configuration options are listed in the table below:
   }
 }
 ```
+
+## How to add an attachment for a failed test?
+
+You need to implement the `HooksListener` interface and override the `beforeTestStop` method.
+
+For example:
+
+```java
+import io.qase.commons.hooks.HooksListener;
+import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.models.domain.TestResultStatus;
+import io.qase.testng.Qase;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+public class AttachmentManager implements HooksListener {
+
+    @Override
+    public void beforeTestStop(final TestResult result) {
+        if (result.execution.status == TestResultStatus.FAILED) {
+            // Add a screenshot
+            Qase.attach("Failure Screenshot.png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
+            
+            // Add log file
+            Qase.attach("/logs/failed.log");
+            
+            // Add any text
+            Qase.attach("file.txt", "any text", "plain/text");
+        }
+    }
+}
+```
+
+After that, you need to add file **io.qase.commons.hooks.HooksListener** to **resources/META-INF/services** folder:
+```text
+<your-package>.AttachmentManager
+```
