@@ -1,3 +1,10 @@
+# qase-java 4.0.10
+
+## What's new
+
+Introduced the ability to execute custom hooks before a test completes, allowing users to run custom code at the end of
+test execution. More details can be found in the [documentation](https://github.com/qase-tms/qase-java/tree/main/qase-java-commons#readme)
+
 # qase-java 4.0.9
 
 ## What's new

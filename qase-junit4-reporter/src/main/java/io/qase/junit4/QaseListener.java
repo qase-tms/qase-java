@@ -49,52 +49,28 @@ public class QaseListener extends RunListener {
     @Override
     public void testFinished(Description description) {
         if (addIfNotPresent(description)) {
-            TestResult result = this.stopTestCase(TestResultStatus.PASSED, null);
-
-            if (result == null) {
-                return;
-            }
-
-            this.qaseTestCaseListener.addResult(result);
+            this.stopTestCase(TestResultStatus.PASSED, null);
         }
     }
 
     @Override
     public void testFailure(Failure failure) {
         if (addIfNotPresent(failure.getDescription())) {
-            TestResult result = this.stopTestCase(TestResultStatus.FAILED, failure.getException());
-
-            if (result == null) {
-                return;
-            }
-
-            this.qaseTestCaseListener.addResult(result);
+            this.stopTestCase(TestResultStatus.FAILED, failure.getException());
         }
     }
 
     @Override
     public void testAssumptionFailure(Failure failure) {
         if (addIfNotPresent(failure.getDescription())) {
-            TestResult result = this.stopTestCase(TestResultStatus.FAILED, failure.getException());
-
-            if (result == null) {
-                return;
-            }
-
-            this.qaseTestCaseListener.addResult(result);
+            this.stopTestCase(TestResultStatus.FAILED, failure.getException());
         }
     }
 
     @Override
     public void testIgnored(Description description) {
         if (addIfNotPresent(description)) {
-            TestResult result = this.stopTestCase(TestResultStatus.SKIPPED, null);
-
-            if (result == null) {
-                return;
-            }
-
-            this.qaseTestCaseListener.addResult(result);
+            this.stopTestCase(TestResultStatus.SKIPPED, null);
         }
     }
 
@@ -146,11 +122,12 @@ public class QaseListener extends RunListener {
         return resultCreate;
     }
 
-    private TestResult stopTestCase(TestResultStatus status, Throwable error) {
+    private void stopTestCase(TestResultStatus status, Throwable error) {
         TestResult resultCreate = CasesStorage.getCurrentCase();
-        CasesStorage.stopCase();
+
         if (resultCreate.ignore) {
-            return null;
+            CasesStorage.stopCase();
+            return;
         }
 
         Optional<Throwable> resultThrowable = Optional.ofNullable(error);
@@ -172,7 +149,8 @@ public class QaseListener extends RunListener {
             }
         }
 
-        return resultCreate;
+        this.qaseTestCaseListener.addResult(resultCreate);
+        CasesStorage.stopCase();
     }
 
     private Long getCaseId(Description description) {

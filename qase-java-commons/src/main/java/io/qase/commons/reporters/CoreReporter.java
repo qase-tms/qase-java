@@ -6,6 +6,7 @@ import io.qase.commons.client.ApiClientV1;
 import io.qase.commons.client.ApiClientV2;
 import io.qase.commons.config.Mode;
 import io.qase.commons.config.QaseConfig;
+import io.qase.commons.hooks.HooksManager;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.writers.FileWriter;
 import io.qase.commons.writers.Writer;
@@ -20,12 +21,14 @@ public class CoreReporter implements Reporter {
 
     private InternalReporter reporter;
     private InternalReporter fallback;
+    private final HooksManager hooksManager;
 
     public CoreReporter(QaseConfig config) {
         logger.info("Qase config: {}", config);
 
         this.reporter = this.createReporter(config, config.mode);
         this.fallback = this.createReporter(config, config.fallback);
+        this.hooksManager = HooksManager.getDefaultHooksManager();
     }
 
     @Override
@@ -45,6 +48,8 @@ public class CoreReporter implements Reporter {
     @Override
     public void addResult(TestResult result) {
         logger.info("Adding result: {}", result);
+
+        this.hooksManager.beforeTestStop(result);
 
         executeWithFallback(() -> reporter.addResult(result), "add result");
     }
