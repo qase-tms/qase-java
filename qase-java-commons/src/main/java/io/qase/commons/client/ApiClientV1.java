@@ -24,6 +24,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Qase API V1 client
@@ -53,9 +57,13 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
     @Override
     public Long createTestRun() throws QaseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String utcTime = ZonedDateTime.ofInstant(Instant.now(), ZoneId.of("UTC")).format(formatter);
+
         RunCreate model = new RunCreate()
                 .title(this.config.testops.run.title)
-                .isAutotest(true);
+                .isAutotest(true)
+                .startTime(utcTime);
 
         if (this.config.testops.run.description != null) {
             model.setDescription(this.config.testops.run.description);

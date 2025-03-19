@@ -1,3 +1,9 @@
+# qase-java 4.0.11
+
+## What's new
+
+Implemented local time support for test run creation to improve time tracking.
+
 # qase-java 4.0.10
 
 ## What's new
