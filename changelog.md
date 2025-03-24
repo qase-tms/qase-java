@@ -1,3 +1,10 @@
+# qase-java 4.0.12
+
+## What's new
+
+- Logging of host system details to improve debugging and traceability.
+- Output of installed packages in logs for better environment visibility.
+
 # qase-java 4.0.11
 
 ## What's new
