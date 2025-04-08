@@ -10,7 +10,7 @@ public class ReportResult {
     public String title;
     public String signature;
     public String runId;
-    public Long testopsId;
+    public List<Long> testopsIds;
     public TestResultExecution execution;
     public Map<String, String> fields;
     public List<String> attachments;

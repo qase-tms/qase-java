@@ -11,7 +11,7 @@ public class TestResult {
     public String title;
     public String signature;
     public String runId;
-    public Long testopsId;
+    public List<Long> testopsIds;
     public TestResultExecution execution;
     public Map<String, String> fields;
     public List<Attachment> attachments;
@@ -32,6 +32,7 @@ public class TestResult {
         this.relations = new Relations();
         this.execution = new TestResultExecution();
         this.fields = new HashMap<>();
+        this.testopsIds = null;
     }
 
     @Override

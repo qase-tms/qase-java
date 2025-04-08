@@ -35,14 +35,16 @@ public class Junit5PostDiscoveryFilter implements PostDiscoveryFilter {
         }
 
         final MethodSource methodSource = (MethodSource) testSource.get();
-        Long id = getCaseId(methodSource.getJavaMethod());
+        List<Long> ids = getCaseIds(methodSource.getJavaMethod());
 
-        if (id == null) {
+        if (ids == null) {
             return FilterResult.includedIf(false);
         }
 
-        if (this.caseIds.contains(id)) {
-            return FilterResult.includedIf(true);
+        for (Long id : ids) {
+            if (this.caseIds.contains(id)) {
+                return FilterResult.includedIf(true);
+            }
         }
 
         return FilterResult.includedIf(false);

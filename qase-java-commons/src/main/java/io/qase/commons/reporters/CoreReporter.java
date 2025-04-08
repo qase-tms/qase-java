@@ -2,7 +2,6 @@ package io.qase.commons.reporters;
 
 import io.qase.commons.QaseException;
 import io.qase.commons.client.ApiClient;
-import io.qase.commons.client.ApiClientV1;
 import io.qase.commons.client.ApiClientV2;
 import io.qase.commons.config.Mode;
 import io.qase.commons.config.QaseConfig;
@@ -108,12 +107,7 @@ public class CoreReporter implements Reporter {
     private InternalReporter createReporter(QaseConfig config, Mode mode) {
         switch (mode) {
             case TESTOPS:
-                ApiClient client;
-                if (config.testops.useV2) {
-                    client = new ApiClientV2(config);
-                } else {
-                    client = new ApiClientV1(config);
-                }
+                ApiClient client = new ApiClientV2(config);
                 return new TestopsReporter(config.testops, client);
             case REPORT:
                 Writer writer = new FileWriter(config.report.connection);

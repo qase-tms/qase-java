@@ -2,13 +2,16 @@ package io.qase.commons.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 import java.net.URI;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public final class CucumberUtils {
-    private static final List<String> CASE_TAGS = Collections.unmodifiableList(Arrays.asList("@caseid", "@tmslink", "@qaseid"));
+    private static final List<String> CASE_TAGS = Collections.unmodifiableList(Arrays.asList("@caseid", "@tmslink", "@qaseid", "@qaseids"));
     private static final String QASE_TITLE = "@QaseTitle";
     private static final String QASE_IGNORE = "@QaseIgnore";
     private static final String QASE_FIELDS = "@QaseFields";
@@ -19,14 +22,30 @@ public final class CucumberUtils {
         throw new IllegalAccessException("Utility class");
     }
 
-    public static Long getCaseId(List<String> tags) {
-        return tags.stream()
+    public static List<Long> getCaseIds(List<String> tags) {
+        List<Long> ids = tags.stream()
                 .map(tag -> tag.split(DELIMITER))
-                .filter(split -> CASE_TAGS.contains(split[0].toLowerCase()) && split.length == 2 &&
-                        (split[1].matches("\\d+") || split[1].matches("\\D+-\\d+")))
-                .map(split -> Long.valueOf(split[1].replaceAll("\\D+", "")))
-                .findFirst()
-                .orElse(null);
+                .filter(split -> CASE_TAGS.contains(split[0].toLowerCase()) && split.length == 2)
+                .flatMap(split -> {
+                    if (split[0].equalsIgnoreCase("@qaseids")) {
+                        return Arrays.stream(split[1].split(","))
+                                .map(String::trim)
+                                .filter(id -> id.matches("\\d+") || id.matches("\\D+-\\d+"))
+                                .map(id -> Long.valueOf(id.replaceAll("\\D+", "")));
+                    } else {
+                        if (split[1].matches("\\d+") || split[1].matches("\\D+-\\d+")) {
+                            return Stream.of(Long.valueOf(split[1].replaceAll("\\D+", "")));
+                        }
+                        return Stream.empty();
+                    }
+                })
+                .collect(Collectors.toList());
+
+        if (ids.isEmpty()) {
+            return null;
+        }
+
+        return ids;
     }
 
     public static String getCaseTitle(List<String> tags) {

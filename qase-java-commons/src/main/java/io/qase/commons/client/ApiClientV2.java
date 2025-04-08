@@ -142,7 +142,7 @@ public class ApiClientV2 implements ApiClient {
         return new ResultCreate()
                 .id(result.id)
                 .title(result.title)
-                .testopsId(result.testopsId)
+                .testopsIds(result.testopsIds)
                 .signature(result.signature)
                 .execution(execution)
                 .fields(fields)

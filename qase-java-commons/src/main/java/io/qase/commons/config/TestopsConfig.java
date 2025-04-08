@@ -3,7 +3,6 @@ package io.qase.commons.config;
 public class TestopsConfig {
     public String project = "";
     public boolean defect = false;
-    public boolean useV2 = true;
     public ApiConfig api;
     public RunConfig run;
     public PlanConfig plan;
