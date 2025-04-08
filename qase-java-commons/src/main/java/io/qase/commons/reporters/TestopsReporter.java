@@ -50,7 +50,7 @@ public class TestopsReporter implements InternalReporter {
         this.results.add(result);
 
         if (result.execution.status == TestResultStatus.FAILED) {
-            logger.info("See why this test failed: {}", this.prepareLink(result.testopsId, result.title));
+            logger.info("See why this test failed: {}", this.prepareLink(result.testopsIds != null ? result.testopsIds.get(0) : null, result.title));
         }
 
         if (this.results.size() >= this.config.batch.size) {

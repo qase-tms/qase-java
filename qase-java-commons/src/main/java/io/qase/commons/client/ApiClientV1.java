@@ -4,14 +4,13 @@ import io.qase.client.v1.ApiClient;
 import io.qase.client.v1.ApiException;
 import io.qase.client.v1.api.AttachmentsApi;
 import io.qase.client.v1.api.PlansApi;
-import io.qase.client.v1.api.ResultsApi;
 import io.qase.client.v1.api.RunsApi;
 import io.qase.client.v1.models.*;
 import io.qase.commons.QaseException;
 import io.qase.commons.config.QaseConfig;
 import io.qase.commons.models.domain.Attachment;
-import io.qase.commons.models.domain.StepResult;
 import io.qase.commons.models.domain.TestResult;
+import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,22 +101,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
     @Override
     public void uploadResults(Long runId, List<TestResult> results) throws QaseException {
-        List<ResultCreate> models = results.stream()
-                .map(this::convertResult)
-                .collect(Collectors.toList());
-
-        ResultCreateBulk model = new ResultCreateBulk().results(models);
-
-        logger.debug("Uploading results: {}", model);
-
-        try {
-            new ResultsApi(client)
-                    .createResultBulk(this.config.testops.project,
-                            runId.intValue(),
-                            model);
-        } catch (ApiException e) {
-            throw new QaseException("Failed to upload test results: " + e.getResponseBody(), e.getCause());
-        }
+        throw new NotImplementedException("Use ApiClientV2 for uploading results");
     }
 
     @Override
@@ -140,85 +124,6 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         } catch (ApiException e) {
             throw new QaseException("Failed to get test case ids for execution: " + e.getResponseBody(), e.getCause());
         }
-    }
-
-
-    private ResultCreate convertResult(TestResult result) {
-        ResultCreateCase caseModel = new ResultCreateCase()
-                .title(result.title);
-
-        if (result.fields.containsKey("description")) {
-            caseModel.setDescription(result.fields.get("description"));
-        }
-
-        if (result.fields.containsKey("severity")) {
-            caseModel.setSeverity(result.fields.get("severity"));
-        }
-
-        if (result.fields.containsKey("priority")) {
-            caseModel.setPriority(result.fields.get("priority"));
-        }
-
-        if (result.fields.containsKey("preconditions")) {
-            caseModel.setPreconditions(result.fields.get("preconditions"));
-        }
-
-        if (result.fields.containsKey("postconditions")) {
-            caseModel.setPostconditions(result.fields.get("postconditions"));
-        }
-
-        if (result.fields.containsKey("layer")) {
-            caseModel.setLayer(result.fields.get("layer"));
-        }
-
-        if (result.relations != null) {
-            String suite = result.relations.suite.data.stream().map(suiteData -> suiteData.title).collect(Collectors.joining("\t"));
-            caseModel.setSuiteTitle(suite);
-        }
-
-        ResultCreate model = new ResultCreate()
-                .caseId(result.testopsId)
-                .status(result.execution.status.toString().toLowerCase())
-                .comment(result.message)
-                .defect(this.config.testops.defect)
-                .timeMs(result.execution.duration.longValue())
-                .stacktrace(result.execution.stacktrace)
-                .param(result.params)
-                .paramGroups(result.paramGroups);
-
-        model.setCase(caseModel);
-
-        List<TestStepResultCreate> steps = result.steps.stream()
-                .map(this::convertStepResult).collect(Collectors.toList());
-        model.setSteps(steps);
-
-        List<String> attachments = result.attachments.stream()
-                .map(this::uploadAttachment)
-                .filter(attachment -> !attachment.isEmpty())
-                .collect(Collectors.toList());
-        model.setAttachments(attachments);
-
-
-        return model;
-    }
-
-    private TestStepResultCreate convertStepResult(StepResult step) {
-        TestStepResultCreate model = new TestStepResultCreate()
-                .status(TestStepResultCreate.StatusEnum.fromValue(step.execution.status.toString().toLowerCase()))
-                .action(step.data.action);
-
-        List<Object> steps = step.steps.stream()
-                .map(this::convertStepResult).collect(Collectors.toList());
-
-        model.setSteps(steps);
-
-        List<String> attachments = step.attachments.stream()
-                .map(this::uploadAttachment)
-                .filter(attachment -> !attachment.isEmpty())
-                .collect(Collectors.toList());
-        model.setAttachments(attachments);
-
-        return model;
     }
 
     public String uploadAttachment(Attachment attachment) {

@@ -59,7 +59,6 @@ public class ConfigFactory {
 
         qaseConfig.testops.project = getEnv("QASE_TESTOPS_PROJECT", qaseConfig.testops.project);
         qaseConfig.testops.defect = getBooleanEnv("QASE_TESTOPS_DEFECT", qaseConfig.testops.defect);
-        qaseConfig.testops.useV2 = getBooleanEnv("QASE_TESTOPS_USE_V2", qaseConfig.testops.useV2);
         qaseConfig.testops.api.token = getEnv("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getEnv("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
         qaseConfig.testops.run.title = getEnv("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
@@ -85,7 +84,6 @@ public class ConfigFactory {
 
         qaseConfig.testops.project = getProperty("QASE_TESTOPS_PROJECT", qaseConfig.testops.project);
         qaseConfig.testops.defect = getBooleanProperty("QASE_TESTOPS_DEFECT", qaseConfig.testops.defect);
-        qaseConfig.testops.useV2 = getBooleanProperty("QASE_TESTOPS_USE_V2", qaseConfig.testops.useV2);
         qaseConfig.testops.api.token = getProperty("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getProperty("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
         qaseConfig.testops.run.title = getProperty("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
@@ -164,10 +162,6 @@ public class ConfigFactory {
 
             if (testOps.has("defect")) {
                 qaseConfig.testops.defect = testOps.getBoolean("defect");
-            }
-
-            if (testOps.has("useV2")) {
-                qaseConfig.testops.useV2 = testOps.getBoolean("useV2");
             }
 
             if (testOps.has("api")) {

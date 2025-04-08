@@ -92,7 +92,7 @@ public class QaseListener extends RunListener {
             return resultCreate;
         }
 
-        Long caseId = getCaseId(description);
+        List<Long> caseIds = getCaseIds(description);
         String caseTitle = getCaseTitle(description);
         Map<String, String> fields = getQaseFields(description);
         String suite = getQaseSuite(description);
@@ -113,11 +113,11 @@ public class QaseListener extends RunListener {
 
         resultCreate.execution.startTime = Instant.now().toEpochMilli();
         resultCreate.execution.thread = Thread.currentThread().getName();
-        resultCreate.testopsId = caseId;
+        resultCreate.testopsIds = caseIds;
         resultCreate.title = caseTitle;
         resultCreate.fields = fields;
         resultCreate.relations = relations;
-        resultCreate.signature = generateSignature(description, caseId, null);
+        resultCreate.signature = generateSignature(description, caseIds, null);
 
         return resultCreate;
     }
@@ -153,13 +153,18 @@ public class QaseListener extends RunListener {
         CasesStorage.stopCase();
     }
 
-    private Long getCaseId(Description description) {
+    private List<Long> getCaseIds(Description description) {
         Long qaseId = getQaseId(description);
         if (qaseId != null) {
-            return qaseId;
+            return Collections.singletonList(qaseId);
         }
+        List<Long> qaseIds = getQaseIds(description);
+        if (qaseIds != null) {
+            return qaseIds;
+        }
+
         CaseId caseIdAnnotation = description.getAnnotation(CaseId.class);
-        return caseIdAnnotation != null ? caseIdAnnotation.value() : null;
+        return caseIdAnnotation != null ? Collections.singletonList(caseIdAnnotation.value()) : null;
     }
 
     private String getCaseTitle(Description description) {
@@ -174,6 +179,13 @@ public class QaseListener extends RunListener {
     private Long getQaseId(Description description) {
         QaseId caseIdAnnotation = description.getAnnotation(QaseId.class);
         return caseIdAnnotation != null ? caseIdAnnotation.value() : null;
+    }
+
+    private List<Long> getQaseIds(Description description) {
+        QaseIds caseIdAnnotation = description.getAnnotation(QaseIds.class);
+        return caseIdAnnotation != null ? Arrays.stream(caseIdAnnotation.value())
+                .boxed()
+                .collect(Collectors.toList()) : null;
     }
 
     private String getQaseTitle(Description description) {
@@ -205,11 +217,11 @@ public class QaseListener extends RunListener {
         return fields;
     }
 
-    private String generateSignature(Description description, Long qaseId, Map<String, String> parameters) {
+    private String generateSignature(Description description, List<Long> qaseIds, Map<String, String> parameters) {
         String className = description.getClassName().toLowerCase().replace(".", ":");
         String[] parts = description.getMethodName().split("\\.");
         String methodName = parts[parts.length - 1].toLowerCase();
-        String qaseIdPart = qaseId != null ? "::" + qaseId : "";
+        String qaseIdPart = qaseIds != null ? "::" + qaseIds.stream().map(String::valueOf).collect(Collectors.joining("-")) : "";
         String parametersPart = parameters != null && !parameters.isEmpty()
                 ? "::" + parameters.entrySet().stream()
                 .map(entry -> entry.getKey().toLowerCase() + "::" + entry.getValue().toLowerCase().replace(" ", "_"))

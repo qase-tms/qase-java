@@ -20,14 +20,20 @@ public final class IntegrationUtils {
         return stringWriter.toString();
     }
 
-    public static Long getCaseId(Method method) {
+    public static List<Long> getCaseIds(Method method) {
         Long qaseId = getQaseId(method);
         if (qaseId != null) {
-            return qaseId;
+            return Collections.singletonList(qaseId);
         }
+
+        List<Long> qaseIds = getQaseIds(method);
+        if (qaseIds != null) {
+            return qaseIds;
+        }
+
         if (method.isAnnotationPresent(CaseId.class)) {
-            return method
-                    .getDeclaredAnnotation(CaseId.class).value();
+            return Collections.singletonList(method
+                    .getDeclaredAnnotation(CaseId.class).value());
         }
         return null;
     }
@@ -48,6 +54,17 @@ public final class IntegrationUtils {
             return method
                     .getDeclaredAnnotation(QaseId.class).value();
         }
+        return null;
+    }
+
+    private static List<Long> getQaseIds(Method method) {
+        if (method.isAnnotationPresent(QaseIds.class)) {
+            return Arrays.stream(method
+                    .getDeclaredAnnotation(QaseIds.class).value())
+                    .boxed()
+                    .collect(Collectors.toList());
+        }
+
         return null;
     }
 
@@ -84,11 +101,11 @@ public final class IntegrationUtils {
         return null;
     }
 
-    public static String generateSignature(Method testMethod, Long qaseId, Map<String, String> parameters) {
+    public static String generateSignature(Method testMethod, List<Long> qaseIds, Map<String, String> parameters) {
         String packageName = testMethod.getDeclaringClass().getPackage().getName().toLowerCase().replace('.', ':');
         String className = testMethod.getDeclaringClass().getSimpleName().toLowerCase();
         String methodName = testMethod.getName().toLowerCase();
-        String qaseIdPart = qaseId != null ? "::" + qaseId : "";
+        String qaseIdPart = qaseIds != null ? "::" + qaseIds.stream().map(String::valueOf).collect(Collectors.joining("-")) : "";
         String parametersPart = parameters != null && !parameters.isEmpty()
                 ? "::" + parameters.entrySet().stream()
                 .map(entry -> entry.getKey().toLowerCase() + "::" + entry.getValue().toLowerCase().replace(" ", "_"))

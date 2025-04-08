@@ -101,7 +101,7 @@ public class QaseListener implements ISuiteListener,
             return resultCreate;
         }
 
-        Long caseId = getCaseId(method);
+        List<Long> caseIds = getCaseIds(method);
         String caseTitle = getCaseTitle(method);
         Map<String, String> parameters = this.getParameters(result);
         Map<String, String> fields = getQaseFields(method);
@@ -123,12 +123,12 @@ public class QaseListener implements ISuiteListener,
 
         resultCreate.execution.startTime = result.getStartMillis();
         resultCreate.execution.thread = Thread.currentThread().getName();
-        resultCreate.testopsId = caseId;
+        resultCreate.testopsIds = caseIds;
         resultCreate.title = caseTitle;
         resultCreate.params = parameters;
         resultCreate.fields = fields;
         resultCreate.relations = relations;
-        resultCreate.signature = generateSignature(method, caseId, parameters);
+        resultCreate.signature = generateSignature(method, caseIds, parameters);
 
         return resultCreate;
     }
@@ -191,7 +191,18 @@ public class QaseListener implements ISuiteListener,
 
     private boolean hasMatchingCaseId(IMethodInstance methodInstance) {
         Method method = methodInstance.getMethod().getConstructorOrMethod().getMethod();
-        Long caseId = getCaseId(method);
-        return caseId != null && qaseTestCaseListener.getTestCaseIdsForExecution().contains(caseId);
+        List<Long> caseIds = getCaseIds(method);
+
+        if (caseIds == null || caseIds.isEmpty()) {
+            return false;
+        }
+
+        for (Long caseId : caseIds) {
+            if (qaseTestCaseListener.getTestCaseIdsForExecution().contains(caseId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

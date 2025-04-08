@@ -95,7 +95,7 @@ public class QaseEventListener implements Formatter {
             return resultCreate;
         }
 
-        Long caseId = CucumberUtils.getCaseId(tags);
+        List<Long> caseIds = CucumberUtils.getCaseIds(tags);
         Map<String, String> fields = CucumberUtils.getCaseFields(tags);
 
         String caseTitle = Optional.ofNullable(CucumberUtils.getCaseTitle(tags))
@@ -118,7 +118,7 @@ public class QaseEventListener implements Formatter {
         }
 
         resultCreate.title = caseTitle;
-        resultCreate.testopsId = caseId;
+        resultCreate.testopsIds = caseIds;
         resultCreate.execution.startTime = Instant.now().toEpochMilli();
         resultCreate.execution.thread = Thread.currentThread().getName();
         resultCreate.fields = fields;

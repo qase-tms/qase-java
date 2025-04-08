@@ -82,7 +82,7 @@ public class FileReporter implements InternalReporter {
         reportResult.params = result.params;
         reportResult.paramGroups = result.paramGroups;
         reportResult.fields = result.fields;
-        reportResult.testopsId = result.testopsId;
+        reportResult.testopsIds = result.testopsIds;
         reportResult.runId = result.runId;
         reportResult.author = result.author;
         reportResult.signature = result.signature;

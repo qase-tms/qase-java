@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -96,7 +97,7 @@ class FileReporterTest {
         TestResult testResult = new TestResult();
         testResult.id = "test1";
         testResult.title = "Test Title";
-        testResult.testopsId = 123L;
+        testResult.testopsIds = Collections.singletonList(123L);
 
         testResult.execution.status = TestResultStatus.PASSED;
         testResult.execution.duration = 1000;

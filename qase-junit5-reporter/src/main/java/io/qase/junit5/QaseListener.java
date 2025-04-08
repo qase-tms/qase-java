@@ -77,7 +77,7 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
             return resultCreate;
         }
 
-        Long caseId = getCaseId(method);
+        List<Long> caseIds = getCaseIds(method);
         String caseTitle = getCaseTitle(method);
         Map<String, String> parameters = this.getParameters(invocationContext);
         Map<String, String> fields = getQaseFields(method);
@@ -99,12 +99,12 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
         resultCreate.execution.startTime = Instant.now().toEpochMilli();
         resultCreate.execution.thread = Thread.currentThread().getName();
-        resultCreate.testopsId = caseId;
+        resultCreate.testopsIds = caseIds;
         resultCreate.title = caseTitle;
         resultCreate.params = parameters;
         resultCreate.fields = fields;
         resultCreate.relations = relations;
-        resultCreate.signature = generateSignature(method, caseId, parameters);
+        resultCreate.signature = generateSignature(method, caseIds, parameters);
 
         return resultCreate;
     }
