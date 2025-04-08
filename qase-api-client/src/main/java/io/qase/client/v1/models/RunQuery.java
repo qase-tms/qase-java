@@ -58,7 +58,8 @@ import io.qase.client.v1.JSON;
 /**
  * RunQuery
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")public class RunQuery {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+public class RunQuery {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
   private Long id;
@@ -102,6 +103,10 @@ import io.qase.client.v1.JSON;
   public static final String SERIALIZED_NAME_TIME_SPENT = "time_spent";
   @SerializedName(SERIALIZED_NAME_TIME_SPENT)
   private Long timeSpent;
+
+  public static final String SERIALIZED_NAME_ELAPSED_TIME = "elapsed_time";
+  @SerializedName(SERIALIZED_NAME_ELAPSED_TIME)
+  private Long elapsedTime;
 
   public static final String SERIALIZED_NAME_ENVIRONMENT = "environment";
   @SerializedName(SERIALIZED_NAME_ENVIRONMENT)
@@ -339,6 +344,25 @@ import io.qase.client.v1.JSON;
   }
 
 
+  public RunQuery elapsedTime(Long elapsedTime) {
+    this.elapsedTime = elapsedTime;
+    return this;
+  }
+
+   /**
+   * Time in ms.
+   * @return elapsedTime
+  **/
+  @javax.annotation.Nullable
+  public Long getElapsedTime() {
+    return elapsedTime;
+  }
+
+  public void setElapsedTime(Long elapsedTime) {
+    this.elapsedTime = elapsedTime;
+  }
+
+
   public RunQuery environment(RunEnvironment environment) {
     this.environment = environment;
     return this;
@@ -498,6 +522,7 @@ import io.qase.client.v1.JSON;
         Objects.equals(this._public, runQuery._public) &&
         Objects.equals(this.stats, runQuery.stats) &&
         Objects.equals(this.timeSpent, runQuery.timeSpent) &&
+        Objects.equals(this.elapsedTime, runQuery.elapsedTime) &&
         Objects.equals(this.environment, runQuery.environment) &&
         Objects.equals(this.milestone, runQuery.milestone) &&
         Objects.equals(this.customFields, runQuery.customFields) &&
@@ -512,7 +537,7 @@ import io.qase.client.v1.JSON;
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, runId, title, description, status, statusText, startTime, endTime, _public, stats, timeSpent, environment, milestone, customFields, tags, cases, planId);
+    return Objects.hash(id, runId, title, description, status, statusText, startTime, endTime, _public, stats, timeSpent, elapsedTime, environment, milestone, customFields, tags, cases, planId);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -537,6 +562,7 @@ import io.qase.client.v1.JSON;
     sb.append("    _public: ").append(toIndentedString(_public)).append("\n");
     sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
     sb.append("    timeSpent: ").append(toIndentedString(timeSpent)).append("\n");
+    sb.append("    elapsedTime: ").append(toIndentedString(elapsedTime)).append("\n");
     sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
     sb.append("    milestone: ").append(toIndentedString(milestone)).append("\n");
     sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
@@ -576,6 +602,7 @@ import io.qase.client.v1.JSON;
     openapiFields.add("public");
     openapiFields.add("stats");
     openapiFields.add("time_spent");
+    openapiFields.add("elapsed_time");
     openapiFields.add("environment");
     openapiFields.add("milestone");
     openapiFields.add("custom_fields");

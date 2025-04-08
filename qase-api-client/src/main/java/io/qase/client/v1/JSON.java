@@ -22,9 +22,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.google.gson.JsonElement;
 import io.gsonfire.GsonFireBuilder;
+import io.gsonfire.TypeSelector;
 
-import io.qase.client.v1.models.ResultCreateBulk;
-import io.qase.client.v1.models.TestCaseExternalIssues;
 import okio.ByteString;
 
 import java.io.IOException;
@@ -38,7 +37,9 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.TimeZone;
 
 /*
@@ -192,7 +193,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.ResultQuery.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.ResultResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.ResultUpdate.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new ResultCreateBulk.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.ResultCreateBulk.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.Run.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunCreate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunEnvironment.CustomTypeAdapterFactory());
@@ -239,7 +240,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestCaseUpdate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestCasebulk.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestCasebulkCasesInner.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new TestCaseExternalIssues.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestCaseExternalIssues.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestStep.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestStepCreate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestStepResult.CustomTypeAdapterFactory());

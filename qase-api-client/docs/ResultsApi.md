@@ -100,10 +100,8 @@ Bulk create test run result
 This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
 
 ### Example
-
 ```java
 // Import classes:
-
 import io.qase.client.v1.ApiClient;
 import io.qase.client.v1.ApiException;
 import io.qase.client.v1.Configuration;
@@ -112,31 +110,31 @@ import io.qase.client.v1.models.*;
 import io.qase.client.v1.api.ResultsApi;
 
 public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.qase.io/v1");
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.qase.io/v1");
+    
+    // Configure API key authorization: TokenAuth
+    ApiKeyAuth TokenAuth = (ApiKeyAuth) defaultClient.getAuthentication("TokenAuth");
+    TokenAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //TokenAuth.setApiKeyPrefix("Token");
 
-        // Configure API key authorization: TokenAuth
-        ApiKeyAuth TokenAuth = (ApiKeyAuth) defaultClient.getAuthentication("TokenAuth");
-        TokenAuth.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //TokenAuth.setApiKeyPrefix("Token");
-
-        ResultsApi apiInstance = new ResultsApi(defaultClient);
-        String code = "code_example"; // String | Code of project, where to search entities.
-        Integer id = 56; // Integer | Identifier.
-        ResultCreateBulk resultcreateBulk = new ResultCreateBulk(); // ResultCreateBulk | 
-        try {
-            BaseResponse result = apiInstance.createResultBulk(code, id, resultcreateBulk);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ResultsApi#createResultBulk");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
+    ResultsApi apiInstance = new ResultsApi(defaultClient);
+    String code = "code_example"; // String | Code of project, where to search entities.
+    Integer id = 56; // Integer | Identifier.
+    ResultcreateBulk resultcreateBulk = new ResultcreateBulk(); // ResultcreateBulk | 
+    try {
+      BaseResponse result = apiInstance.createResultBulk(code, id, resultcreateBulk);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ResultsApi#createResultBulk");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
     }
+  }
 }
 ```
 

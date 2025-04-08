@@ -58,7 +58,7 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseQuery
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TestCaseQuery {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -168,6 +168,10 @@ public class TestCaseQuery {
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
   private OffsetDateTime updatedAt;
+
+  public static final String SERIALIZED_NAME_UPDATED_BY = "updated_by";
+  @SerializedName(SERIALIZED_NAME_UPDATED_BY)
+  private Long updatedBy;
 
   public TestCaseQuery() {
   }
@@ -721,6 +725,25 @@ public class TestCaseQuery {
   }
 
 
+  public TestCaseQuery updatedBy(Long updatedBy) {
+    this.updatedBy = updatedBy;
+    return this;
+  }
+
+   /**
+   * Author ID of the last update.
+   * @return updatedBy
+  **/
+  @javax.annotation.Nullable
+  public Long getUpdatedBy() {
+    return updatedBy;
+  }
+
+  public void setUpdatedBy(Long updatedBy) {
+    this.updatedBy = updatedBy;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -757,7 +780,8 @@ public class TestCaseQuery {
         Objects.equals(this.memberId, testCaseQuery.memberId) &&
         Objects.equals(this.authorId, testCaseQuery.authorId) &&
         Objects.equals(this.createdAt, testCaseQuery.createdAt) &&
-        Objects.equals(this.updatedAt, testCaseQuery.updatedAt);
+        Objects.equals(this.updatedAt, testCaseQuery.updatedAt) &&
+        Objects.equals(this.updatedBy, testCaseQuery.updatedBy);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -766,7 +790,7 @@ public class TestCaseQuery {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, testCaseId, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, authorId, createdAt, updatedAt);
+    return Objects.hash(id, testCaseId, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, authorId, createdAt, updatedAt, updatedBy);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -807,6 +831,7 @@ public class TestCaseQuery {
     sb.append("    authorId: ").append(toIndentedString(authorId)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    updatedBy: ").append(toIndentedString(updatedBy)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -856,6 +881,7 @@ public class TestCaseQuery {
     openapiFields.add("author_id");
     openapiFields.add("created_at");
     openapiFields.add("updated_at");
+    openapiFields.add("updated_by");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

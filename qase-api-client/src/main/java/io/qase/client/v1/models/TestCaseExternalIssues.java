@@ -19,19 +19,31 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
+import io.qase.client.v1.models.TestCaseExternalIssuesLinksInner;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,7 +52,7 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseExternalIssues
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TestCaseExternalIssues {
   /**
    * Gets or Sets type
@@ -160,9 +172,9 @@ public class TestCaseExternalIssues {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TestCaseExternalIssues testCaseexternalIssues = (TestCaseExternalIssues) o;
-    return Objects.equals(this.type, testCaseexternalIssues.type) &&
-        Objects.equals(this.links, testCaseexternalIssues.links);
+    TestCaseExternalIssues TestCaseExternalIssues = (TestCaseExternalIssues) o;
+    return Objects.equals(this.type, TestCaseExternalIssues.type) &&
+        Objects.equals(this.links, TestCaseExternalIssues.links);
   }
 
   @Override
