@@ -19,11 +19,21 @@ import io.qase.client.v1.ApiException;
 import io.qase.client.v1.ApiResponse;
 import io.qase.client.v1.Configuration;
 import io.qase.client.v1.Pair;
+import io.qase.client.v1.ProgressRequestBody;
+import io.qase.client.v1.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 
-import io.qase.client.v1.models.*;
+
+import io.qase.client.v1.models.BaseResponse;
+import io.qase.client.v1.models.HashResponse;
+import io.qase.client.v1.models.ResultCreate;
+import io.qase.client.v1.models.ResultCreateResponse;
+import io.qase.client.v1.models.ResultListResponse;
+import io.qase.client.v1.models.ResultResponse;
+import io.qase.client.v1.models.ResultUpdate;
 import io.qase.client.v1.models.ResultCreateBulk;
 
 import java.lang.reflect.Type;
@@ -240,7 +250,7 @@ public class ResultsApi {
      * Build call for createResultBulk
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param resultcreateBulk  (required)
+     * @param ResultCreateBulk  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -257,7 +267,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultBulkCall(String code, Integer id, ResultCreateBulk resultcreateBulk, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createResultBulkCall(String code, Integer id, ResultCreateBulk ResultCreateBulk, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -271,7 +281,7 @@ public class ResultsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = resultcreateBulk;
+        Object localVarPostBody = ResultCreateBulk;
 
         // create path and map variables
         String localVarPath = "/result/{code}/{id}/bulk"
@@ -305,7 +315,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createResultBulkValidateBeforeCall(String code, Integer id, ResultCreateBulk resultcreateBulk, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createResultBulkValidateBeforeCall(String code, Integer id, ResultCreateBulk ResultCreateBulk, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createResultBulk(Async)");
@@ -316,12 +326,12 @@ public class ResultsApi {
             throw new ApiException("Missing the required parameter 'id' when calling createResultBulk(Async)");
         }
 
-        // verify the required parameter 'resultcreateBulk' is set
-        if (resultcreateBulk == null) {
-            throw new ApiException("Missing the required parameter 'resultcreateBulk' when calling createResultBulk(Async)");
+        // verify the required parameter 'ResultCreateBulk' is set
+        if (ResultCreateBulk == null) {
+            throw new ApiException("Missing the required parameter 'ResultCreateBulk' when calling createResultBulk(Async)");
         }
 
-        return createResultBulkCall(code, id, resultcreateBulk, _callback);
+        return createResultBulkCall(code, id, ResultCreateBulk, _callback);
 
     }
 
@@ -330,7 +340,7 @@ public class ResultsApi {
      * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param resultcreateBulk  (required)
+     * @param ResultCreateBulk  (required)
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -346,8 +356,8 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse createResultBulk(String code, Integer id, ResultCreateBulk resultcreateBulk) throws ApiException {
-        ApiResponse<BaseResponse> localVarResp = createResultBulkWithHttpInfo(code, id, resultcreateBulk);
+    public BaseResponse createResultBulk(String code, Integer id, ResultCreateBulk ResultCreateBulk) throws ApiException {
+        ApiResponse<BaseResponse> localVarResp = createResultBulkWithHttpInfo(code, id, ResultCreateBulk);
         return localVarResp.getData();
     }
 
@@ -356,7 +366,7 @@ public class ResultsApi {
      * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param resultcreateBulk  (required)
+     * @param ResultCreateBulk  (required)
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -372,8 +382,8 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> createResultBulkWithHttpInfo(String code, Integer id, ResultCreateBulk resultcreateBulk) throws ApiException {
-        okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, resultcreateBulk, null);
+    public ApiResponse<BaseResponse> createResultBulkWithHttpInfo(String code, Integer id, ResultCreateBulk ResultCreateBulk) throws ApiException {
+        okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, ResultCreateBulk, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -383,7 +393,7 @@ public class ResultsApi {
      * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param resultcreateBulk  (required)
+     * @param ResultCreateBulk  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -400,9 +410,9 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultBulkAsync(String code, Integer id, ResultCreateBulk resultcreateBulk, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call createResultBulkAsync(String code, Integer id, ResultCreateBulk ResultCreateBulk, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, resultcreateBulk, _callback);
+        okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, ResultCreateBulk, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

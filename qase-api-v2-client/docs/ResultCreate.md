@@ -10,7 +10,8 @@
 |**id** | **String** | If passed, used as an idempotency key |  [optional] |
 |**title** | **String** |  |  |
 |**signature** | **String** |  |  [optional] |
-|**testopsId** | **Long** |  |  [optional] |
+|**testopsId** | **Long** | ID of the test case. Cannot be specified together with testopd_ids. |  [optional] |
+|**testopsIds** | **List&lt;Long&gt;** | IDs of the test cases. Cannot be specified together with testopd_id. |  [optional] |
 |**execution** | [**ResultExecution**](ResultExecution.md) |  |  |
 |**fields** | **ResultCreateFields** |  |  [optional] |
 |**attachments** | **List&lt;String&gt;** |  |  [optional] |

@@ -34,6 +34,7 @@
 |**authorId** | **Long** |  |  [optional] |
 |**createdAt** | **OffsetDateTime** |  |  [optional] |
 |**updatedAt** | **OffsetDateTime** |  |  [optional] |
+|**updatedBy** | **Long** | Author ID of the last update. |  [optional] |
 
 
 

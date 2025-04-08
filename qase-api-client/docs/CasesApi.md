@@ -98,10 +98,8 @@ public class Example {
 Attach the external issues to the test cases
 
 ### Example
-
 ```java
 // Import classes:
-
 import io.qase.client.v1.ApiClient;
 import io.qase.client.v1.ApiException;
 import io.qase.client.v1.Configuration;
@@ -110,30 +108,30 @@ import io.qase.client.v1.models.*;
 import io.qase.client.v1.api.CasesApi;
 
 public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.qase.io/v1");
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.qase.io/v1");
+    
+    // Configure API key authorization: TokenAuth
+    ApiKeyAuth TokenAuth = (ApiKeyAuth) defaultClient.getAuthentication("TokenAuth");
+    TokenAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //TokenAuth.setApiKeyPrefix("Token");
 
-        // Configure API key authorization: TokenAuth
-        ApiKeyAuth TokenAuth = (ApiKeyAuth) defaultClient.getAuthentication("TokenAuth");
-        TokenAuth.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //TokenAuth.setApiKeyPrefix("Token");
-
-        CasesApi apiInstance = new CasesApi(defaultClient);
-        String code = "code_example"; // String | Code of project, where to search entities.
-        TestCaseExternalIssues testCaseexternalIssues = new TestCaseExternalIssues(); // TestCaseExternalIssues | 
-        try {
-            BaseResponse result = apiInstance.caseAttachExternalIssue(code, testCaseexternalIssues);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CasesApi#caseAttachExternalIssue");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
+    CasesApi apiInstance = new CasesApi(defaultClient);
+    String code = "code_example"; // String | Code of project, where to search entities.
+    TestCaseexternalIssues testCaseexternalIssues = new TestCaseexternalIssues(); // TestCaseexternalIssues | 
+    try {
+      BaseResponse result = apiInstance.caseAttachExternalIssue(code, testCaseexternalIssues);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CasesApi#caseAttachExternalIssue");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
     }
+  }
 }
 ```
 
@@ -176,10 +174,8 @@ public class Example {
 Detach the external issues from the test cases
 
 ### Example
-
 ```java
 // Import classes:
-
 import io.qase.client.v1.ApiClient;
 import io.qase.client.v1.ApiException;
 import io.qase.client.v1.Configuration;
@@ -188,30 +184,30 @@ import io.qase.client.v1.models.*;
 import io.qase.client.v1.api.CasesApi;
 
 public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.qase.io/v1");
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.qase.io/v1");
+    
+    // Configure API key authorization: TokenAuth
+    ApiKeyAuth TokenAuth = (ApiKeyAuth) defaultClient.getAuthentication("TokenAuth");
+    TokenAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //TokenAuth.setApiKeyPrefix("Token");
 
-        // Configure API key authorization: TokenAuth
-        ApiKeyAuth TokenAuth = (ApiKeyAuth) defaultClient.getAuthentication("TokenAuth");
-        TokenAuth.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //TokenAuth.setApiKeyPrefix("Token");
-
-        CasesApi apiInstance = new CasesApi(defaultClient);
-        String code = "code_example"; // String | Code of project, where to search entities.
-        TestCaseExternalIssues testCaseexternalIssues = new TestCaseExternalIssues(); // TestCaseExternalIssues | 
-        try {
-            BaseResponse result = apiInstance.caseDetachExternalIssue(code, testCaseexternalIssues);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CasesApi#caseDetachExternalIssue");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
+    CasesApi apiInstance = new CasesApi(defaultClient);
+    String code = "code_example"; // String | Code of project, where to search entities.
+    TestCaseexternalIssues testCaseexternalIssues = new TestCaseexternalIssues(); // TestCaseexternalIssues | 
+    try {
+      BaseResponse result = apiInstance.caseDetachExternalIssue(code, testCaseexternalIssues);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CasesApi#caseDetachExternalIssue");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
     }
+  }
 }
 ```
 
@@ -403,7 +399,7 @@ public class Example {
 
 <a id="getCase"></a>
 # **getCase**
-> TestCaseResponse getCase(code, id)
+> TestCaseResponse getCase(code, id, include)
 
 Get a specific test case
 
@@ -433,8 +429,9 @@ public class Example {
     CasesApi apiInstance = new CasesApi(defaultClient);
     String code = "code_example"; // String | Code of project, where to search entities.
     Integer id = 56; // Integer | Identifier.
+    String include = "include_example"; // String | A list of entities to include in response separated by comma. Possible values: external_issues. 
     try {
-      TestCaseResponse result = apiInstance.getCase(code, id);
+      TestCaseResponse result = apiInstance.getCase(code, id, include);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CasesApi#getCase");
@@ -453,6 +450,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **code** | **String**| Code of project, where to search entities. | |
 | **id** | **Integer**| Identifier. | |
+| **include** | **String**| A list of entities to include in response separated by comma. Possible values: external_issues.  | [optional] |
 
 ### Return type
 

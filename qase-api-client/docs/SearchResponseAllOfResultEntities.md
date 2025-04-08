@@ -18,6 +18,7 @@
 |**_public** | **Boolean** |  |  [optional] |
 |**stats** | [**RunStats**](RunStats.md) |  |  [optional] |
 |**timeSpent** | **Long** | Time in ms. |  [optional] |
+|**elapsedTime** | **Long** | Time in ms. |  [optional] |
 |**environment** | [**RunEnvironment**](RunEnvironment.md) |  |  [optional] |
 |**milestone** | [**RunMilestone**](RunMilestone.md) |  |  [optional] |
 |**customFields** | [**List&lt;CustomFieldValue&gt;**](CustomFieldValue.md) |  |  [optional] |
@@ -54,6 +55,7 @@
 |**stepsType** | **String** |  |  [optional] |
 |**params** | [**TestCaseParams**](TestCaseParams.md) |  |  [optional] |
 |**authorId** | **Long** |  |  [optional] |
+|**updatedBy** | **Long** | Author ID of the last update. |  [optional] |
 |**defectId** | **Long** |  |  |
 |**actualResult** | **String** |  |  [optional] |
 |**resolved** | **OffsetDateTime** |  |  [optional] |

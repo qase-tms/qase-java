@@ -59,7 +59,7 @@ import io.qase.client.v2.JSON;
 /**
  * ResultCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-29T12:24:05.813233483Z[Etc/UTC]", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ResultCreate {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -76,6 +76,10 @@ public class ResultCreate {
   public static final String SERIALIZED_NAME_TESTOPS_ID = "testops_id";
   @SerializedName(SERIALIZED_NAME_TESTOPS_ID)
   private Long testopsId;
+
+  public static final String SERIALIZED_NAME_TESTOPS_IDS = "testops_ids";
+  @SerializedName(SERIALIZED_NAME_TESTOPS_IDS)
+  private List<Long> testopsIds;
 
   public static final String SERIALIZED_NAME_EXECUTION = "execution";
   @SerializedName(SERIALIZED_NAME_EXECUTION)
@@ -183,7 +187,7 @@ public class ResultCreate {
   }
 
    /**
-   * Get testopsId
+   * ID of the test case. Cannot be specified together with testopd_ids.
    * @return testopsId
   **/
   @javax.annotation.Nullable
@@ -193,6 +197,33 @@ public class ResultCreate {
 
   public void setTestopsId(Long testopsId) {
     this.testopsId = testopsId;
+  }
+
+
+  public ResultCreate testopsIds(List<Long> testopsIds) {
+    this.testopsIds = testopsIds;
+    return this;
+  }
+
+  public ResultCreate addTestopsIdsItem(Long testopsIdsItem) {
+    if (this.testopsIds == null) {
+      this.testopsIds = new ArrayList<>();
+    }
+    this.testopsIds.add(testopsIdsItem);
+    return this;
+  }
+
+   /**
+   * IDs of the test cases. Cannot be specified together with testopd_id.
+   * @return testopsIds
+  **/
+  @javax.annotation.Nullable
+  public List<Long> getTestopsIds() {
+    return testopsIds;
+  }
+
+  public void setTestopsIds(List<Long> testopsIds) {
+    this.testopsIds = testopsIds;
   }
 
 
@@ -432,6 +463,7 @@ public class ResultCreate {
         Objects.equals(this.title, resultCreate.title) &&
         Objects.equals(this.signature, resultCreate.signature) &&
         Objects.equals(this.testopsId, resultCreate.testopsId) &&
+        Objects.equals(this.testopsIds, resultCreate.testopsIds) &&
         Objects.equals(this.execution, resultCreate.execution) &&
         Objects.equals(this.fields, resultCreate.fields) &&
         Objects.equals(this.attachments, resultCreate.attachments) &&
@@ -450,7 +482,7 @@ public class ResultCreate {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, title, signature, testopsId, execution, fields, attachments, steps, stepsType, params, paramGroups, relations, message, defect);
+    return Objects.hash(id, title, signature, testopsId, testopsIds, execution, fields, attachments, steps, stepsType, params, paramGroups, relations, message, defect);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -468,6 +500,7 @@ public class ResultCreate {
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
     sb.append("    testopsId: ").append(toIndentedString(testopsId)).append("\n");
+    sb.append("    testopsIds: ").append(toIndentedString(testopsIds)).append("\n");
     sb.append("    execution: ").append(toIndentedString(execution)).append("\n");
     sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
@@ -504,6 +537,7 @@ public class ResultCreate {
     openapiFields.add("title");
     openapiFields.add("signature");
     openapiFields.add("testops_id");
+    openapiFields.add("testops_ids");
     openapiFields.add("execution");
     openapiFields.add("fields");
     openapiFields.add("attachments");
@@ -557,6 +591,10 @@ public class ResultCreate {
       }
       if ((jsonObj.get("signature") != null && !jsonObj.get("signature").isJsonNull()) && !jsonObj.get("signature").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `signature` to be a primitive type in the JSON string but got `%s`", jsonObj.get("signature").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("testops_ids") != null && !jsonObj.get("testops_ids").isJsonNull() && !jsonObj.get("testops_ids").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `testops_ids` to be an array in the JSON string but got `%s`", jsonObj.get("testops_ids").toString()));
       }
       // validate the required field `execution`
       ResultExecution.validateJsonElement(jsonObj.get("execution"));

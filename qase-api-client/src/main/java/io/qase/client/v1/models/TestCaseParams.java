@@ -16,6 +16,7 @@ package io.qase.client.v1.models;
 import java.util.Objects;
 
 
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
@@ -49,7 +50,7 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class TestCaseParams extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(TestCaseParams.class.getName());
 

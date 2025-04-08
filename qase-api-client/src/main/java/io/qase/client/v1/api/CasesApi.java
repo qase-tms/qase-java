@@ -19,11 +19,22 @@ import io.qase.client.v1.ApiException;
 import io.qase.client.v1.ApiResponse;
 import io.qase.client.v1.Configuration;
 import io.qase.client.v1.Pair;
+import io.qase.client.v1.ProgressRequestBody;
+import io.qase.client.v1.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 
-import io.qase.client.v1.models.*;
+
+import io.qase.client.v1.models.BaseResponse;
+import io.qase.client.v1.models.Bulk200Response;
+import io.qase.client.v1.models.IdResponse;
+import io.qase.client.v1.models.TestCaseCreate;
+import io.qase.client.v1.models.TestCaseListResponse;
+import io.qase.client.v1.models.TestCaseResponse;
+import io.qase.client.v1.models.TestCaseUpdate;
+import io.qase.client.v1.models.TestCasebulk;
 import io.qase.client.v1.models.TestCaseExternalIssues;
 
 import java.lang.reflect.Type;
@@ -229,7 +240,7 @@ public class CasesApi {
     /**
      * Build call for caseAttachExternalIssue
      * @param code Code of project, where to search entities. (required)
-     * @param testCaseexternalIssues  (required)
+     * @param TestCaseExternalIssues  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -246,7 +257,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call caseAttachExternalIssueCall(String code, TestCaseExternalIssues testCaseexternalIssues, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call caseAttachExternalIssueCall(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -260,7 +271,7 @@ public class CasesApi {
             basePath = null;
         }
 
-        Object localVarPostBody = testCaseexternalIssues;
+        Object localVarPostBody = TestCaseExternalIssues;
 
         // create path and map variables
         String localVarPath = "/case/{code}/external-issue/attach"
@@ -293,18 +304,18 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call caseAttachExternalIssueValidateBeforeCall(String code, TestCaseExternalIssues testCaseexternalIssues, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call caseAttachExternalIssueValidateBeforeCall(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling caseAttachExternalIssue(Async)");
         }
 
-        // verify the required parameter 'testCaseexternalIssues' is set
-        if (testCaseexternalIssues == null) {
-            throw new ApiException("Missing the required parameter 'testCaseexternalIssues' when calling caseAttachExternalIssue(Async)");
+        // verify the required parameter 'TestCaseExternalIssues' is set
+        if (TestCaseExternalIssues == null) {
+            throw new ApiException("Missing the required parameter 'TestCaseExternalIssues' when calling caseAttachExternalIssue(Async)");
         }
 
-        return caseAttachExternalIssueCall(code, testCaseexternalIssues, _callback);
+        return caseAttachExternalIssueCall(code, TestCaseExternalIssues, _callback);
 
     }
 
@@ -312,7 +323,7 @@ public class CasesApi {
      * Attach the external issues to the test cases
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param testCaseexternalIssues  (required)
+     * @param TestCaseExternalIssues  (required)
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -328,8 +339,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse caseAttachExternalIssue(String code, TestCaseExternalIssues testCaseexternalIssues) throws ApiException {
-        ApiResponse<BaseResponse> localVarResp = caseAttachExternalIssueWithHttpInfo(code, testCaseexternalIssues);
+    public BaseResponse caseAttachExternalIssue(String code, TestCaseExternalIssues TestCaseExternalIssues) throws ApiException {
+        ApiResponse<BaseResponse> localVarResp = caseAttachExternalIssueWithHttpInfo(code, TestCaseExternalIssues);
         return localVarResp.getData();
     }
 
@@ -337,7 +348,7 @@ public class CasesApi {
      * Attach the external issues to the test cases
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param testCaseexternalIssues  (required)
+     * @param TestCaseExternalIssues  (required)
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -353,8 +364,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> caseAttachExternalIssueWithHttpInfo(String code, TestCaseExternalIssues testCaseexternalIssues) throws ApiException {
-        okhttp3.Call localVarCall = caseAttachExternalIssueValidateBeforeCall(code, testCaseexternalIssues, null);
+    public ApiResponse<BaseResponse> caseAttachExternalIssueWithHttpInfo(String code, TestCaseExternalIssues TestCaseExternalIssues) throws ApiException {
+        okhttp3.Call localVarCall = caseAttachExternalIssueValidateBeforeCall(code, TestCaseExternalIssues, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -363,7 +374,7 @@ public class CasesApi {
      * Attach the external issues to the test cases (asynchronously)
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param testCaseexternalIssues  (required)
+     * @param TestCaseExternalIssues  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -380,9 +391,9 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call caseAttachExternalIssueAsync(String code, TestCaseExternalIssues testCaseexternalIssues, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call caseAttachExternalIssueAsync(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = caseAttachExternalIssueValidateBeforeCall(code, testCaseexternalIssues, _callback);
+        okhttp3.Call localVarCall = caseAttachExternalIssueValidateBeforeCall(code, TestCaseExternalIssues, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -390,7 +401,7 @@ public class CasesApi {
     /**
      * Build call for caseDetachExternalIssue
      * @param code Code of project, where to search entities. (required)
-     * @param testCaseexternalIssues  (required)
+     * @param TestCaseExternalIssues  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -407,7 +418,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call caseDetachExternalIssueCall(String code, TestCaseExternalIssues testCaseexternalIssues, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call caseDetachExternalIssueCall(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -421,7 +432,7 @@ public class CasesApi {
             basePath = null;
         }
 
-        Object localVarPostBody = testCaseexternalIssues;
+        Object localVarPostBody = TestCaseExternalIssues;
 
         // create path and map variables
         String localVarPath = "/case/{code}/external-issue/detach"
@@ -454,18 +465,18 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call caseDetachExternalIssueValidateBeforeCall(String code, TestCaseExternalIssues testCaseexternalIssues, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call caseDetachExternalIssueValidateBeforeCall(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling caseDetachExternalIssue(Async)");
         }
 
-        // verify the required parameter 'testCaseexternalIssues' is set
-        if (testCaseexternalIssues == null) {
-            throw new ApiException("Missing the required parameter 'testCaseexternalIssues' when calling caseDetachExternalIssue(Async)");
+        // verify the required parameter 'TestCaseExternalIssues' is set
+        if (TestCaseExternalIssues == null) {
+            throw new ApiException("Missing the required parameter 'TestCaseExternalIssues' when calling caseDetachExternalIssue(Async)");
         }
 
-        return caseDetachExternalIssueCall(code, testCaseexternalIssues, _callback);
+        return caseDetachExternalIssueCall(code, TestCaseExternalIssues, _callback);
 
     }
 
@@ -473,7 +484,7 @@ public class CasesApi {
      * Detach the external issues from the test cases
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param testCaseexternalIssues  (required)
+     * @param TestCaseExternalIssues  (required)
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -489,8 +500,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse caseDetachExternalIssue(String code, TestCaseExternalIssues testCaseexternalIssues) throws ApiException {
-        ApiResponse<BaseResponse> localVarResp = caseDetachExternalIssueWithHttpInfo(code, testCaseexternalIssues);
+    public BaseResponse caseDetachExternalIssue(String code, TestCaseExternalIssues TestCaseExternalIssues) throws ApiException {
+        ApiResponse<BaseResponse> localVarResp = caseDetachExternalIssueWithHttpInfo(code, TestCaseExternalIssues);
         return localVarResp.getData();
     }
 
@@ -498,7 +509,7 @@ public class CasesApi {
      * Detach the external issues from the test cases
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param testCaseexternalIssues  (required)
+     * @param TestCaseExternalIssues  (required)
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -514,8 +525,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> caseDetachExternalIssueWithHttpInfo(String code, TestCaseExternalIssues testCaseexternalIssues) throws ApiException {
-        okhttp3.Call localVarCall = caseDetachExternalIssueValidateBeforeCall(code, testCaseexternalIssues, null);
+    public ApiResponse<BaseResponse> caseDetachExternalIssueWithHttpInfo(String code, TestCaseExternalIssues TestCaseExternalIssues) throws ApiException {
+        okhttp3.Call localVarCall = caseDetachExternalIssueValidateBeforeCall(code, TestCaseExternalIssues, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -524,7 +535,7 @@ public class CasesApi {
      * Detach the external issues from the test cases (asynchronously)
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param testCaseexternalIssues  (required)
+     * @param TestCaseExternalIssues  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -541,9 +552,9 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call caseDetachExternalIssueAsync(String code, TestCaseExternalIssues testCaseexternalIssues, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call caseDetachExternalIssueAsync(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = caseDetachExternalIssueValidateBeforeCall(code, testCaseexternalIssues, _callback);
+        okhttp3.Call localVarCall = caseDetachExternalIssueValidateBeforeCall(code, TestCaseExternalIssues, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -866,6 +877,7 @@ public class CasesApi {
      * Build call for getCase
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
+     * @param include A list of entities to include in response separated by comma. Possible values: external_issues.  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -881,7 +893,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCaseCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCaseCall(String code, Integer id, String include, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -908,6 +920,10 @@ public class CasesApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (include != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("include", include));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -928,7 +944,7 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCaseValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getCaseValidateBeforeCall(String code, Integer id, String include, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getCase(Async)");
@@ -939,7 +955,7 @@ public class CasesApi {
             throw new ApiException("Missing the required parameter 'id' when calling getCase(Async)");
         }
 
-        return getCaseCall(code, id, _callback);
+        return getCaseCall(code, id, include, _callback);
 
     }
 
@@ -948,6 +964,7 @@ public class CasesApi {
      * This method allows to retrieve a specific test case. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
+     * @param include A list of entities to include in response separated by comma. Possible values: external_issues.  (optional)
      * @return TestCaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -962,8 +979,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public TestCaseResponse getCase(String code, Integer id) throws ApiException {
-        ApiResponse<TestCaseResponse> localVarResp = getCaseWithHttpInfo(code, id);
+    public TestCaseResponse getCase(String code, Integer id, String include) throws ApiException {
+        ApiResponse<TestCaseResponse> localVarResp = getCaseWithHttpInfo(code, id, include);
         return localVarResp.getData();
     }
 
@@ -972,6 +989,7 @@ public class CasesApi {
      * This method allows to retrieve a specific test case. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
+     * @param include A list of entities to include in response separated by comma. Possible values: external_issues.  (optional)
      * @return ApiResponse&lt;TestCaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -986,8 +1004,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<TestCaseResponse> getCaseWithHttpInfo(String code, Integer id) throws ApiException {
-        okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, null);
+    public ApiResponse<TestCaseResponse> getCaseWithHttpInfo(String code, Integer id, String include) throws ApiException {
+        okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, include, null);
         Type localVarReturnType = new TypeToken<TestCaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -997,6 +1015,7 @@ public class CasesApi {
      * This method allows to retrieve a specific test case. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
+     * @param include A list of entities to include in response separated by comma. Possible values: external_issues.  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1012,9 +1031,9 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCaseAsync(String code, Integer id, final ApiCallback<TestCaseResponse> _callback) throws ApiException {
+    public okhttp3.Call getCaseAsync(String code, Integer id, String include, final ApiCallback<TestCaseResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, _callback);
+        okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, include, _callback);
         Type localVarReturnType = new TypeToken<TestCaseResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

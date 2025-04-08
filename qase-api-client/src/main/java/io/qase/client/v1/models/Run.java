@@ -58,7 +58,7 @@ import io.qase.client.v1.JSON;
 /**
  * Run
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-07T13:46:56.402996677Z[Etc/UTC]", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Run {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -103,6 +103,10 @@ public class Run {
   public static final String SERIALIZED_NAME_TIME_SPENT = "time_spent";
   @SerializedName(SERIALIZED_NAME_TIME_SPENT)
   private Long timeSpent;
+
+  public static final String SERIALIZED_NAME_ELAPSED_TIME = "elapsed_time";
+  @SerializedName(SERIALIZED_NAME_ELAPSED_TIME)
+  private Long elapsedTime;
 
   public static final String SERIALIZED_NAME_ENVIRONMENT = "environment";
   @SerializedName(SERIALIZED_NAME_ENVIRONMENT)
@@ -340,6 +344,25 @@ public class Run {
   }
 
 
+  public Run elapsedTime(Long elapsedTime) {
+    this.elapsedTime = elapsedTime;
+    return this;
+  }
+
+   /**
+   * Time in ms.
+   * @return elapsedTime
+  **/
+  @javax.annotation.Nullable
+  public Long getElapsedTime() {
+    return elapsedTime;
+  }
+
+  public void setElapsedTime(Long elapsedTime) {
+    this.elapsedTime = elapsedTime;
+  }
+
+
   public Run environment(RunEnvironment environment) {
     this.environment = environment;
     return this;
@@ -499,6 +522,7 @@ public class Run {
         Objects.equals(this._public, run._public) &&
         Objects.equals(this.stats, run.stats) &&
         Objects.equals(this.timeSpent, run.timeSpent) &&
+        Objects.equals(this.elapsedTime, run.elapsedTime) &&
         Objects.equals(this.environment, run.environment) &&
         Objects.equals(this.milestone, run.milestone) &&
         Objects.equals(this.customFields, run.customFields) &&
@@ -513,7 +537,7 @@ public class Run {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, runId, title, description, status, statusText, startTime, endTime, _public, stats, timeSpent, environment, milestone, customFields, tags, cases, planId);
+    return Objects.hash(id, runId, title, description, status, statusText, startTime, endTime, _public, stats, timeSpent, elapsedTime, environment, milestone, customFields, tags, cases, planId);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -538,6 +562,7 @@ public class Run {
     sb.append("    _public: ").append(toIndentedString(_public)).append("\n");
     sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
     sb.append("    timeSpent: ").append(toIndentedString(timeSpent)).append("\n");
+    sb.append("    elapsedTime: ").append(toIndentedString(elapsedTime)).append("\n");
     sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
     sb.append("    milestone: ").append(toIndentedString(milestone)).append("\n");
     sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
@@ -577,6 +602,7 @@ public class Run {
     openapiFields.add("public");
     openapiFields.add("stats");
     openapiFields.add("time_spent");
+    openapiFields.add("elapsed_time");
     openapiFields.add("environment");
     openapiFields.add("milestone");
     openapiFields.add("custom_fields");
