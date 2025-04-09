@@ -14,7 +14,7 @@ Ensure that the following tools are installed on your machine:
 1. Clone this repository by running the following command:
    ```bash
    git clone https://github.com/qase-tms/qase-java.git
-   cd qase-java/examples/cucumber7/cucumber7-gradle
+   cd qase-java/examples/cucumber7/cucumber7-gradle-testng
    ```
 
 2. Create a `qase.config.json` file in the root of the project. You can follow the instructions

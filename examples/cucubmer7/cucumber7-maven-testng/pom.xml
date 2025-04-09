@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>cucumber7-maven</artifactId>
+    <artifactId>cucumber7-maven-testng</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -13,7 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.22</aspectj.version>
-        <qase.version>4.0.0</qase.version>
+        <qase.version>4.1.1</qase.version>
         <cucumber.version>7.14.0</cucumber.version>
     </properties>
 
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.5</version>
+            <version>7.5.1</version>
         </dependency>
         <dependency>
             <groupId>io.qase</groupId>
