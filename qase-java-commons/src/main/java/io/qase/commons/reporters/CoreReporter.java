@@ -6,25 +6,22 @@ import io.qase.commons.client.ApiClientV2;
 import io.qase.commons.config.Mode;
 import io.qase.commons.config.QaseConfig;
 import io.qase.commons.hooks.HooksManager;
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.writers.FileWriter;
 import io.qase.commons.writers.Writer;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
 import java.util.List;
 
 
 public class CoreReporter implements Reporter {
-    private static final Logger logger = LoggerFactory.getLogger(CoreReporter.class);
+    private static final Logger logger = Logger.getInstance();
 
     private InternalReporter reporter;
     private InternalReporter fallback;
     private final HooksManager hooksManager;
 
     public CoreReporter(QaseConfig config) {
-        logger.info("Qase config: {}", config);
-
         this.reporter = this.createReporter(config, config.mode);
         this.fallback = this.createReporter(config, config.fallback);
         this.hooksManager = HooksManager.getDefaultHooksManager();
@@ -46,7 +43,7 @@ public class CoreReporter implements Reporter {
 
     @Override
     public void addResult(TestResult result) {
-        logger.info("Adding result: {}", result);
+        logger.info("Adding result: %s", result);
 
         this.hooksManager.beforeTestStop(result);
 
@@ -69,7 +66,7 @@ public class CoreReporter implements Reporter {
             try {
                 action.execute();
             } catch (QaseException e) {
-                logger.error("Failed to {} with reporter", actionName, e);
+                logger.error("Failed to %s with reporter: %s", actionName, e.getMessage());
                 useFallback();
                 retryAction(action, actionName);
             }
@@ -81,7 +78,7 @@ public class CoreReporter implements Reporter {
             try {
                 action.execute();
             } catch (QaseException ex) {
-                logger.error("Failed to {} with reporter after fallback", actionName, ex);
+                logger.error("Failed to %s with reporter after fallback: %s", actionName, ex.getMessage());
                 reporter = null;
             }
         }

@@ -8,7 +8,6 @@ import io.qase.commons.models.annotation.Field;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 
 import static io.qase.commons.utils.IntegrationUtils.*;
 
-@Slf4j
 @RunListener.ThreadSafe
 public class QaseListener extends RunListener {
     private final Set<String> methods = new HashSet<>();

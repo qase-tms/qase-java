@@ -1,11 +1,10 @@
 package io.qase.commons.config;
 
 import com.google.gson.Gson;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.qase.commons.logger.Logger;
 
 public class QaseConfig {
-    private static final Logger logger = LoggerFactory.getLogger(QaseConfig.class);
+    private static final Logger logger = Logger.getInstance();
 
     public Mode mode;
     public Mode fallback;
@@ -31,7 +30,7 @@ public class QaseConfig {
             this.mode = Mode.valueOf(mode.toUpperCase());
         } catch (IllegalArgumentException e) {
             this.mode = Mode.OFF;
-            logger.error("Unknown mode: {}. Supported modes: {}", mode, Mode.values());
+            logger.error("Unknown mode: %s. Supported modes: %s", mode, Mode.values());
         }
     }
 
@@ -40,7 +39,7 @@ public class QaseConfig {
             this.fallback = Mode.valueOf(fallback.toUpperCase());
         } catch (IllegalArgumentException e) {
             this.fallback = Mode.OFF;
-            logger.error("Unknown fallback mode: {}. Supported modes: {}", fallback, Mode.values());
+            logger.error("Unknown fallback mode: %s. Supported modes: %s", fallback, Mode.values());
         }
     }
 

@@ -1,10 +1,10 @@
 package io.qase.commons.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import io.qase.commons.logger.Logger;
 
 public class ReportConfig {
-    private static final Logger logger = LoggerFactory.getLogger(ReportConfig.class);
+    private static final Logger logger = Logger.getInstance();
 
     public Driver driver = Driver.LOCAL;
     public ConnectionConfig connection;
@@ -18,7 +18,7 @@ public class ReportConfig {
             this.driver = Driver.valueOf(driver.toUpperCase());
         } catch (IllegalArgumentException e) {
             this.driver = Driver.LOCAL;
-            logger.error("Unknown driver: {}. Supported drivers: {}", driver, Driver.values());
+            logger.error("Unknown driver: %s. Supported drivers: %s", driver, Driver.values());
         }
     }
 

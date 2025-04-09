@@ -5,17 +5,17 @@ import io.qase.client.v2.api.ResultsApi;
 import io.qase.client.v2.models.*;
 import io.qase.commons.QaseException;
 import io.qase.commons.config.QaseConfig;
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.StepResult;
 import io.qase.commons.models.domain.TestResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ApiClientV2 implements ApiClient {
-    private static final Logger logger = LoggerFactory.getLogger(ApiClientV2.class);
+    private static final Logger logger = Logger.getInstance();
 
     private final QaseConfig config;
     private final ApiClientV1 apiClientV1;
@@ -55,7 +55,7 @@ public class ApiClientV2 implements ApiClient {
 
         CreateResultsRequestV2 model = new CreateResultsRequestV2().results(models);
 
-        logger.debug("Uploading results: {}", model);
+        logger.debug("Uploading results: %s", model);
 
         try {
             new ResultsApi(client)

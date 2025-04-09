@@ -1,7 +1,6 @@
 package io.qase.commons.hooks;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.qase.commons.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,7 +8,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 
 public class HooksServiceLoader {
-    private static final Logger logger = LoggerFactory.getLogger(HooksServiceLoader.class);
+    private static final Logger logger = Logger.getInstance();
 
     private HooksServiceLoader() {
         throw new IllegalStateException("Do not have instance");
@@ -22,9 +21,9 @@ public class HooksServiceLoader {
             try {
                 final T next = iterator.next();
                 loaded.add(next);
-                logger.debug("Found type {}", type);
+                logger.debug("Found type %s", type);
             } catch (Exception e) {
-                logger.error("Could not load listener {}: {}", type, e.getMessage());
+                logger.error("Could not load listener %s: %s", type, e.getMessage());
             }
         }
         return loaded;
