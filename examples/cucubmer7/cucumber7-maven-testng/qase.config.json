@@ -25,7 +25,6 @@
     "project": "<project code>",
     "batch": {
       "size": 200
-    },
-    "useV2": false
+    }
   }
 }
