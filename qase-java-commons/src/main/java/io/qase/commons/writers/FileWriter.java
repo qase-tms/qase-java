@@ -4,11 +4,10 @@ import com.google.gson.Gson;
 import io.qase.commons.QaseException;
 import io.qase.commons.config.ConnectionConfig;
 import io.qase.commons.config.Format;
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.report.ReportResult;
 import io.qase.commons.models.report.Run;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileWriter implements Writer {
-    private static final Logger logger = LoggerFactory.getLogger(FileWriter.class);
+    private static final Logger logger = Logger.getInstance();
 
     private final String rootPath;
     final String resultsPath;

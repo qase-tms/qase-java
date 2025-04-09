@@ -7,8 +7,6 @@ import io.qase.commons.models.domain.StepResult;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.report.*;
 import io.qase.commons.writers.Writer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
@@ -19,7 +17,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FileReporter implements InternalReporter {
-    private static final Logger logger = LoggerFactory.getLogger(FileReporter.class);
 
     private final QaseConfig config;
     final List<TestResult> results;

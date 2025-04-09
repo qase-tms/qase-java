@@ -1,9 +1,8 @@
 package io.qase.commons.config;
 
+import io.qase.commons.logger.Logger;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +10,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class ConfigFactory {
-    private static final Logger logger = LoggerFactory.getLogger(ConfigFactory.class);
+    private static final Logger logger = Logger.getInstance();
 
     private static final String CONFIG_FILE_NAME = "qase.config.json";
 

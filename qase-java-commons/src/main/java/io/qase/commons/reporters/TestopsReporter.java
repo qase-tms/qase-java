@@ -3,10 +3,9 @@ package io.qase.commons.reporters;
 import io.qase.commons.QaseException;
 import io.qase.commons.client.ApiClient;
 import io.qase.commons.config.TestopsConfig;
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.domain.TestResultStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -15,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TestopsReporter implements InternalReporter {
-    private static final Logger logger = LoggerFactory.getLogger(TestopsReporter.class);
+    private static final Logger logger = Logger.getInstance();
 
     private final TestopsConfig config;
     private final ApiClient client;
@@ -36,13 +35,13 @@ public class TestopsReporter implements InternalReporter {
         }
         this.testRunId = this.client.createTestRun();
         this.config.run.id = this.testRunId.intValue();
-        logger.info("Test run {} started", this.testRunId);
+        logger.info("Test run %d started", this.testRunId);
     }
 
     @Override
     public void completeTestRun() throws QaseException {
         this.client.completeTestRun(this.testRunId);
-        logger.info("Test run {} completed", this.testRunId);
+        logger.info("Test run %d completed", this.testRunId);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class TestopsReporter implements InternalReporter {
         this.results.add(result);
 
         if (result.execution.status == TestResultStatus.FAILED) {
-            logger.info("See why this test failed: {}", this.prepareLink(result.testopsIds != null ? result.testopsIds.get(0) : null, result.title));
+            logger.info("See why this test failed: %s", this.prepareLink(result.testopsIds != null ? result.testopsIds.get(0) : null, result.title));
         }
 
         if (this.results.size() >= this.config.batch.size) {

@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.qase</groupId>
         <artifactId>qase-java</artifactId>
-        <version>4.1.0</version>
+        <version>4.1.1</version>
     </parent>
 
     <artifactId>qase-java-commons</artifactId>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
-            <version>4.3.1</version>
+            <version>4.5.14</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -35,8 +35,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8</artifactId>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

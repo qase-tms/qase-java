@@ -1,11 +1,11 @@
 package io.qase.commons;
 
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.TestResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 public final class CasesStorage {
-    private static final Logger logger = LoggerFactory.getLogger(CasesStorage.class);
+    private static final Logger logger = Logger.getInstance();
     private static final ThreadLocal<TestResult> CURRENT_CASE = new ThreadLocal<>();
 
     public static void startCase(TestResult resultCreate) {

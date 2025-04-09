@@ -8,11 +8,10 @@ import io.qase.client.v1.api.RunsApi;
 import io.qase.client.v1.models.*;
 import io.qase.commons.QaseException;
 import io.qase.commons.config.QaseConfig;
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.domain.TestResult;
 import org.apache.commons.lang3.NotImplementedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,7 +31,7 @@ import java.time.format.DateTimeFormatter;
  * Qase API V1 client
  */
 public class ApiClientV1 implements io.qase.commons.client.ApiClient {
-    private static final Logger logger = LoggerFactory.getLogger(ApiClientV1.class);
+    private static final Logger logger = Logger.getInstance();
 
     private final QaseConfig config;
     private final ApiClient client;
@@ -96,7 +95,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             throw new QaseException("Failed to complete test run: " + e.getResponseBody(), e.getCause());
         }
 
-        logger.info("Test run link: {}run/{}/dashboard/{}", this.url, this.config.testops.project, runId);
+        logger.info("Test run link: %srun/%s/dashboard/%d", this.url, this.config.testops.project, runId);
     }
 
     @Override
@@ -141,7 +140,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                 fileWriter.write(attachment.content);
                 removeFile = true;
             } catch (IOException e) {
-                logger.error("Failed to write attachment content to file: {}", e.getMessage());
+                logger.error("Failed to write attachment content to file: %s", e.getMessage());
                 return "";
             }
         } else {
@@ -152,7 +151,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                 fos.write(attachment.contentBytes);
                 removeFile = true;
             } catch (IOException e) {
-                logger.error("Failed to write attachment content to file: {}", e.getMessage());
+                logger.error("Failed to write attachment content to file: %s", e.getMessage());
                 return "";
             }
         }
@@ -161,7 +160,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             List<Attachmentupload> response = api.uploadAttachment(this.config.testops.project, Collections.singletonList(file)).getResult();
             return processUploadResponse(response, file, removeFile);
         } catch (ApiException e) {
-            logger.error("Failed to upload attachment: {}", e.getMessage());
+            logger.error("Failed to upload attachment: %s", e.getMessage());
             return "";
         }
     }

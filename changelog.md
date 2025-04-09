@@ -1,3 +1,10 @@
+# qase-java 4.1.1
+
+## What's new
+
+- Removed dependency on `slf4j` and `logback`, replaced with custom internal logger
+- Updated dependencies to fix known security issues
+
 # qase-java 4.1.0
 
 ## What's new

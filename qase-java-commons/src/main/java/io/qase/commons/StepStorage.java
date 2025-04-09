@@ -1,15 +1,14 @@
 package io.qase.commons;
 
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.StepResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class StepStorage {
-    private static final Logger logger = LoggerFactory.getLogger(StepStorage.class);
+    private static final Logger logger = Logger.getInstance();
     private static final ThreadLocal<StepResult> STEP_IN_PROGRESS = new ThreadLocal<>();
     private static final ThreadLocal<String> STEP_ID = new ThreadLocal<>();
     private static final ThreadLocal<LinkedList<StepResult>> STEPS_STORAGE =
