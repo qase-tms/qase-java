@@ -43,7 +43,7 @@ public class CoreReporter implements Reporter {
 
     @Override
     public void addResult(TestResult result) {
-        logger.info("Adding result: %s", result);
+        logger.debug("Adding result: %s", result);
 
         this.hooksManager.beforeTestStop(result);
 

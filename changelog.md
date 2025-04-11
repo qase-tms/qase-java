@@ -1,3 +1,10 @@
+# qase-java 4.1.2
+
+## What's new
+
+- Resolved issue with handling of nested (child) suites in Cucumber reporters
+- Enhanced logging to provide more detailed and clear output during test execution
+
 # qase-java 4.1.1
 
 ## What's new
