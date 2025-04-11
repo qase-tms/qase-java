@@ -94,7 +94,7 @@ public class QaseEventListener implements ConcurrentEventListener {
         String suite = CucumberUtils.getCaseSuite(tags);
         Relations relations = new Relations();
         if (suite != null) {
-            String[] parts = suite.split("\t");
+            String[] parts = suite.split("\\\\t");
             for (String part : parts) {
                 SuiteData data = new SuiteData();
                 data.title = part;
