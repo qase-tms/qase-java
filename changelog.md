@@ -1,3 +1,10 @@
+# qase-java 4.1.3
+
+## What's new
+
+- Resolved issue with serialization of models containing fields not described in the OpenAPI specification.
+- Unspecified fields are now properly handled and stored in `additionalProperties` to ensure compatibility with dynamic payloads.
+
 # qase-java 4.1.2
 
 ## What's new
