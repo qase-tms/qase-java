@@ -1,5 +1,6 @@
 package io.qase.cucumber5;
 
+import gherkin.ast.*;
 import io.cucumber.plugin.event.*;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
@@ -10,28 +11,34 @@ import io.cucumber.plugin.ConcurrentEventListener;
 import io.qase.commons.reporters.Reporter;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.IntStream;
 
 import static io.qase.commons.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements ConcurrentEventListener {
 
     private final Reporter qaseTestCaseListener;
+    private final ScenarioStorage scenarioStorage;
 
     public QaseEventListener() {
         this.qaseTestCaseListener = CoreReporterFactory.getInstance();
+        this.scenarioStorage = new ScenarioStorage();
     }
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
+        publisher.registerHandlerFor(TestSourceRead.class, this::scenarioRead);
         publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
         publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
         publisher.registerHandlerFor(TestRunStarted.class, this::testRunStarted);
         publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
         publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
         publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
+    }
+
+    private void scenarioRead(TestSourceRead event) {
+        this.scenarioStorage.addScenarioEvent(event.getUri(), event);
     }
 
     private void testRunStarted(TestRunStarted testRunStarted) {
@@ -85,6 +92,15 @@ public class QaseEventListener implements ConcurrentEventListener {
             return resultCreate;
         }
 
+        final ScenarioDefinition scenarioDefinition = ScenarioStorage.getScenarioDefinition(scenarioStorage.getCucumberNode(event.getTestCase().getUri(), event.getTestCase().getLine()));
+
+        Map<String, String> parameters = new HashMap<>();
+
+        if (scenarioDefinition instanceof ScenarioOutline) {
+            parameters =
+                    getExamplesAsParameters((ScenarioOutline) scenarioDefinition, event.getTestCase());
+        }
+
         List<Long> caseIds = CucumberUtils.getCaseIds(tags);
         Map<String, String> fields = CucumberUtils.getCaseFields(tags);
 
@@ -113,6 +129,7 @@ public class QaseEventListener implements ConcurrentEventListener {
         resultCreate.execution.thread = Thread.currentThread().getName();
         resultCreate.fields = fields;
         resultCreate.relations = relations;
+        resultCreate.params = parameters;
 
         return resultCreate;
     }
@@ -172,5 +189,30 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
     }
 
+    private Map<String, String> getExamplesAsParameters(
+            final ScenarioOutline scenarioOutline, final TestCase localCurrentTestCase
+    ) {
+        final Optional<Examples> examplesBlock =
+                scenarioOutline.getExamples().stream()
+                        .filter(example -> example.getTableBody().stream()
+                                .anyMatch(row -> row.getLocation().getLine() == localCurrentTestCase.getLine())
+                        ).findFirst();
 
+        if (examplesBlock.isPresent()) {
+            final TableRow row = examplesBlock.get().getTableBody().stream()
+                    .filter(example -> example.getLocation().getLine() == localCurrentTestCase.getLine())
+                    .findFirst().get();
+            final Map<String, String> parameters = new HashMap<>();
+
+            IntStream.range(0, examplesBlock.get().getTableHeader().getCells().size()).forEach(index -> {
+                final String name = examplesBlock.get().getTableHeader().getCells().get(index).getValue();
+                final String value = row.getCells().get(index).getValue();
+                parameters.put(name, value);
+            });
+
+            return parameters;
+        } else {
+            return Collections.emptyMap();
+        }
+    }
 }

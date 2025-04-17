@@ -1,5 +1,7 @@
 package org.example;
 
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.qase.cucumber7.Qase;
@@ -29,5 +31,20 @@ public class Steps {
     @When("add attachments from content")
     public void addAttachmentsContent() {
         Qase.attach("file.txt", "Content", "text/plain");
+    }
+
+    @Given("I have a parameter {word}")
+    public void iHaveAParameter(String parameter) {
+        System.out.println("Parameter: " + parameter);
+    }
+
+    @When("I do something with the parameter")
+    public void iDoSomethingWithTheParameter(DataTable dataTable) {
+        System.out.println("Doing something with the parameter...");
+    }
+
+    @Then("I should see the result")
+    public void iShouldSeeTheResult() {
+        System.out.println("Result is displayed.");
     }
 }
