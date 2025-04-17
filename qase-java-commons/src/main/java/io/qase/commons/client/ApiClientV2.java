@@ -160,6 +160,10 @@ public class ApiClientV2 implements ApiClient {
         ResultStepData data = new ResultStepData()
                 .action(step.data.action);
 
+        if (step.data.inputData != null) {
+            data.inputData(step.data.inputData);
+        }
+
         List<String> attachments = step.attachments.stream()
                 .map(this.apiClientV1::uploadAttachment)
                 .filter(attachment -> !attachment.isEmpty())

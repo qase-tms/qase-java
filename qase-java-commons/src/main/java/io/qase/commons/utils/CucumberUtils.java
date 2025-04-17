@@ -89,5 +89,41 @@ public final class CucumberUtils {
     public static int getHash(URI uri, Long line) {
         return (uri.toString() + line).hashCode();
     }
+
+    public static  String formatTable(List<List<String>> tableData) {
+        if (tableData == null || tableData.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        int[] maxWidths = new int[tableData.get(0).size()];
+
+        for (List<String> row : tableData) {
+            for (int i = 0; i < row.size(); i++) {
+                int cellLength = row.get(i).length();
+                if (cellLength > maxWidths[i]) {
+                    maxWidths[i] = cellLength;
+                }
+            }
+        }
+
+        for (List<String> row : tableData) {
+            result.append("| ");
+            for (int i = 0; i < row.size(); i++) {
+                String cellValue = row.get(i);
+                result.append(cellValue);
+
+                int padding = maxWidths[i] - cellValue.length() + 1;
+                for (int j = 0; j < padding; j++) {
+                    result.append(" ");
+                }
+                result.append("| ");
+            }
+            result.append("\n");
+        }
+
+        return result.toString().trim();
+    }
 }
 

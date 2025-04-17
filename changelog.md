@@ -1,9 +1,17 @@
+# qase-java 4.1.4
+
+## What's new
+
+Added support for step parameters and table arguments in Cucumber reporters. Step definitions with arguments and
+tabular data are now correctly captured and displayed in test results.
+
 # qase-java 4.1.3
 
 ## What's new
 
 - Resolved issue with serialization of models containing fields not described in the OpenAPI specification.
-- Unspecified fields are now properly handled and stored in `additionalProperties` to ensure compatibility with dynamic payloads.
+- Unspecified fields are now properly handled and stored in `additionalProperties` to ensure compatibility with dynamic
+  payloads.
 
 # qase-java 4.1.2
 
@@ -45,7 +53,8 @@ Implemented local time support for test run creation to improve time tracking.
 ## What's new
 
 Introduced the ability to execute custom hooks before a test completes, allowing users to run custom code at the end of
-test execution. More details can be found in the [documentation](https://github.com/qase-tms/qase-java/tree/main/qase-java-commons#readme)
+test execution. More details can be found in
+the [documentation](https://github.com/qase-tms/qase-java/tree/main/qase-java-commons#readme)
 
 # qase-java 4.0.9
 

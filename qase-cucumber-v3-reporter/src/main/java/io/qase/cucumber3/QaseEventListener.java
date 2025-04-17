@@ -2,8 +2,13 @@ package io.qase.cucumber3;
 
 import cucumber.api.PickleStepTestStep;
 import cucumber.api.Result;
+import cucumber.api.TestCase;
 import cucumber.api.event.*;
 import cucumber.api.formatter.Formatter;
+import gherkin.ast.Examples;
+import gherkin.ast.ScenarioDefinition;
+import gherkin.ast.ScenarioOutline;
+import gherkin.ast.TableRow;
 import gherkin.pickles.PickleTag;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
@@ -14,30 +19,35 @@ import io.qase.commons.reporters.Reporter;
 import okio.Path;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static io.qase.commons.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements Formatter {
 
     private final Reporter qaseTestCaseListener;
+    private final ScenarioStorage scenarioStorage;
 
     public QaseEventListener() {
         this.qaseTestCaseListener = CoreReporterFactory.getInstance();
+        this.scenarioStorage = new ScenarioStorage();
     }
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
+        publisher.registerHandlerFor(TestSourceRead.class, this::scenarioRead);
         publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
         publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
         publisher.registerHandlerFor(TestRunStarted.class, this::testRunStarted);
         publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
         publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
         publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
+    }
 
+    private void scenarioRead(TestSourceRead event) {
+        this.scenarioStorage.addScenarioEvent(event.uri, event);
     }
 
     private void testRunStarted(TestRunStarted testRunStarted) {
@@ -93,6 +103,15 @@ public class QaseEventListener implements Formatter {
         if (ignore) {
             resultCreate.ignore = true;
             return resultCreate;
+        }
+
+        final ScenarioDefinition scenarioDefinition = ScenarioStorage.getScenarioDefinition(scenarioStorage.getCucumberNode(event.testCase.getUri(), event.testCase.getLine()));
+
+        Map<String, String> parameters = new HashMap<>();
+
+        if (scenarioDefinition instanceof ScenarioOutline) {
+            parameters =
+                    getExamplesAsParameters((ScenarioOutline) scenarioDefinition, event.testCase);
         }
 
         List<Long> caseIds = CucumberUtils.getCaseIds(tags);
@@ -179,6 +198,33 @@ public class QaseEventListener implements Formatter {
             case SKIPPED:
             default:
                 return StepResultStatus.BLOCKED;
+        }
+    }
+
+    private Map<String, String> getExamplesAsParameters(
+            final ScenarioOutline scenarioOutline, final TestCase localCurrentTestCase
+    ) {
+        final Optional<Examples> examplesBlock =
+                scenarioOutline.getExamples().stream()
+                        .filter(example -> example.getTableBody().stream()
+                                .anyMatch(row -> row.getLocation().getLine() == localCurrentTestCase.getLine())
+                        ).findFirst();
+
+        if (examplesBlock.isPresent()) {
+            final TableRow row = examplesBlock.get().getTableBody().stream()
+                    .filter(example -> example.getLocation().getLine() == localCurrentTestCase.getLine())
+                    .findFirst().get();
+            final Map<String, String> parameters = new HashMap<>();
+
+            IntStream.range(0, examplesBlock.get().getTableHeader().getCells().size()).forEach(index -> {
+                final String name = examplesBlock.get().getTableHeader().getCells().get(index).getValue();
+                final String value = row.getCells().get(index).getValue();
+                parameters.put(name, value);
+            });
+
+            return parameters;
+        } else {
+            return Collections.emptyMap();
         }
     }
 }
