@@ -1,3 +1,9 @@
+# qase-java 4.1.5
+
+## What's new
+
+Added support for BDD keywords (Given, When, Then, And, ect.) in Cucumber reporters for better step representation.
+
 # qase-java 4.1.4
 
 ## What's new

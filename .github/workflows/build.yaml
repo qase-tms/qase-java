@@ -27,6 +27,7 @@ jobs:
     if: startsWith(github.event.ref, 'refs/tags/')
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -39,9 +40,17 @@ jobs:
           server-password: OSSRH_CENTRAL_TOKEN
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: OSSRH_GPG_PASSPHRASE
+
       - name: Publish to Apache Maven Central
         run: mvn clean deploy -P release
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_CENTRAL_TOKEN: ${{ secrets.OSSRH_PASSWORD }}
           OSSRH_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
