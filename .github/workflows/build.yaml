@@ -23,6 +23,8 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs: test
     if: startsWith(github.event.ref, 'refs/tags/')
     steps:
