@@ -1,3 +1,9 @@
+# qase-java 4.1.6
+
+## What's new
+
+Fixed a JSON parsing error (java.io.IOException) in qase-api-client when handling TestCaseParams with anyOf schemas.
+
 # qase-java 4.1.5
 
 ## What's new
