@@ -14,6 +14,8 @@
 package io.qase.client.v1.models;
 
 import java.util.Objects;
+import java.util.List;
+import java.util.Map;
 
 
 
@@ -50,7 +52,7 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.13.0")
 public class TestCaseParams extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(TestCaseParams.class.getName());
 
@@ -63,10 +65,10 @@ public class TestCaseParams extends AbstractOpenApiSchema {
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
 
-            final Type typeInstance = new TypeToken<List<Object>>() {
-            }.getType();
-            final TypeAdapter<List<Object>> adapterList = (TypeAdapter<List<Object>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstance));
-            final TypeAdapter<Object> adapterObject = gson.getDelegateAdapter(this, TypeToken.get(Object.class));
+            final Type typeInstanceListObject = new TypeToken<List<Object>>(){}.getType();
+            final TypeAdapter<List<Object>> adapterListObject = (TypeAdapter<List<Object>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstanceListObject));
+            final Type typeInstanceMapStringListString = new TypeToken<Map<String, List<String>>>(){}.getType();
+            final TypeAdapter<Map<String, List<String>>> adapterMap = (TypeAdapter<Map<String, List<String>>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstanceMapStringListString));
 
             return (TypeAdapter<T>) new TypeAdapter<TestCaseParams>() {
                 @Override
@@ -77,19 +79,18 @@ public class TestCaseParams extends AbstractOpenApiSchema {
                     }
 
                     // check if the actual instance is of the type `List<Object>`
-                    if (value.getActualInstance() instanceof List) {
-                        JsonPrimitive primitive = adapterList.toJsonTree((List<Object>) value.getActualInstance()).getAsJsonPrimitive();
+                    if (value.getActualInstance() instanceof List<?>) {
+                        JsonPrimitive primitive = adapterListObject.toJsonTree((List<Object>)value.getActualInstance()).getAsJsonPrimitive();
                         elementAdapter.write(out, primitive);
                         return;
                     }
-
-                    // check if the actual instance is of the type `Object`
-                    if (value.getActualInstance() instanceof Object) {
-                        JsonPrimitive primitive = adapterObject.toJsonTree((Object) value.getActualInstance()).getAsJsonPrimitive();
-                        elementAdapter.write(out, primitive);
+                    // check if the actual instance is of the type `Map<String, List<String>>`
+                    if (value.getActualInstance() instanceof Map) {
+                        JsonElement element = adapterMap.toJsonTree((Map<String, List<String>>)value.getActualInstance());
+                        elementAdapter.write(out, element);
                         return;
                     }
-                    throw new IOException("Failed to serialize as the type doesn't match anyOf schemae: List<Object>, Object");
+                    throw new IOException("Failed to serialize as the type doesn't match anyOf schemas: List<Object>, Map<String, List<String>>");
                 }
 
                 @Override
@@ -103,22 +104,18 @@ public class TestCaseParams extends AbstractOpenApiSchema {
                     // deserialize List<Object>
                     try {
                         // validate the JSON object to see if any exception is thrown
-                        if (!jsonElement.getAsJsonPrimitive().isNumber()) {
-                            throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
-                        }
-                        actualAdapter = adapterList;
                         if (!jsonElement.isJsonArray()) {
                             throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
                         }
 
                         JsonArray array = jsonElement.getAsJsonArray();
                         // validate array items
-                        for (JsonElement element : array) {
+                        for(JsonElement element : array) {
                             if (!element.getAsJsonPrimitive().isNumber()) {
                                 throw new IllegalArgumentException(String.format("Expected array items to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
                             }
                         }
-                        actualAdapter = adapterList;
+                        actualAdapter = adapterListObject;
                         TestCaseParams ret = new TestCaseParams();
                         ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
                         return ret;
@@ -127,20 +124,18 @@ public class TestCaseParams extends AbstractOpenApiSchema {
                         errorMessages.add(String.format("Deserialization for List<Object> failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'List<Object>'", e);
                     }
-                    // deserialize Object
+                    // deserialize Map<String, List<String>>
                     try {
                         // validate the JSON object to see if any exception is thrown
-                        if (!jsonElement.getAsJsonPrimitive().isNumber()) {
-                            throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
-                        }
-                        actualAdapter = adapterObject;
+                        validateJsonElement(jsonElement);
+                        actualAdapter = adapterMap;
                         TestCaseParams ret = new TestCaseParams();
                         ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
                         return ret;
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for Object failed with `%s`.", e.getMessage()));
-                        log.log(Level.FINER, "Input data does not match schema 'Object'", e);
+                        errorMessages.add(String.format("Deserialization for Map<String, List<String>> failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'Map<String, List<String>>'", e);
                     }
 
                     throw new IOException(String.format("Failed deserialization for TestCaseParams: no class matches result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s", errorMessages, jsonElement.toString()));
@@ -156,11 +151,6 @@ public class TestCaseParams extends AbstractOpenApiSchema {
         super("anyOf", Boolean.FALSE);
     }
 
-    public TestCaseParams(List<Object> o) {
-        super("anyOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
     public TestCaseParams(Object o) {
         super("anyOf", Boolean.FALSE);
         setActualInstance(o);
@@ -168,7 +158,7 @@ public class TestCaseParams extends AbstractOpenApiSchema {
 
     static {
         schemas.put("List<Object>", List.class);
-        schemas.put("Object", Object.class);
+        schemas.put("Map<String, List<String>>", Map.class);
     }
 
     @Override
@@ -179,8 +169,8 @@ public class TestCaseParams extends AbstractOpenApiSchema {
     /**
      * Set the instance that matches the anyOf child schema, check
      * the instance parameter is valid against the anyOf child schemas:
-     * List<Object>, Object
-     * <p>
+     * List<Object>, Map<String, List<String>>
+     *
      * It could be an instance of the 'anyOf' schemas.
      */
     @Override
@@ -193,45 +183,35 @@ public class TestCaseParams extends AbstractOpenApiSchema {
             }
         }
 
-        if (instance instanceof Object) {
+        if (instance instanceof Map) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be List<Object>, Object");
+        throw new RuntimeException("Invalid instance type. Must be List<Object>, Map<String, List<String>>");
     }
 
     /**
      * Get the actual instance, which can be the following:
-     * List<Object>, Object
+     * List<Object>, Map<String, List<String>>
      *
-     * @return The actual instance (List<Object>, Object)
+     * @return The actual instance (List<Object>, Map<String, List<String>>)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `List<Object>`. If the actual instance is not `List<Object>`,
+     * Get the actual instance of `Map<String, List<String>>`. If the actual instance is not `Map<String, List<String>>`,
      * the ClassCastException will be thrown.
      *
-     * @return The actual instance of `List<Object>`
-     * @throws ClassCastException if the instance is not `List<Object>`
+     * @return The actual instance of `Map<String, List<String>>`
+     * @throws ClassCastException if the instance is not `Map<String, List<String>>`
      */
-    public List<Object> getList() throws ClassCastException {
-        return (List<Object>) super.getActualInstance();
-    }
-
-    /**
-     * Get the actual instance of `Object`. If the actual instance is not `Object`,
-     * the ClassCastException will be thrown.
-     *
-     * @return The actual instance of `Object`
-     * @throws ClassCastException if the instance is not `Object`
-     */
-    public Object getObject() throws ClassCastException {
-        return (Object) super.getActualInstance();
+    public Map<String, List<String>> getMapStringListString() throws ClassCastException {
+        return (Map<String, List<String>>)super.getActualInstance();
     }
 
     /**
@@ -245,15 +225,12 @@ public class TestCaseParams extends AbstractOpenApiSchema {
         ArrayList<String> errorMessages = new ArrayList<>();
         // validate the json string with List<Object>
         try {
-            if (!jsonElement.getAsJsonPrimitive().isNumber()) {
-                throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
-            }
             if (!jsonElement.isJsonArray()) {
                 throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
             }
             JsonArray array = jsonElement.getAsJsonArray();
             // validate array items
-            for (JsonElement element : array) {
+            for(JsonElement element : array) {
                 if (!element.getAsJsonPrimitive().isNumber()) {
                     throw new IllegalArgumentException(String.format("Expected array items to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
                 }
@@ -263,18 +240,32 @@ public class TestCaseParams extends AbstractOpenApiSchema {
             errorMessages.add(String.format("Deserialization for List<Object> failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
-        // validate the json string with Object
+        // validate the json string with Map<String, List<String>>
         try {
-            if (!jsonElement.getAsJsonPrimitive().isNumber()) {
-                throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
+            if (!jsonElement.isJsonObject()) {
+                throw new IllegalArgumentException(String.format("Expected json element to be an object type in the JSON string but got `%s`", jsonElement.toString()));
+            }
+
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                JsonElement value = entry.getValue();
+                if (!value.isJsonArray()) {
+                    throw new IllegalArgumentException(String.format("Expected object values to be arrays in the JSON string but got `%s` for key `%s`", value.toString(), entry.getKey()));
+                }
+
+                JsonArray array = value.getAsJsonArray();
+                for (JsonElement element : array) {
+                    if (!element.isJsonPrimitive() || !element.getAsJsonPrimitive().isString()) {
+                        throw new IllegalArgumentException(String.format("Expected array items to be of type String in the JSON string but got `%s`", element.toString()));
+                    }
+                }
             }
             return;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for Object failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format("Deserialization for Map<String, List<String>> failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
-        throw new IOException(String.format("The JSON string is invalid for TestCaseParams with anyOf schemas: List<Object>, Object. no class match the result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s", errorMessages, jsonElement.toString()));
-
+        throw new IOException(String.format("The JSON string is invalid for TestCaseParams with anyOf schemas: List<Object>, Map<String, List<String>>. no class match the result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s", errorMessages, jsonElement.toString()));
     }
 
     /**
