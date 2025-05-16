@@ -35,7 +35,9 @@ public enum ResultStepStatus {
   
   BLOCKED("blocked"),
   
-  SKIPPED("skipped");
+  SKIPPED("skipped"),
+  
+  IN_PROGRESS("in_progress");
 
   private String value;
 

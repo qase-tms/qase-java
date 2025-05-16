@@ -1,3 +1,9 @@
+# qase-java 4.1.7
+
+## What's new
+
+Added support `in-progress` status for test steps in API clients.
+
 # qase-java 4.1.6
 
 ## What's new
