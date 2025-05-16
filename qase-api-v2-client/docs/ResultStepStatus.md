@@ -13,5 +13,7 @@
 
 * `SKIPPED` (value: `"skipped"`)
 
+* `IN_PROGRESS` (value: `"in_progress"`)
+
 
 

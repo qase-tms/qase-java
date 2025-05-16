@@ -80,7 +80,7 @@ public class TestStepResult {
   }
 
    /**
-   * Get status
+   * 1 - passed, 2 - failed, 3 - blocked, 5 - skipped, 7 - in_progress
    * @return status
   **/
   @javax.annotation.Nullable

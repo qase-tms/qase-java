@@ -68,7 +68,9 @@ public class TestStepResultCreate {
     
     FAILED("failed"),
     
-    BLOCKED("blocked");
+    BLOCKED("blocked"),
+    
+    IN_PROGRESS("in_progress");
 
     private String value;
 

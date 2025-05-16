@@ -25,6 +25,7 @@
 | PASSED | &quot;passed&quot; |
 | FAILED | &quot;failed&quot; |
 | BLOCKED | &quot;blocked&quot; |
+| IN_PROGRESS | &quot;in_progress&quot; |
 
 
 
