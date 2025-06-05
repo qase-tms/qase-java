@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -75,12 +76,16 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             model.setPlanId((long) this.config.testops.plan.id);
         }
 
+        if (this.config.testops.run.tags != null && this.config.testops.run.tags.length > 0) {
+            model.setTags(Arrays.asList(this.config.testops.run.tags));
+        }
+
         try {
             return Objects.requireNonNull(
                     new RunsApi(client)
                             .createRun(this.config.testops.project, model)
-                            .getResult()
-            ).getId();
+                            .getResult())
+                    .getId();
         } catch (ApiException e) {
             throw new QaseException("Failed to create test run: " + e.getResponseBody(), e.getCause());
         }
@@ -114,12 +119,11 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                     .getPlan(this.config.testops.project, this.config.testops.plan.id);
 
             return Objects.requireNonNull(
-                            Objects.requireNonNull(response.getResult())
-                                    .getCases())
+                    Objects.requireNonNull(response.getResult())
+                            .getCases())
                     .stream()
                     .map(PlanDetailedAllOfCases::getCaseId)
-                    .collect(Collectors.toList()
-                    );
+                    .collect(Collectors.toList());
         } catch (ApiException e) {
             throw new QaseException("Failed to get test case ids for execution: " + e.getResponseBody(), e.getCause());
         }
@@ -157,14 +161,14 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         }
 
         try {
-            List<Attachmentupload> response = api.uploadAttachment(this.config.testops.project, Collections.singletonList(file)).getResult();
+            List<Attachmentupload> response = api
+                    .uploadAttachment(this.config.testops.project, Collections.singletonList(file)).getResult();
             return processUploadResponse(response, file, removeFile);
         } catch (ApiException e) {
             logger.error("Failed to upload attachment: %s", e.getMessage());
             return "";
         }
     }
-
 
     private String processUploadResponse(List<Attachmentupload> response, File file, boolean removeFile) {
         if (file != null && file.exists() && removeFile) {

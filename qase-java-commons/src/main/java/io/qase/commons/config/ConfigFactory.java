@@ -7,6 +7,7 @@ import org.json.JSONTokener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class ConfigFactory {
@@ -64,12 +65,15 @@ public class ConfigFactory {
         qaseConfig.testops.run.description = getEnv("QASE_TESTOPS_RUN_DESCRIPTION", qaseConfig.testops.run.description);
         qaseConfig.testops.run.id = getIntEnv("QASE_TESTOPS_RUN_ID", qaseConfig.testops.run.id);
         qaseConfig.testops.run.complete = getBooleanEnv("QASE_TESTOPS_RUN_COMPLETE", qaseConfig.testops.run.complete);
+        qaseConfig.testops.run.tags = getEnvArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
         qaseConfig.testops.plan.id = getIntEnv("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntEnv("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
 
         qaseConfig.report.setDriver(getEnv("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
-        qaseConfig.report.connection.local.setFormat(getEnv("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
-        qaseConfig.report.connection.local.path = getEnv("QASE_REPORT_CONNECTION_PATH", qaseConfig.report.connection.local.path);
+        qaseConfig.report.connection.local
+                .setFormat(getEnv("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
+        qaseConfig.report.connection.local.path = getEnv("QASE_REPORT_CONNECTION_PATH",
+                qaseConfig.report.connection.local.path);
 
         return qaseConfig;
     }
@@ -86,21 +90,27 @@ public class ConfigFactory {
         qaseConfig.testops.api.token = getProperty("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getProperty("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
         qaseConfig.testops.run.title = getProperty("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
-        qaseConfig.testops.run.description = getProperty("QASE_TESTOPS_RUN_DESCRIPTION", qaseConfig.testops.run.description);
+        qaseConfig.testops.run.description = getProperty("QASE_TESTOPS_RUN_DESCRIPTION",
+                qaseConfig.testops.run.description);
         qaseConfig.testops.run.id = getIntProperty("QASE_TESTOPS_RUN_ID", qaseConfig.testops.run.id);
-        qaseConfig.testops.run.complete = getBooleanProperty("QASE_TESTOPS_RUN_COMPLETE", qaseConfig.testops.run.complete);
+        qaseConfig.testops.run.complete = getBooleanProperty("QASE_TESTOPS_RUN_COMPLETE",
+                qaseConfig.testops.run.complete);
+        qaseConfig.testops.run.tags = getPropertyArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
         qaseConfig.testops.plan.id = getIntProperty("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntProperty("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
 
         qaseConfig.report.setDriver(getProperty("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
-        qaseConfig.report.connection.local.setFormat(getProperty("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
-        qaseConfig.report.connection.local.path = getProperty("QASE_REPORT_CONNECTION_PATH", qaseConfig.report.connection.local.path);
+        qaseConfig.report.connection.local.setFormat(
+                getProperty("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
+        qaseConfig.report.connection.local.path = getProperty("QASE_REPORT_CONNECTION_PATH",
+                qaseConfig.report.connection.local.path);
 
         return qaseConfig;
     }
 
     private static void validateConfig(QaseConfig qaseConfig) {
-        if ((qaseConfig.mode == Mode.TESTOPS || qaseConfig.fallback == Mode.TESTOPS) && (qaseConfig.testops.project == null || qaseConfig.testops.api.token == null)) {
+        if ((qaseConfig.mode == Mode.TESTOPS || qaseConfig.fallback == Mode.TESTOPS)
+                && (qaseConfig.testops.project == null || qaseConfig.testops.api.token == null)) {
             logger.error("Project and API token are required for TestOps mode");
             qaseConfig.mode = Mode.OFF;
             qaseConfig.fallback = Mode.OFF;
@@ -109,6 +119,14 @@ public class ConfigFactory {
 
     private static String getEnv(String key, String defaultValue) {
         return Optional.ofNullable(System.getenv(key)).orElse(defaultValue);
+    }
+
+    private static String[] getEnvArray(String key, String[] defaultValue) {
+        return Optional.ofNullable(System.getenv(key))
+                .map(value -> Arrays.stream(value.split(","))
+                        .map(String::trim)
+                        .toArray(String[]::new))
+                .orElse(defaultValue);
     }
 
     private static boolean getBooleanEnv(String key, boolean defaultValue) {
@@ -121,6 +139,14 @@ public class ConfigFactory {
 
     private static String getProperty(String key, String defaultValue) {
         return Optional.ofNullable(System.getProperty(key)).orElse(defaultValue);
+    }
+
+    private static String[] getPropertyArray(String key, String[] defaultValue) {
+        return Optional.ofNullable(System.getProperty(key))
+                .map(value -> Arrays.stream(value.split(","))
+                        .map(String::trim)
+                        .toArray(String[]::new))
+                .orElse(defaultValue);
     }
 
     private static boolean getBooleanProperty(String key, boolean defaultValue) {

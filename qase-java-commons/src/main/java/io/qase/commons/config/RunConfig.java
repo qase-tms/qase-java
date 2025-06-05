@@ -7,4 +7,5 @@ public class RunConfig {
     public String description = "";
     public boolean complete = true;
     public Integer id = 0;
+    public String[] tags = {};
 }
