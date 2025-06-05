@@ -1,3 +1,9 @@
+# qase-java 4.1.8
+
+## What's new
+
+Added support tags for test runs.
+
 # qase-java 4.1.7
 
 ## What's new
