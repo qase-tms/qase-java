@@ -105,13 +105,12 @@ public final class IntegrationUtils {
         String packageName = testMethod.getDeclaringClass().getPackage().getName().toLowerCase().replace('.', ':');
         String className = testMethod.getDeclaringClass().getSimpleName().toLowerCase();
         String methodName = testMethod.getName().toLowerCase();
-        String qaseIdPart = qaseIds != null ? "::" + qaseIds.stream().map(String::valueOf).collect(Collectors.joining("-")) : "";
-        String parametersPart = parameters != null && !parameters.isEmpty()
-                ? "::" + parameters.entrySet().stream()
-                .map(entry -> entry.getKey().toLowerCase() + "::" + entry.getValue().toLowerCase().replace(" ", "_"))
-                .collect(Collectors.joining("::"))
-                : "";
 
-        return String.format("%s::%s.java::%s::%s%s", packageName, className, className, methodName, qaseIdPart + parametersPart);
+        ArrayList<String> suites = new ArrayList<>();
+        suites.add(packageName);
+        suites.add(className);
+        suites.add(methodName);
+
+        return StringUtils.generateSignature(new ArrayList<>(qaseIds), suites, parameters);
     }
 }
