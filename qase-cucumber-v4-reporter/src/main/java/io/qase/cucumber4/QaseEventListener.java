@@ -12,6 +12,7 @@ import gherkin.pickles.PickleTag;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
 import io.qase.commons.utils.CucumberUtils;
+import io.qase.commons.utils.StringUtils;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
@@ -143,6 +144,12 @@ public class QaseEventListener implements ConcurrentEventListener {
         resultCreate.fields = fields;
         resultCreate.relations = relations;
         resultCreate.params = parameters;
+
+        ArrayList<String> suites = new ArrayList<>();
+        suites.addAll(Arrays.asList(event.getTestCase().getUri().toString().split("/")));
+        suites.add(caseTitle);
+        
+        resultCreate.signature = StringUtils.generateSignature(new ArrayList<>(caseIds), suites, parameters);
 
         return resultCreate;
     }

@@ -1,6 +1,5 @@
 package io.qase.junit4;
 
-
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
 import io.qase.commons.annotation.*;
@@ -8,6 +7,8 @@ import io.qase.commons.models.annotation.Field;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
+import io.qase.commons.utils.StringUtils;
+
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -219,13 +220,8 @@ public class QaseListener extends RunListener {
         String className = description.getClassName().toLowerCase().replace(".", ":");
         String[] parts = description.getMethodName().split("\\.");
         String methodName = parts[parts.length - 1].toLowerCase();
-        String qaseIdPart = qaseIds != null ? "::" + qaseIds.stream().map(String::valueOf).collect(Collectors.joining("-")) : "";
-        String parametersPart = parameters != null && !parameters.isEmpty()
-                ? "::" + parameters.entrySet().stream()
-                .map(entry -> entry.getKey().toLowerCase() + "::" + entry.getValue().toLowerCase().replace(" ", "_"))
-                .collect(Collectors.joining("::"))
-                : "";
 
-        return String.format("%s.java::%s::%s%s", className, className, methodName, qaseIdPart + parametersPart);
+        return StringUtils.generateSignature(new ArrayList<>(qaseIds),
+                new ArrayList<>(Arrays.asList(className, methodName)), parameters);
     }
 }

@@ -13,6 +13,7 @@ import gherkin.pickles.PickleTag;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
 import io.qase.commons.utils.CucumberUtils;
+import io.qase.commons.utils.StringUtils;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
@@ -59,7 +60,6 @@ public class QaseEventListener implements Formatter {
         this.qaseTestCaseListener.completeTestRun();
     }
 
-
     private void testStepStarted(TestStepStarted testStepStarted) {
         if (testStepStarted.testStep instanceof PickleStepTestStep) {
             StepStorage.startStep();
@@ -105,13 +105,13 @@ public class QaseEventListener implements Formatter {
             return resultCreate;
         }
 
-        final ScenarioDefinition scenarioDefinition = ScenarioStorage.getScenarioDefinition(scenarioStorage.getCucumberNode(event.testCase.getUri(), event.testCase.getLine()));
+        final ScenarioDefinition scenarioDefinition = ScenarioStorage.getScenarioDefinition(
+                scenarioStorage.getCucumberNode(event.testCase.getUri(), event.testCase.getLine()));
 
         Map<String, String> parameters = new HashMap<>();
 
         if (scenarioDefinition instanceof ScenarioOutline) {
-            parameters =
-                    getExamplesAsParameters((ScenarioOutline) scenarioDefinition, event.testCase);
+            parameters = getExamplesAsParameters((ScenarioOutline) scenarioDefinition, event.testCase);
         }
 
         List<Long> caseIds = CucumberUtils.getCaseIds(tags);
@@ -143,6 +143,13 @@ public class QaseEventListener implements Formatter {
         resultCreate.fields = fields;
         resultCreate.relations = relations;
 
+        ArrayList<String> suites = new ArrayList<>();
+        suites.addAll(
+                Arrays.asList(event.testCase.getScenarioDesignation().split(":")[0].split(Path.DIRECTORY_SEPARATOR)));
+        suites.add(caseTitle);
+
+        resultCreate.signature = StringUtils.generateSignature(new ArrayList<>(caseIds), suites, parameters);
+
         return resultCreate;
     }
 
@@ -163,10 +170,9 @@ public class QaseEventListener implements Formatter {
         resultCreate.execution.stacktrace = stacktrace;
         resultCreate.steps = StepStorage.stopSteps();
 
-        optionalThrowable.ifPresent(throwable ->
-                resultCreate.message = Optional.ofNullable(resultCreate.message)
-                        .map(msg -> msg + "\n\n" + throwable.toString())
-                        .orElse(throwable.toString()));
+        optionalThrowable.ifPresent(throwable -> resultCreate.message = Optional.ofNullable(resultCreate.message)
+                .map(msg -> msg + "\n\n" + throwable.toString())
+                .orElse(throwable.toString()));
 
         return resultCreate;
     }
@@ -202,13 +208,11 @@ public class QaseEventListener implements Formatter {
     }
 
     private Map<String, String> getExamplesAsParameters(
-            final ScenarioOutline scenarioOutline, final TestCase localCurrentTestCase
-    ) {
-        final Optional<Examples> examplesBlock =
-                scenarioOutline.getExamples().stream()
-                        .filter(example -> example.getTableBody().stream()
-                                .anyMatch(row -> row.getLocation().getLine() == localCurrentTestCase.getLine())
-                        ).findFirst();
+            final ScenarioOutline scenarioOutline, final TestCase localCurrentTestCase) {
+        final Optional<Examples> examplesBlock = scenarioOutline.getExamples().stream()
+                .filter(example -> example.getTableBody().stream()
+                        .anyMatch(row -> row.getLocation().getLine() == localCurrentTestCase.getLine()))
+                .findFirst();
 
         if (examplesBlock.isPresent()) {
             final TableRow row = examplesBlock.get().getTableBody().stream()
