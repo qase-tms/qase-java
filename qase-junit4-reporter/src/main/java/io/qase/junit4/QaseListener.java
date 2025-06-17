@@ -221,7 +221,9 @@ public class QaseListener extends RunListener {
         String[] parts = description.getMethodName().split("\\.");
         String methodName = parts[parts.length - 1].toLowerCase();
 
-        return StringUtils.generateSignature(new ArrayList<>(qaseIds),
-                new ArrayList<>(Arrays.asList(className, methodName)), parameters);
+        return StringUtils.generateSignature(
+                qaseIds != null ? new ArrayList<>(qaseIds) : new ArrayList<>(),
+                new ArrayList<>(Arrays.asList(className, methodName)),
+                parameters);
     }
 }

@@ -1,3 +1,9 @@
+# qase-java 4.1.9
+
+## What's new
+
+- Resolved issue with handling of `null` values in test case IDs in Cucumber reporters.
+
 # qase-java 4.1.8
 
 ## What's new

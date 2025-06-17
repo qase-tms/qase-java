@@ -111,6 +111,9 @@ public final class IntegrationUtils {
         suites.add(className);
         suites.add(methodName);
 
-        return StringUtils.generateSignature(new ArrayList<>(qaseIds), suites, parameters);
+        return StringUtils.generateSignature(
+                qaseIds != null ? new ArrayList<>(qaseIds) : new ArrayList<>(),
+                suites,
+                parameters);
     }
 }
