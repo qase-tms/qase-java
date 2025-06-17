@@ -51,7 +51,6 @@ public class QaseEventListener implements ConcurrentEventListener {
         this.qaseTestCaseListener.completeTestRun();
     }
 
-
     private void testStepStarted(TestStepStarted testStepStarted) {
         if (testStepStarted.getTestStep() instanceof PickleStepTestStep) {
             StepStorage.startStep();
@@ -93,13 +92,13 @@ public class QaseEventListener implements ConcurrentEventListener {
             return resultCreate;
         }
 
-        final ScenarioDefinition scenarioDefinition = ScenarioStorage.getScenarioDefinition(scenarioStorage.getCucumberNode(event.getTestCase().getUri(), event.getTestCase().getLine()));
+        final ScenarioDefinition scenarioDefinition = ScenarioStorage.getScenarioDefinition(
+                scenarioStorage.getCucumberNode(event.getTestCase().getUri(), event.getTestCase().getLine()));
 
         Map<String, String> parameters = new HashMap<>();
 
         if (scenarioDefinition instanceof ScenarioOutline) {
-            parameters =
-                    getExamplesAsParameters((ScenarioOutline) scenarioDefinition, event.getTestCase());
+            parameters = getExamplesAsParameters((ScenarioOutline) scenarioDefinition, event.getTestCase());
         }
 
         List<Long> caseIds = CucumberUtils.getCaseIds(tags);
@@ -135,8 +134,11 @@ public class QaseEventListener implements ConcurrentEventListener {
         ArrayList<String> suites = new ArrayList<>();
         suites.addAll(Arrays.asList(event.getTestCase().getUri().toString().split("/")));
         suites.add(caseTitle);
-        
-        resultCreate.signature = StringUtils.generateSignature(new ArrayList<>(caseIds), suites, parameters);
+
+        resultCreate.signature = StringUtils.generateSignature(
+                caseIds != null ? new ArrayList<>(caseIds) : new ArrayList<>(),
+                suites,
+                parameters);
 
         return resultCreate;
     }
@@ -158,10 +160,9 @@ public class QaseEventListener implements ConcurrentEventListener {
         resultCreate.execution.stacktrace = stacktrace;
         resultCreate.steps = StepStorage.stopSteps();
 
-        optionalThrowable.ifPresent(throwable ->
-                resultCreate.message = Optional.ofNullable(resultCreate.message)
-                        .map(msg -> msg + "\n\n" + throwable.toString())
-                        .orElse(throwable.toString()));
+        optionalThrowable.ifPresent(throwable -> resultCreate.message = Optional.ofNullable(resultCreate.message)
+                .map(msg -> msg + "\n\n" + throwable.toString())
+                .orElse(throwable.toString()));
 
         return resultCreate;
     }
@@ -197,13 +198,11 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private Map<String, String> getExamplesAsParameters(
-            final ScenarioOutline scenarioOutline, final TestCase localCurrentTestCase
-    ) {
-        final Optional<Examples> examplesBlock =
-                scenarioOutline.getExamples().stream()
-                        .filter(example -> example.getTableBody().stream()
-                                .anyMatch(row -> row.getLocation().getLine() == localCurrentTestCase.getLine())
-                        ).findFirst();
+            final ScenarioOutline scenarioOutline, final TestCase localCurrentTestCase) {
+        final Optional<Examples> examplesBlock = scenarioOutline.getExamples().stream()
+                .filter(example -> example.getTableBody().stream()
+                        .anyMatch(row -> row.getLocation().getLine() == localCurrentTestCase.getLine()))
+                .findFirst();
 
         if (examplesBlock.isPresent()) {
             final TableRow row = examplesBlock.get().getTableBody().stream()

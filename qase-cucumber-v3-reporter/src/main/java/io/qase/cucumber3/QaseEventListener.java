@@ -148,7 +148,10 @@ public class QaseEventListener implements Formatter {
                 Arrays.asList(event.testCase.getScenarioDesignation().split(":")[0].split(Path.DIRECTORY_SEPARATOR)));
         suites.add(caseTitle);
 
-        resultCreate.signature = StringUtils.generateSignature(new ArrayList<>(caseIds), suites, parameters);
+        resultCreate.signature = StringUtils.generateSignature(
+                caseIds != null ? new ArrayList<>(caseIds) : new ArrayList<>(),
+                suites,
+                parameters);
 
         return resultCreate;
     }

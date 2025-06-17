@@ -157,7 +157,10 @@ public class QaseEventListener implements ConcurrentEventListener {
         suites.addAll(Arrays.asList(event.getTestCase().getUri().toString().split("/")));
         suites.add(caseTitle);
         
-        resultCreate.signature = StringUtils.generateSignature(new ArrayList<>(caseIds), suites, parameters);
+        resultCreate.signature = StringUtils.generateSignature(
+            caseIds != null ? new ArrayList<>(caseIds) : new ArrayList<>(),
+            suites, 
+            parameters);
 
         return resultCreate;
     }
