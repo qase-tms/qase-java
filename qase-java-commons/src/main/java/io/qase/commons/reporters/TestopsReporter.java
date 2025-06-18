@@ -107,7 +107,7 @@ public class TestopsReporter implements InternalReporter {
                 + "?source=logs&status=%5B2%5D&search=";
 
         if (id != null) {
-            return baseLink + id;
+            return baseLink + this.config.project + "-" + id;
         }
 
         try {

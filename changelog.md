@@ -1,3 +1,9 @@
+# qase-java 4.1.10
+
+## What's new
+
+- Fixed a link to failed test in the console output.
+
 # qase-java 4.1.9
 
 ## What's new
