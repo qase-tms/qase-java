@@ -1,14 +1,20 @@
+# qase-java 4.1.11
+
+## What's new
+
+Updated API client to the latest version.
+
 # qase-java 4.1.10
 
 ## What's new
 
-- Fixed a link to failed test in the console output.
+Fixed a link to failed test in the console output.
 
 # qase-java 4.1.9
 
 ## What's new
 
-- Resolved issue with handling of `null` values in test case IDs in Cucumber reporters.
+Resolved issue with handling of `null` values in test case IDs in Cucumber reporters.
 
 # qase-java 4.1.8
 
@@ -46,8 +52,7 @@ tabular data are now correctly captured and displayed in test results.
 ## What's new
 
 - Resolved issue with serialization of models containing fields not described in the OpenAPI specification.
-- Unspecified fields are now properly handled and stored in `additionalProperties` to ensure compatibility with dynamic
-  payloads.
+- Unspecified fields are now properly handled and stored in `additionalProperties` to ensure compatibility with dynamic payloads.
 
 # qase-java 4.1.2
 

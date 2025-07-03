@@ -25,6 +25,8 @@
 |**tags** | [**List&lt;TagValue&gt;**](TagValue.md) |  |  [optional] |
 |**cases** | **List&lt;Long&gt;** |  |  [optional] |
 |**planId** | **Long** |  |  [optional] |
+|**configurations** | **List&lt;Long&gt;** |  |  [optional] |
+|**externalIssue** | [**RunExternalIssue**](RunExternalIssue.md) |  |  [optional] |
 
 
 

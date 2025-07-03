@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.qase.client.v1.models.CustomFieldValue;
 import io.qase.client.v1.models.RunEnvironment;
+import io.qase.client.v1.models.RunExternalIssue;
 import io.qase.client.v1.models.RunMilestone;
 import io.qase.client.v1.models.RunStats;
 import io.qase.client.v1.models.TagValue;
@@ -131,6 +132,14 @@ public class Run {
   public static final String SERIALIZED_NAME_PLAN_ID = "plan_id";
   @SerializedName(SERIALIZED_NAME_PLAN_ID)
   private Long planId;
+
+  public static final String SERIALIZED_NAME_CONFIGURATIONS = "configurations";
+  @SerializedName(SERIALIZED_NAME_CONFIGURATIONS)
+  private List<Long> configurations;
+
+  public static final String SERIALIZED_NAME_EXTERNAL_ISSUE = "external_issue";
+  @SerializedName(SERIALIZED_NAME_EXTERNAL_ISSUE)
+  private RunExternalIssue externalIssue;
 
   public Run() {
   }
@@ -500,6 +509,52 @@ public class Run {
     this.planId = planId;
   }
 
+
+  public Run configurations(List<Long> configurations) {
+    this.configurations = configurations;
+    return this;
+  }
+
+  public Run addConfigurationsItem(Long configurationsItem) {
+    if (this.configurations == null) {
+      this.configurations = new ArrayList<>();
+    }
+    this.configurations.add(configurationsItem);
+    return this;
+  }
+
+   /**
+   * Get configurations
+   * @return configurations
+  **/
+  @javax.annotation.Nullable
+  public List<Long> getConfigurations() {
+    return configurations;
+  }
+
+  public void setConfigurations(List<Long> configurations) {
+    this.configurations = configurations;
+  }
+
+
+  public Run externalIssue(RunExternalIssue externalIssue) {
+    this.externalIssue = externalIssue;
+    return this;
+  }
+
+   /**
+   * Get externalIssue
+   * @return externalIssue
+  **/
+  @javax.annotation.Nullable
+  public RunExternalIssue getExternalIssue() {
+    return externalIssue;
+  }
+
+  public void setExternalIssue(RunExternalIssue externalIssue) {
+    this.externalIssue = externalIssue;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -572,7 +627,9 @@ public class Run {
         Objects.equals(this.customFields, run.customFields) &&
         Objects.equals(this.tags, run.tags) &&
         Objects.equals(this.cases, run.cases) &&
-        Objects.equals(this.planId, run.planId)&&
+        Objects.equals(this.planId, run.planId) &&
+        Objects.equals(this.configurations, run.configurations) &&
+        Objects.equals(this.externalIssue, run.externalIssue)&&
         Objects.equals(this.additionalProperties, run.additionalProperties);
   }
 
@@ -582,7 +639,7 @@ public class Run {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, runId, title, description, status, statusText, startTime, endTime, _public, stats, timeSpent, elapsedTime, environment, milestone, customFields, tags, cases, planId, additionalProperties);
+    return Objects.hash(id, runId, title, description, status, statusText, startTime, endTime, _public, stats, timeSpent, elapsedTime, environment, milestone, customFields, tags, cases, planId, configurations, externalIssue, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -614,6 +671,8 @@ public class Run {
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    cases: ").append(toIndentedString(cases)).append("\n");
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
+    sb.append("    configurations: ").append(toIndentedString(configurations)).append("\n");
+    sb.append("    externalIssue: ").append(toIndentedString(externalIssue)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -655,6 +714,8 @@ public class Run {
     openapiFields.add("tags");
     openapiFields.add("cases");
     openapiFields.add("plan_id");
+    openapiFields.add("configurations");
+    openapiFields.add("external_issue");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -725,6 +786,14 @@ public class Run {
       // ensure the optional json data is an array if present
       if (jsonObj.get("cases") != null && !jsonObj.get("cases").isJsonNull() && !jsonObj.get("cases").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `cases` to be an array in the JSON string but got `%s`", jsonObj.get("cases").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("configurations") != null && !jsonObj.get("configurations").isJsonNull() && !jsonObj.get("configurations").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `configurations` to be an array in the JSON string but got `%s`", jsonObj.get("configurations").toString()));
+      }
+      // validate the optional field `external_issue`
+      if (jsonObj.get("external_issue") != null && !jsonObj.get("external_issue").isJsonNull()) {
+        RunExternalIssue.validateJsonElement(jsonObj.get("external_issue"));
       }
   }
 
