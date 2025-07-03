@@ -34,6 +34,8 @@ import io.qase.client.v1.models.RunListResponse;
 import io.qase.client.v1.models.RunPublic;
 import io.qase.client.v1.models.RunPublicResponse;
 import io.qase.client.v1.models.RunResponse;
+import io.qase.client.v1.models.RunexternalIssues;
+import io.qase.client.v1.models.Runupdate;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -549,7 +551,7 @@ public class RunsApi {
      * Build call for getRun
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects  (optional)
+     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects, external_issue  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -635,7 +637,7 @@ public class RunsApi {
      * This method allows to retrieve a specific run. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects  (optional)
+     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects, external_issue  (optional)
      * @return RunResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -659,7 +661,7 @@ public class RunsApi {
      * This method allows to retrieve a specific run. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects  (optional)
+     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects, external_issue  (optional)
      * @return ApiResponse&lt;RunResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -684,7 +686,7 @@ public class RunsApi {
      * This method allows to retrieve a specific run. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects  (optional)
+     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects, external_issue  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -717,7 +719,7 @@ public class RunsApi {
      * @param toStartTime  (optional)
      * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects  (optional)
+     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects, external_issue  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -836,7 +838,7 @@ public class RunsApi {
      * @param toStartTime  (optional)
      * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects  (optional)
+     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects, external_issue  (optional)
      * @return RunListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -867,7 +869,7 @@ public class RunsApi {
      * @param toStartTime  (optional)
      * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects  (optional)
+     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects, external_issue  (optional)
      * @return ApiResponse&lt;RunListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -899,7 +901,7 @@ public class RunsApi {
      * @param toStartTime  (optional)
      * @param limit A number of entities in result set. (optional, default to 10)
      * @param offset How many entities should be skipped. (optional, default to 0)
-     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects  (optional)
+     * @param include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects, external_issue  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -918,6 +920,317 @@ public class RunsApi {
 
         okhttp3.Call localVarCall = getRunsValidateBeforeCall(code, search, status, milestone, environment, fromStartTime, toStartTime, limit, offset, include, _callback);
         Type localVarReturnType = new TypeToken<RunListResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for runUpdateExternalIssue
+     * @param code Code of project, where to search entities. (required)
+     * @param runexternalIssues  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call runUpdateExternalIssueCall(String code, RunexternalIssues runexternalIssues, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = runexternalIssues;
+
+        // create path and map variables
+        String localVarPath = "/run/{code}/external-issue"
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call runUpdateExternalIssueValidateBeforeCall(String code, RunexternalIssues runexternalIssues, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new ApiException("Missing the required parameter 'code' when calling runUpdateExternalIssue(Async)");
+        }
+
+        // verify the required parameter 'runexternalIssues' is set
+        if (runexternalIssues == null) {
+            throw new ApiException("Missing the required parameter 'runexternalIssues' when calling runUpdateExternalIssue(Async)");
+        }
+
+        return runUpdateExternalIssueCall(code, runexternalIssues, _callback);
+
+    }
+
+    /**
+     * Update external issues for runs
+     * This method allows you to update links between test runs and external issues (such as Jira tickets).  You can use this endpoint to: - Link test runs to external issues by providing the external issue identifier (e.g., \&quot;PROJ-1234\&quot;) - Update existing links by providing a new external issue identifier - Remove existing links by setting the external_issue field to null  **Important**: Each test run can have only one link with an external issue. If a test run already has an external issue link, providing a new external_issue value will replace the existing link.  The endpoint supports both Jira Cloud and Jira Server integrations. Each request can update multiple test run links in a single operation. 
+     * @param code Code of project, where to search entities. (required)
+     * @param runexternalIssues  (required)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
+     */
+    public void runUpdateExternalIssue(String code, RunexternalIssues runexternalIssues) throws ApiException {
+        runUpdateExternalIssueWithHttpInfo(code, runexternalIssues);
+    }
+
+    /**
+     * Update external issues for runs
+     * This method allows you to update links between test runs and external issues (such as Jira tickets).  You can use this endpoint to: - Link test runs to external issues by providing the external issue identifier (e.g., \&quot;PROJ-1234\&quot;) - Update existing links by providing a new external issue identifier - Remove existing links by setting the external_issue field to null  **Important**: Each test run can have only one link with an external issue. If a test run already has an external issue link, providing a new external_issue value will replace the existing link.  The endpoint supports both Jira Cloud and Jira Server integrations. Each request can update multiple test run links in a single operation. 
+     * @param code Code of project, where to search entities. (required)
+     * @param runexternalIssues  (required)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> runUpdateExternalIssueWithHttpInfo(String code, RunexternalIssues runexternalIssues) throws ApiException {
+        okhttp3.Call localVarCall = runUpdateExternalIssueValidateBeforeCall(code, runexternalIssues, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * Update external issues for runs (asynchronously)
+     * This method allows you to update links between test runs and external issues (such as Jira tickets).  You can use this endpoint to: - Link test runs to external issues by providing the external issue identifier (e.g., \&quot;PROJ-1234\&quot;) - Update existing links by providing a new external issue identifier - Remove existing links by setting the external_issue field to null  **Important**: Each test run can have only one link with an external issue. If a test run already has an external issue link, providing a new external_issue value will replace the existing link.  The endpoint supports both Jira Cloud and Jira Server integrations. Each request can update multiple test run links in a single operation. 
+     * @param code Code of project, where to search entities. (required)
+     * @param runexternalIssues  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call runUpdateExternalIssueAsync(String code, RunexternalIssues runexternalIssues, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = runUpdateExternalIssueValidateBeforeCall(code, runexternalIssues, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for updateRun
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param runupdate  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateRunCall(String code, Integer id, Runupdate runupdate, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = runupdate;
+
+        // create path and map variables
+        String localVarPath = "/run/{code}/{id}"
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()))
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "TokenAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateRunValidateBeforeCall(String code, Integer id, Runupdate runupdate, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new ApiException("Missing the required parameter 'code' when calling updateRun(Async)");
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling updateRun(Async)");
+        }
+
+        // verify the required parameter 'runupdate' is set
+        if (runupdate == null) {
+            throw new ApiException("Missing the required parameter 'runupdate' when calling updateRun(Async)");
+        }
+
+        return updateRunCall(code, id, runupdate, _callback);
+
+    }
+
+    /**
+     * Update a specific run
+     * This method allows to update a specific run. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param runupdate  (required)
+     * @return BaseResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
+     */
+    public BaseResponse updateRun(String code, Integer id, Runupdate runupdate) throws ApiException {
+        ApiResponse<BaseResponse> localVarResp = updateRunWithHttpInfo(code, id, runupdate);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Update a specific run
+     * This method allows to update a specific run. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param runupdate  (required)
+     * @return ApiResponse&lt;BaseResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<BaseResponse> updateRunWithHttpInfo(String code, Integer id, Runupdate runupdate) throws ApiException {
+        okhttp3.Call localVarCall = updateRunValidateBeforeCall(code, id, runupdate, null);
+        Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Update a specific run (asynchronously)
+     * This method allows to update a specific run. 
+     * @param code Code of project, where to search entities. (required)
+     * @param id Identifier. (required)
+     * @param runupdate  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found. </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateRunAsync(String code, Integer id, Runupdate runupdate, final ApiCallback<BaseResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updateRunValidateBeforeCall(code, id, runupdate, _callback);
+        Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

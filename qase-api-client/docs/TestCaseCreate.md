@@ -17,7 +17,6 @@
 |**type** | **Integer** |  |  [optional] |
 |**layer** | **Integer** |  |  [optional] |
 |**isFlaky** | **Integer** |  |  [optional] |
-|**authorId** | **Integer** |  |  [optional] |
 |**suiteId** | **Long** |  |  [optional] |
 |**milestoneId** | **Long** |  |  [optional] |
 |**automation** | **Integer** |  |  [optional] |

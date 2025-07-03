@@ -197,6 +197,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.Run.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunCreate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunEnvironment.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunExternalIssue.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunListResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunListResponseAllOfResult.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunMilestone.CustomTypeAdapterFactory());
@@ -206,6 +207,9 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunQuery.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunStats.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunexternalIssues.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunexternalIssuesLinksInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.Runupdate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.SearchResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.SearchResponseAllOfResult.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.SearchResponseAllOfResultEntities.CustomTypeAdapterFactory());

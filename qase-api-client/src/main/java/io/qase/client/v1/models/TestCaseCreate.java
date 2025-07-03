@@ -97,10 +97,6 @@ public class TestCaseCreate {
   @SerializedName(SERIALIZED_NAME_IS_FLAKY)
   private Integer isFlaky;
 
-  public static final String SERIALIZED_NAME_AUTHOR_ID = "author_id";
-  @SerializedName(SERIALIZED_NAME_AUTHOR_ID)
-  private Integer authorId;
-
   public static final String SERIALIZED_NAME_SUITE_ID = "suite_id";
   @SerializedName(SERIALIZED_NAME_SUITE_ID)
   private Long suiteId;
@@ -335,25 +331,6 @@ public class TestCaseCreate {
 
   public void setIsFlaky(Integer isFlaky) {
     this.isFlaky = isFlaky;
-  }
-
-
-  public TestCaseCreate authorId(Integer authorId) {
-    this.authorId = authorId;
-    return this;
-  }
-
-   /**
-   * Get authorId
-   * @return authorId
-  **/
-  @javax.annotation.Nullable
-  public Integer getAuthorId() {
-    return authorId;
-  }
-
-  public void setAuthorId(Integer authorId) {
-    this.authorId = authorId;
   }
 
 
@@ -670,7 +647,6 @@ public class TestCaseCreate {
         Objects.equals(this.type, testCaseCreate.type) &&
         Objects.equals(this.layer, testCaseCreate.layer) &&
         Objects.equals(this.isFlaky, testCaseCreate.isFlaky) &&
-        Objects.equals(this.authorId, testCaseCreate.authorId) &&
         Objects.equals(this.suiteId, testCaseCreate.suiteId) &&
         Objects.equals(this.milestoneId, testCaseCreate.milestoneId) &&
         Objects.equals(this.automation, testCaseCreate.automation) &&
@@ -691,7 +667,7 @@ public class TestCaseCreate {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, authorId, suiteId, milestoneId, automation, status, attachments, steps, tags, params, customField, createdAt, updatedAt, additionalProperties);
+    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, status, attachments, steps, tags, params, customField, createdAt, updatedAt, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -715,7 +691,6 @@ public class TestCaseCreate {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    layer: ").append(toIndentedString(layer)).append("\n");
     sb.append("    isFlaky: ").append(toIndentedString(isFlaky)).append("\n");
-    sb.append("    authorId: ").append(toIndentedString(authorId)).append("\n");
     sb.append("    suiteId: ").append(toIndentedString(suiteId)).append("\n");
     sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
     sb.append("    automation: ").append(toIndentedString(automation)).append("\n");
@@ -760,7 +735,6 @@ public class TestCaseCreate {
     openapiFields.add("type");
     openapiFields.add("layer");
     openapiFields.add("is_flaky");
-    openapiFields.add("author_id");
     openapiFields.add("suite_id");
     openapiFields.add("milestone_id");
     openapiFields.add("automation");

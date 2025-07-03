@@ -1,6 +1,6 @@
 
 
-# TestCaseexternalIssues
+# RunexternalIssues
 
 
 ## Properties
@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**type** | [**TypeEnum**](#TypeEnum) |  |  |
-|**links** | [**List&lt;TestCaseExternalIssuesLinksInner&gt;**](TestCaseExternalIssuesLinksInner.md) |  |  |
+|**links** | [**List&lt;RunexternalIssuesLinksInner&gt;**](RunexternalIssuesLinksInner.md) | Array of external issue links. Each test run (run_id) can have only one external issue link. |  |
 
 
 
