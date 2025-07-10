@@ -7,11 +7,13 @@ public class TestopsConfig {
     public RunConfig run;
     public PlanConfig plan;
     public BatchConfig batch;
+    public ConfigurationsConfig configurations;
 
     public TestopsConfig() {
         this.api = new ApiConfig();
         this.run = new RunConfig();
         this.plan = new PlanConfig();
         this.batch = new BatchConfig();
+        this.configurations = new ConfigurationsConfig();
     }
 }
