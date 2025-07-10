@@ -3,10 +3,12 @@ package io.qase.commons.client;
 import io.qase.client.v1.ApiClient;
 import io.qase.client.v1.ApiException;
 import io.qase.client.v1.api.AttachmentsApi;
+import io.qase.client.v1.api.ConfigurationsApi;
 import io.qase.client.v1.api.PlansApi;
 import io.qase.client.v1.api.RunsApi;
 import io.qase.client.v1.models.*;
 import io.qase.commons.QaseException;
+import io.qase.commons.config.ConfigurationValue;
 import io.qase.commons.config.QaseConfig;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.Attachment;
@@ -20,13 +22,16 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Qase API V1 client
@@ -80,6 +85,17 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             model.setTags(Arrays.asList(this.config.testops.run.tags));
         }
 
+        if (this.config.testops.configurations != null && !this.config.testops.configurations.getValues().isEmpty()) {
+            try {
+                List<Long> configurationIds = getConfigurationIds();
+                if (!configurationIds.isEmpty()) {
+                    model.setConfigurations(configurationIds);
+                }
+            } catch (ApiException e) {
+                logger.error("Failed to get configuration IDs: %s", e.getMessage());
+            }
+        }
+
         try {
             return Objects.requireNonNull(
                     new RunsApi(client)
@@ -127,6 +143,95 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         } catch (ApiException e) {
             throw new QaseException("Failed to get test case ids for execution: " + e.getResponseBody(), e.getCause());
         }
+    }
+
+    private List<Long> getConfigurationIds() throws ApiException {
+        if (this.config.testops.configurations == null || this.config.testops.configurations.getValues().isEmpty()) {
+            return Collections.emptyList();
+        }
+        
+        ConfigurationsApi configurationsApi = new ConfigurationsApi(client);
+        List<Long> configurationIds = new ArrayList<>();
+        Map<String, Long> groupIds = new HashMap<>();
+        
+        // Get existing configuration groups
+        ConfigurationListResponse existingConfigs = configurationsApi.getConfigurations(this.config.testops.project);
+        ConfigurationListResponseAllOfResult result = existingConfigs.getResult();
+        if (result != null && result.getEntities() != null) {
+            List<ConfigurationGroup> entities = result.getEntities();
+            if (entities != null) {
+                for (ConfigurationGroup group : entities) {
+                    List<ModelConfiguration> configs = group.getConfigurations();
+                    if (configs != null) {
+                        for (ModelConfiguration config : configs) {
+                            groupIds.put(group.getTitle() + ":" + config.getTitle(), config.getId());
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Process each configuration value
+        for (ConfigurationValue configValue : this.config.testops.configurations.getValues()) {
+            String key = configValue.getName() + ":" + configValue.getValue();
+            Long configId = groupIds.get(key);
+            
+            if (configId != null) {
+                // Configuration already exists
+                configurationIds.add(configId);
+            } else if (this.config.testops.configurations.isCreateIfNotExists()) {
+                // Create configuration if it doesn't exist
+                try {
+                    Long newConfigId = createConfiguration(configValue, configurationsApi);
+                    if (newConfigId != null) {
+                        configurationIds.add(newConfigId);
+                    }
+                } catch (Exception e) {
+                    logger.error("Failed to create configuration %s=%s: %s", 
+                               configValue.getName(), configValue.getValue(), e.getMessage());
+                }
+            }
+        }
+        
+        return configurationIds;
+    }
+    
+    private Long createConfiguration(ConfigurationValue configValue, ConfigurationsApi configurationsApi) throws ApiException {
+        // First, try to find or create the configuration group
+        Long groupId = findOrCreateConfigurationGroup(configValue.getName(), configurationsApi);
+        
+        if (groupId == null) {
+            return null;
+        }
+        
+        // Create the configuration value
+        ConfigurationCreate configCreate = new ConfigurationCreate()
+                .title(configValue.getValue())
+                .groupId(groupId.intValue());
+        
+        return Objects.requireNonNull(configurationsApi.createConfiguration(this.config.testops.project, configCreate).getResult()).getId();
+    }
+    
+    private Long findOrCreateConfigurationGroup(String groupName, ConfigurationsApi configurationsApi) throws ApiException {
+        // Get existing groups to find the one with matching title
+        ConfigurationListResponse existingConfigs = configurationsApi.getConfigurations(this.config.testops.project);
+        ConfigurationListResponseAllOfResult result = existingConfigs.getResult();
+        if (result != null && result.getEntities() != null) {
+            List<ConfigurationGroup> entities = result.getEntities();
+            if (entities != null) {
+                for (ConfigurationGroup group : entities) {
+                    if (groupName.equals(group.getTitle())) {
+                        return group.getId();
+                    }
+                }
+            }
+        }
+        
+        // Create new group if it doesn't exist
+        ConfigurationGroupCreate groupCreate = new ConfigurationGroupCreate()
+                .title(groupName);
+        
+        return Objects.requireNonNull(configurationsApi.createConfigurationGroup(this.config.testops.project, groupCreate).getResult()).getId();
     }
 
     public String uploadAttachment(Attachment attachment) {

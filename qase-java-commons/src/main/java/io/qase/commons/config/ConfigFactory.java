@@ -1,6 +1,7 @@
 package io.qase.commons.config;
 
 import io.qase.commons.logger.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -8,7 +9,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ConfigFactory {
     private static final Logger logger = Logger.getInstance();
@@ -59,6 +63,11 @@ public class ConfigFactory {
 
         qaseConfig.testops.project = getEnv("QASE_TESTOPS_PROJECT", qaseConfig.testops.project);
         qaseConfig.testops.defect = getBooleanEnv("QASE_TESTOPS_DEFECT", qaseConfig.testops.defect);
+        qaseConfig.testops.configurations.setValues(
+                getConfigurationsEnv("QASE_TESTOPS_RUN_CONFIGURATIONS", qaseConfig.testops.configurations.getValues()));
+        qaseConfig.testops.configurations
+                .setCreateIfNotExists(getBooleanEnv("QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS",
+                        qaseConfig.testops.configurations.isCreateIfNotExists()));
         qaseConfig.testops.api.token = getEnv("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getEnv("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
         qaseConfig.testops.run.title = getEnv("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
@@ -68,7 +77,6 @@ public class ConfigFactory {
         qaseConfig.testops.run.tags = getEnvArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
         qaseConfig.testops.plan.id = getIntEnv("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntEnv("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
-
         qaseConfig.report.setDriver(getEnv("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
         qaseConfig.report.connection.local
                 .setFormat(getEnv("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
@@ -87,6 +95,11 @@ public class ConfigFactory {
 
         qaseConfig.testops.project = getProperty("QASE_TESTOPS_PROJECT", qaseConfig.testops.project);
         qaseConfig.testops.defect = getBooleanProperty("QASE_TESTOPS_DEFECT", qaseConfig.testops.defect);
+        qaseConfig.testops.configurations.setValues(getConfigurationsProperty("QASE_TESTOPS_RUN_CONFIGURATIONS",
+                qaseConfig.testops.configurations.getValues()));
+        qaseConfig.testops.configurations
+                .setCreateIfNotExists(getBooleanProperty("QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS",
+                        qaseConfig.testops.configurations.isCreateIfNotExists()));
         qaseConfig.testops.api.token = getProperty("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getProperty("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
         qaseConfig.testops.run.title = getProperty("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
@@ -137,6 +150,16 @@ public class ConfigFactory {
         return Optional.ofNullable(System.getenv(key)).map(Integer::parseInt).orElse(defaultValue);
     }
 
+    private static List<ConfigurationValue> getConfigurationsEnv(String key, List<ConfigurationValue> defaultValue) {
+        return Optional.ofNullable(System.getenv(key))
+                .map(value -> Arrays.stream(value.split(","))
+                        .map(String::trim)
+                        .map(ConfigFactory::parseConfigurationValue)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList()))
+                .orElse(defaultValue);
+    }
+
     private static String getProperty(String key, String defaultValue) {
         return Optional.ofNullable(System.getProperty(key)).orElse(defaultValue);
     }
@@ -155,6 +178,30 @@ public class ConfigFactory {
 
     private static int getIntProperty(String key, int defaultValue) {
         return Optional.ofNullable(System.getProperty(key)).map(Integer::parseInt).orElse(defaultValue);
+    }
+
+    private static List<ConfigurationValue> getConfigurationsProperty(String key,
+            List<ConfigurationValue> defaultValue) {
+        return Optional.ofNullable(System.getProperty(key))
+                .map(value -> Arrays.stream(value.split(","))
+                        .map(String::trim)
+                        .map(ConfigFactory::parseConfigurationValue)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList()))
+                .orElse(defaultValue);
+    }
+
+    private static ConfigurationValue parseConfigurationValue(String configString) {
+        if (configString == null || configString.trim().isEmpty()) {
+            return null;
+        }
+
+        String[] parts = configString.split("=", 2);
+        if (parts.length != 2) {
+            return null;
+        }
+
+        return new ConfigurationValue(parts[0].trim(), parts[1].trim());
     }
 
     private static void applyJsonConfig(QaseConfig qaseConfig, JSONObject fileConfig) {
@@ -198,6 +245,31 @@ public class ConfigFactory {
 
                 if (api.has("host")) {
                     qaseConfig.testops.api.host = api.getString("host");
+                }
+            }
+
+            if (testOps.has("configurations")) {
+                JSONObject configurationsObj = testOps.getJSONObject("configurations");
+
+                if (configurationsObj.has("createIfNotExists")) {
+                    qaseConfig.testops.configurations
+                            .setCreateIfNotExists(configurationsObj.getBoolean("createIfNotExists"));
+                }
+
+                if (configurationsObj.has("values")) {
+                    qaseConfig.testops.configurations.getValues().clear();
+                    JSONArray valuesArray = configurationsObj.getJSONArray("values");
+                    for (int i = 0; i < valuesArray.length(); i++) {
+                        JSONObject valueObj = valuesArray.getJSONObject(i);
+                        ConfigurationValue configValue = new ConfigurationValue();
+                        if (valueObj.has("name")) {
+                            configValue.setName(valueObj.getString("name"));
+                        }
+                        if (valueObj.has("value")) {
+                            configValue.setValue(valueObj.getString("value"));
+                        }
+                        qaseConfig.testops.configurations.getValues().add(configValue);
+                    }
                 }
             }
 
