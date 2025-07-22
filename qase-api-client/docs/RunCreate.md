@@ -22,6 +22,8 @@
 |**customField** | **Map&lt;String, String&gt;** | A map of custom fields values (id &#x3D;&gt; value) |  [optional] |
 |**startTime** | **String** |  |  [optional] |
 |**endTime** | **String** |  |  [optional] |
+|**isCloud** | **Boolean** | Indicates if the run is created for the Test Cases produced by AIDEN |  [optional] |
+|**cloudRunConfig** | [**RunCreateCloudRunConfig**](RunCreateCloudRunConfig.md) |  |  [optional] |
 
 
 
