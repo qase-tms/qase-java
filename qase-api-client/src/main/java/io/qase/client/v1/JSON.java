@@ -196,6 +196,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.ResultCreateBulk.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.Run.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunCreateCloudRunConfig.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunEnvironment.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunExternalIssue.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.RunListResponse.CustomTypeAdapterFactory());

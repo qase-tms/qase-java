@@ -19,6 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.v1.models.RunCreateCloudRunConfig;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -114,6 +115,14 @@ public class RunCreate {
   public static final String SERIALIZED_NAME_END_TIME = "end_time";
   @SerializedName(SERIALIZED_NAME_END_TIME)
   private String endTime;
+
+  public static final String SERIALIZED_NAME_IS_CLOUD = "is_cloud";
+  @SerializedName(SERIALIZED_NAME_IS_CLOUD)
+  private Boolean isCloud;
+
+  public static final String SERIALIZED_NAME_CLOUD_RUN_CONFIG = "cloud_run_config";
+  @SerializedName(SERIALIZED_NAME_CLOUD_RUN_CONFIG)
+  private RunCreateCloudRunConfig cloudRunConfig;
 
   public RunCreate() {
   }
@@ -438,6 +447,44 @@ public class RunCreate {
     this.endTime = endTime;
   }
 
+
+  public RunCreate isCloud(Boolean isCloud) {
+    this.isCloud = isCloud;
+    return this;
+  }
+
+   /**
+   * Indicates if the run is created for the Test Cases produced by AIDEN
+   * @return isCloud
+  **/
+  @javax.annotation.Nullable
+  public Boolean getIsCloud() {
+    return isCloud;
+  }
+
+  public void setIsCloud(Boolean isCloud) {
+    this.isCloud = isCloud;
+  }
+
+
+  public RunCreate cloudRunConfig(RunCreateCloudRunConfig cloudRunConfig) {
+    this.cloudRunConfig = cloudRunConfig;
+    return this;
+  }
+
+   /**
+   * Get cloudRunConfig
+   * @return cloudRunConfig
+  **/
+  @javax.annotation.Nullable
+  public RunCreateCloudRunConfig getCloudRunConfig() {
+    return cloudRunConfig;
+  }
+
+  public void setCloudRunConfig(RunCreateCloudRunConfig cloudRunConfig) {
+    this.cloudRunConfig = cloudRunConfig;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -507,13 +554,15 @@ public class RunCreate {
         Objects.equals(this.configurations, runCreate.configurations) &&
         Objects.equals(this.customField, runCreate.customField) &&
         Objects.equals(this.startTime, runCreate.startTime) &&
-        Objects.equals(this.endTime, runCreate.endTime)&&
+        Objects.equals(this.endTime, runCreate.endTime) &&
+        Objects.equals(this.isCloud, runCreate.isCloud) &&
+        Objects.equals(this.cloudRunConfig, runCreate.cloudRunConfig)&&
         Objects.equals(this.additionalProperties, runCreate.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, description, includeAllCases, cases, isAutotest, environmentId, environmentSlug, milestoneId, planId, authorId, tags, configurations, customField, startTime, endTime, additionalProperties);
+    return Objects.hash(title, description, includeAllCases, cases, isAutotest, environmentId, environmentSlug, milestoneId, planId, authorId, tags, configurations, customField, startTime, endTime, isCloud, cloudRunConfig, additionalProperties);
   }
 
   @Override
@@ -535,6 +584,8 @@ public class RunCreate {
     sb.append("    customField: ").append(toIndentedString(customField)).append("\n");
     sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
     sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
+    sb.append("    isCloud: ").append(toIndentedString(isCloud)).append("\n");
+    sb.append("    cloudRunConfig: ").append(toIndentedString(cloudRunConfig)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -573,6 +624,8 @@ public class RunCreate {
     openapiFields.add("custom_field");
     openapiFields.add("start_time");
     openapiFields.add("end_time");
+    openapiFields.add("is_cloud");
+    openapiFields.add("cloud_run_config");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -625,6 +678,10 @@ public class RunCreate {
       }
       if ((jsonObj.get("end_time") != null && !jsonObj.get("end_time").isJsonNull()) && !jsonObj.get("end_time").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `end_time` to be a primitive type in the JSON string but got `%s`", jsonObj.get("end_time").toString()));
+      }
+      // validate the optional field `cloud_run_config`
+      if (jsonObj.get("cloud_run_config") != null && !jsonObj.get("cloud_run_config").isJsonNull()) {
+        RunCreateCloudRunConfig.validateJsonElement(jsonObj.get("cloud_run_config"));
       }
   }
 
