@@ -11,6 +11,7 @@ import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.writers.FileWriter;
 import io.qase.commons.writers.Writer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -58,6 +59,10 @@ public class CoreReporter implements Reporter {
     }
 
     public List<Long> getTestCaseIdsForExecution() {
+        if (reporter == null) {
+            return new ArrayList<>();
+        }
+
         return reporter.getTestCaseIdsForExecution();
     }
 

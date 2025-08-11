@@ -1,3 +1,9 @@
+# qase-java 4.1.14
+
+## Bug fixes
+
+- Fixed JUnit5 PostDiscoveryFilter instantiation error: `[ERROR] org.junit.platform.launcher.PostDiscoveryFilter: Provider io.qase.junit5.Junit5PostDiscoveryFilter could not be instantiated`
+
 # qase-java 4.1.13
 
 ## What's new
