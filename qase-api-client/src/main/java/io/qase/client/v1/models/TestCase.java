@@ -23,6 +23,7 @@ import io.qase.client.v1.models.Attachment;
 import io.qase.client.v1.models.CustomFieldValue;
 import io.qase.client.v1.models.ExternalIssue;
 import io.qase.client.v1.models.TagValue;
+import io.qase.client.v1.models.TestCaseParameter;
 import io.qase.client.v1.models.TestCaseParams;
 import io.qase.client.v1.models.TestStep;
 import java.io.IOException;
@@ -142,8 +143,13 @@ public class TestCase {
   private List<TestStep> steps;
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
+  @Deprecated
   @SerializedName(SERIALIZED_NAME_PARAMS)
   private TestCaseParams params;
+
+  public static final String SERIALIZED_NAME_PARAMETERS = "parameters";
+  @SerializedName(SERIALIZED_NAME_PARAMETERS)
+  private List<TestCaseParameter> parameters;
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
@@ -592,6 +598,7 @@ public class TestCase {
   }
 
 
+  @Deprecated
   public TestCase params(TestCaseParams params) {
     this.params = params;
     return this;
@@ -600,14 +607,44 @@ public class TestCase {
    /**
    * Get params
    * @return params
+   * @deprecated
   **/
+  @Deprecated
   @javax.annotation.Nullable
   public TestCaseParams getParams() {
     return params;
   }
 
+  @Deprecated
   public void setParams(TestCaseParams params) {
     this.params = params;
+  }
+
+
+  public TestCase parameters(List<TestCaseParameter> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public TestCase addParametersItem(TestCaseParameter parametersItem) {
+    if (this.parameters == null) {
+      this.parameters = new ArrayList<>();
+    }
+    this.parameters.add(parametersItem);
+    return this;
+  }
+
+   /**
+   * Get parameters
+   * @return parameters
+  **/
+  @javax.annotation.Nullable
+  public List<TestCaseParameter> getParameters() {
+    return parameters;
+  }
+
+  public void setParameters(List<TestCaseParameter> parameters) {
+    this.parameters = parameters;
   }
 
 
@@ -889,6 +926,7 @@ public class TestCase {
         Objects.equals(this.stepsType, testCase.stepsType) &&
         Objects.equals(this.steps, testCase.steps) &&
         Objects.equals(this.params, testCase.params) &&
+        Objects.equals(this.parameters, testCase.parameters) &&
         Objects.equals(this.tags, testCase.tags) &&
         Objects.equals(this.memberId, testCase.memberId) &&
         Objects.equals(this.authorId, testCase.authorId) &&
@@ -907,7 +945,7 @@ public class TestCase {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, tags, memberId, authorId, createdAt, updatedAt, deleted, created, updated, externalIssues, additionalProperties);
+    return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, parameters, tags, memberId, authorId, createdAt, updatedAt, deleted, created, updated, externalIssues, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -942,6 +980,7 @@ public class TestCase {
     sb.append("    stepsType: ").append(toIndentedString(stepsType)).append("\n");
     sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
+    sb.append("    parameters: ").append(toIndentedString(parameters)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    memberId: ").append(toIndentedString(memberId)).append("\n");
     sb.append("    authorId: ").append(toIndentedString(authorId)).append("\n");
@@ -995,6 +1034,7 @@ public class TestCase {
     openapiFields.add("steps_type");
     openapiFields.add("steps");
     openapiFields.add("params");
+    openapiFields.add("parameters");
     openapiFields.add("tags");
     openapiFields.add("member_id");
     openapiFields.add("author_id");
@@ -1082,6 +1122,20 @@ public class TestCase {
       // validate the optional field `params`
       if (jsonObj.get("params") != null && !jsonObj.get("params").isJsonNull()) {
         TestCaseParams.validateJsonElement(jsonObj.get("params"));
+      }
+      if (jsonObj.get("parameters") != null && !jsonObj.get("parameters").isJsonNull()) {
+        JsonArray jsonArrayparameters = jsonObj.getAsJsonArray("parameters");
+        if (jsonArrayparameters != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("parameters").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `parameters` to be an array in the JSON string but got `%s`", jsonObj.get("parameters").toString()));
+          }
+
+          // validate the optional field `parameters` (array)
+          for (int i = 0; i < jsonArrayparameters.size(); i++) {
+            TestCaseParameter.validateJsonElement(jsonArrayparameters.get(i));
+          };
+        }
       }
       if (jsonObj.get("tags") != null && !jsonObj.get("tags").isJsonNull()) {
         JsonArray jsonArraytags = jsonObj.getAsJsonArray("tags");

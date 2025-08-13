@@ -1,3 +1,9 @@
+# qase-java 4.1.15
+
+## What's new
+
+Updated API client to the latest specification
+
 # qase-java 4.1.14
 
 ## Bug fixes
@@ -15,6 +21,7 @@ Updated API client to the latest specification
 ## What's new
 
 Added support for configurations in test runs. You can now specify configuration groups and values that will be associated with your test runs. This includes:
+
 - JSON configuration format with `values` array and `createIfNotExists` flag
 - Environment variable support: `QASE_TESTOPS_RUN_CONFIGURATIONS="browser=chrome,environment=staging"`
 - Environment variable support for createIfNotExists: `QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS="true"`

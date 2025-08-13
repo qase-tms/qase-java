@@ -2,6 +2,7 @@
 
 # TestCaseParams
 
+Deprecated, use `parameters` instead.
 
 ## Properties
 

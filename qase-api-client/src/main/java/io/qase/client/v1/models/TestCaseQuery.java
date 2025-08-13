@@ -21,8 +21,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.qase.client.v1.models.Attachment;
 import io.qase.client.v1.models.CustomFieldValue;
+import io.qase.client.v1.models.QqlTestCaseParams;
 import io.qase.client.v1.models.TagValue;
-import io.qase.client.v1.models.TestCaseParams;
 import io.qase.client.v1.models.TestStep;
 import java.io.IOException;
 import java.time.OffsetDateTime;
@@ -146,7 +146,7 @@ public class TestCaseQuery {
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
   @SerializedName(SERIALIZED_NAME_PARAMS)
-  private TestCaseParams params;
+  private QqlTestCaseParams params;
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
@@ -599,7 +599,7 @@ public class TestCaseQuery {
   }
 
 
-  public TestCaseQuery params(TestCaseParams params) {
+  public TestCaseQuery params(QqlTestCaseParams params) {
     this.params = params;
     return this;
   }
@@ -609,11 +609,11 @@ public class TestCaseQuery {
    * @return params
   **/
   @javax.annotation.Nullable
-  public TestCaseParams getParams() {
+  public QqlTestCaseParams getParams() {
     return params;
   }
 
-  public void setParams(TestCaseParams params) {
+  public void setParams(QqlTestCaseParams params) {
     this.params = params;
   }
 
@@ -1013,7 +1013,7 @@ public class TestCaseQuery {
       }
       // validate the optional field `params`
       if (jsonObj.get("params") != null && !jsonObj.get("params").isJsonNull()) {
-        TestCaseParams.validateJsonElement(jsonObj.get("params"));
+        QqlTestCaseParams.validateJsonElement(jsonObj.get("params"));
       }
       if (jsonObj.get("tags") != null && !jsonObj.get("tags").isJsonNull()) {
         JsonArray jsonArraytags = jsonObj.getAsJsonArray("tags");

@@ -53,7 +53,7 @@
 |**milestoneId** | **Long** |  |  [optional] |
 |**suiteId** | **Long** |  |  [optional] |
 |**stepsType** | **String** |  |  [optional] |
-|**params** | [**TestCaseParams**](TestCaseParams.md) |  |  [optional] |
+|**params** | [**QqlTestCaseParams**](QqlTestCaseParams.md) |  |  [optional] |
 |**authorId** | **Long** |  |  [optional] |
 |**updatedBy** | **Long** | Author ID of the last update. |  [optional] |
 |**defectId** | **Long** |  |  |

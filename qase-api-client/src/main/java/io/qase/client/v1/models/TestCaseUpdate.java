@@ -19,6 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.v1.models.TestCaseParametercreate;
 import io.qase.client.v1.models.TestStepCreate;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -126,8 +127,13 @@ public class TestCaseUpdate {
   private List<String> tags;
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
+  @Deprecated
   @SerializedName(SERIALIZED_NAME_PARAMS)
   private Map<String, List<String>> params;
+
+  public static final String SERIALIZED_NAME_PARAMETERS = "parameters";
+  @SerializedName(SERIALIZED_NAME_PARAMETERS)
+  private List<TestCaseParametercreate> parameters;
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELD = "custom_field";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELD)
@@ -483,6 +489,7 @@ public class TestCaseUpdate {
   }
 
 
+  @Deprecated
   public TestCaseUpdate params(Map<String, List<String>> params) {
     this.params = params;
     return this;
@@ -497,16 +504,46 @@ public class TestCaseUpdate {
   }
 
    /**
-   * Get params
+   * Deprecated, use &#x60;parameters&#x60; instead.
    * @return params
+   * @deprecated
   **/
+  @Deprecated
   @javax.annotation.Nullable
   public Map<String, List<String>> getParams() {
     return params;
   }
 
+  @Deprecated
   public void setParams(Map<String, List<String>> params) {
     this.params = params;
+  }
+
+
+  public TestCaseUpdate parameters(List<TestCaseParametercreate> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public TestCaseUpdate addParametersItem(TestCaseParametercreate parametersItem) {
+    if (this.parameters == null) {
+      this.parameters = new ArrayList<>();
+    }
+    this.parameters.add(parametersItem);
+    return this;
+  }
+
+   /**
+   * Get parameters
+   * @return parameters
+  **/
+  @javax.annotation.Nullable
+  public List<TestCaseParametercreate> getParameters() {
+    return parameters;
+  }
+
+  public void setParameters(List<TestCaseParametercreate> parameters) {
+    this.parameters = parameters;
   }
 
 
@@ -609,6 +646,7 @@ public class TestCaseUpdate {
         Objects.equals(this.steps, testCaseUpdate.steps) &&
         Objects.equals(this.tags, testCaseUpdate.tags) &&
         Objects.equals(this.params, testCaseUpdate.params) &&
+        Objects.equals(this.parameters, testCaseUpdate.parameters) &&
         Objects.equals(this.customField, testCaseUpdate.customField)&&
         Objects.equals(this.additionalProperties, testCaseUpdate.additionalProperties);
   }
@@ -619,7 +657,7 @@ public class TestCaseUpdate {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, status, attachments, steps, tags, params, customField, additionalProperties);
+    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, status, attachments, steps, tags, params, parameters, customField, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -651,6 +689,7 @@ public class TestCaseUpdate {
     sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
+    sb.append("    parameters: ").append(toIndentedString(parameters)).append("\n");
     sb.append("    customField: ").append(toIndentedString(customField)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -693,6 +732,7 @@ public class TestCaseUpdate {
     openapiFields.add("steps");
     openapiFields.add("tags");
     openapiFields.add("params");
+    openapiFields.add("parameters");
     openapiFields.add("custom_field");
 
     // a set of required properties/fields (JSON key names)
@@ -745,6 +785,20 @@ public class TestCaseUpdate {
       // ensure the optional json data is an array if present
       if (jsonObj.get("tags") != null && !jsonObj.get("tags").isJsonNull() && !jsonObj.get("tags").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tags` to be an array in the JSON string but got `%s`", jsonObj.get("tags").toString()));
+      }
+      if (jsonObj.get("parameters") != null && !jsonObj.get("parameters").isJsonNull()) {
+        JsonArray jsonArrayparameters = jsonObj.getAsJsonArray("parameters");
+        if (jsonArrayparameters != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("parameters").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `parameters` to be an array in the JSON string but got `%s`", jsonObj.get("parameters").toString()));
+          }
+
+          // validate the optional field `parameters` (array)
+          for (int i = 0; i < jsonArrayparameters.size(); i++) {
+            TestCaseParametercreate.validateJsonElement(jsonArrayparameters.get(i));
+          };
+        }
       }
   }
 

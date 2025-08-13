@@ -28,7 +28,7 @@
 |**attachments** | [**List&lt;Attachment&gt;**](Attachment.md) |  |  [optional] |
 |**stepsType** | **String** |  |  [optional] |
 |**steps** | [**List&lt;TestStep&gt;**](TestStep.md) |  |  [optional] |
-|**params** | [**TestCaseParams**](TestCaseParams.md) |  |  [optional] |
+|**params** | [**QqlTestCaseParams**](QqlTestCaseParams.md) |  |  [optional] |
 |**tags** | [**List&lt;TagValue&gt;**](TagValue.md) |  |  [optional] |
 |**memberId** | **Long** | Deprecated, use &#x60;author_id&#x60; instead. |  [optional] |
 |**authorId** | **Long** |  |  [optional] |
