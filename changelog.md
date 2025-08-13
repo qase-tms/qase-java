@@ -1,3 +1,11 @@
+# qase-java 4.1.16
+
+## What's new
+
+- Improved exception handling in reporters to better determine the status of test results.
+- Enhanced test result classification: tests now receive `FAILED` status when failing due to assertions (assert, assertEquals, assertTrue, etc.) and `INVALID` status when failing due to other reasons (NullPointerException, RuntimeException, network errors, etc.).
+- Updated all reporters (JUnit4, JUnit5, TestNG, Cucumber v3-v7) to use consistent logic for determining test result statuses.
+
 # qase-java 4.1.15
 
 ## What's new

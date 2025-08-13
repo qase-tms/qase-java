@@ -8,6 +8,7 @@ import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
 import io.qase.commons.utils.StringUtils;
+import io.qase.commons.utils.ExceptionUtils;
 
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -55,14 +56,18 @@ public class QaseListener extends RunListener {
     @Override
     public void testFailure(Failure failure) {
         if (addIfNotPresent(failure.getDescription())) {
-            this.stopTestCase(TestResultStatus.FAILED, failure.getException());
+            TestResultStatus status = ExceptionUtils.isAssertionFailure(failure.getException()) ? 
+                TestResultStatus.FAILED : TestResultStatus.INVALID;
+            this.stopTestCase(status, failure.getException());
         }
     }
 
     @Override
     public void testAssumptionFailure(Failure failure) {
         if (addIfNotPresent(failure.getDescription())) {
-            this.stopTestCase(TestResultStatus.FAILED, failure.getException());
+            TestResultStatus status = ExceptionUtils.isAssertionFailure(failure.getException()) ? 
+                TestResultStatus.FAILED : TestResultStatus.INVALID;
+            this.stopTestCase(status, failure.getException());
         }
     }
 

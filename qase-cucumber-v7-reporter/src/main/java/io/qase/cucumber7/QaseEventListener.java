@@ -16,6 +16,7 @@ import io.qase.commons.utils.CucumberUtils;
 import io.qase.commons.utils.StringUtils;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
+import io.qase.commons.utils.ExceptionUtils;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.qase.commons.reporters.Reporter;
 
@@ -176,7 +177,14 @@ public class QaseEventListener implements ConcurrentEventListener {
         String stacktrace = optionalThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
 
-        resultCreate.execution.status = convertStatus(event.getResult().getStatus());
+        // Determine the correct status based on the exception type
+        TestResultStatus status = convertStatus(event.getResult().getStatus());
+        if (status == TestResultStatus.FAILED && optionalThrowable.isPresent()) {
+            status = ExceptionUtils.isAssertionFailure(optionalThrowable.get()) ? 
+                TestResultStatus.FAILED : TestResultStatus.INVALID;
+        }
+
+        resultCreate.execution.status = status;
         resultCreate.execution.endTime = Instant.now().toEpochMilli();
         resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
         resultCreate.execution.stacktrace = stacktrace;
@@ -193,6 +201,8 @@ public class QaseEventListener implements ConcurrentEventListener {
     private TestResultStatus convertStatus(Status status) {
         switch (status) {
             case FAILED:
+                // We need to check if the failure is due to assertion or other reason
+                // This will be handled in stopTestCase method where we have access to the throwable
                 return TestResultStatus.FAILED;
             case PASSED:
                 return TestResultStatus.PASSED;
