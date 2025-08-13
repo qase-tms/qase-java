@@ -5,6 +5,7 @@ import io.qase.commons.StepStorage;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
+import io.qase.commons.utils.ExceptionUtils;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;
@@ -142,7 +143,9 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        this.stopTestCase(TestResultStatus.FAILED, cause);
+        TestResultStatus status = ExceptionUtils.isAssertionFailure(cause) ? 
+            TestResultStatus.FAILED : TestResultStatus.INVALID;
+        this.stopTestCase(status, cause);
     }
 
     private void stopTestCase(TestResultStatus status, Throwable cause) {

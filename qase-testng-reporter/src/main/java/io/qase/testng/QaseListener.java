@@ -5,6 +5,7 @@ import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
+import io.qase.commons.utils.ExceptionUtils;
 import org.testng.*;
 import org.testng.annotations.Parameters;
 import org.testng.xml.XmlTest;
@@ -53,7 +54,9 @@ public class QaseListener implements ISuiteListener,
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        this.stopTestCase(tr, TestResultStatus.FAILED);
+        TestResultStatus status = ExceptionUtils.isAssertionFailure(tr.getThrowable()) ? 
+            TestResultStatus.FAILED : TestResultStatus.INVALID;
+        this.stopTestCase(tr, status);
     }
 
     @Override
