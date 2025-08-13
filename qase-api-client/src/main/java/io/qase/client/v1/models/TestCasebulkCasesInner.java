@@ -19,6 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.v1.models.TestCaseParametercreate;
 import io.qase.client.v1.models.TestStepCreate;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -126,8 +127,13 @@ public class TestCasebulkCasesInner {
   private List<String> tags;
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
+  @Deprecated
   @SerializedName(SERIALIZED_NAME_PARAMS)
   private Map<String, List<String>> params;
+
+  public static final String SERIALIZED_NAME_PARAMETERS = "parameters";
+  @SerializedName(SERIALIZED_NAME_PARAMETERS)
+  private List<TestCaseParametercreate> parameters;
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELD = "custom_field";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELD)
@@ -495,6 +501,7 @@ public class TestCasebulkCasesInner {
   }
 
 
+  @Deprecated
   public TestCasebulkCasesInner params(Map<String, List<String>> params) {
     this.params = params;
     return this;
@@ -509,16 +516,46 @@ public class TestCasebulkCasesInner {
   }
 
    /**
-   * Get params
+   * Deprecated, use &#x60;parameters&#x60; instead.
    * @return params
+   * @deprecated
   **/
+  @Deprecated
   @javax.annotation.Nullable
   public Map<String, List<String>> getParams() {
     return params;
   }
 
+  @Deprecated
   public void setParams(Map<String, List<String>> params) {
     this.params = params;
+  }
+
+
+  public TestCasebulkCasesInner parameters(List<TestCaseParametercreate> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public TestCasebulkCasesInner addParametersItem(TestCaseParametercreate parametersItem) {
+    if (this.parameters == null) {
+      this.parameters = new ArrayList<>();
+    }
+    this.parameters.add(parametersItem);
+    return this;
+  }
+
+   /**
+   * Get parameters
+   * @return parameters
+  **/
+  @javax.annotation.Nullable
+  public List<TestCaseParametercreate> getParameters() {
+    return parameters;
+  }
+
+  public void setParameters(List<TestCaseParametercreate> parameters) {
+    this.parameters = parameters;
   }
 
 
@@ -678,6 +715,7 @@ public class TestCasebulkCasesInner {
         Objects.equals(this.steps, testCasebulkCasesInner.steps) &&
         Objects.equals(this.tags, testCasebulkCasesInner.tags) &&
         Objects.equals(this.params, testCasebulkCasesInner.params) &&
+        Objects.equals(this.parameters, testCasebulkCasesInner.parameters) &&
         Objects.equals(this.customField, testCasebulkCasesInner.customField) &&
         Objects.equals(this.createdAt, testCasebulkCasesInner.createdAt) &&
         Objects.equals(this.updatedAt, testCasebulkCasesInner.updatedAt) &&
@@ -691,7 +729,7 @@ public class TestCasebulkCasesInner {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, status, attachments, steps, tags, params, customField, createdAt, updatedAt, id, additionalProperties);
+    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, status, attachments, steps, tags, params, parameters, customField, createdAt, updatedAt, id, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -723,6 +761,7 @@ public class TestCasebulkCasesInner {
     sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
+    sb.append("    parameters: ").append(toIndentedString(parameters)).append("\n");
     sb.append("    customField: ").append(toIndentedString(customField)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
@@ -768,6 +807,7 @@ public class TestCasebulkCasesInner {
     openapiFields.add("steps");
     openapiFields.add("tags");
     openapiFields.add("params");
+    openapiFields.add("parameters");
     openapiFields.add("custom_field");
     openapiFields.add("created_at");
     openapiFields.add("updated_at");
@@ -831,6 +871,20 @@ public class TestCasebulkCasesInner {
       // ensure the optional json data is an array if present
       if (jsonObj.get("tags") != null && !jsonObj.get("tags").isJsonNull() && !jsonObj.get("tags").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tags` to be an array in the JSON string but got `%s`", jsonObj.get("tags").toString()));
+      }
+      if (jsonObj.get("parameters") != null && !jsonObj.get("parameters").isJsonNull()) {
+        JsonArray jsonArrayparameters = jsonObj.getAsJsonArray("parameters");
+        if (jsonArrayparameters != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("parameters").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `parameters` to be an array in the JSON string but got `%s`", jsonObj.get("parameters").toString()));
+          }
+
+          // validate the optional field `parameters` (array)
+          for (int i = 0; i < jsonArrayparameters.size(); i++) {
+            TestCaseParametercreate.validateJsonElement(jsonArrayparameters.get(i));
+          };
+        }
       }
       if ((jsonObj.get("created_at") != null && !jsonObj.get("created_at").isJsonNull()) && !jsonObj.get("created_at").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `created_at` to be a primitive type in the JSON string but got `%s`", jsonObj.get("created_at").toString()));
