@@ -1,3 +1,9 @@
+# qase-java 4.1.17
+
+## What's new
+
+- Fixed issue with parallel test execution in reporters.
+
 # qase-java 4.1.16
 
 ## What's new

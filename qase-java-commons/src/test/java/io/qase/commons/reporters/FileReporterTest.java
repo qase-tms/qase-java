@@ -93,6 +93,46 @@ class FileReporterTest {
         assertEquals("test1", results.get(0).id);
     }
 
+    @Test
+    void testThreadSafety() throws InterruptedException, QaseException {
+        // Создаем несколько потоков, которые будут добавлять результаты одновременно
+        int threadCount = 10;
+        int resultsPerThread = 5;
+        Thread[] threads = new Thread[threadCount];
+        
+        // Запускаем потоки
+        for (int i = 0; i < threadCount; i++) {
+            final int threadIndex = i;
+            threads[i] = new Thread(() -> {
+                try {
+                    for (int j = 0; j < resultsPerThread; j++) {
+                        TestResult result = new TestResult();
+                        result.id = "thread-" + threadIndex + "-result-" + j;
+                        try {
+                            fileReporter.addResult(result);
+                        } catch (QaseException e) {
+                            throw new RuntimeException(e);
+                        }
+                        // Небольшая задержка для увеличения вероятности race condition
+                        Thread.sleep(1);
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            });
+            threads[i].start();
+        }
+        
+        // Ждем завершения всех потоков
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        
+        // Проверяем, что все результаты были добавлены без исключений
+        int expectedTotalResults = threadCount * resultsPerThread;
+        assertEquals(expectedTotalResults, fileReporter.getResults().size());
+    }
+
     private TestResult prepareResult(){
         TestResult testResult = new TestResult();
         testResult.id = "test1";

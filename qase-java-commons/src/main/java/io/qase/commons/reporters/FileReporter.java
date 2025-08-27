@@ -59,12 +59,12 @@ public class FileReporter implements InternalReporter {
     }
 
     @Override
-    public void addResult(TestResult result) throws QaseException {
+    public synchronized void addResult(TestResult result) throws QaseException {
         this.results.add(result);
     }
 
     @Override
-    public void uploadResults() throws QaseException {
+    public synchronized void uploadResults() throws QaseException {
         // Do nothing
     }
 
@@ -129,12 +129,12 @@ public class FileReporter implements InternalReporter {
 
 
     @Override
-    public List<TestResult> getResults() {
+    public synchronized List<TestResult> getResults() {
         return this.results;
     }
 
     @Override
-    public void setResults(List<TestResult> results) {
+    public synchronized void setResults(List<TestResult> results) {
         this.results.clear();
         this.results.addAll(results);
     }

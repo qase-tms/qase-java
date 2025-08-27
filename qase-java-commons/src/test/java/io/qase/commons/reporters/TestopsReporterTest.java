@@ -118,5 +118,50 @@ class TestopsReporterTest {
         assertEquals(1, results.size());
         assertEquals("test1", results.get(0).id);
     }
+
+    @Test
+    void testThreadSafety() throws InterruptedException, QaseException {
+        reporter.testRunId = 789L;
+        
+        // Создаем несколько потоков, которые будут добавлять результаты одновременно
+        int threadCount = 10;
+        int resultsPerThread = 5;
+        Thread[] threads = new Thread[threadCount];
+        
+        // Настраиваем mock для предотвращения реальных вызовов API
+        doNothing().when(clientMock).uploadResults(anyLong(), anyList());
+        
+        // Запускаем потоки
+        for (int i = 0; i < threadCount; i++) {
+            final int threadIndex = i;
+            threads[i] = new Thread(() -> {
+                try {
+                    for (int j = 0; j < resultsPerThread; j++) {
+                        TestResult result = new TestResult();
+                        result.id = "thread-" + threadIndex + "-result-" + j;
+                        reporter.addResult(result);
+                        // Небольшая задержка для увеличения вероятности race condition
+                        Thread.sleep(1);
+                    }
+                } catch (QaseException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            threads[i].start();
+        }
+        
+        // Ждем завершения всех потоков
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        
+        // Проверяем, что uploadResults был вызван (количество может варьироваться из-за race conditions)
+        // Минимальное количество вызовов должно быть равно количеству полных батчей
+        int minExpectedCalls = (threadCount * resultsPerThread) / 2;
+        verify(clientMock, atLeast(minExpectedCalls)).uploadResults(anyLong(), anyList());
+        
+        // Проверяем, что в конце не осталось результатов (они были очищены)
+        assertEquals(0, reporter.getResults().size());
+    }
 }
 

@@ -45,7 +45,7 @@ public class TestopsReporter implements InternalReporter {
     }
 
     @Override
-    public void addResult(TestResult result) throws QaseException {
+    public synchronized void addResult(TestResult result) throws QaseException {
         this.results.add(result);
 
         if (result.execution.status == TestResultStatus.FAILED) {
@@ -59,7 +59,7 @@ public class TestopsReporter implements InternalReporter {
     }
 
     @Override
-    public void uploadResults() throws QaseException {
+    public synchronized void uploadResults() throws QaseException {
         int batchSize = this.config.batch.size;
         int totalResults = this.results.size();
 
@@ -82,12 +82,12 @@ public class TestopsReporter implements InternalReporter {
     }
 
     @Override
-    public List<TestResult> getResults() {
+    public synchronized List<TestResult> getResults() {
         return this.results;
     }
 
     @Override
-    public void setResults(List<TestResult> results) {
+    public synchronized void setResults(List<TestResult> results) {
         this.results.clear();
         this.results.addAll(results);
     }

@@ -7,7 +7,7 @@
     <groupId>io.qase</groupId>
     <artifactId>qase-java</artifactId>
     <packaging>pom</packaging>
-    <version>4.1.16</version>
+    <version>4.1.17</version>
     <modules>
         <module>qase-java-commons</module>
         <module>qase-api-client</module>
