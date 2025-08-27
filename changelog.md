@@ -3,6 +3,7 @@
 ## What's new
 
 - Fixed issue with parallel test execution in reporters.
+- Support AspectJ assertions for handling test results.
 
 # qase-java 4.1.16
 
