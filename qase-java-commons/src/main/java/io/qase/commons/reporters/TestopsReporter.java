@@ -46,9 +46,15 @@ public class TestopsReporter implements InternalReporter {
 
     @Override
     public synchronized void addResult(TestResult result) throws QaseException {
+        // Check if result status should be filtered out
+        if (shouldFilterResult(result)) {
+            logger.debug("Filtering out result with status: %s", result.execution != null && result.execution.status != null ? result.execution.status : "null");
+            return;
+        }
+
         this.results.add(result);
 
-        if (result.execution.status == TestResultStatus.FAILED) {
+        if (result.execution != null && result.execution.status == TestResultStatus.FAILED) {
             logger.info("See why this test failed: %s", this.prepareLink(result.testopsIds != null ? result.testopsIds.get(0) : null, result.title));
         }
 
@@ -117,6 +123,19 @@ public class TestopsReporter implements InternalReporter {
             logger.error("Error while encoding title", e);
             return null;
         }
+    }
+
+    private boolean shouldFilterResult(TestResult result) {
+        if (config.statusFilter == null || config.statusFilter.isEmpty()) {
+            return false;
+        }
+
+        if (result.execution == null || result.execution.status == null) {
+            return false;
+        }
+
+        String statusName = result.execution.status.name();
+        return config.statusFilter.contains(statusName);
     }
 
     private String getBaseUrl(String host) {
