@@ -1,3 +1,10 @@
+# qase-java 4.1.18
+
+## What's new
+
+- Added support for external link for test runs.
+- Added support for filtering test results by status.
+  
 # qase-java 4.1.17
 
 ## What's new
