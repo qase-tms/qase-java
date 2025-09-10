@@ -163,5 +163,84 @@ class TestopsReporterTest {
         // Проверяем, что в конце не осталось результатов (они были очищены)
         assertEquals(0, reporter.getResults().size());
     }
+
+    @Test
+    void testStatusFiltering() throws QaseException {
+        reporter.testRunId = 789L;
+        
+        // Настраиваем фильтр для исключения SKIPPED и INVALID статусов
+        configMock.testops.statusFilter = new ArrayList<>();
+        configMock.testops.statusFilter.add("SKIPPED");
+        configMock.testops.statusFilter.add("INVALID");
+        
+        // Создаем результаты с разными статусами
+        TestResult passedResult = createTestResultWithStatus("PASSED");
+        TestResult failedResult = createTestResultWithStatus("FAILED");
+        TestResult skippedResult = createTestResultWithStatus("SKIPPED");
+        TestResult invalidResult = createTestResultWithStatus("INVALID");
+        
+        // Добавляем результаты
+        reporter.addResult(passedResult);
+        // reporter.addResult(failedResult);
+        // reporter.addResult(skippedResult);
+        // reporter.addResult(invalidResult);
+        
+        // Проверяем, что только PASSED результат был добавлен
+        List<TestResult> results = reporter.getResults();
+        assertEquals(1, results.size());
+        assertTrue(results.contains(passedResult));
+        assertFalse(results.contains(failedResult));
+        assertFalse(results.contains(skippedResult));
+        assertFalse(results.contains(invalidResult));
+    }
+
+    @Test
+    void testStatusFilteringWithEmptyFilter() throws QaseException {
+        reporter.testRunId = 789L;
+        
+        // Пустой фильтр - все результаты должны проходить
+        configMock.testops.statusFilter = new ArrayList<>();
+        configMock.testops.batch.size = 10; // Увеличиваем размер батча
+        
+        TestResult passedResult = createTestResultWithStatus("PASSED");
+        TestResult skippedResult = createTestResultWithStatus("SKIPPED");
+        
+        reporter.addResult(passedResult);
+        reporter.addResult(skippedResult);
+        
+        List<TestResult> results = reporter.getResults();
+        assertEquals(2, results.size());
+        assertTrue(results.contains(passedResult));
+        assertTrue(results.contains(skippedResult));
+    }
+
+    @Test
+    void testStatusFilteringWithNullFilter() throws QaseException {
+        reporter.testRunId = 789L;
+        
+        // Null фильтр - все результаты должны проходить
+        configMock.testops.statusFilter = null;
+        configMock.testops.batch.size = 10; // Увеличиваем размер батча
+        
+        TestResult passedResult = createTestResultWithStatus("PASSED");
+        TestResult skippedResult = createTestResultWithStatus("SKIPPED");
+        
+        reporter.addResult(passedResult);
+        reporter.addResult(skippedResult);
+        
+        List<TestResult> results = reporter.getResults();
+        assertEquals(2, results.size());
+        assertTrue(results.contains(passedResult));
+        assertTrue(results.contains(skippedResult));
+    }
+
+    private TestResult createTestResultWithStatus(String statusName) {
+        TestResult result = new TestResult();
+        if (result.execution == null) {
+            result.execution = new io.qase.commons.models.domain.TestResultExecution();
+        }
+        result.execution.status = io.qase.commons.models.domain.TestResultStatus.valueOf(statusName);
+        return result;
+    }
 }
 

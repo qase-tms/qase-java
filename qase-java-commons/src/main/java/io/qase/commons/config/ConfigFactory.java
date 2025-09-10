@@ -77,6 +77,7 @@ public class ConfigFactory {
         qaseConfig.testops.run.tags = getEnvArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
         qaseConfig.testops.plan.id = getIntEnv("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntEnv("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
+        qaseConfig.testops.statusFilter = Arrays.asList(getEnvArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
         qaseConfig.report.setDriver(getEnv("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
         qaseConfig.report.connection.local
                 .setFormat(getEnv("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
@@ -111,6 +112,7 @@ public class ConfigFactory {
         qaseConfig.testops.run.tags = getPropertyArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
         qaseConfig.testops.plan.id = getIntProperty("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntProperty("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
+        qaseConfig.testops.statusFilter = Arrays.asList(getPropertyArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
 
         qaseConfig.report.setDriver(getProperty("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
         qaseConfig.report.connection.local.setFormat(
@@ -306,6 +308,14 @@ public class ConfigFactory {
 
                 if (batch.has("size")) {
                     qaseConfig.testops.batch.setSize(batch.getInt("size"));
+                }
+            }
+
+            if (testOps.has("statusFilter")) {
+                qaseConfig.testops.statusFilter.clear();
+                JSONArray statusFilterArray = testOps.getJSONArray("statusFilter");
+                for (int i = 0; i < statusFilterArray.length(); i++) {
+                    qaseConfig.testops.statusFilter.add(statusFilterArray.getString(i));
                 }
             }
         }

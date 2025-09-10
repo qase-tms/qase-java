@@ -54,6 +54,7 @@ All configuration options are listed in the table below:
 | Qase test plan ID                                                                                                          | `testops.plan.id`          | `QASE_TESTOPS_PLAN_ID`          | `QASE_TESTOPS_PLAN_ID`          | undefined                               | No       | Any integer                |
 | Size of batch for sending test results                                                                                     | `testops.batch.size`       | `QASE_TESTOPS_BATCH_SIZE`       | `QASE_TESTOPS_BATCH_SIZE`       | `200`                                   | No       | Any integer                |
 | Enable defects for failed test cases                                                                                       | `testops.defect`           | `QASE_TESTOPS_DEFECT`           | `QASE_TESTOPS_DEFECT`           | `False`                                 | No       | `True`, `False`            |
+| Filter test results by status (exclude specified statuses)                                                                | `testops.statusFilter`     | `QASE_TESTOPS_STATUS_FILTER`    | `QASE_TESTOPS_STATUS_FILTER`    | `[]`                                    | No       | Comma-separated status names |
 
 ### Example `qase.config.json` config:
 
@@ -104,7 +105,11 @@ All configuration options are listed in the table below:
     "project": "<project_code>",
     "batch": {
       "size": 100
-    }
+    },
+    "statusFilter": [
+      "SKIPPED",
+      "INVALID"
+    ]
   }
 }
 ```
