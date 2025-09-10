@@ -36,6 +36,9 @@ public class TestopsReporter implements InternalReporter {
         this.testRunId = this.client.createTestRun();
         this.config.run.id = this.testRunId.intValue();
         logger.info("Test run %d started", this.testRunId);
+        
+        // Update external issue link if configured
+        this.client.updateExternalIssue(this.testRunId);
     }
 
     @Override

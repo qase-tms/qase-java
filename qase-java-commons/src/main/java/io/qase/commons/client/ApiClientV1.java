@@ -7,6 +7,7 @@ import io.qase.client.v1.api.ConfigurationsApi;
 import io.qase.client.v1.api.PlansApi;
 import io.qase.client.v1.api.RunsApi;
 import io.qase.client.v1.models.*;
+import io.qase.commons.config.ExternalLinkType;
 import io.qase.commons.QaseException;
 import io.qase.commons.config.ConfigurationValue;
 import io.qase.commons.config.QaseConfig;
@@ -117,6 +118,35 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         }
 
         logger.info("Test run link: %srun/%s/dashboard/%d", this.url, this.config.testops.project, runId);
+    }
+
+    @Override
+    public void updateExternalIssue(Long runId) throws QaseException {
+        if (this.config.testops.run.externalLink == null) {
+            return;
+        }
+
+        try {
+            // Map our enum values to API enum values
+            RunexternalIssues.TypeEnum apiType = this.config.testops.run.externalLink.getType() == ExternalLinkType.JIRA_CLOUD
+                    ? RunexternalIssues.TypeEnum.CLOUD
+                    : RunexternalIssues.TypeEnum.SERVER;
+
+            RunexternalIssuesLinksInner link = new RunexternalIssuesLinksInner()
+                    .runId(runId)
+                    .externalIssue(this.config.testops.run.externalLink.getLink());
+
+            RunexternalIssues externalIssues = new RunexternalIssues()
+                    .type(apiType)
+                    .links(Collections.singletonList(link));
+
+            new RunsApi(client)
+                    .runUpdateExternalIssue(this.config.testops.project, externalIssues);
+
+            logger.info("External issue link updated for run %d: %s", runId, this.config.testops.run.externalLink.getLink());
+        } catch (ApiException e) {
+            throw new QaseException("Failed to update external issue: " + e.getResponseBody(), e.getCause());
+        }
     }
 
     @Override

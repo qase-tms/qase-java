@@ -48,6 +48,11 @@ public class ApiClientV2 implements ApiClient {
     }
 
     @Override
+    public void updateExternalIssue(Long runId) throws QaseException {
+        this.apiClientV1.updateExternalIssue(runId);
+    }
+
+    @Override
     public void uploadResults(Long runId, List<TestResult> results) throws QaseException {
         List<ResultCreate> models = results.stream()
                 .map(this::convertResult)

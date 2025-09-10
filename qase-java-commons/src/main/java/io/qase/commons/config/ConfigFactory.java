@@ -75,6 +75,7 @@ public class ConfigFactory {
         qaseConfig.testops.run.id = getIntEnv("QASE_TESTOPS_RUN_ID", qaseConfig.testops.run.id);
         qaseConfig.testops.run.complete = getBooleanEnv("QASE_TESTOPS_RUN_COMPLETE", qaseConfig.testops.run.complete);
         qaseConfig.testops.run.tags = getEnvArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
+        qaseConfig.testops.run.externalLink = getExternalLinkEnv("QASE_TESTOPS_RUN_EXTERNAL_LINK_TYPE", "QASE_TESTOPS_RUN_EXTERNAL_LINK", qaseConfig.testops.run.externalLink);
         qaseConfig.testops.plan.id = getIntEnv("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntEnv("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
         qaseConfig.testops.statusFilter = Arrays.asList(getEnvArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
@@ -110,6 +111,7 @@ public class ConfigFactory {
         qaseConfig.testops.run.complete = getBooleanProperty("QASE_TESTOPS_RUN_COMPLETE",
                 qaseConfig.testops.run.complete);
         qaseConfig.testops.run.tags = getPropertyArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
+        qaseConfig.testops.run.externalLink = getExternalLinkProperty("QASE_TESTOPS_RUN_EXTERNAL_LINK_TYPE", "QASE_TESTOPS_RUN_EXTERNAL_LINK", qaseConfig.testops.run.externalLink);
         qaseConfig.testops.plan.id = getIntProperty("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntProperty("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
         qaseConfig.testops.statusFilter = Arrays.asList(getPropertyArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
@@ -206,6 +208,38 @@ public class ConfigFactory {
         return new ConfigurationValue(parts[0].trim(), parts[1].trim());
     }
 
+    private static TestOpsExternalLinkType getExternalLinkEnv(String typeKey, String linkKey, TestOpsExternalLinkType defaultValue) {
+        String typeValue = System.getenv(typeKey);
+        String linkValue = System.getenv(linkKey);
+        
+        if (typeValue == null || linkValue == null) {
+            return defaultValue;
+        }
+        
+        try {
+            return new TestOpsExternalLinkType(ExternalLinkType.fromValue(typeValue), linkValue);
+        } catch (IllegalArgumentException e) {
+            logger.error("Invalid external link type: %s", typeValue);
+            return defaultValue;
+        }
+    }
+
+    private static TestOpsExternalLinkType getExternalLinkProperty(String typeKey, String linkKey, TestOpsExternalLinkType defaultValue) {
+        String typeValue = System.getProperty(typeKey);
+        String linkValue = System.getProperty(linkKey);
+        
+        if (typeValue == null || linkValue == null) {
+            return defaultValue;
+        }
+        
+        try {
+            return new TestOpsExternalLinkType(ExternalLinkType.fromValue(typeValue), linkValue);
+        } catch (IllegalArgumentException e) {
+            logger.error("Invalid external link type: %s", typeValue);
+            return defaultValue;
+        }
+    }
+
     private static void applyJsonConfig(QaseConfig qaseConfig, JSONObject fileConfig) {
         if (fileConfig.has("mode")) {
             qaseConfig.setMode(fileConfig.getString("mode"));
@@ -292,6 +326,18 @@ public class ConfigFactory {
 
                 if (run.has("complete")) {
                     qaseConfig.testops.run.complete = run.getBoolean("complete");
+                }
+
+                if (run.has("externalLink")) {
+                    JSONObject externalLinkObj = run.getJSONObject("externalLink");
+                    TestOpsExternalLinkType externalLink = new TestOpsExternalLinkType();
+                    if (externalLinkObj.has("type")) {
+                        externalLink.setType(ExternalLinkType.fromValue(externalLinkObj.getString("type")));
+                    }
+                    if (externalLinkObj.has("link")) {
+                        externalLink.setLink(externalLinkObj.getString("link"));
+                    }
+                    qaseConfig.testops.run.externalLink = externalLink;
                 }
             }
 
