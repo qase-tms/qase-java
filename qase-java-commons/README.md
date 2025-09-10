@@ -49,6 +49,8 @@ All configuration options are listed in the table below:
 | Qase test run description                                                                                                  | `testops.run.description`  | `QASE_TESTOPS_RUN_DESCRIPTION`  | `QASE_TESTOPS_RUN_DESCRIPTION`  | `<Framework name> automated run`        | No       | Any string                 |
 | Qase test run complete                                                                                                     | `testops.run.complete`     | `QASE_TESTOPS_RUN_COMPLETE`     | `QASE_TESTOPS_RUN_COMPLETE`     | `True`                                  |          | `True`, `False`            |
 | Qase test run tags                                                                                                         | `testops.run.tags`         | `QASE_TESTOPS_RUN_TAGS`         | `QASE_TESTOPS_RUN_TAGS`         | undefined                               | No       | Comma-separated strings    |
+| External link type for test run                                                                                          | `testops.run.externalLink.type` | `QASE_TESTOPS_RUN_EXTERNAL_LINK_TYPE` | `QASE_TESTOPS_RUN_EXTERNAL_LINK_TYPE` | `null` | No       | `jiraCloud`, `jiraServer` |
+| External link URL for test run                                                                                           | `testops.run.externalLink.link` | `QASE_TESTOPS_RUN_EXTERNAL_LINK` | `QASE_TESTOPS_RUN_EXTERNAL_LINK` | `null` | No       | Any valid URL |
 | Qase test run configurations                                                                                               | `testops.run.configurations` | `QASE_TESTOPS_RUN_CONFIGURATIONS` | `QASE_TESTOPS_RUN_CONFIGURATIONS` | undefined                               | No       | Comma-separated key=value pairs |
 | Qase test run configurations create if not exists                                                                         | `testops.run.configurations.createIfNotExists` | `QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS` | `QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS` | `False`                                 | No       | `True`, `False`            |
 | Qase test plan ID                                                                                                          | `testops.plan.id`          | `QASE_TESTOPS_PLAN_ID`          | `QASE_TESTOPS_PLAN_ID`          | undefined                               | No       | Any integer                |
@@ -99,6 +101,10 @@ All configuration options are listed in the table below:
           }
         ],
         "createIfNotExists": true
+      },
+      "externalLink": {
+        "type": "jiraCloud",
+        "link": "PROJ-123"
       }
     },
     "defect": false,

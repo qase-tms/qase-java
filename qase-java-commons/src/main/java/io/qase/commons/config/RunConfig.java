@@ -8,4 +8,5 @@ public class RunConfig {
     public boolean complete = true;
     public Integer id = 0;
     public String[] tags = {};
+    public TestOpsExternalLinkType externalLink;
 }
