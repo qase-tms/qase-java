@@ -260,6 +260,10 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestStepCreate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestStepResult.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.TestStepResultCreate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.User.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.UserListResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.UserListResponseAllOfResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.UserResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.UuidResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.UuidResponse1.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v1.models.UuidResponseAllOfResult.CustomTypeAdapterFactory());
