@@ -86,7 +86,8 @@ public class DefectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -97,7 +98,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createDefectCall(String code, DefectCreate defectCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createDefectCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull DefectCreate defectCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -144,7 +145,7 @@ public class DefectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createDefectValidateBeforeCall(String code, DefectCreate defectCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createDefectValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull DefectCreate defectCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createDefect(Async)");
@@ -167,7 +168,8 @@ public class DefectsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -178,7 +180,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createDefect(String code, DefectCreate defectCreate) throws ApiException {
+    public IdResponse createDefect(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull DefectCreate defectCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createDefectWithHttpInfo(code, defectCreate);
         return localVarResp.getData();
     }
@@ -191,7 +193,8 @@ public class DefectsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -202,7 +205,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createDefectWithHttpInfo(String code, DefectCreate defectCreate) throws ApiException {
+    public ApiResponse<IdResponse> createDefectWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull DefectCreate defectCreate) throws ApiException {
         okhttp3.Call localVarCall = createDefectValidateBeforeCall(code, defectCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -217,7 +220,8 @@ public class DefectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -228,7 +232,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createDefectAsync(String code, DefectCreate defectCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createDefectAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull DefectCreate defectCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createDefectValidateBeforeCall(code, defectCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -243,7 +247,8 @@ public class DefectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -253,7 +258,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteDefectCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteDefectCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -300,7 +305,7 @@ public class DefectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteDefectValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteDefectValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deleteDefect(Async)");
@@ -323,7 +328,8 @@ public class DefectsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -333,7 +339,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse deleteDefect(String code, Integer id) throws ApiException {
+    public IdResponse deleteDefect(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<IdResponse> localVarResp = deleteDefectWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -346,7 +352,8 @@ public class DefectsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -356,7 +363,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> deleteDefectWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<IdResponse> deleteDefectWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = deleteDefectValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -371,7 +378,8 @@ public class DefectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -381,7 +389,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteDefectAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteDefectAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteDefectValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -396,7 +404,8 @@ public class DefectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A defect. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -406,7 +415,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getDefectCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getDefectCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -453,7 +462,7 @@ public class DefectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getDefectValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getDefectValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getDefect(Async)");
@@ -476,7 +485,8 @@ public class DefectsApi {
      * @return DefectResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A defect. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -486,7 +496,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public DefectResponse getDefect(String code, Integer id) throws ApiException {
+    public DefectResponse getDefect(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<DefectResponse> localVarResp = getDefectWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -499,7 +509,8 @@ public class DefectsApi {
      * @return ApiResponse&lt;DefectResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A defect. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -509,7 +520,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<DefectResponse> getDefectWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<DefectResponse> getDefectWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = getDefectValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<DefectResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -524,7 +535,8 @@ public class DefectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A defect. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -534,7 +546,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getDefectAsync(String code, Integer id, final ApiCallback<DefectResponse> _callback) throws ApiException {
+    public okhttp3.Call getDefectAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<DefectResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getDefectValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<DefectResponse>(){}.getType();
@@ -551,7 +563,8 @@ public class DefectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all defects. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -561,7 +574,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getDefectsCall(String code, String status, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getDefectsCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -619,7 +632,7 @@ public class DefectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getDefectsValidateBeforeCall(String code, String status, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getDefectsValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getDefects(Async)");
@@ -639,7 +652,8 @@ public class DefectsApi {
      * @return DefectListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all defects. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -649,7 +663,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public DefectListResponse getDefects(String code, String status, Integer limit, Integer offset) throws ApiException {
+    public DefectListResponse getDefects(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<DefectListResponse> localVarResp = getDefectsWithHttpInfo(code, status, limit, offset);
         return localVarResp.getData();
     }
@@ -664,7 +678,8 @@ public class DefectsApi {
      * @return ApiResponse&lt;DefectListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all defects. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -674,7 +689,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<DefectListResponse> getDefectsWithHttpInfo(String code, String status, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<DefectListResponse> getDefectsWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getDefectsValidateBeforeCall(code, status, limit, offset, null);
         Type localVarReturnType = new TypeToken<DefectListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -691,7 +706,8 @@ public class DefectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all defects. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -701,7 +717,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getDefectsAsync(String code, String status, Integer limit, Integer offset, final ApiCallback<DefectListResponse> _callback) throws ApiException {
+    public okhttp3.Call getDefectsAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<DefectListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getDefectsValidateBeforeCall(code, status, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<DefectListResponse>(){}.getType();
@@ -716,7 +732,8 @@ public class DefectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -727,7 +744,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call resolveDefectCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call resolveDefectCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -774,7 +791,7 @@ public class DefectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call resolveDefectValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call resolveDefectValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling resolveDefect(Async)");
@@ -797,7 +814,8 @@ public class DefectsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -808,7 +826,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse resolveDefect(String code, Integer id) throws ApiException {
+    public IdResponse resolveDefect(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<IdResponse> localVarResp = resolveDefectWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -821,7 +839,8 @@ public class DefectsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -832,7 +851,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> resolveDefectWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<IdResponse> resolveDefectWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = resolveDefectValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -847,7 +866,8 @@ public class DefectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -858,7 +878,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call resolveDefectAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call resolveDefectAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = resolveDefectValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -874,7 +894,8 @@ public class DefectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -885,7 +906,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateDefectCall(String code, Integer id, DefectUpdate defectUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateDefectCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectUpdate defectUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -933,7 +954,7 @@ public class DefectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateDefectValidateBeforeCall(String code, Integer id, DefectUpdate defectUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateDefectValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectUpdate defectUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updateDefect(Async)");
@@ -962,7 +983,8 @@ public class DefectsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -973,7 +995,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse updateDefect(String code, Integer id, DefectUpdate defectUpdate) throws ApiException {
+    public IdResponse updateDefect(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectUpdate defectUpdate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = updateDefectWithHttpInfo(code, id, defectUpdate);
         return localVarResp.getData();
     }
@@ -987,7 +1009,8 @@ public class DefectsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -998,7 +1021,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> updateDefectWithHttpInfo(String code, Integer id, DefectUpdate defectUpdate) throws ApiException {
+    public ApiResponse<IdResponse> updateDefectWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectUpdate defectUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateDefectValidateBeforeCall(code, id, defectUpdate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1014,7 +1037,8 @@ public class DefectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1025,7 +1049,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateDefectAsync(String code, Integer id, DefectUpdate defectUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call updateDefectAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectUpdate defectUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateDefectValidateBeforeCall(code, id, defectUpdate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -1041,7 +1065,8 @@ public class DefectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1052,7 +1077,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateDefectStatusCall(String code, Integer id, DefectStatus defectStatus, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateDefectStatusCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectStatus defectStatus, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1100,7 +1125,7 @@ public class DefectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateDefectStatusValidateBeforeCall(String code, Integer id, DefectStatus defectStatus, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateDefectStatusValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectStatus defectStatus, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updateDefectStatus(Async)");
@@ -1129,7 +1154,8 @@ public class DefectsApi {
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1140,7 +1166,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse updateDefectStatus(String code, Integer id, DefectStatus defectStatus) throws ApiException {
+    public BaseResponse updateDefectStatus(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectStatus defectStatus) throws ApiException {
         ApiResponse<BaseResponse> localVarResp = updateDefectStatusWithHttpInfo(code, id, defectStatus);
         return localVarResp.getData();
     }
@@ -1154,7 +1180,8 @@ public class DefectsApi {
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1165,7 +1192,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> updateDefectStatusWithHttpInfo(String code, Integer id, DefectStatus defectStatus) throws ApiException {
+    public ApiResponse<BaseResponse> updateDefectStatusWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectStatus defectStatus) throws ApiException {
         okhttp3.Call localVarCall = updateDefectStatusValidateBeforeCall(code, id, defectStatus, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1181,7 +1208,8 @@ public class DefectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1192,7 +1220,7 @@ public class DefectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateDefectStatusAsync(String code, Integer id, DefectStatus defectStatus, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call updateDefectStatusAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull DefectStatus defectStatus, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateDefectStatusValidateBeforeCall(code, id, defectStatus, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();

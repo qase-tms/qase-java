@@ -46,7 +46,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -58,448 +57,476 @@ import io.qase.client.v1.JSON;
 /**
  * QqlTestCase
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class QqlTestCase {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_TEST_CASE_ID = "test_case_id";
   @SerializedName(SERIALIZED_NAME_TEST_CASE_ID)
+  @javax.annotation.Nonnull
   private Long testCaseId;
 
   public static final String SERIALIZED_NAME_POSITION = "position";
   @SerializedName(SERIALIZED_NAME_POSITION)
+  @javax.annotation.Nullable
   private Integer position;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
   @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+  @javax.annotation.Nullable
   private String preconditions;
 
   public static final String SERIALIZED_NAME_POSTCONDITIONS = "postconditions";
   @SerializedName(SERIALIZED_NAME_POSTCONDITIONS)
+  @javax.annotation.Nullable
   private String postconditions;
 
   public static final String SERIALIZED_NAME_SEVERITY = "severity";
   @SerializedName(SERIALIZED_NAME_SEVERITY)
+  @javax.annotation.Nullable
   private Integer severity;
 
   public static final String SERIALIZED_NAME_PRIORITY = "priority";
   @SerializedName(SERIALIZED_NAME_PRIORITY)
+  @javax.annotation.Nullable
   private Integer priority;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nullable
   private Integer type;
 
   public static final String SERIALIZED_NAME_LAYER = "layer";
   @SerializedName(SERIALIZED_NAME_LAYER)
+  @javax.annotation.Nullable
   private Integer layer;
 
   public static final String SERIALIZED_NAME_IS_FLAKY = "is_flaky";
   @SerializedName(SERIALIZED_NAME_IS_FLAKY)
+  @javax.annotation.Nullable
   private Integer isFlaky;
 
   public static final String SERIALIZED_NAME_BEHAVIOR = "behavior";
   @SerializedName(SERIALIZED_NAME_BEHAVIOR)
+  @javax.annotation.Nullable
   private Integer behavior;
 
   public static final String SERIALIZED_NAME_AUTOMATION = "automation";
   @SerializedName(SERIALIZED_NAME_AUTOMATION)
+  @javax.annotation.Nullable
   private Integer automation;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private Integer status;
 
   public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
   @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  @javax.annotation.Nullable
   private Long milestoneId;
 
   public static final String SERIALIZED_NAME_SUITE_ID = "suite_id";
   @SerializedName(SERIALIZED_NAME_SUITE_ID)
+  @javax.annotation.Nullable
   private Long suiteId;
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
-  private List<CustomFieldValue> customFields;
+  @javax.annotation.Nullable
+  private List<CustomFieldValue> customFields = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<Attachment> attachments;
+  @javax.annotation.Nullable
+  private List<Attachment> attachments = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_STEPS_TYPE = "steps_type";
   @SerializedName(SERIALIZED_NAME_STEPS_TYPE)
+  @javax.annotation.Nullable
   private String stepsType;
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<TestStep> steps;
+  @javax.annotation.Nullable
+  private List<TestStep> steps = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
   @SerializedName(SERIALIZED_NAME_PARAMS)
+  @javax.annotation.Nullable
   private QqlTestCaseParams params;
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<TagValue> tags;
+  @javax.annotation.Nullable
+  private List<TagValue> tags = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_MEMBER_ID = "member_id";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_MEMBER_ID)
+  @javax.annotation.Nullable
   private Long memberId;
 
   public static final String SERIALIZED_NAME_AUTHOR_ID = "author_id";
   @SerializedName(SERIALIZED_NAME_AUTHOR_ID)
+  @javax.annotation.Nullable
   private Long authorId;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public static final String SERIALIZED_NAME_UPDATED_BY = "updated_by";
   @SerializedName(SERIALIZED_NAME_UPDATED_BY)
+  @javax.annotation.Nullable
   private Long updatedBy;
 
   public QqlTestCase() {
   }
 
-  public QqlTestCase id(Long id) {
+  public QqlTestCase id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public QqlTestCase testCaseId(Long testCaseId) {
+  public QqlTestCase testCaseId(@javax.annotation.Nonnull Long testCaseId) {
     this.testCaseId = testCaseId;
     return this;
   }
 
-   /**
+  /**
    * Get testCaseId
    * @return testCaseId
-  **/
+   */
   @javax.annotation.Nonnull
   public Long getTestCaseId() {
     return testCaseId;
   }
 
-  public void setTestCaseId(Long testCaseId) {
+  public void setTestCaseId(@javax.annotation.Nonnull Long testCaseId) {
     this.testCaseId = testCaseId;
   }
 
 
-  public QqlTestCase position(Integer position) {
+  public QqlTestCase position(@javax.annotation.Nullable Integer position) {
     this.position = position;
     return this;
   }
 
-   /**
+  /**
    * Get position
    * @return position
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getPosition() {
     return position;
   }
 
-  public void setPosition(Integer position) {
+  public void setPosition(@javax.annotation.Nullable Integer position) {
     this.position = position;
   }
 
 
-  public QqlTestCase title(String title) {
+  public QqlTestCase title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public QqlTestCase description(String description) {
+  public QqlTestCase description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public QqlTestCase preconditions(String preconditions) {
+  public QqlTestCase preconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
     return this;
   }
 
-   /**
+  /**
    * Get preconditions
    * @return preconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPreconditions() {
     return preconditions;
   }
 
-  public void setPreconditions(String preconditions) {
+  public void setPreconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
   }
 
 
-  public QqlTestCase postconditions(String postconditions) {
+  public QqlTestCase postconditions(@javax.annotation.Nullable String postconditions) {
     this.postconditions = postconditions;
     return this;
   }
 
-   /**
+  /**
    * Get postconditions
    * @return postconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPostconditions() {
     return postconditions;
   }
 
-  public void setPostconditions(String postconditions) {
+  public void setPostconditions(@javax.annotation.Nullable String postconditions) {
     this.postconditions = postconditions;
   }
 
 
-  public QqlTestCase severity(Integer severity) {
+  public QqlTestCase severity(@javax.annotation.Nullable Integer severity) {
     this.severity = severity;
     return this;
   }
 
-   /**
+  /**
    * Get severity
    * @return severity
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getSeverity() {
     return severity;
   }
 
-  public void setSeverity(Integer severity) {
+  public void setSeverity(@javax.annotation.Nullable Integer severity) {
     this.severity = severity;
   }
 
 
-  public QqlTestCase priority(Integer priority) {
+  public QqlTestCase priority(@javax.annotation.Nullable Integer priority) {
     this.priority = priority;
     return this;
   }
 
-   /**
+  /**
    * Get priority
    * @return priority
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getPriority() {
     return priority;
   }
 
-  public void setPriority(Integer priority) {
+  public void setPriority(@javax.annotation.Nullable Integer priority) {
     this.priority = priority;
   }
 
 
-  public QqlTestCase type(Integer type) {
+  public QqlTestCase type(@javax.annotation.Nullable Integer type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getType() {
     return type;
   }
 
-  public void setType(Integer type) {
+  public void setType(@javax.annotation.Nullable Integer type) {
     this.type = type;
   }
 
 
-  public QqlTestCase layer(Integer layer) {
+  public QqlTestCase layer(@javax.annotation.Nullable Integer layer) {
     this.layer = layer;
     return this;
   }
 
-   /**
+  /**
    * Get layer
    * @return layer
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getLayer() {
     return layer;
   }
 
-  public void setLayer(Integer layer) {
+  public void setLayer(@javax.annotation.Nullable Integer layer) {
     this.layer = layer;
   }
 
 
-  public QqlTestCase isFlaky(Integer isFlaky) {
+  public QqlTestCase isFlaky(@javax.annotation.Nullable Integer isFlaky) {
     this.isFlaky = isFlaky;
     return this;
   }
 
-   /**
+  /**
    * Get isFlaky
    * @return isFlaky
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getIsFlaky() {
     return isFlaky;
   }
 
-  public void setIsFlaky(Integer isFlaky) {
+  public void setIsFlaky(@javax.annotation.Nullable Integer isFlaky) {
     this.isFlaky = isFlaky;
   }
 
 
-  public QqlTestCase behavior(Integer behavior) {
+  public QqlTestCase behavior(@javax.annotation.Nullable Integer behavior) {
     this.behavior = behavior;
     return this;
   }
 
-   /**
+  /**
    * Get behavior
    * @return behavior
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getBehavior() {
     return behavior;
   }
 
-  public void setBehavior(Integer behavior) {
+  public void setBehavior(@javax.annotation.Nullable Integer behavior) {
     this.behavior = behavior;
   }
 
 
-  public QqlTestCase automation(Integer automation) {
+  public QqlTestCase automation(@javax.annotation.Nullable Integer automation) {
     this.automation = automation;
     return this;
   }
 
-   /**
+  /**
    * Get automation
    * @return automation
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getAutomation() {
     return automation;
   }
 
-  public void setAutomation(Integer automation) {
+  public void setAutomation(@javax.annotation.Nullable Integer automation) {
     this.automation = automation;
   }
 
 
-  public QqlTestCase status(Integer status) {
+  public QqlTestCase status(@javax.annotation.Nullable Integer status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getStatus() {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  public void setStatus(@javax.annotation.Nullable Integer status) {
     this.status = status;
   }
 
 
-  public QqlTestCase milestoneId(Long milestoneId) {
+  public QqlTestCase milestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
     return this;
   }
 
-   /**
+  /**
    * Get milestoneId
    * @return milestoneId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getMilestoneId() {
     return milestoneId;
   }
 
-  public void setMilestoneId(Long milestoneId) {
+  public void setMilestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
   }
 
 
-  public QqlTestCase suiteId(Long suiteId) {
+  public QqlTestCase suiteId(@javax.annotation.Nullable Long suiteId) {
     this.suiteId = suiteId;
     return this;
   }
 
-   /**
+  /**
    * Get suiteId
    * @return suiteId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getSuiteId() {
     return suiteId;
   }
 
-  public void setSuiteId(Long suiteId) {
+  public void setSuiteId(@javax.annotation.Nullable Long suiteId) {
     this.suiteId = suiteId;
   }
 
 
-  public QqlTestCase customFields(List<CustomFieldValue> customFields) {
+  public QqlTestCase customFields(@javax.annotation.Nullable List<CustomFieldValue> customFields) {
     this.customFields = customFields;
     return this;
   }
@@ -512,21 +539,21 @@ public class QqlTestCase {
     return this;
   }
 
-   /**
+  /**
    * Get customFields
    * @return customFields
-  **/
+   */
   @javax.annotation.Nullable
   public List<CustomFieldValue> getCustomFields() {
     return customFields;
   }
 
-  public void setCustomFields(List<CustomFieldValue> customFields) {
+  public void setCustomFields(@javax.annotation.Nullable List<CustomFieldValue> customFields) {
     this.customFields = customFields;
   }
 
 
-  public QqlTestCase attachments(List<Attachment> attachments) {
+  public QqlTestCase attachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -539,40 +566,40 @@ public class QqlTestCase {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<Attachment> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
   }
 
 
-  public QqlTestCase stepsType(String stepsType) {
+  public QqlTestCase stepsType(@javax.annotation.Nullable String stepsType) {
     this.stepsType = stepsType;
     return this;
   }
 
-   /**
+  /**
    * Get stepsType
    * @return stepsType
-  **/
+   */
   @javax.annotation.Nullable
   public String getStepsType() {
     return stepsType;
   }
 
-  public void setStepsType(String stepsType) {
+  public void setStepsType(@javax.annotation.Nullable String stepsType) {
     this.stepsType = stepsType;
   }
 
 
-  public QqlTestCase steps(List<TestStep> steps) {
+  public QqlTestCase steps(@javax.annotation.Nullable List<TestStep> steps) {
     this.steps = steps;
     return this;
   }
@@ -585,40 +612,40 @@ public class QqlTestCase {
     return this;
   }
 
-   /**
+  /**
    * Get steps
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<TestStep> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<TestStep> steps) {
+  public void setSteps(@javax.annotation.Nullable List<TestStep> steps) {
     this.steps = steps;
   }
 
 
-  public QqlTestCase params(QqlTestCaseParams params) {
+  public QqlTestCase params(@javax.annotation.Nullable QqlTestCaseParams params) {
     this.params = params;
     return this;
   }
 
-   /**
+  /**
    * Get params
    * @return params
-  **/
+   */
   @javax.annotation.Nullable
   public QqlTestCaseParams getParams() {
     return params;
   }
 
-  public void setParams(QqlTestCaseParams params) {
+  public void setParams(@javax.annotation.Nullable QqlTestCaseParams params) {
     this.params = params;
   }
 
 
-  public QqlTestCase tags(List<TagValue> tags) {
+  public QqlTestCase tags(@javax.annotation.Nullable List<TagValue> tags) {
     this.tags = tags;
     return this;
   }
@@ -631,31 +658,31 @@ public class QqlTestCase {
     return this;
   }
 
-   /**
+  /**
    * Get tags
    * @return tags
-  **/
+   */
   @javax.annotation.Nullable
   public List<TagValue> getTags() {
     return tags;
   }
 
-  public void setTags(List<TagValue> tags) {
+  public void setTags(@javax.annotation.Nullable List<TagValue> tags) {
     this.tags = tags;
   }
 
 
   @Deprecated
-  public QqlTestCase memberId(Long memberId) {
+  public QqlTestCase memberId(@javax.annotation.Nullable Long memberId) {
     this.memberId = memberId;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use &#x60;author_id&#x60; instead.
    * @return memberId
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Long getMemberId() {
@@ -663,83 +690,83 @@ public class QqlTestCase {
   }
 
   @Deprecated
-  public void setMemberId(Long memberId) {
+  public void setMemberId(@javax.annotation.Nullable Long memberId) {
     this.memberId = memberId;
   }
 
 
-  public QqlTestCase authorId(Long authorId) {
+  public QqlTestCase authorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
     return this;
   }
 
-   /**
+  /**
    * Get authorId
    * @return authorId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getAuthorId() {
     return authorId;
   }
 
-  public void setAuthorId(Long authorId) {
+  public void setAuthorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
   }
 
 
-  public QqlTestCase createdAt(OffsetDateTime createdAt) {
+  public QqlTestCase createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public QqlTestCase updatedAt(OffsetDateTime updatedAt) {
+  public QqlTestCase updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
 
-  public QqlTestCase updatedBy(Long updatedBy) {
+  public QqlTestCase updatedBy(@javax.annotation.Nullable Long updatedBy) {
     this.updatedBy = updatedBy;
     return this;
   }
 
-   /**
+  /**
    * Author ID of the last update.
    * @return updatedBy
-  **/
+   */
   @javax.annotation.Nullable
   public Long getUpdatedBy() {
     return updatedBy;
   }
 
-  public void setUpdatedBy(Long updatedBy) {
+  public void setUpdatedBy(@javax.annotation.Nullable Long updatedBy) {
     this.updatedBy = updatedBy;
   }
 
@@ -899,47 +926,18 @@ public class QqlTestCase {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("test_case_id");
-    openapiFields.add("position");
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("preconditions");
-    openapiFields.add("postconditions");
-    openapiFields.add("severity");
-    openapiFields.add("priority");
-    openapiFields.add("type");
-    openapiFields.add("layer");
-    openapiFields.add("is_flaky");
-    openapiFields.add("behavior");
-    openapiFields.add("automation");
-    openapiFields.add("status");
-    openapiFields.add("milestone_id");
-    openapiFields.add("suite_id");
-    openapiFields.add("custom_fields");
-    openapiFields.add("attachments");
-    openapiFields.add("steps_type");
-    openapiFields.add("steps");
-    openapiFields.add("params");
-    openapiFields.add("tags");
-    openapiFields.add("member_id");
-    openapiFields.add("author_id");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
-    openapiFields.add("updated_by");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "test_case_id", "position", "title", "description", "preconditions", "postconditions", "severity", "priority", "type", "layer", "is_flaky", "behavior", "automation", "status", "milestone_id", "suite_id", "custom_fields", "attachments", "steps_type", "steps", "params", "tags", "member_id", "author_id", "created_at", "updated_at", "updated_by"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("test_case_id");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("test_case_id"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to QqlTestCase
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to QqlTestCase
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!QqlTestCase.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -1103,22 +1101,22 @@ public class QqlTestCase {
     }
   }
 
- /**
-  * Create an instance of QqlTestCase given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of QqlTestCase
-  * @throws IOException if the JSON string is invalid with respect to QqlTestCase
-  */
+  /**
+   * Create an instance of QqlTestCase given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of QqlTestCase
+   * @throws IOException if the JSON string is invalid with respect to QqlTestCase
+   */
   public static QqlTestCase fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, QqlTestCase.class);
   }
 
- /**
-  * Convert an instance of QqlTestCase to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of QqlTestCase to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

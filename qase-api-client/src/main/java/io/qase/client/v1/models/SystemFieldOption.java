@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,168 +49,175 @@ import io.qase.client.v1.JSON;
 /**
  * SystemFieldOption
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SystemFieldOption {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_SLUG = "slug";
   @SerializedName(SERIALIZED_NAME_SLUG)
+  @javax.annotation.Nullable
   private String slug;
 
   public static final String SERIALIZED_NAME_COLOR = "color";
   @SerializedName(SERIALIZED_NAME_COLOR)
+  @javax.annotation.Nullable
   private String color;
 
   public static final String SERIALIZED_NAME_ICON = "icon";
   @SerializedName(SERIALIZED_NAME_ICON)
+  @javax.annotation.Nullable
   private String icon;
 
   public static final String SERIALIZED_NAME_IS_DEFAULT = "is_default";
   @SerializedName(SERIALIZED_NAME_IS_DEFAULT)
+  @javax.annotation.Nullable
   private Boolean isDefault;
 
   public static final String SERIALIZED_NAME_READ_ONLY = "read_only";
   @SerializedName(SERIALIZED_NAME_READ_ONLY)
+  @javax.annotation.Nullable
   private Boolean readOnly;
 
   public SystemFieldOption() {
   }
 
-  public SystemFieldOption id(Long id) {
+  public SystemFieldOption id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public SystemFieldOption title(String title) {
+  public SystemFieldOption title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public SystemFieldOption slug(String slug) {
+  public SystemFieldOption slug(@javax.annotation.Nullable String slug) {
     this.slug = slug;
     return this;
   }
 
-   /**
+  /**
    * Get slug
    * @return slug
-  **/
+   */
   @javax.annotation.Nullable
   public String getSlug() {
     return slug;
   }
 
-  public void setSlug(String slug) {
+  public void setSlug(@javax.annotation.Nullable String slug) {
     this.slug = slug;
   }
 
 
-  public SystemFieldOption color(String color) {
+  public SystemFieldOption color(@javax.annotation.Nullable String color) {
     this.color = color;
     return this;
   }
 
-   /**
+  /**
    * Get color
    * @return color
-  **/
+   */
   @javax.annotation.Nullable
   public String getColor() {
     return color;
   }
 
-  public void setColor(String color) {
+  public void setColor(@javax.annotation.Nullable String color) {
     this.color = color;
   }
 
 
-  public SystemFieldOption icon(String icon) {
+  public SystemFieldOption icon(@javax.annotation.Nullable String icon) {
     this.icon = icon;
     return this;
   }
 
-   /**
+  /**
    * Get icon
    * @return icon
-  **/
+   */
   @javax.annotation.Nullable
   public String getIcon() {
     return icon;
   }
 
-  public void setIcon(String icon) {
+  public void setIcon(@javax.annotation.Nullable String icon) {
     this.icon = icon;
   }
 
 
-  public SystemFieldOption isDefault(Boolean isDefault) {
+  public SystemFieldOption isDefault(@javax.annotation.Nullable Boolean isDefault) {
     this.isDefault = isDefault;
     return this;
   }
 
-   /**
+  /**
    * Get isDefault
    * @return isDefault
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsDefault() {
     return isDefault;
   }
 
-  public void setIsDefault(Boolean isDefault) {
+  public void setIsDefault(@javax.annotation.Nullable Boolean isDefault) {
     this.isDefault = isDefault;
   }
 
 
-  public SystemFieldOption readOnly(Boolean readOnly) {
+  public SystemFieldOption readOnly(@javax.annotation.Nullable Boolean readOnly) {
     this.readOnly = readOnly;
     return this;
   }
 
-   /**
+  /**
    * Get readOnly
    * @return readOnly
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getReadOnly() {
     return readOnly;
   }
 
-  public void setReadOnly(Boolean readOnly) {
+  public void setReadOnly(@javax.annotation.Nullable Boolean readOnly) {
     this.readOnly = readOnly;
   }
 
@@ -329,25 +335,18 @@ public class SystemFieldOption {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("title");
-    openapiFields.add("slug");
-    openapiFields.add("color");
-    openapiFields.add("icon");
-    openapiFields.add("is_default");
-    openapiFields.add("read_only");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "title", "slug", "color", "icon", "is_default", "read_only"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SystemFieldOption
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SystemFieldOption
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SystemFieldOption.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -441,22 +440,22 @@ public class SystemFieldOption {
     }
   }
 
- /**
-  * Create an instance of SystemFieldOption given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SystemFieldOption
-  * @throws IOException if the JSON string is invalid with respect to SystemFieldOption
-  */
+  /**
+   * Create an instance of SystemFieldOption given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SystemFieldOption
+   * @throws IOException if the JSON string is invalid with respect to SystemFieldOption
+   */
   public static SystemFieldOption fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SystemFieldOption.class);
   }
 
- /**
-  * Convert an instance of SystemFieldOption to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SystemFieldOption to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

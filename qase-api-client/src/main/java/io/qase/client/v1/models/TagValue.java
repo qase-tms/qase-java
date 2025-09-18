@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,53 +48,55 @@ import io.qase.client.v1.JSON;
 /**
  * TagValue
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TagValue {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_INTERNAL_ID = "internal_id";
   @SerializedName(SERIALIZED_NAME_INTERNAL_ID)
+  @javax.annotation.Nullable
   private Long internalId;
 
   public TagValue() {
   }
 
-  public TagValue title(String title) {
+  public TagValue title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public TagValue internalId(Long internalId) {
+  public TagValue internalId(@javax.annotation.Nullable Long internalId) {
     this.internalId = internalId;
     return this;
   }
 
-   /**
+  /**
    * Get internalId
    * @return internalId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getInternalId() {
     return internalId;
   }
 
-  public void setInternalId(Long internalId) {
+  public void setInternalId(@javax.annotation.Nullable Long internalId) {
     this.internalId = internalId;
   }
 
@@ -192,20 +193,18 @@ public class TagValue {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("internal_id");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "internal_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TagValue
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TagValue
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TagValue.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -290,22 +289,22 @@ public class TagValue {
     }
   }
 
- /**
-  * Create an instance of TagValue given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TagValue
-  * @throws IOException if the JSON string is invalid with respect to TagValue
-  */
+  /**
+   * Create an instance of TagValue given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TagValue
+   * @throws IOException if the JSON string is invalid with respect to TagValue
+   */
   public static TagValue fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TagValue.class);
   }
 
- /**
-  * Convert an instance of TagValue to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TagValue to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

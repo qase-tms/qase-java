@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,201 +50,212 @@ import io.qase.client.v1.JSON;
 /**
  * Suite
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Suite {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
   @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+  @javax.annotation.Nullable
   private String preconditions;
 
   public static final String SERIALIZED_NAME_POSITION = "position";
   @SerializedName(SERIALIZED_NAME_POSITION)
+  @javax.annotation.Nullable
   private Integer position;
 
   public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
   @SerializedName(SERIALIZED_NAME_CASES_COUNT)
+  @javax.annotation.Nullable
   private Integer casesCount;
 
   public static final String SERIALIZED_NAME_PARENT_ID = "parent_id";
   @SerializedName(SERIALIZED_NAME_PARENT_ID)
+  @javax.annotation.Nullable
   private Long parentId;
 
   public static final String SERIALIZED_NAME_CREATED = "created";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_CREATED)
+  @javax.annotation.Nullable
   private String created;
 
   public static final String SERIALIZED_NAME_UPDATED = "updated";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_UPDATED)
+  @javax.annotation.Nullable
   private String updated;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public Suite() {
   }
 
-  public Suite id(Long id) {
+  public Suite id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public Suite title(String title) {
+  public Suite title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public Suite description(String description) {
+  public Suite description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public Suite preconditions(String preconditions) {
+  public Suite preconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
     return this;
   }
 
-   /**
+  /**
    * Get preconditions
    * @return preconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPreconditions() {
     return preconditions;
   }
 
-  public void setPreconditions(String preconditions) {
+  public void setPreconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
   }
 
 
-  public Suite position(Integer position) {
+  public Suite position(@javax.annotation.Nullable Integer position) {
     this.position = position;
     return this;
   }
 
-   /**
+  /**
    * Get position
    * @return position
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getPosition() {
     return position;
   }
 
-  public void setPosition(Integer position) {
+  public void setPosition(@javax.annotation.Nullable Integer position) {
     this.position = position;
   }
 
 
-  public Suite casesCount(Integer casesCount) {
+  public Suite casesCount(@javax.annotation.Nullable Integer casesCount) {
     this.casesCount = casesCount;
     return this;
   }
 
-   /**
+  /**
    * Get casesCount
    * @return casesCount
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getCasesCount() {
     return casesCount;
   }
 
-  public void setCasesCount(Integer casesCount) {
+  public void setCasesCount(@javax.annotation.Nullable Integer casesCount) {
     this.casesCount = casesCount;
   }
 
 
-  public Suite parentId(Long parentId) {
+  public Suite parentId(@javax.annotation.Nullable Long parentId) {
     this.parentId = parentId;
     return this;
   }
 
-   /**
+  /**
    * Get parentId
    * @return parentId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getParentId() {
     return parentId;
   }
 
-  public void setParentId(Long parentId) {
+  public void setParentId(@javax.annotation.Nullable Long parentId) {
     this.parentId = parentId;
   }
 
 
   @Deprecated
-  public Suite created(String created) {
+  public Suite created(@javax.annotation.Nullable String created) {
     this.created = created;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;created_at&#x60; property instead.
    * @return created
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getCreated() {
@@ -253,22 +263,22 @@ public class Suite {
   }
 
   @Deprecated
-  public void setCreated(String created) {
+  public void setCreated(@javax.annotation.Nullable String created) {
     this.created = created;
   }
 
 
   @Deprecated
-  public Suite updated(String updated) {
+  public Suite updated(@javax.annotation.Nullable String updated) {
     this.updated = updated;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;updated_at&#x60; property instead.
    * @return updated
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getUpdated() {
@@ -276,45 +286,45 @@ public class Suite {
   }
 
   @Deprecated
-  public void setUpdated(String updated) {
+  public void setUpdated(@javax.annotation.Nullable String updated) {
     this.updated = updated;
   }
 
 
-  public Suite createdAt(OffsetDateTime createdAt) {
+  public Suite createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public Suite updatedAt(OffsetDateTime updatedAt) {
+  public Suite updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -440,29 +450,18 @@ public class Suite {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("preconditions");
-    openapiFields.add("position");
-    openapiFields.add("cases_count");
-    openapiFields.add("parent_id");
-    openapiFields.add("created");
-    openapiFields.add("updated");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "title", "description", "preconditions", "position", "cases_count", "parent_id", "created", "updated", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Suite
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Suite
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Suite.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -559,22 +558,22 @@ public class Suite {
     }
   }
 
- /**
-  * Create an instance of Suite given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Suite
-  * @throws IOException if the JSON string is invalid with respect to Suite
-  */
+  /**
+   * Create an instance of Suite given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Suite
+   * @throws IOException if the JSON string is invalid with respect to Suite
+   */
   public static Suite fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Suite.class);
   }
 
- /**
-  * Convert an instance of Suite to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Suite to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

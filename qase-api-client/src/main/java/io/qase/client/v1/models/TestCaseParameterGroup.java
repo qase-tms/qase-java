@@ -19,8 +19,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.v1.models.ParameterSingle;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -39,7 +42,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,10 +53,11 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseParameterGroup
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestCaseParameterGroup {
   public static final String SERIALIZED_NAME_SHARED_ID = "shared_id";
   @SerializedName(SERIALIZED_NAME_SHARED_ID)
+  @javax.annotation.Nullable
   private UUID sharedId;
 
   /**
@@ -109,68 +112,78 @@ public class TestCaseParameterGroup {
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nonnull
   private TypeEnum type;
 
   public static final String SERIALIZED_NAME_ITEMS = "items";
   @SerializedName(SERIALIZED_NAME_ITEMS)
-  private Object items;
+  @javax.annotation.Nonnull
+  private List<ParameterSingle> items = new ArrayList<>();
 
   public TestCaseParameterGroup() {
   }
 
-  public TestCaseParameterGroup sharedId(UUID sharedId) {
+  public TestCaseParameterGroup sharedId(@javax.annotation.Nullable UUID sharedId) {
     this.sharedId = sharedId;
     return this;
   }
 
-   /**
+  /**
    * Get sharedId
    * @return sharedId
-  **/
+   */
   @javax.annotation.Nullable
   public UUID getSharedId() {
     return sharedId;
   }
 
-  public void setSharedId(UUID sharedId) {
+  public void setSharedId(@javax.annotation.Nullable UUID sharedId) {
     this.sharedId = sharedId;
   }
 
 
-  public TestCaseParameterGroup type(TypeEnum type) {
+  public TestCaseParameterGroup type(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nonnull
   public TypeEnum getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
   }
 
 
-  public TestCaseParameterGroup items(Object items) {
+  public TestCaseParameterGroup items(@javax.annotation.Nonnull List<ParameterSingle> items) {
     this.items = items;
     return this;
   }
 
-   /**
+  public TestCaseParameterGroup addItemsItem(ParameterSingle itemsItem) {
+    if (this.items == null) {
+      this.items = new ArrayList<>();
+    }
+    this.items.add(itemsItem);
+    return this;
+  }
+
+  /**
    * Get items
    * @return items
-  **/
+   */
   @javax.annotation.Nonnull
-  public Object getItems() {
+  public List<ParameterSingle> getItems() {
     return items;
   }
 
-  public void setItems(Object items) {
+  public void setItems(@javax.annotation.Nonnull List<ParameterSingle> items) {
     this.items = items;
   }
 
@@ -280,23 +293,18 @@ public class TestCaseParameterGroup {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("shared_id");
-    openapiFields.add("type");
-    openapiFields.add("items");
+    openapiFields = new HashSet<String>(Arrays.asList("shared_id", "type", "items"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("items");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("type", "items"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestCaseParameterGroup
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestCaseParameterGroup
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCaseParameterGroup.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -319,6 +327,16 @@ public class TestCaseParameterGroup {
       }
       // validate the required field `type`
       TypeEnum.validateJsonElement(jsonObj.get("type"));
+      // ensure the json data is an array
+      if (!jsonObj.get("items").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `items` to be an array in the JSON string but got `%s`", jsonObj.get("items").toString()));
+      }
+
+      JsonArray jsonArrayitems = jsonObj.getAsJsonArray("items");
+      // validate the required field `items` (array)
+      for (int i = 0; i < jsonArrayitems.size(); i++) {
+        ParameterSingle.validateJsonElement(jsonArrayitems.get(i));
+      };
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -393,22 +411,22 @@ public class TestCaseParameterGroup {
     }
   }
 
- /**
-  * Create an instance of TestCaseParameterGroup given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestCaseParameterGroup
-  * @throws IOException if the JSON string is invalid with respect to TestCaseParameterGroup
-  */
+  /**
+   * Create an instance of TestCaseParameterGroup given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestCaseParameterGroup
+   * @throws IOException if the JSON string is invalid with respect to TestCaseParameterGroup
+   */
   public static TestCaseParameterGroup fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestCaseParameterGroup.class);
   }
 
- /**
-  * Convert an instance of TestCaseParameterGroup to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestCaseParameterGroup to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,99 +48,103 @@ import io.qase.client.v1.JSON;
 /**
  * EnvironmentUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class EnvironmentUpdate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_SLUG = "slug";
   @SerializedName(SERIALIZED_NAME_SLUG)
+  @javax.annotation.Nullable
   private String slug;
 
   public static final String SERIALIZED_NAME_HOST = "host";
   @SerializedName(SERIALIZED_NAME_HOST)
+  @javax.annotation.Nullable
   private String host;
 
   public EnvironmentUpdate() {
   }
 
-  public EnvironmentUpdate title(String title) {
+  public EnvironmentUpdate title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public EnvironmentUpdate description(String description) {
+  public EnvironmentUpdate description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public EnvironmentUpdate slug(String slug) {
+  public EnvironmentUpdate slug(@javax.annotation.Nullable String slug) {
     this.slug = slug;
     return this;
   }
 
-   /**
+  /**
    * Get slug
    * @return slug
-  **/
+   */
   @javax.annotation.Nullable
   public String getSlug() {
     return slug;
   }
 
-  public void setSlug(String slug) {
+  public void setSlug(@javax.annotation.Nullable String slug) {
     this.slug = slug;
   }
 
 
-  public EnvironmentUpdate host(String host) {
+  public EnvironmentUpdate host(@javax.annotation.Nullable String host) {
     this.host = host;
     return this;
   }
 
-   /**
+  /**
    * Get host
    * @return host
-  **/
+   */
   @javax.annotation.Nullable
   public String getHost() {
     return host;
   }
 
-  public void setHost(String host) {
+  public void setHost(@javax.annotation.Nullable String host) {
     this.host = host;
   }
 
@@ -242,22 +245,18 @@ public class EnvironmentUpdate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("slug");
-    openapiFields.add("host");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "description", "slug", "host"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to EnvironmentUpdate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to EnvironmentUpdate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!EnvironmentUpdate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -351,22 +350,22 @@ public class EnvironmentUpdate {
     }
   }
 
- /**
-  * Create an instance of EnvironmentUpdate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of EnvironmentUpdate
-  * @throws IOException if the JSON string is invalid with respect to EnvironmentUpdate
-  */
+  /**
+   * Create an instance of EnvironmentUpdate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of EnvironmentUpdate
+   * @throws IOException if the JSON string is invalid with respect to EnvironmentUpdate
+   */
   public static EnvironmentUpdate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, EnvironmentUpdate.class);
   }
 
- /**
-  * Convert an instance of EnvironmentUpdate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of EnvironmentUpdate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

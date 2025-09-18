@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,16 +50,17 @@ import io.qase.client.v1.JSON;
 /**
  * Bulk200ResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Bulk200ResponseAllOfResult {
   public static final String SERIALIZED_NAME_IDS = "ids";
   @SerializedName(SERIALIZED_NAME_IDS)
-  private List<Integer> ids;
+  @javax.annotation.Nullable
+  private List<Integer> ids = new ArrayList<>();
 
   public Bulk200ResponseAllOfResult() {
   }
 
-  public Bulk200ResponseAllOfResult ids(List<Integer> ids) {
+  public Bulk200ResponseAllOfResult ids(@javax.annotation.Nullable List<Integer> ids) {
     this.ids = ids;
     return this;
   }
@@ -73,16 +73,16 @@ public class Bulk200ResponseAllOfResult {
     return this;
   }
 
-   /**
+  /**
    * Get ids
    * @return ids
-  **/
+   */
   @javax.annotation.Nullable
   public List<Integer> getIds() {
     return ids;
   }
 
-  public void setIds(List<Integer> ids) {
+  public void setIds(@javax.annotation.Nullable List<Integer> ids) {
     this.ids = ids;
   }
 
@@ -177,19 +177,18 @@ public class Bulk200ResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("ids");
+    openapiFields = new HashSet<String>(Arrays.asList("ids"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Bulk200ResponseAllOfResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Bulk200ResponseAllOfResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Bulk200ResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -275,22 +274,22 @@ public class Bulk200ResponseAllOfResult {
     }
   }
 
- /**
-  * Create an instance of Bulk200ResponseAllOfResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Bulk200ResponseAllOfResult
-  * @throws IOException if the JSON string is invalid with respect to Bulk200ResponseAllOfResult
-  */
+  /**
+   * Create an instance of Bulk200ResponseAllOfResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Bulk200ResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to Bulk200ResponseAllOfResult
+   */
   public static Bulk200ResponseAllOfResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Bulk200ResponseAllOfResult.class);
   }
 
- /**
-  * Convert an instance of Bulk200ResponseAllOfResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Bulk200ResponseAllOfResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

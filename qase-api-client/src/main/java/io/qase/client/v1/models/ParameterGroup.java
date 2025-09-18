@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,16 +51,17 @@ import io.qase.client.v1.JSON;
 /**
  * Group parameter
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ParameterGroup {
   public static final String SERIALIZED_NAME_ITEMS = "items";
   @SerializedName(SERIALIZED_NAME_ITEMS)
+  @javax.annotation.Nonnull
   private List<ParameterSingle> items = new ArrayList<>();
 
   public ParameterGroup() {
   }
 
-  public ParameterGroup items(List<ParameterSingle> items) {
+  public ParameterGroup items(@javax.annotation.Nonnull List<ParameterSingle> items) {
     this.items = items;
     return this;
   }
@@ -74,16 +74,16 @@ public class ParameterGroup {
     return this;
   }
 
-   /**
+  /**
    * Get items
    * @return items
-  **/
+   */
   @javax.annotation.Nonnull
   public List<ParameterSingle> getItems() {
     return items;
   }
 
-  public void setItems(List<ParameterSingle> items) {
+  public void setItems(@javax.annotation.Nonnull List<ParameterSingle> items) {
     this.items = items;
   }
 
@@ -178,20 +178,18 @@ public class ParameterGroup {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("items");
+    openapiFields = new HashSet<String>(Arrays.asList("items"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("items");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("items"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ParameterGroup
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ParameterGroup
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ParameterGroup.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -290,22 +288,22 @@ public class ParameterGroup {
     }
   }
 
- /**
-  * Create an instance of ParameterGroup given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ParameterGroup
-  * @throws IOException if the JSON string is invalid with respect to ParameterGroup
-  */
+  /**
+   * Create an instance of ParameterGroup given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ParameterGroup
+   * @throws IOException if the JSON string is invalid with respect to ParameterGroup
+   */
   public static ParameterGroup fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ParameterGroup.class);
   }
 
- /**
-  * Convert an instance of ParameterGroup to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ParameterGroup to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -84,7 +84,8 @@ public class EnvironmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -95,7 +96,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createEnvironmentCall(String code, EnvironmentCreate environmentCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createEnvironmentCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull EnvironmentCreate environmentCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -142,7 +143,7 @@ public class EnvironmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createEnvironmentValidateBeforeCall(String code, EnvironmentCreate environmentCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createEnvironmentValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull EnvironmentCreate environmentCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createEnvironment(Async)");
@@ -165,7 +166,8 @@ public class EnvironmentsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -176,7 +178,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createEnvironment(String code, EnvironmentCreate environmentCreate) throws ApiException {
+    public IdResponse createEnvironment(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull EnvironmentCreate environmentCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createEnvironmentWithHttpInfo(code, environmentCreate);
         return localVarResp.getData();
     }
@@ -189,7 +191,8 @@ public class EnvironmentsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -200,7 +203,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createEnvironmentWithHttpInfo(String code, EnvironmentCreate environmentCreate) throws ApiException {
+    public ApiResponse<IdResponse> createEnvironmentWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull EnvironmentCreate environmentCreate) throws ApiException {
         okhttp3.Call localVarCall = createEnvironmentValidateBeforeCall(code, environmentCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -215,7 +218,8 @@ public class EnvironmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -226,7 +230,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createEnvironmentAsync(String code, EnvironmentCreate environmentCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createEnvironmentAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull EnvironmentCreate environmentCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createEnvironmentValidateBeforeCall(code, environmentCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -241,7 +245,8 @@ public class EnvironmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -251,7 +256,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteEnvironmentCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteEnvironmentCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -298,7 +303,7 @@ public class EnvironmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteEnvironmentValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteEnvironmentValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deleteEnvironment(Async)");
@@ -321,7 +326,8 @@ public class EnvironmentsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -331,7 +337,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse deleteEnvironment(String code, Integer id) throws ApiException {
+    public IdResponse deleteEnvironment(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<IdResponse> localVarResp = deleteEnvironmentWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -344,7 +350,8 @@ public class EnvironmentsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -354,7 +361,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> deleteEnvironmentWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<IdResponse> deleteEnvironmentWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = deleteEnvironmentValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -369,7 +376,8 @@ public class EnvironmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -379,7 +387,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteEnvironmentAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteEnvironmentAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteEnvironmentValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -394,7 +402,8 @@ public class EnvironmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -404,7 +413,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getEnvironmentCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getEnvironmentCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -451,7 +460,7 @@ public class EnvironmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getEnvironmentValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getEnvironmentValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getEnvironment(Async)");
@@ -474,7 +483,8 @@ public class EnvironmentsApi {
      * @return EnvironmentResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -484,7 +494,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public EnvironmentResponse getEnvironment(String code, Integer id) throws ApiException {
+    public EnvironmentResponse getEnvironment(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<EnvironmentResponse> localVarResp = getEnvironmentWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -497,7 +507,8 @@ public class EnvironmentsApi {
      * @return ApiResponse&lt;EnvironmentResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -507,7 +518,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<EnvironmentResponse> getEnvironmentWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<EnvironmentResponse> getEnvironmentWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = getEnvironmentValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<EnvironmentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -522,7 +533,8 @@ public class EnvironmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An environment. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -532,7 +544,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getEnvironmentAsync(String code, Integer id, final ApiCallback<EnvironmentResponse> _callback) throws ApiException {
+    public okhttp3.Call getEnvironmentAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<EnvironmentResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getEnvironmentValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<EnvironmentResponse>(){}.getType();
@@ -550,7 +562,8 @@ public class EnvironmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -560,7 +573,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getEnvironmentsCall(String code, String search, String slug, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getEnvironmentsCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable String slug, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -622,7 +635,7 @@ public class EnvironmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getEnvironmentsValidateBeforeCall(String code, String search, String slug, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getEnvironmentsValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable String slug, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getEnvironments(Async)");
@@ -643,7 +656,8 @@ public class EnvironmentsApi {
      * @return EnvironmentListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -653,7 +667,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public EnvironmentListResponse getEnvironments(String code, String search, String slug, Integer limit, Integer offset) throws ApiException {
+    public EnvironmentListResponse getEnvironments(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable String slug, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<EnvironmentListResponse> localVarResp = getEnvironmentsWithHttpInfo(code, search, slug, limit, offset);
         return localVarResp.getData();
     }
@@ -669,7 +683,8 @@ public class EnvironmentsApi {
      * @return ApiResponse&lt;EnvironmentListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -679,7 +694,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<EnvironmentListResponse> getEnvironmentsWithHttpInfo(String code, String search, String slug, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<EnvironmentListResponse> getEnvironmentsWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable String slug, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getEnvironmentsValidateBeforeCall(code, search, slug, limit, offset, null);
         Type localVarReturnType = new TypeToken<EnvironmentListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -697,7 +712,8 @@ public class EnvironmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all environments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -707,7 +723,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getEnvironmentsAsync(String code, String search, String slug, Integer limit, Integer offset, final ApiCallback<EnvironmentListResponse> _callback) throws ApiException {
+    public okhttp3.Call getEnvironmentsAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable String slug, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<EnvironmentListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getEnvironmentsValidateBeforeCall(code, search, slug, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<EnvironmentListResponse>(){}.getType();
@@ -723,7 +739,8 @@ public class EnvironmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -733,7 +750,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateEnvironmentCall(String code, Integer id, EnvironmentUpdate environmentUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateEnvironmentCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull EnvironmentUpdate environmentUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -781,7 +798,7 @@ public class EnvironmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateEnvironmentValidateBeforeCall(String code, Integer id, EnvironmentUpdate environmentUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateEnvironmentValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull EnvironmentUpdate environmentUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updateEnvironment(Async)");
@@ -810,7 +827,8 @@ public class EnvironmentsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -820,7 +838,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse updateEnvironment(String code, Integer id, EnvironmentUpdate environmentUpdate) throws ApiException {
+    public IdResponse updateEnvironment(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull EnvironmentUpdate environmentUpdate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = updateEnvironmentWithHttpInfo(code, id, environmentUpdate);
         return localVarResp.getData();
     }
@@ -834,7 +852,8 @@ public class EnvironmentsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -844,7 +863,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> updateEnvironmentWithHttpInfo(String code, Integer id, EnvironmentUpdate environmentUpdate) throws ApiException {
+    public ApiResponse<IdResponse> updateEnvironmentWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull EnvironmentUpdate environmentUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateEnvironmentValidateBeforeCall(code, id, environmentUpdate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -860,7 +879,8 @@ public class EnvironmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -870,7 +890,7 @@ public class EnvironmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateEnvironmentAsync(String code, Integer id, EnvironmentUpdate environmentUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call updateEnvironmentAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull EnvironmentUpdate environmentUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateEnvironmentValidateBeforeCall(code, id, environmentUpdate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();

@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,168 +48,175 @@ import io.qase.client.v1.JSON;
 /**
  * Author
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Author {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_AUTHOR_ID = "author_id";
   @SerializedName(SERIALIZED_NAME_AUTHOR_ID)
+  @javax.annotation.Nullable
   private Long authorId;
 
   public static final String SERIALIZED_NAME_ENTITY_TYPE = "entity_type";
   @SerializedName(SERIALIZED_NAME_ENTITY_TYPE)
+  @javax.annotation.Nullable
   private String entityType;
 
   public static final String SERIALIZED_NAME_ENTITY_ID = "entity_id";
   @SerializedName(SERIALIZED_NAME_ENTITY_ID)
+  @javax.annotation.Nullable
   private Long entityId;
 
   public static final String SERIALIZED_NAME_EMAIL = "email";
   @SerializedName(SERIALIZED_NAME_EMAIL)
+  @javax.annotation.Nullable
   private String email;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
+  @javax.annotation.Nullable
   private String name;
 
   public static final String SERIALIZED_NAME_IS_ACTIVE = "is_active";
   @SerializedName(SERIALIZED_NAME_IS_ACTIVE)
+  @javax.annotation.Nullable
   private Boolean isActive;
 
   public Author() {
   }
 
-  public Author id(Long id) {
+  public Author id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public Author authorId(Long authorId) {
+  public Author authorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
     return this;
   }
 
-   /**
+  /**
    * Get authorId
    * @return authorId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getAuthorId() {
     return authorId;
   }
 
-  public void setAuthorId(Long authorId) {
+  public void setAuthorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
   }
 
 
-  public Author entityType(String entityType) {
+  public Author entityType(@javax.annotation.Nullable String entityType) {
     this.entityType = entityType;
     return this;
   }
 
-   /**
+  /**
    * Get entityType
    * @return entityType
-  **/
+   */
   @javax.annotation.Nullable
   public String getEntityType() {
     return entityType;
   }
 
-  public void setEntityType(String entityType) {
+  public void setEntityType(@javax.annotation.Nullable String entityType) {
     this.entityType = entityType;
   }
 
 
-  public Author entityId(Long entityId) {
+  public Author entityId(@javax.annotation.Nullable Long entityId) {
     this.entityId = entityId;
     return this;
   }
 
-   /**
+  /**
    * Get entityId
    * @return entityId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getEntityId() {
     return entityId;
   }
 
-  public void setEntityId(Long entityId) {
+  public void setEntityId(@javax.annotation.Nullable Long entityId) {
     this.entityId = entityId;
   }
 
 
-  public Author email(String email) {
+  public Author email(@javax.annotation.Nullable String email) {
     this.email = email;
     return this;
   }
 
-   /**
+  /**
    * Get email
    * @return email
-  **/
+   */
   @javax.annotation.Nullable
   public String getEmail() {
     return email;
   }
 
-  public void setEmail(String email) {
+  public void setEmail(@javax.annotation.Nullable String email) {
     this.email = email;
   }
 
 
-  public Author name(String name) {
+  public Author name(@javax.annotation.Nullable String name) {
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * Get name
    * @return name
-  **/
+   */
   @javax.annotation.Nullable
   public String getName() {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
   }
 
 
-  public Author isActive(Boolean isActive) {
+  public Author isActive(@javax.annotation.Nullable Boolean isActive) {
     this.isActive = isActive;
     return this;
   }
 
-   /**
+  /**
    * Get isActive
    * @return isActive
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsActive() {
     return isActive;
   }
 
-  public void setIsActive(Boolean isActive) {
+  public void setIsActive(@javax.annotation.Nullable Boolean isActive) {
     this.isActive = isActive;
   }
 
@@ -317,25 +323,18 @@ public class Author {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("author_id");
-    openapiFields.add("entity_type");
-    openapiFields.add("entity_id");
-    openapiFields.add("email");
-    openapiFields.add("name");
-    openapiFields.add("is_active");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "author_id", "entity_type", "entity_id", "email", "name", "is_active"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Author
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Author
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Author.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -426,22 +425,22 @@ public class Author {
     }
   }
 
- /**
-  * Create an instance of Author given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Author
-  * @throws IOException if the JSON string is invalid with respect to Author
-  */
+  /**
+   * Create an instance of Author given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Author
+   * @throws IOException if the JSON string is invalid with respect to Author
+   */
   public static Author fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Author.class);
   }
 
- /**
-  * Convert an instance of Author to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Author to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

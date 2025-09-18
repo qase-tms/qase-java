@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,14 +48,16 @@ import io.qase.client.v1.JSON;
 /**
  * MilestoneCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class MilestoneCreate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   /**
@@ -113,87 +114,89 @@ public class MilestoneCreate {
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private StatusEnum status;
 
   public static final String SERIALIZED_NAME_DUE_DATE = "due_date";
   @SerializedName(SERIALIZED_NAME_DUE_DATE)
+  @javax.annotation.Nullable
   private Long dueDate;
 
   public MilestoneCreate() {
   }
 
-  public MilestoneCreate title(String title) {
+  public MilestoneCreate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public MilestoneCreate description(String description) {
+  public MilestoneCreate description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public MilestoneCreate status(StatusEnum status) {
+  public MilestoneCreate status(@javax.annotation.Nullable StatusEnum status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(StatusEnum status) {
+  public void setStatus(@javax.annotation.Nullable StatusEnum status) {
     this.status = status;
   }
 
 
-  public MilestoneCreate dueDate(Long dueDate) {
+  public MilestoneCreate dueDate(@javax.annotation.Nullable Long dueDate) {
     this.dueDate = dueDate;
     return this;
   }
 
-   /**
+  /**
    * unix timestamp
    * @return dueDate
-  **/
+   */
   @javax.annotation.Nullable
   public Long getDueDate() {
     return dueDate;
   }
 
-  public void setDueDate(Long dueDate) {
+  public void setDueDate(@javax.annotation.Nullable Long dueDate) {
     this.dueDate = dueDate;
   }
 
@@ -294,23 +297,18 @@ public class MilestoneCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("status");
-    openapiFields.add("due_date");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "description", "status", "due_date"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to MilestoneCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to MilestoneCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!MilestoneCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -412,22 +410,22 @@ public class MilestoneCreate {
     }
   }
 
- /**
-  * Create an instance of MilestoneCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of MilestoneCreate
-  * @throws IOException if the JSON string is invalid with respect to MilestoneCreate
-  */
+  /**
+   * Create an instance of MilestoneCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of MilestoneCreate
+   * @throws IOException if the JSON string is invalid with respect to MilestoneCreate
+   */
   public static MilestoneCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, MilestoneCreate.class);
   }
 
- /**
-  * Convert an instance of MilestoneCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of MilestoneCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

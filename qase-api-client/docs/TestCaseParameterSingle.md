@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**sharedId** | **UUID** |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) |  |  |
-|**items** | **Object** |  |  |
+|**item** | [**ParameterSingle**](ParameterSingle.md) |  |  |
 
 
 

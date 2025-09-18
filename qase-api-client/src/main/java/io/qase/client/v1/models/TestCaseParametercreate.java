@@ -63,25 +63,25 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
-public class TestCaseParametercreate extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(TestCaseParametercreate.class.getName());
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+public class TestCaseParameterCreate extends AbstractOpenApiSchema {
+    private static final Logger log = Logger.getLogger(TestCaseParameterCreate.class.getName());
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!TestCaseParametercreate.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'TestCaseParametercreate' and its subtypes
+            if (!TestCaseParameterCreate.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'TestCaseParameterCreate' and its subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
             final TypeAdapter<ParameterShared> adapterParameterShared = gson.getDelegateAdapter(this, TypeToken.get(ParameterShared.class));
             final TypeAdapter<ParameterSingle> adapterParameterSingle = gson.getDelegateAdapter(this, TypeToken.get(ParameterSingle.class));
             final TypeAdapter<ParameterGroup> adapterParameterGroup = gson.getDelegateAdapter(this, TypeToken.get(ParameterGroup.class));
 
-            return (TypeAdapter<T>) new TypeAdapter<TestCaseParametercreate>() {
+            return (TypeAdapter<T>) new TypeAdapter<TestCaseParameterCreate>() {
                 @Override
-                public void write(JsonWriter out, TestCaseParametercreate value) throws IOException {
+                public void write(JsonWriter out, TestCaseParameterCreate value) throws IOException {
                     if (value == null || value.getActualInstance() == null) {
                         elementAdapter.write(out, null);
                         return;
@@ -89,27 +89,27 @@ public class TestCaseParametercreate extends AbstractOpenApiSchema {
 
                     // check if the actual instance is of the type `ParameterShared`
                     if (value.getActualInstance() instanceof ParameterShared) {
-                      JsonElement element = adapterParameterShared.toJsonTree((ParameterShared)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterParameterShared.toJsonTree((ParameterShared)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     // check if the actual instance is of the type `ParameterSingle`
                     if (value.getActualInstance() instanceof ParameterSingle) {
-                      JsonElement element = adapterParameterSingle.toJsonTree((ParameterSingle)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterParameterSingle.toJsonTree((ParameterSingle)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     // check if the actual instance is of the type `ParameterGroup`
                     if (value.getActualInstance() instanceof ParameterGroup) {
-                      JsonElement element = adapterParameterGroup.toJsonTree((ParameterGroup)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterParameterGroup.toJsonTree((ParameterGroup)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: ParameterGroup, ParameterShared, ParameterSingle");
                 }
 
                 @Override
-                public TestCaseParametercreate read(JsonReader in) throws IOException {
+                public TestCaseParameterCreate read(JsonReader in) throws IOException {
                     Object deserialized = null;
                     JsonElement jsonElement = elementAdapter.read(in);
 
@@ -119,48 +119,48 @@ public class TestCaseParametercreate extends AbstractOpenApiSchema {
 
                     // deserialize ParameterShared
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      ParameterShared.validateJsonElement(jsonElement);
-                      actualAdapter = adapterParameterShared;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'ParameterShared'");
+                        // validate the JSON object to see if any exception is thrown
+                        ParameterShared.validateJsonElement(jsonElement);
+                        actualAdapter = adapterParameterShared;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'ParameterShared'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for ParameterShared failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'ParameterShared'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for ParameterShared failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'ParameterShared'", e);
                     }
                     // deserialize ParameterSingle
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      ParameterSingle.validateJsonElement(jsonElement);
-                      actualAdapter = adapterParameterSingle;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'ParameterSingle'");
+                        // validate the JSON object to see if any exception is thrown
+                        ParameterSingle.validateJsonElement(jsonElement);
+                        actualAdapter = adapterParameterSingle;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'ParameterSingle'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for ParameterSingle failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'ParameterSingle'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for ParameterSingle failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'ParameterSingle'", e);
                     }
                     // deserialize ParameterGroup
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      ParameterGroup.validateJsonElement(jsonElement);
-                      actualAdapter = adapterParameterGroup;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'ParameterGroup'");
+                        // validate the JSON object to see if any exception is thrown
+                        ParameterGroup.validateJsonElement(jsonElement);
+                        actualAdapter = adapterParameterGroup;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'ParameterGroup'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for ParameterGroup failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'ParameterGroup'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for ParameterGroup failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'ParameterGroup'", e);
                     }
 
                     if (match == 1) {
-                        TestCaseParametercreate ret = new TestCaseParametercreate();
+                        TestCaseParameterCreate ret = new TestCaseParameterCreate();
                         ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
                         return ret;
                     }
 
-                    throw new IOException(String.format("Failed deserialization for TestCaseParametercreate: %d classes match result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", match, errorMessages, jsonElement.toString()));
+                    throw new IOException(String.format("Failed deserialization for TestCaseParameterCreate: %d classes match result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", match, errorMessages, jsonElement.toString()));
                 }
             }.nullSafe();
         }
@@ -169,21 +169,11 @@ public class TestCaseParametercreate extends AbstractOpenApiSchema {
     // store a list of schema names defined in oneOf
     public static final Map<String, Class<?>> schemas = new HashMap<String, Class<?>>();
 
-    public TestCaseParametercreate() {
+    public TestCaseParameterCreate() {
         super("oneOf", Boolean.FALSE);
     }
 
-    public TestCaseParametercreate(ParameterGroup o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
-    public TestCaseParametercreate(ParameterShared o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
-    public TestCaseParametercreate(ParameterSingle o) {
+    public TestCaseParameterCreate(Object o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
@@ -196,7 +186,7 @@ public class TestCaseParametercreate extends AbstractOpenApiSchema {
 
     @Override
     public Map<String, Class<?>> getSchemas() {
-        return TestCaseParametercreate.schemas;
+        return TestCaseParameterCreate.schemas;
     }
 
     /**
@@ -232,6 +222,7 @@ public class TestCaseParametercreate extends AbstractOpenApiSchema {
      *
      * @return The actual instance (ParameterGroup, ParameterShared, ParameterSingle)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
@@ -247,6 +238,7 @@ public class TestCaseParametercreate extends AbstractOpenApiSchema {
     public ParameterShared getParameterShared() throws ClassCastException {
         return (ParameterShared)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `ParameterSingle`. If the actual instance is not `ParameterSingle`,
      * the ClassCastException will be thrown.
@@ -257,6 +249,7 @@ public class TestCaseParametercreate extends AbstractOpenApiSchema {
     public ParameterSingle getParameterSingle() throws ClassCastException {
         return (ParameterSingle)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `ParameterGroup`. If the actual instance is not `ParameterGroup`,
      * the ClassCastException will be thrown.
@@ -268,63 +261,63 @@ public class TestCaseParametercreate extends AbstractOpenApiSchema {
         return (ParameterGroup)super.getActualInstance();
     }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestCaseParametercreate
-  */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-    // validate oneOf schemas one by one
-    int validCount = 0;
-    ArrayList<String> errorMessages = new ArrayList<>();
-    // validate the json string with ParameterShared
-    try {
-      ParameterShared.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for ParameterShared failed with `%s`.", e.getMessage()));
-      // continue to the next one
+    /**
+     * Validates the JSON Element and throws an exception if issues found
+     *
+     * @param jsonElement JSON Element
+     * @throws IOException if the JSON Element is invalid with respect to TestCaseParameterCreate
+     */
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+        // validate oneOf schemas one by one
+        int validCount = 0;
+        ArrayList<String> errorMessages = new ArrayList<>();
+        // validate the json string with ParameterShared
+        try {
+            ParameterShared.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for ParameterShared failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with ParameterSingle
+        try {
+            ParameterSingle.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for ParameterSingle failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with ParameterGroup
+        try {
+            ParameterGroup.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for ParameterGroup failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        if (validCount != 1) {
+            throw new IOException(String.format("The JSON string is invalid for TestCaseParameterCreate with oneOf schemas: ParameterGroup, ParameterShared, ParameterSingle. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
+        }
     }
-    // validate the json string with ParameterSingle
-    try {
-      ParameterSingle.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for ParameterSingle failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
-    // validate the json string with ParameterGroup
-    try {
-      ParameterGroup.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for ParameterGroup failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
-    if (validCount != 1) {
-      throw new IOException(String.format("The JSON string is invalid for TestCaseParametercreate with oneOf schemas: ParameterGroup, ParameterShared, ParameterSingle. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
-    }
-  }
 
- /**
-  * Create an instance of TestCaseParametercreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestCaseParametercreate
-  * @throws IOException if the JSON string is invalid with respect to TestCaseParametercreate
-  */
-  public static TestCaseParametercreate fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, TestCaseParametercreate.class);
-  }
+    /**
+     * Create an instance of TestCaseParameterCreate given an JSON string
+     *
+     * @param jsonString JSON string
+     * @return An instance of TestCaseParameterCreate
+     * @throws IOException if the JSON string is invalid with respect to TestCaseParameterCreate
+     */
+    public static TestCaseParameterCreate fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, TestCaseParameterCreate.class);
+    }
 
- /**
-  * Convert an instance of TestCaseParametercreate to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
+    /**
+     * Convert an instance of TestCaseParameterCreate to an JSON string
+     *
+     * @return JSON string
+     */
+    public String toJson() {
+        return JSON.getGson().toJson(this);
+    }
 }
 

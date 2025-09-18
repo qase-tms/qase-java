@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,53 +48,55 @@ import io.qase.client.v1.JSON;
 /**
  * ConfigurationCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ConfigurationCreate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_GROUP_ID = "group_id";
   @SerializedName(SERIALIZED_NAME_GROUP_ID)
+  @javax.annotation.Nonnull
   private Integer groupId;
 
   public ConfigurationCreate() {
   }
 
-  public ConfigurationCreate title(String title) {
+  public ConfigurationCreate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public ConfigurationCreate groupId(Integer groupId) {
+  public ConfigurationCreate groupId(@javax.annotation.Nonnull Integer groupId) {
     this.groupId = groupId;
     return this;
   }
 
-   /**
+  /**
    * Get groupId
    * @return groupId
-  **/
+   */
   @javax.annotation.Nonnull
   public Integer getGroupId() {
     return groupId;
   }
 
-  public void setGroupId(Integer groupId) {
+  public void setGroupId(@javax.annotation.Nonnull Integer groupId) {
     this.groupId = groupId;
   }
 
@@ -192,22 +193,18 @@ public class ConfigurationCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("group_id");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "group_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
-    openapiRequiredFields.add("group_id");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title", "group_id"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ConfigurationCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ConfigurationCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ConfigurationCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -299,22 +296,22 @@ public class ConfigurationCreate {
     }
   }
 
- /**
-  * Create an instance of ConfigurationCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ConfigurationCreate
-  * @throws IOException if the JSON string is invalid with respect to ConfigurationCreate
-  */
+  /**
+   * Create an instance of ConfigurationCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ConfigurationCreate
+   * @throws IOException if the JSON string is invalid with respect to ConfigurationCreate
+   */
   public static ConfigurationCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ConfigurationCreate.class);
   }
 
- /**
-  * Convert an instance of ConfigurationCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ConfigurationCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

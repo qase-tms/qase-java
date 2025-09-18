@@ -80,7 +80,8 @@ public class AuthorsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An author. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -90,7 +91,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAuthorCall(Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getAuthorCall(@javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -136,7 +137,7 @@ public class AuthorsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAuthorValidateBeforeCall(Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getAuthorValidateBeforeCall(@javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling getAuthor(Async)");
@@ -153,7 +154,8 @@ public class AuthorsApi {
      * @return AuthorResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An author. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -163,7 +165,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public AuthorResponse getAuthor(Integer id) throws ApiException {
+    public AuthorResponse getAuthor(@javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<AuthorResponse> localVarResp = getAuthorWithHttpInfo(id);
         return localVarResp.getData();
     }
@@ -175,7 +177,8 @@ public class AuthorsApi {
      * @return ApiResponse&lt;AuthorResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An author. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -185,7 +188,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AuthorResponse> getAuthorWithHttpInfo(Integer id) throws ApiException {
+    public ApiResponse<AuthorResponse> getAuthorWithHttpInfo(@javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = getAuthorValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<AuthorResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -199,7 +202,8 @@ public class AuthorsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An author. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -209,7 +213,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAuthorAsync(Integer id, final ApiCallback<AuthorResponse> _callback) throws ApiException {
+    public okhttp3.Call getAuthorAsync(@javax.annotation.Nonnull Integer id, final ApiCallback<AuthorResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getAuthorValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<AuthorResponse>(){}.getType();
@@ -226,7 +230,8 @@ public class AuthorsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Author list. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -236,7 +241,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAuthorsCall(String search, String type, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getAuthorsCall(@javax.annotation.Nullable String search, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -297,7 +302,7 @@ public class AuthorsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAuthorsValidateBeforeCall(String search, String type, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getAuthorsValidateBeforeCall(@javax.annotation.Nullable String search, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         return getAuthorsCall(search, type, limit, offset, _callback);
 
     }
@@ -312,7 +317,8 @@ public class AuthorsApi {
      * @return AuthorListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Author list. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -322,7 +328,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public AuthorListResponse getAuthors(String search, String type, Integer limit, Integer offset) throws ApiException {
+    public AuthorListResponse getAuthors(@javax.annotation.Nullable String search, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<AuthorListResponse> localVarResp = getAuthorsWithHttpInfo(search, type, limit, offset);
         return localVarResp.getData();
     }
@@ -337,7 +343,8 @@ public class AuthorsApi {
      * @return ApiResponse&lt;AuthorListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Author list. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -347,7 +354,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AuthorListResponse> getAuthorsWithHttpInfo(String search, String type, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<AuthorListResponse> getAuthorsWithHttpInfo(@javax.annotation.Nullable String search, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getAuthorsValidateBeforeCall(search, type, limit, offset, null);
         Type localVarReturnType = new TypeToken<AuthorListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -364,7 +371,8 @@ public class AuthorsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Author list. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -374,7 +382,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAuthorsAsync(String search, String type, Integer limit, Integer offset, final ApiCallback<AuthorListResponse> _callback) throws ApiException {
+    public okhttp3.Call getAuthorsAsync(@javax.annotation.Nullable String search, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<AuthorListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getAuthorsValidateBeforeCall(search, type, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<AuthorListResponse>(){}.getType();

@@ -33,6 +33,7 @@ import io.qase.client.v1.models.SharedParameterResponse;
 import io.qase.client.v1.models.SharedParameterUpdate;
 import java.util.UUID;
 import io.qase.client.v1.models.UuidResponse;
+import io.qase.client.v1.models.UuidResponse1;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -84,7 +85,8 @@ public class SharedParametersApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared parameter. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -95,7 +97,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createSharedParameterCall(SharedParameterCreate sharedParameterCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createSharedParameterCall(@javax.annotation.Nonnull SharedParameterCreate sharedParameterCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -141,7 +143,7 @@ public class SharedParametersApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createSharedParameterValidateBeforeCall(SharedParameterCreate sharedParameterCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createSharedParameterValidateBeforeCall(@javax.annotation.Nonnull SharedParameterCreate sharedParameterCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'sharedParameterCreate' is set
         if (sharedParameterCreate == null) {
             throw new ApiException("Missing the required parameter 'sharedParameterCreate' when calling createSharedParameter(Async)");
@@ -158,7 +160,8 @@ public class SharedParametersApi {
      * @return UuidResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared parameter. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -169,7 +172,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public UuidResponse createSharedParameter(SharedParameterCreate sharedParameterCreate) throws ApiException {
+    public UuidResponse createSharedParameter(@javax.annotation.Nonnull SharedParameterCreate sharedParameterCreate) throws ApiException {
         ApiResponse<UuidResponse> localVarResp = createSharedParameterWithHttpInfo(sharedParameterCreate);
         return localVarResp.getData();
     }
@@ -181,7 +184,8 @@ public class SharedParametersApi {
      * @return ApiResponse&lt;UuidResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared parameter. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -192,7 +196,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<UuidResponse> createSharedParameterWithHttpInfo(SharedParameterCreate sharedParameterCreate) throws ApiException {
+    public ApiResponse<UuidResponse> createSharedParameterWithHttpInfo(@javax.annotation.Nonnull SharedParameterCreate sharedParameterCreate) throws ApiException {
         okhttp3.Call localVarCall = createSharedParameterValidateBeforeCall(sharedParameterCreate, null);
         Type localVarReturnType = new TypeToken<UuidResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -206,7 +210,8 @@ public class SharedParametersApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared parameter. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -217,7 +222,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createSharedParameterAsync(SharedParameterCreate sharedParameterCreate, final ApiCallback<UuidResponse> _callback) throws ApiException {
+    public okhttp3.Call createSharedParameterAsync(@javax.annotation.Nonnull SharedParameterCreate sharedParameterCreate, final ApiCallback<UuidResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createSharedParameterValidateBeforeCall(sharedParameterCreate, _callback);
         Type localVarReturnType = new TypeToken<UuidResponse>(){}.getType();
@@ -231,7 +236,8 @@ public class SharedParametersApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -241,7 +247,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteSharedParameterCall(UUID id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteSharedParameterCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -287,7 +293,7 @@ public class SharedParametersApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteSharedParameterValidateBeforeCall(UUID id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteSharedParameterValidateBeforeCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling deleteSharedParameter(Async)");
@@ -301,10 +307,11 @@ public class SharedParametersApi {
      * Delete shared parameter
      * Delete shared parameter along with all its usages in test cases and reviews.
      * @param id Identifier. (required)
-     * @return UuidResponse
+     * @return UuidResponse1
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -314,8 +321,8 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public UuidResponse deleteSharedParameter(UUID id) throws ApiException {
-        ApiResponse<UuidResponse> localVarResp = deleteSharedParameterWithHttpInfo(id);
+    public UuidResponse1 deleteSharedParameter(@javax.annotation.Nonnull UUID id) throws ApiException {
+        ApiResponse<UuidResponse1> localVarResp = deleteSharedParameterWithHttpInfo(id);
         return localVarResp.getData();
     }
 
@@ -323,10 +330,11 @@ public class SharedParametersApi {
      * Delete shared parameter
      * Delete shared parameter along with all its usages in test cases and reviews.
      * @param id Identifier. (required)
-     * @return ApiResponse&lt;UuidResponse&gt;
+     * @return ApiResponse&lt;UuidResponse1&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -336,9 +344,9 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<UuidResponse> deleteSharedParameterWithHttpInfo(UUID id) throws ApiException {
+    public ApiResponse<UuidResponse1> deleteSharedParameterWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
         okhttp3.Call localVarCall = deleteSharedParameterValidateBeforeCall(id, null);
-        Type localVarReturnType = new TypeToken<UuidResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<UuidResponse1>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -350,7 +358,8 @@ public class SharedParametersApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -360,10 +369,10 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteSharedParameterAsync(UUID id, final ApiCallback<UuidResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteSharedParameterAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<UuidResponse1> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteSharedParameterValidateBeforeCall(id, _callback);
-        Type localVarReturnType = new TypeToken<UuidResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<UuidResponse1>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -374,7 +383,8 @@ public class SharedParametersApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared parameter. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -384,7 +394,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSharedParameterCall(UUID id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getSharedParameterCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -430,7 +440,7 @@ public class SharedParametersApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSharedParameterValidateBeforeCall(UUID id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSharedParameterValidateBeforeCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling getSharedParameter(Async)");
@@ -447,7 +457,8 @@ public class SharedParametersApi {
      * @return SharedParameterResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared parameter. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -457,7 +468,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public SharedParameterResponse getSharedParameter(UUID id) throws ApiException {
+    public SharedParameterResponse getSharedParameter(@javax.annotation.Nonnull UUID id) throws ApiException {
         ApiResponse<SharedParameterResponse> localVarResp = getSharedParameterWithHttpInfo(id);
         return localVarResp.getData();
     }
@@ -469,7 +480,8 @@ public class SharedParametersApi {
      * @return ApiResponse&lt;SharedParameterResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared parameter. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -479,7 +491,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<SharedParameterResponse> getSharedParameterWithHttpInfo(UUID id) throws ApiException {
+    public ApiResponse<SharedParameterResponse> getSharedParameterWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
         okhttp3.Call localVarCall = getSharedParameterValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<SharedParameterResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -493,7 +505,8 @@ public class SharedParametersApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared parameter. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -503,7 +516,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSharedParameterAsync(UUID id, final ApiCallback<SharedParameterResponse> _callback) throws ApiException {
+    public okhttp3.Call getSharedParameterAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<SharedParameterResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getSharedParameterValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<SharedParameterResponse>(){}.getType();
@@ -521,7 +534,8 @@ public class SharedParametersApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all shared parameters. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -531,7 +545,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSharedParametersCall(Integer limit, Integer offset, String filtersSearch, String filtersType, List<String> filtersProjectCodes, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getSharedParametersCall(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, @javax.annotation.Nullable String filtersSearch, @javax.annotation.Nullable String filtersType, @javax.annotation.Nullable List<String> filtersProjectCodes, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -596,7 +610,7 @@ public class SharedParametersApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSharedParametersValidateBeforeCall(Integer limit, Integer offset, String filtersSearch, String filtersType, List<String> filtersProjectCodes, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSharedParametersValidateBeforeCall(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, @javax.annotation.Nullable String filtersSearch, @javax.annotation.Nullable String filtersType, @javax.annotation.Nullable List<String> filtersProjectCodes, final ApiCallback _callback) throws ApiException {
         return getSharedParametersCall(limit, offset, filtersSearch, filtersType, filtersProjectCodes, _callback);
 
     }
@@ -612,7 +626,8 @@ public class SharedParametersApi {
      * @return SharedParameterListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all shared parameters. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -622,7 +637,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public SharedParameterListResponse getSharedParameters(Integer limit, Integer offset, String filtersSearch, String filtersType, List<String> filtersProjectCodes) throws ApiException {
+    public SharedParameterListResponse getSharedParameters(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, @javax.annotation.Nullable String filtersSearch, @javax.annotation.Nullable String filtersType, @javax.annotation.Nullable List<String> filtersProjectCodes) throws ApiException {
         ApiResponse<SharedParameterListResponse> localVarResp = getSharedParametersWithHttpInfo(limit, offset, filtersSearch, filtersType, filtersProjectCodes);
         return localVarResp.getData();
     }
@@ -638,7 +653,8 @@ public class SharedParametersApi {
      * @return ApiResponse&lt;SharedParameterListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all shared parameters. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -648,7 +664,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<SharedParameterListResponse> getSharedParametersWithHttpInfo(Integer limit, Integer offset, String filtersSearch, String filtersType, List<String> filtersProjectCodes) throws ApiException {
+    public ApiResponse<SharedParameterListResponse> getSharedParametersWithHttpInfo(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, @javax.annotation.Nullable String filtersSearch, @javax.annotation.Nullable String filtersType, @javax.annotation.Nullable List<String> filtersProjectCodes) throws ApiException {
         okhttp3.Call localVarCall = getSharedParametersValidateBeforeCall(limit, offset, filtersSearch, filtersType, filtersProjectCodes, null);
         Type localVarReturnType = new TypeToken<SharedParameterListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -666,7 +682,8 @@ public class SharedParametersApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all shared parameters. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -676,7 +693,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSharedParametersAsync(Integer limit, Integer offset, String filtersSearch, String filtersType, List<String> filtersProjectCodes, final ApiCallback<SharedParameterListResponse> _callback) throws ApiException {
+    public okhttp3.Call getSharedParametersAsync(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, @javax.annotation.Nullable String filtersSearch, @javax.annotation.Nullable String filtersType, @javax.annotation.Nullable List<String> filtersProjectCodes, final ApiCallback<SharedParameterListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getSharedParametersValidateBeforeCall(limit, offset, filtersSearch, filtersType, filtersProjectCodes, _callback);
         Type localVarReturnType = new TypeToken<SharedParameterListResponse>(){}.getType();
@@ -691,7 +708,8 @@ public class SharedParametersApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -701,7 +719,7 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateSharedParameterCall(UUID id, SharedParameterUpdate sharedParameterUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateSharedParameterCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull SharedParameterUpdate sharedParameterUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -748,7 +766,7 @@ public class SharedParametersApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateSharedParameterValidateBeforeCall(UUID id, SharedParameterUpdate sharedParameterUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateSharedParameterValidateBeforeCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull SharedParameterUpdate sharedParameterUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling updateSharedParameter(Async)");
@@ -768,10 +786,11 @@ public class SharedParametersApi {
      * 
      * @param id Identifier. (required)
      * @param sharedParameterUpdate  (required)
-     * @return UuidResponse
+     * @return UuidResponse1
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -781,8 +800,8 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public UuidResponse updateSharedParameter(UUID id, SharedParameterUpdate sharedParameterUpdate) throws ApiException {
-        ApiResponse<UuidResponse> localVarResp = updateSharedParameterWithHttpInfo(id, sharedParameterUpdate);
+    public UuidResponse1 updateSharedParameter(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull SharedParameterUpdate sharedParameterUpdate) throws ApiException {
+        ApiResponse<UuidResponse1> localVarResp = updateSharedParameterWithHttpInfo(id, sharedParameterUpdate);
         return localVarResp.getData();
     }
 
@@ -791,10 +810,11 @@ public class SharedParametersApi {
      * 
      * @param id Identifier. (required)
      * @param sharedParameterUpdate  (required)
-     * @return ApiResponse&lt;UuidResponse&gt;
+     * @return ApiResponse&lt;UuidResponse1&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -804,9 +824,9 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<UuidResponse> updateSharedParameterWithHttpInfo(UUID id, SharedParameterUpdate sharedParameterUpdate) throws ApiException {
+    public ApiResponse<UuidResponse1> updateSharedParameterWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull SharedParameterUpdate sharedParameterUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateSharedParameterValidateBeforeCall(id, sharedParameterUpdate, null);
-        Type localVarReturnType = new TypeToken<UuidResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<UuidResponse1>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -819,7 +839,8 @@ public class SharedParametersApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -829,10 +850,10 @@ public class SharedParametersApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateSharedParameterAsync(UUID id, SharedParameterUpdate sharedParameterUpdate, final ApiCallback<UuidResponse> _callback) throws ApiException {
+    public okhttp3.Call updateSharedParameterAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull SharedParameterUpdate sharedParameterUpdate, final ApiCallback<UuidResponse1> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateSharedParameterValidateBeforeCall(id, sharedParameterUpdate, _callback);
-        Type localVarReturnType = new TypeToken<UuidResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<UuidResponse1>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

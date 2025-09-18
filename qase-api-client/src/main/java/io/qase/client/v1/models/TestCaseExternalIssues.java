@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,16 +51,16 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseExternalIssues
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestCaseExternalIssues {
   /**
    * Gets or Sets type
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
-    CLOUD("jira-cloud"),
+    JIRA_CLOUD("jira-cloud"),
     
-    SERVER("jira-server");
+    JIRA_SERVER("jira-server");
 
     private String value;
 
@@ -108,35 +107,37 @@ public class TestCaseExternalIssues {
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nonnull
   private TypeEnum type;
 
   public static final String SERIALIZED_NAME_LINKS = "links";
   @SerializedName(SERIALIZED_NAME_LINKS)
+  @javax.annotation.Nonnull
   private List<TestCaseExternalIssuesLinksInner> links = new ArrayList<>();
 
   public TestCaseExternalIssues() {
   }
 
-  public TestCaseExternalIssues type(TypeEnum type) {
+  public TestCaseExternalIssues type(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nonnull
   public TypeEnum getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
   }
 
 
-  public TestCaseExternalIssues links(List<TestCaseExternalIssuesLinksInner> links) {
+  public TestCaseExternalIssues links(@javax.annotation.Nonnull List<TestCaseExternalIssuesLinksInner> links) {
     this.links = links;
     return this;
   }
@@ -149,16 +150,16 @@ public class TestCaseExternalIssues {
     return this;
   }
 
-   /**
+  /**
    * Get links
    * @return links
-  **/
+   */
   @javax.annotation.Nonnull
   public List<TestCaseExternalIssuesLinksInner> getLinks() {
     return links;
   }
 
-  public void setLinks(List<TestCaseExternalIssuesLinksInner> links) {
+  public void setLinks(@javax.annotation.Nonnull List<TestCaseExternalIssuesLinksInner> links) {
     this.links = links;
   }
 
@@ -216,10 +217,10 @@ public class TestCaseExternalIssues {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TestCaseExternalIssues TestCaseExternalIssues = (TestCaseExternalIssues) o;
-    return Objects.equals(this.type, TestCaseExternalIssues.type) &&
-        Objects.equals(this.links, TestCaseExternalIssues.links)&&
-        Objects.equals(this.additionalProperties, TestCaseExternalIssues.additionalProperties);
+    TestCaseExternalIssues testCaseExternalIssues = (TestCaseExternalIssues) o;
+    return Objects.equals(this.type, testCaseExternalIssues.type) &&
+        Objects.equals(this.links, testCaseExternalIssues.links)&&
+        Objects.equals(this.additionalProperties, testCaseExternalIssues.additionalProperties);
   }
 
   @Override
@@ -255,22 +256,18 @@ public class TestCaseExternalIssues {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("type");
-    openapiFields.add("links");
+    openapiFields = new HashSet<String>(Arrays.asList("type", "links"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("links");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("type", "links"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestCaseExternalIssues
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestCaseExternalIssues
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCaseExternalIssues.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -374,22 +371,22 @@ public class TestCaseExternalIssues {
     }
   }
 
- /**
-  * Create an instance of TestCaseExternalIssues given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestCaseExternalIssues
-  * @throws IOException if the JSON string is invalid with respect to TestCaseExternalIssues
-  */
+  /**
+   * Create an instance of TestCaseExternalIssues given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestCaseExternalIssues
+   * @throws IOException if the JSON string is invalid with respect to TestCaseExternalIssues
+   */
   public static TestCaseExternalIssues fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestCaseExternalIssues.class);
   }
 
- /**
-  * Convert an instance of TestCaseExternalIssues to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestCaseExternalIssues to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

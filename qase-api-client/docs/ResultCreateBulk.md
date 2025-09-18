@@ -1,6 +1,6 @@
 
 
-# ResultcreateBulk
+# ResultCreateBulk
 
 
 ## Properties

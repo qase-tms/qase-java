@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,76 +49,79 @@ import io.qase.client.v1.JSON;
 /**
  * Project
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Project {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_CODE = "code";
   @SerializedName(SERIALIZED_NAME_CODE)
+  @javax.annotation.Nullable
   private String code;
 
   public static final String SERIALIZED_NAME_COUNTS = "counts";
   @SerializedName(SERIALIZED_NAME_COUNTS)
+  @javax.annotation.Nullable
   private ProjectCounts counts;
 
   public Project() {
   }
 
-  public Project title(String title) {
+  public Project title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public Project code(String code) {
+  public Project code(@javax.annotation.Nullable String code) {
     this.code = code;
     return this;
   }
 
-   /**
+  /**
    * Get code
    * @return code
-  **/
+   */
   @javax.annotation.Nullable
   public String getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(@javax.annotation.Nullable String code) {
     this.code = code;
   }
 
 
-  public Project counts(ProjectCounts counts) {
+  public Project counts(@javax.annotation.Nullable ProjectCounts counts) {
     this.counts = counts;
     return this;
   }
 
-   /**
+  /**
    * Get counts
    * @return counts
-  **/
+   */
   @javax.annotation.Nullable
   public ProjectCounts getCounts() {
     return counts;
   }
 
-  public void setCounts(ProjectCounts counts) {
+  public void setCounts(@javax.annotation.Nullable ProjectCounts counts) {
     this.counts = counts;
   }
 
@@ -218,21 +220,18 @@ public class Project {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("code");
-    openapiFields.add("counts");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "code", "counts"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Project
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Project
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Project.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -324,22 +323,22 @@ public class Project {
     }
   }
 
- /**
-  * Create an instance of Project given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Project
-  * @throws IOException if the JSON string is invalid with respect to Project
-  */
+  /**
+   * Create an instance of Project given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Project
+   * @throws IOException if the JSON string is invalid with respect to Project
+   */
   public static Project fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Project.class);
   }
 
- /**
-  * Convert an instance of Project to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Project to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

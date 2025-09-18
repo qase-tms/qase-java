@@ -44,7 +44,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -56,206 +55,220 @@ import io.qase.client.v1.JSON;
 /**
  * ResultCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultCreate {
   public static final String SERIALIZED_NAME_CASE_ID = "case_id";
   @SerializedName(SERIALIZED_NAME_CASE_ID)
+  @javax.annotation.Nullable
   private Long caseId;
 
   public static final String SERIALIZED_NAME_CASE = "case";
   @SerializedName(SERIALIZED_NAME_CASE)
+  @javax.annotation.Nullable
   private ResultCreateCase _case;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nonnull
   private String status;
 
   public static final String SERIALIZED_NAME_START_TIME = "start_time";
   @SerializedName(SERIALIZED_NAME_START_TIME)
+  @javax.annotation.Nullable
   private Integer startTime;
 
   public static final String SERIALIZED_NAME_TIME = "time";
   @SerializedName(SERIALIZED_NAME_TIME)
+  @javax.annotation.Nullable
   private Long time;
 
   public static final String SERIALIZED_NAME_TIME_MS = "time_ms";
   @SerializedName(SERIALIZED_NAME_TIME_MS)
+  @javax.annotation.Nullable
   private Long timeMs;
 
   public static final String SERIALIZED_NAME_DEFECT = "defect";
   @SerializedName(SERIALIZED_NAME_DEFECT)
+  @javax.annotation.Nullable
   private Boolean defect;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+  @javax.annotation.Nullable
   private List<String> attachments;
 
   public static final String SERIALIZED_NAME_STACKTRACE = "stacktrace";
   @SerializedName(SERIALIZED_NAME_STACKTRACE)
+  @javax.annotation.Nullable
   private String stacktrace;
 
   public static final String SERIALIZED_NAME_COMMENT = "comment";
   @SerializedName(SERIALIZED_NAME_COMMENT)
+  @javax.annotation.Nullable
   private String comment;
 
   public static final String SERIALIZED_NAME_PARAM = "param";
   @SerializedName(SERIALIZED_NAME_PARAM)
+  @javax.annotation.Nullable
   private Map<String, String> param;
 
   public static final String SERIALIZED_NAME_PARAM_GROUPS = "param_groups";
   @SerializedName(SERIALIZED_NAME_PARAM_GROUPS)
+  @javax.annotation.Nullable
   private List<List<String>> paramGroups;
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
+  @javax.annotation.Nullable
   private List<TestStepResultCreate> steps;
 
   public static final String SERIALIZED_NAME_AUTHOR_ID = "author_id";
   @SerializedName(SERIALIZED_NAME_AUTHOR_ID)
+  @javax.annotation.Nullable
   private Long authorId;
 
   public ResultCreate() {
   }
 
-  public ResultCreate caseId(Long caseId) {
+  public ResultCreate caseId(@javax.annotation.Nullable Long caseId) {
     this.caseId = caseId;
     return this;
   }
 
-   /**
+  /**
    * Get caseId
    * @return caseId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getCaseId() {
     return caseId;
   }
 
-  public void setCaseId(Long caseId) {
+  public void setCaseId(@javax.annotation.Nullable Long caseId) {
     this.caseId = caseId;
   }
 
 
-  public ResultCreate _case(ResultCreateCase _case) {
+  public ResultCreate _case(@javax.annotation.Nullable ResultCreateCase _case) {
     this._case = _case;
     return this;
   }
 
-   /**
+  /**
    * Get _case
    * @return _case
-  **/
+   */
   @javax.annotation.Nullable
   public ResultCreateCase getCase() {
     return _case;
   }
 
-  public void setCase(ResultCreateCase _case) {
+  public void setCase(@javax.annotation.Nullable ResultCreateCase _case) {
     this._case = _case;
   }
 
 
-  public ResultCreate status(String status) {
+  public ResultCreate status(@javax.annotation.Nonnull String status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Can have the following values &#x60;passed&#x60;, &#x60;failed&#x60;, &#x60;blocked&#x60;, &#x60;skipped&#x60;, &#x60;invalid&#x60; + custom statuses
    * @return status
-  **/
+   */
   @javax.annotation.Nonnull
   public String getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(@javax.annotation.Nonnull String status) {
     this.status = status;
   }
 
 
-  public ResultCreate startTime(Integer startTime) {
+  public ResultCreate startTime(@javax.annotation.Nullable Integer startTime) {
     this.startTime = startTime;
     return this;
   }
 
-   /**
+  /**
    * Get startTime
    * minimum: 0
    * @return startTime
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(Integer startTime) {
+  public void setStartTime(@javax.annotation.Nullable Integer startTime) {
     this.startTime = startTime;
   }
 
 
-  public ResultCreate time(Long time) {
+  public ResultCreate time(@javax.annotation.Nullable Long time) {
     this.time = time;
     return this;
   }
 
-   /**
+  /**
    * Get time
    * minimum: 0
    * maximum: 31536000
    * @return time
-  **/
+   */
   @javax.annotation.Nullable
   public Long getTime() {
     return time;
   }
 
-  public void setTime(Long time) {
+  public void setTime(@javax.annotation.Nullable Long time) {
     this.time = time;
   }
 
 
-  public ResultCreate timeMs(Long timeMs) {
+  public ResultCreate timeMs(@javax.annotation.Nullable Long timeMs) {
     this.timeMs = timeMs;
     return this;
   }
 
-   /**
+  /**
    * Get timeMs
    * minimum: 0
    * maximum: 31536000000
    * @return timeMs
-  **/
+   */
   @javax.annotation.Nullable
   public Long getTimeMs() {
     return timeMs;
   }
 
-  public void setTimeMs(Long timeMs) {
+  public void setTimeMs(@javax.annotation.Nullable Long timeMs) {
     this.timeMs = timeMs;
   }
 
 
-  public ResultCreate defect(Boolean defect) {
+  public ResultCreate defect(@javax.annotation.Nullable Boolean defect) {
     this.defect = defect;
     return this;
   }
 
-   /**
+  /**
    * Get defect
    * @return defect
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getDefect() {
     return defect;
   }
 
-  public void setDefect(Boolean defect) {
+  public void setDefect(@javax.annotation.Nullable Boolean defect) {
     this.defect = defect;
   }
 
 
-  public ResultCreate attachments(List<String> attachments) {
+  public ResultCreate attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -268,59 +281,59 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
 
-  public ResultCreate stacktrace(String stacktrace) {
+  public ResultCreate stacktrace(@javax.annotation.Nullable String stacktrace) {
     this.stacktrace = stacktrace;
     return this;
   }
 
-   /**
+  /**
    * Get stacktrace
    * @return stacktrace
-  **/
+   */
   @javax.annotation.Nullable
   public String getStacktrace() {
     return stacktrace;
   }
 
-  public void setStacktrace(String stacktrace) {
+  public void setStacktrace(@javax.annotation.Nullable String stacktrace) {
     this.stacktrace = stacktrace;
   }
 
 
-  public ResultCreate comment(String comment) {
+  public ResultCreate comment(@javax.annotation.Nullable String comment) {
     this.comment = comment;
     return this;
   }
 
-   /**
+  /**
    * Get comment
    * @return comment
-  **/
+   */
   @javax.annotation.Nullable
   public String getComment() {
     return comment;
   }
 
-  public void setComment(String comment) {
+  public void setComment(@javax.annotation.Nullable String comment) {
     this.comment = comment;
   }
 
 
-  public ResultCreate param(Map<String, String> param) {
+  public ResultCreate param(@javax.annotation.Nullable Map<String, String> param) {
     this.param = param;
     return this;
   }
@@ -333,21 +346,21 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * A map of parameters (name &#x3D;&gt; value)
    * @return param
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, String> getParam() {
     return param;
   }
 
-  public void setParam(Map<String, String> param) {
+  public void setParam(@javax.annotation.Nullable Map<String, String> param) {
     this.param = param;
   }
 
 
-  public ResultCreate paramGroups(List<List<String>> paramGroups) {
+  public ResultCreate paramGroups(@javax.annotation.Nullable List<List<String>> paramGroups) {
     this.paramGroups = paramGroups;
     return this;
   }
@@ -360,21 +373,21 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * List parameter groups by name only. Add their values in the &#39;param&#39; field
    * @return paramGroups
-  **/
+   */
   @javax.annotation.Nullable
   public List<List<String>> getParamGroups() {
     return paramGroups;
   }
 
-  public void setParamGroups(List<List<String>> paramGroups) {
+  public void setParamGroups(@javax.annotation.Nullable List<List<String>> paramGroups) {
     this.paramGroups = paramGroups;
   }
 
 
-  public ResultCreate steps(List<TestStepResultCreate> steps) {
+  public ResultCreate steps(@javax.annotation.Nullable List<TestStepResultCreate> steps) {
     this.steps = steps;
     return this;
   }
@@ -387,35 +400,35 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * Get steps
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<TestStepResultCreate> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<TestStepResultCreate> steps) {
+  public void setSteps(@javax.annotation.Nullable List<TestStepResultCreate> steps) {
     this.steps = steps;
   }
 
 
-  public ResultCreate authorId(Long authorId) {
+  public ResultCreate authorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
     return this;
   }
 
-   /**
+  /**
    * Get authorId
    * @return authorId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getAuthorId() {
     return authorId;
   }
 
-  public void setAuthorId(Long authorId) {
+  public void setAuthorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
   }
 
@@ -547,33 +560,18 @@ public class ResultCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("case_id");
-    openapiFields.add("case");
-    openapiFields.add("status");
-    openapiFields.add("start_time");
-    openapiFields.add("time");
-    openapiFields.add("time_ms");
-    openapiFields.add("defect");
-    openapiFields.add("attachments");
-    openapiFields.add("stacktrace");
-    openapiFields.add("comment");
-    openapiFields.add("param");
-    openapiFields.add("param_groups");
-    openapiFields.add("steps");
-    openapiFields.add("author_id");
+    openapiFields = new HashSet<String>(Arrays.asList("case_id", "case", "status", "start_time", "time", "time_ms", "defect", "attachments", "stacktrace", "comment", "param", "param_groups", "steps", "author_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("status");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("status"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -697,22 +695,22 @@ public class ResultCreate {
     }
   }
 
- /**
-  * Create an instance of ResultCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultCreate
-  * @throws IOException if the JSON string is invalid with respect to ResultCreate
-  */
+  /**
+   * Create an instance of ResultCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultCreate
+   * @throws IOException if the JSON string is invalid with respect to ResultCreate
+   */
   public static ResultCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultCreate.class);
   }
 
- /**
-  * Convert an instance of ResultCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

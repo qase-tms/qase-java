@@ -43,7 +43,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -55,71 +54,81 @@ import io.qase.client.v1.JSON;
 /**
  * CustomFieldUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class CustomFieldUpdate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_VALUE = "value";
   @SerializedName(SERIALIZED_NAME_VALUE)
+  @javax.annotation.Nullable
   private List<CustomFieldCreateValueInner> value;
 
   public static final String SERIALIZED_NAME_REPLACE_VALUES = "replace_values";
   @SerializedName(SERIALIZED_NAME_REPLACE_VALUES)
+  @javax.annotation.Nullable
   private Map<String, String> replaceValues;
 
   public static final String SERIALIZED_NAME_PLACEHOLDER = "placeholder";
   @SerializedName(SERIALIZED_NAME_PLACEHOLDER)
+  @javax.annotation.Nullable
   private String placeholder;
 
   public static final String SERIALIZED_NAME_DEFAULT_VALUE = "default_value";
   @SerializedName(SERIALIZED_NAME_DEFAULT_VALUE)
+  @javax.annotation.Nullable
   private String defaultValue;
 
   public static final String SERIALIZED_NAME_IS_FILTERABLE = "is_filterable";
   @SerializedName(SERIALIZED_NAME_IS_FILTERABLE)
+  @javax.annotation.Nullable
   private Boolean isFilterable;
 
   public static final String SERIALIZED_NAME_IS_VISIBLE = "is_visible";
   @SerializedName(SERIALIZED_NAME_IS_VISIBLE)
+  @javax.annotation.Nullable
   private Boolean isVisible;
 
   public static final String SERIALIZED_NAME_IS_REQUIRED = "is_required";
   @SerializedName(SERIALIZED_NAME_IS_REQUIRED)
+  @javax.annotation.Nullable
   private Boolean isRequired;
 
   public static final String SERIALIZED_NAME_IS_ENABLED_FOR_ALL_PROJECTS = "is_enabled_for_all_projects";
   @SerializedName(SERIALIZED_NAME_IS_ENABLED_FOR_ALL_PROJECTS)
+  @javax.annotation.Nullable
   private Boolean isEnabledForAllProjects;
 
   public static final String SERIALIZED_NAME_PROJECTS_CODES = "projects_codes";
   @SerializedName(SERIALIZED_NAME_PROJECTS_CODES)
-  private List<String> projectsCodes;
+  @javax.annotation.Nullable
+  private List<String> projectsCodes = new ArrayList<>();
 
   public CustomFieldUpdate() {
   }
 
-  public CustomFieldUpdate title(String title) {
+  public CustomFieldUpdate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public CustomFieldUpdate value(List<CustomFieldCreateValueInner> value) {
+  public CustomFieldUpdate value(@javax.annotation.Nullable List<CustomFieldCreateValueInner> value) {
     this.value = value;
     return this;
   }
@@ -132,21 +141,21 @@ public class CustomFieldUpdate {
     return this;
   }
 
-   /**
+  /**
    * Get value
    * @return value
-  **/
+   */
   @javax.annotation.Nullable
   public List<CustomFieldCreateValueInner> getValue() {
     return value;
   }
 
-  public void setValue(List<CustomFieldCreateValueInner> value) {
+  public void setValue(@javax.annotation.Nullable List<CustomFieldCreateValueInner> value) {
     this.value = value;
   }
 
 
-  public CustomFieldUpdate replaceValues(Map<String, String> replaceValues) {
+  public CustomFieldUpdate replaceValues(@javax.annotation.Nullable Map<String, String> replaceValues) {
     this.replaceValues = replaceValues;
     return this;
   }
@@ -159,135 +168,135 @@ public class CustomFieldUpdate {
     return this;
   }
 
-   /**
+  /**
    * Dictionary of old values and their replacemants
    * @return replaceValues
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, String> getReplaceValues() {
     return replaceValues;
   }
 
-  public void setReplaceValues(Map<String, String> replaceValues) {
+  public void setReplaceValues(@javax.annotation.Nullable Map<String, String> replaceValues) {
     this.replaceValues = replaceValues;
   }
 
 
-  public CustomFieldUpdate placeholder(String placeholder) {
+  public CustomFieldUpdate placeholder(@javax.annotation.Nullable String placeholder) {
     this.placeholder = placeholder;
     return this;
   }
 
-   /**
+  /**
    * Get placeholder
    * @return placeholder
-  **/
+   */
   @javax.annotation.Nullable
   public String getPlaceholder() {
     return placeholder;
   }
 
-  public void setPlaceholder(String placeholder) {
+  public void setPlaceholder(@javax.annotation.Nullable String placeholder) {
     this.placeholder = placeholder;
   }
 
 
-  public CustomFieldUpdate defaultValue(String defaultValue) {
+  public CustomFieldUpdate defaultValue(@javax.annotation.Nullable String defaultValue) {
     this.defaultValue = defaultValue;
     return this;
   }
 
-   /**
+  /**
    * Get defaultValue
    * @return defaultValue
-  **/
+   */
   @javax.annotation.Nullable
   public String getDefaultValue() {
     return defaultValue;
   }
 
-  public void setDefaultValue(String defaultValue) {
+  public void setDefaultValue(@javax.annotation.Nullable String defaultValue) {
     this.defaultValue = defaultValue;
   }
 
 
-  public CustomFieldUpdate isFilterable(Boolean isFilterable) {
+  public CustomFieldUpdate isFilterable(@javax.annotation.Nullable Boolean isFilterable) {
     this.isFilterable = isFilterable;
     return this;
   }
 
-   /**
+  /**
    * Get isFilterable
    * @return isFilterable
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsFilterable() {
     return isFilterable;
   }
 
-  public void setIsFilterable(Boolean isFilterable) {
+  public void setIsFilterable(@javax.annotation.Nullable Boolean isFilterable) {
     this.isFilterable = isFilterable;
   }
 
 
-  public CustomFieldUpdate isVisible(Boolean isVisible) {
+  public CustomFieldUpdate isVisible(@javax.annotation.Nullable Boolean isVisible) {
     this.isVisible = isVisible;
     return this;
   }
 
-   /**
+  /**
    * Get isVisible
    * @return isVisible
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsVisible() {
     return isVisible;
   }
 
-  public void setIsVisible(Boolean isVisible) {
+  public void setIsVisible(@javax.annotation.Nullable Boolean isVisible) {
     this.isVisible = isVisible;
   }
 
 
-  public CustomFieldUpdate isRequired(Boolean isRequired) {
+  public CustomFieldUpdate isRequired(@javax.annotation.Nullable Boolean isRequired) {
     this.isRequired = isRequired;
     return this;
   }
 
-   /**
+  /**
    * Get isRequired
    * @return isRequired
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsRequired() {
     return isRequired;
   }
 
-  public void setIsRequired(Boolean isRequired) {
+  public void setIsRequired(@javax.annotation.Nullable Boolean isRequired) {
     this.isRequired = isRequired;
   }
 
 
-  public CustomFieldUpdate isEnabledForAllProjects(Boolean isEnabledForAllProjects) {
+  public CustomFieldUpdate isEnabledForAllProjects(@javax.annotation.Nullable Boolean isEnabledForAllProjects) {
     this.isEnabledForAllProjects = isEnabledForAllProjects;
     return this;
   }
 
-   /**
+  /**
    * Get isEnabledForAllProjects
    * @return isEnabledForAllProjects
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsEnabledForAllProjects() {
     return isEnabledForAllProjects;
   }
 
-  public void setIsEnabledForAllProjects(Boolean isEnabledForAllProjects) {
+  public void setIsEnabledForAllProjects(@javax.annotation.Nullable Boolean isEnabledForAllProjects) {
     this.isEnabledForAllProjects = isEnabledForAllProjects;
   }
 
 
-  public CustomFieldUpdate projectsCodes(List<String> projectsCodes) {
+  public CustomFieldUpdate projectsCodes(@javax.annotation.Nullable List<String> projectsCodes) {
     this.projectsCodes = projectsCodes;
     return this;
   }
@@ -300,16 +309,16 @@ public class CustomFieldUpdate {
     return this;
   }
 
-   /**
+  /**
    * Get projectsCodes
    * @return projectsCodes
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getProjectsCodes() {
     return projectsCodes;
   }
 
-  public void setProjectsCodes(List<String> projectsCodes) {
+  public void setProjectsCodes(@javax.annotation.Nullable List<String> projectsCodes) {
     this.projectsCodes = projectsCodes;
   }
 
@@ -433,29 +442,18 @@ public class CustomFieldUpdate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("value");
-    openapiFields.add("replace_values");
-    openapiFields.add("placeholder");
-    openapiFields.add("default_value");
-    openapiFields.add("is_filterable");
-    openapiFields.add("is_visible");
-    openapiFields.add("is_required");
-    openapiFields.add("is_enabled_for_all_projects");
-    openapiFields.add("projects_codes");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "value", "replace_values", "placeholder", "default_value", "is_filterable", "is_visible", "is_required", "is_enabled_for_all_projects", "projects_codes"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CustomFieldUpdate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to CustomFieldUpdate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!CustomFieldUpdate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -571,22 +569,22 @@ public class CustomFieldUpdate {
     }
   }
 
- /**
-  * Create an instance of CustomFieldUpdate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of CustomFieldUpdate
-  * @throws IOException if the JSON string is invalid with respect to CustomFieldUpdate
-  */
+  /**
+   * Create an instance of CustomFieldUpdate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of CustomFieldUpdate
+   * @throws IOException if the JSON string is invalid with respect to CustomFieldUpdate
+   */
   public static CustomFieldUpdate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, CustomFieldUpdate.class);
   }
 
- /**
-  * Convert an instance of CustomFieldUpdate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of CustomFieldUpdate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

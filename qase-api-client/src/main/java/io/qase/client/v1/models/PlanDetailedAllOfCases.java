@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,53 +49,55 @@ import io.qase.client.v1.JSON;
 /**
  * PlanDetailedAllOfCases
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class PlanDetailedAllOfCases {
   public static final String SERIALIZED_NAME_CASE_ID = "case_id";
   @SerializedName(SERIALIZED_NAME_CASE_ID)
+  @javax.annotation.Nullable
   private Long caseId;
 
   public static final String SERIALIZED_NAME_ASSIGNEE_ID = "assignee_id";
   @SerializedName(SERIALIZED_NAME_ASSIGNEE_ID)
+  @javax.annotation.Nullable
   private Long assigneeId;
 
   public PlanDetailedAllOfCases() {
   }
 
-  public PlanDetailedAllOfCases caseId(Long caseId) {
+  public PlanDetailedAllOfCases caseId(@javax.annotation.Nullable Long caseId) {
     this.caseId = caseId;
     return this;
   }
 
-   /**
+  /**
    * Get caseId
    * @return caseId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getCaseId() {
     return caseId;
   }
 
-  public void setCaseId(Long caseId) {
+  public void setCaseId(@javax.annotation.Nullable Long caseId) {
     this.caseId = caseId;
   }
 
 
-  public PlanDetailedAllOfCases assigneeId(Long assigneeId) {
+  public PlanDetailedAllOfCases assigneeId(@javax.annotation.Nullable Long assigneeId) {
     this.assigneeId = assigneeId;
     return this;
   }
 
-   /**
+  /**
    * Get assigneeId
    * @return assigneeId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getAssigneeId() {
     return assigneeId;
   }
 
-  public void setAssigneeId(Long assigneeId) {
+  public void setAssigneeId(@javax.annotation.Nullable Long assigneeId) {
     this.assigneeId = assigneeId;
   }
 
@@ -204,20 +205,18 @@ public class PlanDetailedAllOfCases {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("case_id");
-    openapiFields.add("assignee_id");
+    openapiFields = new HashSet<String>(Arrays.asList("case_id", "assignee_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to PlanDetailedAllOfCases
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to PlanDetailedAllOfCases
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!PlanDetailedAllOfCases.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -299,22 +298,22 @@ public class PlanDetailedAllOfCases {
     }
   }
 
- /**
-  * Create an instance of PlanDetailedAllOfCases given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of PlanDetailedAllOfCases
-  * @throws IOException if the JSON string is invalid with respect to PlanDetailedAllOfCases
-  */
+  /**
+   * Create an instance of PlanDetailedAllOfCases given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of PlanDetailedAllOfCases
+   * @throws IOException if the JSON string is invalid with respect to PlanDetailedAllOfCases
+   */
   public static PlanDetailedAllOfCases fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, PlanDetailedAllOfCases.class);
   }
 
- /**
-  * Convert an instance of PlanDetailedAllOfCases to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of PlanDetailedAllOfCases to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

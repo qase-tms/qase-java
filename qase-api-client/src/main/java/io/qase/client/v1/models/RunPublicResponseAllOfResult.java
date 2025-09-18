@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,30 +49,31 @@ import io.qase.client.v1.JSON;
 /**
  * RunPublicResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class RunPublicResponseAllOfResult {
   public static final String SERIALIZED_NAME_URL = "url";
   @SerializedName(SERIALIZED_NAME_URL)
+  @javax.annotation.Nullable
   private URI url;
 
   public RunPublicResponseAllOfResult() {
   }
 
-  public RunPublicResponseAllOfResult url(URI url) {
+  public RunPublicResponseAllOfResult url(@javax.annotation.Nullable URI url) {
     this.url = url;
     return this;
   }
 
-   /**
+  /**
    * Get url
    * @return url
-  **/
+   */
   @javax.annotation.Nullable
   public URI getUrl() {
     return url;
   }
 
-  public void setUrl(URI url) {
+  public void setUrl(@javax.annotation.Nullable URI url) {
     this.url = url;
   }
 
@@ -168,19 +168,18 @@ public class RunPublicResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("url");
+    openapiFields = new HashSet<String>(Arrays.asList("url"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RunPublicResponseAllOfResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RunPublicResponseAllOfResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!RunPublicResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -265,22 +264,22 @@ public class RunPublicResponseAllOfResult {
     }
   }
 
- /**
-  * Create an instance of RunPublicResponseAllOfResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RunPublicResponseAllOfResult
-  * @throws IOException if the JSON string is invalid with respect to RunPublicResponseAllOfResult
-  */
+  /**
+   * Create an instance of RunPublicResponseAllOfResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RunPublicResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to RunPublicResponseAllOfResult
+   */
   public static RunPublicResponseAllOfResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, RunPublicResponseAllOfResult.class);
   }
 
- /**
-  * Convert an instance of RunPublicResponseAllOfResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RunPublicResponseAllOfResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

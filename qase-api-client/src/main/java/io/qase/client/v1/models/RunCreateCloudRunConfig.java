@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +48,7 @@ import io.qase.client.v1.JSON;
 /**
  * Configuration for the cloud run, if applicable
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class RunCreateCloudRunConfig {
   /**
    * The browser to be used for the cloud run
@@ -107,26 +106,27 @@ public class RunCreateCloudRunConfig {
 
   public static final String SERIALIZED_NAME_BROWSER = "browser";
   @SerializedName(SERIALIZED_NAME_BROWSER)
+  @javax.annotation.Nullable
   private BrowserEnum browser;
 
   public RunCreateCloudRunConfig() {
   }
 
-  public RunCreateCloudRunConfig browser(BrowserEnum browser) {
+  public RunCreateCloudRunConfig browser(@javax.annotation.Nullable BrowserEnum browser) {
     this.browser = browser;
     return this;
   }
 
-   /**
+  /**
    * The browser to be used for the cloud run
    * @return browser
-  **/
+   */
   @javax.annotation.Nullable
   public BrowserEnum getBrowser() {
     return browser;
   }
 
-  public void setBrowser(BrowserEnum browser) {
+  public void setBrowser(@javax.annotation.Nullable BrowserEnum browser) {
     this.browser = browser;
   }
 
@@ -221,19 +221,18 @@ public class RunCreateCloudRunConfig {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("browser");
+    openapiFields = new HashSet<String>(Arrays.asList("browser"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RunCreateCloudRunConfig
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RunCreateCloudRunConfig
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!RunCreateCloudRunConfig.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -322,22 +321,22 @@ public class RunCreateCloudRunConfig {
     }
   }
 
- /**
-  * Create an instance of RunCreateCloudRunConfig given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RunCreateCloudRunConfig
-  * @throws IOException if the JSON string is invalid with respect to RunCreateCloudRunConfig
-  */
+  /**
+   * Create an instance of RunCreateCloudRunConfig given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RunCreateCloudRunConfig
+   * @throws IOException if the JSON string is invalid with respect to RunCreateCloudRunConfig
+   */
   public static RunCreateCloudRunConfig fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, RunCreateCloudRunConfig.class);
   }
 
- /**
-  * Convert an instance of RunCreateCloudRunConfig to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RunCreateCloudRunConfig to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

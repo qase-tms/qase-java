@@ -19,10 +19,13 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.v1.models.ParameterSingle;
 import io.qase.client.v1.models.TestCaseParameterGroup;
 import io.qase.client.v1.models.TestCaseParameterSingle;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -61,7 +64,7 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestCaseParameter extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(TestCaseParameter.class.getName());
 
@@ -86,15 +89,15 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
 
                     // check if the actual instance is of the type `TestCaseParameterSingle`
                     if (value.getActualInstance() instanceof TestCaseParameterSingle) {
-                      JsonElement element = adapterTestCaseParameterSingle.toJsonTree((TestCaseParameterSingle)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterTestCaseParameterSingle.toJsonTree((TestCaseParameterSingle)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     // check if the actual instance is of the type `TestCaseParameterGroup`
                     if (value.getActualInstance() instanceof TestCaseParameterGroup) {
-                      JsonElement element = adapterTestCaseParameterGroup.toJsonTree((TestCaseParameterGroup)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterTestCaseParameterGroup.toJsonTree((TestCaseParameterGroup)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: TestCaseParameterGroup, TestCaseParameterSingle");
                 }
@@ -110,27 +113,27 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
 
                     // deserialize TestCaseParameterSingle
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      TestCaseParameterSingle.validateJsonElement(jsonElement);
-                      actualAdapter = adapterTestCaseParameterSingle;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'TestCaseParameterSingle'");
+                        // validate the JSON object to see if any exception is thrown
+                        TestCaseParameterSingle.validateJsonElement(jsonElement);
+                        actualAdapter = adapterTestCaseParameterSingle;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'TestCaseParameterSingle'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for TestCaseParameterSingle failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'TestCaseParameterSingle'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for TestCaseParameterSingle failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'TestCaseParameterSingle'", e);
                     }
                     // deserialize TestCaseParameterGroup
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      TestCaseParameterGroup.validateJsonElement(jsonElement);
-                      actualAdapter = adapterTestCaseParameterGroup;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'TestCaseParameterGroup'");
+                        // validate the JSON object to see if any exception is thrown
+                        TestCaseParameterGroup.validateJsonElement(jsonElement);
+                        actualAdapter = adapterTestCaseParameterGroup;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'TestCaseParameterGroup'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for TestCaseParameterGroup failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'TestCaseParameterGroup'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for TestCaseParameterGroup failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'TestCaseParameterGroup'", e);
                     }
 
                     if (match == 1) {
@@ -152,12 +155,7 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
         super("oneOf", Boolean.FALSE);
     }
 
-    public TestCaseParameter(TestCaseParameterGroup o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
-    public TestCaseParameter(TestCaseParameterSingle o) {
+    public TestCaseParameter(Object o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
@@ -200,6 +198,7 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
      *
      * @return The actual instance (TestCaseParameterGroup, TestCaseParameterSingle)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
@@ -215,6 +214,7 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
     public TestCaseParameterSingle getTestCaseParameterSingle() throws ClassCastException {
         return (TestCaseParameterSingle)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `TestCaseParameterGroup`. If the actual instance is not `TestCaseParameterGroup`,
      * the ClassCastException will be thrown.
@@ -226,55 +226,55 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
         return (TestCaseParameterGroup)super.getActualInstance();
     }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestCaseParameter
-  */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-    // validate oneOf schemas one by one
-    int validCount = 0;
-    ArrayList<String> errorMessages = new ArrayList<>();
-    // validate the json string with TestCaseParameterSingle
-    try {
-      TestCaseParameterSingle.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for TestCaseParameterSingle failed with `%s`.", e.getMessage()));
-      // continue to the next one
+    /**
+     * Validates the JSON Element and throws an exception if issues found
+     *
+     * @param jsonElement JSON Element
+     * @throws IOException if the JSON Element is invalid with respect to TestCaseParameter
+     */
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+        // validate oneOf schemas one by one
+        int validCount = 0;
+        ArrayList<String> errorMessages = new ArrayList<>();
+        // validate the json string with TestCaseParameterSingle
+        try {
+            TestCaseParameterSingle.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for TestCaseParameterSingle failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with TestCaseParameterGroup
+        try {
+            TestCaseParameterGroup.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for TestCaseParameterGroup failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        if (validCount != 1) {
+            throw new IOException(String.format("The JSON string is invalid for TestCaseParameter with oneOf schemas: TestCaseParameterGroup, TestCaseParameterSingle. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
+        }
     }
-    // validate the json string with TestCaseParameterGroup
-    try {
-      TestCaseParameterGroup.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for TestCaseParameterGroup failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
-    if (validCount != 1) {
-      throw new IOException(String.format("The JSON string is invalid for TestCaseParameter with oneOf schemas: TestCaseParameterGroup, TestCaseParameterSingle. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
-    }
-  }
 
- /**
-  * Create an instance of TestCaseParameter given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestCaseParameter
-  * @throws IOException if the JSON string is invalid with respect to TestCaseParameter
-  */
-  public static TestCaseParameter fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, TestCaseParameter.class);
-  }
+    /**
+     * Create an instance of TestCaseParameter given an JSON string
+     *
+     * @param jsonString JSON string
+     * @return An instance of TestCaseParameter
+     * @throws IOException if the JSON string is invalid with respect to TestCaseParameter
+     */
+    public static TestCaseParameter fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, TestCaseParameter.class);
+    }
 
- /**
-  * Convert an instance of TestCaseParameter to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
+    /**
+     * Convert an instance of TestCaseParameter to an JSON string
+     *
+     * @return JSON string
+     */
+    public String toJson() {
+        return JSON.getGson().toJson(this);
+    }
 }
 

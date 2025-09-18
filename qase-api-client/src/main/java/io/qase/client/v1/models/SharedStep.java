@@ -41,7 +41,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,138 +52,150 @@ import io.qase.client.v1.JSON;
 /**
  * SharedStep
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SharedStep {
   public static final String SERIALIZED_NAME_HASH = "hash";
   @SerializedName(SERIALIZED_NAME_HASH)
+  @javax.annotation.Nullable
   private String hash;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_ACTION = "action";
   @SerializedName(SERIALIZED_NAME_ACTION)
+  @javax.annotation.Nullable
   private String action;
 
   public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
   @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+  @javax.annotation.Nullable
   private String expectedResult;
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<SharedStepContent> steps;
+  @javax.annotation.Nullable
+  private List<SharedStepContent> steps = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
+  @javax.annotation.Nullable
   private String data;
 
   public static final String SERIALIZED_NAME_CASES = "cases";
   @SerializedName(SERIALIZED_NAME_CASES)
-  private List<Long> cases;
+  @javax.annotation.Nullable
+  private List<Long> cases = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
   @SerializedName(SERIALIZED_NAME_CASES_COUNT)
+  @javax.annotation.Nullable
   private Integer casesCount;
 
   public static final String SERIALIZED_NAME_CREATED = "created";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_CREATED)
+  @javax.annotation.Nullable
   private String created;
 
   public static final String SERIALIZED_NAME_UPDATED = "updated";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_UPDATED)
+  @javax.annotation.Nullable
   private String updated;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public SharedStep() {
   }
 
-  public SharedStep hash(String hash) {
+  public SharedStep hash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
     return this;
   }
 
-   /**
+  /**
    * Get hash
    * @return hash
-  **/
+   */
   @javax.annotation.Nullable
   public String getHash() {
     return hash;
   }
 
-  public void setHash(String hash) {
+  public void setHash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
   }
 
 
-  public SharedStep title(String title) {
+  public SharedStep title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public SharedStep action(String action) {
+  public SharedStep action(@javax.annotation.Nullable String action) {
     this.action = action;
     return this;
   }
 
-   /**
+  /**
    * Get action
    * @return action
-  **/
+   */
   @javax.annotation.Nullable
   public String getAction() {
     return action;
   }
 
-  public void setAction(String action) {
+  public void setAction(@javax.annotation.Nullable String action) {
     this.action = action;
   }
 
 
-  public SharedStep expectedResult(String expectedResult) {
+  public SharedStep expectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
     return this;
   }
 
-   /**
+  /**
    * Get expectedResult
    * @return expectedResult
-  **/
+   */
   @javax.annotation.Nullable
   public String getExpectedResult() {
     return expectedResult;
   }
 
-  public void setExpectedResult(String expectedResult) {
+  public void setExpectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
   }
 
 
-  public SharedStep steps(List<SharedStepContent> steps) {
+  public SharedStep steps(@javax.annotation.Nullable List<SharedStepContent> steps) {
     this.steps = steps;
     return this;
   }
@@ -197,40 +208,40 @@ public class SharedStep {
     return this;
   }
 
-   /**
+  /**
    * Get steps
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<SharedStepContent> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<SharedStepContent> steps) {
+  public void setSteps(@javax.annotation.Nullable List<SharedStepContent> steps) {
     this.steps = steps;
   }
 
 
-  public SharedStep data(String data) {
+  public SharedStep data(@javax.annotation.Nullable String data) {
     this.data = data;
     return this;
   }
 
-   /**
+  /**
    * Get data
    * @return data
-  **/
+   */
   @javax.annotation.Nullable
   public String getData() {
     return data;
   }
 
-  public void setData(String data) {
+  public void setData(@javax.annotation.Nullable String data) {
     this.data = data;
   }
 
 
-  public SharedStep cases(List<Long> cases) {
+  public SharedStep cases(@javax.annotation.Nullable List<Long> cases) {
     this.cases = cases;
     return this;
   }
@@ -243,50 +254,50 @@ public class SharedStep {
     return this;
   }
 
-   /**
+  /**
    * Get cases
    * @return cases
-  **/
+   */
   @javax.annotation.Nullable
   public List<Long> getCases() {
     return cases;
   }
 
-  public void setCases(List<Long> cases) {
+  public void setCases(@javax.annotation.Nullable List<Long> cases) {
     this.cases = cases;
   }
 
 
-  public SharedStep casesCount(Integer casesCount) {
+  public SharedStep casesCount(@javax.annotation.Nullable Integer casesCount) {
     this.casesCount = casesCount;
     return this;
   }
 
-   /**
+  /**
    * Get casesCount
    * @return casesCount
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getCasesCount() {
     return casesCount;
   }
 
-  public void setCasesCount(Integer casesCount) {
+  public void setCasesCount(@javax.annotation.Nullable Integer casesCount) {
     this.casesCount = casesCount;
   }
 
 
   @Deprecated
-  public SharedStep created(String created) {
+  public SharedStep created(@javax.annotation.Nullable String created) {
     this.created = created;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;created_at&#x60; property instead.
    * @return created
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getCreated() {
@@ -294,22 +305,22 @@ public class SharedStep {
   }
 
   @Deprecated
-  public void setCreated(String created) {
+  public void setCreated(@javax.annotation.Nullable String created) {
     this.created = created;
   }
 
 
   @Deprecated
-  public SharedStep updated(String updated) {
+  public SharedStep updated(@javax.annotation.Nullable String updated) {
     this.updated = updated;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;updated_at&#x60; property instead.
    * @return updated
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getUpdated() {
@@ -317,45 +328,45 @@ public class SharedStep {
   }
 
   @Deprecated
-  public void setUpdated(String updated) {
+  public void setUpdated(@javax.annotation.Nullable String updated) {
     this.updated = updated;
   }
 
 
-  public SharedStep createdAt(OffsetDateTime createdAt) {
+  public SharedStep createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public SharedStep updatedAt(OffsetDateTime updatedAt) {
+  public SharedStep updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -472,30 +483,18 @@ public class SharedStep {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("hash");
-    openapiFields.add("title");
-    openapiFields.add("action");
-    openapiFields.add("expected_result");
-    openapiFields.add("steps");
-    openapiFields.add("data");
-    openapiFields.add("cases");
-    openapiFields.add("cases_count");
-    openapiFields.add("created");
-    openapiFields.add("updated");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
+    openapiFields = new HashSet<String>(Arrays.asList("hash", "title", "action", "expected_result", "steps", "data", "cases", "cases_count", "created", "updated", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SharedStep
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SharedStep
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SharedStep.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -616,22 +615,22 @@ public class SharedStep {
     }
   }
 
- /**
-  * Create an instance of SharedStep given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SharedStep
-  * @throws IOException if the JSON string is invalid with respect to SharedStep
-  */
+  /**
+   * Create an instance of SharedStep given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SharedStep
+   * @throws IOException if the JSON string is invalid with respect to SharedStep
+   */
   public static SharedStep fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SharedStep.class);
   }
 
- /**
-  * Convert an instance of SharedStep to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SharedStep to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

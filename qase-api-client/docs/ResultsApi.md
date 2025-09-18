@@ -93,7 +93,7 @@ public class Example {
 
 <a id="createResultBulk"></a>
 # **createResultBulk**
-> BaseResponse createResultBulk(code, id, resultcreateBulk)
+> BaseResponse createResultBulk(code, id, resultCreateBulk)
 
 Bulk create test run result
 
@@ -123,9 +123,9 @@ public class Example {
     ResultsApi apiInstance = new ResultsApi(defaultClient);
     String code = "code_example"; // String | Code of project, where to search entities.
     Integer id = 56; // Integer | Identifier.
-    ResultcreateBulk resultcreateBulk = new ResultcreateBulk(); // ResultcreateBulk | 
+    ResultCreateBulk resultCreateBulk = new ResultCreateBulk(); // ResultCreateBulk | 
     try {
-      BaseResponse result = apiInstance.createResultBulk(code, id, resultcreateBulk);
+      BaseResponse result = apiInstance.createResultBulk(code, id, resultCreateBulk);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ResultsApi#createResultBulk");
@@ -144,7 +144,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **code** | **String**| Code of project, where to search entities. | |
 | **id** | **Integer**| Identifier. | |
-| **resultcreateBulk** | [**ResultcreateBulk**](ResultcreateBulk.md)|  | |
+| **resultCreateBulk** | [**ResultCreateBulk**](ResultCreateBulk.md)|  | |
 
 ### Return type
 

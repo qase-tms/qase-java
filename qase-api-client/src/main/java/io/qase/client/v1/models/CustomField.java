@@ -41,7 +41,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,297 +52,313 @@ import io.qase.client.v1.JSON;
 /**
  * CustomField
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class CustomField {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_ENTITY = "entity";
   @SerializedName(SERIALIZED_NAME_ENTITY)
+  @javax.annotation.Nullable
   private String entity;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nullable
   private String type;
 
   public static final String SERIALIZED_NAME_PLACEHOLDER = "placeholder";
   @SerializedName(SERIALIZED_NAME_PLACEHOLDER)
+  @javax.annotation.Nullable
   private String placeholder;
 
   public static final String SERIALIZED_NAME_DEFAULT_VALUE = "default_value";
   @SerializedName(SERIALIZED_NAME_DEFAULT_VALUE)
+  @javax.annotation.Nullable
   private String defaultValue;
 
   public static final String SERIALIZED_NAME_VALUE = "value";
   @SerializedName(SERIALIZED_NAME_VALUE)
+  @javax.annotation.Nullable
   private String value;
 
   public static final String SERIALIZED_NAME_IS_REQUIRED = "is_required";
   @SerializedName(SERIALIZED_NAME_IS_REQUIRED)
+  @javax.annotation.Nullable
   private Boolean isRequired;
 
   public static final String SERIALIZED_NAME_IS_VISIBLE = "is_visible";
   @SerializedName(SERIALIZED_NAME_IS_VISIBLE)
+  @javax.annotation.Nullable
   private Boolean isVisible;
 
   public static final String SERIALIZED_NAME_IS_FILTERABLE = "is_filterable";
   @SerializedName(SERIALIZED_NAME_IS_FILTERABLE)
+  @javax.annotation.Nullable
   private Boolean isFilterable;
 
   public static final String SERIALIZED_NAME_IS_ENABLED_FOR_ALL_PROJECTS = "is_enabled_for_all_projects";
   @SerializedName(SERIALIZED_NAME_IS_ENABLED_FOR_ALL_PROJECTS)
+  @javax.annotation.Nullable
   private Boolean isEnabledForAllProjects;
 
   public static final String SERIALIZED_NAME_CREATED = "created";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_CREATED)
+  @javax.annotation.Nullable
   private String created;
 
   public static final String SERIALIZED_NAME_UPDATED = "updated";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_UPDATED)
+  @javax.annotation.Nullable
   private String updated;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public static final String SERIALIZED_NAME_PROJECTS_CODES = "projects_codes";
   @SerializedName(SERIALIZED_NAME_PROJECTS_CODES)
-  private List<String> projectsCodes;
+  @javax.annotation.Nullable
+  private List<String> projectsCodes = new ArrayList<>();
 
   public CustomField() {
   }
 
-  public CustomField id(Long id) {
+  public CustomField id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public CustomField title(String title) {
+  public CustomField title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public CustomField entity(String entity) {
+  public CustomField entity(@javax.annotation.Nullable String entity) {
     this.entity = entity;
     return this;
   }
 
-   /**
+  /**
    * Get entity
    * @return entity
-  **/
+   */
   @javax.annotation.Nullable
   public String getEntity() {
     return entity;
   }
 
-  public void setEntity(String entity) {
+  public void setEntity(@javax.annotation.Nullable String entity) {
     this.entity = entity;
   }
 
 
-  public CustomField type(String type) {
+  public CustomField type(@javax.annotation.Nullable String type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nullable
   public String getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
   }
 
 
-  public CustomField placeholder(String placeholder) {
+  public CustomField placeholder(@javax.annotation.Nullable String placeholder) {
     this.placeholder = placeholder;
     return this;
   }
 
-   /**
+  /**
    * Get placeholder
    * @return placeholder
-  **/
+   */
   @javax.annotation.Nullable
   public String getPlaceholder() {
     return placeholder;
   }
 
-  public void setPlaceholder(String placeholder) {
+  public void setPlaceholder(@javax.annotation.Nullable String placeholder) {
     this.placeholder = placeholder;
   }
 
 
-  public CustomField defaultValue(String defaultValue) {
+  public CustomField defaultValue(@javax.annotation.Nullable String defaultValue) {
     this.defaultValue = defaultValue;
     return this;
   }
 
-   /**
+  /**
    * Get defaultValue
    * @return defaultValue
-  **/
+   */
   @javax.annotation.Nullable
   public String getDefaultValue() {
     return defaultValue;
   }
 
-  public void setDefaultValue(String defaultValue) {
+  public void setDefaultValue(@javax.annotation.Nullable String defaultValue) {
     this.defaultValue = defaultValue;
   }
 
 
-  public CustomField value(String value) {
+  public CustomField value(@javax.annotation.Nullable String value) {
     this.value = value;
     return this;
   }
 
-   /**
+  /**
    * Get value
    * @return value
-  **/
+   */
   @javax.annotation.Nullable
   public String getValue() {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(@javax.annotation.Nullable String value) {
     this.value = value;
   }
 
 
-  public CustomField isRequired(Boolean isRequired) {
+  public CustomField isRequired(@javax.annotation.Nullable Boolean isRequired) {
     this.isRequired = isRequired;
     return this;
   }
 
-   /**
+  /**
    * Get isRequired
    * @return isRequired
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsRequired() {
     return isRequired;
   }
 
-  public void setIsRequired(Boolean isRequired) {
+  public void setIsRequired(@javax.annotation.Nullable Boolean isRequired) {
     this.isRequired = isRequired;
   }
 
 
-  public CustomField isVisible(Boolean isVisible) {
+  public CustomField isVisible(@javax.annotation.Nullable Boolean isVisible) {
     this.isVisible = isVisible;
     return this;
   }
 
-   /**
+  /**
    * Get isVisible
    * @return isVisible
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsVisible() {
     return isVisible;
   }
 
-  public void setIsVisible(Boolean isVisible) {
+  public void setIsVisible(@javax.annotation.Nullable Boolean isVisible) {
     this.isVisible = isVisible;
   }
 
 
-  public CustomField isFilterable(Boolean isFilterable) {
+  public CustomField isFilterable(@javax.annotation.Nullable Boolean isFilterable) {
     this.isFilterable = isFilterable;
     return this;
   }
 
-   /**
+  /**
    * Get isFilterable
    * @return isFilterable
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsFilterable() {
     return isFilterable;
   }
 
-  public void setIsFilterable(Boolean isFilterable) {
+  public void setIsFilterable(@javax.annotation.Nullable Boolean isFilterable) {
     this.isFilterable = isFilterable;
   }
 
 
-  public CustomField isEnabledForAllProjects(Boolean isEnabledForAllProjects) {
+  public CustomField isEnabledForAllProjects(@javax.annotation.Nullable Boolean isEnabledForAllProjects) {
     this.isEnabledForAllProjects = isEnabledForAllProjects;
     return this;
   }
 
-   /**
+  /**
    * Get isEnabledForAllProjects
    * @return isEnabledForAllProjects
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsEnabledForAllProjects() {
     return isEnabledForAllProjects;
   }
 
-  public void setIsEnabledForAllProjects(Boolean isEnabledForAllProjects) {
+  public void setIsEnabledForAllProjects(@javax.annotation.Nullable Boolean isEnabledForAllProjects) {
     this.isEnabledForAllProjects = isEnabledForAllProjects;
   }
 
 
   @Deprecated
-  public CustomField created(String created) {
+  public CustomField created(@javax.annotation.Nullable String created) {
     this.created = created;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;created_at&#x60; property instead.
    * @return created
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getCreated() {
@@ -351,22 +366,22 @@ public class CustomField {
   }
 
   @Deprecated
-  public void setCreated(String created) {
+  public void setCreated(@javax.annotation.Nullable String created) {
     this.created = created;
   }
 
 
   @Deprecated
-  public CustomField updated(String updated) {
+  public CustomField updated(@javax.annotation.Nullable String updated) {
     this.updated = updated;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;updated_at&#x60; property instead.
    * @return updated
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getUpdated() {
@@ -374,50 +389,50 @@ public class CustomField {
   }
 
   @Deprecated
-  public void setUpdated(String updated) {
+  public void setUpdated(@javax.annotation.Nullable String updated) {
     this.updated = updated;
   }
 
 
-  public CustomField createdAt(OffsetDateTime createdAt) {
+  public CustomField createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public CustomField updatedAt(OffsetDateTime updatedAt) {
+  public CustomField updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
 
-  public CustomField projectsCodes(List<String> projectsCodes) {
+  public CustomField projectsCodes(@javax.annotation.Nullable List<String> projectsCodes) {
     this.projectsCodes = projectsCodes;
     return this;
   }
@@ -430,16 +445,16 @@ public class CustomField {
     return this;
   }
 
-   /**
+  /**
    * Get projectsCodes
    * @return projectsCodes
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getProjectsCodes() {
     return projectsCodes;
   }
 
-  public void setProjectsCodes(List<String> projectsCodes) {
+  public void setProjectsCodes(@javax.annotation.Nullable List<String> projectsCodes) {
     this.projectsCodes = projectsCodes;
   }
 
@@ -575,34 +590,18 @@ public class CustomField {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("title");
-    openapiFields.add("entity");
-    openapiFields.add("type");
-    openapiFields.add("placeholder");
-    openapiFields.add("default_value");
-    openapiFields.add("value");
-    openapiFields.add("is_required");
-    openapiFields.add("is_visible");
-    openapiFields.add("is_filterable");
-    openapiFields.add("is_enabled_for_all_projects");
-    openapiFields.add("created");
-    openapiFields.add("updated");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
-    openapiFields.add("projects_codes");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "title", "entity", "type", "placeholder", "default_value", "value", "is_required", "is_visible", "is_filterable", "is_enabled_for_all_projects", "created", "updated", "created_at", "updated_at", "projects_codes"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CustomField
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to CustomField
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!CustomField.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -712,22 +711,22 @@ public class CustomField {
     }
   }
 
- /**
-  * Create an instance of CustomField given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of CustomField
-  * @throws IOException if the JSON string is invalid with respect to CustomField
-  */
+  /**
+   * Create an instance of CustomField given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of CustomField
+   * @throws IOException if the JSON string is invalid with respect to CustomField
+   */
   public static CustomField fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, CustomField.class);
   }
 
- /**
-  * Convert an instance of CustomField to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of CustomField to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

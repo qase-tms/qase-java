@@ -19,6 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.v1.models.UuidResponseAllOfResult;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -46,34 +47,58 @@ import java.util.Set;
 import io.qase.client.v1.JSON;
 
 /**
- * IdResponseAllOfResult
+ * UuidResponse1
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
-public class IdResponseAllOfResult {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+public class UuidResponse1 {
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
   @javax.annotation.Nullable
-  private Long id;
+  private Boolean status;
 
-  public IdResponseAllOfResult() {
+  public static final String SERIALIZED_NAME_RESULT = "result";
+  @SerializedName(SERIALIZED_NAME_RESULT)
+  @javax.annotation.Nullable
+  private UuidResponseAllOfResult result;
+
+  public UuidResponse1() {
   }
 
-  public IdResponseAllOfResult id(@javax.annotation.Nullable Long id) {
-    this.id = id;
+  public UuidResponse1 status(@javax.annotation.Nullable Boolean status) {
+    this.status = status;
     return this;
   }
 
   /**
-   * Get id
-   * @return id
+   * Get status
+   * @return status
    */
   @javax.annotation.Nullable
-  public Long getId() {
-    return id;
+  public Boolean getStatus() {
+    return status;
   }
 
-  public void setId(@javax.annotation.Nullable Long id) {
-    this.id = id;
+  public void setStatus(@javax.annotation.Nullable Boolean status) {
+    this.status = status;
+  }
+
+
+  public UuidResponse1 result(@javax.annotation.Nullable UuidResponseAllOfResult result) {
+    this.result = result;
+    return this;
+  }
+
+  /**
+   * Get result
+   * @return result
+   */
+  @javax.annotation.Nullable
+  public UuidResponseAllOfResult getResult() {
+    return result;
+  }
+
+  public void setResult(@javax.annotation.Nullable UuidResponseAllOfResult result) {
+    this.result = result;
   }
 
   /**
@@ -89,9 +114,9 @@ public class IdResponseAllOfResult {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the IdResponseAllOfResult instance itself
+   * @return the UuidResponse1 instance itself
    */
-  public IdResponseAllOfResult putAdditionalProperty(String key, Object value) {
+  public UuidResponse1 putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -130,21 +155,23 @@ public class IdResponseAllOfResult {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    IdResponseAllOfResult idResponseAllOfResult = (IdResponseAllOfResult) o;
-    return Objects.equals(this.id, idResponseAllOfResult.id)&&
-        Objects.equals(this.additionalProperties, idResponseAllOfResult.additionalProperties);
+    UuidResponse1 uuidResponse1 = (UuidResponse1) o;
+    return Objects.equals(this.status, uuidResponse1.status) &&
+        Objects.equals(this.result, uuidResponse1.result)&&
+        Objects.equals(this.additionalProperties, uuidResponse1.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, additionalProperties);
+    return Objects.hash(status, result, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class IdResponseAllOfResult {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class UuidResponse1 {\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    result: ").append(toIndentedString(result)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -167,7 +194,7 @@ public class IdResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("id"));
+    openapiFields = new HashSet<String>(Arrays.asList("status", "result"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -177,31 +204,35 @@ public class IdResponseAllOfResult {
    * Validates the JSON Element and throws an exception if issues found
    *
    * @param jsonElement JSON Element
-   * @throws IOException if the JSON Element is invalid with respect to IdResponseAllOfResult
+   * @throws IOException if the JSON Element is invalid with respect to UuidResponse1
    */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!IdResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in IdResponseAllOfResult is not found in the empty JSON string", IdResponseAllOfResult.openapiRequiredFields.toString()));
+        if (!UuidResponse1.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in UuidResponse1 is not found in the empty JSON string", UuidResponse1.openapiRequiredFields.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      // validate the optional field `result`
+      if (jsonObj.get("result") != null && !jsonObj.get("result").isJsonNull()) {
+        UuidResponseAllOfResult.validateJsonElement(jsonObj.get("result"));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!IdResponseAllOfResult.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'IdResponseAllOfResult' and its subtypes
+       if (!UuidResponse1.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'UuidResponse1' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<IdResponseAllOfResult> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(IdResponseAllOfResult.class));
+       final TypeAdapter<UuidResponse1> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(UuidResponse1.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<IdResponseAllOfResult>() {
+       return (TypeAdapter<T>) new TypeAdapter<UuidResponse1>() {
            @Override
-           public void write(JsonWriter out, IdResponseAllOfResult value) throws IOException {
+           public void write(JsonWriter out, UuidResponse1 value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -229,12 +260,12 @@ public class IdResponseAllOfResult {
            }
 
            @Override
-           public IdResponseAllOfResult read(JsonReader in) throws IOException {
+           public UuidResponse1 read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
-             IdResponseAllOfResult instance = thisAdapter.fromJsonTree(jsonObj);
+             UuidResponse1 instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -261,18 +292,18 @@ public class IdResponseAllOfResult {
   }
 
   /**
-   * Create an instance of IdResponseAllOfResult given an JSON string
+   * Create an instance of UuidResponse1 given an JSON string
    *
    * @param jsonString JSON string
-   * @return An instance of IdResponseAllOfResult
-   * @throws IOException if the JSON string is invalid with respect to IdResponseAllOfResult
+   * @return An instance of UuidResponse1
+   * @throws IOException if the JSON string is invalid with respect to UuidResponse1
    */
-  public static IdResponseAllOfResult fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, IdResponseAllOfResult.class);
+  public static UuidResponse1 fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, UuidResponse1.class);
   }
 
   /**
-   * Convert an instance of IdResponseAllOfResult to an JSON string
+   * Convert an instance of UuidResponse1 to an JSON string
    *
    * @return JSON string
    */

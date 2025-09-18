@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,10 +51,11 @@ import io.qase.client.v1.JSON;
 /**
  * SharedParameterCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SharedParameterCreate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   /**
@@ -112,62 +112,66 @@ public class SharedParameterCreate {
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nonnull
   private TypeEnum type;
 
   public static final String SERIALIZED_NAME_PROJECT_CODES = "project_codes";
   @SerializedName(SERIALIZED_NAME_PROJECT_CODES)
-  private List<String> projectCodes;
+  @javax.annotation.Nullable
+  private List<String> projectCodes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_IS_ENABLED_FOR_ALL_PROJECTS = "is_enabled_for_all_projects";
   @SerializedName(SERIALIZED_NAME_IS_ENABLED_FOR_ALL_PROJECTS)
+  @javax.annotation.Nonnull
   private Boolean isEnabledForAllProjects;
 
   public static final String SERIALIZED_NAME_PARAMETERS = "parameters";
   @SerializedName(SERIALIZED_NAME_PARAMETERS)
+  @javax.annotation.Nonnull
   private SharedParameterParameter parameters;
 
   public SharedParameterCreate() {
   }
 
-  public SharedParameterCreate title(String title) {
+  public SharedParameterCreate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public SharedParameterCreate type(TypeEnum type) {
+  public SharedParameterCreate type(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nonnull
   public TypeEnum getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
   }
 
 
-  public SharedParameterCreate projectCodes(List<String> projectCodes) {
+  public SharedParameterCreate projectCodes(@javax.annotation.Nullable List<String> projectCodes) {
     this.projectCodes = projectCodes;
     return this;
   }
@@ -180,54 +184,54 @@ public class SharedParameterCreate {
     return this;
   }
 
-   /**
+  /**
    * List of project codes to associate with this shared parameter
    * @return projectCodes
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getProjectCodes() {
     return projectCodes;
   }
 
-  public void setProjectCodes(List<String> projectCodes) {
+  public void setProjectCodes(@javax.annotation.Nullable List<String> projectCodes) {
     this.projectCodes = projectCodes;
   }
 
 
-  public SharedParameterCreate isEnabledForAllProjects(Boolean isEnabledForAllProjects) {
+  public SharedParameterCreate isEnabledForAllProjects(@javax.annotation.Nonnull Boolean isEnabledForAllProjects) {
     this.isEnabledForAllProjects = isEnabledForAllProjects;
     return this;
   }
 
-   /**
+  /**
    * Get isEnabledForAllProjects
    * @return isEnabledForAllProjects
-  **/
+   */
   @javax.annotation.Nonnull
   public Boolean getIsEnabledForAllProjects() {
     return isEnabledForAllProjects;
   }
 
-  public void setIsEnabledForAllProjects(Boolean isEnabledForAllProjects) {
+  public void setIsEnabledForAllProjects(@javax.annotation.Nonnull Boolean isEnabledForAllProjects) {
     this.isEnabledForAllProjects = isEnabledForAllProjects;
   }
 
 
-  public SharedParameterCreate parameters(SharedParameterParameter parameters) {
+  public SharedParameterCreate parameters(@javax.annotation.Nonnull SharedParameterParameter parameters) {
     this.parameters = parameters;
     return this;
   }
 
-   /**
+  /**
    * Get parameters
    * @return parameters
-  **/
+   */
   @javax.annotation.Nonnull
   public SharedParameterParameter getParameters() {
     return parameters;
   }
 
-  public void setParameters(SharedParameterParameter parameters) {
+  public void setParameters(@javax.annotation.Nonnull SharedParameterParameter parameters) {
     this.parameters = parameters;
   }
 
@@ -330,27 +334,18 @@ public class SharedParameterCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("type");
-    openapiFields.add("project_codes");
-    openapiFields.add("is_enabled_for_all_projects");
-    openapiFields.add("parameters");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "type", "project_codes", "is_enabled_for_all_projects", "parameters"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("is_enabled_for_all_projects");
-    openapiRequiredFields.add("parameters");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title", "type", "is_enabled_for_all_projects", "parameters"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SharedParameterCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SharedParameterCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SharedParameterCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -453,22 +448,22 @@ public class SharedParameterCreate {
     }
   }
 
- /**
-  * Create an instance of SharedParameterCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SharedParameterCreate
-  * @throws IOException if the JSON string is invalid with respect to SharedParameterCreate
-  */
+  /**
+   * Create an instance of SharedParameterCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SharedParameterCreate
+   * @throws IOException if the JSON string is invalid with respect to SharedParameterCreate
+   */
   public static SharedParameterCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SharedParameterCreate.class);
   }
 
- /**
-  * Convert an instance of SharedParameterCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SharedParameterCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

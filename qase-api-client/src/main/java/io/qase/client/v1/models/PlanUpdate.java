@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,62 +51,65 @@ import io.qase.client.v1.JSON;
 /**
  * PlanUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class PlanUpdate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_CASES = "cases";
   @SerializedName(SERIALIZED_NAME_CASES)
-  private List<Long> cases;
+  @javax.annotation.Nullable
+  private List<Long> cases = new ArrayList<>();
 
   public PlanUpdate() {
   }
 
-  public PlanUpdate title(String title) {
+  public PlanUpdate title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public PlanUpdate description(String description) {
+  public PlanUpdate description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public PlanUpdate cases(List<Long> cases) {
+  public PlanUpdate cases(@javax.annotation.Nullable List<Long> cases) {
     this.cases = cases;
     return this;
   }
@@ -120,16 +122,16 @@ public class PlanUpdate {
     return this;
   }
 
-   /**
+  /**
    * Get cases
    * @return cases
-  **/
+   */
   @javax.annotation.Nullable
   public List<Long> getCases() {
     return cases;
   }
 
-  public void setCases(List<Long> cases) {
+  public void setCases(@javax.annotation.Nullable List<Long> cases) {
     this.cases = cases;
   }
 
@@ -239,21 +241,18 @@ public class PlanUpdate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("cases");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "description", "cases"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to PlanUpdate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to PlanUpdate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!PlanUpdate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -345,22 +344,22 @@ public class PlanUpdate {
     }
   }
 
- /**
-  * Create an instance of PlanUpdate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of PlanUpdate
-  * @throws IOException if the JSON string is invalid with respect to PlanUpdate
-  */
+  /**
+   * Create an instance of PlanUpdate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of PlanUpdate
+   * @throws IOException if the JSON string is invalid with respect to PlanUpdate
+   */
   public static PlanUpdate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, PlanUpdate.class);
   }
 
- /**
-  * Convert an instance of PlanUpdate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of PlanUpdate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

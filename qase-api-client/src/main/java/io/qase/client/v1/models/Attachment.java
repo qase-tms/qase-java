@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,99 +49,103 @@ import io.qase.client.v1.JSON;
 /**
  * Attachment
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Attachment {
   public static final String SERIALIZED_NAME_SIZE = "size";
   @SerializedName(SERIALIZED_NAME_SIZE)
+  @javax.annotation.Nullable
   private Integer size;
 
   public static final String SERIALIZED_NAME_MIME = "mime";
   @SerializedName(SERIALIZED_NAME_MIME)
+  @javax.annotation.Nullable
   private String mime;
 
   public static final String SERIALIZED_NAME_FILENAME = "filename";
   @SerializedName(SERIALIZED_NAME_FILENAME)
+  @javax.annotation.Nullable
   private String filename;
 
   public static final String SERIALIZED_NAME_URL = "url";
   @SerializedName(SERIALIZED_NAME_URL)
+  @javax.annotation.Nullable
   private URI url;
 
   public Attachment() {
   }
 
-  public Attachment size(Integer size) {
+  public Attachment size(@javax.annotation.Nullable Integer size) {
     this.size = size;
     return this;
   }
 
-   /**
+  /**
    * Get size
    * @return size
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getSize() {
     return size;
   }
 
-  public void setSize(Integer size) {
+  public void setSize(@javax.annotation.Nullable Integer size) {
     this.size = size;
   }
 
 
-  public Attachment mime(String mime) {
+  public Attachment mime(@javax.annotation.Nullable String mime) {
     this.mime = mime;
     return this;
   }
 
-   /**
+  /**
    * Get mime
    * @return mime
-  **/
+   */
   @javax.annotation.Nullable
   public String getMime() {
     return mime;
   }
 
-  public void setMime(String mime) {
+  public void setMime(@javax.annotation.Nullable String mime) {
     this.mime = mime;
   }
 
 
-  public Attachment filename(String filename) {
+  public Attachment filename(@javax.annotation.Nullable String filename) {
     this.filename = filename;
     return this;
   }
 
-   /**
+  /**
    * Get filename
    * @return filename
-  **/
+   */
   @javax.annotation.Nullable
   public String getFilename() {
     return filename;
   }
 
-  public void setFilename(String filename) {
+  public void setFilename(@javax.annotation.Nullable String filename) {
     this.filename = filename;
   }
 
 
-  public Attachment url(URI url) {
+  public Attachment url(@javax.annotation.Nullable URI url) {
     this.url = url;
     return this;
   }
 
-   /**
+  /**
    * Get url
    * @return url
-  **/
+   */
   @javax.annotation.Nullable
   public URI getUrl() {
     return url;
   }
 
-  public void setUrl(URI url) {
+  public void setUrl(@javax.annotation.Nullable URI url) {
     this.url = url;
   }
 
@@ -243,22 +246,18 @@ public class Attachment {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("size");
-    openapiFields.add("mime");
-    openapiFields.add("filename");
-    openapiFields.add("url");
+    openapiFields = new HashSet<String>(Arrays.asList("size", "mime", "filename", "url"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Attachment
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Attachment
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Attachment.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -349,22 +348,22 @@ public class Attachment {
     }
   }
 
- /**
-  * Create an instance of Attachment given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Attachment
-  * @throws IOException if the JSON string is invalid with respect to Attachment
-  */
+  /**
+   * Create an instance of Attachment given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Attachment
+   * @throws IOException if the JSON string is invalid with respect to Attachment
+   */
   public static Attachment fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Attachment.class);
   }
 
- /**
-  * Convert an instance of Attachment to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Attachment to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

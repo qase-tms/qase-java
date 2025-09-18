@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,122 +49,127 @@ import io.qase.client.v1.JSON;
 /**
  * AttachmentHash
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class AttachmentHash {
   public static final String SERIALIZED_NAME_SIZE = "size";
   @SerializedName(SERIALIZED_NAME_SIZE)
+  @javax.annotation.Nullable
   private Integer size;
 
   public static final String SERIALIZED_NAME_MIME = "mime";
   @SerializedName(SERIALIZED_NAME_MIME)
+  @javax.annotation.Nullable
   private String mime;
 
   public static final String SERIALIZED_NAME_FILENAME = "filename";
   @SerializedName(SERIALIZED_NAME_FILENAME)
+  @javax.annotation.Nullable
   private String filename;
 
   public static final String SERIALIZED_NAME_URL = "url";
   @SerializedName(SERIALIZED_NAME_URL)
+  @javax.annotation.Nullable
   private URI url;
 
   public static final String SERIALIZED_NAME_HASH = "hash";
   @SerializedName(SERIALIZED_NAME_HASH)
+  @javax.annotation.Nullable
   private String hash;
 
   public AttachmentHash() {
   }
 
-  public AttachmentHash size(Integer size) {
+  public AttachmentHash size(@javax.annotation.Nullable Integer size) {
     this.size = size;
     return this;
   }
 
-   /**
+  /**
    * Get size
    * @return size
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getSize() {
     return size;
   }
 
-  public void setSize(Integer size) {
+  public void setSize(@javax.annotation.Nullable Integer size) {
     this.size = size;
   }
 
 
-  public AttachmentHash mime(String mime) {
+  public AttachmentHash mime(@javax.annotation.Nullable String mime) {
     this.mime = mime;
     return this;
   }
 
-   /**
+  /**
    * Get mime
    * @return mime
-  **/
+   */
   @javax.annotation.Nullable
   public String getMime() {
     return mime;
   }
 
-  public void setMime(String mime) {
+  public void setMime(@javax.annotation.Nullable String mime) {
     this.mime = mime;
   }
 
 
-  public AttachmentHash filename(String filename) {
+  public AttachmentHash filename(@javax.annotation.Nullable String filename) {
     this.filename = filename;
     return this;
   }
 
-   /**
+  /**
    * Get filename
    * @return filename
-  **/
+   */
   @javax.annotation.Nullable
   public String getFilename() {
     return filename;
   }
 
-  public void setFilename(String filename) {
+  public void setFilename(@javax.annotation.Nullable String filename) {
     this.filename = filename;
   }
 
 
-  public AttachmentHash url(URI url) {
+  public AttachmentHash url(@javax.annotation.Nullable URI url) {
     this.url = url;
     return this;
   }
 
-   /**
+  /**
    * Get url
    * @return url
-  **/
+   */
   @javax.annotation.Nullable
   public URI getUrl() {
     return url;
   }
 
-  public void setUrl(URI url) {
+  public void setUrl(@javax.annotation.Nullable URI url) {
     this.url = url;
   }
 
 
-  public AttachmentHash hash(String hash) {
+  public AttachmentHash hash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
     return this;
   }
 
-   /**
+  /**
    * Get hash
    * @return hash
-  **/
+   */
   @javax.annotation.Nullable
   public String getHash() {
     return hash;
   }
 
-  public void setHash(String hash) {
+  public void setHash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
   }
 
@@ -268,23 +272,18 @@ public class AttachmentHash {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("size");
-    openapiFields.add("mime");
-    openapiFields.add("filename");
-    openapiFields.add("url");
-    openapiFields.add("hash");
+    openapiFields = new HashSet<String>(Arrays.asList("size", "mime", "filename", "url", "hash"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to AttachmentHash
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to AttachmentHash
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!AttachmentHash.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -378,22 +377,22 @@ public class AttachmentHash {
     }
   }
 
- /**
-  * Create an instance of AttachmentHash given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of AttachmentHash
-  * @throws IOException if the JSON string is invalid with respect to AttachmentHash
-  */
+  /**
+   * Create an instance of AttachmentHash given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of AttachmentHash
+   * @throws IOException if the JSON string is invalid with respect to AttachmentHash
+   */
   public static AttachmentHash fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, AttachmentHash.class);
   }
 
- /**
-  * Convert an instance of AttachmentHash to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of AttachmentHash to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

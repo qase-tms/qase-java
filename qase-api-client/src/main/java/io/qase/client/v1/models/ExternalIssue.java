@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,39 +51,41 @@ import io.qase.client.v1.JSON;
 /**
  * ExternalIssue
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ExternalIssue {
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nullable
   private String type;
 
   public static final String SERIALIZED_NAME_ISSUES = "issues";
   @SerializedName(SERIALIZED_NAME_ISSUES)
-  private List<ExternalIssueIssuesInner> issues;
+  @javax.annotation.Nullable
+  private List<ExternalIssueIssuesInner> issues = new ArrayList<>();
 
   public ExternalIssue() {
   }
 
-  public ExternalIssue type(String type) {
+  public ExternalIssue type(@javax.annotation.Nullable String type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nullable
   public String getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
   }
 
 
-  public ExternalIssue issues(List<ExternalIssueIssuesInner> issues) {
+  public ExternalIssue issues(@javax.annotation.Nullable List<ExternalIssueIssuesInner> issues) {
     this.issues = issues;
     return this;
   }
@@ -97,16 +98,16 @@ public class ExternalIssue {
     return this;
   }
 
-   /**
+  /**
    * Get issues
    * @return issues
-  **/
+   */
   @javax.annotation.Nullable
   public List<ExternalIssueIssuesInner> getIssues() {
     return issues;
   }
 
-  public void setIssues(List<ExternalIssueIssuesInner> issues) {
+  public void setIssues(@javax.annotation.Nullable List<ExternalIssueIssuesInner> issues) {
     this.issues = issues;
   }
 
@@ -203,20 +204,18 @@ public class ExternalIssue {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("type");
-    openapiFields.add("issues");
+    openapiFields = new HashSet<String>(Arrays.asList("type", "issues"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ExternalIssue
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ExternalIssue
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ExternalIssue.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -315,22 +314,22 @@ public class ExternalIssue {
     }
   }
 
- /**
-  * Create an instance of ExternalIssue given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ExternalIssue
-  * @throws IOException if the JSON string is invalid with respect to ExternalIssue
-  */
+  /**
+   * Create an instance of ExternalIssue given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ExternalIssue
+   * @throws IOException if the JSON string is invalid with respect to ExternalIssue
+   */
   public static ExternalIssue fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ExternalIssue.class);
   }
 
- /**
-  * Convert an instance of ExternalIssue to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ExternalIssue to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

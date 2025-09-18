@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,18 +50,21 @@ import io.qase.client.v1.JSON;
 /**
  * ProjectCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ProjectCreate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_CODE = "code";
   @SerializedName(SERIALIZED_NAME_CODE)
+  @javax.annotation.Nonnull
   private String code;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   /**
@@ -121,115 +123,118 @@ public class ProjectCreate {
 
   public static final String SERIALIZED_NAME_ACCESS = "access";
   @SerializedName(SERIALIZED_NAME_ACCESS)
+  @javax.annotation.Nullable
   private AccessEnum access;
 
   public static final String SERIALIZED_NAME_GROUP = "group";
   @SerializedName(SERIALIZED_NAME_GROUP)
+  @javax.annotation.Nullable
   private String group;
 
   public static final String SERIALIZED_NAME_SETTINGS = "settings";
   @SerializedName(SERIALIZED_NAME_SETTINGS)
+  @javax.annotation.Nullable
   private Map<String, Object> settings = new HashMap<>();
 
   public ProjectCreate() {
   }
 
-  public ProjectCreate title(String title) {
+  public ProjectCreate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Project title.
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public ProjectCreate code(String code) {
+  public ProjectCreate code(@javax.annotation.Nonnull String code) {
     this.code = code;
     return this;
   }
 
-   /**
+  /**
    * Project code. Unique for team. Digits and special characters are not allowed.
    * @return code
-  **/
+   */
   @javax.annotation.Nonnull
   public String getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(@javax.annotation.Nonnull String code) {
     this.code = code;
   }
 
 
-  public ProjectCreate description(String description) {
+  public ProjectCreate description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Project description.
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public ProjectCreate access(AccessEnum access) {
+  public ProjectCreate access(@javax.annotation.Nullable AccessEnum access) {
     this.access = access;
     return this;
   }
 
-   /**
+  /**
    * Get access
    * @return access
-  **/
+   */
   @javax.annotation.Nullable
   public AccessEnum getAccess() {
     return access;
   }
 
-  public void setAccess(AccessEnum access) {
+  public void setAccess(@javax.annotation.Nullable AccessEnum access) {
     this.access = access;
   }
 
 
-  public ProjectCreate group(String group) {
+  public ProjectCreate group(@javax.annotation.Nullable String group) {
     this.group = group;
     return this;
   }
 
-   /**
+  /**
    * Team group hash. Required if access param is set to group.
    * @return group
-  **/
+   */
   @javax.annotation.Nullable
   public String getGroup() {
     return group;
   }
 
-  public void setGroup(String group) {
+  public void setGroup(@javax.annotation.Nullable String group) {
     this.group = group;
   }
 
 
-  public ProjectCreate settings(Map<String, Object> settings) {
+  public ProjectCreate settings(@javax.annotation.Nullable Map<String, Object> settings) {
     this.settings = settings;
     return this;
   }
@@ -242,16 +247,16 @@ public class ProjectCreate {
     return this;
   }
 
-   /**
+  /**
    * Additional project settings.
    * @return settings
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, Object> getSettings() {
     return settings;
   }
 
-  public void setSettings(Map<String, Object> settings) {
+  public void setSettings(@javax.annotation.Nullable Map<String, Object> settings) {
     this.settings = settings;
   }
 
@@ -356,26 +361,18 @@ public class ProjectCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("code");
-    openapiFields.add("description");
-    openapiFields.add("access");
-    openapiFields.add("group");
-    openapiFields.add("settings");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "code", "description", "access", "group", "settings"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
-    openapiRequiredFields.add("code");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title", "code"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ProjectCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ProjectCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ProjectCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -483,22 +480,22 @@ public class ProjectCreate {
     }
   }
 
- /**
-  * Create an instance of ProjectCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProjectCreate
-  * @throws IOException if the JSON string is invalid with respect to ProjectCreate
-  */
+  /**
+   * Create an instance of ProjectCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ProjectCreate
+   * @throws IOException if the JSON string is invalid with respect to ProjectCreate
+   */
   public static ProjectCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ProjectCreate.class);
   }
 
- /**
-  * Convert an instance of ProjectCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ProjectCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

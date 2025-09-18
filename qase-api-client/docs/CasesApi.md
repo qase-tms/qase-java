@@ -93,7 +93,7 @@ public class Example {
 
 <a id="caseAttachExternalIssue"></a>
 # **caseAttachExternalIssue**
-> BaseResponse caseAttachExternalIssue(code, testCaseexternalIssues)
+> BaseResponse caseAttachExternalIssue(code, testCaseExternalIssues)
 
 Attach the external issues to the test cases
 
@@ -120,9 +120,9 @@ public class Example {
 
     CasesApi apiInstance = new CasesApi(defaultClient);
     String code = "code_example"; // String | Code of project, where to search entities.
-    TestCaseexternalIssues testCaseexternalIssues = new TestCaseexternalIssues(); // TestCaseexternalIssues | 
+    TestCaseExternalIssues testCaseExternalIssues = new TestCaseExternalIssues(); // TestCaseExternalIssues | 
     try {
-      BaseResponse result = apiInstance.caseAttachExternalIssue(code, testCaseexternalIssues);
+      BaseResponse result = apiInstance.caseAttachExternalIssue(code, testCaseExternalIssues);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CasesApi#caseAttachExternalIssue");
@@ -140,7 +140,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **code** | **String**| Code of project, where to search entities. | |
-| **testCaseexternalIssues** | [**TestCaseexternalIssues**](TestCaseexternalIssues.md)|  | |
+| **testCaseExternalIssues** | [**TestCaseExternalIssues**](TestCaseExternalIssues.md)|  | |
 
 ### Return type
 
@@ -169,7 +169,7 @@ public class Example {
 
 <a id="caseDetachExternalIssue"></a>
 # **caseDetachExternalIssue**
-> BaseResponse caseDetachExternalIssue(code, testCaseexternalIssues)
+> BaseResponse caseDetachExternalIssue(code, testCaseExternalIssues)
 
 Detach the external issues from the test cases
 
@@ -196,9 +196,9 @@ public class Example {
 
     CasesApi apiInstance = new CasesApi(defaultClient);
     String code = "code_example"; // String | Code of project, where to search entities.
-    TestCaseexternalIssues testCaseexternalIssues = new TestCaseexternalIssues(); // TestCaseexternalIssues | 
+    TestCaseExternalIssues testCaseExternalIssues = new TestCaseExternalIssues(); // TestCaseExternalIssues | 
     try {
-      BaseResponse result = apiInstance.caseDetachExternalIssue(code, testCaseexternalIssues);
+      BaseResponse result = apiInstance.caseDetachExternalIssue(code, testCaseExternalIssues);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CasesApi#caseDetachExternalIssue");
@@ -216,7 +216,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **code** | **String**| Code of project, where to search entities. | |
-| **testCaseexternalIssues** | [**TestCaseexternalIssues**](TestCaseexternalIssues.md)|  | |
+| **testCaseExternalIssues** | [**TestCaseExternalIssues**](TestCaseExternalIssues.md)|  | |
 
 ### Return type
 

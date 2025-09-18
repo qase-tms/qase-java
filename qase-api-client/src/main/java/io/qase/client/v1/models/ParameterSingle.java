@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,39 +50,41 @@ import io.qase.client.v1.JSON;
 /**
  * Single parameter
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ParameterSingle {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_VALUES = "values";
   @SerializedName(SERIALIZED_NAME_VALUES)
+  @javax.annotation.Nonnull
   private List<String> values = new ArrayList<>();
 
   public ParameterSingle() {
   }
 
-  public ParameterSingle title(String title) {
+  public ParameterSingle title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public ParameterSingle values(List<String> values) {
+  public ParameterSingle values(@javax.annotation.Nonnull List<String> values) {
     this.values = values;
     return this;
   }
@@ -96,16 +97,16 @@ public class ParameterSingle {
     return this;
   }
 
-   /**
+  /**
    * Get values
    * @return values
-  **/
+   */
   @javax.annotation.Nonnull
   public List<String> getValues() {
     return values;
   }
 
-  public void setValues(List<String> values) {
+  public void setValues(@javax.annotation.Nonnull List<String> values) {
     this.values = values;
   }
 
@@ -202,22 +203,18 @@ public class ParameterSingle {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("values");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "values"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
-    openapiRequiredFields.add("values");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title", "values"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ParameterSingle
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ParameterSingle
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ParameterSingle.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -315,22 +312,22 @@ public class ParameterSingle {
     }
   }
 
- /**
-  * Create an instance of ParameterSingle given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ParameterSingle
-  * @throws IOException if the JSON string is invalid with respect to ParameterSingle
-  */
+  /**
+   * Create an instance of ParameterSingle given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ParameterSingle
+   * @throws IOException if the JSON string is invalid with respect to ParameterSingle
+   */
   public static ParameterSingle fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ParameterSingle.class);
   }
 
- /**
-  * Convert an instance of ParameterSingle to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ParameterSingle to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

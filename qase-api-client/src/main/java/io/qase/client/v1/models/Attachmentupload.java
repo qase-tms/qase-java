@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,145 +48,151 @@ import io.qase.client.v1.JSON;
 /**
  * Attachmentupload
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Attachmentupload {
   public static final String SERIALIZED_NAME_HASH = "hash";
   @SerializedName(SERIALIZED_NAME_HASH)
+  @javax.annotation.Nullable
   private String hash;
 
   public static final String SERIALIZED_NAME_FILENAME = "filename";
   @SerializedName(SERIALIZED_NAME_FILENAME)
+  @javax.annotation.Nullable
   private String filename;
 
   public static final String SERIALIZED_NAME_MIME = "mime";
   @SerializedName(SERIALIZED_NAME_MIME)
+  @javax.annotation.Nullable
   private String mime;
 
   public static final String SERIALIZED_NAME_EXTENSION = "extension";
   @SerializedName(SERIALIZED_NAME_EXTENSION)
+  @javax.annotation.Nullable
   private String extension;
 
   public static final String SERIALIZED_NAME_URL = "url";
   @SerializedName(SERIALIZED_NAME_URL)
+  @javax.annotation.Nullable
   private String url;
 
   public static final String SERIALIZED_NAME_TEAM = "team";
   @SerializedName(SERIALIZED_NAME_TEAM)
+  @javax.annotation.Nullable
   private String team;
 
   public Attachmentupload() {
   }
 
-  public Attachmentupload hash(String hash) {
+  public Attachmentupload hash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
     return this;
   }
 
-   /**
+  /**
    * Get hash
    * @return hash
-  **/
+   */
   @javax.annotation.Nullable
   public String getHash() {
     return hash;
   }
 
-  public void setHash(String hash) {
+  public void setHash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
   }
 
 
-  public Attachmentupload filename(String filename) {
+  public Attachmentupload filename(@javax.annotation.Nullable String filename) {
     this.filename = filename;
     return this;
   }
 
-   /**
+  /**
    * Get filename
    * @return filename
-  **/
+   */
   @javax.annotation.Nullable
   public String getFilename() {
     return filename;
   }
 
-  public void setFilename(String filename) {
+  public void setFilename(@javax.annotation.Nullable String filename) {
     this.filename = filename;
   }
 
 
-  public Attachmentupload mime(String mime) {
+  public Attachmentupload mime(@javax.annotation.Nullable String mime) {
     this.mime = mime;
     return this;
   }
 
-   /**
+  /**
    * Get mime
    * @return mime
-  **/
+   */
   @javax.annotation.Nullable
   public String getMime() {
     return mime;
   }
 
-  public void setMime(String mime) {
+  public void setMime(@javax.annotation.Nullable String mime) {
     this.mime = mime;
   }
 
 
-  public Attachmentupload extension(String extension) {
+  public Attachmentupload extension(@javax.annotation.Nullable String extension) {
     this.extension = extension;
     return this;
   }
 
-   /**
+  /**
    * Get extension
    * @return extension
-  **/
+   */
   @javax.annotation.Nullable
   public String getExtension() {
     return extension;
   }
 
-  public void setExtension(String extension) {
+  public void setExtension(@javax.annotation.Nullable String extension) {
     this.extension = extension;
   }
 
 
-  public Attachmentupload url(String url) {
+  public Attachmentupload url(@javax.annotation.Nullable String url) {
     this.url = url;
     return this;
   }
 
-   /**
+  /**
    * Get url
    * @return url
-  **/
+   */
   @javax.annotation.Nullable
   public String getUrl() {
     return url;
   }
 
-  public void setUrl(String url) {
+  public void setUrl(@javax.annotation.Nullable String url) {
     this.url = url;
   }
 
 
-  public Attachmentupload team(String team) {
+  public Attachmentupload team(@javax.annotation.Nullable String team) {
     this.team = team;
     return this;
   }
 
-   /**
+  /**
    * Get team
    * @return team
-  **/
+   */
   @javax.annotation.Nullable
   public String getTeam() {
     return team;
   }
 
-  public void setTeam(String team) {
+  public void setTeam(@javax.annotation.Nullable String team) {
     this.team = team;
   }
 
@@ -292,24 +297,18 @@ public class Attachmentupload {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("hash");
-    openapiFields.add("filename");
-    openapiFields.add("mime");
-    openapiFields.add("extension");
-    openapiFields.add("url");
-    openapiFields.add("team");
+    openapiFields = new HashSet<String>(Arrays.asList("hash", "filename", "mime", "extension", "url", "team"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Attachmentupload
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Attachmentupload
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Attachmentupload.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -409,22 +408,22 @@ public class Attachmentupload {
     }
   }
 
- /**
-  * Create an instance of Attachmentupload given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Attachmentupload
-  * @throws IOException if the JSON string is invalid with respect to Attachmentupload
-  */
+  /**
+   * Create an instance of Attachmentupload given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Attachmentupload
+   * @throws IOException if the JSON string is invalid with respect to Attachmentupload
+   */
   public static Attachmentupload fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Attachmentupload.class);
   }
 
- /**
-  * Convert an instance of Attachmentupload to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Attachmentupload to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

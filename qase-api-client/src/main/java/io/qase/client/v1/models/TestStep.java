@@ -41,7 +41,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,60 +52,69 @@ import io.qase.client.v1.JSON;
 /**
  * TestStep
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestStep {
   public static final String SERIALIZED_NAME_HASH = "hash";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_HASH)
+  @javax.annotation.Nullable
   private String hash;
 
   public static final String SERIALIZED_NAME_SHARED_STEP_HASH = "shared_step_hash";
   @SerializedName(SERIALIZED_NAME_SHARED_STEP_HASH)
+  @javax.annotation.Nullable
   private String sharedStepHash;
 
   public static final String SERIALIZED_NAME_SHARED_STEP_NESTED_HASH = "shared_step_nested_hash";
   @SerializedName(SERIALIZED_NAME_SHARED_STEP_NESTED_HASH)
+  @javax.annotation.Nullable
   private String sharedStepNestedHash;
 
   public static final String SERIALIZED_NAME_POSITION = "position";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_POSITION)
+  @javax.annotation.Nullable
   private Integer position;
 
   public static final String SERIALIZED_NAME_ACTION = "action";
   @SerializedName(SERIALIZED_NAME_ACTION)
+  @javax.annotation.Nullable
   private String action;
 
   public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
   @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+  @javax.annotation.Nullable
   private String expectedResult;
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
+  @javax.annotation.Nullable
   private String data;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<Attachment> attachments;
+  @javax.annotation.Nullable
+  private List<Attachment> attachments = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<Object> steps;
+  @javax.annotation.Nullable
+  private List<Object> steps = new ArrayList<>();
 
   public TestStep() {
   }
 
   @Deprecated
-  public TestStep hash(String hash) {
+  public TestStep hash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
     return this;
   }
 
-   /**
+  /**
    * Get hash
    * @return hash
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getHash() {
@@ -114,60 +122,60 @@ public class TestStep {
   }
 
   @Deprecated
-  public void setHash(String hash) {
+  public void setHash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
   }
 
 
-  public TestStep sharedStepHash(String sharedStepHash) {
+  public TestStep sharedStepHash(@javax.annotation.Nullable String sharedStepHash) {
     this.sharedStepHash = sharedStepHash;
     return this;
   }
 
-   /**
+  /**
    * Get sharedStepHash
    * @return sharedStepHash
-  **/
+   */
   @javax.annotation.Nullable
   public String getSharedStepHash() {
     return sharedStepHash;
   }
 
-  public void setSharedStepHash(String sharedStepHash) {
+  public void setSharedStepHash(@javax.annotation.Nullable String sharedStepHash) {
     this.sharedStepHash = sharedStepHash;
   }
 
 
-  public TestStep sharedStepNestedHash(String sharedStepNestedHash) {
+  public TestStep sharedStepNestedHash(@javax.annotation.Nullable String sharedStepNestedHash) {
     this.sharedStepNestedHash = sharedStepNestedHash;
     return this;
   }
 
-   /**
+  /**
    * Get sharedStepNestedHash
    * @return sharedStepNestedHash
-  **/
+   */
   @javax.annotation.Nullable
   public String getSharedStepNestedHash() {
     return sharedStepNestedHash;
   }
 
-  public void setSharedStepNestedHash(String sharedStepNestedHash) {
+  public void setSharedStepNestedHash(@javax.annotation.Nullable String sharedStepNestedHash) {
     this.sharedStepNestedHash = sharedStepNestedHash;
   }
 
 
   @Deprecated
-  public TestStep position(Integer position) {
+  public TestStep position(@javax.annotation.Nullable Integer position) {
     this.position = position;
     return this;
   }
 
-   /**
+  /**
    * Get position
    * @return position
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getPosition() {
@@ -175,69 +183,69 @@ public class TestStep {
   }
 
   @Deprecated
-  public void setPosition(Integer position) {
+  public void setPosition(@javax.annotation.Nullable Integer position) {
     this.position = position;
   }
 
 
-  public TestStep action(String action) {
+  public TestStep action(@javax.annotation.Nullable String action) {
     this.action = action;
     return this;
   }
 
-   /**
+  /**
    * Get action
    * @return action
-  **/
+   */
   @javax.annotation.Nullable
   public String getAction() {
     return action;
   }
 
-  public void setAction(String action) {
+  public void setAction(@javax.annotation.Nullable String action) {
     this.action = action;
   }
 
 
-  public TestStep expectedResult(String expectedResult) {
+  public TestStep expectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
     return this;
   }
 
-   /**
+  /**
    * Get expectedResult
    * @return expectedResult
-  **/
+   */
   @javax.annotation.Nullable
   public String getExpectedResult() {
     return expectedResult;
   }
 
-  public void setExpectedResult(String expectedResult) {
+  public void setExpectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
   }
 
 
-  public TestStep data(String data) {
+  public TestStep data(@javax.annotation.Nullable String data) {
     this.data = data;
     return this;
   }
 
-   /**
+  /**
    * Get data
    * @return data
-  **/
+   */
   @javax.annotation.Nullable
   public String getData() {
     return data;
   }
 
-  public void setData(String data) {
+  public void setData(@javax.annotation.Nullable String data) {
     this.data = data;
   }
 
 
-  public TestStep attachments(List<Attachment> attachments) {
+  public TestStep attachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -250,21 +258,21 @@ public class TestStep {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<Attachment> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
   }
 
 
-  public TestStep steps(List<Object> steps) {
+  public TestStep steps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
     return this;
   }
@@ -277,16 +285,16 @@ public class TestStep {
     return this;
   }
 
-   /**
+  /**
    * Nested steps will be here. The same structure is used for them.
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<Object> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<Object> steps) {
+  public void setSteps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
   }
 
@@ -408,27 +416,18 @@ public class TestStep {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("hash");
-    openapiFields.add("shared_step_hash");
-    openapiFields.add("shared_step_nested_hash");
-    openapiFields.add("position");
-    openapiFields.add("action");
-    openapiFields.add("expected_result");
-    openapiFields.add("data");
-    openapiFields.add("attachments");
-    openapiFields.add("steps");
+    openapiFields = new HashSet<String>(Arrays.asList("hash", "shared_step_hash", "shared_step_nested_hash", "position", "action", "expected_result", "data", "attachments", "steps"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestStep
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestStep
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestStep.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -546,22 +545,22 @@ public class TestStep {
     }
   }
 
- /**
-  * Create an instance of TestStep given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestStep
-  * @throws IOException if the JSON string is invalid with respect to TestStep
-  */
+  /**
+   * Create an instance of TestStep given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestStep
+   * @throws IOException if the JSON string is invalid with respect to TestStep
+   */
   public static TestStep fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestStep.class);
   }
 
- /**
-  * Convert an instance of TestStep to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestStep to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

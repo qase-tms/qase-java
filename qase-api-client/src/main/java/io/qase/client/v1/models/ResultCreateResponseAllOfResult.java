@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,53 +48,55 @@ import io.qase.client.v1.JSON;
 /**
  * ResultCreateResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultCreateResponseAllOfResult {
   public static final String SERIALIZED_NAME_CASE_ID = "case_id";
   @SerializedName(SERIALIZED_NAME_CASE_ID)
+  @javax.annotation.Nullable
   private Long caseId;
 
   public static final String SERIALIZED_NAME_HASH = "hash";
   @SerializedName(SERIALIZED_NAME_HASH)
+  @javax.annotation.Nullable
   private String hash;
 
   public ResultCreateResponseAllOfResult() {
   }
 
-  public ResultCreateResponseAllOfResult caseId(Long caseId) {
+  public ResultCreateResponseAllOfResult caseId(@javax.annotation.Nullable Long caseId) {
     this.caseId = caseId;
     return this;
   }
 
-   /**
+  /**
    * Get caseId
    * @return caseId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getCaseId() {
     return caseId;
   }
 
-  public void setCaseId(Long caseId) {
+  public void setCaseId(@javax.annotation.Nullable Long caseId) {
     this.caseId = caseId;
   }
 
 
-  public ResultCreateResponseAllOfResult hash(String hash) {
+  public ResultCreateResponseAllOfResult hash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
     return this;
   }
 
-   /**
+  /**
    * Get hash
    * @return hash
-  **/
+   */
   @javax.annotation.Nullable
   public String getHash() {
     return hash;
   }
 
-  public void setHash(String hash) {
+  public void setHash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
   }
 
@@ -192,20 +193,18 @@ public class ResultCreateResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("case_id");
-    openapiFields.add("hash");
+    openapiFields = new HashSet<String>(Arrays.asList("case_id", "hash"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultCreateResponseAllOfResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultCreateResponseAllOfResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultCreateResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -290,22 +289,22 @@ public class ResultCreateResponseAllOfResult {
     }
   }
 
- /**
-  * Create an instance of ResultCreateResponseAllOfResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultCreateResponseAllOfResult
-  * @throws IOException if the JSON string is invalid with respect to ResultCreateResponseAllOfResult
-  */
+  /**
+   * Create an instance of ResultCreateResponseAllOfResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultCreateResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to ResultCreateResponseAllOfResult
+   */
   public static ResultCreateResponseAllOfResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultCreateResponseAllOfResult.class);
   }
 
- /**
-  * Convert an instance of ResultCreateResponseAllOfResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultCreateResponseAllOfResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

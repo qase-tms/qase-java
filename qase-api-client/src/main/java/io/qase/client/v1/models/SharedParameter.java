@@ -41,7 +41,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,14 +52,16 @@ import io.qase.client.v1.JSON;
 /**
  * SharedParameter
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SharedParameter {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nonnull
   private UUID id;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   /**
@@ -117,81 +118,85 @@ public class SharedParameter {
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nonnull
   private TypeEnum type;
 
   public static final String SERIALIZED_NAME_PROJECT_CODES = "project_codes";
   @SerializedName(SERIALIZED_NAME_PROJECT_CODES)
+  @javax.annotation.Nonnull
   private List<String> projectCodes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_IS_ENABLED_FOR_ALL_PROJECTS = "is_enabled_for_all_projects";
   @SerializedName(SERIALIZED_NAME_IS_ENABLED_FOR_ALL_PROJECTS)
+  @javax.annotation.Nonnull
   private Boolean isEnabledForAllProjects;
 
   public static final String SERIALIZED_NAME_PARAMETERS = "parameters";
   @SerializedName(SERIALIZED_NAME_PARAMETERS)
+  @javax.annotation.Nonnull
   private SharedParameterParameter parameters;
 
   public SharedParameter() {
   }
 
-  public SharedParameter id(UUID id) {
+  public SharedParameter id(@javax.annotation.Nonnull UUID id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nonnull
   public UUID getId() {
     return id;
   }
 
-  public void setId(UUID id) {
+  public void setId(@javax.annotation.Nonnull UUID id) {
     this.id = id;
   }
 
 
-  public SharedParameter title(String title) {
+  public SharedParameter title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public SharedParameter type(TypeEnum type) {
+  public SharedParameter type(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nonnull
   public TypeEnum getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
   }
 
 
-  public SharedParameter projectCodes(List<String> projectCodes) {
+  public SharedParameter projectCodes(@javax.annotation.Nonnull List<String> projectCodes) {
     this.projectCodes = projectCodes;
     return this;
   }
@@ -204,54 +209,54 @@ public class SharedParameter {
     return this;
   }
 
-   /**
+  /**
    * Get projectCodes
    * @return projectCodes
-  **/
+   */
   @javax.annotation.Nonnull
   public List<String> getProjectCodes() {
     return projectCodes;
   }
 
-  public void setProjectCodes(List<String> projectCodes) {
+  public void setProjectCodes(@javax.annotation.Nonnull List<String> projectCodes) {
     this.projectCodes = projectCodes;
   }
 
 
-  public SharedParameter isEnabledForAllProjects(Boolean isEnabledForAllProjects) {
+  public SharedParameter isEnabledForAllProjects(@javax.annotation.Nonnull Boolean isEnabledForAllProjects) {
     this.isEnabledForAllProjects = isEnabledForAllProjects;
     return this;
   }
 
-   /**
+  /**
    * Get isEnabledForAllProjects
    * @return isEnabledForAllProjects
-  **/
+   */
   @javax.annotation.Nonnull
   public Boolean getIsEnabledForAllProjects() {
     return isEnabledForAllProjects;
   }
 
-  public void setIsEnabledForAllProjects(Boolean isEnabledForAllProjects) {
+  public void setIsEnabledForAllProjects(@javax.annotation.Nonnull Boolean isEnabledForAllProjects) {
     this.isEnabledForAllProjects = isEnabledForAllProjects;
   }
 
 
-  public SharedParameter parameters(SharedParameterParameter parameters) {
+  public SharedParameter parameters(@javax.annotation.Nonnull SharedParameterParameter parameters) {
     this.parameters = parameters;
     return this;
   }
 
-   /**
+  /**
    * Get parameters
    * @return parameters
-  **/
+   */
   @javax.annotation.Nonnull
   public SharedParameterParameter getParameters() {
     return parameters;
   }
 
-  public void setParameters(SharedParameterParameter parameters) {
+  public void setParameters(@javax.annotation.Nonnull SharedParameterParameter parameters) {
     this.parameters = parameters;
   }
 
@@ -356,30 +361,18 @@ public class SharedParameter {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("title");
-    openapiFields.add("type");
-    openapiFields.add("project_codes");
-    openapiFields.add("is_enabled_for_all_projects");
-    openapiFields.add("parameters");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "title", "type", "project_codes", "is_enabled_for_all_projects", "parameters"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("id");
-    openapiRequiredFields.add("title");
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("project_codes");
-    openapiRequiredFields.add("is_enabled_for_all_projects");
-    openapiRequiredFields.add("parameters");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "title", "type", "project_codes", "is_enabled_for_all_projects", "parameters"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SharedParameter
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SharedParameter
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SharedParameter.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -487,22 +480,22 @@ public class SharedParameter {
     }
   }
 
- /**
-  * Create an instance of SharedParameter given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SharedParameter
-  * @throws IOException if the JSON string is invalid with respect to SharedParameter
-  */
+  /**
+   * Create an instance of SharedParameter given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SharedParameter
+   * @throws IOException if the JSON string is invalid with respect to SharedParameter
+   */
   public static SharedParameter fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SharedParameter.class);
   }
 
- /**
-  * Convert an instance of SharedParameter to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SharedParameter to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

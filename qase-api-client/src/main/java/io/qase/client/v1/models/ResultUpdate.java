@@ -41,7 +41,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,7 +52,7 @@ import io.qase.client.v1.JSON;
 /**
  * ResultUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultUpdate {
   /**
    * Gets or Sets status
@@ -115,95 +114,102 @@ public class ResultUpdate {
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private StatusEnum status;
 
   public static final String SERIALIZED_NAME_TIME_MS = "time_ms";
   @SerializedName(SERIALIZED_NAME_TIME_MS)
+  @javax.annotation.Nullable
   private Long timeMs;
 
   public static final String SERIALIZED_NAME_DEFECT = "defect";
   @SerializedName(SERIALIZED_NAME_DEFECT)
+  @javax.annotation.Nullable
   private Boolean defect;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+  @javax.annotation.Nullable
   private List<String> attachments;
 
   public static final String SERIALIZED_NAME_STACKTRACE = "stacktrace";
   @SerializedName(SERIALIZED_NAME_STACKTRACE)
+  @javax.annotation.Nullable
   private String stacktrace;
 
   public static final String SERIALIZED_NAME_COMMENT = "comment";
   @SerializedName(SERIALIZED_NAME_COMMENT)
+  @javax.annotation.Nullable
   private String comment;
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
+  @javax.annotation.Nullable
   private List<TestStepResultCreate> steps;
 
   public ResultUpdate() {
   }
 
-  public ResultUpdate status(StatusEnum status) {
+  public ResultUpdate status(@javax.annotation.Nullable StatusEnum status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(StatusEnum status) {
+  public void setStatus(@javax.annotation.Nullable StatusEnum status) {
     this.status = status;
   }
 
 
-  public ResultUpdate timeMs(Long timeMs) {
+  public ResultUpdate timeMs(@javax.annotation.Nullable Long timeMs) {
     this.timeMs = timeMs;
     return this;
   }
 
-   /**
+  /**
    * Get timeMs
    * minimum: 0
    * maximum: 31536000000
    * @return timeMs
-  **/
+   */
   @javax.annotation.Nullable
   public Long getTimeMs() {
     return timeMs;
   }
 
-  public void setTimeMs(Long timeMs) {
+  public void setTimeMs(@javax.annotation.Nullable Long timeMs) {
     this.timeMs = timeMs;
   }
 
 
-  public ResultUpdate defect(Boolean defect) {
+  public ResultUpdate defect(@javax.annotation.Nullable Boolean defect) {
     this.defect = defect;
     return this;
   }
 
-   /**
+  /**
    * Get defect
    * @return defect
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getDefect() {
     return defect;
   }
 
-  public void setDefect(Boolean defect) {
+  public void setDefect(@javax.annotation.Nullable Boolean defect) {
     this.defect = defect;
   }
 
 
-  public ResultUpdate attachments(List<String> attachments) {
+  public ResultUpdate attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -216,59 +222,59 @@ public class ResultUpdate {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
 
-  public ResultUpdate stacktrace(String stacktrace) {
+  public ResultUpdate stacktrace(@javax.annotation.Nullable String stacktrace) {
     this.stacktrace = stacktrace;
     return this;
   }
 
-   /**
+  /**
    * Get stacktrace
    * @return stacktrace
-  **/
+   */
   @javax.annotation.Nullable
   public String getStacktrace() {
     return stacktrace;
   }
 
-  public void setStacktrace(String stacktrace) {
+  public void setStacktrace(@javax.annotation.Nullable String stacktrace) {
     this.stacktrace = stacktrace;
   }
 
 
-  public ResultUpdate comment(String comment) {
+  public ResultUpdate comment(@javax.annotation.Nullable String comment) {
     this.comment = comment;
     return this;
   }
 
-   /**
+  /**
    * Get comment
    * @return comment
-  **/
+   */
   @javax.annotation.Nullable
   public String getComment() {
     return comment;
   }
 
-  public void setComment(String comment) {
+  public void setComment(@javax.annotation.Nullable String comment) {
     this.comment = comment;
   }
 
 
-  public ResultUpdate steps(List<TestStepResultCreate> steps) {
+  public ResultUpdate steps(@javax.annotation.Nullable List<TestStepResultCreate> steps) {
     this.steps = steps;
     return this;
   }
@@ -281,16 +287,16 @@ public class ResultUpdate {
     return this;
   }
 
-   /**
+  /**
    * Get steps
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<TestStepResultCreate> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<TestStepResultCreate> steps) {
+  public void setSteps(@javax.annotation.Nullable List<TestStepResultCreate> steps) {
     this.steps = steps;
   }
 
@@ -408,25 +414,18 @@ public class ResultUpdate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("status");
-    openapiFields.add("time_ms");
-    openapiFields.add("defect");
-    openapiFields.add("attachments");
-    openapiFields.add("stacktrace");
-    openapiFields.add("comment");
-    openapiFields.add("steps");
+    openapiFields = new HashSet<String>(Arrays.asList("status", "time_ms", "defect", "attachments", "stacktrace", "comment", "steps"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultUpdate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultUpdate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultUpdate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -539,22 +538,22 @@ public class ResultUpdate {
     }
   }
 
- /**
-  * Create an instance of ResultUpdate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultUpdate
-  * @throws IOException if the JSON string is invalid with respect to ResultUpdate
-  */
+  /**
+   * Create an instance of ResultUpdate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultUpdate
+   * @throws IOException if the JSON string is invalid with respect to ResultUpdate
+   */
   public static ResultUpdate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultUpdate.class);
   }
 
- /**
-  * Convert an instance of ResultUpdate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultUpdate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

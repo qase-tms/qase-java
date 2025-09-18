@@ -416,7 +416,7 @@ public class Example {
 
 <a id="runUpdateExternalIssue"></a>
 # **runUpdateExternalIssue**
-> runUpdateExternalIssue(code, runexternalIssues)
+> runUpdateExternalIssue(code, runExternalIssues)
 
 Update external issues for runs
 
@@ -445,9 +445,9 @@ public class Example {
 
     RunsApi apiInstance = new RunsApi(defaultClient);
     String code = "code_example"; // String | Code of project, where to search entities.
-    RunexternalIssues runexternalIssues = new RunexternalIssues(); // RunexternalIssues | 
+    RunExternalIssues runExternalIssues = new RunExternalIssues(); // RunExternalIssues | 
     try {
-      apiInstance.runUpdateExternalIssue(code, runexternalIssues);
+      apiInstance.runUpdateExternalIssue(code, runExternalIssues);
     } catch (ApiException e) {
       System.err.println("Exception when calling RunsApi#runUpdateExternalIssue");
       System.err.println("Status code: " + e.getCode());
@@ -464,7 +464,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **code** | **String**| Code of project, where to search entities. | |
-| **runexternalIssues** | [**RunexternalIssues**](RunexternalIssues.md)|  | |
+| **runExternalIssues** | [**RunExternalIssues**](RunExternalIssues.md)|  | |
 
 ### Return type
 

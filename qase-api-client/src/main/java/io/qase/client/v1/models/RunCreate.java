@@ -42,7 +42,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -54,137 +53,154 @@ import io.qase.client.v1.JSON;
 /**
  * RunCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class RunCreate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_INCLUDE_ALL_CASES = "include_all_cases";
   @SerializedName(SERIALIZED_NAME_INCLUDE_ALL_CASES)
+  @javax.annotation.Nullable
   private Boolean includeAllCases;
 
   public static final String SERIALIZED_NAME_CASES = "cases";
   @SerializedName(SERIALIZED_NAME_CASES)
-  private List<Long> cases;
+  @javax.annotation.Nullable
+  private List<Long> cases = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_IS_AUTOTEST = "is_autotest";
   @SerializedName(SERIALIZED_NAME_IS_AUTOTEST)
+  @javax.annotation.Nullable
   private Boolean isAutotest;
 
   public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environment_id";
   @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  @javax.annotation.Nullable
   private Long environmentId;
 
   public static final String SERIALIZED_NAME_ENVIRONMENT_SLUG = "environment_slug";
   @SerializedName(SERIALIZED_NAME_ENVIRONMENT_SLUG)
+  @javax.annotation.Nullable
   private String environmentSlug;
 
   public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
   @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  @javax.annotation.Nullable
   private Long milestoneId;
 
   public static final String SERIALIZED_NAME_PLAN_ID = "plan_id";
   @SerializedName(SERIALIZED_NAME_PLAN_ID)
+  @javax.annotation.Nullable
   private Long planId;
 
   public static final String SERIALIZED_NAME_AUTHOR_ID = "author_id";
   @SerializedName(SERIALIZED_NAME_AUTHOR_ID)
+  @javax.annotation.Nullable
   private Long authorId;
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<String> tags;
+  @javax.annotation.Nullable
+  private List<String> tags = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CONFIGURATIONS = "configurations";
   @SerializedName(SERIALIZED_NAME_CONFIGURATIONS)
-  private List<Long> configurations;
+  @javax.annotation.Nullable
+  private List<Long> configurations = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELD = "custom_field";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELD)
+  @javax.annotation.Nullable
   private Map<String, String> customField = new HashMap<>();
 
   public static final String SERIALIZED_NAME_START_TIME = "start_time";
   @SerializedName(SERIALIZED_NAME_START_TIME)
+  @javax.annotation.Nullable
   private String startTime;
 
   public static final String SERIALIZED_NAME_END_TIME = "end_time";
   @SerializedName(SERIALIZED_NAME_END_TIME)
+  @javax.annotation.Nullable
   private String endTime;
 
   public static final String SERIALIZED_NAME_IS_CLOUD = "is_cloud";
   @SerializedName(SERIALIZED_NAME_IS_CLOUD)
+  @javax.annotation.Nullable
   private Boolean isCloud;
 
   public static final String SERIALIZED_NAME_CLOUD_RUN_CONFIG = "cloud_run_config";
   @SerializedName(SERIALIZED_NAME_CLOUD_RUN_CONFIG)
+  @javax.annotation.Nullable
   private RunCreateCloudRunConfig cloudRunConfig;
 
   public RunCreate() {
   }
 
-  public RunCreate title(String title) {
+  public RunCreate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public RunCreate description(String description) {
+  public RunCreate description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public RunCreate includeAllCases(Boolean includeAllCases) {
+  public RunCreate includeAllCases(@javax.annotation.Nullable Boolean includeAllCases) {
     this.includeAllCases = includeAllCases;
     return this;
   }
 
-   /**
+  /**
    * Get includeAllCases
    * @return includeAllCases
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIncludeAllCases() {
     return includeAllCases;
   }
 
-  public void setIncludeAllCases(Boolean includeAllCases) {
+  public void setIncludeAllCases(@javax.annotation.Nullable Boolean includeAllCases) {
     this.includeAllCases = includeAllCases;
   }
 
 
-  public RunCreate cases(List<Long> cases) {
+  public RunCreate cases(@javax.annotation.Nullable List<Long> cases) {
     this.cases = cases;
     return this;
   }
@@ -197,139 +213,139 @@ public class RunCreate {
     return this;
   }
 
-   /**
+  /**
    * Get cases
    * @return cases
-  **/
+   */
   @javax.annotation.Nullable
   public List<Long> getCases() {
     return cases;
   }
 
-  public void setCases(List<Long> cases) {
+  public void setCases(@javax.annotation.Nullable List<Long> cases) {
     this.cases = cases;
   }
 
 
-  public RunCreate isAutotest(Boolean isAutotest) {
+  public RunCreate isAutotest(@javax.annotation.Nullable Boolean isAutotest) {
     this.isAutotest = isAutotest;
     return this;
   }
 
-   /**
+  /**
    * Get isAutotest
    * @return isAutotest
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsAutotest() {
     return isAutotest;
   }
 
-  public void setIsAutotest(Boolean isAutotest) {
+  public void setIsAutotest(@javax.annotation.Nullable Boolean isAutotest) {
     this.isAutotest = isAutotest;
   }
 
 
-  public RunCreate environmentId(Long environmentId) {
+  public RunCreate environmentId(@javax.annotation.Nullable Long environmentId) {
     this.environmentId = environmentId;
     return this;
   }
 
-   /**
+  /**
    * Get environmentId
    * minimum: 1
    * @return environmentId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getEnvironmentId() {
     return environmentId;
   }
 
-  public void setEnvironmentId(Long environmentId) {
+  public void setEnvironmentId(@javax.annotation.Nullable Long environmentId) {
     this.environmentId = environmentId;
   }
 
 
-  public RunCreate environmentSlug(String environmentSlug) {
+  public RunCreate environmentSlug(@javax.annotation.Nullable String environmentSlug) {
     this.environmentSlug = environmentSlug;
     return this;
   }
 
-   /**
+  /**
    * Get environmentSlug
    * @return environmentSlug
-  **/
+   */
   @javax.annotation.Nullable
   public String getEnvironmentSlug() {
     return environmentSlug;
   }
 
-  public void setEnvironmentSlug(String environmentSlug) {
+  public void setEnvironmentSlug(@javax.annotation.Nullable String environmentSlug) {
     this.environmentSlug = environmentSlug;
   }
 
 
-  public RunCreate milestoneId(Long milestoneId) {
+  public RunCreate milestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
     return this;
   }
 
-   /**
+  /**
    * Get milestoneId
    * minimum: 1
    * @return milestoneId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getMilestoneId() {
     return milestoneId;
   }
 
-  public void setMilestoneId(Long milestoneId) {
+  public void setMilestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
   }
 
 
-  public RunCreate planId(Long planId) {
+  public RunCreate planId(@javax.annotation.Nullable Long planId) {
     this.planId = planId;
     return this;
   }
 
-   /**
+  /**
    * Get planId
    * minimum: 1
    * @return planId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getPlanId() {
     return planId;
   }
 
-  public void setPlanId(Long planId) {
+  public void setPlanId(@javax.annotation.Nullable Long planId) {
     this.planId = planId;
   }
 
 
-  public RunCreate authorId(Long authorId) {
+  public RunCreate authorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
     return this;
   }
 
-   /**
+  /**
    * Get authorId
    * minimum: 1
    * @return authorId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getAuthorId() {
     return authorId;
   }
 
-  public void setAuthorId(Long authorId) {
+  public void setAuthorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
   }
 
 
-  public RunCreate tags(List<String> tags) {
+  public RunCreate tags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
     return this;
   }
@@ -342,21 +358,21 @@ public class RunCreate {
     return this;
   }
 
-   /**
+  /**
    * Get tags
    * @return tags
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getTags() {
     return tags;
   }
 
-  public void setTags(List<String> tags) {
+  public void setTags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 
 
-  public RunCreate configurations(List<Long> configurations) {
+  public RunCreate configurations(@javax.annotation.Nullable List<Long> configurations) {
     this.configurations = configurations;
     return this;
   }
@@ -369,21 +385,21 @@ public class RunCreate {
     return this;
   }
 
-   /**
+  /**
    * Get configurations
    * @return configurations
-  **/
+   */
   @javax.annotation.Nullable
   public List<Long> getConfigurations() {
     return configurations;
   }
 
-  public void setConfigurations(List<Long> configurations) {
+  public void setConfigurations(@javax.annotation.Nullable List<Long> configurations) {
     this.configurations = configurations;
   }
 
 
-  public RunCreate customField(Map<String, String> customField) {
+  public RunCreate customField(@javax.annotation.Nullable Map<String, String> customField) {
     this.customField = customField;
     return this;
   }
@@ -396,92 +412,92 @@ public class RunCreate {
     return this;
   }
 
-   /**
+  /**
    * A map of custom fields values (id &#x3D;&gt; value)
    * @return customField
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, String> getCustomField() {
     return customField;
   }
 
-  public void setCustomField(Map<String, String> customField) {
+  public void setCustomField(@javax.annotation.Nullable Map<String, String> customField) {
     this.customField = customField;
   }
 
 
-  public RunCreate startTime(String startTime) {
+  public RunCreate startTime(@javax.annotation.Nullable String startTime) {
     this.startTime = startTime;
     return this;
   }
 
-   /**
+  /**
    * Get startTime
    * @return startTime
-  **/
+   */
   @javax.annotation.Nullable
   public String getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(String startTime) {
+  public void setStartTime(@javax.annotation.Nullable String startTime) {
     this.startTime = startTime;
   }
 
 
-  public RunCreate endTime(String endTime) {
+  public RunCreate endTime(@javax.annotation.Nullable String endTime) {
     this.endTime = endTime;
     return this;
   }
 
-   /**
+  /**
    * Get endTime
    * @return endTime
-  **/
+   */
   @javax.annotation.Nullable
   public String getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(String endTime) {
+  public void setEndTime(@javax.annotation.Nullable String endTime) {
     this.endTime = endTime;
   }
 
 
-  public RunCreate isCloud(Boolean isCloud) {
+  public RunCreate isCloud(@javax.annotation.Nullable Boolean isCloud) {
     this.isCloud = isCloud;
     return this;
   }
 
-   /**
+  /**
    * Indicates if the run is created for the Test Cases produced by AIDEN
    * @return isCloud
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsCloud() {
     return isCloud;
   }
 
-  public void setIsCloud(Boolean isCloud) {
+  public void setIsCloud(@javax.annotation.Nullable Boolean isCloud) {
     this.isCloud = isCloud;
   }
 
 
-  public RunCreate cloudRunConfig(RunCreateCloudRunConfig cloudRunConfig) {
+  public RunCreate cloudRunConfig(@javax.annotation.Nullable RunCreateCloudRunConfig cloudRunConfig) {
     this.cloudRunConfig = cloudRunConfig;
     return this;
   }
 
-   /**
+  /**
    * Get cloudRunConfig
    * @return cloudRunConfig
-  **/
+   */
   @javax.annotation.Nullable
   public RunCreateCloudRunConfig getCloudRunConfig() {
     return cloudRunConfig;
   }
 
-  public void setCloudRunConfig(RunCreateCloudRunConfig cloudRunConfig) {
+  public void setCloudRunConfig(@javax.annotation.Nullable RunCreateCloudRunConfig cloudRunConfig) {
     this.cloudRunConfig = cloudRunConfig;
   }
 
@@ -608,36 +624,18 @@ public class RunCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("include_all_cases");
-    openapiFields.add("cases");
-    openapiFields.add("is_autotest");
-    openapiFields.add("environment_id");
-    openapiFields.add("environment_slug");
-    openapiFields.add("milestone_id");
-    openapiFields.add("plan_id");
-    openapiFields.add("author_id");
-    openapiFields.add("tags");
-    openapiFields.add("configurations");
-    openapiFields.add("custom_field");
-    openapiFields.add("start_time");
-    openapiFields.add("end_time");
-    openapiFields.add("is_cloud");
-    openapiFields.add("cloud_run_config");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "description", "include_all_cases", "cases", "is_autotest", "environment_id", "environment_slug", "milestone_id", "plan_id", "author_id", "tags", "configurations", "custom_field", "start_time", "end_time", "is_cloud", "cloud_run_config"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RunCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RunCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!RunCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -757,22 +755,22 @@ public class RunCreate {
     }
   }
 
- /**
-  * Create an instance of RunCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RunCreate
-  * @throws IOException if the JSON string is invalid with respect to RunCreate
-  */
+  /**
+   * Create an instance of RunCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RunCreate
+   * @throws IOException if the JSON string is invalid with respect to RunCreate
+   */
   public static RunCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, RunCreate.class);
   }
 
- /**
-  * Convert an instance of RunCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RunCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

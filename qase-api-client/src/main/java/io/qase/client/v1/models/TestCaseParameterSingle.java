@@ -19,6 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.v1.models.ParameterSingle;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
@@ -39,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,10 +51,11 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseParameterSingle
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestCaseParameterSingle {
   public static final String SERIALIZED_NAME_SHARED_ID = "shared_id";
   @SerializedName(SERIALIZED_NAME_SHARED_ID)
+  @javax.annotation.Nullable
   private UUID sharedId;
 
   /**
@@ -109,69 +110,71 @@ public class TestCaseParameterSingle {
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nonnull
   private TypeEnum type;
 
-  public static final String SERIALIZED_NAME_ITEMS = "items";
-  @SerializedName(SERIALIZED_NAME_ITEMS)
-  private Object items;
+  public static final String SERIALIZED_NAME_ITEM = "item";
+  @SerializedName(SERIALIZED_NAME_ITEM)
+  @javax.annotation.Nonnull
+  private ParameterSingle item;
 
   public TestCaseParameterSingle() {
   }
 
-  public TestCaseParameterSingle sharedId(UUID sharedId) {
+  public TestCaseParameterSingle sharedId(@javax.annotation.Nullable UUID sharedId) {
     this.sharedId = sharedId;
     return this;
   }
 
-   /**
+  /**
    * Get sharedId
    * @return sharedId
-  **/
+   */
   @javax.annotation.Nullable
   public UUID getSharedId() {
     return sharedId;
   }
 
-  public void setSharedId(UUID sharedId) {
+  public void setSharedId(@javax.annotation.Nullable UUID sharedId) {
     this.sharedId = sharedId;
   }
 
 
-  public TestCaseParameterSingle type(TypeEnum type) {
+  public TestCaseParameterSingle type(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nonnull
   public TypeEnum getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(@javax.annotation.Nonnull TypeEnum type) {
     this.type = type;
   }
 
 
-  public TestCaseParameterSingle items(Object items) {
-    this.items = items;
+  public TestCaseParameterSingle item(@javax.annotation.Nonnull ParameterSingle item) {
+    this.item = item;
     return this;
   }
 
-   /**
-   * Get items
-   * @return items
-  **/
+  /**
+   * Get item
+   * @return item
+   */
   @javax.annotation.Nonnull
-  public Object getItems() {
-    return items;
+  public ParameterSingle getItem() {
+    return item;
   }
 
-  public void setItems(Object items) {
-    this.items = items;
+  public void setItem(@javax.annotation.Nonnull ParameterSingle item) {
+    this.item = item;
   }
 
   /**
@@ -231,7 +234,7 @@ public class TestCaseParameterSingle {
     TestCaseParameterSingle testCaseParameterSingle = (TestCaseParameterSingle) o;
     return Objects.equals(this.sharedId, testCaseParameterSingle.sharedId) &&
         Objects.equals(this.type, testCaseParameterSingle.type) &&
-        Objects.equals(this.items, testCaseParameterSingle.items)&&
+        Objects.equals(this.item, testCaseParameterSingle.item)&&
         Objects.equals(this.additionalProperties, testCaseParameterSingle.additionalProperties);
   }
 
@@ -241,7 +244,7 @@ public class TestCaseParameterSingle {
 
   @Override
   public int hashCode() {
-    return Objects.hash(sharedId, type, items, additionalProperties);
+    return Objects.hash(sharedId, type, item, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -257,7 +260,7 @@ public class TestCaseParameterSingle {
     sb.append("class TestCaseParameterSingle {\n");
     sb.append("    sharedId: ").append(toIndentedString(sharedId)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    item: ").append(toIndentedString(item)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -280,23 +283,18 @@ public class TestCaseParameterSingle {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("shared_id");
-    openapiFields.add("type");
-    openapiFields.add("items");
+    openapiFields = new HashSet<String>(Arrays.asList("shared_id", "type", "item"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("items");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("type", "item"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestCaseParameterSingle
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestCaseParameterSingle
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCaseParameterSingle.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -319,6 +317,8 @@ public class TestCaseParameterSingle {
       }
       // validate the required field `type`
       TypeEnum.validateJsonElement(jsonObj.get("type"));
+      // validate the required field `item`
+      ParameterSingle.validateJsonElement(jsonObj.get("item"));
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -393,22 +393,22 @@ public class TestCaseParameterSingle {
     }
   }
 
- /**
-  * Create an instance of TestCaseParameterSingle given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestCaseParameterSingle
-  * @throws IOException if the JSON string is invalid with respect to TestCaseParameterSingle
-  */
+  /**
+   * Create an instance of TestCaseParameterSingle given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestCaseParameterSingle
+   * @throws IOException if the JSON string is invalid with respect to TestCaseParameterSingle
+   */
   public static TestCaseParameterSingle fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestCaseParameterSingle.class);
   }
 
- /**
-  * Convert an instance of TestCaseParameterSingle to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestCaseParameterSingle to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

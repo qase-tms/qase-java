@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,99 +49,103 @@ import io.qase.client.v1.JSON;
 /**
  * SuiteUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SuiteUpdate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
   @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+  @javax.annotation.Nullable
   private String preconditions;
 
   public static final String SERIALIZED_NAME_PARENT_ID = "parent_id";
   @SerializedName(SERIALIZED_NAME_PARENT_ID)
+  @javax.annotation.Nullable
   private Long parentId;
 
   public SuiteUpdate() {
   }
 
-  public SuiteUpdate title(String title) {
+  public SuiteUpdate title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Test suite title.
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public SuiteUpdate description(String description) {
+  public SuiteUpdate description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Test suite description.
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public SuiteUpdate preconditions(String preconditions) {
+  public SuiteUpdate preconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
     return this;
   }
 
-   /**
+  /**
    * Test suite preconditions
    * @return preconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPreconditions() {
     return preconditions;
   }
 
-  public void setPreconditions(String preconditions) {
+  public void setPreconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
   }
 
 
-  public SuiteUpdate parentId(Long parentId) {
+  public SuiteUpdate parentId(@javax.annotation.Nullable Long parentId) {
     this.parentId = parentId;
     return this;
   }
 
-   /**
+  /**
    * Parent suite ID
    * @return parentId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getParentId() {
     return parentId;
   }
 
-  public void setParentId(Long parentId) {
+  public void setParentId(@javax.annotation.Nullable Long parentId) {
     this.parentId = parentId;
   }
 
@@ -254,22 +257,18 @@ public class SuiteUpdate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("preconditions");
-    openapiFields.add("parent_id");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "description", "preconditions", "parent_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SuiteUpdate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SuiteUpdate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SuiteUpdate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -360,22 +359,22 @@ public class SuiteUpdate {
     }
   }
 
- /**
-  * Create an instance of SuiteUpdate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SuiteUpdate
-  * @throws IOException if the JSON string is invalid with respect to SuiteUpdate
-  */
+  /**
+   * Create an instance of SuiteUpdate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SuiteUpdate
+   * @throws IOException if the JSON string is invalid with respect to SuiteUpdate
+   */
   public static SuiteUpdate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SuiteUpdate.class);
   }
 
- /**
-  * Convert an instance of SuiteUpdate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SuiteUpdate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

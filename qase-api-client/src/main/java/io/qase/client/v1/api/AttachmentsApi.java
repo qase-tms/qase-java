@@ -83,7 +83,8 @@ public class AttachmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -93,7 +94,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteAttachmentCall(String hash, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteAttachmentCall(@javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -139,7 +140,7 @@ public class AttachmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteAttachmentValidateBeforeCall(String hash, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteAttachmentValidateBeforeCall(@javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'hash' is set
         if (hash == null) {
             throw new ApiException("Missing the required parameter 'hash' when calling deleteAttachment(Async)");
@@ -156,7 +157,8 @@ public class AttachmentsApi {
      * @return HashResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -166,7 +168,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public HashResponse deleteAttachment(String hash) throws ApiException {
+    public HashResponse deleteAttachment(@javax.annotation.Nonnull String hash) throws ApiException {
         ApiResponse<HashResponse> localVarResp = deleteAttachmentWithHttpInfo(hash);
         return localVarResp.getData();
     }
@@ -178,7 +180,8 @@ public class AttachmentsApi {
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -188,7 +191,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<HashResponse> deleteAttachmentWithHttpInfo(String hash) throws ApiException {
+    public ApiResponse<HashResponse> deleteAttachmentWithHttpInfo(@javax.annotation.Nonnull String hash) throws ApiException {
         okhttp3.Call localVarCall = deleteAttachmentValidateBeforeCall(hash, null);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -202,7 +205,8 @@ public class AttachmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -212,7 +216,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteAttachmentAsync(String hash, final ApiCallback<HashResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteAttachmentAsync(@javax.annotation.Nonnull String hash, final ApiCallback<HashResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteAttachmentValidateBeforeCall(hash, _callback);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
@@ -226,7 +230,8 @@ public class AttachmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Single attachment. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -236,7 +241,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAttachmentCall(String hash, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getAttachmentCall(@javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -282,7 +287,7 @@ public class AttachmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAttachmentValidateBeforeCall(String hash, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getAttachmentValidateBeforeCall(@javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'hash' is set
         if (hash == null) {
             throw new ApiException("Missing the required parameter 'hash' when calling getAttachment(Async)");
@@ -299,7 +304,8 @@ public class AttachmentsApi {
      * @return AttachmentResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Single attachment. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -309,7 +315,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public AttachmentResponse getAttachment(String hash) throws ApiException {
+    public AttachmentResponse getAttachment(@javax.annotation.Nonnull String hash) throws ApiException {
         ApiResponse<AttachmentResponse> localVarResp = getAttachmentWithHttpInfo(hash);
         return localVarResp.getData();
     }
@@ -321,7 +327,8 @@ public class AttachmentsApi {
      * @return ApiResponse&lt;AttachmentResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Single attachment. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -331,7 +338,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AttachmentResponse> getAttachmentWithHttpInfo(String hash) throws ApiException {
+    public ApiResponse<AttachmentResponse> getAttachmentWithHttpInfo(@javax.annotation.Nonnull String hash) throws ApiException {
         okhttp3.Call localVarCall = getAttachmentValidateBeforeCall(hash, null);
         Type localVarReturnType = new TypeToken<AttachmentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -345,7 +352,8 @@ public class AttachmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Single attachment. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -355,7 +363,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAttachmentAsync(String hash, final ApiCallback<AttachmentResponse> _callback) throws ApiException {
+    public okhttp3.Call getAttachmentAsync(@javax.annotation.Nonnull String hash, final ApiCallback<AttachmentResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getAttachmentValidateBeforeCall(hash, _callback);
         Type localVarReturnType = new TypeToken<AttachmentResponse>(){}.getType();
@@ -370,7 +378,8 @@ public class AttachmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -381,7 +390,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAttachmentsCall(Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getAttachmentsCall(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -434,7 +443,7 @@ public class AttachmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAttachmentsValidateBeforeCall(Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getAttachmentsValidateBeforeCall(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         return getAttachmentsCall(limit, offset, _callback);
 
     }
@@ -447,7 +456,8 @@ public class AttachmentsApi {
      * @return AttachmentListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -458,7 +468,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public AttachmentListResponse getAttachments(Integer limit, Integer offset) throws ApiException {
+    public AttachmentListResponse getAttachments(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<AttachmentListResponse> localVarResp = getAttachmentsWithHttpInfo(limit, offset);
         return localVarResp.getData();
     }
@@ -471,7 +481,8 @@ public class AttachmentsApi {
      * @return ApiResponse&lt;AttachmentListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -482,7 +493,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AttachmentListResponse> getAttachmentsWithHttpInfo(Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<AttachmentListResponse> getAttachmentsWithHttpInfo(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getAttachmentsValidateBeforeCall(limit, offset, null);
         Type localVarReturnType = new TypeToken<AttachmentListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -497,7 +508,8 @@ public class AttachmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all attachments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -508,7 +520,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAttachmentsAsync(Integer limit, Integer offset, final ApiCallback<AttachmentListResponse> _callback) throws ApiException {
+    public okhttp3.Call getAttachmentsAsync(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<AttachmentListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getAttachmentsValidateBeforeCall(limit, offset, _callback);
         Type localVarReturnType = new TypeToken<AttachmentListResponse>(){}.getType();
@@ -523,7 +535,8 @@ public class AttachmentsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -534,7 +547,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call uploadAttachmentCall(String code, List<File> _file, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call uploadAttachmentCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable List<File> _file, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -585,7 +598,7 @@ public class AttachmentsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call uploadAttachmentValidateBeforeCall(String code, List<File> _file, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call uploadAttachmentValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable List<File> _file, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling uploadAttachment(Async)");
@@ -603,7 +616,8 @@ public class AttachmentsApi {
      * @return AttachmentUploadsResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -614,7 +628,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public AttachmentUploadsResponse uploadAttachment(String code, List<File> _file) throws ApiException {
+    public AttachmentUploadsResponse uploadAttachment(@javax.annotation.Nonnull String code, @javax.annotation.Nullable List<File> _file) throws ApiException {
         ApiResponse<AttachmentUploadsResponse> localVarResp = uploadAttachmentWithHttpInfo(code, _file);
         return localVarResp.getData();
     }
@@ -627,7 +641,8 @@ public class AttachmentsApi {
      * @return ApiResponse&lt;AttachmentUploadsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -638,7 +653,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AttachmentUploadsResponse> uploadAttachmentWithHttpInfo(String code, List<File> _file) throws ApiException {
+    public ApiResponse<AttachmentUploadsResponse> uploadAttachmentWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable List<File> _file) throws ApiException {
         okhttp3.Call localVarCall = uploadAttachmentValidateBeforeCall(code, _file, null);
         Type localVarReturnType = new TypeToken<AttachmentUploadsResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -653,7 +668,8 @@ public class AttachmentsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An attachments. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -664,7 +680,7 @@ public class AttachmentsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call uploadAttachmentAsync(String code, List<File> _file, final ApiCallback<AttachmentUploadsResponse> _callback) throws ApiException {
+    public okhttp3.Call uploadAttachmentAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable List<File> _file, final ApiCallback<AttachmentUploadsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = uploadAttachmentValidateBeforeCall(code, _file, _callback);
         Type localVarReturnType = new TypeToken<AttachmentUploadsResponse>(){}.getType();

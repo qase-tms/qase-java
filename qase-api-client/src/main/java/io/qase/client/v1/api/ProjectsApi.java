@@ -84,7 +84,8 @@ public class ProjectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of project creation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -94,7 +95,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createProjectCall(ProjectCreate projectCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createProjectCall(@javax.annotation.Nonnull ProjectCreate projectCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -140,7 +141,7 @@ public class ProjectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createProjectValidateBeforeCall(ProjectCreate projectCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createProjectValidateBeforeCall(@javax.annotation.Nonnull ProjectCreate projectCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'projectCreate' is set
         if (projectCreate == null) {
             throw new ApiException("Missing the required parameter 'projectCreate' when calling createProject(Async)");
@@ -157,7 +158,8 @@ public class ProjectsApi {
      * @return ProjectCodeResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of project creation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -167,7 +169,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ProjectCodeResponse createProject(ProjectCreate projectCreate) throws ApiException {
+    public ProjectCodeResponse createProject(@javax.annotation.Nonnull ProjectCreate projectCreate) throws ApiException {
         ApiResponse<ProjectCodeResponse> localVarResp = createProjectWithHttpInfo(projectCreate);
         return localVarResp.getData();
     }
@@ -179,7 +181,8 @@ public class ProjectsApi {
      * @return ApiResponse&lt;ProjectCodeResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of project creation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -189,7 +192,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ProjectCodeResponse> createProjectWithHttpInfo(ProjectCreate projectCreate) throws ApiException {
+    public ApiResponse<ProjectCodeResponse> createProjectWithHttpInfo(@javax.annotation.Nonnull ProjectCreate projectCreate) throws ApiException {
         okhttp3.Call localVarCall = createProjectValidateBeforeCall(projectCreate, null);
         Type localVarReturnType = new TypeToken<ProjectCodeResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -203,7 +206,8 @@ public class ProjectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of project creation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -213,7 +217,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createProjectAsync(ProjectCreate projectCreate, final ApiCallback<ProjectCodeResponse> _callback) throws ApiException {
+    public okhttp3.Call createProjectAsync(@javax.annotation.Nonnull ProjectCreate projectCreate, final ApiCallback<ProjectCodeResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createProjectValidateBeforeCall(projectCreate, _callback);
         Type localVarReturnType = new TypeToken<ProjectCodeResponse>(){}.getType();
@@ -227,7 +231,8 @@ public class ProjectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of project removal. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -237,7 +242,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteProjectCall(String code, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteProjectCall(@javax.annotation.Nonnull String code, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -283,7 +288,7 @@ public class ProjectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteProjectValidateBeforeCall(String code, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteProjectValidateBeforeCall(@javax.annotation.Nonnull String code, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deleteProject(Async)");
@@ -300,7 +305,8 @@ public class ProjectsApi {
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of project removal. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -310,7 +316,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse deleteProject(String code) throws ApiException {
+    public BaseResponse deleteProject(@javax.annotation.Nonnull String code) throws ApiException {
         ApiResponse<BaseResponse> localVarResp = deleteProjectWithHttpInfo(code);
         return localVarResp.getData();
     }
@@ -322,7 +328,8 @@ public class ProjectsApi {
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of project removal. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -332,7 +339,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> deleteProjectWithHttpInfo(String code) throws ApiException {
+    public ApiResponse<BaseResponse> deleteProjectWithHttpInfo(@javax.annotation.Nonnull String code) throws ApiException {
         okhttp3.Call localVarCall = deleteProjectValidateBeforeCall(code, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -346,7 +353,8 @@ public class ProjectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of project removal. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -356,7 +364,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteProjectAsync(String code, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteProjectAsync(@javax.annotation.Nonnull String code, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteProjectValidateBeforeCall(code, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
@@ -370,7 +378,8 @@ public class ProjectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Project. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -380,7 +389,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getProjectCall(String code, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getProjectCall(@javax.annotation.Nonnull String code, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -426,7 +435,7 @@ public class ProjectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getProjectValidateBeforeCall(String code, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getProjectValidateBeforeCall(@javax.annotation.Nonnull String code, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getProject(Async)");
@@ -443,7 +452,8 @@ public class ProjectsApi {
      * @return ProjectResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Project. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -453,7 +463,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ProjectResponse getProject(String code) throws ApiException {
+    public ProjectResponse getProject(@javax.annotation.Nonnull String code) throws ApiException {
         ApiResponse<ProjectResponse> localVarResp = getProjectWithHttpInfo(code);
         return localVarResp.getData();
     }
@@ -465,7 +475,8 @@ public class ProjectsApi {
      * @return ApiResponse&lt;ProjectResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Project. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -475,7 +486,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ProjectResponse> getProjectWithHttpInfo(String code) throws ApiException {
+    public ApiResponse<ProjectResponse> getProjectWithHttpInfo(@javax.annotation.Nonnull String code) throws ApiException {
         okhttp3.Call localVarCall = getProjectValidateBeforeCall(code, null);
         Type localVarReturnType = new TypeToken<ProjectResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -489,7 +500,8 @@ public class ProjectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Project. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -499,7 +511,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getProjectAsync(String code, final ApiCallback<ProjectResponse> _callback) throws ApiException {
+    public okhttp3.Call getProjectAsync(@javax.annotation.Nonnull String code, final ApiCallback<ProjectResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getProjectValidateBeforeCall(code, _callback);
         Type localVarReturnType = new TypeToken<ProjectResponse>(){}.getType();
@@ -514,7 +526,8 @@ public class ProjectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -523,7 +536,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getProjectsCall(Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getProjectsCall(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -576,7 +589,7 @@ public class ProjectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getProjectsValidateBeforeCall(Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getProjectsValidateBeforeCall(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         return getProjectsCall(limit, offset, _callback);
 
     }
@@ -589,7 +602,8 @@ public class ProjectsApi {
      * @return ProjectListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -598,7 +612,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ProjectListResponse getProjects(Integer limit, Integer offset) throws ApiException {
+    public ProjectListResponse getProjects(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<ProjectListResponse> localVarResp = getProjectsWithHttpInfo(limit, offset);
         return localVarResp.getData();
     }
@@ -611,7 +625,8 @@ public class ProjectsApi {
      * @return ApiResponse&lt;ProjectListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -620,7 +635,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ProjectListResponse> getProjectsWithHttpInfo(Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<ProjectListResponse> getProjectsWithHttpInfo(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getProjectsValidateBeforeCall(limit, offset, null);
         Type localVarReturnType = new TypeToken<ProjectListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -635,7 +650,8 @@ public class ProjectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all projects. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -644,7 +660,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getProjectsAsync(Integer limit, Integer offset, final ApiCallback<ProjectListResponse> _callback) throws ApiException {
+    public okhttp3.Call getProjectsAsync(@javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<ProjectListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getProjectsValidateBeforeCall(limit, offset, _callback);
         Type localVarReturnType = new TypeToken<ProjectListResponse>(){}.getType();
@@ -659,7 +675,8 @@ public class ProjectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -670,7 +687,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call grantAccessToProjectCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call grantAccessToProjectCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -717,7 +734,7 @@ public class ProjectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call grantAccessToProjectValidateBeforeCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call grantAccessToProjectValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling grantAccessToProject(Async)");
@@ -740,7 +757,8 @@ public class ProjectsApi {
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -751,7 +769,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse grantAccessToProject(String code, ProjectAccess projectAccess) throws ApiException {
+    public BaseResponse grantAccessToProject(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess) throws ApiException {
         ApiResponse<BaseResponse> localVarResp = grantAccessToProjectWithHttpInfo(code, projectAccess);
         return localVarResp.getData();
     }
@@ -764,7 +782,8 @@ public class ProjectsApi {
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -775,7 +794,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> grantAccessToProjectWithHttpInfo(String code, ProjectAccess projectAccess) throws ApiException {
+    public ApiResponse<BaseResponse> grantAccessToProjectWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess) throws ApiException {
         okhttp3.Call localVarCall = grantAccessToProjectValidateBeforeCall(code, projectAccess, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -790,7 +809,8 @@ public class ProjectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -801,7 +821,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call grantAccessToProjectAsync(String code, ProjectAccess projectAccess, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call grantAccessToProjectAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = grantAccessToProjectValidateBeforeCall(code, projectAccess, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
@@ -816,7 +836,8 @@ public class ProjectsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -827,7 +848,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call revokeAccessToProjectCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call revokeAccessToProjectCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -874,7 +895,7 @@ public class ProjectsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call revokeAccessToProjectValidateBeforeCall(String code, ProjectAccess projectAccess, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call revokeAccessToProjectValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling revokeAccessToProject(Async)");
@@ -897,7 +918,8 @@ public class ProjectsApi {
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -908,7 +930,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse revokeAccessToProject(String code, ProjectAccess projectAccess) throws ApiException {
+    public BaseResponse revokeAccessToProject(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess) throws ApiException {
         ApiResponse<BaseResponse> localVarResp = revokeAccessToProjectWithHttpInfo(code, projectAccess);
         return localVarResp.getData();
     }
@@ -921,7 +943,8 @@ public class ProjectsApi {
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -932,7 +955,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> revokeAccessToProjectWithHttpInfo(String code, ProjectAccess projectAccess) throws ApiException {
+    public ApiResponse<BaseResponse> revokeAccessToProjectWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess) throws ApiException {
         okhttp3.Call localVarCall = revokeAccessToProjectValidateBeforeCall(code, projectAccess, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -947,7 +970,8 @@ public class ProjectsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -958,7 +982,7 @@ public class ProjectsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call revokeAccessToProjectAsync(String code, ProjectAccess projectAccess, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call revokeAccessToProjectAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ProjectAccess projectAccess, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = revokeAccessToProjectValidateBeforeCall(code, projectAccess, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
