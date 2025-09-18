@@ -19,7 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.qase.client.v1.models.TestCaseParametercreate;
+import io.qase.client.v1.models.TestCaseParameterCreate;
 import io.qase.client.v1.models.TestStepCreate;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,7 +44,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -56,371 +55,394 @@ import io.qase.client.v1.JSON;
 /**
  * TestCasebulkCasesInner
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestCasebulkCasesInner {
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
   @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+  @javax.annotation.Nullable
   private String preconditions;
 
   public static final String SERIALIZED_NAME_POSTCONDITIONS = "postconditions";
   @SerializedName(SERIALIZED_NAME_POSTCONDITIONS)
+  @javax.annotation.Nullable
   private String postconditions;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_SEVERITY = "severity";
   @SerializedName(SERIALIZED_NAME_SEVERITY)
+  @javax.annotation.Nullable
   private Integer severity;
 
   public static final String SERIALIZED_NAME_PRIORITY = "priority";
   @SerializedName(SERIALIZED_NAME_PRIORITY)
+  @javax.annotation.Nullable
   private Integer priority;
 
   public static final String SERIALIZED_NAME_BEHAVIOR = "behavior";
   @SerializedName(SERIALIZED_NAME_BEHAVIOR)
+  @javax.annotation.Nullable
   private Integer behavior;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nullable
   private Integer type;
 
   public static final String SERIALIZED_NAME_LAYER = "layer";
   @SerializedName(SERIALIZED_NAME_LAYER)
+  @javax.annotation.Nullable
   private Integer layer;
 
   public static final String SERIALIZED_NAME_IS_FLAKY = "is_flaky";
   @SerializedName(SERIALIZED_NAME_IS_FLAKY)
+  @javax.annotation.Nullable
   private Integer isFlaky;
 
   public static final String SERIALIZED_NAME_SUITE_ID = "suite_id";
   @SerializedName(SERIALIZED_NAME_SUITE_ID)
+  @javax.annotation.Nullable
   private Long suiteId;
 
   public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
   @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  @javax.annotation.Nullable
   private Long milestoneId;
 
   public static final String SERIALIZED_NAME_AUTOMATION = "automation";
   @SerializedName(SERIALIZED_NAME_AUTOMATION)
+  @javax.annotation.Nullable
   private Integer automation;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private Integer status;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<String> attachments;
+  @javax.annotation.Nullable
+  private List<String> attachments = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<TestStepCreate> steps;
+  @javax.annotation.Nullable
+  private List<TestStepCreate> steps = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<String> tags;
+  @javax.annotation.Nullable
+  private List<String> tags = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_PARAMS)
+  @javax.annotation.Nullable
   private Map<String, List<String>> params;
 
   public static final String SERIALIZED_NAME_PARAMETERS = "parameters";
   @SerializedName(SERIALIZED_NAME_PARAMETERS)
-  private List<TestCaseParametercreate> parameters;
+  @javax.annotation.Nullable
+  private List<TestCaseParameterCreate> parameters;
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELD = "custom_field";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELD)
+  @javax.annotation.Nullable
   private Map<String, String> customField = new HashMap<>();
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private String createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private String updatedAt;
 
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Integer id;
 
   public TestCasebulkCasesInner() {
   }
 
-  public TestCasebulkCasesInner description(String description) {
+  public TestCasebulkCasesInner description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public TestCasebulkCasesInner preconditions(String preconditions) {
+  public TestCasebulkCasesInner preconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
     return this;
   }
 
-   /**
+  /**
    * Get preconditions
    * @return preconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPreconditions() {
     return preconditions;
   }
 
-  public void setPreconditions(String preconditions) {
+  public void setPreconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
   }
 
 
-  public TestCasebulkCasesInner postconditions(String postconditions) {
+  public TestCasebulkCasesInner postconditions(@javax.annotation.Nullable String postconditions) {
     this.postconditions = postconditions;
     return this;
   }
 
-   /**
+  /**
    * Get postconditions
    * @return postconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPostconditions() {
     return postconditions;
   }
 
-  public void setPostconditions(String postconditions) {
+  public void setPostconditions(@javax.annotation.Nullable String postconditions) {
     this.postconditions = postconditions;
   }
 
 
-  public TestCasebulkCasesInner title(String title) {
+  public TestCasebulkCasesInner title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public TestCasebulkCasesInner severity(Integer severity) {
+  public TestCasebulkCasesInner severity(@javax.annotation.Nullable Integer severity) {
     this.severity = severity;
     return this;
   }
 
-   /**
+  /**
    * Get severity
    * @return severity
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getSeverity() {
     return severity;
   }
 
-  public void setSeverity(Integer severity) {
+  public void setSeverity(@javax.annotation.Nullable Integer severity) {
     this.severity = severity;
   }
 
 
-  public TestCasebulkCasesInner priority(Integer priority) {
+  public TestCasebulkCasesInner priority(@javax.annotation.Nullable Integer priority) {
     this.priority = priority;
     return this;
   }
 
-   /**
+  /**
    * Get priority
    * @return priority
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getPriority() {
     return priority;
   }
 
-  public void setPriority(Integer priority) {
+  public void setPriority(@javax.annotation.Nullable Integer priority) {
     this.priority = priority;
   }
 
 
-  public TestCasebulkCasesInner behavior(Integer behavior) {
+  public TestCasebulkCasesInner behavior(@javax.annotation.Nullable Integer behavior) {
     this.behavior = behavior;
     return this;
   }
 
-   /**
+  /**
    * Get behavior
    * @return behavior
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getBehavior() {
     return behavior;
   }
 
-  public void setBehavior(Integer behavior) {
+  public void setBehavior(@javax.annotation.Nullable Integer behavior) {
     this.behavior = behavior;
   }
 
 
-  public TestCasebulkCasesInner type(Integer type) {
+  public TestCasebulkCasesInner type(@javax.annotation.Nullable Integer type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getType() {
     return type;
   }
 
-  public void setType(Integer type) {
+  public void setType(@javax.annotation.Nullable Integer type) {
     this.type = type;
   }
 
 
-  public TestCasebulkCasesInner layer(Integer layer) {
+  public TestCasebulkCasesInner layer(@javax.annotation.Nullable Integer layer) {
     this.layer = layer;
     return this;
   }
 
-   /**
+  /**
    * Get layer
    * @return layer
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getLayer() {
     return layer;
   }
 
-  public void setLayer(Integer layer) {
+  public void setLayer(@javax.annotation.Nullable Integer layer) {
     this.layer = layer;
   }
 
 
-  public TestCasebulkCasesInner isFlaky(Integer isFlaky) {
+  public TestCasebulkCasesInner isFlaky(@javax.annotation.Nullable Integer isFlaky) {
     this.isFlaky = isFlaky;
     return this;
   }
 
-   /**
+  /**
    * Get isFlaky
    * @return isFlaky
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getIsFlaky() {
     return isFlaky;
   }
 
-  public void setIsFlaky(Integer isFlaky) {
+  public void setIsFlaky(@javax.annotation.Nullable Integer isFlaky) {
     this.isFlaky = isFlaky;
   }
 
 
-  public TestCasebulkCasesInner suiteId(Long suiteId) {
+  public TestCasebulkCasesInner suiteId(@javax.annotation.Nullable Long suiteId) {
     this.suiteId = suiteId;
     return this;
   }
 
-   /**
+  /**
    * Get suiteId
    * @return suiteId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getSuiteId() {
     return suiteId;
   }
 
-  public void setSuiteId(Long suiteId) {
+  public void setSuiteId(@javax.annotation.Nullable Long suiteId) {
     this.suiteId = suiteId;
   }
 
 
-  public TestCasebulkCasesInner milestoneId(Long milestoneId) {
+  public TestCasebulkCasesInner milestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
     return this;
   }
 
-   /**
+  /**
    * Get milestoneId
    * @return milestoneId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getMilestoneId() {
     return milestoneId;
   }
 
-  public void setMilestoneId(Long milestoneId) {
+  public void setMilestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
   }
 
 
-  public TestCasebulkCasesInner automation(Integer automation) {
+  public TestCasebulkCasesInner automation(@javax.annotation.Nullable Integer automation) {
     this.automation = automation;
     return this;
   }
 
-   /**
+  /**
    * Get automation
    * @return automation
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getAutomation() {
     return automation;
   }
 
-  public void setAutomation(Integer automation) {
+  public void setAutomation(@javax.annotation.Nullable Integer automation) {
     this.automation = automation;
   }
 
 
-  public TestCasebulkCasesInner status(Integer status) {
+  public TestCasebulkCasesInner status(@javax.annotation.Nullable Integer status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getStatus() {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  public void setStatus(@javax.annotation.Nullable Integer status) {
     this.status = status;
   }
 
 
-  public TestCasebulkCasesInner attachments(List<String> attachments) {
+  public TestCasebulkCasesInner attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -433,21 +455,21 @@ public class TestCasebulkCasesInner {
     return this;
   }
 
-   /**
+  /**
    * A list of Attachment hashes.
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
 
-  public TestCasebulkCasesInner steps(List<TestStepCreate> steps) {
+  public TestCasebulkCasesInner steps(@javax.annotation.Nullable List<TestStepCreate> steps) {
     this.steps = steps;
     return this;
   }
@@ -460,21 +482,21 @@ public class TestCasebulkCasesInner {
     return this;
   }
 
-   /**
+  /**
    * Get steps
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<TestStepCreate> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<TestStepCreate> steps) {
+  public void setSteps(@javax.annotation.Nullable List<TestStepCreate> steps) {
     this.steps = steps;
   }
 
 
-  public TestCasebulkCasesInner tags(List<String> tags) {
+  public TestCasebulkCasesInner tags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
     return this;
   }
@@ -487,22 +509,22 @@ public class TestCasebulkCasesInner {
     return this;
   }
 
-   /**
+  /**
    * Get tags
    * @return tags
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getTags() {
     return tags;
   }
 
-  public void setTags(List<String> tags) {
+  public void setTags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 
 
   @Deprecated
-  public TestCasebulkCasesInner params(Map<String, List<String>> params) {
+  public TestCasebulkCasesInner params(@javax.annotation.Nullable Map<String, List<String>> params) {
     this.params = params;
     return this;
   }
@@ -515,11 +537,11 @@ public class TestCasebulkCasesInner {
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use &#x60;parameters&#x60; instead.
    * @return params
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Map<String, List<String>> getParams() {
@@ -527,17 +549,17 @@ public class TestCasebulkCasesInner {
   }
 
   @Deprecated
-  public void setParams(Map<String, List<String>> params) {
+  public void setParams(@javax.annotation.Nullable Map<String, List<String>> params) {
     this.params = params;
   }
 
 
-  public TestCasebulkCasesInner parameters(List<TestCaseParametercreate> parameters) {
+  public TestCasebulkCasesInner parameters(@javax.annotation.Nullable List<TestCaseParameterCreate> parameters) {
     this.parameters = parameters;
     return this;
   }
 
-  public TestCasebulkCasesInner addParametersItem(TestCaseParametercreate parametersItem) {
+  public TestCasebulkCasesInner addParametersItem(TestCaseParameterCreate parametersItem) {
     if (this.parameters == null) {
       this.parameters = new ArrayList<>();
     }
@@ -545,21 +567,21 @@ public class TestCasebulkCasesInner {
     return this;
   }
 
-   /**
+  /**
    * Get parameters
    * @return parameters
-  **/
+   */
   @javax.annotation.Nullable
-  public List<TestCaseParametercreate> getParameters() {
+  public List<TestCaseParameterCreate> getParameters() {
     return parameters;
   }
 
-  public void setParameters(List<TestCaseParametercreate> parameters) {
+  public void setParameters(@javax.annotation.Nullable List<TestCaseParameterCreate> parameters) {
     this.parameters = parameters;
   }
 
 
-  public TestCasebulkCasesInner customField(Map<String, String> customField) {
+  public TestCasebulkCasesInner customField(@javax.annotation.Nullable Map<String, String> customField) {
     this.customField = customField;
     return this;
   }
@@ -572,73 +594,73 @@ public class TestCasebulkCasesInner {
     return this;
   }
 
-   /**
+  /**
    * A map of custom fields values (id &#x3D;&gt; value)
    * @return customField
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, String> getCustomField() {
     return customField;
   }
 
-  public void setCustomField(Map<String, String> customField) {
+  public void setCustomField(@javax.annotation.Nullable Map<String, String> customField) {
     this.customField = customField;
   }
 
 
-  public TestCasebulkCasesInner createdAt(String createdAt) {
+  public TestCasebulkCasesInner createdAt(@javax.annotation.Nullable String createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public String getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable String createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public TestCasebulkCasesInner updatedAt(String updatedAt) {
+  public TestCasebulkCasesInner updatedAt(@javax.annotation.Nullable String updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public String getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(String updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable String updatedAt) {
     this.updatedAt = updatedAt;
   }
 
 
-  public TestCasebulkCasesInner id(Integer id) {
+  public TestCasebulkCasesInner id(@javax.annotation.Nullable Integer id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(@javax.annotation.Nullable Integer id) {
     this.id = id;
   }
 
@@ -788,42 +810,18 @@ public class TestCasebulkCasesInner {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("description");
-    openapiFields.add("preconditions");
-    openapiFields.add("postconditions");
-    openapiFields.add("title");
-    openapiFields.add("severity");
-    openapiFields.add("priority");
-    openapiFields.add("behavior");
-    openapiFields.add("type");
-    openapiFields.add("layer");
-    openapiFields.add("is_flaky");
-    openapiFields.add("suite_id");
-    openapiFields.add("milestone_id");
-    openapiFields.add("automation");
-    openapiFields.add("status");
-    openapiFields.add("attachments");
-    openapiFields.add("steps");
-    openapiFields.add("tags");
-    openapiFields.add("params");
-    openapiFields.add("parameters");
-    openapiFields.add("custom_field");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
-    openapiFields.add("id");
+    openapiFields = new HashSet<String>(Arrays.asList("description", "preconditions", "postconditions", "title", "severity", "priority", "behavior", "type", "layer", "is_flaky", "suite_id", "milestone_id", "automation", "status", "attachments", "steps", "tags", "params", "parameters", "custom_field", "created_at", "updated_at", "id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestCasebulkCasesInner
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestCasebulkCasesInner
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCasebulkCasesInner.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -882,7 +880,7 @@ public class TestCasebulkCasesInner {
 
           // validate the optional field `parameters` (array)
           for (int i = 0; i < jsonArrayparameters.size(); i++) {
-            TestCaseParametercreate.validateJsonElement(jsonArrayparameters.get(i));
+            TestCaseParameterCreate.validateJsonElement(jsonArrayparameters.get(i));
           };
         }
       }
@@ -966,22 +964,22 @@ public class TestCasebulkCasesInner {
     }
   }
 
- /**
-  * Create an instance of TestCasebulkCasesInner given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestCasebulkCasesInner
-  * @throws IOException if the JSON string is invalid with respect to TestCasebulkCasesInner
-  */
+  /**
+   * Create an instance of TestCasebulkCasesInner given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestCasebulkCasesInner
+   * @throws IOException if the JSON string is invalid with respect to TestCasebulkCasesInner
+   */
   public static TestCasebulkCasesInner fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestCasebulkCasesInner.class);
   }
 
- /**
-  * Convert an instance of TestCasebulkCasesInner to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestCasebulkCasesInner to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -86,7 +86,7 @@ public class Example {
 
 <a id="deleteSharedParameter"></a>
 # **deleteSharedParameter**
-> UuidResponse deleteSharedParameter(id)
+> UuidResponse1 deleteSharedParameter(id)
 
 Delete shared parameter
 
@@ -116,7 +116,7 @@ public class Example {
     SharedParametersApi apiInstance = new SharedParametersApi(defaultClient);
     UUID id = UUID.randomUUID(); // UUID | Identifier.
     try {
-      UuidResponse result = apiInstance.deleteSharedParameter(id);
+      UuidResponse1 result = apiInstance.deleteSharedParameter(id);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling SharedParametersApi#deleteSharedParameter");
@@ -137,7 +137,7 @@ public class Example {
 
 ### Return type
 
-[**UuidResponse**](UuidResponse.md)
+[**UuidResponse1**](UuidResponse1.md)
 
 ### Authorization
 
@@ -312,7 +312,7 @@ public class Example {
 
 <a id="updateSharedParameter"></a>
 # **updateSharedParameter**
-> UuidResponse updateSharedParameter(id, sharedParameterUpdate)
+> UuidResponse1 updateSharedParameter(id, sharedParameterUpdate)
 
 Update shared parameter
 
@@ -341,7 +341,7 @@ public class Example {
     UUID id = UUID.randomUUID(); // UUID | Identifier.
     SharedParameterUpdate sharedParameterUpdate = new SharedParameterUpdate(); // SharedParameterUpdate | 
     try {
-      UuidResponse result = apiInstance.updateSharedParameter(id, sharedParameterUpdate);
+      UuidResponse1 result = apiInstance.updateSharedParameter(id, sharedParameterUpdate);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling SharedParametersApi#updateSharedParameter");
@@ -363,7 +363,7 @@ public class Example {
 
 ### Return type
 
-[**UuidResponse**](UuidResponse.md)
+[**UuidResponse1**](UuidResponse1.md)
 
 ### Authorization
 

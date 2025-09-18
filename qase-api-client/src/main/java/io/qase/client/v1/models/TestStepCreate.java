@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,104 +50,110 @@ import io.qase.client.v1.JSON;
 /**
  * TestStepCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestStepCreate {
   public static final String SERIALIZED_NAME_ACTION = "action";
   @SerializedName(SERIALIZED_NAME_ACTION)
+  @javax.annotation.Nullable
   private String action;
 
   public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
   @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+  @javax.annotation.Nullable
   private String expectedResult;
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
+  @javax.annotation.Nullable
   private String data;
 
   public static final String SERIALIZED_NAME_POSITION = "position";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_POSITION)
+  @javax.annotation.Nullable
   private Integer position;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<String> attachments;
+  @javax.annotation.Nullable
+  private List<String> attachments = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<Object> steps;
+  @javax.annotation.Nullable
+  private List<Object> steps = new ArrayList<>();
 
   public TestStepCreate() {
   }
 
-  public TestStepCreate action(String action) {
+  public TestStepCreate action(@javax.annotation.Nullable String action) {
     this.action = action;
     return this;
   }
 
-   /**
+  /**
    * Get action
    * @return action
-  **/
+   */
   @javax.annotation.Nullable
   public String getAction() {
     return action;
   }
 
-  public void setAction(String action) {
+  public void setAction(@javax.annotation.Nullable String action) {
     this.action = action;
   }
 
 
-  public TestStepCreate expectedResult(String expectedResult) {
+  public TestStepCreate expectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
     return this;
   }
 
-   /**
+  /**
    * Get expectedResult
    * @return expectedResult
-  **/
+   */
   @javax.annotation.Nullable
   public String getExpectedResult() {
     return expectedResult;
   }
 
-  public void setExpectedResult(String expectedResult) {
+  public void setExpectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
   }
 
 
-  public TestStepCreate data(String data) {
+  public TestStepCreate data(@javax.annotation.Nullable String data) {
     this.data = data;
     return this;
   }
 
-   /**
+  /**
    * Get data
    * @return data
-  **/
+   */
   @javax.annotation.Nullable
   public String getData() {
     return data;
   }
 
-  public void setData(String data) {
+  public void setData(@javax.annotation.Nullable String data) {
     this.data = data;
   }
 
 
   @Deprecated
-  public TestStepCreate position(Integer position) {
+  public TestStepCreate position(@javax.annotation.Nullable Integer position) {
     this.position = position;
     return this;
   }
 
-   /**
+  /**
    * Get position
    * @return position
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getPosition() {
@@ -156,12 +161,12 @@ public class TestStepCreate {
   }
 
   @Deprecated
-  public void setPosition(Integer position) {
+  public void setPosition(@javax.annotation.Nullable Integer position) {
     this.position = position;
   }
 
 
-  public TestStepCreate attachments(List<String> attachments) {
+  public TestStepCreate attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -174,21 +179,21 @@ public class TestStepCreate {
     return this;
   }
 
-   /**
+  /**
    * A list of Attachment hashes.
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
 
-  public TestStepCreate steps(List<Object> steps) {
+  public TestStepCreate steps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
     return this;
   }
@@ -201,16 +206,16 @@ public class TestStepCreate {
     return this;
   }
 
-   /**
+  /**
    * Nested steps may be passed here. Use same structure for them.
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<Object> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<Object> steps) {
+  public void setSteps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
   }
 
@@ -315,24 +320,18 @@ public class TestStepCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("action");
-    openapiFields.add("expected_result");
-    openapiFields.add("data");
-    openapiFields.add("position");
-    openapiFields.add("attachments");
-    openapiFields.add("steps");
+    openapiFields = new HashSet<String>(Arrays.asList("action", "expected_result", "data", "position", "attachments", "steps"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestStepCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestStepCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestStepCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -431,22 +430,22 @@ public class TestStepCreate {
     }
   }
 
- /**
-  * Create an instance of TestStepCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestStepCreate
-  * @throws IOException if the JSON string is invalid with respect to TestStepCreate
-  */
+  /**
+   * Create an instance of TestStepCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestStepCreate
+   * @throws IOException if the JSON string is invalid with respect to TestStepCreate
+   */
   public static TestStepCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestStepCreate.class);
   }
 
- /**
-  * Convert an instance of TestStepCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestStepCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

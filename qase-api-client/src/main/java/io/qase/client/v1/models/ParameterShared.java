@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,30 +49,31 @@ import io.qase.client.v1.JSON;
 /**
  * Shared parameter
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ParameterShared {
   public static final String SERIALIZED_NAME_SHARED_ID = "shared_id";
   @SerializedName(SERIALIZED_NAME_SHARED_ID)
+  @javax.annotation.Nonnull
   private UUID sharedId;
 
   public ParameterShared() {
   }
 
-  public ParameterShared sharedId(UUID sharedId) {
+  public ParameterShared sharedId(@javax.annotation.Nonnull UUID sharedId) {
     this.sharedId = sharedId;
     return this;
   }
 
-   /**
+  /**
    * Get sharedId
    * @return sharedId
-  **/
+   */
   @javax.annotation.Nonnull
   public UUID getSharedId() {
     return sharedId;
   }
 
-  public void setSharedId(UUID sharedId) {
+  public void setSharedId(@javax.annotation.Nonnull UUID sharedId) {
     this.sharedId = sharedId;
   }
 
@@ -168,20 +168,18 @@ public class ParameterShared {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("shared_id");
+    openapiFields = new HashSet<String>(Arrays.asList("shared_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("shared_id");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("shared_id"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ParameterShared
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ParameterShared
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ParameterShared.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -273,22 +271,22 @@ public class ParameterShared {
     }
   }
 
- /**
-  * Create an instance of ParameterShared given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ParameterShared
-  * @throws IOException if the JSON string is invalid with respect to ParameterShared
-  */
+  /**
+   * Create an instance of ParameterShared given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ParameterShared
+   * @throws IOException if the JSON string is invalid with respect to ParameterShared
+   */
   public static ParameterShared fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ParameterShared.class);
   }
 
- /**
-  * Convert an instance of ParameterShared to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ParameterShared to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,30 +50,36 @@ import io.qase.client.v1.JSON;
 /**
  * Requirement
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Requirement {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_REQUIREMENT_ID = "requirement_id";
   @SerializedName(SERIALIZED_NAME_REQUIREMENT_ID)
+  @javax.annotation.Nullable
   private Long requirementId;
 
   public static final String SERIALIZED_NAME_PARENT_ID = "parent_id";
   @SerializedName(SERIALIZED_NAME_PARENT_ID)
+  @javax.annotation.Nullable
   private Long parentId;
 
   public static final String SERIALIZED_NAME_MEMBER_ID = "member_id";
   @SerializedName(SERIALIZED_NAME_MEMBER_ID)
+  @javax.annotation.Nullable
   private Long memberId;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   /**
@@ -143,6 +148,7 @@ public class Requirement {
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private StatusEnum status;
 
   /**
@@ -201,205 +207,208 @@ public class Requirement {
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nullable
   private TypeEnum type;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public Requirement() {
   }
 
-  public Requirement id(Long id) {
+  public Requirement id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public Requirement requirementId(Long requirementId) {
+  public Requirement requirementId(@javax.annotation.Nullable Long requirementId) {
     this.requirementId = requirementId;
     return this;
   }
 
-   /**
+  /**
    * Get requirementId
    * @return requirementId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getRequirementId() {
     return requirementId;
   }
 
-  public void setRequirementId(Long requirementId) {
+  public void setRequirementId(@javax.annotation.Nullable Long requirementId) {
     this.requirementId = requirementId;
   }
 
 
-  public Requirement parentId(Long parentId) {
+  public Requirement parentId(@javax.annotation.Nullable Long parentId) {
     this.parentId = parentId;
     return this;
   }
 
-   /**
+  /**
    * Get parentId
    * @return parentId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getParentId() {
     return parentId;
   }
 
-  public void setParentId(Long parentId) {
+  public void setParentId(@javax.annotation.Nullable Long parentId) {
     this.parentId = parentId;
   }
 
 
-  public Requirement memberId(Long memberId) {
+  public Requirement memberId(@javax.annotation.Nullable Long memberId) {
     this.memberId = memberId;
     return this;
   }
 
-   /**
+  /**
    * Get memberId
    * @return memberId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getMemberId() {
     return memberId;
   }
 
-  public void setMemberId(Long memberId) {
+  public void setMemberId(@javax.annotation.Nullable Long memberId) {
     this.memberId = memberId;
   }
 
 
-  public Requirement title(String title) {
+  public Requirement title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public Requirement description(String description) {
+  public Requirement description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public Requirement status(StatusEnum status) {
+  public Requirement status(@javax.annotation.Nullable StatusEnum status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(StatusEnum status) {
+  public void setStatus(@javax.annotation.Nullable StatusEnum status) {
     this.status = status;
   }
 
 
-  public Requirement type(TypeEnum type) {
+  public Requirement type(@javax.annotation.Nullable TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nullable
   public TypeEnum getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(@javax.annotation.Nullable TypeEnum type) {
     this.type = type;
   }
 
 
-  public Requirement createdAt(OffsetDateTime createdAt) {
+  public Requirement createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public Requirement updatedAt(OffsetDateTime updatedAt) {
+  public Requirement updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -523,28 +532,18 @@ public class Requirement {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("requirement_id");
-    openapiFields.add("parent_id");
-    openapiFields.add("member_id");
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("status");
-    openapiFields.add("type");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "requirement_id", "parent_id", "member_id", "title", "description", "status", "type", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Requirement
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Requirement
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Requirement.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -646,22 +645,22 @@ public class Requirement {
     }
   }
 
- /**
-  * Create an instance of Requirement given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Requirement
-  * @throws IOException if the JSON string is invalid with respect to Requirement
-  */
+  /**
+   * Create an instance of Requirement given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Requirement
+   * @throws IOException if the JSON string is invalid with respect to Requirement
+   */
   public static Requirement fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Requirement.class);
   }
 
- /**
-  * Convert an instance of Requirement to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Requirement to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

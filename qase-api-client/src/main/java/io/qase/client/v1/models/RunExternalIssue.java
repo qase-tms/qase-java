@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,76 +49,79 @@ import io.qase.client.v1.JSON;
 /**
  * RunExternalIssue
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class RunExternalIssue {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private String id;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nullable
   private String type;
 
   public static final String SERIALIZED_NAME_LINK = "link";
   @SerializedName(SERIALIZED_NAME_LINK)
+  @javax.annotation.Nullable
   private URI link;
 
   public RunExternalIssue() {
   }
 
-  public RunExternalIssue id(String id) {
+  public RunExternalIssue id(@javax.annotation.Nullable String id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
 
-  public RunExternalIssue type(String type) {
+  public RunExternalIssue type(@javax.annotation.Nullable String type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nullable
   public String getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
   }
 
 
-  public RunExternalIssue link(URI link) {
+  public RunExternalIssue link(@javax.annotation.Nullable URI link) {
     this.link = link;
     return this;
   }
 
-   /**
+  /**
    * Get link
    * @return link
-  **/
+   */
   @javax.annotation.Nullable
   public URI getLink() {
     return link;
   }
 
-  public void setLink(URI link) {
+  public void setLink(@javax.annotation.Nullable URI link) {
     this.link = link;
   }
 
@@ -218,21 +220,18 @@ public class RunExternalIssue {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("type");
-    openapiFields.add("link");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "type", "link"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RunExternalIssue
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RunExternalIssue
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!RunExternalIssue.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -323,22 +322,22 @@ public class RunExternalIssue {
     }
   }
 
- /**
-  * Create an instance of RunExternalIssue given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RunExternalIssue
-  * @throws IOException if the JSON string is invalid with respect to RunExternalIssue
-  */
+  /**
+   * Create an instance of RunExternalIssue given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RunExternalIssue
+   * @throws IOException if the JSON string is invalid with respect to RunExternalIssue
+   */
   public static RunExternalIssue fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, RunExternalIssue.class);
   }
 
- /**
-  * Convert an instance of RunExternalIssue to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RunExternalIssue to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

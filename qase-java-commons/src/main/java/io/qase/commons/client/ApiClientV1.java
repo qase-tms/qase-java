@@ -128,15 +128,15 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
         try {
             // Map our enum values to API enum values
-            RunexternalIssues.TypeEnum apiType = this.config.testops.run.externalLink.getType() == ExternalLinkType.JIRA_CLOUD
-                    ? RunexternalIssues.TypeEnum.CLOUD
-                    : RunexternalIssues.TypeEnum.SERVER;
+            RunExternalIssues.TypeEnum apiType = this.config.testops.run.externalLink.getType() == ExternalLinkType.JIRA_CLOUD
+                    ? RunExternalIssues.TypeEnum.JIRA_CLOUD
+                    : RunExternalIssues.TypeEnum.JIRA_SERVER;
 
-            RunexternalIssuesLinksInner link = new RunexternalIssuesLinksInner()
+            RunExternalIssuesLinksInner link = new RunExternalIssuesLinksInner()
                     .runId(runId)
                     .externalIssue(this.config.testops.run.externalLink.getLink());
 
-            RunexternalIssues externalIssues = new RunexternalIssues()
+            RunExternalIssues externalIssues = new RunExternalIssues()
                     .type(apiType)
                     .links(Collections.singletonList(link));
 

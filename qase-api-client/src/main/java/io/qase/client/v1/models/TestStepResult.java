@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,58 +51,62 @@ import io.qase.client.v1.JSON;
 /**
  * TestStepResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestStepResult {
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private Integer status;
 
   public static final String SERIALIZED_NAME_POSITION = "position";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_POSITION)
+  @javax.annotation.Nullable
   private Integer position;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<Attachment> attachments;
+  @javax.annotation.Nullable
+  private List<Attachment> attachments = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<Object> steps;
+  @javax.annotation.Nullable
+  private List<Object> steps = new ArrayList<>();
 
   public TestStepResult() {
   }
 
-  public TestStepResult status(Integer status) {
+  public TestStepResult status(@javax.annotation.Nullable Integer status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * 1 - passed, 2 - failed, 3 - blocked, 5 - skipped, 7 - in_progress
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getStatus() {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  public void setStatus(@javax.annotation.Nullable Integer status) {
     this.status = status;
   }
 
 
   @Deprecated
-  public TestStepResult position(Integer position) {
+  public TestStepResult position(@javax.annotation.Nullable Integer position) {
     this.position = position;
     return this;
   }
 
-   /**
+  /**
    * Get position
    * @return position
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getPosition() {
@@ -111,12 +114,12 @@ public class TestStepResult {
   }
 
   @Deprecated
-  public void setPosition(Integer position) {
+  public void setPosition(@javax.annotation.Nullable Integer position) {
     this.position = position;
   }
 
 
-  public TestStepResult attachments(List<Attachment> attachments) {
+  public TestStepResult attachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -129,21 +132,21 @@ public class TestStepResult {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<Attachment> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
   }
 
 
-  public TestStepResult steps(List<Object> steps) {
+  public TestStepResult steps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
     return this;
   }
@@ -156,16 +159,16 @@ public class TestStepResult {
     return this;
   }
 
-   /**
+  /**
    * Nested steps results will be here. The same structure is used for them for them.
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<Object> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<Object> steps) {
+  public void setSteps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
   }
 
@@ -266,22 +269,18 @@ public class TestStepResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("status");
-    openapiFields.add("position");
-    openapiFields.add("attachments");
-    openapiFields.add("steps");
+    openapiFields = new HashSet<String>(Arrays.asList("status", "position", "attachments", "steps"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestStepResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestStepResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestStepResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -381,22 +380,22 @@ public class TestStepResult {
     }
   }
 
- /**
-  * Create an instance of TestStepResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestStepResult
-  * @throws IOException if the JSON string is invalid with respect to TestStepResult
-  */
+  /**
+   * Create an instance of TestStepResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestStepResult
+   * @throws IOException if the JSON string is invalid with respect to TestStepResult
+   */
   public static TestStepResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestStepResult.class);
   }
 
- /**
-  * Convert an instance of TestStepResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestStepResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

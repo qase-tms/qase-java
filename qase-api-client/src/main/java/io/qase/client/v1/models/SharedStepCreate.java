@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,64 +51,69 @@ import io.qase.client.v1.JSON;
 /**
  * SharedStepCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SharedStepCreate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_ACTION = "action";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_ACTION)
+  @javax.annotation.Nullable
   private String action;
 
   public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+  @javax.annotation.Nullable
   private String expectedResult;
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_DATA)
+  @javax.annotation.Nullable
   private String data;
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<SharedStepContentCreate> steps;
+  @javax.annotation.Nullable
+  private List<SharedStepContentCreate> steps = new ArrayList<>();
 
   public SharedStepCreate() {
   }
 
-  public SharedStepCreate title(String title) {
+  public SharedStepCreate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
   @Deprecated
-  public SharedStepCreate action(String action) {
+  public SharedStepCreate action(@javax.annotation.Nullable String action) {
     this.action = action;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;steps&#x60; property instead.
    * @return action
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getAction() {
@@ -117,22 +121,22 @@ public class SharedStepCreate {
   }
 
   @Deprecated
-  public void setAction(String action) {
+  public void setAction(@javax.annotation.Nullable String action) {
     this.action = action;
   }
 
 
   @Deprecated
-  public SharedStepCreate expectedResult(String expectedResult) {
+  public SharedStepCreate expectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;steps&#x60; property instead.
    * @return expectedResult
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getExpectedResult() {
@@ -140,22 +144,22 @@ public class SharedStepCreate {
   }
 
   @Deprecated
-  public void setExpectedResult(String expectedResult) {
+  public void setExpectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
   }
 
 
   @Deprecated
-  public SharedStepCreate data(String data) {
+  public SharedStepCreate data(@javax.annotation.Nullable String data) {
     this.data = data;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;steps&#x60; property instead.
    * @return data
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getData() {
@@ -163,12 +167,12 @@ public class SharedStepCreate {
   }
 
   @Deprecated
-  public void setData(String data) {
+  public void setData(@javax.annotation.Nullable String data) {
     this.data = data;
   }
 
 
-  public SharedStepCreate steps(List<SharedStepContentCreate> steps) {
+  public SharedStepCreate steps(@javax.annotation.Nullable List<SharedStepContentCreate> steps) {
     this.steps = steps;
     return this;
   }
@@ -181,16 +185,16 @@ public class SharedStepCreate {
     return this;
   }
 
-   /**
+  /**
    * Get steps
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<SharedStepContentCreate> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<SharedStepContentCreate> steps) {
+  public void setSteps(@javax.annotation.Nullable List<SharedStepContentCreate> steps) {
     this.steps = steps;
   }
 
@@ -293,24 +297,18 @@ public class SharedStepCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("action");
-    openapiFields.add("expected_result");
-    openapiFields.add("data");
-    openapiFields.add("steps");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "action", "expected_result", "data", "steps"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SharedStepCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SharedStepCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SharedStepCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -425,22 +423,22 @@ public class SharedStepCreate {
     }
   }
 
- /**
-  * Create an instance of SharedStepCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SharedStepCreate
-  * @throws IOException if the JSON string is invalid with respect to SharedStepCreate
-  */
+  /**
+   * Create an instance of SharedStepCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SharedStepCreate
+   * @throws IOException if the JSON string is invalid with respect to SharedStepCreate
+   */
   public static SharedStepCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SharedStepCreate.class);
   }
 
- /**
-  * Convert an instance of SharedStepCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SharedStepCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

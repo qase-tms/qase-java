@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,30 +48,31 @@ import io.qase.client.v1.JSON;
 /**
  * ProjectCodeResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ProjectCodeResponseAllOfResult {
   public static final String SERIALIZED_NAME_CODE = "code";
   @SerializedName(SERIALIZED_NAME_CODE)
+  @javax.annotation.Nullable
   private String code;
 
   public ProjectCodeResponseAllOfResult() {
   }
 
-  public ProjectCodeResponseAllOfResult code(String code) {
+  public ProjectCodeResponseAllOfResult code(@javax.annotation.Nullable String code) {
     this.code = code;
     return this;
   }
 
-   /**
+  /**
    * Get code
    * @return code
-  **/
+   */
   @javax.annotation.Nullable
   public String getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(@javax.annotation.Nullable String code) {
     this.code = code;
   }
 
@@ -167,19 +167,18 @@ public class ProjectCodeResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("code");
+    openapiFields = new HashSet<String>(Arrays.asList("code"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ProjectCodeResponseAllOfResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ProjectCodeResponseAllOfResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ProjectCodeResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -264,22 +263,22 @@ public class ProjectCodeResponseAllOfResult {
     }
   }
 
- /**
-  * Create an instance of ProjectCodeResponseAllOfResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProjectCodeResponseAllOfResult
-  * @throws IOException if the JSON string is invalid with respect to ProjectCodeResponseAllOfResult
-  */
+  /**
+   * Create an instance of ProjectCodeResponseAllOfResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ProjectCodeResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to ProjectCodeResponseAllOfResult
+   */
   public static ProjectCodeResponseAllOfResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ProjectCodeResponseAllOfResult.class);
   }
 
- /**
-  * Convert an instance of ProjectCodeResponseAllOfResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ProjectCodeResponseAllOfResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,20 +51,22 @@ import io.qase.client.v1.JSON;
 /**
  * SearchResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SearchResponseAllOfResult {
   public static final String SERIALIZED_NAME_ENTITIES = "entities";
   @SerializedName(SERIALIZED_NAME_ENTITIES)
+  @javax.annotation.Nonnull
   private List<SearchResponseAllOfResultEntities> entities = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)
+  @javax.annotation.Nonnull
   private Integer total;
 
   public SearchResponseAllOfResult() {
   }
 
-  public SearchResponseAllOfResult entities(List<SearchResponseAllOfResultEntities> entities) {
+  public SearchResponseAllOfResult entities(@javax.annotation.Nonnull List<SearchResponseAllOfResultEntities> entities) {
     this.entities = entities;
     return this;
   }
@@ -78,35 +79,35 @@ public class SearchResponseAllOfResult {
     return this;
   }
 
-   /**
+  /**
    * Get entities
    * @return entities
-  **/
+   */
   @javax.annotation.Nonnull
   public List<SearchResponseAllOfResultEntities> getEntities() {
     return entities;
   }
 
-  public void setEntities(List<SearchResponseAllOfResultEntities> entities) {
+  public void setEntities(@javax.annotation.Nonnull List<SearchResponseAllOfResultEntities> entities) {
     this.entities = entities;
   }
 
 
-  public SearchResponseAllOfResult total(Integer total) {
+  public SearchResponseAllOfResult total(@javax.annotation.Nonnull Integer total) {
     this.total = total;
     return this;
   }
 
-   /**
+  /**
    * Get total
    * @return total
-  **/
+   */
   @javax.annotation.Nonnull
   public Integer getTotal() {
     return total;
   }
 
-  public void setTotal(Integer total) {
+  public void setTotal(@javax.annotation.Nonnull Integer total) {
     this.total = total;
   }
 
@@ -203,22 +204,18 @@ public class SearchResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("entities");
-    openapiFields.add("total");
+    openapiFields = new HashSet<String>(Arrays.asList("entities", "total"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("entities");
-    openapiRequiredFields.add("total");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("entities", "total"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SearchResponseAllOfResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SearchResponseAllOfResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SearchResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -317,22 +314,22 @@ public class SearchResponseAllOfResult {
     }
   }
 
- /**
-  * Create an instance of SearchResponseAllOfResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SearchResponseAllOfResult
-  * @throws IOException if the JSON string is invalid with respect to SearchResponseAllOfResult
-  */
+  /**
+   * Create an instance of SearchResponseAllOfResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SearchResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to SearchResponseAllOfResult
+   */
   public static SearchResponseAllOfResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SearchResponseAllOfResult.class);
   }
 
- /**
-  * Convert an instance of SearchResponseAllOfResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SearchResponseAllOfResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

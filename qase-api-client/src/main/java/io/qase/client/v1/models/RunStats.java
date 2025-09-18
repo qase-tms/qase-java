@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,79 +50,89 @@ import io.qase.client.v1.JSON;
 /**
  * RunStats
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class RunStats {
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)
+  @javax.annotation.Nullable
   private Integer total;
 
   public static final String SERIALIZED_NAME_STATUSES = "statuses";
   @SerializedName(SERIALIZED_NAME_STATUSES)
+  @javax.annotation.Nullable
   private Map<String, Integer> statuses = new HashMap<>();
 
   public static final String SERIALIZED_NAME_UNTESTED = "untested";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_UNTESTED)
+  @javax.annotation.Nullable
   private Integer untested;
 
   public static final String SERIALIZED_NAME_PASSED = "passed";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_PASSED)
+  @javax.annotation.Nullable
   private Integer passed;
 
   public static final String SERIALIZED_NAME_FAILED = "failed";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_FAILED)
+  @javax.annotation.Nullable
   private Integer failed;
 
   public static final String SERIALIZED_NAME_BLOCKED = "blocked";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_BLOCKED)
+  @javax.annotation.Nullable
   private Integer blocked;
 
   public static final String SERIALIZED_NAME_SKIPPED = "skipped";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_SKIPPED)
+  @javax.annotation.Nullable
   private Integer skipped;
 
   public static final String SERIALIZED_NAME_RETEST = "retest";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_RETEST)
+  @javax.annotation.Nullable
   private Integer retest;
 
   public static final String SERIALIZED_NAME_IN_PROGRESS = "in_progress";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_IN_PROGRESS)
+  @javax.annotation.Nullable
   private Integer inProgress;
 
   public static final String SERIALIZED_NAME_INVALID = "invalid";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_INVALID)
+  @javax.annotation.Nullable
   private Integer invalid;
 
   public RunStats() {
   }
 
-  public RunStats total(Integer total) {
+  public RunStats total(@javax.annotation.Nullable Integer total) {
     this.total = total;
     return this;
   }
 
-   /**
+  /**
    * Get total
    * @return total
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getTotal() {
     return total;
   }
 
-  public void setTotal(Integer total) {
+  public void setTotal(@javax.annotation.Nullable Integer total) {
     this.total = total;
   }
 
 
-  public RunStats statuses(Map<String, Integer> statuses) {
+  public RunStats statuses(@javax.annotation.Nullable Map<String, Integer> statuses) {
     this.statuses = statuses;
     return this;
   }
@@ -136,31 +145,31 @@ public class RunStats {
     return this;
   }
 
-   /**
+  /**
    * Get statuses
    * @return statuses
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, Integer> getStatuses() {
     return statuses;
   }
 
-  public void setStatuses(Map<String, Integer> statuses) {
+  public void setStatuses(@javax.annotation.Nullable Map<String, Integer> statuses) {
     this.statuses = statuses;
   }
 
 
   @Deprecated
-  public RunStats untested(Integer untested) {
+  public RunStats untested(@javax.annotation.Nullable Integer untested) {
     this.untested = untested;
     return this;
   }
 
-   /**
+  /**
    * Get untested
    * @return untested
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getUntested() {
@@ -168,22 +177,22 @@ public class RunStats {
   }
 
   @Deprecated
-  public void setUntested(Integer untested) {
+  public void setUntested(@javax.annotation.Nullable Integer untested) {
     this.untested = untested;
   }
 
 
   @Deprecated
-  public RunStats passed(Integer passed) {
+  public RunStats passed(@javax.annotation.Nullable Integer passed) {
     this.passed = passed;
     return this;
   }
 
-   /**
+  /**
    * Get passed
    * @return passed
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getPassed() {
@@ -191,22 +200,22 @@ public class RunStats {
   }
 
   @Deprecated
-  public void setPassed(Integer passed) {
+  public void setPassed(@javax.annotation.Nullable Integer passed) {
     this.passed = passed;
   }
 
 
   @Deprecated
-  public RunStats failed(Integer failed) {
+  public RunStats failed(@javax.annotation.Nullable Integer failed) {
     this.failed = failed;
     return this;
   }
 
-   /**
+  /**
    * Get failed
    * @return failed
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getFailed() {
@@ -214,22 +223,22 @@ public class RunStats {
   }
 
   @Deprecated
-  public void setFailed(Integer failed) {
+  public void setFailed(@javax.annotation.Nullable Integer failed) {
     this.failed = failed;
   }
 
 
   @Deprecated
-  public RunStats blocked(Integer blocked) {
+  public RunStats blocked(@javax.annotation.Nullable Integer blocked) {
     this.blocked = blocked;
     return this;
   }
 
-   /**
+  /**
    * Get blocked
    * @return blocked
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getBlocked() {
@@ -237,22 +246,22 @@ public class RunStats {
   }
 
   @Deprecated
-  public void setBlocked(Integer blocked) {
+  public void setBlocked(@javax.annotation.Nullable Integer blocked) {
     this.blocked = blocked;
   }
 
 
   @Deprecated
-  public RunStats skipped(Integer skipped) {
+  public RunStats skipped(@javax.annotation.Nullable Integer skipped) {
     this.skipped = skipped;
     return this;
   }
 
-   /**
+  /**
    * Get skipped
    * @return skipped
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getSkipped() {
@@ -260,22 +269,22 @@ public class RunStats {
   }
 
   @Deprecated
-  public void setSkipped(Integer skipped) {
+  public void setSkipped(@javax.annotation.Nullable Integer skipped) {
     this.skipped = skipped;
   }
 
 
   @Deprecated
-  public RunStats retest(Integer retest) {
+  public RunStats retest(@javax.annotation.Nullable Integer retest) {
     this.retest = retest;
     return this;
   }
 
-   /**
+  /**
    * Get retest
    * @return retest
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getRetest() {
@@ -283,22 +292,22 @@ public class RunStats {
   }
 
   @Deprecated
-  public void setRetest(Integer retest) {
+  public void setRetest(@javax.annotation.Nullable Integer retest) {
     this.retest = retest;
   }
 
 
   @Deprecated
-  public RunStats inProgress(Integer inProgress) {
+  public RunStats inProgress(@javax.annotation.Nullable Integer inProgress) {
     this.inProgress = inProgress;
     return this;
   }
 
-   /**
+  /**
    * Get inProgress
    * @return inProgress
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getInProgress() {
@@ -306,22 +315,22 @@ public class RunStats {
   }
 
   @Deprecated
-  public void setInProgress(Integer inProgress) {
+  public void setInProgress(@javax.annotation.Nullable Integer inProgress) {
     this.inProgress = inProgress;
   }
 
 
   @Deprecated
-  public RunStats invalid(Integer invalid) {
+  public RunStats invalid(@javax.annotation.Nullable Integer invalid) {
     this.invalid = invalid;
     return this;
   }
 
-   /**
+  /**
    * Get invalid
    * @return invalid
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Integer getInvalid() {
@@ -329,7 +338,7 @@ public class RunStats {
   }
 
   @Deprecated
-  public void setInvalid(Integer invalid) {
+  public void setInvalid(@javax.annotation.Nullable Integer invalid) {
     this.invalid = invalid;
   }
 
@@ -442,28 +451,18 @@ public class RunStats {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("total");
-    openapiFields.add("statuses");
-    openapiFields.add("untested");
-    openapiFields.add("passed");
-    openapiFields.add("failed");
-    openapiFields.add("blocked");
-    openapiFields.add("skipped");
-    openapiFields.add("retest");
-    openapiFields.add("in_progress");
-    openapiFields.add("invalid");
+    openapiFields = new HashSet<String>(Arrays.asList("total", "statuses", "untested", "passed", "failed", "blocked", "skipped", "retest", "in_progress", "invalid"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RunStats
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RunStats
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!RunStats.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -545,22 +544,22 @@ public class RunStats {
     }
   }
 
- /**
-  * Create an instance of RunStats given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RunStats
-  * @throws IOException if the JSON string is invalid with respect to RunStats
-  */
+  /**
+   * Create an instance of RunStats given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RunStats
+   * @throws IOException if the JSON string is invalid with respect to RunStats
+   */
   public static RunStats fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, RunStats.class);
   }
 
- /**
-  * Convert an instance of RunStats to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RunStats to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

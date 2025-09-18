@@ -84,7 +84,8 @@ public class MilestonesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -95,7 +96,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createMilestoneCall(String code, MilestoneCreate milestoneCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createMilestoneCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull MilestoneCreate milestoneCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -142,7 +143,7 @@ public class MilestonesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createMilestoneValidateBeforeCall(String code, MilestoneCreate milestoneCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createMilestoneValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull MilestoneCreate milestoneCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createMilestone(Async)");
@@ -165,7 +166,8 @@ public class MilestonesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -176,7 +178,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createMilestone(String code, MilestoneCreate milestoneCreate) throws ApiException {
+    public IdResponse createMilestone(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull MilestoneCreate milestoneCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createMilestoneWithHttpInfo(code, milestoneCreate);
         return localVarResp.getData();
     }
@@ -189,7 +191,8 @@ public class MilestonesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -200,7 +203,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createMilestoneWithHttpInfo(String code, MilestoneCreate milestoneCreate) throws ApiException {
+    public ApiResponse<IdResponse> createMilestoneWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull MilestoneCreate milestoneCreate) throws ApiException {
         okhttp3.Call localVarCall = createMilestoneValidateBeforeCall(code, milestoneCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -215,7 +218,8 @@ public class MilestonesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -226,7 +230,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createMilestoneAsync(String code, MilestoneCreate milestoneCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createMilestoneAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull MilestoneCreate milestoneCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createMilestoneValidateBeforeCall(code, milestoneCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -241,7 +245,8 @@ public class MilestonesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -251,7 +256,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteMilestoneCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteMilestoneCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -298,7 +303,7 @@ public class MilestonesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteMilestoneValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteMilestoneValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deleteMilestone(Async)");
@@ -321,7 +326,8 @@ public class MilestonesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -331,7 +337,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse deleteMilestone(String code, Integer id) throws ApiException {
+    public IdResponse deleteMilestone(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<IdResponse> localVarResp = deleteMilestoneWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -344,7 +350,8 @@ public class MilestonesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -354,7 +361,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> deleteMilestoneWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<IdResponse> deleteMilestoneWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = deleteMilestoneValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -369,7 +376,8 @@ public class MilestonesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -379,7 +387,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteMilestoneAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteMilestoneAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteMilestoneValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -394,7 +402,8 @@ public class MilestonesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -404,7 +413,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getMilestoneCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getMilestoneCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -451,7 +460,7 @@ public class MilestonesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMilestoneValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getMilestoneValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getMilestone(Async)");
@@ -474,7 +483,8 @@ public class MilestonesApi {
      * @return MilestoneResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -484,7 +494,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public MilestoneResponse getMilestone(String code, Integer id) throws ApiException {
+    public MilestoneResponse getMilestone(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<MilestoneResponse> localVarResp = getMilestoneWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -497,7 +507,8 @@ public class MilestonesApi {
      * @return ApiResponse&lt;MilestoneResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -507,7 +518,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<MilestoneResponse> getMilestoneWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<MilestoneResponse> getMilestoneWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = getMilestoneValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<MilestoneResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -522,7 +533,8 @@ public class MilestonesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Milestone. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -532,7 +544,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getMilestoneAsync(String code, Integer id, final ApiCallback<MilestoneResponse> _callback) throws ApiException {
+    public okhttp3.Call getMilestoneAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<MilestoneResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getMilestoneValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<MilestoneResponse>(){}.getType();
@@ -549,7 +561,8 @@ public class MilestonesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -559,7 +572,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getMilestonesCall(String code, String search, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getMilestonesCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -617,7 +630,7 @@ public class MilestonesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMilestonesValidateBeforeCall(String code, String search, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getMilestonesValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getMilestones(Async)");
@@ -637,7 +650,8 @@ public class MilestonesApi {
      * @return MilestoneListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -647,7 +661,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public MilestoneListResponse getMilestones(String code, String search, Integer limit, Integer offset) throws ApiException {
+    public MilestoneListResponse getMilestones(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<MilestoneListResponse> localVarResp = getMilestonesWithHttpInfo(code, search, limit, offset);
         return localVarResp.getData();
     }
@@ -662,7 +676,8 @@ public class MilestonesApi {
      * @return ApiResponse&lt;MilestoneListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -672,7 +687,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<MilestoneListResponse> getMilestonesWithHttpInfo(String code, String search, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<MilestoneListResponse> getMilestonesWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getMilestonesValidateBeforeCall(code, search, limit, offset, null);
         Type localVarReturnType = new TypeToken<MilestoneListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -689,7 +704,8 @@ public class MilestonesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all milestones. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -699,7 +715,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getMilestonesAsync(String code, String search, Integer limit, Integer offset, final ApiCallback<MilestoneListResponse> _callback) throws ApiException {
+    public okhttp3.Call getMilestonesAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<MilestoneListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getMilestonesValidateBeforeCall(code, search, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<MilestoneListResponse>(){}.getType();
@@ -715,7 +731,8 @@ public class MilestonesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -726,7 +743,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateMilestoneCall(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateMilestoneCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull MilestoneUpdate milestoneUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -774,7 +791,7 @@ public class MilestonesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateMilestoneValidateBeforeCall(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateMilestoneValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull MilestoneUpdate milestoneUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updateMilestone(Async)");
@@ -803,7 +820,8 @@ public class MilestonesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -814,7 +832,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse updateMilestone(String code, Integer id, MilestoneUpdate milestoneUpdate) throws ApiException {
+    public IdResponse updateMilestone(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull MilestoneUpdate milestoneUpdate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = updateMilestoneWithHttpInfo(code, id, milestoneUpdate);
         return localVarResp.getData();
     }
@@ -828,7 +846,8 @@ public class MilestonesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -839,7 +858,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> updateMilestoneWithHttpInfo(String code, Integer id, MilestoneUpdate milestoneUpdate) throws ApiException {
+    public ApiResponse<IdResponse> updateMilestoneWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull MilestoneUpdate milestoneUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateMilestoneValidateBeforeCall(code, id, milestoneUpdate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -855,7 +874,8 @@ public class MilestonesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -866,7 +886,7 @@ public class MilestonesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateMilestoneAsync(String code, Integer id, MilestoneUpdate milestoneUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call updateMilestoneAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull MilestoneUpdate milestoneUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateMilestoneValidateBeforeCall(code, id, milestoneUpdate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();

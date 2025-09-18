@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,14 +48,16 @@ import io.qase.client.v1.JSON;
 /**
  * MilestoneUpdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class MilestoneUpdate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   /**
@@ -113,64 +114,65 @@ public class MilestoneUpdate {
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private StatusEnum status;
 
   public MilestoneUpdate() {
   }
 
-  public MilestoneUpdate title(String title) {
+  public MilestoneUpdate title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public MilestoneUpdate description(String description) {
+  public MilestoneUpdate description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public MilestoneUpdate status(StatusEnum status) {
+  public MilestoneUpdate status(@javax.annotation.Nullable StatusEnum status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(StatusEnum status) {
+  public void setStatus(@javax.annotation.Nullable StatusEnum status) {
     this.status = status;
   }
 
@@ -269,21 +271,18 @@ public class MilestoneUpdate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("status");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "description", "status"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to MilestoneUpdate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to MilestoneUpdate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!MilestoneUpdate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -378,22 +377,22 @@ public class MilestoneUpdate {
     }
   }
 
- /**
-  * Create an instance of MilestoneUpdate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of MilestoneUpdate
-  * @throws IOException if the JSON string is invalid with respect to MilestoneUpdate
-  */
+  /**
+   * Create an instance of MilestoneUpdate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of MilestoneUpdate
+   * @throws IOException if the JSON string is invalid with respect to MilestoneUpdate
+   */
   public static MilestoneUpdate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, MilestoneUpdate.class);
   }
 
- /**
-  * Convert an instance of MilestoneUpdate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of MilestoneUpdate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

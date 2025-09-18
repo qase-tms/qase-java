@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -48,55 +47,57 @@ import java.util.Set;
 import io.qase.client.v1.JSON;
 
 /**
- * RunexternalIssuesLinksInner
+ * RunExternalIssuesLinksInner
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
-public class RunexternalIssuesLinksInner {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+public class RunExternalIssuesLinksInner {
   public static final String SERIALIZED_NAME_RUN_ID = "run_id";
   @SerializedName(SERIALIZED_NAME_RUN_ID)
+  @javax.annotation.Nonnull
   private Long runId;
 
   public static final String SERIALIZED_NAME_EXTERNAL_ISSUE = "external_issue";
   @SerializedName(SERIALIZED_NAME_EXTERNAL_ISSUE)
+  @javax.annotation.Nullable
   private String externalIssue;
 
-  public RunexternalIssuesLinksInner() {
+  public RunExternalIssuesLinksInner() {
   }
 
-  public RunexternalIssuesLinksInner runId(Long runId) {
+  public RunExternalIssuesLinksInner runId(@javax.annotation.Nonnull Long runId) {
     this.runId = runId;
     return this;
   }
 
-   /**
+  /**
    * Get runId
    * @return runId
-  **/
+   */
   @javax.annotation.Nonnull
   public Long getRunId() {
     return runId;
   }
 
-  public void setRunId(Long runId) {
+  public void setRunId(@javax.annotation.Nonnull Long runId) {
     this.runId = runId;
   }
 
 
-  public RunexternalIssuesLinksInner externalIssue(String externalIssue) {
+  public RunExternalIssuesLinksInner externalIssue(@javax.annotation.Nullable String externalIssue) {
     this.externalIssue = externalIssue;
     return this;
   }
 
-   /**
+  /**
    * An external issue identifier, e.g. \&quot;PROJ-1234\&quot;. Or null if you want to remove the link.
    * @return externalIssue
-  **/
+   */
   @javax.annotation.Nullable
   public String getExternalIssue() {
     return externalIssue;
   }
 
-  public void setExternalIssue(String externalIssue) {
+  public void setExternalIssue(@javax.annotation.Nullable String externalIssue) {
     this.externalIssue = externalIssue;
   }
 
@@ -113,9 +114,9 @@ public class RunexternalIssuesLinksInner {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the RunexternalIssuesLinksInner instance itself
+   * @return the RunExternalIssuesLinksInner instance itself
    */
-  public RunexternalIssuesLinksInner putAdditionalProperty(String key, Object value) {
+  public RunExternalIssuesLinksInner putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -154,10 +155,10 @@ public class RunexternalIssuesLinksInner {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RunexternalIssuesLinksInner runexternalIssuesLinksInner = (RunexternalIssuesLinksInner) o;
-    return Objects.equals(this.runId, runexternalIssuesLinksInner.runId) &&
-        Objects.equals(this.externalIssue, runexternalIssuesLinksInner.externalIssue)&&
-        Objects.equals(this.additionalProperties, runexternalIssuesLinksInner.additionalProperties);
+    RunExternalIssuesLinksInner runExternalIssuesLinksInner = (RunExternalIssuesLinksInner) o;
+    return Objects.equals(this.runId, runExternalIssuesLinksInner.runId) &&
+        Objects.equals(this.externalIssue, runExternalIssuesLinksInner.externalIssue)&&
+        Objects.equals(this.additionalProperties, runExternalIssuesLinksInner.additionalProperties);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -179,7 +180,7 @@ public class RunexternalIssuesLinksInner {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RunexternalIssuesLinksInner {\n");
+    sb.append("class RunExternalIssuesLinksInner {\n");
     sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
     sb.append("    externalIssue: ").append(toIndentedString(externalIssue)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -204,30 +205,27 @@ public class RunexternalIssuesLinksInner {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("run_id");
-    openapiFields.add("external_issue");
+    openapiFields = new HashSet<String>(Arrays.asList("run_id", "external_issue"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("run_id");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("run_id"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RunexternalIssuesLinksInner
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RunExternalIssuesLinksInner
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!RunexternalIssuesLinksInner.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in RunexternalIssuesLinksInner is not found in the empty JSON string", RunexternalIssuesLinksInner.openapiRequiredFields.toString()));
+        if (!RunExternalIssuesLinksInner.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in RunExternalIssuesLinksInner is not found in the empty JSON string", RunExternalIssuesLinksInner.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : RunexternalIssuesLinksInner.openapiRequiredFields) {
+      for (String requiredField : RunExternalIssuesLinksInner.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
@@ -242,16 +240,16 @@ public class RunexternalIssuesLinksInner {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!RunexternalIssuesLinksInner.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'RunexternalIssuesLinksInner' and its subtypes
+       if (!RunExternalIssuesLinksInner.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'RunExternalIssuesLinksInner' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<RunexternalIssuesLinksInner> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(RunexternalIssuesLinksInner.class));
+       final TypeAdapter<RunExternalIssuesLinksInner> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(RunExternalIssuesLinksInner.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<RunexternalIssuesLinksInner>() {
+       return (TypeAdapter<T>) new TypeAdapter<RunExternalIssuesLinksInner>() {
            @Override
-           public void write(JsonWriter out, RunexternalIssuesLinksInner value) throws IOException {
+           public void write(JsonWriter out, RunExternalIssuesLinksInner value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -279,12 +277,12 @@ public class RunexternalIssuesLinksInner {
            }
 
            @Override
-           public RunexternalIssuesLinksInner read(JsonReader in) throws IOException {
+           public RunExternalIssuesLinksInner read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
-             RunexternalIssuesLinksInner instance = thisAdapter.fromJsonTree(jsonObj);
+             RunExternalIssuesLinksInner instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -310,22 +308,22 @@ public class RunexternalIssuesLinksInner {
     }
   }
 
- /**
-  * Create an instance of RunexternalIssuesLinksInner given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RunexternalIssuesLinksInner
-  * @throws IOException if the JSON string is invalid with respect to RunexternalIssuesLinksInner
-  */
-  public static RunexternalIssuesLinksInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, RunexternalIssuesLinksInner.class);
+  /**
+   * Create an instance of RunExternalIssuesLinksInner given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RunExternalIssuesLinksInner
+   * @throws IOException if the JSON string is invalid with respect to RunExternalIssuesLinksInner
+   */
+  public static RunExternalIssuesLinksInner fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RunExternalIssuesLinksInner.class);
   }
 
- /**
-  * Convert an instance of RunexternalIssuesLinksInner to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RunExternalIssuesLinksInner to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

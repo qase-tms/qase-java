@@ -84,7 +84,8 @@ public class SharedStepsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -95,7 +96,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createSharedStepCall(String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createSharedStepCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SharedStepCreate sharedStepCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -142,7 +143,7 @@ public class SharedStepsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createSharedStepValidateBeforeCall(String code, SharedStepCreate sharedStepCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createSharedStepValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SharedStepCreate sharedStepCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createSharedStep(Async)");
@@ -165,7 +166,8 @@ public class SharedStepsApi {
      * @return HashResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -176,7 +178,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public HashResponse createSharedStep(String code, SharedStepCreate sharedStepCreate) throws ApiException {
+    public HashResponse createSharedStep(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SharedStepCreate sharedStepCreate) throws ApiException {
         ApiResponse<HashResponse> localVarResp = createSharedStepWithHttpInfo(code, sharedStepCreate);
         return localVarResp.getData();
     }
@@ -189,7 +191,8 @@ public class SharedStepsApi {
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -200,7 +203,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<HashResponse> createSharedStepWithHttpInfo(String code, SharedStepCreate sharedStepCreate) throws ApiException {
+    public ApiResponse<HashResponse> createSharedStepWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SharedStepCreate sharedStepCreate) throws ApiException {
         okhttp3.Call localVarCall = createSharedStepValidateBeforeCall(code, sharedStepCreate, null);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -215,7 +218,8 @@ public class SharedStepsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -226,7 +230,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createSharedStepAsync(String code, SharedStepCreate sharedStepCreate, final ApiCallback<HashResponse> _callback) throws ApiException {
+    public okhttp3.Call createSharedStepAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SharedStepCreate sharedStepCreate, final ApiCallback<HashResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createSharedStepValidateBeforeCall(code, sharedStepCreate, _callback);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
@@ -241,7 +245,8 @@ public class SharedStepsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -251,7 +256,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteSharedStepCall(String code, String hash, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteSharedStepCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -298,7 +303,7 @@ public class SharedStepsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteSharedStepValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteSharedStepValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deleteSharedStep(Async)");
@@ -321,7 +326,8 @@ public class SharedStepsApi {
      * @return HashResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -331,7 +337,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public HashResponse deleteSharedStep(String code, String hash) throws ApiException {
+    public HashResponse deleteSharedStep(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash) throws ApiException {
         ApiResponse<HashResponse> localVarResp = deleteSharedStepWithHttpInfo(code, hash);
         return localVarResp.getData();
     }
@@ -344,7 +350,8 @@ public class SharedStepsApi {
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -354,7 +361,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<HashResponse> deleteSharedStepWithHttpInfo(String code, String hash) throws ApiException {
+    public ApiResponse<HashResponse> deleteSharedStepWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash) throws ApiException {
         okhttp3.Call localVarCall = deleteSharedStepValidateBeforeCall(code, hash, null);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -369,7 +376,8 @@ public class SharedStepsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -379,7 +387,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteSharedStepAsync(String code, String hash, final ApiCallback<HashResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteSharedStepAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback<HashResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteSharedStepValidateBeforeCall(code, hash, _callback);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
@@ -394,7 +402,8 @@ public class SharedStepsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -404,7 +413,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSharedStepCall(String code, String hash, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getSharedStepCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -451,7 +460,7 @@ public class SharedStepsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSharedStepValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSharedStepValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getSharedStep(Async)");
@@ -474,7 +483,8 @@ public class SharedStepsApi {
      * @return SharedStepResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -484,7 +494,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public SharedStepResponse getSharedStep(String code, String hash) throws ApiException {
+    public SharedStepResponse getSharedStep(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash) throws ApiException {
         ApiResponse<SharedStepResponse> localVarResp = getSharedStepWithHttpInfo(code, hash);
         return localVarResp.getData();
     }
@@ -497,7 +507,8 @@ public class SharedStepsApi {
      * @return ApiResponse&lt;SharedStepResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -507,7 +518,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<SharedStepResponse> getSharedStepWithHttpInfo(String code, String hash) throws ApiException {
+    public ApiResponse<SharedStepResponse> getSharedStepWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash) throws ApiException {
         okhttp3.Call localVarCall = getSharedStepValidateBeforeCall(code, hash, null);
         Type localVarReturnType = new TypeToken<SharedStepResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -522,7 +533,8 @@ public class SharedStepsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A shared step. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -532,7 +544,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSharedStepAsync(String code, String hash, final ApiCallback<SharedStepResponse> _callback) throws ApiException {
+    public okhttp3.Call getSharedStepAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback<SharedStepResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getSharedStepValidateBeforeCall(code, hash, _callback);
         Type localVarReturnType = new TypeToken<SharedStepResponse>(){}.getType();
@@ -549,7 +561,8 @@ public class SharedStepsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -559,7 +572,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSharedStepsCall(String code, String search, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getSharedStepsCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -617,7 +630,7 @@ public class SharedStepsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSharedStepsValidateBeforeCall(String code, String search, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSharedStepsValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getSharedSteps(Async)");
@@ -637,7 +650,8 @@ public class SharedStepsApi {
      * @return SharedStepListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -647,7 +661,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public SharedStepListResponse getSharedSteps(String code, String search, Integer limit, Integer offset) throws ApiException {
+    public SharedStepListResponse getSharedSteps(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<SharedStepListResponse> localVarResp = getSharedStepsWithHttpInfo(code, search, limit, offset);
         return localVarResp.getData();
     }
@@ -662,7 +676,8 @@ public class SharedStepsApi {
      * @return ApiResponse&lt;SharedStepListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -672,7 +687,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<SharedStepListResponse> getSharedStepsWithHttpInfo(String code, String search, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<SharedStepListResponse> getSharedStepsWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getSharedStepsValidateBeforeCall(code, search, limit, offset, null);
         Type localVarReturnType = new TypeToken<SharedStepListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -689,7 +704,8 @@ public class SharedStepsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all shared steps. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -699,7 +715,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSharedStepsAsync(String code, String search, Integer limit, Integer offset, final ApiCallback<SharedStepListResponse> _callback) throws ApiException {
+    public okhttp3.Call getSharedStepsAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<SharedStepListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getSharedStepsValidateBeforeCall(code, search, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<SharedStepListResponse>(){}.getType();
@@ -715,7 +731,8 @@ public class SharedStepsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -725,7 +742,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateSharedStepCall(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateSharedStepCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull SharedStepUpdate sharedStepUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -773,7 +790,7 @@ public class SharedStepsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateSharedStepValidateBeforeCall(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateSharedStepValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull SharedStepUpdate sharedStepUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updateSharedStep(Async)");
@@ -802,7 +819,8 @@ public class SharedStepsApi {
      * @return HashResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -812,7 +830,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public HashResponse updateSharedStep(String code, String hash, SharedStepUpdate sharedStepUpdate) throws ApiException {
+    public HashResponse updateSharedStep(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull SharedStepUpdate sharedStepUpdate) throws ApiException {
         ApiResponse<HashResponse> localVarResp = updateSharedStepWithHttpInfo(code, hash, sharedStepUpdate);
         return localVarResp.getData();
     }
@@ -826,7 +844,8 @@ public class SharedStepsApi {
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -836,7 +855,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<HashResponse> updateSharedStepWithHttpInfo(String code, String hash, SharedStepUpdate sharedStepUpdate) throws ApiException {
+    public ApiResponse<HashResponse> updateSharedStepWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull SharedStepUpdate sharedStepUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateSharedStepValidateBeforeCall(code, hash, sharedStepUpdate, null);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -852,7 +871,8 @@ public class SharedStepsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -862,7 +882,7 @@ public class SharedStepsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateSharedStepAsync(String code, String hash, SharedStepUpdate sharedStepUpdate, final ApiCallback<HashResponse> _callback) throws ApiException {
+    public okhttp3.Call updateSharedStepAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull SharedStepUpdate sharedStepUpdate, final ApiCallback<HashResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateSharedStepValidateBeforeCall(code, hash, sharedStepUpdate, _callback);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();

@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,85 +51,89 @@ import io.qase.client.v1.JSON;
 /**
  * ConfigurationListResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ConfigurationListResponseAllOfResult {
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)
+  @javax.annotation.Nullable
   private Integer total;
 
   public static final String SERIALIZED_NAME_FILTERED = "filtered";
   @SerializedName(SERIALIZED_NAME_FILTERED)
+  @javax.annotation.Nullable
   private Integer filtered;
 
   public static final String SERIALIZED_NAME_COUNT = "count";
   @SerializedName(SERIALIZED_NAME_COUNT)
+  @javax.annotation.Nullable
   private Integer count;
 
   public static final String SERIALIZED_NAME_ENTITIES = "entities";
   @SerializedName(SERIALIZED_NAME_ENTITIES)
-  private List<ConfigurationGroup> entities;
+  @javax.annotation.Nullable
+  private List<ConfigurationGroup> entities = new ArrayList<>();
 
   public ConfigurationListResponseAllOfResult() {
   }
 
-  public ConfigurationListResponseAllOfResult total(Integer total) {
+  public ConfigurationListResponseAllOfResult total(@javax.annotation.Nullable Integer total) {
     this.total = total;
     return this;
   }
 
-   /**
+  /**
    * Get total
    * @return total
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getTotal() {
     return total;
   }
 
-  public void setTotal(Integer total) {
+  public void setTotal(@javax.annotation.Nullable Integer total) {
     this.total = total;
   }
 
 
-  public ConfigurationListResponseAllOfResult filtered(Integer filtered) {
+  public ConfigurationListResponseAllOfResult filtered(@javax.annotation.Nullable Integer filtered) {
     this.filtered = filtered;
     return this;
   }
 
-   /**
+  /**
    * Get filtered
    * @return filtered
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getFiltered() {
     return filtered;
   }
 
-  public void setFiltered(Integer filtered) {
+  public void setFiltered(@javax.annotation.Nullable Integer filtered) {
     this.filtered = filtered;
   }
 
 
-  public ConfigurationListResponseAllOfResult count(Integer count) {
+  public ConfigurationListResponseAllOfResult count(@javax.annotation.Nullable Integer count) {
     this.count = count;
     return this;
   }
 
-   /**
+  /**
    * Get count
    * @return count
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getCount() {
     return count;
   }
 
-  public void setCount(Integer count) {
+  public void setCount(@javax.annotation.Nullable Integer count) {
     this.count = count;
   }
 
 
-  public ConfigurationListResponseAllOfResult entities(List<ConfigurationGroup> entities) {
+  public ConfigurationListResponseAllOfResult entities(@javax.annotation.Nullable List<ConfigurationGroup> entities) {
     this.entities = entities;
     return this;
   }
@@ -143,16 +146,16 @@ public class ConfigurationListResponseAllOfResult {
     return this;
   }
 
-   /**
+  /**
    * Get entities
    * @return entities
-  **/
+   */
   @javax.annotation.Nullable
   public List<ConfigurationGroup> getEntities() {
     return entities;
   }
 
-  public void setEntities(List<ConfigurationGroup> entities) {
+  public void setEntities(@javax.annotation.Nullable List<ConfigurationGroup> entities) {
     this.entities = entities;
   }
 
@@ -253,22 +256,18 @@ public class ConfigurationListResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("total");
-    openapiFields.add("filtered");
-    openapiFields.add("count");
-    openapiFields.add("entities");
+    openapiFields = new HashSet<String>(Arrays.asList("total", "filtered", "count", "entities"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ConfigurationListResponseAllOfResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ConfigurationListResponseAllOfResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ConfigurationListResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -364,22 +363,22 @@ public class ConfigurationListResponseAllOfResult {
     }
   }
 
- /**
-  * Create an instance of ConfigurationListResponseAllOfResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ConfigurationListResponseAllOfResult
-  * @throws IOException if the JSON string is invalid with respect to ConfigurationListResponseAllOfResult
-  */
+  /**
+   * Create an instance of ConfigurationListResponseAllOfResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ConfigurationListResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to ConfigurationListResponseAllOfResult
+   */
   public static ConfigurationListResponseAllOfResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ConfigurationListResponseAllOfResult.class);
   }
 
- /**
-  * Convert an instance of ConfigurationListResponseAllOfResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ConfigurationListResponseAllOfResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -14,6 +14,7 @@
 package io.qase.client.v1.models;
 
 import java.util.Objects;
+import java.util.List;
 
 
 
@@ -50,7 +51,7 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class QqlTestCaseParams extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(QqlTestCaseParams.class.getName());
 
@@ -63,8 +64,8 @@ public class QqlTestCaseParams extends AbstractOpenApiSchema {
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
 
-            final Type typeInstance = new TypeToken<List<Object>>(){}.getType();
-            final TypeAdapter<List<Object>> adapterList = (TypeAdapter<List<Object>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstance));
+            final Type typeInstanceListObject = new TypeToken<List<Object>>(){}.getType();
+            final TypeAdapter<List<Object>> adapterListObject = (TypeAdapter<List<Object>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstanceListObject));
             final TypeAdapter<Object> adapterObject = gson.getDelegateAdapter(this, TypeToken.get(Object.class));
 
             return (TypeAdapter<T>) new TypeAdapter<QqlTestCaseParams>() {
@@ -77,17 +78,17 @@ public class QqlTestCaseParams extends AbstractOpenApiSchema {
 
                     // check if the actual instance is of the type `List<Object>`
                     if (value.getActualInstance() instanceof List<?>) {
-                      JsonPrimitive primitive = adapterList.toJsonTree((List<Object>)value.getActualInstance()).getAsJsonPrimitive();
-                      elementAdapter.write(out, primitive);
-                      return;
+                        JsonPrimitive primitive = adapterListObject.toJsonTree((List<Object>)value.getActualInstance()).getAsJsonPrimitive();
+                        elementAdapter.write(out, primitive);
+                        return;
                     }
                     // check if the actual instance is of the type `Object`
                     if (value.getActualInstance() instanceof Object) {
-                      JsonPrimitive primitive = adapterObject.toJsonTree((Object)value.getActualInstance()).getAsJsonPrimitive();
-                      elementAdapter.write(out, primitive);
-                      return;
+                        JsonPrimitive primitive = adapterObject.toJsonTree((Object)value.getActualInstance()).getAsJsonPrimitive();
+                        elementAdapter.write(out, primitive);
+                        return;
                     }
-                    throw new IOException("Failed to serialize as the type doesn't match anyOf schemae: List<Object>, Object");
+                    throw new IOException("Failed to serialize as the type doesn't match anyOf schemas: List<Object>, Object");
                 }
 
                 @Override
@@ -100,45 +101,41 @@ public class QqlTestCaseParams extends AbstractOpenApiSchema {
 
                     // deserialize List<Object>
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      if(!jsonElement.getAsJsonPrimitive().isNumber()) {
-                        throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
-                      }
-                      actualAdapter = adapterList;
-                      if (!jsonElement.isJsonArray()) {
-                        throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
-                      }
+                        // validate the JSON object to see if any exception is thrown
+                        if (!jsonElement.isJsonArray()) {
+                            throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
+                        }
 
-                      JsonArray array = jsonElement.getAsJsonArray();
-                      // validate array items
-                      for(JsonElement element : array) {
-                      if(!element.getAsJsonPrimitive().isNumber()) {
-                        throw new IllegalArgumentException(String.format("Expected array items to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
-                      }
-                      }
-                      actualAdapter = adapterList;
-                      QqlTestCaseParams ret = new QqlTestCaseParams();
-                      ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
-                      return ret;
+                        JsonArray array = jsonElement.getAsJsonArray();
+                        // validate array items
+                        for(JsonElement element : array) {
+                            if (!element.getAsJsonPrimitive().isNumber()) {
+                                throw new IllegalArgumentException(String.format("Expected array items to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
+                            }
+                        }
+                        actualAdapter = adapterListObject;
+                        QqlTestCaseParams ret = new QqlTestCaseParams();
+                        ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
+                        return ret;
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for List<Object> failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'List<Object>'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for List<Object> failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'List<Object>'", e);
                     }
                     // deserialize Object
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      if(!jsonElement.getAsJsonPrimitive().isNumber()) {
-                        throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
-                      }
-                      actualAdapter = adapterObject;
-                      QqlTestCaseParams ret = new QqlTestCaseParams();
-                      ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
-                      return ret;
+                        // validate the JSON object to see if any exception is thrown
+                        if (!jsonElement.getAsJsonPrimitive().isNumber()) {
+                            throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
+                        }
+                        actualAdapter = adapterObject;
+                        QqlTestCaseParams ret = new QqlTestCaseParams();
+                        ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
+                        return ret;
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for Object failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'Object'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for Object failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'Object'", e);
                     }
 
                     throw new IOException(String.format("Failed deserialization for QqlTestCaseParams: no class matches result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s", errorMessages, jsonElement.toString()));
@@ -152,11 +149,6 @@ public class QqlTestCaseParams extends AbstractOpenApiSchema {
 
     public QqlTestCaseParams() {
         super("anyOf", Boolean.FALSE);
-    }
-
-    public QqlTestCaseParams(List<Object> o) {
-        super("anyOf", Boolean.FALSE);
-        setActualInstance(o);
     }
 
     public QqlTestCaseParams(Object o) {
@@ -185,10 +177,10 @@ public class QqlTestCaseParams extends AbstractOpenApiSchema {
     public void setActualInstance(Object instance) {
         if (instance instanceof List<?>) {
             List<?> list = (List<?>) instance;
-        	if(list.get(0) instanceof Object) {
-        		super.setActualInstance(instance);
-        		return;
-        	}
+            if (!list.isEmpty() && list.get(0) instanceof Object) {
+                super.setActualInstance(instance);
+                return;
+            }
         }
 
         if (instance instanceof Object) {
@@ -205,6 +197,7 @@ public class QqlTestCaseParams extends AbstractOpenApiSchema {
      *
      * @return The actual instance (List<Object>, Object)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
@@ -217,9 +210,10 @@ public class QqlTestCaseParams extends AbstractOpenApiSchema {
      * @return The actual instance of `List<Object>`
      * @throws ClassCastException if the instance is not `List<Object>`
      */
-    public List<Object> getList() throws ClassCastException {
+    public List<Object> getListObject() throws ClassCastException {
         return (List<Object>)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `Object`. If the actual instance is not `Object`,
      * the ClassCastException will be thrown.
@@ -231,67 +225,63 @@ public class QqlTestCaseParams extends AbstractOpenApiSchema {
         return (Object)super.getActualInstance();
     }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to QqlTestCaseParams
-  */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-    // validate anyOf schemas one by one
-    ArrayList<String> errorMessages = new ArrayList<>();
-    // validate the json string with List<Object>
-    try {
-      if(!jsonElement.getAsJsonPrimitive().isNumber()) {
-        throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
-      }
-      if (!jsonElement.isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
-      }
-      JsonArray array = jsonElement.getAsJsonArray();
-      // validate array items
-      for(JsonElement element : array) {
-        if(!element.getAsJsonPrimitive().isNumber()) {
-          throw new IllegalArgumentException(String.format("Expected array items to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
+    /**
+     * Validates the JSON Element and throws an exception if issues found
+     *
+     * @param jsonElement JSON Element
+     * @throws IOException if the JSON Element is invalid with respect to QqlTestCaseParams
+     */
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+        // validate anyOf schemas one by one
+        ArrayList<String> errorMessages = new ArrayList<>();
+        // validate the json string with List<Object>
+        try {
+            if (!jsonElement.isJsonArray()) {
+                throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
+            }
+            JsonArray array = jsonElement.getAsJsonArray();
+            // validate array items
+            for(JsonElement element : array) {
+                if (!element.getAsJsonPrimitive().isNumber()) {
+                    throw new IllegalArgumentException(String.format("Expected array items to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
+                }
+            }
+            return;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for List<Object> failed with `%s`.", e.getMessage()));
+            // continue to the next one
         }
-      }
-      return;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for List<Object> failed with `%s`.", e.getMessage()));
-      // continue to the next one
+        // validate the json string with Object
+        try {
+            if (!jsonElement.getAsJsonPrimitive().isNumber()) {
+                throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
+            }
+            return;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for Object failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        throw new IOException(String.format("The JSON string is invalid for QqlTestCaseParams with anyOf schemas: List<Object>, Object. no class match the result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s", errorMessages, jsonElement.toString()));
     }
-    // validate the json string with Object
-    try {
-      if(!jsonElement.getAsJsonPrimitive().isNumber()) {
-        throw new IllegalArgumentException(String.format("Expected json element to be of type Number in the JSON string but got `%s`", jsonElement.toString()));
-      }
-      return;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for Object failed with `%s`.", e.getMessage()));
-      // continue to the next one
+
+    /**
+     * Create an instance of QqlTestCaseParams given an JSON string
+     *
+     * @param jsonString JSON string
+     * @return An instance of QqlTestCaseParams
+     * @throws IOException if the JSON string is invalid with respect to QqlTestCaseParams
+     */
+    public static QqlTestCaseParams fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, QqlTestCaseParams.class);
     }
-    throw new IOException(String.format("The JSON string is invalid for QqlTestCaseParams with anyOf schemas: List<Object>, Object. no class match the result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s", errorMessages, jsonElement.toString()));
-    
-  }
 
- /**
-  * Create an instance of QqlTestCaseParams given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of QqlTestCaseParams
-  * @throws IOException if the JSON string is invalid with respect to QqlTestCaseParams
-  */
-  public static QqlTestCaseParams fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, QqlTestCaseParams.class);
-  }
-
- /**
-  * Convert an instance of QqlTestCaseParams to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
+    /**
+     * Convert an instance of QqlTestCaseParams to an JSON string
+     *
+     * @return JSON string
+     */
+    public String toJson() {
+        return JSON.getGson().toJson(this);
+    }
 }
 

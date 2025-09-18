@@ -15,6 +15,7 @@ package io.qase.client.v1.models;
 
 import java.util.Objects;
 import io.qase.client.v1.models.ParameterSingle;
+import java.util.List;
 
 
 
@@ -51,7 +52,7 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SharedParameterParameter extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(SharedParameterParameter.class.getName());
 
@@ -64,8 +65,8 @@ public class SharedParameterParameter extends AbstractOpenApiSchema {
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
 
-            final Type typeInstance = new TypeToken<List<ParameterSingle>>(){}.getType();
-            final TypeAdapter<List<ParameterSingle>> adapterParameterSingleList = (TypeAdapter<List<ParameterSingle>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstance));
+            final Type typeInstanceListParameterSingle = new TypeToken<List<ParameterSingle>>(){}.getType();
+            final TypeAdapter<List<ParameterSingle>> adapterListParameterSingle = (TypeAdapter<List<ParameterSingle>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstanceListParameterSingle));
 
             return (TypeAdapter<T>) new TypeAdapter<SharedParameterParameter>() {
                 @Override
@@ -77,12 +78,12 @@ public class SharedParameterParameter extends AbstractOpenApiSchema {
 
                     // check if the actual instance is of the type `List<ParameterSingle>`
                     if (value.getActualInstance() instanceof List<?>) {
-                      List<?> list = (List<?>) value.getActualInstance();
-        	            if(list.get(0) instanceof ParameterSingle) {
-        		            JsonArray array = adapterParameterSingleList.toJsonTree((List<ParameterSingle>)value.getActualInstance()).getAsJsonArray();
-                        elementAdapter.write(out, array);
-                        return;
-        	            }
+                        List<?> list = (List<?>) value.getActualInstance();
+                        if (!list.isEmpty() && list.get(0) instanceof ParameterSingle) {
+                            JsonArray array = adapterListParameterSingle.toJsonTree((List<ParameterSingle>)value.getActualInstance()).getAsJsonArray();
+                            elementAdapter.write(out, array);
+                            return;
+                        }
                     }
                     throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: List<ParameterSingle>");
                 }
@@ -98,23 +99,23 @@ public class SharedParameterParameter extends AbstractOpenApiSchema {
 
                     // deserialize List<ParameterSingle>
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      if (!jsonElement.isJsonArray()) {
-                        throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
-                      }
+                        // validate the JSON object to see if any exception is thrown
+                        if (!jsonElement.isJsonArray()) {
+                            throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
+                        }
 
-                      JsonArray array = jsonElement.getAsJsonArray();
-                      // validate array items
-                      for(JsonElement element : array) {
-                        ParameterSingle.validateJsonElement(element);
-                      }
-                      actualAdapter = adapterParameterSingleList;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'List<ParameterSingle>'");
+                        JsonArray array = jsonElement.getAsJsonArray();
+                        // validate array items
+                        for(JsonElement element : array) {
+                            ParameterSingle.validateJsonElement(element);
+                        }
+                        actualAdapter = adapterListParameterSingle;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'List<ParameterSingle>'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for List<ParameterSingle> failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'List<ParameterSingle>'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for List<ParameterSingle> failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'List<ParameterSingle>'", e);
                     }
 
                     if (match == 1) {
@@ -136,7 +137,7 @@ public class SharedParameterParameter extends AbstractOpenApiSchema {
         super("oneOf", Boolean.FALSE);
     }
 
-    public SharedParameterParameter(List<ParameterSingle> o) {
+    public SharedParameterParameter(Object o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
@@ -161,10 +162,10 @@ public class SharedParameterParameter extends AbstractOpenApiSchema {
     public void setActualInstance(Object instance) {
         if (instance instanceof List<?>) {
             List<?> list = (List<?>) instance;
-        	if(list.get(0) instanceof ParameterSingle) {
-        		super.setActualInstance(instance);
-        		return;
-        	}
+            if (!list.isEmpty() && list.get(0) instanceof ParameterSingle) {
+                super.setActualInstance(instance);
+                return;
+            }
         }
 
         throw new RuntimeException("Invalid instance type. Must be List<ParameterSingle>");
@@ -176,6 +177,7 @@ public class SharedParameterParameter extends AbstractOpenApiSchema {
      *
      * @return The actual instance (List<ParameterSingle>)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
@@ -188,58 +190,58 @@ public class SharedParameterParameter extends AbstractOpenApiSchema {
      * @return The actual instance of `List<ParameterSingle>`
      * @throws ClassCastException if the instance is not `List<ParameterSingle>`
      */
-    public List<ParameterSingle> getParameterSingleList() throws ClassCastException {
+    public List<ParameterSingle> getListParameterSingle() throws ClassCastException {
         return (List<ParameterSingle>)super.getActualInstance();
     }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SharedParameterParameter
-  */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-    // validate oneOf schemas one by one
-    int validCount = 0;
-    ArrayList<String> errorMessages = new ArrayList<>();
-    // validate the json string with List<ParameterSingle>
-    try {
-      if (!jsonElement.isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
-      }
-      JsonArray array = jsonElement.getAsJsonArray();
-      // validate array items
-      for(JsonElement element : array) {
-        ParameterSingle.validateJsonElement(element);
-      }
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for List<ParameterSingle> failed with `%s`.", e.getMessage()));
-      // continue to the next one
+    /**
+     * Validates the JSON Element and throws an exception if issues found
+     *
+     * @param jsonElement JSON Element
+     * @throws IOException if the JSON Element is invalid with respect to SharedParameterParameter
+     */
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+        // validate oneOf schemas one by one
+        int validCount = 0;
+        ArrayList<String> errorMessages = new ArrayList<>();
+        // validate the json string with List<ParameterSingle>
+        try {
+            if (!jsonElement.isJsonArray()) {
+                throw new IllegalArgumentException(String.format("Expected json element to be a array type in the JSON string but got `%s`", jsonElement.toString()));
+            }
+            JsonArray array = jsonElement.getAsJsonArray();
+            // validate array items
+            for(JsonElement element : array) {
+                ParameterSingle.validateJsonElement(element);
+            }
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for List<ParameterSingle> failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        if (validCount != 1) {
+            throw new IOException(String.format("The JSON string is invalid for SharedParameterParameter with oneOf schemas: List<ParameterSingle>. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
+        }
     }
-    if (validCount != 1) {
-      throw new IOException(String.format("The JSON string is invalid for SharedParameterParameter with oneOf schemas: List<ParameterSingle>. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
+
+    /**
+     * Create an instance of SharedParameterParameter given an JSON string
+     *
+     * @param jsonString JSON string
+     * @return An instance of SharedParameterParameter
+     * @throws IOException if the JSON string is invalid with respect to SharedParameterParameter
+     */
+    public static SharedParameterParameter fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, SharedParameterParameter.class);
     }
-  }
 
- /**
-  * Create an instance of SharedParameterParameter given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SharedParameterParameter
-  * @throws IOException if the JSON string is invalid with respect to SharedParameterParameter
-  */
-  public static SharedParameterParameter fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, SharedParameterParameter.class);
-  }
-
- /**
-  * Convert an instance of SharedParameterParameter to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
+    /**
+     * Convert an instance of SharedParameterParameter to an JSON string
+     *
+     * @return JSON string
+     */
+    public String toJson() {
+        return JSON.getGson().toJson(this);
+    }
 }
 

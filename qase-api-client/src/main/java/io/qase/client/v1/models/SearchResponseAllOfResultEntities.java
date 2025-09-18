@@ -75,7 +75,7 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(SearchResponseAllOfResultEntities.class.getName());
 
@@ -104,39 +104,39 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
 
                     // check if the actual instance is of the type `RunQuery`
                     if (value.getActualInstance() instanceof RunQuery) {
-                      JsonElement element = adapterRunQuery.toJsonTree((RunQuery)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterRunQuery.toJsonTree((RunQuery)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     // check if the actual instance is of the type `ResultQuery`
                     if (value.getActualInstance() instanceof ResultQuery) {
-                      JsonElement element = adapterResultQuery.toJsonTree((ResultQuery)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterResultQuery.toJsonTree((ResultQuery)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     // check if the actual instance is of the type `RequirementQuery`
                     if (value.getActualInstance() instanceof RequirementQuery) {
-                      JsonElement element = adapterRequirementQuery.toJsonTree((RequirementQuery)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterRequirementQuery.toJsonTree((RequirementQuery)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     // check if the actual instance is of the type `TestCaseQuery`
                     if (value.getActualInstance() instanceof TestCaseQuery) {
-                      JsonElement element = adapterTestCaseQuery.toJsonTree((TestCaseQuery)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterTestCaseQuery.toJsonTree((TestCaseQuery)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     // check if the actual instance is of the type `DefectQuery`
                     if (value.getActualInstance() instanceof DefectQuery) {
-                      JsonElement element = adapterDefectQuery.toJsonTree((DefectQuery)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterDefectQuery.toJsonTree((DefectQuery)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     // check if the actual instance is of the type `PlanQuery`
                     if (value.getActualInstance() instanceof PlanQuery) {
-                      JsonElement element = adapterPlanQuery.toJsonTree((PlanQuery)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
+                        JsonElement element = adapterPlanQuery.toJsonTree((PlanQuery)value.getActualInstance());
+                        elementAdapter.write(out, element);
+                        return;
                     }
                     throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: DefectQuery, PlanQuery, RequirementQuery, ResultQuery, RunQuery, TestCaseQuery");
                 }
@@ -152,75 +152,75 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
 
                     // deserialize RunQuery
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      RunQuery.validateJsonElement(jsonElement);
-                      actualAdapter = adapterRunQuery;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'RunQuery'");
+                        // validate the JSON object to see if any exception is thrown
+                        RunQuery.validateJsonElement(jsonElement);
+                        actualAdapter = adapterRunQuery;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'RunQuery'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for RunQuery failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'RunQuery'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for RunQuery failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'RunQuery'", e);
                     }
                     // deserialize ResultQuery
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      ResultQuery.validateJsonElement(jsonElement);
-                      actualAdapter = adapterResultQuery;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'ResultQuery'");
+                        // validate the JSON object to see if any exception is thrown
+                        ResultQuery.validateJsonElement(jsonElement);
+                        actualAdapter = adapterResultQuery;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'ResultQuery'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for ResultQuery failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'ResultQuery'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for ResultQuery failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'ResultQuery'", e);
                     }
                     // deserialize RequirementQuery
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      RequirementQuery.validateJsonElement(jsonElement);
-                      actualAdapter = adapterRequirementQuery;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'RequirementQuery'");
+                        // validate the JSON object to see if any exception is thrown
+                        RequirementQuery.validateJsonElement(jsonElement);
+                        actualAdapter = adapterRequirementQuery;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'RequirementQuery'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for RequirementQuery failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'RequirementQuery'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for RequirementQuery failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'RequirementQuery'", e);
                     }
                     // deserialize TestCaseQuery
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      TestCaseQuery.validateJsonElement(jsonElement);
-                      actualAdapter = adapterTestCaseQuery;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'TestCaseQuery'");
+                        // validate the JSON object to see if any exception is thrown
+                        TestCaseQuery.validateJsonElement(jsonElement);
+                        actualAdapter = adapterTestCaseQuery;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'TestCaseQuery'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for TestCaseQuery failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'TestCaseQuery'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for TestCaseQuery failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'TestCaseQuery'", e);
                     }
                     // deserialize DefectQuery
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      DefectQuery.validateJsonElement(jsonElement);
-                      actualAdapter = adapterDefectQuery;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'DefectQuery'");
+                        // validate the JSON object to see if any exception is thrown
+                        DefectQuery.validateJsonElement(jsonElement);
+                        actualAdapter = adapterDefectQuery;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'DefectQuery'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for DefectQuery failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'DefectQuery'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for DefectQuery failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'DefectQuery'", e);
                     }
                     // deserialize PlanQuery
                     try {
-                      // validate the JSON object to see if any exception is thrown
-                      PlanQuery.validateJsonElement(jsonElement);
-                      actualAdapter = adapterPlanQuery;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'PlanQuery'");
+                        // validate the JSON object to see if any exception is thrown
+                        PlanQuery.validateJsonElement(jsonElement);
+                        actualAdapter = adapterPlanQuery;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'PlanQuery'");
                     } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for PlanQuery failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'PlanQuery'", e);
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for PlanQuery failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'PlanQuery'", e);
                     }
 
                     if (match == 1) {
@@ -242,32 +242,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
         super("oneOf", Boolean.FALSE);
     }
 
-    public SearchResponseAllOfResultEntities(DefectQuery o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
-    public SearchResponseAllOfResultEntities(PlanQuery o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
-    public SearchResponseAllOfResultEntities(RequirementQuery o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
-    public SearchResponseAllOfResultEntities(ResultQuery o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
-    public SearchResponseAllOfResultEntities(RunQuery o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
-    public SearchResponseAllOfResultEntities(TestCaseQuery o) {
+    public SearchResponseAllOfResultEntities(Object o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
@@ -334,6 +309,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
      *
      * @return The actual instance (DefectQuery, PlanQuery, RequirementQuery, ResultQuery, RunQuery, TestCaseQuery)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
@@ -349,6 +325,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
     public RunQuery getRunQuery() throws ClassCastException {
         return (RunQuery)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `ResultQuery`. If the actual instance is not `ResultQuery`,
      * the ClassCastException will be thrown.
@@ -359,6 +336,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
     public ResultQuery getResultQuery() throws ClassCastException {
         return (ResultQuery)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `RequirementQuery`. If the actual instance is not `RequirementQuery`,
      * the ClassCastException will be thrown.
@@ -369,6 +347,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
     public RequirementQuery getRequirementQuery() throws ClassCastException {
         return (RequirementQuery)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `TestCaseQuery`. If the actual instance is not `TestCaseQuery`,
      * the ClassCastException will be thrown.
@@ -379,6 +358,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
     public TestCaseQuery getTestCaseQuery() throws ClassCastException {
         return (TestCaseQuery)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `DefectQuery`. If the actual instance is not `DefectQuery`,
      * the ClassCastException will be thrown.
@@ -389,6 +369,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
     public DefectQuery getDefectQuery() throws ClassCastException {
         return (DefectQuery)super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `PlanQuery`. If the actual instance is not `PlanQuery`,
      * the ClassCastException will be thrown.
@@ -400,87 +381,87 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
         return (PlanQuery)super.getActualInstance();
     }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SearchResponseAllOfResultEntities
-  */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-    // validate oneOf schemas one by one
-    int validCount = 0;
-    ArrayList<String> errorMessages = new ArrayList<>();
-    // validate the json string with RunQuery
-    try {
-      RunQuery.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for RunQuery failed with `%s`.", e.getMessage()));
-      // continue to the next one
+    /**
+     * Validates the JSON Element and throws an exception if issues found
+     *
+     * @param jsonElement JSON Element
+     * @throws IOException if the JSON Element is invalid with respect to SearchResponseAllOfResultEntities
+     */
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+        // validate oneOf schemas one by one
+        int validCount = 0;
+        ArrayList<String> errorMessages = new ArrayList<>();
+        // validate the json string with RunQuery
+        try {
+            RunQuery.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for RunQuery failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with ResultQuery
+        try {
+            ResultQuery.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for ResultQuery failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with RequirementQuery
+        try {
+            RequirementQuery.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for RequirementQuery failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with TestCaseQuery
+        try {
+            TestCaseQuery.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for TestCaseQuery failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with DefectQuery
+        try {
+            DefectQuery.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for DefectQuery failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with PlanQuery
+        try {
+            PlanQuery.validateJsonElement(jsonElement);
+            validCount++;
+        } catch (Exception e) {
+            errorMessages.add(String.format("Deserialization for PlanQuery failed with `%s`.", e.getMessage()));
+            // continue to the next one
+        }
+        if (validCount != 1) {
+            throw new IOException(String.format("The JSON string is invalid for SearchResponseAllOfResultEntities with oneOf schemas: DefectQuery, PlanQuery, RequirementQuery, ResultQuery, RunQuery, TestCaseQuery. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
+        }
     }
-    // validate the json string with ResultQuery
-    try {
-      ResultQuery.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for ResultQuery failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
-    // validate the json string with RequirementQuery
-    try {
-      RequirementQuery.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for RequirementQuery failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
-    // validate the json string with TestCaseQuery
-    try {
-      TestCaseQuery.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for TestCaseQuery failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
-    // validate the json string with DefectQuery
-    try {
-      DefectQuery.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for DefectQuery failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
-    // validate the json string with PlanQuery
-    try {
-      PlanQuery.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for PlanQuery failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
-    if (validCount != 1) {
-      throw new IOException(String.format("The JSON string is invalid for SearchResponseAllOfResultEntities with oneOf schemas: DefectQuery, PlanQuery, RequirementQuery, ResultQuery, RunQuery, TestCaseQuery. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
-    }
-  }
 
- /**
-  * Create an instance of SearchResponseAllOfResultEntities given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SearchResponseAllOfResultEntities
-  * @throws IOException if the JSON string is invalid with respect to SearchResponseAllOfResultEntities
-  */
-  public static SearchResponseAllOfResultEntities fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, SearchResponseAllOfResultEntities.class);
-  }
+    /**
+     * Create an instance of SearchResponseAllOfResultEntities given an JSON string
+     *
+     * @param jsonString JSON string
+     * @return An instance of SearchResponseAllOfResultEntities
+     * @throws IOException if the JSON string is invalid with respect to SearchResponseAllOfResultEntities
+     */
+    public static SearchResponseAllOfResultEntities fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, SearchResponseAllOfResultEntities.class);
+    }
 
- /**
-  * Convert an instance of SearchResponseAllOfResultEntities to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
+    /**
+     * Convert an instance of SearchResponseAllOfResultEntities to an JSON string
+     *
+     * @return JSON string
+     */
+    public String toJson() {
+        return JSON.getGson().toJson(this);
+    }
 }
 

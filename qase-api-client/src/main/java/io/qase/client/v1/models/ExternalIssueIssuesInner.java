@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,53 +48,55 @@ import io.qase.client.v1.JSON;
 /**
  * ExternalIssueIssuesInner
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ExternalIssueIssuesInner {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private String id;
 
   public static final String SERIALIZED_NAME_LINK = "link";
   @SerializedName(SERIALIZED_NAME_LINK)
+  @javax.annotation.Nullable
   private String link;
 
   public ExternalIssueIssuesInner() {
   }
 
-  public ExternalIssueIssuesInner id(String id) {
+  public ExternalIssueIssuesInner id(@javax.annotation.Nullable String id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
 
-  public ExternalIssueIssuesInner link(String link) {
+  public ExternalIssueIssuesInner link(@javax.annotation.Nullable String link) {
     this.link = link;
     return this;
   }
 
-   /**
+  /**
    * Get link
    * @return link
-  **/
+   */
   @javax.annotation.Nullable
   public String getLink() {
     return link;
   }
 
-  public void setLink(String link) {
+  public void setLink(@javax.annotation.Nullable String link) {
     this.link = link;
   }
 
@@ -192,20 +193,18 @@ public class ExternalIssueIssuesInner {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("link");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "link"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ExternalIssueIssuesInner
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ExternalIssueIssuesInner
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ExternalIssueIssuesInner.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -293,22 +292,22 @@ public class ExternalIssueIssuesInner {
     }
   }
 
- /**
-  * Create an instance of ExternalIssueIssuesInner given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ExternalIssueIssuesInner
-  * @throws IOException if the JSON string is invalid with respect to ExternalIssueIssuesInner
-  */
+  /**
+   * Create an instance of ExternalIssueIssuesInner given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ExternalIssueIssuesInner
+   * @throws IOException if the JSON string is invalid with respect to ExternalIssueIssuesInner
+   */
   public static ExternalIssueIssuesInner fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ExternalIssueIssuesInner.class);
   }
 
- /**
-  * Convert an instance of ExternalIssueIssuesInner to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ExternalIssueIssuesInner to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,53 +48,55 @@ import io.qase.client.v1.JSON;
 /**
  * CustomFieldCreateValueInner
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class CustomFieldCreateValueInner {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public CustomFieldCreateValueInner() {
   }
 
-  public CustomFieldCreateValueInner id(Long id) {
+  public CustomFieldCreateValueInner id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public CustomFieldCreateValueInner title(String title) {
+  public CustomFieldCreateValueInner title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
@@ -192,20 +193,18 @@ public class CustomFieldCreateValueInner {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("title");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "title"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CustomFieldCreateValueInner
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to CustomFieldCreateValueInner
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!CustomFieldCreateValueInner.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -290,22 +289,22 @@ public class CustomFieldCreateValueInner {
     }
   }
 
- /**
-  * Create an instance of CustomFieldCreateValueInner given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of CustomFieldCreateValueInner
-  * @throws IOException if the JSON string is invalid with respect to CustomFieldCreateValueInner
-  */
+  /**
+   * Create an instance of CustomFieldCreateValueInner given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of CustomFieldCreateValueInner
+   * @throws IOException if the JSON string is invalid with respect to CustomFieldCreateValueInner
+   */
   public static CustomFieldCreateValueInner fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, CustomFieldCreateValueInner.class);
   }
 
- /**
-  * Convert an instance of CustomFieldCreateValueInner to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of CustomFieldCreateValueInner to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

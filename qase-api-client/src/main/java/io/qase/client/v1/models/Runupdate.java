@@ -42,7 +42,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -54,141 +53,149 @@ import io.qase.client.v1.JSON;
 /**
  * Runupdate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Runupdate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environment_id";
   @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  @javax.annotation.Nullable
   private Long environmentId;
 
   public static final String SERIALIZED_NAME_ENVIRONMENT_SLUG = "environment_slug";
   @SerializedName(SERIALIZED_NAME_ENVIRONMENT_SLUG)
+  @javax.annotation.Nullable
   private String environmentSlug;
 
   public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
   @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  @javax.annotation.Nullable
   private Long milestoneId;
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
+  @javax.annotation.Nullable
   private List<String> tags;
 
   public static final String SERIALIZED_NAME_CONFIGURATIONS = "configurations";
   @SerializedName(SERIALIZED_NAME_CONFIGURATIONS)
+  @javax.annotation.Nullable
   private List<Long> configurations;
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELD = "custom_field";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELD)
+  @javax.annotation.Nullable
   private Map<String, String> customField;
 
   public Runupdate() {
   }
 
-  public Runupdate title(String title) {
+  public Runupdate title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public Runupdate description(String description) {
+  public Runupdate description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public Runupdate environmentId(Long environmentId) {
+  public Runupdate environmentId(@javax.annotation.Nullable Long environmentId) {
     this.environmentId = environmentId;
     return this;
   }
 
-   /**
+  /**
    * Get environmentId
    * minimum: 1
    * @return environmentId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getEnvironmentId() {
     return environmentId;
   }
 
-  public void setEnvironmentId(Long environmentId) {
+  public void setEnvironmentId(@javax.annotation.Nullable Long environmentId) {
     this.environmentId = environmentId;
   }
 
 
-  public Runupdate environmentSlug(String environmentSlug) {
+  public Runupdate environmentSlug(@javax.annotation.Nullable String environmentSlug) {
     this.environmentSlug = environmentSlug;
     return this;
   }
 
-   /**
+  /**
    * Get environmentSlug
    * @return environmentSlug
-  **/
+   */
   @javax.annotation.Nullable
   public String getEnvironmentSlug() {
     return environmentSlug;
   }
 
-  public void setEnvironmentSlug(String environmentSlug) {
+  public void setEnvironmentSlug(@javax.annotation.Nullable String environmentSlug) {
     this.environmentSlug = environmentSlug;
   }
 
 
-  public Runupdate milestoneId(Long milestoneId) {
+  public Runupdate milestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
     return this;
   }
 
-   /**
+  /**
    * Get milestoneId
    * minimum: 1
    * @return milestoneId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getMilestoneId() {
     return milestoneId;
   }
 
-  public void setMilestoneId(Long milestoneId) {
+  public void setMilestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
   }
 
 
-  public Runupdate tags(List<String> tags) {
+  public Runupdate tags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
     return this;
   }
@@ -201,21 +208,21 @@ public class Runupdate {
     return this;
   }
 
-   /**
+  /**
    * Get tags
    * @return tags
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getTags() {
     return tags;
   }
 
-  public void setTags(List<String> tags) {
+  public void setTags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 
 
-  public Runupdate configurations(List<Long> configurations) {
+  public Runupdate configurations(@javax.annotation.Nullable List<Long> configurations) {
     this.configurations = configurations;
     return this;
   }
@@ -228,21 +235,21 @@ public class Runupdate {
     return this;
   }
 
-   /**
+  /**
    * Get configurations
    * @return configurations
-  **/
+   */
   @javax.annotation.Nullable
   public List<Long> getConfigurations() {
     return configurations;
   }
 
-  public void setConfigurations(List<Long> configurations) {
+  public void setConfigurations(@javax.annotation.Nullable List<Long> configurations) {
     this.configurations = configurations;
   }
 
 
-  public Runupdate customField(Map<String, String> customField) {
+  public Runupdate customField(@javax.annotation.Nullable Map<String, String> customField) {
     this.customField = customField;
     return this;
   }
@@ -255,16 +262,16 @@ public class Runupdate {
     return this;
   }
 
-   /**
+  /**
    * A map of custom fields values (id &#x3D;&gt; value)
    * @return customField
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, String> getCustomField() {
     return customField;
   }
 
-  public void setCustomField(Map<String, String> customField) {
+  public void setCustomField(@javax.annotation.Nullable Map<String, String> customField) {
     this.customField = customField;
   }
 
@@ -384,26 +391,18 @@ public class Runupdate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("environment_id");
-    openapiFields.add("environment_slug");
-    openapiFields.add("milestone_id");
-    openapiFields.add("tags");
-    openapiFields.add("configurations");
-    openapiFields.add("custom_field");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "description", "environment_id", "environment_slug", "milestone_id", "tags", "configurations", "custom_field"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Runupdate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Runupdate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Runupdate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -502,22 +501,22 @@ public class Runupdate {
     }
   }
 
- /**
-  * Create an instance of Runupdate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Runupdate
-  * @throws IOException if the JSON string is invalid with respect to Runupdate
-  */
+  /**
+   * Create an instance of Runupdate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Runupdate
+   * @throws IOException if the JSON string is invalid with respect to Runupdate
+   */
   public static Runupdate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Runupdate.class);
   }
 
- /**
-  * Convert an instance of Runupdate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Runupdate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

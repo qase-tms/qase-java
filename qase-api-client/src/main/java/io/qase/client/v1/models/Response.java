@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,30 +48,31 @@ import io.qase.client.v1.JSON;
 /**
  * Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class Response {
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private Boolean status;
 
   public Response() {
   }
 
-  public Response status(Boolean status) {
+  public Response status(@javax.annotation.Nullable Boolean status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getStatus() {
     return status;
   }
 
-  public void setStatus(Boolean status) {
+  public void setStatus(@javax.annotation.Nullable Boolean status) {
     this.status = status;
   }
 
@@ -167,19 +167,18 @@ public class Response {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("status");
+    openapiFields = new HashSet<String>(Arrays.asList("status"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Response
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Response
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -261,22 +260,22 @@ public class Response {
     }
   }
 
- /**
-  * Create an instance of Response given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Response
-  * @throws IOException if the JSON string is invalid with respect to Response
-  */
+  /**
+   * Create an instance of Response given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Response
+   * @throws IOException if the JSON string is invalid with respect to Response
+   */
   public static Response fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Response.class);
   }
 
- /**
-  * Convert an instance of Response to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Response to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

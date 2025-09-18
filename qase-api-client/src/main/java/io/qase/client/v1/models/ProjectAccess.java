@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,30 +48,31 @@ import io.qase.client.v1.JSON;
 /**
  * ProjectAccess
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ProjectAccess {
   public static final String SERIALIZED_NAME_MEMBER_ID = "member_id";
   @SerializedName(SERIALIZED_NAME_MEMBER_ID)
+  @javax.annotation.Nullable
   private Long memberId;
 
   public ProjectAccess() {
   }
 
-  public ProjectAccess memberId(Long memberId) {
+  public ProjectAccess memberId(@javax.annotation.Nullable Long memberId) {
     this.memberId = memberId;
     return this;
   }
 
-   /**
+  /**
    * Team member id title.
    * @return memberId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getMemberId() {
     return memberId;
   }
 
-  public void setMemberId(Long memberId) {
+  public void setMemberId(@javax.annotation.Nullable Long memberId) {
     this.memberId = memberId;
   }
 
@@ -167,19 +167,18 @@ public class ProjectAccess {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("member_id");
+    openapiFields = new HashSet<String>(Arrays.asList("member_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ProjectAccess
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ProjectAccess
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ProjectAccess.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -261,22 +260,22 @@ public class ProjectAccess {
     }
   }
 
- /**
-  * Create an instance of ProjectAccess given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProjectAccess
-  * @throws IOException if the JSON string is invalid with respect to ProjectAccess
-  */
+  /**
+   * Create an instance of ProjectAccess given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ProjectAccess
+   * @throws IOException if the JSON string is invalid with respect to ProjectAccess
+   */
   public static ProjectAccess fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ProjectAccess.class);
   }
 
- /**
-  * Convert an instance of ProjectAccess to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ProjectAccess to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

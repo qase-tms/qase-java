@@ -84,7 +84,8 @@ public class CustomFieldsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -94,7 +95,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createCustomFieldCall(CustomFieldCreate customFieldCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createCustomFieldCall(@javax.annotation.Nonnull CustomFieldCreate customFieldCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -140,7 +141,7 @@ public class CustomFieldsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createCustomFieldValidateBeforeCall(CustomFieldCreate customFieldCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createCustomFieldValidateBeforeCall(@javax.annotation.Nonnull CustomFieldCreate customFieldCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'customFieldCreate' is set
         if (customFieldCreate == null) {
             throw new ApiException("Missing the required parameter 'customFieldCreate' when calling createCustomField(Async)");
@@ -157,7 +158,8 @@ public class CustomFieldsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -167,7 +169,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createCustomField(CustomFieldCreate customFieldCreate) throws ApiException {
+    public IdResponse createCustomField(@javax.annotation.Nonnull CustomFieldCreate customFieldCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createCustomFieldWithHttpInfo(customFieldCreate);
         return localVarResp.getData();
     }
@@ -179,7 +181,8 @@ public class CustomFieldsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -189,7 +192,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createCustomFieldWithHttpInfo(CustomFieldCreate customFieldCreate) throws ApiException {
+    public ApiResponse<IdResponse> createCustomFieldWithHttpInfo(@javax.annotation.Nonnull CustomFieldCreate customFieldCreate) throws ApiException {
         okhttp3.Call localVarCall = createCustomFieldValidateBeforeCall(customFieldCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -203,7 +206,8 @@ public class CustomFieldsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Created Custom Field id. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -213,7 +217,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createCustomFieldAsync(CustomFieldCreate customFieldCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createCustomFieldAsync(@javax.annotation.Nonnull CustomFieldCreate customFieldCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createCustomFieldValidateBeforeCall(customFieldCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -227,7 +231,8 @@ public class CustomFieldsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -237,7 +242,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteCustomFieldCall(Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteCustomFieldCall(@javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -283,7 +288,7 @@ public class CustomFieldsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteCustomFieldValidateBeforeCall(Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteCustomFieldValidateBeforeCall(@javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling deleteCustomField(Async)");
@@ -300,7 +305,8 @@ public class CustomFieldsApi {
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -310,7 +316,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse deleteCustomField(Integer id) throws ApiException {
+    public BaseResponse deleteCustomField(@javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<BaseResponse> localVarResp = deleteCustomFieldWithHttpInfo(id);
         return localVarResp.getData();
     }
@@ -322,7 +328,8 @@ public class CustomFieldsApi {
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -332,7 +339,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> deleteCustomFieldWithHttpInfo(Integer id) throws ApiException {
+    public ApiResponse<BaseResponse> deleteCustomFieldWithHttpInfo(@javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = deleteCustomFieldValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -346,7 +353,8 @@ public class CustomFieldsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field removal result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -356,7 +364,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteCustomFieldAsync(Integer id, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteCustomFieldAsync(@javax.annotation.Nonnull Integer id, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteCustomFieldValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
@@ -370,7 +378,8 @@ public class CustomFieldsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -380,7 +389,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCustomFieldCall(Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCustomFieldCall(@javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -426,7 +435,7 @@ public class CustomFieldsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCustomFieldValidateBeforeCall(Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getCustomFieldValidateBeforeCall(@javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling getCustomField(Async)");
@@ -443,7 +452,8 @@ public class CustomFieldsApi {
      * @return CustomFieldResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -453,7 +463,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public CustomFieldResponse getCustomField(Integer id) throws ApiException {
+    public CustomFieldResponse getCustomField(@javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<CustomFieldResponse> localVarResp = getCustomFieldWithHttpInfo(id);
         return localVarResp.getData();
     }
@@ -465,7 +475,8 @@ public class CustomFieldsApi {
      * @return ApiResponse&lt;CustomFieldResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -475,7 +486,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CustomFieldResponse> getCustomFieldWithHttpInfo(Integer id) throws ApiException {
+    public ApiResponse<CustomFieldResponse> getCustomFieldWithHttpInfo(@javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = getCustomFieldValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<CustomFieldResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -489,7 +500,8 @@ public class CustomFieldsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Custom Field. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -499,7 +511,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCustomFieldAsync(Integer id, final ApiCallback<CustomFieldResponse> _callback) throws ApiException {
+    public okhttp3.Call getCustomFieldAsync(@javax.annotation.Nonnull Integer id, final ApiCallback<CustomFieldResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getCustomFieldValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<CustomFieldResponse>(){}.getType();
@@ -516,7 +528,8 @@ public class CustomFieldsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -525,7 +538,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCustomFieldsCall(String entity, String type, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCustomFieldsCall(@javax.annotation.Nullable String entity, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -586,7 +599,7 @@ public class CustomFieldsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCustomFieldsValidateBeforeCall(String entity, String type, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getCustomFieldsValidateBeforeCall(@javax.annotation.Nullable String entity, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         return getCustomFieldsCall(entity, type, limit, offset, _callback);
 
     }
@@ -601,7 +614,8 @@ public class CustomFieldsApi {
      * @return CustomFieldListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -610,7 +624,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public CustomFieldListResponse getCustomFields(String entity, String type, Integer limit, Integer offset) throws ApiException {
+    public CustomFieldListResponse getCustomFields(@javax.annotation.Nullable String entity, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<CustomFieldListResponse> localVarResp = getCustomFieldsWithHttpInfo(entity, type, limit, offset);
         return localVarResp.getData();
     }
@@ -625,7 +639,8 @@ public class CustomFieldsApi {
      * @return ApiResponse&lt;CustomFieldListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -634,7 +649,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CustomFieldListResponse> getCustomFieldsWithHttpInfo(String entity, String type, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<CustomFieldListResponse> getCustomFieldsWithHttpInfo(@javax.annotation.Nullable String entity, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getCustomFieldsValidateBeforeCall(entity, type, limit, offset, null);
         Type localVarReturnType = new TypeToken<CustomFieldListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -651,7 +666,8 @@ public class CustomFieldsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field list. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -660,7 +676,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCustomFieldsAsync(String entity, String type, Integer limit, Integer offset, final ApiCallback<CustomFieldListResponse> _callback) throws ApiException {
+    public okhttp3.Call getCustomFieldsAsync(@javax.annotation.Nullable String entity, @javax.annotation.Nullable String type, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<CustomFieldListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getCustomFieldsValidateBeforeCall(entity, type, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<CustomFieldListResponse>(){}.getType();
@@ -675,7 +691,8 @@ public class CustomFieldsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -686,7 +703,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCustomFieldCall(Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateCustomFieldCall(@javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull CustomFieldUpdate customFieldUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -733,7 +750,7 @@ public class CustomFieldsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateCustomFieldValidateBeforeCall(Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateCustomFieldValidateBeforeCall(@javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull CustomFieldUpdate customFieldUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling updateCustomField(Async)");
@@ -756,7 +773,8 @@ public class CustomFieldsApi {
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -767,7 +785,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse updateCustomField(Integer id, CustomFieldUpdate customFieldUpdate) throws ApiException {
+    public BaseResponse updateCustomField(@javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull CustomFieldUpdate customFieldUpdate) throws ApiException {
         ApiResponse<BaseResponse> localVarResp = updateCustomFieldWithHttpInfo(id, customFieldUpdate);
         return localVarResp.getData();
     }
@@ -780,7 +798,8 @@ public class CustomFieldsApi {
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -791,7 +810,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> updateCustomFieldWithHttpInfo(Integer id, CustomFieldUpdate customFieldUpdate) throws ApiException {
+    public ApiResponse<BaseResponse> updateCustomFieldWithHttpInfo(@javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull CustomFieldUpdate customFieldUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateCustomFieldValidateBeforeCall(id, customFieldUpdate, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -806,7 +825,8 @@ public class CustomFieldsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Custom Field update result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -817,7 +837,7 @@ public class CustomFieldsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCustomFieldAsync(Integer id, CustomFieldUpdate customFieldUpdate, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call updateCustomFieldAsync(@javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull CustomFieldUpdate customFieldUpdate, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateCustomFieldValidateBeforeCall(id, customFieldUpdate, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();

@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,39 +51,41 @@ import io.qase.client.v1.JSON;
 /**
  * SystemFieldListResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SystemFieldListResponse {
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private Boolean status;
 
   public static final String SERIALIZED_NAME_RESULT = "result";
   @SerializedName(SERIALIZED_NAME_RESULT)
-  private List<SystemField> result;
+  @javax.annotation.Nullable
+  private List<SystemField> result = new ArrayList<>();
 
   public SystemFieldListResponse() {
   }
 
-  public SystemFieldListResponse status(Boolean status) {
+  public SystemFieldListResponse status(@javax.annotation.Nullable Boolean status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getStatus() {
     return status;
   }
 
-  public void setStatus(Boolean status) {
+  public void setStatus(@javax.annotation.Nullable Boolean status) {
     this.status = status;
   }
 
 
-  public SystemFieldListResponse result(List<SystemField> result) {
+  public SystemFieldListResponse result(@javax.annotation.Nullable List<SystemField> result) {
     this.result = result;
     return this;
   }
@@ -97,16 +98,16 @@ public class SystemFieldListResponse {
     return this;
   }
 
-   /**
+  /**
    * Get result
    * @return result
-  **/
+   */
   @javax.annotation.Nullable
   public List<SystemField> getResult() {
     return result;
   }
 
-  public void setResult(List<SystemField> result) {
+  public void setResult(@javax.annotation.Nullable List<SystemField> result) {
     this.result = result;
   }
 
@@ -203,20 +204,18 @@ public class SystemFieldListResponse {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("status");
-    openapiFields.add("result");
+    openapiFields = new HashSet<String>(Arrays.asList("status", "result"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SystemFieldListResponse
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SystemFieldListResponse
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SystemFieldListResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -312,22 +311,22 @@ public class SystemFieldListResponse {
     }
   }
 
- /**
-  * Create an instance of SystemFieldListResponse given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SystemFieldListResponse
-  * @throws IOException if the JSON string is invalid with respect to SystemFieldListResponse
-  */
+  /**
+   * Create an instance of SystemFieldListResponse given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SystemFieldListResponse
+   * @throws IOException if the JSON string is invalid with respect to SystemFieldListResponse
+   */
   public static SystemFieldListResponse fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SystemFieldListResponse.class);
   }
 
- /**
-  * Convert an instance of SystemFieldListResponse to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SystemFieldListResponse to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

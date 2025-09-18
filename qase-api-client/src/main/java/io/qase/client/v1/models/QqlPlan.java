@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,168 +50,175 @@ import io.qase.client.v1.JSON;
 /**
  * QqlPlan
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class QqlPlan {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_PLAN_ID = "plan_id";
   @SerializedName(SERIALIZED_NAME_PLAN_ID)
+  @javax.annotation.Nonnull
   private Long planId;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
   @SerializedName(SERIALIZED_NAME_CASES_COUNT)
+  @javax.annotation.Nullable
   private Integer casesCount;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public QqlPlan() {
   }
 
-  public QqlPlan id(Long id) {
+  public QqlPlan id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public QqlPlan planId(Long planId) {
+  public QqlPlan planId(@javax.annotation.Nonnull Long planId) {
     this.planId = planId;
     return this;
   }
 
-   /**
+  /**
    * Get planId
    * @return planId
-  **/
+   */
   @javax.annotation.Nonnull
   public Long getPlanId() {
     return planId;
   }
 
-  public void setPlanId(Long planId) {
+  public void setPlanId(@javax.annotation.Nonnull Long planId) {
     this.planId = planId;
   }
 
 
-  public QqlPlan title(String title) {
+  public QqlPlan title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public QqlPlan description(String description) {
+  public QqlPlan description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public QqlPlan casesCount(Integer casesCount) {
+  public QqlPlan casesCount(@javax.annotation.Nullable Integer casesCount) {
     this.casesCount = casesCount;
     return this;
   }
 
-   /**
+  /**
    * Get casesCount
    * @return casesCount
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getCasesCount() {
     return casesCount;
   }
 
-  public void setCasesCount(Integer casesCount) {
+  public void setCasesCount(@javax.annotation.Nullable Integer casesCount) {
     this.casesCount = casesCount;
   }
 
 
-  public QqlPlan createdAt(OffsetDateTime createdAt) {
+  public QqlPlan createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public QqlPlan updatedAt(OffsetDateTime updatedAt) {
+  public QqlPlan updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -330,26 +336,18 @@ public class QqlPlan {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("plan_id");
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("cases_count");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "plan_id", "title", "description", "cases_count", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("plan_id");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("plan_id"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to QqlPlan
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to QqlPlan
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!QqlPlan.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -444,22 +442,22 @@ public class QqlPlan {
     }
   }
 
- /**
-  * Create an instance of QqlPlan given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of QqlPlan
-  * @throws IOException if the JSON string is invalid with respect to QqlPlan
-  */
+  /**
+   * Create an instance of QqlPlan given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of QqlPlan
+   * @throws IOException if the JSON string is invalid with respect to QqlPlan
+   */
   public static QqlPlan fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, QqlPlan.class);
   }
 
- /**
-  * Convert an instance of QqlPlan to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of QqlPlan to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

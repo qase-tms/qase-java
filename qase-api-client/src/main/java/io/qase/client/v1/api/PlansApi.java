@@ -84,7 +84,8 @@ public class PlansApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -95,7 +96,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createPlanCall(String code, PlanCreate planCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createPlanCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull PlanCreate planCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -142,7 +143,7 @@ public class PlansApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createPlanValidateBeforeCall(String code, PlanCreate planCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createPlanValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull PlanCreate planCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createPlan(Async)");
@@ -165,7 +166,8 @@ public class PlansApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -176,7 +178,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createPlan(String code, PlanCreate planCreate) throws ApiException {
+    public IdResponse createPlan(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull PlanCreate planCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createPlanWithHttpInfo(code, planCreate);
         return localVarResp.getData();
     }
@@ -189,7 +191,8 @@ public class PlansApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -200,7 +203,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createPlanWithHttpInfo(String code, PlanCreate planCreate) throws ApiException {
+    public ApiResponse<IdResponse> createPlanWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull PlanCreate planCreate) throws ApiException {
         okhttp3.Call localVarCall = createPlanValidateBeforeCall(code, planCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -215,7 +218,8 @@ public class PlansApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -226,7 +230,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createPlanAsync(String code, PlanCreate planCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createPlanAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull PlanCreate planCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createPlanValidateBeforeCall(code, planCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -241,7 +245,8 @@ public class PlansApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -251,7 +256,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deletePlanCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deletePlanCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -298,7 +303,7 @@ public class PlansApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deletePlanValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deletePlanValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deletePlan(Async)");
@@ -321,7 +326,8 @@ public class PlansApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -331,7 +337,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse deletePlan(String code, Integer id) throws ApiException {
+    public IdResponse deletePlan(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<IdResponse> localVarResp = deletePlanWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -344,7 +350,8 @@ public class PlansApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -354,7 +361,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> deletePlanWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<IdResponse> deletePlanWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = deletePlanValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -369,7 +376,8 @@ public class PlansApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -379,7 +387,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deletePlanAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call deletePlanAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deletePlanValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -394,7 +402,8 @@ public class PlansApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A plan. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -404,7 +413,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getPlanCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getPlanCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -451,7 +460,7 @@ public class PlansApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getPlanValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getPlanValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getPlan(Async)");
@@ -474,7 +483,8 @@ public class PlansApi {
      * @return PlanResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A plan. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -484,7 +494,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public PlanResponse getPlan(String code, Integer id) throws ApiException {
+    public PlanResponse getPlan(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<PlanResponse> localVarResp = getPlanWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -497,7 +507,8 @@ public class PlansApi {
      * @return ApiResponse&lt;PlanResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A plan. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -507,7 +518,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<PlanResponse> getPlanWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<PlanResponse> getPlanWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = getPlanValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<PlanResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -522,7 +533,8 @@ public class PlansApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A plan. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -532,7 +544,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getPlanAsync(String code, Integer id, final ApiCallback<PlanResponse> _callback) throws ApiException {
+    public okhttp3.Call getPlanAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<PlanResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getPlanValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<PlanResponse>(){}.getType();
@@ -548,7 +560,8 @@ public class PlansApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all plans. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -558,7 +571,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getPlansCall(String code, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getPlansCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -612,7 +625,7 @@ public class PlansApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getPlansValidateBeforeCall(String code, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getPlansValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getPlans(Async)");
@@ -631,7 +644,8 @@ public class PlansApi {
      * @return PlanListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all plans. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -641,7 +655,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public PlanListResponse getPlans(String code, Integer limit, Integer offset) throws ApiException {
+    public PlanListResponse getPlans(@javax.annotation.Nonnull String code, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<PlanListResponse> localVarResp = getPlansWithHttpInfo(code, limit, offset);
         return localVarResp.getData();
     }
@@ -655,7 +669,8 @@ public class PlansApi {
      * @return ApiResponse&lt;PlanListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all plans. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -665,7 +680,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<PlanListResponse> getPlansWithHttpInfo(String code, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<PlanListResponse> getPlansWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getPlansValidateBeforeCall(code, limit, offset, null);
         Type localVarReturnType = new TypeToken<PlanListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -681,7 +696,8 @@ public class PlansApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all plans. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -691,7 +707,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getPlansAsync(String code, Integer limit, Integer offset, final ApiCallback<PlanListResponse> _callback) throws ApiException {
+    public okhttp3.Call getPlansAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<PlanListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getPlansValidateBeforeCall(code, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<PlanListResponse>(){}.getType();
@@ -707,7 +723,8 @@ public class PlansApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -718,7 +735,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updatePlanCall(String code, Integer id, PlanUpdate planUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updatePlanCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull PlanUpdate planUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -766,7 +783,7 @@ public class PlansApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updatePlanValidateBeforeCall(String code, Integer id, PlanUpdate planUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updatePlanValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull PlanUpdate planUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updatePlan(Async)");
@@ -795,7 +812,8 @@ public class PlansApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -806,7 +824,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse updatePlan(String code, Integer id, PlanUpdate planUpdate) throws ApiException {
+    public IdResponse updatePlan(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull PlanUpdate planUpdate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = updatePlanWithHttpInfo(code, id, planUpdate);
         return localVarResp.getData();
     }
@@ -820,7 +838,8 @@ public class PlansApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -831,7 +850,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> updatePlanWithHttpInfo(String code, Integer id, PlanUpdate planUpdate) throws ApiException {
+    public ApiResponse<IdResponse> updatePlanWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull PlanUpdate planUpdate) throws ApiException {
         okhttp3.Call localVarCall = updatePlanValidateBeforeCall(code, id, planUpdate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -847,7 +866,8 @@ public class PlansApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -858,7 +878,7 @@ public class PlansApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updatePlanAsync(String code, Integer id, PlanUpdate planUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call updatePlanAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull PlanUpdate planUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updatePlanValidateBeforeCall(code, id, planUpdate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();

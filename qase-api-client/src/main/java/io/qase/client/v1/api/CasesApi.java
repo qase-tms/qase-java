@@ -31,11 +31,11 @@ import io.qase.client.v1.models.BaseResponse;
 import io.qase.client.v1.models.Bulk200Response;
 import io.qase.client.v1.models.IdResponse;
 import io.qase.client.v1.models.TestCaseCreate;
+import io.qase.client.v1.models.TestCaseExternalIssues;
 import io.qase.client.v1.models.TestCaseListResponse;
 import io.qase.client.v1.models.TestCaseResponse;
 import io.qase.client.v1.models.TestCaseUpdate;
 import io.qase.client.v1.models.TestCasebulk;
-import io.qase.client.v1.models.TestCaseExternalIssues;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -88,7 +88,8 @@ public class CasesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> List of IDs of the created cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -99,7 +100,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call bulkCall(String code, TestCasebulk testCasebulk, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call bulkCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCasebulk testCasebulk, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -146,7 +147,7 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call bulkValidateBeforeCall(String code, TestCasebulk testCasebulk, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call bulkValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCasebulk testCasebulk, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling bulk(Async)");
@@ -169,7 +170,8 @@ public class CasesApi {
      * @return Bulk200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> List of IDs of the created cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -180,7 +182,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public Bulk200Response bulk(String code, TestCasebulk testCasebulk) throws ApiException {
+    public Bulk200Response bulk(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCasebulk testCasebulk) throws ApiException {
         ApiResponse<Bulk200Response> localVarResp = bulkWithHttpInfo(code, testCasebulk);
         return localVarResp.getData();
     }
@@ -193,7 +195,8 @@ public class CasesApi {
      * @return ApiResponse&lt;Bulk200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> List of IDs of the created cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -204,7 +207,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Bulk200Response> bulkWithHttpInfo(String code, TestCasebulk testCasebulk) throws ApiException {
+    public ApiResponse<Bulk200Response> bulkWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCasebulk testCasebulk) throws ApiException {
         okhttp3.Call localVarCall = bulkValidateBeforeCall(code, testCasebulk, null);
         Type localVarReturnType = new TypeToken<Bulk200Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -219,7 +222,8 @@ public class CasesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> List of IDs of the created cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -230,7 +234,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call bulkAsync(String code, TestCasebulk testCasebulk, final ApiCallback<Bulk200Response> _callback) throws ApiException {
+    public okhttp3.Call bulkAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCasebulk testCasebulk, final ApiCallback<Bulk200Response> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = bulkValidateBeforeCall(code, testCasebulk, _callback);
         Type localVarReturnType = new TypeToken<Bulk200Response>(){}.getType();
@@ -240,12 +244,13 @@ public class CasesApi {
     /**
      * Build call for caseAttachExternalIssue
      * @param code Code of project, where to search entities. (required)
-     * @param TestCaseExternalIssues  (required)
+     * @param testCaseExternalIssues  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -257,7 +262,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call caseAttachExternalIssueCall(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call caseAttachExternalIssueCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -271,7 +276,7 @@ public class CasesApi {
             basePath = null;
         }
 
-        Object localVarPostBody = TestCaseExternalIssues;
+        Object localVarPostBody = testCaseExternalIssues;
 
         // create path and map variables
         String localVarPath = "/case/{code}/external-issue/attach"
@@ -304,18 +309,18 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call caseAttachExternalIssueValidateBeforeCall(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call caseAttachExternalIssueValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling caseAttachExternalIssue(Async)");
         }
 
-        // verify the required parameter 'TestCaseExternalIssues' is set
-        if (TestCaseExternalIssues == null) {
-            throw new ApiException("Missing the required parameter 'TestCaseExternalIssues' when calling caseAttachExternalIssue(Async)");
+        // verify the required parameter 'testCaseExternalIssues' is set
+        if (testCaseExternalIssues == null) {
+            throw new ApiException("Missing the required parameter 'testCaseExternalIssues' when calling caseAttachExternalIssue(Async)");
         }
 
-        return caseAttachExternalIssueCall(code, TestCaseExternalIssues, _callback);
+        return caseAttachExternalIssueCall(code, testCaseExternalIssues, _callback);
 
     }
 
@@ -323,11 +328,12 @@ public class CasesApi {
      * Attach the external issues to the test cases
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param TestCaseExternalIssues  (required)
+     * @param testCaseExternalIssues  (required)
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -339,8 +345,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse caseAttachExternalIssue(String code, TestCaseExternalIssues TestCaseExternalIssues) throws ApiException {
-        ApiResponse<BaseResponse> localVarResp = caseAttachExternalIssueWithHttpInfo(code, TestCaseExternalIssues);
+    public BaseResponse caseAttachExternalIssue(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues) throws ApiException {
+        ApiResponse<BaseResponse> localVarResp = caseAttachExternalIssueWithHttpInfo(code, testCaseExternalIssues);
         return localVarResp.getData();
     }
 
@@ -348,11 +354,12 @@ public class CasesApi {
      * Attach the external issues to the test cases
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param TestCaseExternalIssues  (required)
+     * @param testCaseExternalIssues  (required)
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -364,8 +371,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> caseAttachExternalIssueWithHttpInfo(String code, TestCaseExternalIssues TestCaseExternalIssues) throws ApiException {
-        okhttp3.Call localVarCall = caseAttachExternalIssueValidateBeforeCall(code, TestCaseExternalIssues, null);
+    public ApiResponse<BaseResponse> caseAttachExternalIssueWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues) throws ApiException {
+        okhttp3.Call localVarCall = caseAttachExternalIssueValidateBeforeCall(code, testCaseExternalIssues, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -374,12 +381,13 @@ public class CasesApi {
      * Attach the external issues to the test cases (asynchronously)
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param TestCaseExternalIssues  (required)
+     * @param testCaseExternalIssues  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -391,9 +399,9 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call caseAttachExternalIssueAsync(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call caseAttachExternalIssueAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = caseAttachExternalIssueValidateBeforeCall(code, TestCaseExternalIssues, _callback);
+        okhttp3.Call localVarCall = caseAttachExternalIssueValidateBeforeCall(code, testCaseExternalIssues, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -401,12 +409,13 @@ public class CasesApi {
     /**
      * Build call for caseDetachExternalIssue
      * @param code Code of project, where to search entities. (required)
-     * @param TestCaseExternalIssues  (required)
+     * @param testCaseExternalIssues  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -418,7 +427,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call caseDetachExternalIssueCall(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call caseDetachExternalIssueCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -432,7 +441,7 @@ public class CasesApi {
             basePath = null;
         }
 
-        Object localVarPostBody = TestCaseExternalIssues;
+        Object localVarPostBody = testCaseExternalIssues;
 
         // create path and map variables
         String localVarPath = "/case/{code}/external-issue/detach"
@@ -465,18 +474,18 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call caseDetachExternalIssueValidateBeforeCall(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call caseDetachExternalIssueValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling caseDetachExternalIssue(Async)");
         }
 
-        // verify the required parameter 'TestCaseExternalIssues' is set
-        if (TestCaseExternalIssues == null) {
-            throw new ApiException("Missing the required parameter 'TestCaseExternalIssues' when calling caseDetachExternalIssue(Async)");
+        // verify the required parameter 'testCaseExternalIssues' is set
+        if (testCaseExternalIssues == null) {
+            throw new ApiException("Missing the required parameter 'testCaseExternalIssues' when calling caseDetachExternalIssue(Async)");
         }
 
-        return caseDetachExternalIssueCall(code, TestCaseExternalIssues, _callback);
+        return caseDetachExternalIssueCall(code, testCaseExternalIssues, _callback);
 
     }
 
@@ -484,11 +493,12 @@ public class CasesApi {
      * Detach the external issues from the test cases
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param TestCaseExternalIssues  (required)
+     * @param testCaseExternalIssues  (required)
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -500,8 +510,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse caseDetachExternalIssue(String code, TestCaseExternalIssues TestCaseExternalIssues) throws ApiException {
-        ApiResponse<BaseResponse> localVarResp = caseDetachExternalIssueWithHttpInfo(code, TestCaseExternalIssues);
+    public BaseResponse caseDetachExternalIssue(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues) throws ApiException {
+        ApiResponse<BaseResponse> localVarResp = caseDetachExternalIssueWithHttpInfo(code, testCaseExternalIssues);
         return localVarResp.getData();
     }
 
@@ -509,11 +519,12 @@ public class CasesApi {
      * Detach the external issues from the test cases
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param TestCaseExternalIssues  (required)
+     * @param testCaseExternalIssues  (required)
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -525,8 +536,8 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> caseDetachExternalIssueWithHttpInfo(String code, TestCaseExternalIssues TestCaseExternalIssues) throws ApiException {
-        okhttp3.Call localVarCall = caseDetachExternalIssueValidateBeforeCall(code, TestCaseExternalIssues, null);
+    public ApiResponse<BaseResponse> caseDetachExternalIssueWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues) throws ApiException {
+        okhttp3.Call localVarCall = caseDetachExternalIssueValidateBeforeCall(code, testCaseExternalIssues, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -535,12 +546,13 @@ public class CasesApi {
      * Detach the external issues from the test cases (asynchronously)
      * 
      * @param code Code of project, where to search entities. (required)
-     * @param TestCaseExternalIssues  (required)
+     * @param testCaseExternalIssues  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -552,9 +564,9 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call caseDetachExternalIssueAsync(String code, TestCaseExternalIssues TestCaseExternalIssues, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call caseDetachExternalIssueAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseExternalIssues testCaseExternalIssues, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = caseDetachExternalIssueValidateBeforeCall(code, TestCaseExternalIssues, _callback);
+        okhttp3.Call localVarCall = caseDetachExternalIssueValidateBeforeCall(code, testCaseExternalIssues, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -567,7 +579,8 @@ public class CasesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -578,7 +591,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createCaseCall(String code, TestCaseCreate testCaseCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createCaseCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseCreate testCaseCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -625,7 +638,7 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createCaseValidateBeforeCall(String code, TestCaseCreate testCaseCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createCaseValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseCreate testCaseCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createCase(Async)");
@@ -648,7 +661,8 @@ public class CasesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -659,7 +673,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createCase(String code, TestCaseCreate testCaseCreate) throws ApiException {
+    public IdResponse createCase(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseCreate testCaseCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createCaseWithHttpInfo(code, testCaseCreate);
         return localVarResp.getData();
     }
@@ -672,7 +686,8 @@ public class CasesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -683,7 +698,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createCaseWithHttpInfo(String code, TestCaseCreate testCaseCreate) throws ApiException {
+    public ApiResponse<IdResponse> createCaseWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseCreate testCaseCreate) throws ApiException {
         okhttp3.Call localVarCall = createCaseValidateBeforeCall(code, testCaseCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -698,7 +713,8 @@ public class CasesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -709,7 +725,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createCaseAsync(String code, TestCaseCreate testCaseCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createCaseAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull TestCaseCreate testCaseCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createCaseValidateBeforeCall(code, testCaseCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -724,7 +740,8 @@ public class CasesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -735,7 +752,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteCaseCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteCaseCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -782,7 +799,7 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteCaseValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteCaseValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deleteCase(Async)");
@@ -805,7 +822,8 @@ public class CasesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -816,7 +834,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse deleteCase(String code, Integer id) throws ApiException {
+    public IdResponse deleteCase(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<IdResponse> localVarResp = deleteCaseWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -829,7 +847,8 @@ public class CasesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -840,7 +859,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> deleteCaseWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<IdResponse> deleteCaseWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = deleteCaseValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -855,7 +874,8 @@ public class CasesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -866,7 +886,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteCaseAsync(String code, Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteCaseAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteCaseValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -882,7 +902,8 @@ public class CasesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -893,7 +914,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCaseCall(String code, Integer id, String include, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCaseCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable String include, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -944,7 +965,7 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCaseValidateBeforeCall(String code, Integer id, String include, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getCaseValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable String include, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getCase(Async)");
@@ -968,7 +989,8 @@ public class CasesApi {
      * @return TestCaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -979,7 +1001,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public TestCaseResponse getCase(String code, Integer id, String include) throws ApiException {
+    public TestCaseResponse getCase(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable String include) throws ApiException {
         ApiResponse<TestCaseResponse> localVarResp = getCaseWithHttpInfo(code, id, include);
         return localVarResp.getData();
     }
@@ -993,7 +1015,8 @@ public class CasesApi {
      * @return ApiResponse&lt;TestCaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1004,7 +1027,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<TestCaseResponse> getCaseWithHttpInfo(String code, Integer id, String include) throws ApiException {
+    public ApiResponse<TestCaseResponse> getCaseWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable String include) throws ApiException {
         okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, include, null);
         Type localVarReturnType = new TypeToken<TestCaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1020,7 +1043,8 @@ public class CasesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1031,7 +1055,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCaseAsync(String code, Integer id, String include, final ApiCallback<TestCaseResponse> _callback) throws ApiException {
+    public okhttp3.Call getCaseAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable String include, final ApiCallback<TestCaseResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getCaseValidateBeforeCall(code, id, include, _callback);
         Type localVarReturnType = new TypeToken<TestCaseResponse>(){}.getType();
@@ -1059,7 +1083,8 @@ public class CasesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1070,7 +1095,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCasesCall(String code, String search, Integer milestoneId, Integer suiteId, String severity, String priority, String type, String behavior, String automation, String status, String externalIssuesType, List<String> externalIssuesIds, String include, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCasesCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer milestoneId, @javax.annotation.Nullable Integer suiteId, @javax.annotation.Nullable String severity, @javax.annotation.Nullable String priority, @javax.annotation.Nullable String type, @javax.annotation.Nullable String behavior, @javax.annotation.Nullable String automation, @javax.annotation.Nullable String status, @javax.annotation.Nullable String externalIssuesType, @javax.annotation.Nullable List<String> externalIssuesIds, @javax.annotation.Nullable String include, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1172,7 +1197,7 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCasesValidateBeforeCall(String code, String search, Integer milestoneId, Integer suiteId, String severity, String priority, String type, String behavior, String automation, String status, String externalIssuesType, List<String> externalIssuesIds, String include, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getCasesValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer milestoneId, @javax.annotation.Nullable Integer suiteId, @javax.annotation.Nullable String severity, @javax.annotation.Nullable String priority, @javax.annotation.Nullable String type, @javax.annotation.Nullable String behavior, @javax.annotation.Nullable String automation, @javax.annotation.Nullable String status, @javax.annotation.Nullable String externalIssuesType, @javax.annotation.Nullable List<String> externalIssuesIds, @javax.annotation.Nullable String include, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getCases(Async)");
@@ -1203,7 +1228,8 @@ public class CasesApi {
      * @return TestCaseListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1214,7 +1240,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public TestCaseListResponse getCases(String code, String search, Integer milestoneId, Integer suiteId, String severity, String priority, String type, String behavior, String automation, String status, String externalIssuesType, List<String> externalIssuesIds, String include, Integer limit, Integer offset) throws ApiException {
+    public TestCaseListResponse getCases(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer milestoneId, @javax.annotation.Nullable Integer suiteId, @javax.annotation.Nullable String severity, @javax.annotation.Nullable String priority, @javax.annotation.Nullable String type, @javax.annotation.Nullable String behavior, @javax.annotation.Nullable String automation, @javax.annotation.Nullable String status, @javax.annotation.Nullable String externalIssuesType, @javax.annotation.Nullable List<String> externalIssuesIds, @javax.annotation.Nullable String include, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<TestCaseListResponse> localVarResp = getCasesWithHttpInfo(code, search, milestoneId, suiteId, severity, priority, type, behavior, automation, status, externalIssuesType, externalIssuesIds, include, limit, offset);
         return localVarResp.getData();
     }
@@ -1240,7 +1266,8 @@ public class CasesApi {
      * @return ApiResponse&lt;TestCaseListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1251,7 +1278,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<TestCaseListResponse> getCasesWithHttpInfo(String code, String search, Integer milestoneId, Integer suiteId, String severity, String priority, String type, String behavior, String automation, String status, String externalIssuesType, List<String> externalIssuesIds, String include, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<TestCaseListResponse> getCasesWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer milestoneId, @javax.annotation.Nullable Integer suiteId, @javax.annotation.Nullable String severity, @javax.annotation.Nullable String priority, @javax.annotation.Nullable String type, @javax.annotation.Nullable String behavior, @javax.annotation.Nullable String automation, @javax.annotation.Nullable String status, @javax.annotation.Nullable String externalIssuesType, @javax.annotation.Nullable List<String> externalIssuesIds, @javax.annotation.Nullable String include, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getCasesValidateBeforeCall(code, search, milestoneId, suiteId, severity, priority, type, behavior, automation, status, externalIssuesType, externalIssuesIds, include, limit, offset, null);
         Type localVarReturnType = new TypeToken<TestCaseListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1279,7 +1306,8 @@ public class CasesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all cases. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1290,7 +1318,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCasesAsync(String code, String search, Integer milestoneId, Integer suiteId, String severity, String priority, String type, String behavior, String automation, String status, String externalIssuesType, List<String> externalIssuesIds, String include, Integer limit, Integer offset, final ApiCallback<TestCaseListResponse> _callback) throws ApiException {
+    public okhttp3.Call getCasesAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer milestoneId, @javax.annotation.Nullable Integer suiteId, @javax.annotation.Nullable String severity, @javax.annotation.Nullable String priority, @javax.annotation.Nullable String type, @javax.annotation.Nullable String behavior, @javax.annotation.Nullable String automation, @javax.annotation.Nullable String status, @javax.annotation.Nullable String externalIssuesType, @javax.annotation.Nullable List<String> externalIssuesIds, @javax.annotation.Nullable String include, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<TestCaseListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getCasesValidateBeforeCall(code, search, milestoneId, suiteId, severity, priority, type, behavior, automation, status, externalIssuesType, externalIssuesIds, include, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<TestCaseListResponse>(){}.getType();
@@ -1306,7 +1334,8 @@ public class CasesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1317,7 +1346,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCaseCall(String code, Integer id, TestCaseUpdate testCaseUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateCaseCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull TestCaseUpdate testCaseUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1365,7 +1394,7 @@ public class CasesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateCaseValidateBeforeCall(String code, Integer id, TestCaseUpdate testCaseUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateCaseValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull TestCaseUpdate testCaseUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updateCase(Async)");
@@ -1394,7 +1423,8 @@ public class CasesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1405,7 +1435,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse updateCase(String code, Integer id, TestCaseUpdate testCaseUpdate) throws ApiException {
+    public IdResponse updateCase(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull TestCaseUpdate testCaseUpdate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = updateCaseWithHttpInfo(code, id, testCaseUpdate);
         return localVarResp.getData();
     }
@@ -1419,7 +1449,8 @@ public class CasesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1430,7 +1461,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> updateCaseWithHttpInfo(String code, Integer id, TestCaseUpdate testCaseUpdate) throws ApiException {
+    public ApiResponse<IdResponse> updateCaseWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull TestCaseUpdate testCaseUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateCaseValidateBeforeCall(code, id, testCaseUpdate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1446,7 +1477,8 @@ public class CasesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1457,7 +1489,7 @@ public class CasesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCaseAsync(String code, Integer id, TestCaseUpdate testCaseUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call updateCaseAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull TestCaseUpdate testCaseUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateCaseValidateBeforeCall(code, id, testCaseUpdate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();

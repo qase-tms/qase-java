@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,39 +50,41 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseExternalIssuesLinksInner
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestCaseExternalIssuesLinksInner {
   public static final String SERIALIZED_NAME_CASE_ID = "case_id";
   @SerializedName(SERIALIZED_NAME_CASE_ID)
+  @javax.annotation.Nonnull
   private Long caseId;
 
   public static final String SERIALIZED_NAME_EXTERNAL_ISSUES = "external_issues";
   @SerializedName(SERIALIZED_NAME_EXTERNAL_ISSUES)
+  @javax.annotation.Nonnull
   private List<String> externalIssues = new ArrayList<>();
 
   public TestCaseExternalIssuesLinksInner() {
   }
 
-  public TestCaseExternalIssuesLinksInner caseId(Long caseId) {
+  public TestCaseExternalIssuesLinksInner caseId(@javax.annotation.Nonnull Long caseId) {
     this.caseId = caseId;
     return this;
   }
 
-   /**
+  /**
    * Get caseId
    * @return caseId
-  **/
+   */
   @javax.annotation.Nonnull
   public Long getCaseId() {
     return caseId;
   }
 
-  public void setCaseId(Long caseId) {
+  public void setCaseId(@javax.annotation.Nonnull Long caseId) {
     this.caseId = caseId;
   }
 
 
-  public TestCaseExternalIssuesLinksInner externalIssues(List<String> externalIssues) {
+  public TestCaseExternalIssuesLinksInner externalIssues(@javax.annotation.Nonnull List<String> externalIssues) {
     this.externalIssues = externalIssues;
     return this;
   }
@@ -96,16 +97,16 @@ public class TestCaseExternalIssuesLinksInner {
     return this;
   }
 
-   /**
+  /**
    * Get externalIssues
    * @return externalIssues
-  **/
+   */
   @javax.annotation.Nonnull
   public List<String> getExternalIssues() {
     return externalIssues;
   }
 
-  public void setExternalIssues(List<String> externalIssues) {
+  public void setExternalIssues(@javax.annotation.Nonnull List<String> externalIssues) {
     this.externalIssues = externalIssues;
   }
 
@@ -202,22 +203,18 @@ public class TestCaseExternalIssuesLinksInner {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("case_id");
-    openapiFields.add("external_issues");
+    openapiFields = new HashSet<String>(Arrays.asList("case_id", "external_issues"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("case_id");
-    openapiRequiredFields.add("external_issues");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("case_id", "external_issues"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestCaseExternalIssuesLinksInner
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestCaseExternalIssuesLinksInner
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCaseExternalIssuesLinksInner.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -312,22 +309,22 @@ public class TestCaseExternalIssuesLinksInner {
     }
   }
 
- /**
-  * Create an instance of TestCaseExternalIssuesLinksInner given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestCaseExternalIssuesLinksInner
-  * @throws IOException if the JSON string is invalid with respect to TestCaseExternalIssuesLinksInner
-  */
+  /**
+   * Create an instance of TestCaseExternalIssuesLinksInner given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestCaseExternalIssuesLinksInner
+   * @throws IOException if the JSON string is invalid with respect to TestCaseExternalIssuesLinksInner
+   */
   public static TestCaseExternalIssuesLinksInner fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestCaseExternalIssuesLinksInner.class);
   }
 
- /**
-  * Convert an instance of TestCaseExternalIssuesLinksInner to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestCaseExternalIssuesLinksInner to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

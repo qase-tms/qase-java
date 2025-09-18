@@ -1,6 +1,6 @@
 
 
-# TestCaseexternalIssues
+# TestCaseExternalIssues
 
 
 ## Properties
@@ -16,8 +16,8 @@
 
 | Name | Value |
 |---- | -----|
-| CLOUD | &quot;jira-cloud&quot; |
-| SERVER | &quot;jira-server&quot; |
+| JIRA_CLOUD | &quot;jira-cloud&quot; |
+| JIRA_SERVER | &quot;jira-server&quot; |
 
 
 

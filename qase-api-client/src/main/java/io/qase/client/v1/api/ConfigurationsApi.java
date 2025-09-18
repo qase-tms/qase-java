@@ -83,7 +83,8 @@ public class ConfigurationsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -94,7 +95,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createConfigurationCall(String code, ConfigurationCreate configurationCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createConfigurationCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationCreate configurationCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -141,7 +142,7 @@ public class ConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createConfigurationValidateBeforeCall(String code, ConfigurationCreate configurationCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createConfigurationValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationCreate configurationCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createConfiguration(Async)");
@@ -164,7 +165,8 @@ public class ConfigurationsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -175,7 +177,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createConfiguration(String code, ConfigurationCreate configurationCreate) throws ApiException {
+    public IdResponse createConfiguration(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationCreate configurationCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createConfigurationWithHttpInfo(code, configurationCreate);
         return localVarResp.getData();
     }
@@ -188,7 +190,8 @@ public class ConfigurationsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -199,7 +202,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createConfigurationWithHttpInfo(String code, ConfigurationCreate configurationCreate) throws ApiException {
+    public ApiResponse<IdResponse> createConfigurationWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationCreate configurationCreate) throws ApiException {
         okhttp3.Call localVarCall = createConfigurationValidateBeforeCall(code, configurationCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -214,7 +217,8 @@ public class ConfigurationsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -225,7 +229,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createConfigurationAsync(String code, ConfigurationCreate configurationCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createConfigurationAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationCreate configurationCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createConfigurationValidateBeforeCall(code, configurationCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -240,7 +244,8 @@ public class ConfigurationsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -251,7 +256,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createConfigurationGroupCall(String code, ConfigurationGroupCreate configurationGroupCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createConfigurationGroupCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationGroupCreate configurationGroupCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -298,7 +303,7 @@ public class ConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createConfigurationGroupValidateBeforeCall(String code, ConfigurationGroupCreate configurationGroupCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createConfigurationGroupValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationGroupCreate configurationGroupCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createConfigurationGroup(Async)");
@@ -321,7 +326,8 @@ public class ConfigurationsApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -332,7 +338,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createConfigurationGroup(String code, ConfigurationGroupCreate configurationGroupCreate) throws ApiException {
+    public IdResponse createConfigurationGroup(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationGroupCreate configurationGroupCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createConfigurationGroupWithHttpInfo(code, configurationGroupCreate);
         return localVarResp.getData();
     }
@@ -345,7 +351,8 @@ public class ConfigurationsApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -356,7 +363,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createConfigurationGroupWithHttpInfo(String code, ConfigurationGroupCreate configurationGroupCreate) throws ApiException {
+    public ApiResponse<IdResponse> createConfigurationGroupWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationGroupCreate configurationGroupCreate) throws ApiException {
         okhttp3.Call localVarCall = createConfigurationGroupValidateBeforeCall(code, configurationGroupCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -371,7 +378,8 @@ public class ConfigurationsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -382,7 +390,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createConfigurationGroupAsync(String code, ConfigurationGroupCreate configurationGroupCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createConfigurationGroupAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull ConfigurationGroupCreate configurationGroupCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createConfigurationGroupValidateBeforeCall(code, configurationGroupCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -396,7 +404,8 @@ public class ConfigurationsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all configurations. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -406,7 +415,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getConfigurationsCall(String code, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getConfigurationsCall(@javax.annotation.Nonnull String code, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -452,7 +461,7 @@ public class ConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConfigurationsValidateBeforeCall(String code, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getConfigurationsValidateBeforeCall(@javax.annotation.Nonnull String code, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getConfigurations(Async)");
@@ -469,7 +478,8 @@ public class ConfigurationsApi {
      * @return ConfigurationListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all configurations. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -479,7 +489,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ConfigurationListResponse getConfigurations(String code) throws ApiException {
+    public ConfigurationListResponse getConfigurations(@javax.annotation.Nonnull String code) throws ApiException {
         ApiResponse<ConfigurationListResponse> localVarResp = getConfigurationsWithHttpInfo(code);
         return localVarResp.getData();
     }
@@ -491,7 +501,8 @@ public class ConfigurationsApi {
      * @return ApiResponse&lt;ConfigurationListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all configurations. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -501,7 +512,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ConfigurationListResponse> getConfigurationsWithHttpInfo(String code) throws ApiException {
+    public ApiResponse<ConfigurationListResponse> getConfigurationsWithHttpInfo(@javax.annotation.Nonnull String code) throws ApiException {
         okhttp3.Call localVarCall = getConfigurationsValidateBeforeCall(code, null);
         Type localVarReturnType = new TypeToken<ConfigurationListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -515,7 +526,8 @@ public class ConfigurationsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all configurations. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -525,7 +537,7 @@ public class ConfigurationsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getConfigurationsAsync(String code, final ApiCallback<ConfigurationListResponse> _callback) throws ApiException {
+    public okhttp3.Call getConfigurationsAsync(@javax.annotation.Nonnull String code, final ApiCallback<ConfigurationListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getConfigurationsValidateBeforeCall(code, _callback);
         Type localVarReturnType = new TypeToken<ConfigurationListResponse>(){}.getType();

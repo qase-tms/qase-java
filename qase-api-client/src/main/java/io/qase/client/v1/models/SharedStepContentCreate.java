@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,108 +50,113 @@ import io.qase.client.v1.JSON;
 /**
  * SharedStepContentCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SharedStepContentCreate {
   public static final String SERIALIZED_NAME_HASH = "hash";
   @SerializedName(SERIALIZED_NAME_HASH)
+  @javax.annotation.Nullable
   private String hash;
 
   public static final String SERIALIZED_NAME_ACTION = "action";
   @SerializedName(SERIALIZED_NAME_ACTION)
+  @javax.annotation.Nonnull
   private String action;
 
   public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
   @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+  @javax.annotation.Nullable
   private String expectedResult;
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
+  @javax.annotation.Nullable
   private String data;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<String> attachments;
+  @javax.annotation.Nullable
+  private List<String> attachments = new ArrayList<>();
 
   public SharedStepContentCreate() {
   }
 
-  public SharedStepContentCreate hash(String hash) {
+  public SharedStepContentCreate hash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
     return this;
   }
 
-   /**
+  /**
    * Get hash
    * @return hash
-  **/
+   */
   @javax.annotation.Nullable
   public String getHash() {
     return hash;
   }
 
-  public void setHash(String hash) {
+  public void setHash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
   }
 
 
-  public SharedStepContentCreate action(String action) {
+  public SharedStepContentCreate action(@javax.annotation.Nonnull String action) {
     this.action = action;
     return this;
   }
 
-   /**
+  /**
    * Get action
    * @return action
-  **/
+   */
   @javax.annotation.Nonnull
   public String getAction() {
     return action;
   }
 
-  public void setAction(String action) {
+  public void setAction(@javax.annotation.Nonnull String action) {
     this.action = action;
   }
 
 
-  public SharedStepContentCreate expectedResult(String expectedResult) {
+  public SharedStepContentCreate expectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
     return this;
   }
 
-   /**
+  /**
    * Get expectedResult
    * @return expectedResult
-  **/
+   */
   @javax.annotation.Nullable
   public String getExpectedResult() {
     return expectedResult;
   }
 
-  public void setExpectedResult(String expectedResult) {
+  public void setExpectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
   }
 
 
-  public SharedStepContentCreate data(String data) {
+  public SharedStepContentCreate data(@javax.annotation.Nullable String data) {
     this.data = data;
     return this;
   }
 
-   /**
+  /**
    * Get data
    * @return data
-  **/
+   */
   @javax.annotation.Nullable
   public String getData() {
     return data;
   }
 
-  public void setData(String data) {
+  public void setData(@javax.annotation.Nullable String data) {
     this.data = data;
   }
 
 
-  public SharedStepContentCreate attachments(List<String> attachments) {
+  public SharedStepContentCreate attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -165,16 +169,16 @@ public class SharedStepContentCreate {
     return this;
   }
 
-   /**
+  /**
    * A list of Attachment hashes.
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
@@ -277,24 +281,18 @@ public class SharedStepContentCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("hash");
-    openapiFields.add("action");
-    openapiFields.add("expected_result");
-    openapiFields.add("data");
-    openapiFields.add("attachments");
+    openapiFields = new HashSet<String>(Arrays.asList("hash", "action", "expected_result", "data", "attachments"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("action");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("action"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SharedStepContentCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SharedStepContentCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SharedStepContentCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -399,22 +397,22 @@ public class SharedStepContentCreate {
     }
   }
 
- /**
-  * Create an instance of SharedStepContentCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SharedStepContentCreate
-  * @throws IOException if the JSON string is invalid with respect to SharedStepContentCreate
-  */
+  /**
+   * Create an instance of SharedStepContentCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SharedStepContentCreate
+   * @throws IOException if the JSON string is invalid with respect to SharedStepContentCreate
+   */
   public static SharedStepContentCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SharedStepContentCreate.class);
   }
 
- /**
-  * Convert an instance of SharedStepContentCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SharedStepContentCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

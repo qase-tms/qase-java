@@ -46,7 +46,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -58,350 +57,368 @@ import io.qase.client.v1.JSON;
 /**
  * RunQuery
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class RunQuery {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_RUN_ID = "run_id";
   @SerializedName(SERIALIZED_NAME_RUN_ID)
+  @javax.annotation.Nonnull
   private Long runId;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private Integer status;
 
   public static final String SERIALIZED_NAME_STATUS_TEXT = "status_text";
   @SerializedName(SERIALIZED_NAME_STATUS_TEXT)
+  @javax.annotation.Nullable
   private String statusText;
 
   public static final String SERIALIZED_NAME_START_TIME = "start_time";
   @SerializedName(SERIALIZED_NAME_START_TIME)
+  @javax.annotation.Nullable
   private OffsetDateTime startTime;
 
   public static final String SERIALIZED_NAME_END_TIME = "end_time";
   @SerializedName(SERIALIZED_NAME_END_TIME)
+  @javax.annotation.Nullable
   private OffsetDateTime endTime;
 
   public static final String SERIALIZED_NAME_PUBLIC = "public";
   @SerializedName(SERIALIZED_NAME_PUBLIC)
+  @javax.annotation.Nullable
   private Boolean _public;
 
   public static final String SERIALIZED_NAME_STATS = "stats";
   @SerializedName(SERIALIZED_NAME_STATS)
+  @javax.annotation.Nullable
   private RunStats stats;
 
   public static final String SERIALIZED_NAME_TIME_SPENT = "time_spent";
   @SerializedName(SERIALIZED_NAME_TIME_SPENT)
+  @javax.annotation.Nullable
   private Long timeSpent;
 
   public static final String SERIALIZED_NAME_ELAPSED_TIME = "elapsed_time";
   @SerializedName(SERIALIZED_NAME_ELAPSED_TIME)
+  @javax.annotation.Nullable
   private Long elapsedTime;
 
   public static final String SERIALIZED_NAME_ENVIRONMENT = "environment";
   @SerializedName(SERIALIZED_NAME_ENVIRONMENT)
+  @javax.annotation.Nullable
   private RunEnvironment environment;
 
   public static final String SERIALIZED_NAME_MILESTONE = "milestone";
   @SerializedName(SERIALIZED_NAME_MILESTONE)
+  @javax.annotation.Nullable
   private RunMilestone milestone;
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
-  private List<CustomFieldValue> customFields;
+  @javax.annotation.Nullable
+  private List<CustomFieldValue> customFields = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<TagValue> tags;
+  @javax.annotation.Nullable
+  private List<TagValue> tags = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CASES = "cases";
   @SerializedName(SERIALIZED_NAME_CASES)
-  private List<Long> cases;
+  @javax.annotation.Nullable
+  private List<Long> cases = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_PLAN_ID = "plan_id";
   @SerializedName(SERIALIZED_NAME_PLAN_ID)
+  @javax.annotation.Nullable
   private Long planId;
 
   public RunQuery() {
   }
 
-  public RunQuery id(Long id) {
+  public RunQuery id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public RunQuery runId(Long runId) {
+  public RunQuery runId(@javax.annotation.Nonnull Long runId) {
     this.runId = runId;
     return this;
   }
 
-   /**
+  /**
    * Get runId
    * @return runId
-  **/
+   */
   @javax.annotation.Nonnull
   public Long getRunId() {
     return runId;
   }
 
-  public void setRunId(Long runId) {
+  public void setRunId(@javax.annotation.Nonnull Long runId) {
     this.runId = runId;
   }
 
 
-  public RunQuery title(String title) {
+  public RunQuery title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public RunQuery description(String description) {
+  public RunQuery description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public RunQuery status(Integer status) {
+  public RunQuery status(@javax.annotation.Nullable Integer status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getStatus() {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  public void setStatus(@javax.annotation.Nullable Integer status) {
     this.status = status;
   }
 
 
-  public RunQuery statusText(String statusText) {
+  public RunQuery statusText(@javax.annotation.Nullable String statusText) {
     this.statusText = statusText;
     return this;
   }
 
-   /**
+  /**
    * Get statusText
    * @return statusText
-  **/
+   */
   @javax.annotation.Nullable
   public String getStatusText() {
     return statusText;
   }
 
-  public void setStatusText(String statusText) {
+  public void setStatusText(@javax.annotation.Nullable String statusText) {
     this.statusText = statusText;
   }
 
 
-  public RunQuery startTime(OffsetDateTime startTime) {
+  public RunQuery startTime(@javax.annotation.Nullable OffsetDateTime startTime) {
     this.startTime = startTime;
     return this;
   }
 
-   /**
+  /**
    * Get startTime
    * @return startTime
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(OffsetDateTime startTime) {
+  public void setStartTime(@javax.annotation.Nullable OffsetDateTime startTime) {
     this.startTime = startTime;
   }
 
 
-  public RunQuery endTime(OffsetDateTime endTime) {
+  public RunQuery endTime(@javax.annotation.Nullable OffsetDateTime endTime) {
     this.endTime = endTime;
     return this;
   }
 
-   /**
+  /**
    * Get endTime
    * @return endTime
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(OffsetDateTime endTime) {
+  public void setEndTime(@javax.annotation.Nullable OffsetDateTime endTime) {
     this.endTime = endTime;
   }
 
 
-  public RunQuery _public(Boolean _public) {
+  public RunQuery _public(@javax.annotation.Nullable Boolean _public) {
     this._public = _public;
     return this;
   }
 
-   /**
+  /**
    * Get _public
    * @return _public
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getPublic() {
     return _public;
   }
 
-  public void setPublic(Boolean _public) {
+  public void setPublic(@javax.annotation.Nullable Boolean _public) {
     this._public = _public;
   }
 
 
-  public RunQuery stats(RunStats stats) {
+  public RunQuery stats(@javax.annotation.Nullable RunStats stats) {
     this.stats = stats;
     return this;
   }
 
-   /**
+  /**
    * Get stats
    * @return stats
-  **/
+   */
   @javax.annotation.Nullable
   public RunStats getStats() {
     return stats;
   }
 
-  public void setStats(RunStats stats) {
+  public void setStats(@javax.annotation.Nullable RunStats stats) {
     this.stats = stats;
   }
 
 
-  public RunQuery timeSpent(Long timeSpent) {
+  public RunQuery timeSpent(@javax.annotation.Nullable Long timeSpent) {
     this.timeSpent = timeSpent;
     return this;
   }
 
-   /**
+  /**
    * Time in ms.
    * @return timeSpent
-  **/
+   */
   @javax.annotation.Nullable
   public Long getTimeSpent() {
     return timeSpent;
   }
 
-  public void setTimeSpent(Long timeSpent) {
+  public void setTimeSpent(@javax.annotation.Nullable Long timeSpent) {
     this.timeSpent = timeSpent;
   }
 
 
-  public RunQuery elapsedTime(Long elapsedTime) {
+  public RunQuery elapsedTime(@javax.annotation.Nullable Long elapsedTime) {
     this.elapsedTime = elapsedTime;
     return this;
   }
 
-   /**
+  /**
    * Time in ms.
    * @return elapsedTime
-  **/
+   */
   @javax.annotation.Nullable
   public Long getElapsedTime() {
     return elapsedTime;
   }
 
-  public void setElapsedTime(Long elapsedTime) {
+  public void setElapsedTime(@javax.annotation.Nullable Long elapsedTime) {
     this.elapsedTime = elapsedTime;
   }
 
 
-  public RunQuery environment(RunEnvironment environment) {
+  public RunQuery environment(@javax.annotation.Nullable RunEnvironment environment) {
     this.environment = environment;
     return this;
   }
 
-   /**
+  /**
    * Get environment
    * @return environment
-  **/
+   */
   @javax.annotation.Nullable
   public RunEnvironment getEnvironment() {
     return environment;
   }
 
-  public void setEnvironment(RunEnvironment environment) {
+  public void setEnvironment(@javax.annotation.Nullable RunEnvironment environment) {
     this.environment = environment;
   }
 
 
-  public RunQuery milestone(RunMilestone milestone) {
+  public RunQuery milestone(@javax.annotation.Nullable RunMilestone milestone) {
     this.milestone = milestone;
     return this;
   }
 
-   /**
+  /**
    * Get milestone
    * @return milestone
-  **/
+   */
   @javax.annotation.Nullable
   public RunMilestone getMilestone() {
     return milestone;
   }
 
-  public void setMilestone(RunMilestone milestone) {
+  public void setMilestone(@javax.annotation.Nullable RunMilestone milestone) {
     this.milestone = milestone;
   }
 
 
-  public RunQuery customFields(List<CustomFieldValue> customFields) {
+  public RunQuery customFields(@javax.annotation.Nullable List<CustomFieldValue> customFields) {
     this.customFields = customFields;
     return this;
   }
@@ -414,21 +431,21 @@ public class RunQuery {
     return this;
   }
 
-   /**
+  /**
    * Get customFields
    * @return customFields
-  **/
+   */
   @javax.annotation.Nullable
   public List<CustomFieldValue> getCustomFields() {
     return customFields;
   }
 
-  public void setCustomFields(List<CustomFieldValue> customFields) {
+  public void setCustomFields(@javax.annotation.Nullable List<CustomFieldValue> customFields) {
     this.customFields = customFields;
   }
 
 
-  public RunQuery tags(List<TagValue> tags) {
+  public RunQuery tags(@javax.annotation.Nullable List<TagValue> tags) {
     this.tags = tags;
     return this;
   }
@@ -441,21 +458,21 @@ public class RunQuery {
     return this;
   }
 
-   /**
+  /**
    * Get tags
    * @return tags
-  **/
+   */
   @javax.annotation.Nullable
   public List<TagValue> getTags() {
     return tags;
   }
 
-  public void setTags(List<TagValue> tags) {
+  public void setTags(@javax.annotation.Nullable List<TagValue> tags) {
     this.tags = tags;
   }
 
 
-  public RunQuery cases(List<Long> cases) {
+  public RunQuery cases(@javax.annotation.Nullable List<Long> cases) {
     this.cases = cases;
     return this;
   }
@@ -468,35 +485,35 @@ public class RunQuery {
     return this;
   }
 
-   /**
+  /**
    * Get cases
    * @return cases
-  **/
+   */
   @javax.annotation.Nullable
   public List<Long> getCases() {
     return cases;
   }
 
-  public void setCases(List<Long> cases) {
+  public void setCases(@javax.annotation.Nullable List<Long> cases) {
     this.cases = cases;
   }
 
 
-  public RunQuery planId(Long planId) {
+  public RunQuery planId(@javax.annotation.Nullable Long planId) {
     this.planId = planId;
     return this;
   }
 
-   /**
+  /**
    * Get planId
    * @return planId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getPlanId() {
     return planId;
   }
 
-  public void setPlanId(Long planId) {
+  public void setPlanId(@javax.annotation.Nullable Long planId) {
     this.planId = planId;
   }
 
@@ -636,37 +653,18 @@ public class RunQuery {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("run_id");
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("status");
-    openapiFields.add("status_text");
-    openapiFields.add("start_time");
-    openapiFields.add("end_time");
-    openapiFields.add("public");
-    openapiFields.add("stats");
-    openapiFields.add("time_spent");
-    openapiFields.add("elapsed_time");
-    openapiFields.add("environment");
-    openapiFields.add("milestone");
-    openapiFields.add("custom_fields");
-    openapiFields.add("tags");
-    openapiFields.add("cases");
-    openapiFields.add("plan_id");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "run_id", "title", "description", "status", "status_text", "start_time", "end_time", "public", "stats", "time_spent", "elapsed_time", "environment", "milestone", "custom_fields", "tags", "cases", "plan_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("run_id");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("run_id"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RunQuery
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RunQuery
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!RunQuery.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -808,22 +806,22 @@ public class RunQuery {
     }
   }
 
- /**
-  * Create an instance of RunQuery given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RunQuery
-  * @throws IOException if the JSON string is invalid with respect to RunQuery
-  */
+  /**
+   * Create an instance of RunQuery given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RunQuery
+   * @throws IOException if the JSON string is invalid with respect to RunQuery
+   */
   public static RunQuery fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, RunQuery.class);
   }
 
- /**
-  * Convert an instance of RunQuery to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RunQuery to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

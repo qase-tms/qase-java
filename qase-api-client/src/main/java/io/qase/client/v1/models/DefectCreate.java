@@ -42,7 +42,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -54,116 +53,123 @@ import io.qase.client.v1.JSON;
 /**
  * DefectCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class DefectCreate {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_ACTUAL_RESULT = "actual_result";
   @SerializedName(SERIALIZED_NAME_ACTUAL_RESULT)
+  @javax.annotation.Nonnull
   private String actualResult;
 
   public static final String SERIALIZED_NAME_SEVERITY = "severity";
   @SerializedName(SERIALIZED_NAME_SEVERITY)
+  @javax.annotation.Nonnull
   private Integer severity;
 
   public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
   @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  @javax.annotation.Nullable
   private Long milestoneId;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<String> attachments;
+  @javax.annotation.Nullable
+  private List<String> attachments = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELD = "custom_field";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELD)
+  @javax.annotation.Nullable
   private Map<String, String> customField = new HashMap<>();
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<String> tags;
+  @javax.annotation.Nullable
+  private List<String> tags = new ArrayList<>();
 
   public DefectCreate() {
   }
 
-  public DefectCreate title(String title) {
+  public DefectCreate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public DefectCreate actualResult(String actualResult) {
+  public DefectCreate actualResult(@javax.annotation.Nonnull String actualResult) {
     this.actualResult = actualResult;
     return this;
   }
 
-   /**
+  /**
    * Get actualResult
    * @return actualResult
-  **/
+   */
   @javax.annotation.Nonnull
   public String getActualResult() {
     return actualResult;
   }
 
-  public void setActualResult(String actualResult) {
+  public void setActualResult(@javax.annotation.Nonnull String actualResult) {
     this.actualResult = actualResult;
   }
 
 
-  public DefectCreate severity(Integer severity) {
+  public DefectCreate severity(@javax.annotation.Nonnull Integer severity) {
     this.severity = severity;
     return this;
   }
 
-   /**
+  /**
    * Get severity
    * @return severity
-  **/
+   */
   @javax.annotation.Nonnull
   public Integer getSeverity() {
     return severity;
   }
 
-  public void setSeverity(Integer severity) {
+  public void setSeverity(@javax.annotation.Nonnull Integer severity) {
     this.severity = severity;
   }
 
 
-  public DefectCreate milestoneId(Long milestoneId) {
+  public DefectCreate milestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
     return this;
   }
 
-   /**
+  /**
    * Get milestoneId
    * @return milestoneId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getMilestoneId() {
     return milestoneId;
   }
 
-  public void setMilestoneId(Long milestoneId) {
+  public void setMilestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
   }
 
 
-  public DefectCreate attachments(List<String> attachments) {
+  public DefectCreate attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -176,21 +182,21 @@ public class DefectCreate {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
 
-  public DefectCreate customField(Map<String, String> customField) {
+  public DefectCreate customField(@javax.annotation.Nullable Map<String, String> customField) {
     this.customField = customField;
     return this;
   }
@@ -203,21 +209,21 @@ public class DefectCreate {
     return this;
   }
 
-   /**
+  /**
    * A map of custom fields values (id &#x3D;&gt; value)
    * @return customField
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, String> getCustomField() {
     return customField;
   }
 
-  public void setCustomField(Map<String, String> customField) {
+  public void setCustomField(@javax.annotation.Nullable Map<String, String> customField) {
     this.customField = customField;
   }
 
 
-  public DefectCreate tags(List<String> tags) {
+  public DefectCreate tags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
     return this;
   }
@@ -230,16 +236,16 @@ public class DefectCreate {
     return this;
   }
 
-   /**
+  /**
    * Get tags
    * @return tags
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getTags() {
     return tags;
   }
 
-  public void setTags(List<String> tags) {
+  public void setTags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 
@@ -357,28 +363,18 @@ public class DefectCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("actual_result");
-    openapiFields.add("severity");
-    openapiFields.add("milestone_id");
-    openapiFields.add("attachments");
-    openapiFields.add("custom_field");
-    openapiFields.add("tags");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "actual_result", "severity", "milestone_id", "attachments", "custom_field", "tags"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
-    openapiRequiredFields.add("actual_result");
-    openapiRequiredFields.add("severity");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title", "actual_result", "severity"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to DefectCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to DefectCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!DefectCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -481,22 +477,22 @@ public class DefectCreate {
     }
   }
 
- /**
-  * Create an instance of DefectCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of DefectCreate
-  * @throws IOException if the JSON string is invalid with respect to DefectCreate
-  */
+  /**
+   * Create an instance of DefectCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of DefectCreate
+   * @throws IOException if the JSON string is invalid with respect to DefectCreate
+   */
   public static DefectCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, DefectCreate.class);
   }
 
- /**
-  * Convert an instance of DefectCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of DefectCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

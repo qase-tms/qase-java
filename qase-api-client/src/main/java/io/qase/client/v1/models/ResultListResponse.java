@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,53 +49,55 @@ import io.qase.client.v1.JSON;
 /**
  * ResultListResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultListResponse {
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private Boolean status;
 
   public static final String SERIALIZED_NAME_RESULT = "result";
   @SerializedName(SERIALIZED_NAME_RESULT)
+  @javax.annotation.Nullable
   private ResultListResponseAllOfResult result;
 
   public ResultListResponse() {
   }
 
-  public ResultListResponse status(Boolean status) {
+  public ResultListResponse status(@javax.annotation.Nullable Boolean status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getStatus() {
     return status;
   }
 
-  public void setStatus(Boolean status) {
+  public void setStatus(@javax.annotation.Nullable Boolean status) {
     this.status = status;
   }
 
 
-  public ResultListResponse result(ResultListResponseAllOfResult result) {
+  public ResultListResponse result(@javax.annotation.Nullable ResultListResponseAllOfResult result) {
     this.result = result;
     return this;
   }
 
-   /**
+  /**
    * Get result
    * @return result
-  **/
+   */
   @javax.annotation.Nullable
   public ResultListResponseAllOfResult getResult() {
     return result;
   }
 
-  public void setResult(ResultListResponseAllOfResult result) {
+  public void setResult(@javax.annotation.Nullable ResultListResponseAllOfResult result) {
     this.result = result;
   }
 
@@ -193,20 +194,18 @@ public class ResultListResponse {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("status");
-    openapiFields.add("result");
+    openapiFields = new HashSet<String>(Arrays.asList("status", "result"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultListResponse
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultListResponse
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultListResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -292,22 +291,22 @@ public class ResultListResponse {
     }
   }
 
- /**
-  * Create an instance of ResultListResponse given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultListResponse
-  * @throws IOException if the JSON string is invalid with respect to ResultListResponse
-  */
+  /**
+   * Create an instance of ResultListResponse given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultListResponse
+   * @throws IOException if the JSON string is invalid with respect to ResultListResponse
+   */
   public static ResultListResponse fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultListResponse.class);
   }
 
- /**
-  * Convert an instance of ResultListResponse to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultListResponse to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

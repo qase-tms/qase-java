@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,16 +51,17 @@ import io.qase.client.v1.JSON;
 /**
  * ResultCreateBulk
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultCreateBulk {
   public static final String SERIALIZED_NAME_RESULTS = "results";
   @SerializedName(SERIALIZED_NAME_RESULTS)
+  @javax.annotation.Nonnull
   private List<ResultCreate> results = new ArrayList<>();
 
   public ResultCreateBulk() {
   }
 
-  public ResultCreateBulk results(List<ResultCreate> results) {
+  public ResultCreateBulk results(@javax.annotation.Nonnull List<ResultCreate> results) {
     this.results = results;
     return this;
   }
@@ -74,16 +74,16 @@ public class ResultCreateBulk {
     return this;
   }
 
-   /**
+  /**
    * Get results
    * @return results
-  **/
+   */
   @javax.annotation.Nonnull
   public List<ResultCreate> getResults() {
     return results;
   }
 
-  public void setResults(List<ResultCreate> results) {
+  public void setResults(@javax.annotation.Nonnull List<ResultCreate> results) {
     this.results = results;
   }
 
@@ -141,9 +141,9 @@ public class ResultCreateBulk {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ResultCreateBulk ResultCreateBulk = (ResultCreateBulk) o;
-    return Objects.equals(this.results, ResultCreateBulk.results)&&
-        Objects.equals(this.additionalProperties, ResultCreateBulk.additionalProperties);
+    ResultCreateBulk resultCreateBulk = (ResultCreateBulk) o;
+    return Objects.equals(this.results, resultCreateBulk.results)&&
+        Objects.equals(this.additionalProperties, resultCreateBulk.additionalProperties);
   }
 
   @Override
@@ -178,20 +178,18 @@ public class ResultCreateBulk {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("results");
+    openapiFields = new HashSet<String>(Arrays.asList("results"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("results");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("results"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultCreateBulk
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultCreateBulk
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultCreateBulk.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -290,22 +288,22 @@ public class ResultCreateBulk {
     }
   }
 
- /**
-  * Create an instance of ResultCreateBulk given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultCreateBulk
-  * @throws IOException if the JSON string is invalid with respect to ResultCreateBulk
-  */
+  /**
+   * Create an instance of ResultCreateBulk given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultCreateBulk
+   * @throws IOException if the JSON string is invalid with respect to ResultCreateBulk
+   */
   public static ResultCreateBulk fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultCreateBulk.class);
   }
 
- /**
-  * Convert an instance of ResultCreateBulk to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultCreateBulk to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

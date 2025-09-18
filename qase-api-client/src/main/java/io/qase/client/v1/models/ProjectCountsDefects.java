@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,53 +48,55 @@ import io.qase.client.v1.JSON;
 /**
  * ProjectCountsDefects
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ProjectCountsDefects {
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)
+  @javax.annotation.Nullable
   private Integer total;
 
   public static final String SERIALIZED_NAME_OPEN = "open";
   @SerializedName(SERIALIZED_NAME_OPEN)
+  @javax.annotation.Nullable
   private Integer open;
 
   public ProjectCountsDefects() {
   }
 
-  public ProjectCountsDefects total(Integer total) {
+  public ProjectCountsDefects total(@javax.annotation.Nullable Integer total) {
     this.total = total;
     return this;
   }
 
-   /**
+  /**
    * Get total
    * @return total
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getTotal() {
     return total;
   }
 
-  public void setTotal(Integer total) {
+  public void setTotal(@javax.annotation.Nullable Integer total) {
     this.total = total;
   }
 
 
-  public ProjectCountsDefects open(Integer open) {
+  public ProjectCountsDefects open(@javax.annotation.Nullable Integer open) {
     this.open = open;
     return this;
   }
 
-   /**
+  /**
    * Get open
    * @return open
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getOpen() {
     return open;
   }
 
-  public void setOpen(Integer open) {
+  public void setOpen(@javax.annotation.Nullable Integer open) {
     this.open = open;
   }
 
@@ -192,20 +193,18 @@ public class ProjectCountsDefects {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("total");
-    openapiFields.add("open");
+    openapiFields = new HashSet<String>(Arrays.asList("total", "open"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ProjectCountsDefects
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ProjectCountsDefects
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ProjectCountsDefects.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -287,22 +286,22 @@ public class ProjectCountsDefects {
     }
   }
 
- /**
-  * Create an instance of ProjectCountsDefects given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProjectCountsDefects
-  * @throws IOException if the JSON string is invalid with respect to ProjectCountsDefects
-  */
+  /**
+   * Create an instance of ProjectCountsDefects given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ProjectCountsDefects
+   * @throws IOException if the JSON string is invalid with respect to ProjectCountsDefects
+   */
   public static ProjectCountsDefects fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ProjectCountsDefects.class);
   }
 
- /**
-  * Convert an instance of ProjectCountsDefects to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ProjectCountsDefects to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

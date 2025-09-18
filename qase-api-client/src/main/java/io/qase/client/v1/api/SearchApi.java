@@ -81,7 +81,8 @@ public class SearchApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -92,7 +93,7 @@ public class SearchApi {
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL) Documentation</a>
      */
-    public okhttp3.Call searchCall(String query, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call searchCall(@javax.annotation.Nonnull String query, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -149,7 +150,7 @@ public class SearchApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call searchValidateBeforeCall(String query, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call searchValidateBeforeCall(@javax.annotation.Nonnull String query, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'query' is set
         if (query == null) {
             throw new ApiException("Missing the required parameter 'query' when calling search(Async)");
@@ -168,7 +169,8 @@ public class SearchApi {
      * @return SearchResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -179,7 +181,7 @@ public class SearchApi {
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL) Documentation</a>
      */
-    public SearchResponse search(String query, Integer limit, Integer offset) throws ApiException {
+    public SearchResponse search(@javax.annotation.Nonnull String query, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<SearchResponse> localVarResp = searchWithHttpInfo(query, limit, offset);
         return localVarResp.getData();
     }
@@ -193,7 +195,8 @@ public class SearchApi {
      * @return ApiResponse&lt;SearchResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -204,7 +207,7 @@ public class SearchApi {
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL) Documentation</a>
      */
-    public ApiResponse<SearchResponse> searchWithHttpInfo(String query, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<SearchResponse> searchWithHttpInfo(@javax.annotation.Nonnull String query, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = searchValidateBeforeCall(query, limit, offset, null);
         Type localVarReturnType = new TypeToken<SearchResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -220,7 +223,8 @@ public class SearchApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of found entities. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -231,7 +235,7 @@ public class SearchApi {
      * Find more info about QQL here.
      * @see <a href="https://help.qase.io/hc/en-us/articles/4404615073041">Search entities by Qase Query Language (QQL) Documentation</a>
      */
-    public okhttp3.Call searchAsync(String query, Integer limit, Integer offset, final ApiCallback<SearchResponse> _callback) throws ApiException {
+    public okhttp3.Call searchAsync(@javax.annotation.Nonnull String query, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<SearchResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = searchValidateBeforeCall(query, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<SearchResponse>(){}.getType();

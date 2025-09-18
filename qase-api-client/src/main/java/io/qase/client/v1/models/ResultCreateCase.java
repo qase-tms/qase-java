@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,191 +49,199 @@ import io.qase.client.v1.JSON;
 /**
  * Could be used instead of &#x60;case_id&#x60;.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultCreateCase {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_SUITE_TITLE = "suite_title";
   @SerializedName(SERIALIZED_NAME_SUITE_TITLE)
+  @javax.annotation.Nullable
   private String suiteTitle;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
   @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+  @javax.annotation.Nullable
   private String preconditions;
 
   public static final String SERIALIZED_NAME_POSTCONDITIONS = "postconditions";
   @SerializedName(SERIALIZED_NAME_POSTCONDITIONS)
+  @javax.annotation.Nullable
   private String postconditions;
 
   public static final String SERIALIZED_NAME_LAYER = "layer";
   @SerializedName(SERIALIZED_NAME_LAYER)
+  @javax.annotation.Nullable
   private String layer;
 
   public static final String SERIALIZED_NAME_SEVERITY = "severity";
   @SerializedName(SERIALIZED_NAME_SEVERITY)
+  @javax.annotation.Nullable
   private String severity;
 
   public static final String SERIALIZED_NAME_PRIORITY = "priority";
   @SerializedName(SERIALIZED_NAME_PRIORITY)
+  @javax.annotation.Nullable
   private String priority;
 
   public ResultCreateCase() {
   }
 
-  public ResultCreateCase title(String title) {
+  public ResultCreateCase title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public ResultCreateCase suiteTitle(String suiteTitle) {
+  public ResultCreateCase suiteTitle(@javax.annotation.Nullable String suiteTitle) {
     this.suiteTitle = suiteTitle;
     return this;
   }
 
-   /**
+  /**
    * Nested suites should be separated with &#x60;TAB&#x60; symbol.
    * @return suiteTitle
-  **/
+   */
   @javax.annotation.Nullable
   public String getSuiteTitle() {
     return suiteTitle;
   }
 
-  public void setSuiteTitle(String suiteTitle) {
+  public void setSuiteTitle(@javax.annotation.Nullable String suiteTitle) {
     this.suiteTitle = suiteTitle;
   }
 
 
-  public ResultCreateCase description(String description) {
+  public ResultCreateCase description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public ResultCreateCase preconditions(String preconditions) {
+  public ResultCreateCase preconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
     return this;
   }
 
-   /**
+  /**
    * Get preconditions
    * @return preconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPreconditions() {
     return preconditions;
   }
 
-  public void setPreconditions(String preconditions) {
+  public void setPreconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
   }
 
 
-  public ResultCreateCase postconditions(String postconditions) {
+  public ResultCreateCase postconditions(@javax.annotation.Nullable String postconditions) {
     this.postconditions = postconditions;
     return this;
   }
 
-   /**
+  /**
    * Get postconditions
    * @return postconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPostconditions() {
     return postconditions;
   }
 
-  public void setPostconditions(String postconditions) {
+  public void setPostconditions(@javax.annotation.Nullable String postconditions) {
     this.postconditions = postconditions;
   }
 
 
-  public ResultCreateCase layer(String layer) {
+  public ResultCreateCase layer(@javax.annotation.Nullable String layer) {
     this.layer = layer;
     return this;
   }
 
-   /**
+  /**
    * Slug of the layer. You can get it in the System Field settings.
    * @return layer
-  **/
+   */
   @javax.annotation.Nullable
   public String getLayer() {
     return layer;
   }
 
-  public void setLayer(String layer) {
+  public void setLayer(@javax.annotation.Nullable String layer) {
     this.layer = layer;
   }
 
 
-  public ResultCreateCase severity(String severity) {
+  public ResultCreateCase severity(@javax.annotation.Nullable String severity) {
     this.severity = severity;
     return this;
   }
 
-   /**
+  /**
    * Slug of the severity. You can get it in the System Field settings.
    * @return severity
-  **/
+   */
   @javax.annotation.Nullable
   public String getSeverity() {
     return severity;
   }
 
-  public void setSeverity(String severity) {
+  public void setSeverity(@javax.annotation.Nullable String severity) {
     this.severity = severity;
   }
 
 
-  public ResultCreateCase priority(String priority) {
+  public ResultCreateCase priority(@javax.annotation.Nullable String priority) {
     this.priority = priority;
     return this;
   }
 
-   /**
+  /**
    * Slug of the priority. You can get it in the System Field settings.
    * @return priority
-  **/
+   */
   @javax.annotation.Nullable
   public String getPriority() {
     return priority;
   }
 
-  public void setPriority(String priority) {
+  public void setPriority(@javax.annotation.Nullable String priority) {
     this.priority = priority;
   }
 
@@ -354,26 +361,18 @@ public class ResultCreateCase {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("suite_title");
-    openapiFields.add("description");
-    openapiFields.add("preconditions");
-    openapiFields.add("postconditions");
-    openapiFields.add("layer");
-    openapiFields.add("severity");
-    openapiFields.add("priority");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "suite_title", "description", "preconditions", "postconditions", "layer", "severity", "priority"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultCreateCase
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultCreateCase
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultCreateCase.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -479,22 +478,22 @@ public class ResultCreateCase {
     }
   }
 
- /**
-  * Create an instance of ResultCreateCase given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultCreateCase
-  * @throws IOException if the JSON string is invalid with respect to ResultCreateCase
-  */
+  /**
+   * Create an instance of ResultCreateCase given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultCreateCase
+   * @throws IOException if the JSON string is invalid with respect to ResultCreateCase
+   */
   public static ResultCreateCase fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultCreateCase.class);
   }
 
- /**
-  * Convert an instance of ResultCreateCase to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultCreateCase to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

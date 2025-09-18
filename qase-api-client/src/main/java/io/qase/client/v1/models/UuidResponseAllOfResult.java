@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,30 +49,31 @@ import io.qase.client.v1.JSON;
 /**
  * UuidResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class UuidResponseAllOfResult {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private UUID id;
 
   public UuidResponseAllOfResult() {
   }
 
-  public UuidResponseAllOfResult id(UUID id) {
+  public UuidResponseAllOfResult id(@javax.annotation.Nullable UUID id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public UUID getId() {
     return id;
   }
 
-  public void setId(UUID id) {
+  public void setId(@javax.annotation.Nullable UUID id) {
     this.id = id;
   }
 
@@ -168,19 +168,18 @@ public class UuidResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
+    openapiFields = new HashSet<String>(Arrays.asList("id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to UuidResponseAllOfResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to UuidResponseAllOfResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!UuidResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -265,22 +264,22 @@ public class UuidResponseAllOfResult {
     }
   }
 
- /**
-  * Create an instance of UuidResponseAllOfResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of UuidResponseAllOfResult
-  * @throws IOException if the JSON string is invalid with respect to UuidResponseAllOfResult
-  */
+  /**
+   * Create an instance of UuidResponseAllOfResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of UuidResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to UuidResponseAllOfResult
+   */
   public static UuidResponseAllOfResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, UuidResponseAllOfResult.class);
   }
 
- /**
-  * Convert an instance of UuidResponseAllOfResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of UuidResponseAllOfResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

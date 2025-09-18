@@ -41,7 +41,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,154 +52,161 @@ import io.qase.client.v1.JSON;
 /**
  * SystemField
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class SystemField {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_SLUG = "slug";
   @SerializedName(SERIALIZED_NAME_SLUG)
+  @javax.annotation.Nullable
   private String slug;
 
   public static final String SERIALIZED_NAME_DEFAULT_VALUE = "default_value";
   @SerializedName(SERIALIZED_NAME_DEFAULT_VALUE)
+  @javax.annotation.Nullable
   private String defaultValue;
 
   public static final String SERIALIZED_NAME_IS_REQUIRED = "is_required";
   @SerializedName(SERIALIZED_NAME_IS_REQUIRED)
+  @javax.annotation.Nullable
   private Boolean isRequired;
 
   public static final String SERIALIZED_NAME_ENTITY = "entity";
   @SerializedName(SERIALIZED_NAME_ENTITY)
+  @javax.annotation.Nullable
   private Long entity;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nullable
   private Long type;
 
   public static final String SERIALIZED_NAME_OPTIONS = "options";
   @SerializedName(SERIALIZED_NAME_OPTIONS)
+  @javax.annotation.Nullable
   private List<SystemFieldOption> options;
 
   public SystemField() {
   }
 
-  public SystemField title(String title) {
+  public SystemField title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public SystemField slug(String slug) {
+  public SystemField slug(@javax.annotation.Nullable String slug) {
     this.slug = slug;
     return this;
   }
 
-   /**
+  /**
    * Get slug
    * @return slug
-  **/
+   */
   @javax.annotation.Nullable
   public String getSlug() {
     return slug;
   }
 
-  public void setSlug(String slug) {
+  public void setSlug(@javax.annotation.Nullable String slug) {
     this.slug = slug;
   }
 
 
-  public SystemField defaultValue(String defaultValue) {
+  public SystemField defaultValue(@javax.annotation.Nullable String defaultValue) {
     this.defaultValue = defaultValue;
     return this;
   }
 
-   /**
+  /**
    * Get defaultValue
    * @return defaultValue
-  **/
+   */
   @javax.annotation.Nullable
   public String getDefaultValue() {
     return defaultValue;
   }
 
-  public void setDefaultValue(String defaultValue) {
+  public void setDefaultValue(@javax.annotation.Nullable String defaultValue) {
     this.defaultValue = defaultValue;
   }
 
 
-  public SystemField isRequired(Boolean isRequired) {
+  public SystemField isRequired(@javax.annotation.Nullable Boolean isRequired) {
     this.isRequired = isRequired;
     return this;
   }
 
-   /**
+  /**
    * Get isRequired
    * @return isRequired
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getIsRequired() {
     return isRequired;
   }
 
-  public void setIsRequired(Boolean isRequired) {
+  public void setIsRequired(@javax.annotation.Nullable Boolean isRequired) {
     this.isRequired = isRequired;
   }
 
 
-  public SystemField entity(Long entity) {
+  public SystemField entity(@javax.annotation.Nullable Long entity) {
     this.entity = entity;
     return this;
   }
 
-   /**
+  /**
    * Get entity
    * @return entity
-  **/
+   */
   @javax.annotation.Nullable
   public Long getEntity() {
     return entity;
   }
 
-  public void setEntity(Long entity) {
+  public void setEntity(@javax.annotation.Nullable Long entity) {
     this.entity = entity;
   }
 
 
-  public SystemField type(Long type) {
+  public SystemField type(@javax.annotation.Nullable Long type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nullable
   public Long getType() {
     return type;
   }
 
-  public void setType(Long type) {
+  public void setType(@javax.annotation.Nullable Long type) {
     this.type = type;
   }
 
 
-  public SystemField options(List<SystemFieldOption> options) {
+  public SystemField options(@javax.annotation.Nullable List<SystemFieldOption> options) {
     this.options = options;
     return this;
   }
@@ -213,16 +219,16 @@ public class SystemField {
     return this;
   }
 
-   /**
+  /**
    * Get options
    * @return options
-  **/
+   */
   @javax.annotation.Nullable
   public List<SystemFieldOption> getOptions() {
     return options;
   }
 
-  public void setOptions(List<SystemFieldOption> options) {
+  public void setOptions(@javax.annotation.Nullable List<SystemFieldOption> options) {
     this.options = options;
   }
 
@@ -340,25 +346,18 @@ public class SystemField {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("slug");
-    openapiFields.add("default_value");
-    openapiFields.add("is_required");
-    openapiFields.add("entity");
-    openapiFields.add("type");
-    openapiFields.add("options");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "slug", "default_value", "is_required", "entity", "type", "options"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to SystemField
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SystemField
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SystemField.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -463,22 +462,22 @@ public class SystemField {
     }
   }
 
- /**
-  * Create an instance of SystemField given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SystemField
-  * @throws IOException if the JSON string is invalid with respect to SystemField
-  */
+  /**
+   * Create an instance of SystemField given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SystemField
+   * @throws IOException if the JSON string is invalid with respect to SystemField
+   */
   public static SystemField fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SystemField.class);
   }
 
- /**
-  * Convert an instance of SystemField to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SystemField to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

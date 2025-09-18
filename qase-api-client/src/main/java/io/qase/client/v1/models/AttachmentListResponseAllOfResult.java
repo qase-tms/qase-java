@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,85 +51,89 @@ import io.qase.client.v1.JSON;
 /**
  * AttachmentListResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class AttachmentListResponseAllOfResult {
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)
+  @javax.annotation.Nullable
   private Integer total;
 
   public static final String SERIALIZED_NAME_FILTERED = "filtered";
   @SerializedName(SERIALIZED_NAME_FILTERED)
+  @javax.annotation.Nullable
   private Integer filtered;
 
   public static final String SERIALIZED_NAME_COUNT = "count";
   @SerializedName(SERIALIZED_NAME_COUNT)
+  @javax.annotation.Nullable
   private Integer count;
 
   public static final String SERIALIZED_NAME_ENTITIES = "entities";
   @SerializedName(SERIALIZED_NAME_ENTITIES)
-  private List<AttachmentGet> entities;
+  @javax.annotation.Nullable
+  private List<AttachmentGet> entities = new ArrayList<>();
 
   public AttachmentListResponseAllOfResult() {
   }
 
-  public AttachmentListResponseAllOfResult total(Integer total) {
+  public AttachmentListResponseAllOfResult total(@javax.annotation.Nullable Integer total) {
     this.total = total;
     return this;
   }
 
-   /**
+  /**
    * Get total
    * @return total
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getTotal() {
     return total;
   }
 
-  public void setTotal(Integer total) {
+  public void setTotal(@javax.annotation.Nullable Integer total) {
     this.total = total;
   }
 
 
-  public AttachmentListResponseAllOfResult filtered(Integer filtered) {
+  public AttachmentListResponseAllOfResult filtered(@javax.annotation.Nullable Integer filtered) {
     this.filtered = filtered;
     return this;
   }
 
-   /**
+  /**
    * Get filtered
    * @return filtered
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getFiltered() {
     return filtered;
   }
 
-  public void setFiltered(Integer filtered) {
+  public void setFiltered(@javax.annotation.Nullable Integer filtered) {
     this.filtered = filtered;
   }
 
 
-  public AttachmentListResponseAllOfResult count(Integer count) {
+  public AttachmentListResponseAllOfResult count(@javax.annotation.Nullable Integer count) {
     this.count = count;
     return this;
   }
 
-   /**
+  /**
    * Get count
    * @return count
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getCount() {
     return count;
   }
 
-  public void setCount(Integer count) {
+  public void setCount(@javax.annotation.Nullable Integer count) {
     this.count = count;
   }
 
 
-  public AttachmentListResponseAllOfResult entities(List<AttachmentGet> entities) {
+  public AttachmentListResponseAllOfResult entities(@javax.annotation.Nullable List<AttachmentGet> entities) {
     this.entities = entities;
     return this;
   }
@@ -143,16 +146,16 @@ public class AttachmentListResponseAllOfResult {
     return this;
   }
 
-   /**
+  /**
    * Get entities
    * @return entities
-  **/
+   */
   @javax.annotation.Nullable
   public List<AttachmentGet> getEntities() {
     return entities;
   }
 
-  public void setEntities(List<AttachmentGet> entities) {
+  public void setEntities(@javax.annotation.Nullable List<AttachmentGet> entities) {
     this.entities = entities;
   }
 
@@ -253,22 +256,18 @@ public class AttachmentListResponseAllOfResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("total");
-    openapiFields.add("filtered");
-    openapiFields.add("count");
-    openapiFields.add("entities");
+    openapiFields = new HashSet<String>(Arrays.asList("total", "filtered", "count", "entities"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to AttachmentListResponseAllOfResult
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to AttachmentListResponseAllOfResult
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!AttachmentListResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -364,22 +363,22 @@ public class AttachmentListResponseAllOfResult {
     }
   }
 
- /**
-  * Create an instance of AttachmentListResponseAllOfResult given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of AttachmentListResponseAllOfResult
-  * @throws IOException if the JSON string is invalid with respect to AttachmentListResponseAllOfResult
-  */
+  /**
+   * Create an instance of AttachmentListResponseAllOfResult given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of AttachmentListResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to AttachmentListResponseAllOfResult
+   */
   public static AttachmentListResponseAllOfResult fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, AttachmentListResponseAllOfResult.class);
   }
 
- /**
-  * Convert an instance of AttachmentListResponseAllOfResult to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of AttachmentListResponseAllOfResult to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

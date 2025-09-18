@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,53 +48,55 @@ import io.qase.client.v1.JSON;
 /**
  * ProjectCountsRuns
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ProjectCountsRuns {
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)
+  @javax.annotation.Nullable
   private Integer total;
 
   public static final String SERIALIZED_NAME_ACTIVE = "active";
   @SerializedName(SERIALIZED_NAME_ACTIVE)
+  @javax.annotation.Nullable
   private Integer active;
 
   public ProjectCountsRuns() {
   }
 
-  public ProjectCountsRuns total(Integer total) {
+  public ProjectCountsRuns total(@javax.annotation.Nullable Integer total) {
     this.total = total;
     return this;
   }
 
-   /**
+  /**
    * Get total
    * @return total
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getTotal() {
     return total;
   }
 
-  public void setTotal(Integer total) {
+  public void setTotal(@javax.annotation.Nullable Integer total) {
     this.total = total;
   }
 
 
-  public ProjectCountsRuns active(Integer active) {
+  public ProjectCountsRuns active(@javax.annotation.Nullable Integer active) {
     this.active = active;
     return this;
   }
 
-   /**
+  /**
    * Get active
    * @return active
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getActive() {
     return active;
   }
 
-  public void setActive(Integer active) {
+  public void setActive(@javax.annotation.Nullable Integer active) {
     this.active = active;
   }
 
@@ -192,20 +193,18 @@ public class ProjectCountsRuns {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("total");
-    openapiFields.add("active");
+    openapiFields = new HashSet<String>(Arrays.asList("total", "active"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ProjectCountsRuns
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ProjectCountsRuns
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ProjectCountsRuns.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -287,22 +286,22 @@ public class ProjectCountsRuns {
     }
   }
 
- /**
-  * Create an instance of ProjectCountsRuns given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProjectCountsRuns
-  * @throws IOException if the JSON string is invalid with respect to ProjectCountsRuns
-  */
+  /**
+   * Create an instance of ProjectCountsRuns given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ProjectCountsRuns
+   * @throws IOException if the JSON string is invalid with respect to ProjectCountsRuns
+   */
   public static ProjectCountsRuns fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ProjectCountsRuns.class);
   }
 
- /**
-  * Convert an instance of ProjectCountsRuns to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ProjectCountsRuns to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

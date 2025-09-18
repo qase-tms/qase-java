@@ -25,7 +25,7 @@
 |**steps** | [**List&lt;TestStepCreate&gt;**](TestStepCreate.md) |  |  [optional] |
 |**tags** | **List&lt;String&gt;** |  |  [optional] |
 |**params** | **Map&lt;String, List&lt;String&gt;&gt;** | Deprecated, use &#x60;parameters&#x60; instead. |  [optional] |
-|**parameters** | [**List&lt;TestCaseParametercreate&gt;**](TestCaseParametercreate.md) |  |  [optional] |
+|**parameters** | [**List&lt;TestCaseParameterCreate&gt;**](TestCaseParameterCreate.md) |  |  [optional] |
 |**customField** | **Map&lt;String, String&gt;** | A map of custom fields values (id &#x3D;&gt; value) |  [optional] |
 |**createdAt** | **String** |  |  [optional] |
 |**updatedAt** | **String** |  |  [optional] |

@@ -44,7 +44,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -56,210 +55,226 @@ import io.qase.client.v1.JSON;
 /**
  * DefectQuery
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class DefectQuery {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_DEFECT_ID = "defect_id";
   @SerializedName(SERIALIZED_NAME_DEFECT_ID)
+  @javax.annotation.Nonnull
   private Long defectId;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_ACTUAL_RESULT = "actual_result";
   @SerializedName(SERIALIZED_NAME_ACTUAL_RESULT)
+  @javax.annotation.Nullable
   private String actualResult;
 
   public static final String SERIALIZED_NAME_SEVERITY = "severity";
   @SerializedName(SERIALIZED_NAME_SEVERITY)
+  @javax.annotation.Nullable
   private String severity;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nullable
   private String status;
 
   public static final String SERIALIZED_NAME_MILESTONE_ID = "milestone_id";
   @SerializedName(SERIALIZED_NAME_MILESTONE_ID)
+  @javax.annotation.Nullable
   private Long milestoneId;
 
   public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "custom_fields";
   @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
-  private List<CustomFieldValue> customFields;
+  @javax.annotation.Nullable
+  private List<CustomFieldValue> customFields = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<Attachment> attachments;
+  @javax.annotation.Nullable
+  private List<Attachment> attachments = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_RESOLVED = "resolved";
   @SerializedName(SERIALIZED_NAME_RESOLVED)
+  @javax.annotation.Nullable
   private OffsetDateTime resolved;
 
   public static final String SERIALIZED_NAME_MEMBER_ID = "member_id";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_MEMBER_ID)
+  @javax.annotation.Nullable
   private Long memberId;
 
   public static final String SERIALIZED_NAME_AUTHOR_ID = "author_id";
   @SerializedName(SERIALIZED_NAME_AUTHOR_ID)
+  @javax.annotation.Nullable
   private Long authorId;
 
   public static final String SERIALIZED_NAME_EXTERNAL_DATA = "external_data";
   @SerializedName(SERIALIZED_NAME_EXTERNAL_DATA)
+  @javax.annotation.Nullable
   private String externalData;
 
   public static final String SERIALIZED_NAME_TAGS = "tags";
   @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<TagValue> tags;
+  @javax.annotation.Nullable
+  private List<TagValue> tags = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public DefectQuery() {
   }
 
-  public DefectQuery id(Long id) {
+  public DefectQuery id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public DefectQuery defectId(Long defectId) {
+  public DefectQuery defectId(@javax.annotation.Nonnull Long defectId) {
     this.defectId = defectId;
     return this;
   }
 
-   /**
+  /**
    * Get defectId
    * @return defectId
-  **/
+   */
   @javax.annotation.Nonnull
   public Long getDefectId() {
     return defectId;
   }
 
-  public void setDefectId(Long defectId) {
+  public void setDefectId(@javax.annotation.Nonnull Long defectId) {
     this.defectId = defectId;
   }
 
 
-  public DefectQuery title(String title) {
+  public DefectQuery title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public DefectQuery actualResult(String actualResult) {
+  public DefectQuery actualResult(@javax.annotation.Nullable String actualResult) {
     this.actualResult = actualResult;
     return this;
   }
 
-   /**
+  /**
    * Get actualResult
    * @return actualResult
-  **/
+   */
   @javax.annotation.Nullable
   public String getActualResult() {
     return actualResult;
   }
 
-  public void setActualResult(String actualResult) {
+  public void setActualResult(@javax.annotation.Nullable String actualResult) {
     this.actualResult = actualResult;
   }
 
 
-  public DefectQuery severity(String severity) {
+  public DefectQuery severity(@javax.annotation.Nullable String severity) {
     this.severity = severity;
     return this;
   }
 
-   /**
+  /**
    * Get severity
    * @return severity
-  **/
+   */
   @javax.annotation.Nullable
   public String getSeverity() {
     return severity;
   }
 
-  public void setSeverity(String severity) {
+  public void setSeverity(@javax.annotation.Nullable String severity) {
     this.severity = severity;
   }
 
 
-  public DefectQuery status(String status) {
+  public DefectQuery status(@javax.annotation.Nullable String status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nullable
   public String getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(@javax.annotation.Nullable String status) {
     this.status = status;
   }
 
 
-  public DefectQuery milestoneId(Long milestoneId) {
+  public DefectQuery milestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
     return this;
   }
 
-   /**
+  /**
    * Get milestoneId
    * @return milestoneId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getMilestoneId() {
     return milestoneId;
   }
 
-  public void setMilestoneId(Long milestoneId) {
+  public void setMilestoneId(@javax.annotation.Nullable Long milestoneId) {
     this.milestoneId = milestoneId;
   }
 
 
-  public DefectQuery customFields(List<CustomFieldValue> customFields) {
+  public DefectQuery customFields(@javax.annotation.Nullable List<CustomFieldValue> customFields) {
     this.customFields = customFields;
     return this;
   }
@@ -272,21 +287,21 @@ public class DefectQuery {
     return this;
   }
 
-   /**
+  /**
    * Get customFields
    * @return customFields
-  **/
+   */
   @javax.annotation.Nullable
   public List<CustomFieldValue> getCustomFields() {
     return customFields;
   }
 
-  public void setCustomFields(List<CustomFieldValue> customFields) {
+  public void setCustomFields(@javax.annotation.Nullable List<CustomFieldValue> customFields) {
     this.customFields = customFields;
   }
 
 
-  public DefectQuery attachments(List<Attachment> attachments) {
+  public DefectQuery attachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -299,50 +314,50 @@ public class DefectQuery {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<Attachment> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
   }
 
 
-  public DefectQuery resolved(OffsetDateTime resolved) {
+  public DefectQuery resolved(@javax.annotation.Nullable OffsetDateTime resolved) {
     this.resolved = resolved;
     return this;
   }
 
-   /**
+  /**
    * Get resolved
    * @return resolved
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getResolved() {
     return resolved;
   }
 
-  public void setResolved(OffsetDateTime resolved) {
+  public void setResolved(@javax.annotation.Nullable OffsetDateTime resolved) {
     this.resolved = resolved;
   }
 
 
   @Deprecated
-  public DefectQuery memberId(Long memberId) {
+  public DefectQuery memberId(@javax.annotation.Nullable Long memberId) {
     this.memberId = memberId;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use &#x60;author_id&#x60; instead.
    * @return memberId
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public Long getMemberId() {
@@ -350,50 +365,50 @@ public class DefectQuery {
   }
 
   @Deprecated
-  public void setMemberId(Long memberId) {
+  public void setMemberId(@javax.annotation.Nullable Long memberId) {
     this.memberId = memberId;
   }
 
 
-  public DefectQuery authorId(Long authorId) {
+  public DefectQuery authorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
     return this;
   }
 
-   /**
+  /**
    * Get authorId
    * @return authorId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getAuthorId() {
     return authorId;
   }
 
-  public void setAuthorId(Long authorId) {
+  public void setAuthorId(@javax.annotation.Nullable Long authorId) {
     this.authorId = authorId;
   }
 
 
-  public DefectQuery externalData(String externalData) {
+  public DefectQuery externalData(@javax.annotation.Nullable String externalData) {
     this.externalData = externalData;
     return this;
   }
 
-   /**
+  /**
    * Get externalData
    * @return externalData
-  **/
+   */
   @javax.annotation.Nullable
   public String getExternalData() {
     return externalData;
   }
 
-  public void setExternalData(String externalData) {
+  public void setExternalData(@javax.annotation.Nullable String externalData) {
     this.externalData = externalData;
   }
 
 
-  public DefectQuery tags(List<TagValue> tags) {
+  public DefectQuery tags(@javax.annotation.Nullable List<TagValue> tags) {
     this.tags = tags;
     return this;
   }
@@ -406,54 +421,54 @@ public class DefectQuery {
     return this;
   }
 
-   /**
+  /**
    * Get tags
    * @return tags
-  **/
+   */
   @javax.annotation.Nullable
   public List<TagValue> getTags() {
     return tags;
   }
 
-  public void setTags(List<TagValue> tags) {
+  public void setTags(@javax.annotation.Nullable List<TagValue> tags) {
     this.tags = tags;
   }
 
 
-  public DefectQuery createdAt(OffsetDateTime createdAt) {
+  public DefectQuery createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public DefectQuery updatedAt(OffsetDateTime updatedAt) {
+  public DefectQuery updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -589,35 +604,18 @@ public class DefectQuery {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("defect_id");
-    openapiFields.add("title");
-    openapiFields.add("actual_result");
-    openapiFields.add("severity");
-    openapiFields.add("status");
-    openapiFields.add("milestone_id");
-    openapiFields.add("custom_fields");
-    openapiFields.add("attachments");
-    openapiFields.add("resolved");
-    openapiFields.add("member_id");
-    openapiFields.add("author_id");
-    openapiFields.add("external_data");
-    openapiFields.add("tags");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "defect_id", "title", "actual_result", "severity", "status", "milestone_id", "custom_fields", "attachments", "resolved", "member_id", "author_id", "external_data", "tags", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("defect_id");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("defect_id"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to DefectQuery
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to DefectQuery
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!DefectQuery.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -763,22 +761,22 @@ public class DefectQuery {
     }
   }
 
- /**
-  * Create an instance of DefectQuery given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of DefectQuery
-  * @throws IOException if the JSON string is invalid with respect to DefectQuery
-  */
+  /**
+   * Create an instance of DefectQuery given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of DefectQuery
+   * @throws IOException if the JSON string is invalid with respect to DefectQuery
+   */
   public static DefectQuery fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, DefectQuery.class);
   }
 
- /**
-  * Convert an instance of DefectQuery to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of DefectQuery to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

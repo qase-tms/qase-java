@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,168 +49,175 @@ import io.qase.client.v1.JSON;
 /**
  * AttachmentGet
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class AttachmentGet {
   public static final String SERIALIZED_NAME_HASH = "hash";
   @SerializedName(SERIALIZED_NAME_HASH)
+  @javax.annotation.Nullable
   private String hash;
 
   public static final String SERIALIZED_NAME_FILE = "file";
   @SerializedName(SERIALIZED_NAME_FILE)
+  @javax.annotation.Nullable
   private String _file;
 
   public static final String SERIALIZED_NAME_MIME = "mime";
   @SerializedName(SERIALIZED_NAME_MIME)
+  @javax.annotation.Nullable
   private String mime;
 
   public static final String SERIALIZED_NAME_SIZE = "size";
   @SerializedName(SERIALIZED_NAME_SIZE)
+  @javax.annotation.Nullable
   private Integer size;
 
   public static final String SERIALIZED_NAME_EXTENSION = "extension";
   @SerializedName(SERIALIZED_NAME_EXTENSION)
+  @javax.annotation.Nullable
   private String extension;
 
   public static final String SERIALIZED_NAME_FULL_PATH = "full_path";
   @SerializedName(SERIALIZED_NAME_FULL_PATH)
+  @javax.annotation.Nullable
   private URI fullPath;
 
   public static final String SERIALIZED_NAME_URL = "url";
   @SerializedName(SERIALIZED_NAME_URL)
+  @javax.annotation.Nullable
   private String url;
 
   public AttachmentGet() {
   }
 
-  public AttachmentGet hash(String hash) {
+  public AttachmentGet hash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
     return this;
   }
 
-   /**
+  /**
    * Get hash
    * @return hash
-  **/
+   */
   @javax.annotation.Nullable
   public String getHash() {
     return hash;
   }
 
-  public void setHash(String hash) {
+  public void setHash(@javax.annotation.Nullable String hash) {
     this.hash = hash;
   }
 
 
-  public AttachmentGet _file(String _file) {
+  public AttachmentGet _file(@javax.annotation.Nullable String _file) {
     this._file = _file;
     return this;
   }
 
-   /**
+  /**
    * Get _file
    * @return _file
-  **/
+   */
   @javax.annotation.Nullable
   public String getFile() {
     return _file;
   }
 
-  public void setFile(String _file) {
+  public void setFile(@javax.annotation.Nullable String _file) {
     this._file = _file;
   }
 
 
-  public AttachmentGet mime(String mime) {
+  public AttachmentGet mime(@javax.annotation.Nullable String mime) {
     this.mime = mime;
     return this;
   }
 
-   /**
+  /**
    * Get mime
    * @return mime
-  **/
+   */
   @javax.annotation.Nullable
   public String getMime() {
     return mime;
   }
 
-  public void setMime(String mime) {
+  public void setMime(@javax.annotation.Nullable String mime) {
     this.mime = mime;
   }
 
 
-  public AttachmentGet size(Integer size) {
+  public AttachmentGet size(@javax.annotation.Nullable Integer size) {
     this.size = size;
     return this;
   }
 
-   /**
+  /**
    * Get size
    * @return size
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getSize() {
     return size;
   }
 
-  public void setSize(Integer size) {
+  public void setSize(@javax.annotation.Nullable Integer size) {
     this.size = size;
   }
 
 
-  public AttachmentGet extension(String extension) {
+  public AttachmentGet extension(@javax.annotation.Nullable String extension) {
     this.extension = extension;
     return this;
   }
 
-   /**
+  /**
    * Get extension
    * @return extension
-  **/
+   */
   @javax.annotation.Nullable
   public String getExtension() {
     return extension;
   }
 
-  public void setExtension(String extension) {
+  public void setExtension(@javax.annotation.Nullable String extension) {
     this.extension = extension;
   }
 
 
-  public AttachmentGet fullPath(URI fullPath) {
+  public AttachmentGet fullPath(@javax.annotation.Nullable URI fullPath) {
     this.fullPath = fullPath;
     return this;
   }
 
-   /**
+  /**
    * Get fullPath
    * @return fullPath
-  **/
+   */
   @javax.annotation.Nullable
   public URI getFullPath() {
     return fullPath;
   }
 
-  public void setFullPath(URI fullPath) {
+  public void setFullPath(@javax.annotation.Nullable URI fullPath) {
     this.fullPath = fullPath;
   }
 
 
-  public AttachmentGet url(String url) {
+  public AttachmentGet url(@javax.annotation.Nullable String url) {
     this.url = url;
     return this;
   }
 
-   /**
+  /**
    * Get url
    * @return url
-  **/
+   */
   @javax.annotation.Nullable
   public String getUrl() {
     return url;
   }
 
-  public void setUrl(String url) {
+  public void setUrl(@javax.annotation.Nullable String url) {
     this.url = url;
   }
 
@@ -318,25 +324,18 @@ public class AttachmentGet {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("hash");
-    openapiFields.add("file");
-    openapiFields.add("mime");
-    openapiFields.add("size");
-    openapiFields.add("extension");
-    openapiFields.add("full_path");
-    openapiFields.add("url");
+    openapiFields = new HashSet<String>(Arrays.asList("hash", "file", "mime", "size", "extension", "full_path", "url"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to AttachmentGet
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to AttachmentGet
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!AttachmentGet.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -436,22 +435,22 @@ public class AttachmentGet {
     }
   }
 
- /**
-  * Create an instance of AttachmentGet given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of AttachmentGet
-  * @throws IOException if the JSON string is invalid with respect to AttachmentGet
-  */
+  /**
+   * Create an instance of AttachmentGet given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of AttachmentGet
+   * @throws IOException if the JSON string is invalid with respect to AttachmentGet
+   */
   public static AttachmentGet fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, AttachmentGet.class);
   }
 
- /**
-  * Convert an instance of AttachmentGet to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of AttachmentGet to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

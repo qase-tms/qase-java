@@ -19,11 +19,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.qase.client.v1.models.ParameterSingle;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -42,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -54,85 +50,56 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseParameterBase
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class TestCaseParameterBase {
   public static final String SERIALIZED_NAME_SHARED_ID = "shared_id";
   @SerializedName(SERIALIZED_NAME_SHARED_ID)
+  @javax.annotation.Nullable
   private UUID sharedId;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nonnull
   private String type;
-
-  public static final String SERIALIZED_NAME_ITEMS = "items";
-  @SerializedName(SERIALIZED_NAME_ITEMS)
-  private List<ParameterSingle> items = new ArrayList<>();
 
   public TestCaseParameterBase() {
   }
 
-  public TestCaseParameterBase sharedId(UUID sharedId) {
+  public TestCaseParameterBase sharedId(@javax.annotation.Nullable UUID sharedId) {
     this.sharedId = sharedId;
     return this;
   }
 
-   /**
+  /**
    * Get sharedId
    * @return sharedId
-  **/
+   */
   @javax.annotation.Nullable
   public UUID getSharedId() {
     return sharedId;
   }
 
-  public void setSharedId(UUID sharedId) {
+  public void setSharedId(@javax.annotation.Nullable UUID sharedId) {
     this.sharedId = sharedId;
   }
 
 
-  public TestCaseParameterBase type(String type) {
+  public TestCaseParameterBase type(@javax.annotation.Nonnull String type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nonnull
   public String getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
-  }
-
-
-  public TestCaseParameterBase items(List<ParameterSingle> items) {
-    this.items = items;
-    return this;
-  }
-
-  public TestCaseParameterBase addItemsItem(ParameterSingle itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<>();
-    }
-    this.items.add(itemsItem);
-    return this;
-  }
-
-   /**
-   * Get items
-   * @return items
-  **/
-  @javax.annotation.Nonnull
-  public List<ParameterSingle> getItems() {
-    return items;
-  }
-
-  public void setItems(List<ParameterSingle> items) {
-    this.items = items;
   }
 
   /**
@@ -191,8 +158,7 @@ public class TestCaseParameterBase {
     }
     TestCaseParameterBase testCaseParameterBase = (TestCaseParameterBase) o;
     return Objects.equals(this.sharedId, testCaseParameterBase.sharedId) &&
-        Objects.equals(this.type, testCaseParameterBase.type) &&
-        Objects.equals(this.items, testCaseParameterBase.items)&&
+        Objects.equals(this.type, testCaseParameterBase.type)&&
         Objects.equals(this.additionalProperties, testCaseParameterBase.additionalProperties);
   }
 
@@ -202,7 +168,7 @@ public class TestCaseParameterBase {
 
   @Override
   public int hashCode() {
-    return Objects.hash(sharedId, type, items, additionalProperties);
+    return Objects.hash(sharedId, type, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -218,7 +184,6 @@ public class TestCaseParameterBase {
     sb.append("class TestCaseParameterBase {\n");
     sb.append("    sharedId: ").append(toIndentedString(sharedId)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -241,23 +206,18 @@ public class TestCaseParameterBase {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("shared_id");
-    openapiFields.add("type");
-    openapiFields.add("items");
+    openapiFields = new HashSet<String>(Arrays.asList("shared_id", "type"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("items");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("type"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TestCaseParameterBase
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to TestCaseParameterBase
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCaseParameterBase.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -278,16 +238,6 @@ public class TestCaseParameterBase {
       if (!jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
-      // ensure the json data is an array
-      if (!jsonObj.get("items").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `items` to be an array in the JSON string but got `%s`", jsonObj.get("items").toString()));
-      }
-
-      JsonArray jsonArrayitems = jsonObj.getAsJsonArray("items");
-      // validate the required field `items` (array)
-      for (int i = 0; i < jsonArrayitems.size(); i++) {
-        ParameterSingle.validateJsonElement(jsonArrayitems.get(i));
-      };
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -362,22 +312,22 @@ public class TestCaseParameterBase {
     }
   }
 
- /**
-  * Create an instance of TestCaseParameterBase given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of TestCaseParameterBase
-  * @throws IOException if the JSON string is invalid with respect to TestCaseParameterBase
-  */
+  /**
+   * Create an instance of TestCaseParameterBase given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of TestCaseParameterBase
+   * @throws IOException if the JSON string is invalid with respect to TestCaseParameterBase
+   */
   public static TestCaseParameterBase fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, TestCaseParameterBase.class);
   }
 
- /**
-  * Convert an instance of TestCaseParameterBase to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of TestCaseParameterBase to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

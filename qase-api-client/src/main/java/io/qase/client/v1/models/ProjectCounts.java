@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,122 +50,127 @@ import io.qase.client.v1.JSON;
 /**
  * ProjectCounts
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ProjectCounts {
   public static final String SERIALIZED_NAME_CASES = "cases";
   @SerializedName(SERIALIZED_NAME_CASES)
+  @javax.annotation.Nullable
   private Integer cases;
 
   public static final String SERIALIZED_NAME_SUITES = "suites";
   @SerializedName(SERIALIZED_NAME_SUITES)
+  @javax.annotation.Nullable
   private Integer suites;
 
   public static final String SERIALIZED_NAME_MILESTONES = "milestones";
   @SerializedName(SERIALIZED_NAME_MILESTONES)
+  @javax.annotation.Nullable
   private Integer milestones;
 
   public static final String SERIALIZED_NAME_RUNS = "runs";
   @SerializedName(SERIALIZED_NAME_RUNS)
+  @javax.annotation.Nullable
   private ProjectCountsRuns runs;
 
   public static final String SERIALIZED_NAME_DEFECTS = "defects";
   @SerializedName(SERIALIZED_NAME_DEFECTS)
+  @javax.annotation.Nullable
   private ProjectCountsDefects defects;
 
   public ProjectCounts() {
   }
 
-  public ProjectCounts cases(Integer cases) {
+  public ProjectCounts cases(@javax.annotation.Nullable Integer cases) {
     this.cases = cases;
     return this;
   }
 
-   /**
+  /**
    * Get cases
    * @return cases
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getCases() {
     return cases;
   }
 
-  public void setCases(Integer cases) {
+  public void setCases(@javax.annotation.Nullable Integer cases) {
     this.cases = cases;
   }
 
 
-  public ProjectCounts suites(Integer suites) {
+  public ProjectCounts suites(@javax.annotation.Nullable Integer suites) {
     this.suites = suites;
     return this;
   }
 
-   /**
+  /**
    * Get suites
    * @return suites
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getSuites() {
     return suites;
   }
 
-  public void setSuites(Integer suites) {
+  public void setSuites(@javax.annotation.Nullable Integer suites) {
     this.suites = suites;
   }
 
 
-  public ProjectCounts milestones(Integer milestones) {
+  public ProjectCounts milestones(@javax.annotation.Nullable Integer milestones) {
     this.milestones = milestones;
     return this;
   }
 
-   /**
+  /**
    * Get milestones
    * @return milestones
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getMilestones() {
     return milestones;
   }
 
-  public void setMilestones(Integer milestones) {
+  public void setMilestones(@javax.annotation.Nullable Integer milestones) {
     this.milestones = milestones;
   }
 
 
-  public ProjectCounts runs(ProjectCountsRuns runs) {
+  public ProjectCounts runs(@javax.annotation.Nullable ProjectCountsRuns runs) {
     this.runs = runs;
     return this;
   }
 
-   /**
+  /**
    * Get runs
    * @return runs
-  **/
+   */
   @javax.annotation.Nullable
   public ProjectCountsRuns getRuns() {
     return runs;
   }
 
-  public void setRuns(ProjectCountsRuns runs) {
+  public void setRuns(@javax.annotation.Nullable ProjectCountsRuns runs) {
     this.runs = runs;
   }
 
 
-  public ProjectCounts defects(ProjectCountsDefects defects) {
+  public ProjectCounts defects(@javax.annotation.Nullable ProjectCountsDefects defects) {
     this.defects = defects;
     return this;
   }
 
-   /**
+  /**
    * Get defects
    * @return defects
-  **/
+   */
   @javax.annotation.Nullable
   public ProjectCountsDefects getDefects() {
     return defects;
   }
 
-  public void setDefects(ProjectCountsDefects defects) {
+  public void setDefects(@javax.annotation.Nullable ProjectCountsDefects defects) {
     this.defects = defects;
   }
 
@@ -269,23 +273,18 @@ public class ProjectCounts {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("cases");
-    openapiFields.add("suites");
-    openapiFields.add("milestones");
-    openapiFields.add("runs");
-    openapiFields.add("defects");
+    openapiFields = new HashSet<String>(Arrays.asList("cases", "suites", "milestones", "runs", "defects"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ProjectCounts
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ProjectCounts
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ProjectCounts.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -375,22 +374,22 @@ public class ProjectCounts {
     }
   }
 
- /**
-  * Create an instance of ProjectCounts given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProjectCounts
-  * @throws IOException if the JSON string is invalid with respect to ProjectCounts
-  */
+  /**
+   * Create an instance of ProjectCounts given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ProjectCounts
+   * @throws IOException if the JSON string is invalid with respect to ProjectCounts
+   */
   public static ProjectCounts fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ProjectCounts.class);
   }
 
- /**
-  * Convert an instance of ProjectCounts to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ProjectCounts to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

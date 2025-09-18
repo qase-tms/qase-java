@@ -43,7 +43,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -55,178 +54,188 @@ import io.qase.client.v1.JSON;
 /**
  * PlanDetailed
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class PlanDetailed {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private Long id;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nullable
   private String title;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_CASES_COUNT = "cases_count";
   @SerializedName(SERIALIZED_NAME_CASES_COUNT)
+  @javax.annotation.Nullable
   private Integer casesCount;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public static final String SERIALIZED_NAME_CREATED = "created";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_CREATED)
+  @javax.annotation.Nullable
   private String created;
 
   public static final String SERIALIZED_NAME_UPDATED = "updated";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_UPDATED)
+  @javax.annotation.Nullable
   private String updated;
 
   public static final String SERIALIZED_NAME_AVERAGE_TIME = "average_time";
   @SerializedName(SERIALIZED_NAME_AVERAGE_TIME)
+  @javax.annotation.Nullable
   private BigDecimal averageTime;
 
   public static final String SERIALIZED_NAME_CASES = "cases";
   @SerializedName(SERIALIZED_NAME_CASES)
-  private List<PlanDetailedAllOfCases> cases;
+  @javax.annotation.Nullable
+  private List<PlanDetailedAllOfCases> cases = new ArrayList<>();
 
   public PlanDetailed() {
   }
 
-  public PlanDetailed id(Long id) {
+  public PlanDetailed id(@javax.annotation.Nullable Long id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(@javax.annotation.Nullable Long id) {
     this.id = id;
   }
 
 
-  public PlanDetailed title(String title) {
+  public PlanDetailed title(@javax.annotation.Nullable String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nullable
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
 
-  public PlanDetailed description(String description) {
+  public PlanDetailed description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public PlanDetailed casesCount(Integer casesCount) {
+  public PlanDetailed casesCount(@javax.annotation.Nullable Integer casesCount) {
     this.casesCount = casesCount;
     return this;
   }
 
-   /**
+  /**
    * Get casesCount
    * @return casesCount
-  **/
+   */
   @javax.annotation.Nullable
   public Integer getCasesCount() {
     return casesCount;
   }
 
-  public void setCasesCount(Integer casesCount) {
+  public void setCasesCount(@javax.annotation.Nullable Integer casesCount) {
     this.casesCount = casesCount;
   }
 
 
-  public PlanDetailed createdAt(OffsetDateTime createdAt) {
+  public PlanDetailed createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
+  /**
    * Get createdAt
    * @return createdAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
 
-  public PlanDetailed updatedAt(OffsetDateTime updatedAt) {
+  public PlanDetailed updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
+  /**
    * Get updatedAt
    * @return updatedAt
-  **/
+   */
   @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
 
   @Deprecated
-  public PlanDetailed created(String created) {
+  public PlanDetailed created(@javax.annotation.Nullable String created) {
     this.created = created;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;created_at&#x60; property instead.
    * @return created
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getCreated() {
@@ -234,22 +243,22 @@ public class PlanDetailed {
   }
 
   @Deprecated
-  public void setCreated(String created) {
+  public void setCreated(@javax.annotation.Nullable String created) {
     this.created = created;
   }
 
 
   @Deprecated
-  public PlanDetailed updated(String updated) {
+  public PlanDetailed updated(@javax.annotation.Nullable String updated) {
     this.updated = updated;
     return this;
   }
 
-   /**
+  /**
    * Deprecated, use the &#x60;updated_at&#x60; property instead.
    * @return updated
    * @deprecated
-  **/
+   */
   @Deprecated
   @javax.annotation.Nullable
   public String getUpdated() {
@@ -257,31 +266,31 @@ public class PlanDetailed {
   }
 
   @Deprecated
-  public void setUpdated(String updated) {
+  public void setUpdated(@javax.annotation.Nullable String updated) {
     this.updated = updated;
   }
 
 
-  public PlanDetailed averageTime(BigDecimal averageTime) {
+  public PlanDetailed averageTime(@javax.annotation.Nullable BigDecimal averageTime) {
     this.averageTime = averageTime;
     return this;
   }
 
-   /**
+  /**
    * Get averageTime
    * @return averageTime
-  **/
+   */
   @javax.annotation.Nullable
   public BigDecimal getAverageTime() {
     return averageTime;
   }
 
-  public void setAverageTime(BigDecimal averageTime) {
+  public void setAverageTime(@javax.annotation.Nullable BigDecimal averageTime) {
     this.averageTime = averageTime;
   }
 
 
-  public PlanDetailed cases(List<PlanDetailedAllOfCases> cases) {
+  public PlanDetailed cases(@javax.annotation.Nullable List<PlanDetailedAllOfCases> cases) {
     this.cases = cases;
     return this;
   }
@@ -294,16 +303,16 @@ public class PlanDetailed {
     return this;
   }
 
-   /**
+  /**
    * Get cases
    * @return cases
-  **/
+   */
   @javax.annotation.Nullable
   public List<PlanDetailedAllOfCases> getCases() {
     return cases;
   }
 
-  public void setCases(List<PlanDetailedAllOfCases> cases) {
+  public void setCases(@javax.annotation.Nullable List<PlanDetailedAllOfCases> cases) {
     this.cases = cases;
   }
 
@@ -427,28 +436,18 @@ public class PlanDetailed {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("title");
-    openapiFields.add("description");
-    openapiFields.add("cases_count");
-    openapiFields.add("created_at");
-    openapiFields.add("updated_at");
-    openapiFields.add("created");
-    openapiFields.add("updated");
-    openapiFields.add("average_time");
-    openapiFields.add("cases");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "title", "description", "cases_count", "created_at", "updated_at", "created", "updated", "average_time", "cases"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to PlanDetailed
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to PlanDetailed
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!PlanDetailed.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -556,22 +555,22 @@ public class PlanDetailed {
     }
   }
 
- /**
-  * Create an instance of PlanDetailed given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of PlanDetailed
-  * @throws IOException if the JSON string is invalid with respect to PlanDetailed
-  */
+  /**
+   * Create an instance of PlanDetailed given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of PlanDetailed
+   * @throws IOException if the JSON string is invalid with respect to PlanDetailed
+   */
   public static PlanDetailed fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, PlanDetailed.class);
   }
 
- /**
-  * Convert an instance of PlanDetailed to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of PlanDetailed to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

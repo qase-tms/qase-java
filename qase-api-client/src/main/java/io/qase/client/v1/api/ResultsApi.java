@@ -30,11 +30,11 @@ import java.io.IOException;
 import io.qase.client.v1.models.BaseResponse;
 import io.qase.client.v1.models.HashResponse;
 import io.qase.client.v1.models.ResultCreate;
+import io.qase.client.v1.models.ResultCreateBulk;
 import io.qase.client.v1.models.ResultCreateResponse;
 import io.qase.client.v1.models.ResultListResponse;
 import io.qase.client.v1.models.ResultResponse;
 import io.qase.client.v1.models.ResultUpdate;
-import io.qase.client.v1.models.ResultCreateBulk;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -88,7 +88,8 @@ public class ResultsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -99,7 +100,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultCall(String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createResultCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreate resultCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -147,7 +148,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createResultValidateBeforeCall(String code, Integer id, ResultCreate resultCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createResultValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreate resultCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createResult(Async)");
@@ -176,7 +177,8 @@ public class ResultsApi {
      * @return ResultCreateResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -187,7 +189,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ResultCreateResponse createResult(String code, Integer id, ResultCreate resultCreate) throws ApiException {
+    public ResultCreateResponse createResult(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreate resultCreate) throws ApiException {
         ApiResponse<ResultCreateResponse> localVarResp = createResultWithHttpInfo(code, id, resultCreate);
         return localVarResp.getData();
     }
@@ -201,7 +203,8 @@ public class ResultsApi {
      * @return ApiResponse&lt;ResultCreateResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -212,7 +215,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ResultCreateResponse> createResultWithHttpInfo(String code, Integer id, ResultCreate resultCreate) throws ApiException {
+    public ApiResponse<ResultCreateResponse> createResultWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreate resultCreate) throws ApiException {
         okhttp3.Call localVarCall = createResultValidateBeforeCall(code, id, resultCreate, null);
         Type localVarReturnType = new TypeToken<ResultCreateResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -228,7 +231,8 @@ public class ResultsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -239,7 +243,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultAsync(String code, Integer id, ResultCreate resultCreate, final ApiCallback<ResultCreateResponse> _callback) throws ApiException {
+    public okhttp3.Call createResultAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreate resultCreate, final ApiCallback<ResultCreateResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createResultValidateBeforeCall(code, id, resultCreate, _callback);
         Type localVarReturnType = new TypeToken<ResultCreateResponse>(){}.getType();
@@ -250,12 +254,13 @@ public class ResultsApi {
      * Build call for createResultBulk
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param ResultCreateBulk  (required)
+     * @param resultCreateBulk  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -267,7 +272,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultBulkCall(String code, Integer id, ResultCreateBulk ResultCreateBulk, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createResultBulkCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreateBulk resultCreateBulk, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -281,7 +286,7 @@ public class ResultsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = ResultCreateBulk;
+        Object localVarPostBody = resultCreateBulk;
 
         // create path and map variables
         String localVarPath = "/result/{code}/{id}/bulk"
@@ -315,7 +320,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createResultBulkValidateBeforeCall(String code, Integer id, ResultCreateBulk ResultCreateBulk, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createResultBulkValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreateBulk resultCreateBulk, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createResultBulk(Async)");
@@ -326,12 +331,12 @@ public class ResultsApi {
             throw new ApiException("Missing the required parameter 'id' when calling createResultBulk(Async)");
         }
 
-        // verify the required parameter 'ResultCreateBulk' is set
-        if (ResultCreateBulk == null) {
-            throw new ApiException("Missing the required parameter 'ResultCreateBulk' when calling createResultBulk(Async)");
+        // verify the required parameter 'resultCreateBulk' is set
+        if (resultCreateBulk == null) {
+            throw new ApiException("Missing the required parameter 'resultCreateBulk' when calling createResultBulk(Async)");
         }
 
-        return createResultBulkCall(code, id, ResultCreateBulk, _callback);
+        return createResultBulkCall(code, id, resultCreateBulk, _callback);
 
     }
 
@@ -340,11 +345,12 @@ public class ResultsApi {
      * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param ResultCreateBulk  (required)
+     * @param resultCreateBulk  (required)
      * @return BaseResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -356,8 +362,8 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public BaseResponse createResultBulk(String code, Integer id, ResultCreateBulk ResultCreateBulk) throws ApiException {
-        ApiResponse<BaseResponse> localVarResp = createResultBulkWithHttpInfo(code, id, ResultCreateBulk);
+    public BaseResponse createResultBulk(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreateBulk resultCreateBulk) throws ApiException {
+        ApiResponse<BaseResponse> localVarResp = createResultBulkWithHttpInfo(code, id, resultCreateBulk);
         return localVarResp.getData();
     }
 
@@ -366,11 +372,12 @@ public class ResultsApi {
      * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param ResultCreateBulk  (required)
+     * @param resultCreateBulk  (required)
      * @return ApiResponse&lt;BaseResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -382,8 +389,8 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<BaseResponse> createResultBulkWithHttpInfo(String code, Integer id, ResultCreateBulk ResultCreateBulk) throws ApiException {
-        okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, ResultCreateBulk, null);
+    public ApiResponse<BaseResponse> createResultBulkWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreateBulk resultCreateBulk) throws ApiException {
+        okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, resultCreateBulk, null);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -393,12 +400,13 @@ public class ResultsApi {
      * This method allows to create a lot of test run result at once.  If you try to send more than 2,000 results in a single bulk request, you will receive an error with code 413 - Payload Too Large.  If there is no free space left in your team account, when attempting to upload an attachment, e.g., through reporters, you will receive an error with code 507 - Insufficient Storage. 
      * @param code Code of project, where to search entities. (required)
      * @param id Identifier. (required)
-     * @param ResultCreateBulk  (required)
+     * @param resultCreateBulk  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -410,9 +418,9 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultBulkAsync(String code, Integer id, ResultCreateBulk ResultCreateBulk, final ApiCallback<BaseResponse> _callback) throws ApiException {
+    public okhttp3.Call createResultBulkAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull ResultCreateBulk resultCreateBulk, final ApiCallback<BaseResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, ResultCreateBulk, _callback);
+        okhttp3.Call localVarCall = createResultBulkValidateBeforeCall(code, id, resultCreateBulk, _callback);
         Type localVarReturnType = new TypeToken<BaseResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -426,7 +434,8 @@ public class ResultsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -436,7 +445,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteResultCall(String code, Integer id, String hash, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteResultCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -484,7 +493,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteResultValidateBeforeCall(String code, Integer id, String hash, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteResultValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deleteResult(Async)");
@@ -513,7 +522,8 @@ public class ResultsApi {
      * @return HashResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -523,7 +533,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public HashResponse deleteResult(String code, Integer id, String hash) throws ApiException {
+    public HashResponse deleteResult(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash) throws ApiException {
         ApiResponse<HashResponse> localVarResp = deleteResultWithHttpInfo(code, id, hash);
         return localVarResp.getData();
     }
@@ -537,7 +547,8 @@ public class ResultsApi {
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -547,7 +558,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<HashResponse> deleteResultWithHttpInfo(String code, Integer id, String hash) throws ApiException {
+    public ApiResponse<HashResponse> deleteResultWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash) throws ApiException {
         okhttp3.Call localVarCall = deleteResultValidateBeforeCall(code, id, hash, null);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -563,7 +574,8 @@ public class ResultsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -573,7 +585,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteResultAsync(String code, Integer id, String hash, final ApiCallback<HashResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteResultAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash, final ApiCallback<HashResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteResultValidateBeforeCall(code, id, hash, _callback);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
@@ -588,7 +600,8 @@ public class ResultsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -598,7 +611,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getResultCall(String code, String hash, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getResultCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -645,7 +658,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getResultValidateBeforeCall(String code, String hash, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getResultValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getResult(Async)");
@@ -668,7 +681,8 @@ public class ResultsApi {
      * @return ResultResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -678,7 +692,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ResultResponse getResult(String code, String hash) throws ApiException {
+    public ResultResponse getResult(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash) throws ApiException {
         ApiResponse<ResultResponse> localVarResp = getResultWithHttpInfo(code, hash);
         return localVarResp.getData();
     }
@@ -691,7 +705,8 @@ public class ResultsApi {
      * @return ApiResponse&lt;ResultResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -701,7 +716,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ResultResponse> getResultWithHttpInfo(String code, String hash) throws ApiException {
+    public ApiResponse<ResultResponse> getResultWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash) throws ApiException {
         okhttp3.Call localVarCall = getResultValidateBeforeCall(code, hash, null);
         Type localVarReturnType = new TypeToken<ResultResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -716,7 +731,8 @@ public class ResultsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A test run result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -726,7 +742,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getResultAsync(String code, String hash, final ApiCallback<ResultResponse> _callback) throws ApiException {
+    public okhttp3.Call getResultAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull String hash, final ApiCallback<ResultResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getResultValidateBeforeCall(code, hash, _callback);
         Type localVarReturnType = new TypeToken<ResultResponse>(){}.getType();
@@ -749,7 +765,8 @@ public class ResultsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -759,7 +776,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getResultsCall(String code, String status, String run, String caseId, String member, Boolean api, String fromEndTime, String toEndTime, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getResultsCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable String run, @javax.annotation.Nullable String caseId, @javax.annotation.Nullable String member, @javax.annotation.Nullable Boolean api, @javax.annotation.Nullable String fromEndTime, @javax.annotation.Nullable String toEndTime, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -841,7 +858,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getResultsValidateBeforeCall(String code, String status, String run, String caseId, String member, Boolean api, String fromEndTime, String toEndTime, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getResultsValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable String run, @javax.annotation.Nullable String caseId, @javax.annotation.Nullable String member, @javax.annotation.Nullable Boolean api, @javax.annotation.Nullable String fromEndTime, @javax.annotation.Nullable String toEndTime, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getResults(Async)");
@@ -867,7 +884,8 @@ public class ResultsApi {
      * @return ResultListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -877,7 +895,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ResultListResponse getResults(String code, String status, String run, String caseId, String member, Boolean api, String fromEndTime, String toEndTime, Integer limit, Integer offset) throws ApiException {
+    public ResultListResponse getResults(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable String run, @javax.annotation.Nullable String caseId, @javax.annotation.Nullable String member, @javax.annotation.Nullable Boolean api, @javax.annotation.Nullable String fromEndTime, @javax.annotation.Nullable String toEndTime, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<ResultListResponse> localVarResp = getResultsWithHttpInfo(code, status, run, caseId, member, api, fromEndTime, toEndTime, limit, offset);
         return localVarResp.getData();
     }
@@ -898,7 +916,8 @@ public class ResultsApi {
      * @return ApiResponse&lt;ResultListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -908,7 +927,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ResultListResponse> getResultsWithHttpInfo(String code, String status, String run, String caseId, String member, Boolean api, String fromEndTime, String toEndTime, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<ResultListResponse> getResultsWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable String run, @javax.annotation.Nullable String caseId, @javax.annotation.Nullable String member, @javax.annotation.Nullable Boolean api, @javax.annotation.Nullable String fromEndTime, @javax.annotation.Nullable String toEndTime, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, status, run, caseId, member, api, fromEndTime, toEndTime, limit, offset, null);
         Type localVarReturnType = new TypeToken<ResultListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -931,7 +950,8 @@ public class ResultsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all test run results. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -941,7 +961,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getResultsAsync(String code, String status, String run, String caseId, String member, Boolean api, String fromEndTime, String toEndTime, Integer limit, Integer offset, final ApiCallback<ResultListResponse> _callback) throws ApiException {
+    public okhttp3.Call getResultsAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String status, @javax.annotation.Nullable String run, @javax.annotation.Nullable String caseId, @javax.annotation.Nullable String member, @javax.annotation.Nullable Boolean api, @javax.annotation.Nullable String fromEndTime, @javax.annotation.Nullable String toEndTime, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<ResultListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getResultsValidateBeforeCall(code, status, run, caseId, member, api, fromEndTime, toEndTime, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<ResultListResponse>(){}.getType();
@@ -958,7 +978,8 @@ public class ResultsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -969,7 +990,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateResultCall(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateResultCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull ResultUpdate resultUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1018,7 +1039,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateResultValidateBeforeCall(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateResultValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull ResultUpdate resultUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updateResult(Async)");
@@ -1053,7 +1074,8 @@ public class ResultsApi {
      * @return HashResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1064,7 +1086,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public HashResponse updateResult(String code, Integer id, String hash, ResultUpdate resultUpdate) throws ApiException {
+    public HashResponse updateResult(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull ResultUpdate resultUpdate) throws ApiException {
         ApiResponse<HashResponse> localVarResp = updateResultWithHttpInfo(code, id, hash, resultUpdate);
         return localVarResp.getData();
     }
@@ -1079,7 +1101,8 @@ public class ResultsApi {
      * @return ApiResponse&lt;HashResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1090,7 +1113,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<HashResponse> updateResultWithHttpInfo(String code, Integer id, String hash, ResultUpdate resultUpdate) throws ApiException {
+    public ApiResponse<HashResponse> updateResultWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull ResultUpdate resultUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateResultValidateBeforeCall(code, id, hash, resultUpdate, null);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1107,7 +1130,8 @@ public class ResultsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -1118,7 +1142,7 @@ public class ResultsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateResultAsync(String code, Integer id, String hash, ResultUpdate resultUpdate, final ApiCallback<HashResponse> _callback) throws ApiException {
+    public okhttp3.Call updateResultAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull String hash, @javax.annotation.Nonnull ResultUpdate resultUpdate, final ApiCallback<HashResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateResultValidateBeforeCall(code, id, hash, resultUpdate, _callback);
         Type localVarReturnType = new TypeToken<HashResponse>(){}.getType();

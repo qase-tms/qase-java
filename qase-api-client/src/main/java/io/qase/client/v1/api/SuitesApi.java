@@ -85,7 +85,8 @@ public class SuitesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -96,7 +97,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createSuiteCall(String code, SuiteCreate suiteCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createSuiteCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SuiteCreate suiteCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -143,7 +144,7 @@ public class SuitesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createSuiteValidateBeforeCall(String code, SuiteCreate suiteCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createSuiteValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SuiteCreate suiteCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling createSuite(Async)");
@@ -166,7 +167,8 @@ public class SuitesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -177,7 +179,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse createSuite(String code, SuiteCreate suiteCreate) throws ApiException {
+    public IdResponse createSuite(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SuiteCreate suiteCreate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = createSuiteWithHttpInfo(code, suiteCreate);
         return localVarResp.getData();
     }
@@ -190,7 +192,8 @@ public class SuitesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -201,7 +204,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> createSuiteWithHttpInfo(String code, SuiteCreate suiteCreate) throws ApiException {
+    public ApiResponse<IdResponse> createSuiteWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SuiteCreate suiteCreate) throws ApiException {
         okhttp3.Call localVarCall = createSuiteValidateBeforeCall(code, suiteCreate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -216,7 +219,8 @@ public class SuitesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -227,7 +231,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createSuiteAsync(String code, SuiteCreate suiteCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call createSuiteAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull SuiteCreate suiteCreate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createSuiteValidateBeforeCall(code, suiteCreate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -243,7 +247,8 @@ public class SuitesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -253,7 +258,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteSuiteCall(String code, Integer id, SuiteDelete suiteDelete, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteSuiteCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable SuiteDelete suiteDelete, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -301,7 +306,7 @@ public class SuitesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteSuiteValidateBeforeCall(String code, Integer id, SuiteDelete suiteDelete, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteSuiteValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable SuiteDelete suiteDelete, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling deleteSuite(Async)");
@@ -325,7 +330,8 @@ public class SuitesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -335,7 +341,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse deleteSuite(String code, Integer id, SuiteDelete suiteDelete) throws ApiException {
+    public IdResponse deleteSuite(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable SuiteDelete suiteDelete) throws ApiException {
         ApiResponse<IdResponse> localVarResp = deleteSuiteWithHttpInfo(code, id, suiteDelete);
         return localVarResp.getData();
     }
@@ -349,7 +355,8 @@ public class SuitesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -359,7 +366,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> deleteSuiteWithHttpInfo(String code, Integer id, SuiteDelete suiteDelete) throws ApiException {
+    public ApiResponse<IdResponse> deleteSuiteWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable SuiteDelete suiteDelete) throws ApiException {
         okhttp3.Call localVarCall = deleteSuiteValidateBeforeCall(code, id, suiteDelete, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -375,7 +382,8 @@ public class SuitesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -385,7 +393,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteSuiteAsync(String code, Integer id, SuiteDelete suiteDelete, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteSuiteAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nullable SuiteDelete suiteDelete, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteSuiteValidateBeforeCall(code, id, suiteDelete, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
@@ -400,7 +408,8 @@ public class SuitesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -410,7 +419,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSuiteCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getSuiteCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -457,7 +466,7 @@ public class SuitesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSuiteValidateBeforeCall(String code, Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSuiteValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getSuite(Async)");
@@ -480,7 +489,8 @@ public class SuitesApi {
      * @return SuiteResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -490,7 +500,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public SuiteResponse getSuite(String code, Integer id) throws ApiException {
+    public SuiteResponse getSuite(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         ApiResponse<SuiteResponse> localVarResp = getSuiteWithHttpInfo(code, id);
         return localVarResp.getData();
     }
@@ -503,7 +513,8 @@ public class SuitesApi {
      * @return ApiResponse&lt;SuiteResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -513,7 +524,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<SuiteResponse> getSuiteWithHttpInfo(String code, Integer id) throws ApiException {
+    public ApiResponse<SuiteResponse> getSuiteWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id) throws ApiException {
         okhttp3.Call localVarCall = getSuiteValidateBeforeCall(code, id, null);
         Type localVarReturnType = new TypeToken<SuiteResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -528,7 +539,8 @@ public class SuitesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A Test Case. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -538,7 +550,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSuiteAsync(String code, Integer id, final ApiCallback<SuiteResponse> _callback) throws ApiException {
+    public okhttp3.Call getSuiteAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, final ApiCallback<SuiteResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getSuiteValidateBeforeCall(code, id, _callback);
         Type localVarReturnType = new TypeToken<SuiteResponse>(){}.getType();
@@ -555,7 +567,8 @@ public class SuitesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all suites of project. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -565,7 +578,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSuitesCall(String code, String search, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getSuitesCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -623,7 +636,7 @@ public class SuitesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSuitesValidateBeforeCall(String code, String search, Integer limit, Integer offset, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSuitesValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getSuites(Async)");
@@ -643,7 +656,8 @@ public class SuitesApi {
      * @return SuiteListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all suites of project. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -653,7 +667,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public SuiteListResponse getSuites(String code, String search, Integer limit, Integer offset) throws ApiException {
+    public SuiteListResponse getSuites(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         ApiResponse<SuiteListResponse> localVarResp = getSuitesWithHttpInfo(code, search, limit, offset);
         return localVarResp.getData();
     }
@@ -668,7 +682,8 @@ public class SuitesApi {
      * @return ApiResponse&lt;SuiteListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all suites of project. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -678,7 +693,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<SuiteListResponse> getSuitesWithHttpInfo(String code, String search, Integer limit, Integer offset) throws ApiException {
+    public ApiResponse<SuiteListResponse> getSuitesWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset) throws ApiException {
         okhttp3.Call localVarCall = getSuitesValidateBeforeCall(code, search, limit, offset, null);
         Type localVarReturnType = new TypeToken<SuiteListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -695,7 +710,8 @@ public class SuitesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A list of all suites of project. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -705,7 +721,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getSuitesAsync(String code, String search, Integer limit, Integer offset, final ApiCallback<SuiteListResponse> _callback) throws ApiException {
+    public okhttp3.Call getSuitesAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nullable String search, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable Integer offset, final ApiCallback<SuiteListResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getSuitesValidateBeforeCall(code, search, limit, offset, _callback);
         Type localVarReturnType = new TypeToken<SuiteListResponse>(){}.getType();
@@ -721,7 +737,8 @@ public class SuitesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -732,7 +749,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateSuiteCall(String code, Integer id, SuiteUpdate suiteUpdate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateSuiteCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull SuiteUpdate suiteUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -780,7 +797,7 @@ public class SuitesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateSuiteValidateBeforeCall(String code, Integer id, SuiteUpdate suiteUpdate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateSuiteValidateBeforeCall(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull SuiteUpdate suiteUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling updateSuite(Async)");
@@ -809,7 +826,8 @@ public class SuitesApi {
      * @return IdResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -820,7 +838,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public IdResponse updateSuite(String code, Integer id, SuiteUpdate suiteUpdate) throws ApiException {
+    public IdResponse updateSuite(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull SuiteUpdate suiteUpdate) throws ApiException {
         ApiResponse<IdResponse> localVarResp = updateSuiteWithHttpInfo(code, id, suiteUpdate);
         return localVarResp.getData();
     }
@@ -834,7 +852,8 @@ public class SuitesApi {
      * @return ApiResponse&lt;IdResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -845,7 +864,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<IdResponse> updateSuiteWithHttpInfo(String code, Integer id, SuiteUpdate suiteUpdate) throws ApiException {
+    public ApiResponse<IdResponse> updateSuiteWithHttpInfo(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull SuiteUpdate suiteUpdate) throws ApiException {
         okhttp3.Call localVarCall = updateSuiteValidateBeforeCall(code, id, suiteUpdate, null);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -861,7 +880,8 @@ public class SuitesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> A result of operation. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request. </td><td>  -  </td></tr>
@@ -872,7 +892,7 @@ public class SuitesApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateSuiteAsync(String code, Integer id, SuiteUpdate suiteUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
+    public okhttp3.Call updateSuiteAsync(@javax.annotation.Nonnull String code, @javax.annotation.Nonnull Integer id, @javax.annotation.Nonnull SuiteUpdate suiteUpdate, final ApiCallback<IdResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateSuiteValidateBeforeCall(code, id, suiteUpdate, _callback);
         Type localVarReturnType = new TypeToken<IdResponse>(){}.getType();
