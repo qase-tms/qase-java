@@ -8,6 +8,8 @@ import io.qase.commons.config.QaseConfig;
 import io.qase.commons.hooks.HooksManager;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.models.domain.TestResultStatus;
+import io.qase.commons.utils.StatusMappingUtils;
 import io.qase.commons.writers.FileWriter;
 import io.qase.commons.writers.Writer;
 
@@ -21,8 +23,10 @@ public class CoreReporter implements Reporter {
     private InternalReporter reporter;
     private InternalReporter fallback;
     private final HooksManager hooksManager;
+    private final QaseConfig config;
 
     public CoreReporter(QaseConfig config) {
+        this.config = config;
         this.reporter = this.createReporter(config, config.mode);
         this.fallback = this.createReporter(config, config.fallback);
         this.hooksManager = HooksManager.getDefaultHooksManager();
@@ -46,6 +50,9 @@ public class CoreReporter implements Reporter {
     public void addResult(TestResult result) {
         logger.debug("Adding result: %s", result);
 
+        // Apply status mapping before processing
+        applyStatusMapping(result);
+
         this.hooksManager.beforeTestStop(result);
 
         executeWithFallback(() -> reporter.addResult(result), "add result");
@@ -65,6 +72,32 @@ public class CoreReporter implements Reporter {
 
         return reporter.getTestCaseIdsForExecution();
     }
+
+    /**
+     * Apply status mapping to test result.
+     * This method applies status mapping only to the main test result status.
+     * Step statuses are not modified.
+     * 
+     * @param result the test result to apply mapping to
+     */
+    private void applyStatusMapping(TestResult result) {
+        if (result == null || config.statusMapping == null || config.statusMapping.isEmpty()) {
+            return;
+        }
+
+        // Apply mapping to main test result status only
+        if (result.execution != null && result.execution.status != null) {
+            TestResultStatus originalStatus = result.execution.status;
+            TestResultStatus mappedStatus = StatusMappingUtils.applyStatusMapping(originalStatus, config.statusMapping);
+            
+            if (mappedStatus != originalStatus) {
+                logger.info("Status mapping applied to test '%s': %s -> %s", 
+                    result.title, originalStatus.name().toLowerCase(), mappedStatus.name().toLowerCase());
+                result.execution.status = mappedStatus;
+            }
+        }
+    }
+
 
     private void executeWithFallback(ReporterAction action, String actionName) {
         if (reporter != null) {
