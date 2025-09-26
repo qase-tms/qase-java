@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -79,6 +81,10 @@ public class ConfigFactory {
         qaseConfig.testops.plan.id = getIntEnv("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntEnv("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
         qaseConfig.testops.statusFilter = Arrays.asList(getEnvArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
+        String envStatusMapping = getEnv("QASE_STATUS_MAPPING", null);
+        if (envStatusMapping != null) {
+            qaseConfig.setStatusMapping(envStatusMapping);
+        }
         qaseConfig.report.setDriver(getEnv("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
         qaseConfig.report.connection.local
                 .setFormat(getEnv("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
@@ -115,6 +121,10 @@ public class ConfigFactory {
         qaseConfig.testops.plan.id = getIntProperty("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntProperty("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
         qaseConfig.testops.statusFilter = Arrays.asList(getPropertyArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
+        String propStatusMapping = getProperty("QASE_STATUS_MAPPING", null);
+        if (propStatusMapping != null) {
+            qaseConfig.setStatusMapping(propStatusMapping);
+        }
 
         qaseConfig.report.setDriver(getProperty("QASE_REPORT_DRIVER", qaseConfig.report.getDriver()));
         qaseConfig.report.connection.local.setFormat(
@@ -259,6 +269,15 @@ public class ConfigFactory {
 
         if (fileConfig.has("debug")) {
             qaseConfig.debug = fileConfig.getBoolean("debug");
+        }
+
+        if (fileConfig.has("statusMapping")) {
+            JSONObject statusMappingObj = fileConfig.getJSONObject("statusMapping");
+            Map<String, String> statusMapping = new HashMap<>();
+            for (String key : statusMappingObj.keySet()) {
+                statusMapping.put(key.toLowerCase(), statusMappingObj.getString(key).toLowerCase());
+            }
+            qaseConfig.setStatusMapping(statusMapping);
         }
 
         if (fileConfig.has("testops")) {
