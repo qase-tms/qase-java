@@ -35,6 +35,9 @@ All configuration options are listed in the table below:
 | Environment                                                                                                                | `environment`              | `QASE_ENVIRONMENT`              | `QASE_ENVIRONMENT`              | undefined                               | No       | Any string                 |
 | Root suite                                                                                                                 | `rootSuite`                | `QASE_ROOT_SUITE`               | `QASE_ROOT_SUITE`               | undefined                               | No       | Any string                 |
 | Enable debug logs                                                                                                          | `debug`                    | `QASE_DEBUG`                    | `QASE_DEBUG`                    | `False`                                 | No       | `True`, `False`            |
+| **Logging configuration**                                                                                                  |                            |                                 |                                 |                                         |          |                            |
+| Enable console output                                                                                                      | `logging.console`          | `QASE_LOGGING_CONSOLE`          | `QASE_LOGGING_CONSOLE`          | `True`                                  | No       | `True`, `False`            |
+| Enable file output                                                                                                         | `logging.file`             | `QASE_LOGGING_FILE`             | `QASE_LOGGING_FILE`             | `False` (or `True` when `debug=true`)   | No       | `True`, `False`            |
 | **Qase Report configuration**                                                                                              |                            |                                 |                                 |                                         |          |                            |
 | Driver used for report mode                                                                                                | `report.driver`            | `QASE_REPORT_DRIVER`            | `QASE_REPORT_DRIVER`            | `local`                                 | No       | `local`                    |
 | Path to save the report                                                                                                    | `report.connection.path`   | `QASE_REPORT_CONNECTION_PATH`   | `QASE_REPORT_CONNECTION_PATH`   | `./build/qase-report`                   |          |                            |
@@ -67,6 +70,10 @@ All configuration options are listed in the table below:
   "debug": false,
   "environment": "local",
   "captureLogs": false,
+  "logging": {
+    "console": true,
+    "file": false
+  },
   "report": {
     "driver": "local",
     "connection": {

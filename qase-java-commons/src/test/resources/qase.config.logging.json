@@ -1,0 +1,8 @@
+{
+  "mode": "off",
+  "debug": true,
+  "logging": {
+    "console": false,
+    "file": true
+  }
+}

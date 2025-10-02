@@ -19,6 +19,7 @@ public class QaseConfig {
     public TestopsConfig testops;
     public ReportConfig report;
     public Map<String, String> statusMapping;
+    public LoggingConfig logging;
 
     public QaseConfig() {
         this.mode = Mode.OFF;
@@ -29,6 +30,7 @@ public class QaseConfig {
         this.testops = new TestopsConfig();
         this.report = new ReportConfig();
         this.statusMapping = new HashMap<>();
+        this.logging = new LoggingConfig();
     }
 
     public void setMode(String mode) {
