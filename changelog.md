@@ -1,3 +1,9 @@
+# qase-java 4.1.21
+
+## What's new
+
+- Added support for logging configuration.
+
 # qase-java 4.1.19
 
 ## What's new

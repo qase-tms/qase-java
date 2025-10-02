@@ -18,9 +18,16 @@ public class CoreReporterFactory {
     public static synchronized CoreReporter getInstance() {
         if (instance == null) {
             QaseConfig config = ConfigFactory.loadConfig();
+            
+            // Configure logger based on config
             if(config.debug){
                 logger.setGlobalLogLevel(Logger.LogLevel.DEBUG);
             }
+            
+            // Apply logging configuration
+            logger.setConsoleEnabled(config.logging.console);
+            logger.setFileEnabled(config.logging.file || config.debug);
+            
             logger.debug("Qase config: %s", config);
             HostInfo hostInfoCollector = new HostInfo();
             Map<String, String> hostInfo = hostInfoCollector.getHostInfo(CoreReporterFactory.class.getPackage().getImplementationVersion());

@@ -65,6 +65,10 @@ public class Logger {
     // Volatile for thread visibility
     private volatile LogLevel globalLogLevel = LogLevel.INFO;
     private final Map<String, LogLevel> packageLogLevels = new HashMap<>();
+    
+    // Logging configuration
+    private volatile boolean consoleEnabled = true;
+    private volatile boolean fileEnabled = false;
 
     // Asynchronous logging
     private final BlockingQueue<LogMessage> messageQueue = new LinkedBlockingQueue<>();
@@ -154,6 +158,26 @@ public class Logger {
 
     public synchronized void setMaxBackupFiles(int maxBackupFiles) {
         this.maxBackupFiles = maxBackupFiles;
+    }
+
+    public synchronized void setConsoleEnabled(boolean consoleEnabled) {
+        this.consoleEnabled = consoleEnabled;
+    }
+
+    public synchronized void setFileEnabled(boolean fileEnabled) {
+        this.fileEnabled = fileEnabled;
+    }
+
+    public boolean isConsoleEnabled() {
+        return consoleEnabled;
+    }
+
+    public boolean isFileEnabled() {
+        return fileEnabled;
+    }
+
+    public LogLevel getGlobalLogLevel() {
+        return globalLogLevel;
     }
 
     // MDC context methods
@@ -285,11 +309,15 @@ public class Logger {
         // Format message for output
         String formattedMessage = formatLogMessage(message);
 
-        // Output to console with colors
-        printToConsole(message.level, formattedMessage);
+        // Output to console with colors if enabled
+        if (consoleEnabled) {
+            printToConsole(message.level, formattedMessage);
+        }
 
-        // Write to file
-        writeToFile(formattedMessage, message.throwable);
+        // Write to file if enabled
+        if (fileEnabled) {
+            writeToFile(formattedMessage, message.throwable);
+        }
     }
 
     // Format log message with timestamp, level, context, etc.
@@ -440,6 +468,9 @@ public class Logger {
                 break;
             case TRACE:
                 traceCount++;
+                break;
+            case OFF:
+                // No statistics for OFF level
                 break;
         }
     }

@@ -91,6 +91,10 @@ public class ConfigFactory {
         qaseConfig.report.connection.local.path = getEnv("QASE_REPORT_CONNECTION_PATH",
                 qaseConfig.report.connection.local.path);
 
+        // Load logging configuration
+        qaseConfig.logging.console = getBooleanEnv("QASE_LOGGING_CONSOLE", qaseConfig.logging.console);
+        qaseConfig.logging.file = getBooleanEnv("QASE_LOGGING_FILE", qaseConfig.logging.file);
+
         return qaseConfig;
     }
 
@@ -131,6 +135,10 @@ public class ConfigFactory {
                 getProperty("QASE_REPORT_CONNECTION_FORMAT", qaseConfig.report.connection.local.getFormat()));
         qaseConfig.report.connection.local.path = getProperty("QASE_REPORT_CONNECTION_PATH",
                 qaseConfig.report.connection.local.path);
+
+        // Load logging configuration
+        qaseConfig.logging.console = getBooleanProperty("QASE_LOGGING_CONSOLE", qaseConfig.logging.console);
+        qaseConfig.logging.file = getBooleanProperty("QASE_LOGGING_FILE", qaseConfig.logging.file);
 
         return qaseConfig;
     }
@@ -269,6 +277,18 @@ public class ConfigFactory {
 
         if (fileConfig.has("debug")) {
             qaseConfig.debug = fileConfig.getBoolean("debug");
+        }
+
+        if (fileConfig.has("logging")) {
+            JSONObject loggingObj = fileConfig.getJSONObject("logging");
+            
+            if (loggingObj.has("console")) {
+                qaseConfig.logging.console = loggingObj.getBoolean("console");
+            }
+            
+            if (loggingObj.has("file")) {
+                qaseConfig.logging.file = loggingObj.getBoolean("file");
+            }
         }
 
         if (fileConfig.has("statusMapping")) {
