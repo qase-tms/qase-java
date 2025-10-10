@@ -15,4 +15,6 @@ public interface ApiClient {
     List<Long> getTestCaseIdsForExecution() throws QaseException;
 
     void updateExternalIssue(Long runId) throws QaseException;
+
+    String enablePublicReport(Long runId) throws QaseException;
 }

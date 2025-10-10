@@ -1,3 +1,9 @@
+# qase-java 4.1.22
+
+## What's new
+
+- Added support for public report link for test runs.
+
 # qase-java 4.1.21
 
 ## What's new

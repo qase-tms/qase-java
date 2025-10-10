@@ -45,6 +45,16 @@ public class TestopsReporter implements InternalReporter {
     public void completeTestRun() throws QaseException {
         this.client.completeTestRun(this.testRunId);
         logger.info("Test run %d completed", this.testRunId);
+        
+        // Enable public report if configured
+        if (this.config.showPublicReportLink) {
+            try {
+                String publicReportUrl = this.client.enablePublicReport(this.testRunId);
+                logger.info("Public report link: %s", publicReportUrl);
+            } catch (QaseException e) {
+                logger.warn("Failed to generate public report link: %s", e.getMessage());
+            }
+        }
     }
 
     @Override

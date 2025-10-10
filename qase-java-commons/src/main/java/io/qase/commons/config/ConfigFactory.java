@@ -78,6 +78,7 @@ public class ConfigFactory {
         qaseConfig.testops.run.complete = getBooleanEnv("QASE_TESTOPS_RUN_COMPLETE", qaseConfig.testops.run.complete);
         qaseConfig.testops.run.tags = getEnvArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
         qaseConfig.testops.run.externalLink = getExternalLinkEnv("QASE_TESTOPS_RUN_EXTERNAL_LINK_TYPE", "QASE_TESTOPS_RUN_EXTERNAL_LINK", qaseConfig.testops.run.externalLink);
+        qaseConfig.testops.showPublicReportLink = getBooleanEnv("QASE_TESTOPS_SHOW_PUBLIC_REPORT_LINK", qaseConfig.testops.showPublicReportLink);
         qaseConfig.testops.plan.id = getIntEnv("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntEnv("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
         qaseConfig.testops.statusFilter = Arrays.asList(getEnvArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
@@ -122,6 +123,7 @@ public class ConfigFactory {
                 qaseConfig.testops.run.complete);
         qaseConfig.testops.run.tags = getPropertyArray("QASE_TESTOPS_RUN_TAGS", qaseConfig.testops.run.tags);
         qaseConfig.testops.run.externalLink = getExternalLinkProperty("QASE_TESTOPS_RUN_EXTERNAL_LINK_TYPE", "QASE_TESTOPS_RUN_EXTERNAL_LINK", qaseConfig.testops.run.externalLink);
+        qaseConfig.testops.showPublicReportLink = getBooleanProperty("QASE_TESTOPS_SHOW_PUBLIC_REPORT_LINK", qaseConfig.testops.showPublicReportLink);
         qaseConfig.testops.plan.id = getIntProperty("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntProperty("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
         qaseConfig.testops.statusFilter = Arrays.asList(getPropertyArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
@@ -378,6 +380,10 @@ public class ConfigFactory {
                     }
                     qaseConfig.testops.run.externalLink = externalLink;
                 }
+            }
+
+            if (testOps.has("showPublicReportLink")) {
+                qaseConfig.testops.showPublicReportLink = testOps.getBoolean("showPublicReportLink");
             }
 
             if (testOps.has("plan")) {

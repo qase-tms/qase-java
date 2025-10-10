@@ -54,6 +54,7 @@ All configuration options are listed in the table below:
 | Qase test run tags                                                                                                         | `testops.run.tags`         | `QASE_TESTOPS_RUN_TAGS`         | `QASE_TESTOPS_RUN_TAGS`         | undefined                               | No       | Comma-separated strings    |
 | External link type for test run                                                                                          | `testops.run.externalLink.type` | `QASE_TESTOPS_RUN_EXTERNAL_LINK_TYPE` | `QASE_TESTOPS_RUN_EXTERNAL_LINK_TYPE` | `null` | No       | `jiraCloud`, `jiraServer` |
 | External link URL for test run                                                                                           | `testops.run.externalLink.link` | `QASE_TESTOPS_RUN_EXTERNAL_LINK` | `QASE_TESTOPS_RUN_EXTERNAL_LINK` | `null` | No       | Any valid URL |
+| Enable public report link generation                                                                                     | `testops.showPublicReportLink` | `QASE_TESTOPS_SHOW_PUBLIC_REPORT_LINK` | `QASE_TESTOPS_SHOW_PUBLIC_REPORT_LINK` | `False` | No       | `True`, `False` |
 | Qase test run configurations                                                                                               | `testops.run.configurations` | `QASE_TESTOPS_RUN_CONFIGURATIONS` | `QASE_TESTOPS_RUN_CONFIGURATIONS` | undefined                               | No       | Comma-separated key=value pairs |
 | Qase test run configurations create if not exists                                                                         | `testops.run.configurations.createIfNotExists` | `QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS` | `QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS` | `False`                                 | No       | `True`, `False`            |
 | Qase test plan ID                                                                                                          | `testops.plan.id`          | `QASE_TESTOPS_PLAN_ID`          | `QASE_TESTOPS_PLAN_ID`          | undefined                               | No       | Any integer                |
@@ -88,6 +89,7 @@ All configuration options are listed in the table below:
       "token": "<token>",
       "host": "qase.io"
     },
+    "showPublicReportLink": true,
     "run": {
       "title": "Regress run",
       "description": "Regress run description",
