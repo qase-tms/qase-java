@@ -150,6 +150,23 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
     }
 
     @Override
+    public String enablePublicReport(Long runId) throws QaseException {
+        try {
+            RunPublic runPublic = new RunPublic().status(true);
+            RunPublicResponse response = new RunsApi(client)
+                    .updateRunPublicity(this.config.testops.project, runId.intValue(), runPublic);
+            
+            if (response != null && response.getResult() != null && response.getResult().getUrl() != null) {
+                return response.getResult().getUrl().toString();
+            } else {
+                throw new QaseException("Public report URL not found in response");
+            }
+        } catch (ApiException e) {
+            throw new QaseException("Failed to enable public report: " + e.getResponseBody(), e.getCause());
+        }
+    }
+
+    @Override
     public void uploadResults(Long runId, List<TestResult> results) throws QaseException {
         throw new NotImplementedException("Use ApiClientV2 for uploading results");
     }

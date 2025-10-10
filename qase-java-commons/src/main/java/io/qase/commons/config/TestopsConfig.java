@@ -6,6 +6,7 @@ import java.util.List;
 public class TestopsConfig {
     public String project = "";
     public boolean defect = false;
+    public boolean showPublicReportLink = false;
     public ApiConfig api;
     public RunConfig run;
     public PlanConfig plan;

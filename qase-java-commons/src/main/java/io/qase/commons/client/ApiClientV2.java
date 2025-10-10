@@ -77,6 +77,11 @@ public class ApiClientV2 implements ApiClient {
         return this.apiClientV1.getTestCaseIdsForExecution();
     }
 
+    @Override
+    public String enablePublicReport(Long runId) throws QaseException {
+        return this.apiClientV1.enablePublicReport(runId);
+    }
+
     private ResultCreate convertResult(TestResult result) {
         List<String> attachments = result.attachments.stream()
                 .map(this.apiClientV1::uploadAttachment)
