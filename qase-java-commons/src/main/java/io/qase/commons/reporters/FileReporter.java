@@ -2,13 +2,12 @@ package io.qase.commons.reporters;
 
 import io.qase.commons.QaseException;
 import io.qase.commons.config.QaseConfig;
+import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.domain.Data;
 import io.qase.commons.models.domain.StepResult;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.report.*;
 import io.qase.commons.writers.Writer;
-
-import com.google.gson.Gson;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -40,8 +39,6 @@ public class FileReporter implements InternalReporter {
     public void completeTestRun() throws QaseException {
         long endTime = Instant.now().toEpochMilli();
 
-        Gson gson = new Gson();
-
         List<ReportResult> results = this.results.stream()
                 .map(this::convertTestResult)
                 .collect(Collectors.toList());
@@ -72,7 +69,6 @@ public class FileReporter implements InternalReporter {
         ReportResult reportResult = new ReportResult();
         reportResult.id = result.id;
         reportResult.title = result.title;
-        reportResult.execution = result.execution;
         reportResult.muted = result.muted;
         reportResult.message = result.message;
         reportResult.relations = result.relations;
@@ -84,30 +80,68 @@ public class FileReporter implements InternalReporter {
         reportResult.author = result.author;
         reportResult.signature = result.signature;
 
+        // Set testops_id to the first element if available
+        if (result.testopsIds != null && !result.testopsIds.isEmpty()) {
+            reportResult.testopsId = result.testopsIds.get(0);
+        }
+
+        // Convert execution
+        reportResult.execution = convertExecution(result.execution);
+
+        // Convert steps
         reportResult.steps = result.steps.stream()
                 .map(this::convertStepResult)
                 .collect(Collectors.toList());
+
+        // Convert attachments
         reportResult.attachments = result.attachments.stream()
                 .map(this.writer::writeAttachment)
-                .filter(attachment -> !attachment.isEmpty())
+                .filter(attachment -> attachment != null)
                 .collect(Collectors.toList());
 
         return reportResult;
+    }
+
+    private ReportExecution convertExecution(io.qase.commons.models.domain.TestResultExecution execution) {
+        ReportExecution reportExecution = new ReportExecution();
+        reportExecution.status = execution.status != null ? execution.status.toString().toLowerCase() : null;
+        reportExecution.startTime = execution.startTime;
+        reportExecution.endTime = execution.endTime;
+        reportExecution.duration = execution.duration != null ? execution.duration.longValue() : null;
+        reportExecution.stacktrace = execution.stacktrace;
+        reportExecution.thread = execution.thread;
+        return reportExecution;
+    }
+
+    private ReportStepExecution convertStepExecution(io.qase.commons.models.domain.StepExecution execution, List<Attachment> attachments) {
+        ReportStepExecution reportStepExecution = new ReportStepExecution();
+        reportStepExecution.status = execution.status != null ? execution.status.toString().toLowerCase() : null;
+        reportStepExecution.startTime = execution.startTime;
+        reportStepExecution.endTime = execution.endTime;
+        reportStepExecution.duration = execution.duration;
+        
+        // Convert attachments for step execution
+        reportStepExecution.attachments = attachments.stream()
+                .map(this.writer::writeAttachment)
+                .filter(attachment -> attachment != null)
+                .collect(Collectors.toList());
+        
+        return reportStepExecution;
     }
 
     private ReportStepResult convertStepResult(StepResult stepResult) {
         ReportStepResult reportStepResult = new ReportStepResult();
         reportStepResult.id = stepResult.id;
         reportStepResult.parentId = stepResult.parentId;
+        reportStepResult.stepType = stepResult.stepType != null ? stepResult.stepType : "text";
         reportStepResult.data = this.convertData(stepResult.data);
-        reportStepResult.execution = stepResult.execution;
+        
+        // Convert execution with attachments
+        reportStepResult.execution = convertStepExecution(stepResult.execution, stepResult.attachments);
+        
+        // Convert nested steps
         reportStepResult.steps = stepResult.steps.stream()
                 .map(this::convertStepResult)
-                .collect(Collectors.toList());
-
-        reportStepResult.attachments = stepResult.attachments.stream()
-                .map(this.writer::writeAttachment)
-                .filter(attachment -> !attachment.isEmpty())
                 .collect(Collectors.toList());
 
         return reportStepResult;
@@ -121,7 +155,7 @@ public class FileReporter implements InternalReporter {
 
         reportData.attachments = data.attachments.stream()
                 .map(this.writer::writeAttachment)
-                .filter(attachment -> !attachment.isEmpty())
+                .filter(attachment -> attachment != null)
                 .collect(Collectors.toList());
 
         return reportData;

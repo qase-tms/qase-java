@@ -6,6 +6,7 @@ import io.qase.commons.config.ConnectionConfig;
 import io.qase.commons.config.Format;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.Attachment;
+import io.qase.commons.models.report.ReportAttachment;
 import io.qase.commons.models.report.ReportResult;
 import io.qase.commons.models.report.Run;
 
@@ -77,30 +78,73 @@ public class FileWriter implements Writer {
     }
 
     @Override
-    public String writeAttachment(Attachment attachment) {
+    public ReportAttachment writeAttachment(Attachment attachment) {
+        if (attachment == null) {
+            return null;
+        }
+
+        ReportAttachment reportAttachment = new ReportAttachment();
+        reportAttachment.id = attachment.id;
+        reportAttachment.fileName = attachment.fileName;
+        reportAttachment.mimeType = attachment.mimeType;
+
         if (attachment.filePath != null) {
             Path source = Paths.get(attachment.filePath);
             Path destination = Paths.get(this.attachmentPath, (attachment.id + "-" + source.getFileName().toString()));
 
             try {
                 Files.copy(source, destination);
-                return destination.toString();
+                reportAttachment.filePath = destination.toString();
+                reportAttachment.size = Files.size(destination);
+                
+                // Set file name from source if not already set
+                if (reportAttachment.fileName == null) {
+                    reportAttachment.fileName = source.getFileName().toString();
+                }
+                
+                return reportAttachment;
             } catch (IOException e) {
                 logger.error("Failed to save attachment: {}", attachment.filePath, e);
+                return null;
             }
-            return "";
         }
 
-        String destination = Paths.get(this.attachmentPath, (attachment.id + "-" + attachment.fileName)).toString();
-        File file = new File(destination);
-
-        try (java.io.FileWriter fileWriter = new java.io.FileWriter(file)) {
-            fileWriter.write(attachment.content);
-            return destination;
-        } catch (IOException e) {
-            logger.error("Failed to write attachment content to file: {}", e.getMessage(), e);
-            return "";
+        // Handle content or contentBytes
+        if (attachment.content != null || attachment.contentBytes != null) {
+            // Generate a file name if not provided
+            String fileName = attachment.fileName;
+            if (fileName == null || fileName.isEmpty()) {
+                fileName = "attachment";
+            }
+            
+            String destinationPath = Paths.get(this.attachmentPath, (attachment.id + "-" + fileName)).toString();
+            
+            try {
+                if (attachment.content != null) {
+                    File file = new File(destinationPath);
+                    try (java.io.FileWriter fileWriter = new java.io.FileWriter(file)) {
+                        fileWriter.write(attachment.content);
+                        reportAttachment.filePath = destinationPath;
+                        reportAttachment.size = (long) attachment.content.length();
+                        reportAttachment.fileName = fileName;
+                    }
+                } else if (attachment.contentBytes != null) {
+                    Files.write(Paths.get(destinationPath), attachment.contentBytes);
+                    reportAttachment.filePath = destinationPath;
+                    reportAttachment.size = (long) attachment.contentBytes.length;
+                    reportAttachment.fileName = fileName;
+                }
+                
+                return reportAttachment;
+            } catch (IOException e) {
+                logger.error("Failed to write attachment content to file: {}", e.getMessage(), e);
+                return null;
+            }
         }
+        
+        // No valid content provided - return null instead of incomplete object
+        logger.error("Attachment {} has no valid content (filePath, content, or contentBytes)", attachment.id);
+        return null;
     }
 
     private void createDirectory(Path path) throws QaseException {

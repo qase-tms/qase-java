@@ -6,6 +6,7 @@ import io.qase.commons.config.QaseConfig;
 import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.domain.TestResultStatus;
+import io.qase.commons.models.report.ReportAttachment;
 import io.qase.commons.models.report.ReportResult;
 import io.qase.commons.models.report.Run;
 import io.qase.commons.writers.Writer;
@@ -45,7 +46,12 @@ class FileReporterTest {
     @Test
     void testCompleteTestRun() throws QaseException {
         TestResult testResult = this.prepareResult();
-        when(writerMock.writeAttachment(any())).thenReturn("attachment-path");
+        
+        ReportAttachment mockAttachment = new ReportAttachment();
+        mockAttachment.id = "test-id";
+        mockAttachment.fileName = "test.txt";
+        mockAttachment.filePath = "attachment-path";
+        when(writerMock.writeAttachment(any())).thenReturn(mockAttachment);
 
         fileReporter.startTestRun();
         fileReporter.addResult(testResult);
@@ -70,7 +76,11 @@ class FileReporterTest {
     void testConvertTestResult() throws QaseException {
         TestResult testResult = this.prepareResult();
 
-        when(writerMock.writeAttachment(any())).thenReturn("attachment-path");
+        ReportAttachment mockAttachment = new ReportAttachment();
+        mockAttachment.id = "test-id";
+        mockAttachment.fileName = "test.txt";
+        mockAttachment.filePath = "attachment-path";
+        when(writerMock.writeAttachment(any())).thenReturn(mockAttachment);
 
         fileReporter.startTestRun();
         fileReporter.addResult(testResult);

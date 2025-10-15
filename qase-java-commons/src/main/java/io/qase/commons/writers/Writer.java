@@ -2,6 +2,7 @@ package io.qase.commons.writers;
 
 import io.qase.commons.QaseException;
 import io.qase.commons.models.domain.Attachment;
+import io.qase.commons.models.report.ReportAttachment;
 import io.qase.commons.models.report.ReportResult;
 import io.qase.commons.models.report.Run;
 
@@ -12,5 +13,10 @@ public interface Writer {
 
     void writeResult(ReportResult result) throws QaseException;
 
-    String writeAttachment(Attachment attachment);
+    /**
+     * Writes attachment to storage and returns ReportAttachment with metadata
+     * @param attachment Domain attachment to write
+     * @return ReportAttachment with file path and metadata, or null if failed
+     */
+    ReportAttachment writeAttachment(Attachment attachment);
 }
