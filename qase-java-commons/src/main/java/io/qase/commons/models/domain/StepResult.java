@@ -5,6 +5,7 @@ import java.util.*;
 
 public class StepResult {
     public String id = UUID.randomUUID().toString();
+    public String stepType = "text";
     public Data data;
     public String parentId;
     public StepExecution execution;
