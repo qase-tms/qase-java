@@ -1,0 +1,32 @@
+{
+  "mode": "testops",
+  "fallback": "off",
+  "debug": true,
+  "report": {
+    "driver": "local",
+    "connection": {
+      "local": {
+        "path": "./build/qase-report",
+        "format": "json"
+      }
+    }
+  },
+  "testops": {
+    "api": {
+      "token": "<token>",
+      "host": "qase.io"
+    },
+    "run": {
+      "title": "Kotlin junit4 test run",
+      "description": "Kotlin junit4 examples",
+      "complete": true
+    },
+    "defect": false,
+    "project": "<project code>",
+    "batch": {
+      "size": 200
+    },
+    "useV2": false
+  }
+}
+
