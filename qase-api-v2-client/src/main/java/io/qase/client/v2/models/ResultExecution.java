@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,145 +49,151 @@ import io.qase.client.v2.JSON;
 /**
  * ResultExecution
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultExecution {
   public static final String SERIALIZED_NAME_START_TIME = "start_time";
   @SerializedName(SERIALIZED_NAME_START_TIME)
+  @javax.annotation.Nullable
   private Double startTime;
 
   public static final String SERIALIZED_NAME_END_TIME = "end_time";
   @SerializedName(SERIALIZED_NAME_END_TIME)
+  @javax.annotation.Nullable
   private Double endTime;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nonnull
   private String status;
 
   public static final String SERIALIZED_NAME_DURATION = "duration";
   @SerializedName(SERIALIZED_NAME_DURATION)
+  @javax.annotation.Nullable
   private Long duration;
 
   public static final String SERIALIZED_NAME_STACKTRACE = "stacktrace";
   @SerializedName(SERIALIZED_NAME_STACKTRACE)
+  @javax.annotation.Nullable
   private String stacktrace;
 
   public static final String SERIALIZED_NAME_THREAD = "thread";
   @SerializedName(SERIALIZED_NAME_THREAD)
+  @javax.annotation.Nullable
   private String thread;
 
   public ResultExecution() {
   }
 
-  public ResultExecution startTime(Double startTime) {
+  public ResultExecution startTime(@javax.annotation.Nullable Double startTime) {
     this.startTime = startTime;
     return this;
   }
 
-   /**
+  /**
    * Unix epoch time in seconds (whole part) and milliseconds (fractional part).
    * @return startTime
-  **/
+   */
   @javax.annotation.Nullable
   public Double getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(Double startTime) {
+  public void setStartTime(@javax.annotation.Nullable Double startTime) {
     this.startTime = startTime;
   }
 
 
-  public ResultExecution endTime(Double endTime) {
+  public ResultExecution endTime(@javax.annotation.Nullable Double endTime) {
     this.endTime = endTime;
     return this;
   }
 
-   /**
+  /**
    * Unix epoch time in seconds (whole part) and milliseconds (fractional part).
    * @return endTime
-  **/
+   */
   @javax.annotation.Nullable
   public Double getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(Double endTime) {
+  public void setEndTime(@javax.annotation.Nullable Double endTime) {
     this.endTime = endTime;
   }
 
 
-  public ResultExecution status(String status) {
+  public ResultExecution status(@javax.annotation.Nonnull String status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Can have the following values passed, failed, blocked, skipped, invalid + custom statuses
    * @return status
-  **/
+   */
   @javax.annotation.Nonnull
   public String getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(@javax.annotation.Nonnull String status) {
     this.status = status;
   }
 
 
-  public ResultExecution duration(Long duration) {
+  public ResultExecution duration(@javax.annotation.Nullable Long duration) {
     this.duration = duration;
     return this;
   }
 
-   /**
+  /**
    * Duration of the test execution in milliseconds.
    * @return duration
-  **/
+   */
   @javax.annotation.Nullable
   public Long getDuration() {
     return duration;
   }
 
-  public void setDuration(Long duration) {
+  public void setDuration(@javax.annotation.Nullable Long duration) {
     this.duration = duration;
   }
 
 
-  public ResultExecution stacktrace(String stacktrace) {
+  public ResultExecution stacktrace(@javax.annotation.Nullable String stacktrace) {
     this.stacktrace = stacktrace;
     return this;
   }
 
-   /**
+  /**
    * Get stacktrace
    * @return stacktrace
-  **/
+   */
   @javax.annotation.Nullable
   public String getStacktrace() {
     return stacktrace;
   }
 
-  public void setStacktrace(String stacktrace) {
+  public void setStacktrace(@javax.annotation.Nullable String stacktrace) {
     this.stacktrace = stacktrace;
   }
 
 
-  public ResultExecution thread(String thread) {
+  public ResultExecution thread(@javax.annotation.Nullable String thread) {
     this.thread = thread;
     return this;
   }
 
-   /**
+  /**
    * Get thread
    * @return thread
-  **/
+   */
   @javax.annotation.Nullable
   public String getThread() {
     return thread;
   }
 
-  public void setThread(String thread) {
+  public void setThread(@javax.annotation.Nullable String thread) {
     this.thread = thread;
   }
 
@@ -304,25 +309,18 @@ public class ResultExecution {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("start_time");
-    openapiFields.add("end_time");
-    openapiFields.add("status");
-    openapiFields.add("duration");
-    openapiFields.add("stacktrace");
-    openapiFields.add("thread");
+    openapiFields = new HashSet<String>(Arrays.asList("start_time", "end_time", "status", "duration", "stacktrace", "thread"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("status");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("status"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultExecution
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultExecution
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultExecution.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -420,22 +418,22 @@ public class ResultExecution {
     }
   }
 
- /**
-  * Create an instance of ResultExecution given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultExecution
-  * @throws IOException if the JSON string is invalid with respect to ResultExecution
-  */
+  /**
+   * Create an instance of ResultExecution given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultExecution
+   * @throws IOException if the JSON string is invalid with respect to ResultExecution
+   */
   public static ResultExecution fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultExecution.class);
   }
 
- /**
-  * Convert an instance of ResultExecution to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultExecution to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

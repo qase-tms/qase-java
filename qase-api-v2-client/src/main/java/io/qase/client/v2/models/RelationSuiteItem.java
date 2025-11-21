@@ -38,7 +38,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,53 +49,55 @@ import io.qase.client.v2.JSON;
 /**
  * RelationSuiteItem
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class RelationSuiteItem {
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_PUBLIC_ID = "public_id";
   @SerializedName(SERIALIZED_NAME_PUBLIC_ID)
+  @javax.annotation.Nullable
   private Long publicId;
 
   public RelationSuiteItem() {
   }
 
-  public RelationSuiteItem title(String title) {
+  public RelationSuiteItem title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public RelationSuiteItem publicId(Long publicId) {
+  public RelationSuiteItem publicId(@javax.annotation.Nullable Long publicId) {
     this.publicId = publicId;
     return this;
   }
 
-   /**
+  /**
    * Get publicId
    * @return publicId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getPublicId() {
     return publicId;
   }
 
-  public void setPublicId(Long publicId) {
+  public void setPublicId(@javax.annotation.Nullable Long publicId) {
     this.publicId = publicId;
   }
 
@@ -204,21 +205,18 @@ public class RelationSuiteItem {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("public_id");
+    openapiFields = new HashSet<String>(Arrays.asList("title", "public_id"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RelationSuiteItem
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RelationSuiteItem
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!RelationSuiteItem.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -310,22 +308,22 @@ public class RelationSuiteItem {
     }
   }
 
- /**
-  * Create an instance of RelationSuiteItem given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RelationSuiteItem
-  * @throws IOException if the JSON string is invalid with respect to RelationSuiteItem
-  */
+  /**
+   * Create an instance of RelationSuiteItem given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RelationSuiteItem
+   * @throws IOException if the JSON string is invalid with respect to RelationSuiteItem
+   */
   public static RelationSuiteItem fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, RelationSuiteItem.class);
   }
 
- /**
-  * Convert an instance of RelationSuiteItem to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RelationSuiteItem to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

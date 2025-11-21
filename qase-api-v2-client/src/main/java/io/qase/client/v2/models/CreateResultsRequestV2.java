@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,16 +51,17 @@ import io.qase.client.v2.JSON;
 /**
  * CreateResultsRequestV2
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class CreateResultsRequestV2 {
   public static final String SERIALIZED_NAME_RESULTS = "results";
   @SerializedName(SERIALIZED_NAME_RESULTS)
-  private List<ResultCreate> results;
+  @javax.annotation.Nullable
+  private List<ResultCreate> results = new ArrayList<>();
 
   public CreateResultsRequestV2() {
   }
 
-  public CreateResultsRequestV2 results(List<ResultCreate> results) {
+  public CreateResultsRequestV2 results(@javax.annotation.Nullable List<ResultCreate> results) {
     this.results = results;
     return this;
   }
@@ -74,16 +74,16 @@ public class CreateResultsRequestV2 {
     return this;
   }
 
-   /**
+  /**
    * Get results
    * @return results
-  **/
+   */
   @javax.annotation.Nullable
   public List<ResultCreate> getResults() {
     return results;
   }
 
-  public void setResults(List<ResultCreate> results) {
+  public void setResults(@javax.annotation.Nullable List<ResultCreate> results) {
     this.results = results;
   }
 
@@ -178,19 +178,18 @@ public class CreateResultsRequestV2 {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("results");
+    openapiFields = new HashSet<String>(Arrays.asList("results"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CreateResultsRequestV2
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to CreateResultsRequestV2
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!CreateResultsRequestV2.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -286,22 +285,22 @@ public class CreateResultsRequestV2 {
     }
   }
 
- /**
-  * Create an instance of CreateResultsRequestV2 given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of CreateResultsRequestV2
-  * @throws IOException if the JSON string is invalid with respect to CreateResultsRequestV2
-  */
+  /**
+   * Create an instance of CreateResultsRequestV2 given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of CreateResultsRequestV2
+   * @throws IOException if the JSON string is invalid with respect to CreateResultsRequestV2
+   */
   public static CreateResultsRequestV2 fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, CreateResultsRequestV2.class);
   }
 
- /**
-  * Convert an instance of CreateResultsRequestV2 to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of CreateResultsRequestV2 to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

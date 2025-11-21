@@ -39,7 +39,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,85 +50,89 @@ import io.qase.client.v2.JSON;
 /**
  * ResultStepData
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultStepData {
   public static final String SERIALIZED_NAME_ACTION = "action";
   @SerializedName(SERIALIZED_NAME_ACTION)
+  @javax.annotation.Nonnull
   private String action;
 
   public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
   @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
+  @javax.annotation.Nullable
   private String expectedResult;
 
   public static final String SERIALIZED_NAME_INPUT_DATA = "input_data";
   @SerializedName(SERIALIZED_NAME_INPUT_DATA)
+  @javax.annotation.Nullable
   private String inputData;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<String> attachments;
+  @javax.annotation.Nullable
+  private List<String> attachments = new ArrayList<>();
 
   public ResultStepData() {
   }
 
-  public ResultStepData action(String action) {
+  public ResultStepData action(@javax.annotation.Nonnull String action) {
     this.action = action;
     return this;
   }
 
-   /**
+  /**
    * Get action
    * @return action
-  **/
+   */
   @javax.annotation.Nonnull
   public String getAction() {
     return action;
   }
 
-  public void setAction(String action) {
+  public void setAction(@javax.annotation.Nonnull String action) {
     this.action = action;
   }
 
 
-  public ResultStepData expectedResult(String expectedResult) {
+  public ResultStepData expectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
     return this;
   }
 
-   /**
+  /**
    * Get expectedResult
    * @return expectedResult
-  **/
+   */
   @javax.annotation.Nullable
   public String getExpectedResult() {
     return expectedResult;
   }
 
-  public void setExpectedResult(String expectedResult) {
+  public void setExpectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
   }
 
 
-  public ResultStepData inputData(String inputData) {
+  public ResultStepData inputData(@javax.annotation.Nullable String inputData) {
     this.inputData = inputData;
     return this;
   }
 
-   /**
+  /**
    * Get inputData
    * @return inputData
-  **/
+   */
   @javax.annotation.Nullable
   public String getInputData() {
     return inputData;
   }
 
-  public void setInputData(String inputData) {
+  public void setInputData(@javax.annotation.Nullable String inputData) {
     this.inputData = inputData;
   }
 
 
-  public ResultStepData attachments(List<String> attachments) {
+  public ResultStepData attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -142,16 +145,16 @@ public class ResultStepData {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
@@ -252,23 +255,18 @@ public class ResultStepData {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("action");
-    openapiFields.add("expected_result");
-    openapiFields.add("input_data");
-    openapiFields.add("attachments");
+    openapiFields = new HashSet<String>(Arrays.asList("action", "expected_result", "input_data", "attachments"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("action");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("action"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultStepData
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultStepData
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultStepData.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -370,22 +368,22 @@ public class ResultStepData {
     }
   }
 
- /**
-  * Create an instance of ResultStepData given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultStepData
-  * @throws IOException if the JSON string is invalid with respect to ResultStepData
-  */
+  /**
+   * Create an instance of ResultStepData given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultStepData
+   * @throws IOException if the JSON string is invalid with respect to ResultStepData
+   */
   public static ResultStepData fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultStepData.class);
   }
 
- /**
-  * Convert an instance of ResultStepData to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultStepData to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

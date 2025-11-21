@@ -21,7 +21,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
-    testImplementation("io.qase:qase-junit5-reporter:4.0.0")
+    testImplementation("io.qase:qase-junit5-reporter:4.1.24")
     "aspectConfig"("org.aspectj:aspectjweaver:1.9.22")
 }
 
