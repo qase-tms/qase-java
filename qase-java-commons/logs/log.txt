@@ -1,0 +1,12 @@
+[2025-11-21 16:42:29.242] [INFO] [Thread-13] [io.qase.commons.config.LoggingIntegrationTest] Test info message
+[2025-11-21 16:42:29.243] [WARN] [Thread-13] [io.qase.commons.config.LoggingIntegrationTest] Test warning message
+[2025-11-21 16:42:29.243] [ERROR] [Thread-13] [io.qase.commons.config.LoggingIntegrationTest] Test error message
+[2025-11-21 16:42:29.268] [WARN] [Thread-13] [io.qase.commons.utils.StatusMappingUtils] Invalid status mapping: unknown -> passed
+[2025-11-21 16:42:29.268] [WARN] [Thread-13] [io.qase.commons.utils.StatusMappingUtils] Invalid status mapping pair ignored: unknown=passed
+[2025-11-21 16:42:29.270] [WARN] [Thread-13] [io.qase.commons.utils.StatusMappingUtils] Invalid status string: unknown
+[2025-11-21 16:42:29.273] [WARN] [Thread-13] [io.qase.commons.utils.StatusMappingUtils] Invalid mapping format ignored: invalidformat
+[2025-11-21 16:42:30.223] [INFO] [Thread-13] [io.qase.commons.reporters.TestopsReporter] Test run 789 completed
+[2025-11-21 16:42:30.248] [INFO] [Thread-13] [io.qase.commons.reporters.TestopsReporter] Test run 456 started
+[2025-11-21 16:42:30.251] [INFO] [Thread-13] [io.qase.commons.reporters.TestopsReporter] Test run null completed
+[2025-11-21 16:42:30.251] [INFO] [Thread-13] [io.qase.commons.reporters.TestopsReporter] Public report link: https://app.qase.io/public/report/abc123
+[2025-11-21 16:42:30.252] [INFO] [Thread-13] [io.qase.commons.reporters.TestopsReporter] Test run null completed

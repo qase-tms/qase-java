@@ -1,3 +1,9 @@
+# qase-java 4.1.24
+
+## What's new
+
+- Updated API clients to the latest specification
+
 # qase-java 4.1.22
 
 ## What's new

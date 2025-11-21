@@ -41,7 +41,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,62 +52,65 @@ import io.qase.client.v2.JSON;
 /**
  * ResultStep
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultStep {
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
+  @javax.annotation.Nullable
   private ResultStepData data;
 
   public static final String SERIALIZED_NAME_EXECUTION = "execution";
   @SerializedName(SERIALIZED_NAME_EXECUTION)
+  @javax.annotation.Nullable
   private ResultStepExecution execution;
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<Object> steps;
+  @javax.annotation.Nullable
+  private List<Object> steps = new ArrayList<>();
 
   public ResultStep() {
   }
 
-  public ResultStep data(ResultStepData data) {
+  public ResultStep data(@javax.annotation.Nullable ResultStepData data) {
     this.data = data;
     return this;
   }
 
-   /**
+  /**
    * Get data
    * @return data
-  **/
+   */
   @javax.annotation.Nullable
   public ResultStepData getData() {
     return data;
   }
 
-  public void setData(ResultStepData data) {
+  public void setData(@javax.annotation.Nullable ResultStepData data) {
     this.data = data;
   }
 
 
-  public ResultStep execution(ResultStepExecution execution) {
+  public ResultStep execution(@javax.annotation.Nullable ResultStepExecution execution) {
     this.execution = execution;
     return this;
   }
 
-   /**
+  /**
    * Get execution
    * @return execution
-  **/
+   */
   @javax.annotation.Nullable
   public ResultStepExecution getExecution() {
     return execution;
   }
 
-  public void setExecution(ResultStepExecution execution) {
+  public void setExecution(@javax.annotation.Nullable ResultStepExecution execution) {
     this.execution = execution;
   }
 
 
-  public ResultStep steps(List<Object> steps) {
+  public ResultStep steps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
     return this;
   }
@@ -121,16 +123,16 @@ public class ResultStep {
     return this;
   }
 
-   /**
+  /**
    * Nested steps will be here. The same structure is used for them.
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<Object> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<Object> steps) {
+  public void setSteps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
   }
 
@@ -229,21 +231,18 @@ public class ResultStep {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("data");
-    openapiFields.add("execution");
-    openapiFields.add("steps");
+    openapiFields = new HashSet<String>(Arrays.asList("data", "execution", "steps"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultStep
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultStep
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultStep.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -337,22 +336,22 @@ public class ResultStep {
     }
   }
 
- /**
-  * Create an instance of ResultStep given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultStep
-  * @throws IOException if the JSON string is invalid with respect to ResultStep
-  */
+  /**
+   * Create an instance of ResultStep given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultStep
+   * @throws IOException if the JSON string is invalid with respect to ResultStep
+   */
   public static ResultStep fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultStep.class);
   }
 
- /**
-  * Convert an instance of ResultStep to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultStep to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

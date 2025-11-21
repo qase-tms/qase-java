@@ -40,7 +40,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,16 +51,17 @@ import io.qase.client.v2.JSON;
 /**
  * RelationSuite
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class RelationSuite {
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
+  @javax.annotation.Nonnull
   private List<RelationSuiteItem> data = new ArrayList<>();
 
   public RelationSuite() {
   }
 
-  public RelationSuite data(List<RelationSuiteItem> data) {
+  public RelationSuite data(@javax.annotation.Nonnull List<RelationSuiteItem> data) {
     this.data = data;
     return this;
   }
@@ -74,16 +74,16 @@ public class RelationSuite {
     return this;
   }
 
-   /**
+  /**
    * Get data
    * @return data
-  **/
+   */
   @javax.annotation.Nonnull
   public List<RelationSuiteItem> getData() {
     return data;
   }
 
-  public void setData(List<RelationSuiteItem> data) {
+  public void setData(@javax.annotation.Nonnull List<RelationSuiteItem> data) {
     this.data = data;
   }
 
@@ -178,20 +178,18 @@ public class RelationSuite {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("data");
+    openapiFields = new HashSet<String>(Arrays.asList("data"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("data");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("data"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to RelationSuite
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to RelationSuite
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!RelationSuite.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -290,22 +288,22 @@ public class RelationSuite {
     }
   }
 
- /**
-  * Create an instance of RelationSuite given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of RelationSuite
-  * @throws IOException if the JSON string is invalid with respect to RelationSuite
-  */
+  /**
+   * Create an instance of RelationSuite given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of RelationSuite
+   * @throws IOException if the JSON string is invalid with respect to RelationSuite
+   */
   public static RelationSuite fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, RelationSuite.class);
   }
 
- /**
-  * Convert an instance of RelationSuite to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of RelationSuite to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -41,7 +41,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,131 +52,137 @@ import io.qase.client.v2.JSON;
 /**
  * ResultStepExecution
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultStepExecution {
   public static final String SERIALIZED_NAME_START_TIME = "start_time";
   @SerializedName(SERIALIZED_NAME_START_TIME)
+  @javax.annotation.Nullable
   private Double startTime;
 
   public static final String SERIALIZED_NAME_END_TIME = "end_time";
   @SerializedName(SERIALIZED_NAME_END_TIME)
+  @javax.annotation.Nullable
   private Double endTime;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
+  @javax.annotation.Nonnull
   private ResultStepStatus status;
 
   public static final String SERIALIZED_NAME_DURATION = "duration";
   @SerializedName(SERIALIZED_NAME_DURATION)
+  @javax.annotation.Nullable
   private Long duration;
 
   public static final String SERIALIZED_NAME_COMMENT = "comment";
   @SerializedName(SERIALIZED_NAME_COMMENT)
+  @javax.annotation.Nullable
   private String comment;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<String> attachments;
+  @javax.annotation.Nullable
+  private List<String> attachments = new ArrayList<>();
 
   public ResultStepExecution() {
   }
 
-  public ResultStepExecution startTime(Double startTime) {
+  public ResultStepExecution startTime(@javax.annotation.Nullable Double startTime) {
     this.startTime = startTime;
     return this;
   }
 
-   /**
+  /**
    * Unix epoch time in seconds (whole part) and milliseconds (fractional part).
    * @return startTime
-  **/
+   */
   @javax.annotation.Nullable
   public Double getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(Double startTime) {
+  public void setStartTime(@javax.annotation.Nullable Double startTime) {
     this.startTime = startTime;
   }
 
 
-  public ResultStepExecution endTime(Double endTime) {
+  public ResultStepExecution endTime(@javax.annotation.Nullable Double endTime) {
     this.endTime = endTime;
     return this;
   }
 
-   /**
+  /**
    * Unix epoch time in seconds (whole part) and milliseconds (fractional part).
    * @return endTime
-  **/
+   */
   @javax.annotation.Nullable
   public Double getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(Double endTime) {
+  public void setEndTime(@javax.annotation.Nullable Double endTime) {
     this.endTime = endTime;
   }
 
 
-  public ResultStepExecution status(ResultStepStatus status) {
+  public ResultStepExecution status(@javax.annotation.Nonnull ResultStepStatus status) {
     this.status = status;
     return this;
   }
 
-   /**
+  /**
    * Get status
    * @return status
-  **/
+   */
   @javax.annotation.Nonnull
   public ResultStepStatus getStatus() {
     return status;
   }
 
-  public void setStatus(ResultStepStatus status) {
+  public void setStatus(@javax.annotation.Nonnull ResultStepStatus status) {
     this.status = status;
   }
 
 
-  public ResultStepExecution duration(Long duration) {
+  public ResultStepExecution duration(@javax.annotation.Nullable Long duration) {
     this.duration = duration;
     return this;
   }
 
-   /**
+  /**
    * Duration of the test step execution in milliseconds.
    * @return duration
-  **/
+   */
   @javax.annotation.Nullable
   public Long getDuration() {
     return duration;
   }
 
-  public void setDuration(Long duration) {
+  public void setDuration(@javax.annotation.Nullable Long duration) {
     this.duration = duration;
   }
 
 
-  public ResultStepExecution comment(String comment) {
+  public ResultStepExecution comment(@javax.annotation.Nullable String comment) {
     this.comment = comment;
     return this;
   }
 
-   /**
+  /**
    * Get comment
    * @return comment
-  **/
+   */
   @javax.annotation.Nullable
   public String getComment() {
     return comment;
   }
 
-  public void setComment(String comment) {
+  public void setComment(@javax.annotation.Nullable String comment) {
     this.comment = comment;
   }
 
 
-  public ResultStepExecution attachments(List<String> attachments) {
+  public ResultStepExecution attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -190,16 +195,16 @@ public class ResultStepExecution {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
@@ -315,25 +320,18 @@ public class ResultStepExecution {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("start_time");
-    openapiFields.add("end_time");
-    openapiFields.add("status");
-    openapiFields.add("duration");
-    openapiFields.add("comment");
-    openapiFields.add("attachments");
+    openapiFields = new HashSet<String>(Arrays.asList("start_time", "end_time", "status", "duration", "comment", "attachments"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("status");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("status"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultStepExecution
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultStepExecution
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultStepExecution.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -431,22 +429,22 @@ public class ResultStepExecution {
     }
   }
 
- /**
-  * Create an instance of ResultStepExecution given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultStepExecution
-  * @throws IOException if the JSON string is invalid with respect to ResultStepExecution
-  */
+  /**
+   * Create an instance of ResultStepExecution given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultStepExecution
+   * @throws IOException if the JSON string is invalid with respect to ResultStepExecution
+   */
   public static ResultStepExecution fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultStepExecution.class);
   }
 
- /**
-  * Convert an instance of ResultStepExecution to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultStepExecution to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

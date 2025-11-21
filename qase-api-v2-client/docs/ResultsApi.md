@@ -10,7 +10,7 @@ All URIs are relative to *https://api.qase.io/v2*
 
 <a id="createResultV2"></a>
 # **createResultV2**
-> createResultV2(projectCode, runId, resultCreate)
+> ResultCreateResponse createResultV2(projectCode, runId, resultCreate)
 
 Create test run result
 
@@ -42,7 +42,8 @@ public class Example {
     Long runId = 56L; // Long | 
     ResultCreate resultCreate = new ResultCreate(); // ResultCreate | 
     try {
-      apiInstance.createResultV2(projectCode, runId, resultCreate);
+      ResultCreateResponse result = apiInstance.createResultV2(projectCode, runId, resultCreate);
+      System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ResultsApi#createResultV2");
       System.err.println("Status code: " + e.getCode());
@@ -64,7 +65,7 @@ public class Example {
 
 ### Return type
 
-null (empty response body)
+[**ResultCreateResponse**](ResultCreateResponse.md)
 
 ### Authorization
 
@@ -73,7 +74,7 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -87,7 +88,7 @@ null (empty response body)
 
 <a id="createResultsV2"></a>
 # **createResultsV2**
-> createResultsV2(projectCode, runId, createResultsRequestV2)
+> ResultCreateBulkResponse createResultsV2(projectCode, runId, createResultsRequestV2)
 
 Bulk create test run result
 
@@ -119,7 +120,8 @@ public class Example {
     Long runId = 56L; // Long | 
     CreateResultsRequestV2 createResultsRequestV2 = new CreateResultsRequestV2(); // CreateResultsRequestV2 | 
     try {
-      apiInstance.createResultsV2(projectCode, runId, createResultsRequestV2);
+      ResultCreateBulkResponse result = apiInstance.createResultsV2(projectCode, runId, createResultsRequestV2);
+      System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ResultsApi#createResultsV2");
       System.err.println("Status code: " + e.getCode());
@@ -141,7 +143,7 @@ public class Example {
 
 ### Return type
 
-null (empty response body)
+[**ResultCreateBulkResponse**](ResultCreateBulkResponse.md)
 
 ### Authorization
 
@@ -150,7 +152,7 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

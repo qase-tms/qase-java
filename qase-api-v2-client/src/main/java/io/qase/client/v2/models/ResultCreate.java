@@ -47,7 +47,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -59,148 +58,163 @@ import io.qase.client.v2.JSON;
 /**
  * ResultCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultCreate {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
+  @javax.annotation.Nullable
   private String id;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String SERIALIZED_NAME_SIGNATURE = "signature";
   @SerializedName(SERIALIZED_NAME_SIGNATURE)
+  @javax.annotation.Nullable
   private String signature;
 
   public static final String SERIALIZED_NAME_TESTOPS_ID = "testops_id";
   @SerializedName(SERIALIZED_NAME_TESTOPS_ID)
+  @javax.annotation.Nullable
   private Long testopsId;
 
   public static final String SERIALIZED_NAME_TESTOPS_IDS = "testops_ids";
   @SerializedName(SERIALIZED_NAME_TESTOPS_IDS)
+  @javax.annotation.Nullable
   private List<Long> testopsIds;
 
   public static final String SERIALIZED_NAME_EXECUTION = "execution";
   @SerializedName(SERIALIZED_NAME_EXECUTION)
+  @javax.annotation.Nonnull
   private ResultExecution execution;
 
   public static final String SERIALIZED_NAME_FIELDS = "fields";
   @SerializedName(SERIALIZED_NAME_FIELDS)
+  @javax.annotation.Nullable
   private ResultCreateFields fields;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-  private List<String> attachments;
+  @javax.annotation.Nullable
+  private List<String> attachments = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
-  private List<ResultStep> steps;
+  @javax.annotation.Nullable
+  private List<ResultStep> steps = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_STEPS_TYPE = "steps_type";
   @SerializedName(SERIALIZED_NAME_STEPS_TYPE)
+  @javax.annotation.Nullable
   private ResultStepsType stepsType;
 
   public static final String SERIALIZED_NAME_PARAMS = "params";
   @SerializedName(SERIALIZED_NAME_PARAMS)
+  @javax.annotation.Nullable
   private Map<String, String> params = new HashMap<>();
 
   public static final String SERIALIZED_NAME_PARAM_GROUPS = "param_groups";
   @SerializedName(SERIALIZED_NAME_PARAM_GROUPS)
+  @javax.annotation.Nullable
   private List<List<String>> paramGroups;
 
   public static final String SERIALIZED_NAME_RELATIONS = "relations";
   @SerializedName(SERIALIZED_NAME_RELATIONS)
+  @javax.annotation.Nullable
   private ResultRelations relations;
 
   public static final String SERIALIZED_NAME_MESSAGE = "message";
   @SerializedName(SERIALIZED_NAME_MESSAGE)
+  @javax.annotation.Nullable
   private String message;
 
   public static final String SERIALIZED_NAME_DEFECT = "defect";
   @SerializedName(SERIALIZED_NAME_DEFECT)
+  @javax.annotation.Nullable
   private Boolean defect;
 
   public ResultCreate() {
   }
 
-  public ResultCreate id(String id) {
+  public ResultCreate id(@javax.annotation.Nullable String id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * If passed, used as an idempotency key
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
 
-  public ResultCreate title(String title) {
+  public ResultCreate title(@javax.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   */
   @javax.annotation.Nonnull
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
 
-  public ResultCreate signature(String signature) {
+  public ResultCreate signature(@javax.annotation.Nullable String signature) {
     this.signature = signature;
     return this;
   }
 
-   /**
+  /**
    * Get signature
    * @return signature
-  **/
+   */
   @javax.annotation.Nullable
   public String getSignature() {
     return signature;
   }
 
-  public void setSignature(String signature) {
+  public void setSignature(@javax.annotation.Nullable String signature) {
     this.signature = signature;
   }
 
 
-  public ResultCreate testopsId(Long testopsId) {
+  public ResultCreate testopsId(@javax.annotation.Nullable Long testopsId) {
     this.testopsId = testopsId;
     return this;
   }
 
-   /**
+  /**
    * ID of the test case. Cannot be specified together with testopd_ids.
    * @return testopsId
-  **/
+   */
   @javax.annotation.Nullable
   public Long getTestopsId() {
     return testopsId;
   }
 
-  public void setTestopsId(Long testopsId) {
+  public void setTestopsId(@javax.annotation.Nullable Long testopsId) {
     this.testopsId = testopsId;
   }
 
 
-  public ResultCreate testopsIds(List<Long> testopsIds) {
+  public ResultCreate testopsIds(@javax.annotation.Nullable List<Long> testopsIds) {
     this.testopsIds = testopsIds;
     return this;
   }
@@ -213,59 +227,59 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * IDs of the test cases. Cannot be specified together with testopd_id.
    * @return testopsIds
-  **/
+   */
   @javax.annotation.Nullable
   public List<Long> getTestopsIds() {
     return testopsIds;
   }
 
-  public void setTestopsIds(List<Long> testopsIds) {
+  public void setTestopsIds(@javax.annotation.Nullable List<Long> testopsIds) {
     this.testopsIds = testopsIds;
   }
 
 
-  public ResultCreate execution(ResultExecution execution) {
+  public ResultCreate execution(@javax.annotation.Nonnull ResultExecution execution) {
     this.execution = execution;
     return this;
   }
 
-   /**
+  /**
    * Get execution
    * @return execution
-  **/
+   */
   @javax.annotation.Nonnull
   public ResultExecution getExecution() {
     return execution;
   }
 
-  public void setExecution(ResultExecution execution) {
+  public void setExecution(@javax.annotation.Nonnull ResultExecution execution) {
     this.execution = execution;
   }
 
 
-  public ResultCreate fields(ResultCreateFields fields) {
+  public ResultCreate fields(@javax.annotation.Nullable ResultCreateFields fields) {
     this.fields = fields;
     return this;
   }
 
-   /**
+  /**
    * Get fields
    * @return fields
-  **/
+   */
   @javax.annotation.Nullable
   public ResultCreateFields getFields() {
     return fields;
   }
 
-  public void setFields(ResultCreateFields fields) {
+  public void setFields(@javax.annotation.Nullable ResultCreateFields fields) {
     this.fields = fields;
   }
 
 
-  public ResultCreate attachments(List<String> attachments) {
+  public ResultCreate attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
@@ -278,21 +292,21 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * Get attachments
    * @return attachments
-  **/
+   */
   @javax.annotation.Nullable
   public List<String> getAttachments() {
     return attachments;
   }
 
-  public void setAttachments(List<String> attachments) {
+  public void setAttachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
   }
 
 
-  public ResultCreate steps(List<ResultStep> steps) {
+  public ResultCreate steps(@javax.annotation.Nullable List<ResultStep> steps) {
     this.steps = steps;
     return this;
   }
@@ -305,40 +319,40 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * Get steps
    * @return steps
-  **/
+   */
   @javax.annotation.Nullable
   public List<ResultStep> getSteps() {
     return steps;
   }
 
-  public void setSteps(List<ResultStep> steps) {
+  public void setSteps(@javax.annotation.Nullable List<ResultStep> steps) {
     this.steps = steps;
   }
 
 
-  public ResultCreate stepsType(ResultStepsType stepsType) {
+  public ResultCreate stepsType(@javax.annotation.Nullable ResultStepsType stepsType) {
     this.stepsType = stepsType;
     return this;
   }
 
-   /**
+  /**
    * Get stepsType
    * @return stepsType
-  **/
+   */
   @javax.annotation.Nullable
   public ResultStepsType getStepsType() {
     return stepsType;
   }
 
-  public void setStepsType(ResultStepsType stepsType) {
+  public void setStepsType(@javax.annotation.Nullable ResultStepsType stepsType) {
     this.stepsType = stepsType;
   }
 
 
-  public ResultCreate params(Map<String, String> params) {
+  public ResultCreate params(@javax.annotation.Nullable Map<String, String> params) {
     this.params = params;
     return this;
   }
@@ -351,21 +365,21 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * Get params
    * @return params
-  **/
+   */
   @javax.annotation.Nullable
   public Map<String, String> getParams() {
     return params;
   }
 
-  public void setParams(Map<String, String> params) {
+  public void setParams(@javax.annotation.Nullable Map<String, String> params) {
     this.params = params;
   }
 
 
-  public ResultCreate paramGroups(List<List<String>> paramGroups) {
+  public ResultCreate paramGroups(@javax.annotation.Nullable List<List<String>> paramGroups) {
     this.paramGroups = paramGroups;
     return this;
   }
@@ -378,73 +392,73 @@ public class ResultCreate {
     return this;
   }
 
-   /**
+  /**
    * List parameter groups by name only. Add their values in the &#39;params&#39; field
    * @return paramGroups
-  **/
+   */
   @javax.annotation.Nullable
   public List<List<String>> getParamGroups() {
     return paramGroups;
   }
 
-  public void setParamGroups(List<List<String>> paramGroups) {
+  public void setParamGroups(@javax.annotation.Nullable List<List<String>> paramGroups) {
     this.paramGroups = paramGroups;
   }
 
 
-  public ResultCreate relations(ResultRelations relations) {
+  public ResultCreate relations(@javax.annotation.Nullable ResultRelations relations) {
     this.relations = relations;
     return this;
   }
 
-   /**
+  /**
    * Get relations
    * @return relations
-  **/
+   */
   @javax.annotation.Nullable
   public ResultRelations getRelations() {
     return relations;
   }
 
-  public void setRelations(ResultRelations relations) {
+  public void setRelations(@javax.annotation.Nullable ResultRelations relations) {
     this.relations = relations;
   }
 
 
-  public ResultCreate message(String message) {
+  public ResultCreate message(@javax.annotation.Nullable String message) {
     this.message = message;
     return this;
   }
 
-   /**
+  /**
    * Get message
    * @return message
-  **/
+   */
   @javax.annotation.Nullable
   public String getMessage() {
     return message;
   }
 
-  public void setMessage(String message) {
+  public void setMessage(@javax.annotation.Nullable String message) {
     this.message = message;
   }
 
 
-  public ResultCreate defect(Boolean defect) {
+  public ResultCreate defect(@javax.annotation.Nullable Boolean defect) {
     this.defect = defect;
     return this;
   }
 
-   /**
+  /**
    * If true and the result is failed, the defect associated with the result will be created
    * @return defect
-  **/
+   */
   @javax.annotation.Nullable
   public Boolean getDefect() {
     return defect;
   }
 
-  public void setDefect(Boolean defect) {
+  public void setDefect(@javax.annotation.Nullable Boolean defect) {
     this.defect = defect;
   }
 
@@ -578,35 +592,18 @@ public class ResultCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("title");
-    openapiFields.add("signature");
-    openapiFields.add("testops_id");
-    openapiFields.add("testops_ids");
-    openapiFields.add("execution");
-    openapiFields.add("fields");
-    openapiFields.add("attachments");
-    openapiFields.add("steps");
-    openapiFields.add("steps_type");
-    openapiFields.add("params");
-    openapiFields.add("param_groups");
-    openapiFields.add("relations");
-    openapiFields.add("message");
-    openapiFields.add("defect");
+    openapiFields = new HashSet<String>(Arrays.asList("id", "title", "signature", "testops_id", "testops_ids", "execution", "fields", "attachments", "steps", "steps_type", "params", "param_groups", "relations", "message", "defect"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("title");
-    openapiRequiredFields.add("execution");
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("title", "execution"));
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultCreate
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultCreate
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -743,22 +740,22 @@ public class ResultCreate {
     }
   }
 
- /**
-  * Create an instance of ResultCreate given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultCreate
-  * @throws IOException if the JSON string is invalid with respect to ResultCreate
-  */
+  /**
+   * Create an instance of ResultCreate given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultCreate
+   * @throws IOException if the JSON string is invalid with respect to ResultCreate
+   */
   public static ResultCreate fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultCreate.class);
   }
 
- /**
-  * Convert an instance of ResultCreate to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultCreate to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

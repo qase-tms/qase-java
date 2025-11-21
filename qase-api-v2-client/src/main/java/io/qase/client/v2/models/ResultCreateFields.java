@@ -37,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,283 +48,295 @@ import io.qase.client.v2.JSON;
 /**
  * ResultCreateFields
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
 public class ResultCreateFields {
   public static final String SERIALIZED_NAME_AUTHOR = "author";
   @SerializedName(SERIALIZED_NAME_AUTHOR)
+  @javax.annotation.Nullable
   private String author;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  @javax.annotation.Nullable
   private String description;
 
   public static final String SERIALIZED_NAME_PRECONDITIONS = "preconditions";
   @SerializedName(SERIALIZED_NAME_PRECONDITIONS)
+  @javax.annotation.Nullable
   private String preconditions;
 
   public static final String SERIALIZED_NAME_POSTCONDITIONS = "postconditions";
   @SerializedName(SERIALIZED_NAME_POSTCONDITIONS)
+  @javax.annotation.Nullable
   private String postconditions;
 
   public static final String SERIALIZED_NAME_LAYER = "layer";
   @SerializedName(SERIALIZED_NAME_LAYER)
+  @javax.annotation.Nullable
   private String layer;
 
   public static final String SERIALIZED_NAME_SEVERITY = "severity";
   @SerializedName(SERIALIZED_NAME_SEVERITY)
+  @javax.annotation.Nullable
   private String severity;
 
   public static final String SERIALIZED_NAME_PRIORITY = "priority";
   @SerializedName(SERIALIZED_NAME_PRIORITY)
+  @javax.annotation.Nullable
   private String priority;
 
   public static final String SERIALIZED_NAME_BEHAVIOR = "behavior";
   @SerializedName(SERIALIZED_NAME_BEHAVIOR)
+  @javax.annotation.Nullable
   private String behavior;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
+  @javax.annotation.Nullable
   private String type;
 
   public static final String SERIALIZED_NAME_MUTED = "muted";
   @SerializedName(SERIALIZED_NAME_MUTED)
+  @javax.annotation.Nullable
   private String muted;
 
   public static final String SERIALIZED_NAME_IS_FLAKY = "is_flaky";
   @SerializedName(SERIALIZED_NAME_IS_FLAKY)
+  @javax.annotation.Nullable
   private String isFlaky;
 
   public static final String SERIALIZED_NAME_EXECUTED_BY = "executed_by";
   @SerializedName(SERIALIZED_NAME_EXECUTED_BY)
+  @javax.annotation.Nullable
   private String executedBy;
 
   public ResultCreateFields() {
   }
 
-  public ResultCreateFields author(String author) {
+  public ResultCreateFields author(@javax.annotation.Nullable String author) {
     this.author = author;
     return this;
   }
 
-   /**
+  /**
    * Author of the related test case (member id, name or email). If set and test case auto-creation is enabled, the author will be used to create the test case
    * @return author
-  **/
+   */
   @javax.annotation.Nullable
   public String getAuthor() {
     return author;
   }
 
-  public void setAuthor(String author) {
+  public void setAuthor(@javax.annotation.Nullable String author) {
     this.author = author;
   }
 
 
-  public ResultCreateFields description(String description) {
+  public ResultCreateFields description(@javax.annotation.Nullable String description) {
     this.description = description;
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   */
   @javax.annotation.Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
 
-  public ResultCreateFields preconditions(String preconditions) {
+  public ResultCreateFields preconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
     return this;
   }
 
-   /**
+  /**
    * Get preconditions
    * @return preconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPreconditions() {
     return preconditions;
   }
 
-  public void setPreconditions(String preconditions) {
+  public void setPreconditions(@javax.annotation.Nullable String preconditions) {
     this.preconditions = preconditions;
   }
 
 
-  public ResultCreateFields postconditions(String postconditions) {
+  public ResultCreateFields postconditions(@javax.annotation.Nullable String postconditions) {
     this.postconditions = postconditions;
     return this;
   }
 
-   /**
+  /**
    * Get postconditions
    * @return postconditions
-  **/
+   */
   @javax.annotation.Nullable
   public String getPostconditions() {
     return postconditions;
   }
 
-  public void setPostconditions(String postconditions) {
+  public void setPostconditions(@javax.annotation.Nullable String postconditions) {
     this.postconditions = postconditions;
   }
 
 
-  public ResultCreateFields layer(String layer) {
+  public ResultCreateFields layer(@javax.annotation.Nullable String layer) {
     this.layer = layer;
     return this;
   }
 
-   /**
+  /**
    * Get layer
    * @return layer
-  **/
+   */
   @javax.annotation.Nullable
   public String getLayer() {
     return layer;
   }
 
-  public void setLayer(String layer) {
+  public void setLayer(@javax.annotation.Nullable String layer) {
     this.layer = layer;
   }
 
 
-  public ResultCreateFields severity(String severity) {
+  public ResultCreateFields severity(@javax.annotation.Nullable String severity) {
     this.severity = severity;
     return this;
   }
 
-   /**
+  /**
    * Get severity
    * @return severity
-  **/
+   */
   @javax.annotation.Nullable
   public String getSeverity() {
     return severity;
   }
 
-  public void setSeverity(String severity) {
+  public void setSeverity(@javax.annotation.Nullable String severity) {
     this.severity = severity;
   }
 
 
-  public ResultCreateFields priority(String priority) {
+  public ResultCreateFields priority(@javax.annotation.Nullable String priority) {
     this.priority = priority;
     return this;
   }
 
-   /**
+  /**
    * Get priority
    * @return priority
-  **/
+   */
   @javax.annotation.Nullable
   public String getPriority() {
     return priority;
   }
 
-  public void setPriority(String priority) {
+  public void setPriority(@javax.annotation.Nullable String priority) {
     this.priority = priority;
   }
 
 
-  public ResultCreateFields behavior(String behavior) {
+  public ResultCreateFields behavior(@javax.annotation.Nullable String behavior) {
     this.behavior = behavior;
     return this;
   }
 
-   /**
+  /**
    * Get behavior
    * @return behavior
-  **/
+   */
   @javax.annotation.Nullable
   public String getBehavior() {
     return behavior;
   }
 
-  public void setBehavior(String behavior) {
+  public void setBehavior(@javax.annotation.Nullable String behavior) {
     this.behavior = behavior;
   }
 
 
-  public ResultCreateFields type(String type) {
+  public ResultCreateFields type(@javax.annotation.Nullable String type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nullable
   public String getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
   }
 
 
-  public ResultCreateFields muted(String muted) {
+  public ResultCreateFields muted(@javax.annotation.Nullable String muted) {
     this.muted = muted;
     return this;
   }
 
-   /**
+  /**
    * Get muted
    * @return muted
-  **/
+   */
   @javax.annotation.Nullable
   public String getMuted() {
     return muted;
   }
 
-  public void setMuted(String muted) {
+  public void setMuted(@javax.annotation.Nullable String muted) {
     this.muted = muted;
   }
 
 
-  public ResultCreateFields isFlaky(String isFlaky) {
+  public ResultCreateFields isFlaky(@javax.annotation.Nullable String isFlaky) {
     this.isFlaky = isFlaky;
     return this;
   }
 
-   /**
+  /**
    * Get isFlaky
    * @return isFlaky
-  **/
+   */
   @javax.annotation.Nullable
   public String getIsFlaky() {
     return isFlaky;
   }
 
-  public void setIsFlaky(String isFlaky) {
+  public void setIsFlaky(@javax.annotation.Nullable String isFlaky) {
     this.isFlaky = isFlaky;
   }
 
 
-  public ResultCreateFields executedBy(String executedBy) {
+  public ResultCreateFields executedBy(@javax.annotation.Nullable String executedBy) {
     this.executedBy = executedBy;
     return this;
   }
 
-   /**
+  /**
    * User who executed the test (member id, name or email)
    * @return executedBy
-  **/
+   */
   @javax.annotation.Nullable
   public String getExecutedBy() {
     return executedBy;
   }
 
-  public void setExecutedBy(String executedBy) {
+  public void setExecutedBy(@javax.annotation.Nullable String executedBy) {
     this.executedBy = executedBy;
   }
 
@@ -442,30 +453,18 @@ public class ResultCreateFields {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("author");
-    openapiFields.add("description");
-    openapiFields.add("preconditions");
-    openapiFields.add("postconditions");
-    openapiFields.add("layer");
-    openapiFields.add("severity");
-    openapiFields.add("priority");
-    openapiFields.add("behavior");
-    openapiFields.add("type");
-    openapiFields.add("muted");
-    openapiFields.add("is_flaky");
-    openapiFields.add("executed_by");
+    openapiFields = new HashSet<String>(Arrays.asList("author", "description", "preconditions", "postconditions", "layer", "severity", "priority", "behavior", "type", "muted", "is_flaky", "executed_by"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ResultCreateFields
-  */
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ResultCreateFields
+   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!ResultCreateFields.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
@@ -583,22 +582,22 @@ public class ResultCreateFields {
     }
   }
 
- /**
-  * Create an instance of ResultCreateFields given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ResultCreateFields
-  * @throws IOException if the JSON string is invalid with respect to ResultCreateFields
-  */
+  /**
+   * Create an instance of ResultCreateFields given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ResultCreateFields
+   * @throws IOException if the JSON string is invalid with respect to ResultCreateFields
+   */
   public static ResultCreateFields fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ResultCreateFields.class);
   }
 
- /**
-  * Convert an instance of ResultCreateFields to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ResultCreateFields to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

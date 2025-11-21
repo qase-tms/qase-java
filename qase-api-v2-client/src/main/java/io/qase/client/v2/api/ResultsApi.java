@@ -29,6 +29,8 @@ import java.io.IOException;
 
 import io.qase.client.v2.models.CreateResultsRequestV2;
 import io.qase.client.v2.models.ResultCreate;
+import io.qase.client.v2.models.ResultCreateBulkResponse;
+import io.qase.client.v2.models.ResultCreateResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -82,7 +84,8 @@ public class ResultsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
@@ -92,7 +95,7 @@ public class ResultsApi {
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultV2Call(String projectCode, Long runId, ResultCreate resultCreate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createResultV2Call(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull ResultCreate resultCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -120,6 +123,7 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -139,7 +143,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createResultV2ValidateBeforeCall(String projectCode, Long runId, ResultCreate resultCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createResultV2ValidateBeforeCall(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull ResultCreate resultCreate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'projectCode' is set
         if (projectCode == null) {
             throw new ApiException("Missing the required parameter 'projectCode' when calling createResultV2(Async)");
@@ -165,9 +169,11 @@ public class ResultsApi {
      * @param projectCode  (required)
      * @param runId  (required)
      * @param resultCreate  (required)
+     * @return ResultCreateResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
@@ -177,8 +183,9 @@ public class ResultsApi {
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
-    public void createResultV2(String projectCode, Long runId, ResultCreate resultCreate) throws ApiException {
-        createResultV2WithHttpInfo(projectCode, runId, resultCreate);
+    public ResultCreateResponse createResultV2(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull ResultCreate resultCreate) throws ApiException {
+        ApiResponse<ResultCreateResponse> localVarResp = createResultV2WithHttpInfo(projectCode, runId, resultCreate);
+        return localVarResp.getData();
     }
 
     /**
@@ -187,10 +194,11 @@ public class ResultsApi {
      * @param projectCode  (required)
      * @param runId  (required)
      * @param resultCreate  (required)
-     * @return ApiResponse&lt;Void&gt;
+     * @return ApiResponse&lt;ResultCreateResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
@@ -200,9 +208,10 @@ public class ResultsApi {
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> createResultV2WithHttpInfo(String projectCode, Long runId, ResultCreate resultCreate) throws ApiException {
+    public ApiResponse<ResultCreateResponse> createResultV2WithHttpInfo(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull ResultCreate resultCreate) throws ApiException {
         okhttp3.Call localVarCall = createResultV2ValidateBeforeCall(projectCode, runId, resultCreate, null);
-        return localVarApiClient.execute(localVarCall);
+        Type localVarReturnType = new TypeToken<ResultCreateResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -215,7 +224,8 @@ public class ResultsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
@@ -225,10 +235,11 @@ public class ResultsApi {
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultV2Async(String projectCode, Long runId, ResultCreate resultCreate, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call createResultV2Async(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull ResultCreate resultCreate, final ApiCallback<ResultCreateResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createResultV2ValidateBeforeCall(projectCode, runId, resultCreate, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
+        Type localVarReturnType = new TypeToken<ResultCreateResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
@@ -240,7 +251,8 @@ public class ResultsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
@@ -250,7 +262,7 @@ public class ResultsApi {
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultsV2Call(String projectCode, Long runId, CreateResultsRequestV2 createResultsRequestV2, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createResultsV2Call(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull CreateResultsRequestV2 createResultsRequestV2, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -278,6 +290,7 @@ public class ResultsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
+            "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -297,7 +310,7 @@ public class ResultsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createResultsV2ValidateBeforeCall(String projectCode, Long runId, CreateResultsRequestV2 createResultsRequestV2, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createResultsV2ValidateBeforeCall(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull CreateResultsRequestV2 createResultsRequestV2, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'projectCode' is set
         if (projectCode == null) {
             throw new ApiException("Missing the required parameter 'projectCode' when calling createResultsV2(Async)");
@@ -323,9 +336,11 @@ public class ResultsApi {
      * @param projectCode  (required)
      * @param runId  (required)
      * @param createResultsRequestV2  (required)
+     * @return ResultCreateBulkResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
@@ -335,8 +350,9 @@ public class ResultsApi {
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
-    public void createResultsV2(String projectCode, Long runId, CreateResultsRequestV2 createResultsRequestV2) throws ApiException {
-        createResultsV2WithHttpInfo(projectCode, runId, createResultsRequestV2);
+    public ResultCreateBulkResponse createResultsV2(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull CreateResultsRequestV2 createResultsRequestV2) throws ApiException {
+        ApiResponse<ResultCreateBulkResponse> localVarResp = createResultsV2WithHttpInfo(projectCode, runId, createResultsRequestV2);
+        return localVarResp.getData();
     }
 
     /**
@@ -345,10 +361,11 @@ public class ResultsApi {
      * @param projectCode  (required)
      * @param runId  (required)
      * @param createResultsRequestV2  (required)
-     * @return ApiResponse&lt;Void&gt;
+     * @return ApiResponse&lt;ResultCreateBulkResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
@@ -358,9 +375,10 @@ public class ResultsApi {
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> createResultsV2WithHttpInfo(String projectCode, Long runId, CreateResultsRequestV2 createResultsRequestV2) throws ApiException {
+    public ApiResponse<ResultCreateBulkResponse> createResultsV2WithHttpInfo(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull CreateResultsRequestV2 createResultsRequestV2) throws ApiException {
         okhttp3.Call localVarCall = createResultsV2ValidateBeforeCall(projectCode, runId, createResultsRequestV2, null);
-        return localVarApiClient.execute(localVarCall);
+        Type localVarReturnType = new TypeToken<ResultCreateBulkResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
@@ -373,7 +391,8 @@ public class ResultsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
-     <table summary="Response Details" border="1">
+     <table border="1">
+       <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
@@ -383,10 +402,11 @@ public class ResultsApi {
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createResultsV2Async(String projectCode, Long runId, CreateResultsRequestV2 createResultsRequestV2, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call createResultsV2Async(@javax.annotation.Nonnull String projectCode, @javax.annotation.Nonnull Long runId, @javax.annotation.Nonnull CreateResultsRequestV2 createResultsRequestV2, final ApiCallback<ResultCreateBulkResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createResultsV2ValidateBeforeCall(projectCode, runId, createResultsRequestV2, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
+        Type localVarReturnType = new TypeToken<ResultCreateBulkResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 }
