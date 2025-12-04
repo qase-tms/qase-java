@@ -25,7 +25,7 @@ dependencies {
     testImplementation("io.cucumber:cucumber-core:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-java:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-junit-platform-engine:$cucumberVersion")
-    testImplementation("io.qase:qase-cucumber-v7-reporter:4.1.24")
+    testImplementation("io.qase:qase-cucumber-v7-reporter:4.1.25")
 }
 
 tasks.test {

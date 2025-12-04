@@ -281,56 +281,205 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         return Objects.requireNonNull(configurationsApi.createConfigurationGroup(this.config.testops.project, groupCreate).getResult()).getId();
     }
 
+    private static final long MAX_FILE_SIZE = 32 * 1024 * 1024; // 32 MB
+    private static final long MAX_REQUEST_SIZE = 128 * 1024 * 1024; // 128 MB
+    private static final int MAX_FILES_PER_REQUEST = 20;
+
+    /**
+     * Uploads a single attachment. For backward compatibility.
+     * 
+     * @param attachment the attachment to upload
+     * @return the hash of the uploaded attachment, or empty string on failure
+     */
     public String uploadAttachment(Attachment attachment) {
+        List<String> hashes = uploadAttachments(Collections.singletonList(attachment));
+        return hashes.isEmpty() ? "" : hashes.get(0);
+    }
+
+    /**
+     * Uploads multiple attachments with validation and automatic batching.
+     * Automatically splits attachments into batches considering:
+     * - Up to 32 MB per file (files exceeding this limit are skipped with error log)
+     * - Up to 128 MB per single request
+     * - Up to 20 files per single request
+     * 
+     * @param attachments list of attachments to upload
+     * @return list of hashes for successfully uploaded attachments
+     */
+    public List<String> uploadAttachments(List<Attachment> attachments) {
+        if (attachments == null || attachments.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Prepare all files first
+        List<FileInfo> fileInfos = prepareFiles(attachments);
+        if (fileInfos.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Split into batches
+        List<List<FileInfo>> batches = splitIntoBatches(fileInfos);
+        
+        // Upload each batch
+        List<String> allHashes = new ArrayList<>();
         AttachmentsApi api = new AttachmentsApi(client);
-        File file;
-        boolean removeFile = false;
-
-        if (attachment.filePath != null) {
-            file = new File(attachment.filePath);
-        } else if (attachment.content != null) {
-            String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
-            file = new File(tempPath);
-
-            try (FileWriter fileWriter = new FileWriter(file)) {
-                fileWriter.write(attachment.content);
-                removeFile = true;
-            } catch (IOException e) {
-                logger.error("Failed to write attachment content to file: %s", e.getMessage());
-                return "";
-            }
-        } else {
-            String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
-            file = new File(tempPath);
-
-            try (FileOutputStream fos = new FileOutputStream(file)) {
-                fos.write(attachment.contentBytes);
-                removeFile = true;
-            } catch (IOException e) {
-                logger.error("Failed to write attachment content to file: %s", e.getMessage());
-                return "";
+        
+        for (int i = 0; i < batches.size(); i++) {
+            List<FileInfo> batch = batches.get(i);
+            try {
+                List<File> batchFiles = batch.stream()
+                        .map(fi -> fi.file)
+                        .collect(Collectors.toList());
+                
+                List<Attachmentupload> response = api
+                        .uploadAttachment(this.config.testops.project, batchFiles).getResult();
+                
+                List<String> batchHashes = processUploadResponse(response, batch);
+                allHashes.addAll(batchHashes);
+                
+                logger.debug("Uploaded batch %d/%d: %d files, %d hashes", 
+                    i + 1, batches.size(), batch.size(), batchHashes.size());
+            } catch (ApiException e) {
+                logger.error("Failed to upload batch %d/%d: %s", i + 1, batches.size(), e.getMessage());
+                // Continue with next batch instead of failing completely
+            } finally {
+                // Clean up temporary files for this batch
+                cleanupFileInfos(batch);
             }
         }
 
-        try {
-            List<Attachmentupload> response = api
-                    .uploadAttachment(this.config.testops.project, Collections.singletonList(file)).getResult();
-            return processUploadResponse(response, file, removeFile);
-        } catch (ApiException e) {
-            logger.error("Failed to upload attachment: %s", e.getMessage());
-            return "";
+        return allHashes;
+    }
+
+    /**
+     * Internal class to hold file information
+     */
+    private static class FileInfo {
+        final File file;
+        final boolean shouldRemove;
+        final long size;
+
+        FileInfo(File file, boolean shouldRemove, long size) {
+            this.file = file;
+            this.shouldRemove = shouldRemove;
+            this.size = size;
         }
     }
 
-    private String processUploadResponse(List<Attachmentupload> response, File file, boolean removeFile) {
-        if (file != null && file.exists() && removeFile) {
-            file.delete();
+    /**
+     * Prepares files from attachments and validates individual file sizes
+     */
+    private List<FileInfo> prepareFiles(List<Attachment> attachments) {
+        List<FileInfo> fileInfos = new ArrayList<>();
+
+        for (Attachment attachment : attachments) {
+            File file;
+            boolean removeFile = false;
+
+            if (attachment.filePath != null) {
+                file = new File(attachment.filePath);
+                if (!file.exists()) {
+                    logger.error("File not found: %s", attachment.filePath);
+                    continue;
+                }
+            } else if (attachment.content != null) {
+                String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
+                file = new File(tempPath);
+
+                try (FileWriter fileWriter = new FileWriter(file)) {
+                    fileWriter.write(attachment.content);
+                    removeFile = true;
+                } catch (IOException e) {
+                    logger.error("Failed to write attachment content to file: %s", e.getMessage());
+                    continue;
+                }
+            } else if (attachment.contentBytes != null) {
+                String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
+                file = new File(tempPath);
+
+                try (FileOutputStream fos = new FileOutputStream(file)) {
+                    fos.write(attachment.contentBytes);
+                    removeFile = true;
+                } catch (IOException e) {
+                    logger.error("Failed to write attachment content to file: %s", e.getMessage());
+                    continue;
+                }
+            } else {
+                logger.error("Attachment has no content: %s", attachment.fileName);
+                continue;
+            }
+
+            // Validate file size
+            long fileSize = file.length();
+            if (fileSize > MAX_FILE_SIZE) {
+                logger.error("File too large, skipping: %s (%d bytes, max %d bytes)", 
+                    attachment.fileName, fileSize, MAX_FILE_SIZE);
+                if (removeFile && file.exists()) {
+                    file.delete();
+                }
+                continue;
+            }
+
+            fileInfos.add(new FileInfo(file, removeFile, fileSize));
         }
 
+        return fileInfos;
+    }
+
+    /**
+     * Splits files into batches considering:
+     * - Max 20 files per batch
+     * - Max 128 MB per batch
+     */
+    private List<List<FileInfo>> splitIntoBatches(List<FileInfo> fileInfos) {
+        List<List<FileInfo>> batches = new ArrayList<>();
+        List<FileInfo> currentBatch = new ArrayList<>();
+        long currentBatchSize = 0;
+
+        for (FileInfo fileInfo : fileInfos) {
+            // Check if adding this file would exceed limits
+            boolean exceedsFileCount = currentBatch.size() >= MAX_FILES_PER_REQUEST;
+            boolean exceedsSize = currentBatchSize + fileInfo.size > MAX_REQUEST_SIZE;
+
+            if (exceedsFileCount || exceedsSize) {
+                // Start a new batch
+                if (!currentBatch.isEmpty()) {
+                    batches.add(new ArrayList<>(currentBatch));
+                    currentBatch.clear();
+                    currentBatchSize = 0;
+                }
+            }
+
+            currentBatch.add(fileInfo);
+            currentBatchSize += fileInfo.size;
+        }
+
+        // Add the last batch if not empty
+        if (!currentBatch.isEmpty()) {
+            batches.add(currentBatch);
+        }
+
+        logger.debug("Split %d files into %d batches", fileInfos.size(), batches.size());
+        return batches;
+    }
+
+    private List<String> processUploadResponse(List<Attachmentupload> response, 
+                                                List<FileInfo> fileInfos) {
         if (response == null || response.isEmpty()) {
-            return "";
+            return Collections.emptyList();
         }
 
-        return response.get(0).getHash();
+        return response.stream()
+                .map(Attachmentupload::getHash)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+    private void cleanupFileInfos(List<FileInfo> fileInfos) {
+        for (FileInfo fileInfo : fileInfos) {
+            if (fileInfo.file != null && fileInfo.file.exists() && fileInfo.shouldRemove) {
+                fileInfo.file.delete();
+            }
+        }
     }
 }

@@ -574,7 +574,7 @@ public class AttachmentsApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         if (_file != null) {
-            localVarFormParams.put("file", _file);
+            localVarFormParams.put("file[]", _file);
         }
 
         final String[] localVarAccepts = {

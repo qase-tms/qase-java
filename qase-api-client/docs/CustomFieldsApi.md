@@ -5,10 +5,10 @@ All URIs are relative to *https://api.qase.io/v1*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createCustomField**](CustomFieldsApi.md#createCustomField) | **POST** /custom_field | Create new Custom Field |
-| [**deleteCustomField**](CustomFieldsApi.md#deleteCustomField) | **DELETE** /custom_field/{id} | Delete Custom Field by id |
-| [**getCustomField**](CustomFieldsApi.md#getCustomField) | **GET** /custom_field/{id} | Get Custom Field by id |
+| [**deleteCustomField**](CustomFieldsApi.md#deleteCustomField) | **DELETE** /custom_field/{id} | Delete Custom Field |
+| [**getCustomField**](CustomFieldsApi.md#getCustomField) | **GET** /custom_field/{id} | Get Custom Field |
 | [**getCustomFields**](CustomFieldsApi.md#getCustomFields) | **GET** /custom_field | Get all Custom Fields |
-| [**updateCustomField**](CustomFieldsApi.md#updateCustomField) | **PATCH** /custom_field/{id} | Update Custom Field by id |
+| [**updateCustomField**](CustomFieldsApi.md#updateCustomField) | **PATCH** /custom_field/{id} | Update Custom Field |
 
 
 <a id="createCustomField"></a>
@@ -89,7 +89,7 @@ public class Example {
 # **deleteCustomField**
 > BaseResponse deleteCustomField(id)
 
-Delete Custom Field by id
+Delete Custom Field
 
 This method allows to delete custom field. 
 
@@ -163,7 +163,7 @@ public class Example {
 # **getCustomField**
 > CustomFieldResponse getCustomField(id)
 
-Get Custom Field by id
+Get Custom Field
 
 This method allows to retrieve custom field. 
 
@@ -316,7 +316,7 @@ public class Example {
 # **updateCustomField**
 > BaseResponse updateCustomField(id, customFieldUpdate)
 
-Update Custom Field by id
+Update Custom Field
 
 This method allows to update custom field. 
 

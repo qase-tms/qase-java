@@ -83,10 +83,7 @@ public class ApiClientV2 implements ApiClient {
     }
 
     private ResultCreate convertResult(TestResult result) {
-        List<String> attachments = result.attachments.stream()
-                .map(this.apiClientV1::uploadAttachment)
-                .filter(attachment -> !attachment.isEmpty())
-                .collect(Collectors.toList());
+        List<String> attachments = this.apiClientV1.uploadAttachments(result.attachments);
 
         List<ResultStep> steps = result.steps.stream()
                 .map(this::convertStepResult).collect(Collectors.toList());
@@ -174,10 +171,7 @@ public class ApiClientV2 implements ApiClient {
             data.inputData(step.data.inputData);
         }
 
-        List<String> attachments = step.attachments.stream()
-                .map(this.apiClientV1::uploadAttachment)
-                .filter(attachment -> !attachment.isEmpty())
-                .collect(Collectors.toList());
+        List<String> attachments = this.apiClientV1.uploadAttachments(step.attachments);
 
         ResultStepExecution execution = new ResultStepExecution()
                 .status(ResultStepStatus.fromValue(step.execution.status.toString().toLowerCase()))
