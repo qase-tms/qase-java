@@ -299,7 +299,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Delete Custom Field by id
+     * Delete Custom Field
      * This method allows to delete custom field. 
      * @param id Identifier. (required)
      * @return BaseResponse
@@ -322,7 +322,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Delete Custom Field by id
+     * Delete Custom Field
      * This method allows to delete custom field. 
      * @param id Identifier. (required)
      * @return ApiResponse&lt;BaseResponse&gt;
@@ -346,7 +346,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Delete Custom Field by id (asynchronously)
+     * Delete Custom Field (asynchronously)
      * This method allows to delete custom field. 
      * @param id Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -446,7 +446,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Get Custom Field by id
+     * Get Custom Field
      * This method allows to retrieve custom field. 
      * @param id Identifier. (required)
      * @return CustomFieldResponse
@@ -469,7 +469,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Get Custom Field by id
+     * Get Custom Field
      * This method allows to retrieve custom field. 
      * @param id Identifier. (required)
      * @return ApiResponse&lt;CustomFieldResponse&gt;
@@ -493,7 +493,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Get Custom Field by id (asynchronously)
+     * Get Custom Field (asynchronously)
      * This method allows to retrieve custom field. 
      * @param id Identifier. (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -766,7 +766,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Update Custom Field by id
+     * Update Custom Field
      * This method allows to update custom field. 
      * @param id Identifier. (required)
      * @param customFieldUpdate  (required)
@@ -791,7 +791,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Update Custom Field by id
+     * Update Custom Field
      * This method allows to update custom field. 
      * @param id Identifier. (required)
      * @param customFieldUpdate  (required)
@@ -817,7 +817,7 @@ public class CustomFieldsApi {
     }
 
     /**
-     * Update Custom Field by id (asynchronously)
+     * Update Custom Field (asynchronously)
      * This method allows to update custom field. 
      * @param id Identifier. (required)
      * @param customFieldUpdate  (required)

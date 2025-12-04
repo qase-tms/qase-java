@@ -1,3 +1,9 @@
+# qase-java 4.1.25
+
+## What's new
+
+- Improved the upload mechanism for attachments. Now the reporter will upload attachments in batches of 20 files.
+
 # qase-java 4.1.24
 
 ## What's new
