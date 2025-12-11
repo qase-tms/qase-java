@@ -15,6 +15,7 @@ import io.qase.commons.writers.Writer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class CoreReporter implements Reporter {
@@ -24,9 +25,24 @@ public class CoreReporter implements Reporter {
     private InternalReporter fallback;
     private final HooksManager hooksManager;
     private final QaseConfig config;
+    private final String reporterName;
+    private final String reporterVersion;
+    private final String frameworkName;
+    private final String frameworkVersion;
+    private final java.util.Map<String, String> hostInfo;
 
     public CoreReporter(QaseConfig config) {
+        this(config, null, null, null, null, null);
+    }
+
+    public CoreReporter(QaseConfig config, String reporterName, String reporterVersion,
+                       String frameworkName, String frameworkVersion, java.util.Map<String, String> hostInfo) {
         this.config = config;
+        this.reporterName = reporterName;
+        this.reporterVersion = reporterVersion;
+        this.frameworkName = frameworkName;
+        this.frameworkVersion = frameworkVersion;
+        this.hostInfo = hostInfo;
         this.reporter = this.createReporter(config, config.mode);
         this.fallback = this.createReporter(config, config.fallback);
         this.hooksManager = HooksManager.getDefaultHooksManager();
@@ -142,7 +158,7 @@ public class CoreReporter implements Reporter {
     private InternalReporter createReporter(QaseConfig config, Mode mode) {
         switch (mode) {
             case TESTOPS:
-                ApiClient client = new ApiClientV2(config);
+                ApiClient client = new ApiClientV2(config, reporterName, reporterVersion, frameworkName, frameworkVersion, hostInfo);
                 return new TestopsReporter(config.testops, client);
             case REPORT:
                 Writer writer = new FileWriter(config.report.connection);

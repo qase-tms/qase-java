@@ -33,8 +33,27 @@ public class QaseEventListener implements Formatter {
     private final ScenarioStorage scenarioStorage;
 
     public QaseEventListener() {
-        this.qaseTestCaseListener = CoreReporterFactory.getInstance();
+        String reporterVersion = QaseEventListener.class.getPackage().getImplementationVersion();
+        String frameworkVersion = getFrameworkVersion();
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance(
+            "qase-cucumber-v3", reporterVersion, "cucumber", frameworkVersion);
         this.scenarioStorage = new ScenarioStorage();
+    }
+
+    private String getFrameworkVersion() {
+        try {
+            Package pkg = cucumber.api.TestCase.class.getPackage();
+            if (pkg != null) {
+                String version = pkg.getImplementationVersion();
+                if (version == null || version.isEmpty()) {
+                    version = pkg.getSpecificationVersion();
+                }
+                return version != null ? version : "";
+            }
+        } catch (Exception e) {
+            // Framework version not available
+        }
+        return "";
     }
 
     @Override

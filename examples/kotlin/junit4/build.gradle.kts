@@ -22,7 +22,7 @@ tasks.withType<JavaCompile>().configureEach {
 dependencies {
     testImplementation(kotlin("test"))
     testImplementation("junit:junit:4.13.1")
-    testImplementation("io.qase:qase-junit4-reporter:4.1.25")
+    testImplementation("io.qase:qase-junit4-reporter:4.1.26")
     "aspectConfig"("org.aspectj:aspectjweaver:1.9.22")
 }
 

@@ -8,10 +8,11 @@ import io.qase.commons.config.QaseConfig;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.StepResult;
 import io.qase.commons.models.domain.TestResult;
-
+import io.qase.commons.utils.ClientHeadersBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ApiClientV2 implements ApiClient {
@@ -20,9 +21,24 @@ public class ApiClientV2 implements ApiClient {
     private final QaseConfig config;
     private final ApiClientV1 apiClientV1;
     private final io.qase.client.v2.ApiClient client;
+    private final String reporterName;
+    private final String reporterVersion;
+    private final String frameworkName;
+    private final String frameworkVersion;
+    private final Map<String, String> hostInfo;
 
     public ApiClientV2(QaseConfig config) {
+        this(config, null, null, null, null, null);
+    }
+
+    public ApiClientV2(QaseConfig config, String reporterName, String reporterVersion,
+                       String frameworkName, String frameworkVersion, Map<String, String> hostInfo) {
         this.config = config;
+        this.reporterName = reporterName;
+        this.reporterVersion = reporterVersion;
+        this.frameworkName = frameworkName;
+        this.frameworkVersion = frameworkVersion;
+        this.hostInfo = hostInfo;
         apiClientV1 = new ApiClientV1(config);
 
         this.client = new io.qase.client.v2.ApiClient();
@@ -35,6 +51,36 @@ public class ApiClientV2 implements ApiClient {
         }
 
         this.client.setApiKey(config.testops.api.token);
+        
+        // Set default headers X-Client and X-Platform
+        setupDefaultHeaders();
+    }
+    
+    /**
+     * Setup default headers X-Client and X-Platform for all API requests
+     */
+    private void setupDefaultHeaders() {
+        try {
+            // Build X-Client header with reporter and framework info
+            String xClientHeader = ClientHeadersBuilder.buildXClientHeader(
+                reporterName, reporterVersion, frameworkName, frameworkVersion);
+            if (xClientHeader != null && !xClientHeader.isEmpty()) {
+                this.client.addDefaultHeader("X-Client", xClientHeader);
+                logger.debug("Set X-Client header: %s", xClientHeader);
+            }
+            
+            // Build X-Platform header using hostInfo passed from CoreReporterFactory
+            if (hostInfo != null) {
+                String xPlatformHeader = ClientHeadersBuilder.buildXPlatformHeader(hostInfo);
+                if (xPlatformHeader != null && !xPlatformHeader.isEmpty()) {
+                    this.client.addDefaultHeader("X-Platform", xPlatformHeader);
+                    logger.debug("Set X-Platform header: %s", xPlatformHeader);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Failed to setup default headers: %s", e.getMessage());
+            // Continue without headers if setup fails
+        }
     }
 
     @Override
