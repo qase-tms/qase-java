@@ -35,8 +35,27 @@ public class QaseEventListener implements ConcurrentEventListener {
     private final ThreadLocal<URI> currentFeatureFile = new InheritableThreadLocal<>();
 
     public QaseEventListener() {
-        this.qaseTestCaseListener = CoreReporterFactory.getInstance();
+        String reporterVersion = QaseEventListener.class.getPackage().getImplementationVersion();
+        String frameworkVersion = getFrameworkVersion();
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance(
+            "qase-cucumber-v7", reporterVersion, "cucumber", frameworkVersion);
         this.scenarioStorage = new ScenarioStorage();
+    }
+
+    private String getFrameworkVersion() {
+        try {
+            Package pkg = io.cucumber.plugin.event.TestCase.class.getPackage();
+            if (pkg != null) {
+                String version = pkg.getImplementationVersion();
+                if (version == null || version.isEmpty()) {
+                    version = pkg.getSpecificationVersion();
+                }
+                return version != null ? version : "";
+            }
+        } catch (Throwable e) {
+            // Framework version not available
+        }
+        return "";
     }
 
     @Override

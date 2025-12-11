@@ -23,7 +23,26 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
 
     public QaseListener() {
-        this.qaseTestCaseListener = CoreReporterFactory.getInstance();
+        String reporterVersion = QaseListener.class.getPackage().getImplementationVersion();
+        String frameworkVersion = getFrameworkVersion();
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance(
+            "qase-junit5", reporterVersion, "junit5", frameworkVersion);
+    }
+
+    private String getFrameworkVersion() {
+        try {
+            Package pkg = org.junit.jupiter.api.Test.class.getPackage();
+            if (pkg != null) {
+                String version = pkg.getImplementationVersion();
+                if (version == null || version.isEmpty()) {
+                    version = pkg.getSpecificationVersion();
+                }
+                return version != null ? version : "";
+            }
+        } catch (Exception e) {
+            // Framework version not available
+        }
+        return "";
     }
 
     @Override

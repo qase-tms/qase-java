@@ -26,7 +26,26 @@ public class QaseListener extends RunListener {
     private final Reporter qaseTestCaseListener;
 
     public QaseListener() {
-        this.qaseTestCaseListener = CoreReporterFactory.getInstance();
+        String reporterVersion = QaseListener.class.getPackage().getImplementationVersion();
+        String frameworkVersion = getFrameworkVersion();
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance(
+            "qase-junit4", reporterVersion, "junit4", frameworkVersion);
+    }
+
+    private String getFrameworkVersion() {
+        try {
+            Package pkg = junit.framework.TestCase.class.getPackage();
+            if (pkg != null) {
+                String version = pkg.getImplementationVersion();
+                if (version == null || version.isEmpty()) {
+                    version = pkg.getSpecificationVersion();
+                }
+                return version != null ? version : "";
+            }
+        } catch (Exception e) {
+            // Framework version not available
+        }
+        return "";
     }
 
     @Override

@@ -27,7 +27,26 @@ public class QaseListener implements ISuiteListener,
     private final io.qase.commons.reporters.Reporter qaseTestCaseListener;
 
     public QaseListener() {
-        this.qaseTestCaseListener = CoreReporterFactory.getInstance();
+        String reporterVersion = QaseListener.class.getPackage().getImplementationVersion();
+        String frameworkVersion = getFrameworkVersion();
+        this.qaseTestCaseListener = CoreReporterFactory.getInstance(
+            "qase-testng", reporterVersion, "testng", frameworkVersion);
+    }
+
+    private String getFrameworkVersion() {
+        try {
+            Package pkg = org.testng.TestNG.class.getPackage();
+            if (pkg != null) {
+                String version = pkg.getImplementationVersion();
+                if (version == null || version.isEmpty()) {
+                    version = pkg.getSpecificationVersion();
+                }
+                return version != null ? version : "";
+            }
+        } catch (Exception e) {
+            // Framework version not available
+        }
+        return "";
     }
 
     @Override
