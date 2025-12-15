@@ -54,7 +54,7 @@ public class ClientHeadersBuilder {
             parts.add("reporter=" + reporterName);
         }
         if (reporterVersion != null && !reporterVersion.isEmpty()) {
-            parts.add("reporter_version=v" + ensureNoVPrefix(reporterVersion));
+            parts.add("reporter_version=" + ensureNoVPrefix(reporterVersion));
         }
         
         // Add framework info
@@ -67,15 +67,15 @@ public class ClientHeadersBuilder {
         
         // Add client versions
         if (apiClientV1Version != null && !apiClientV1Version.isEmpty()) {
-            parts.add("client_version_v1=v" + ensureNoVPrefix(apiClientV1Version));
+            parts.add("client_version_v1=" + ensureNoVPrefix(apiClientV1Version));
         }
         if (apiClientV2Version != null && !apiClientV2Version.isEmpty()) {
-            parts.add("client_version_v2=v" + ensureNoVPrefix(apiClientV2Version));
+            parts.add("client_version_v2=" + ensureNoVPrefix(apiClientV2Version));
         }
         
         // Add core version
         if (commonsVersion != null && !commonsVersion.isEmpty()) {
-            parts.add("core_version=v" + ensureNoVPrefix(commonsVersion));
+            parts.add("core_version=" + ensureNoVPrefix(commonsVersion));
         }
         
         return String.join(";", parts);
