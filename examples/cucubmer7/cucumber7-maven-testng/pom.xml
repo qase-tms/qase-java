@@ -13,7 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.22</aspectj.version>
-        <qase.version>4.1.26</qase.version>
+        <qase.version>4.1.27</qase.version>
         <cucumber.version>7.14.0</cucumber.version>
     </properties>
 
