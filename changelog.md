@@ -1,3 +1,9 @@
+# qase-java 4.1.28
+
+## What's new
+
+- Fixed issue with root suite in reporters.
+
 # qase-java 4.1.25
 
 ## What's new

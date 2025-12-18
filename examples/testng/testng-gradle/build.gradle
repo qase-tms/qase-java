@@ -24,7 +24,7 @@ repositories {
 dependencies {
     testImplementation "org.aspectj:aspectjrt:1.9.22"
     testImplementation "org.testng:testng:7.5"
-    testImplementation 'io.qase:qase-testng-reporter:4.1.27'
+    testImplementation 'io.qase:qase-testng-reporter:4.1.28'
     aspectConfig "org.aspectj:aspectjweaver:1.9.22"
 }
 

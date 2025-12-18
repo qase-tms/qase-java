@@ -7,6 +7,9 @@ import io.qase.commons.config.Mode;
 import io.qase.commons.config.QaseConfig;
 import io.qase.commons.hooks.HooksManager;
 import io.qase.commons.logger.Logger;
+import io.qase.commons.models.domain.Relations;
+import io.qase.commons.models.domain.Suite;
+import io.qase.commons.models.domain.SuiteData;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.domain.TestResultStatus;
 import io.qase.commons.utils.StatusMappingUtils;
@@ -15,7 +18,6 @@ import io.qase.commons.writers.Writer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class CoreReporter implements Reporter {
@@ -66,6 +68,9 @@ public class CoreReporter implements Reporter {
     public void addResult(TestResult result) {
         logger.debug("Adding result: %s", result);
 
+        // Apply root suite first, before any other processing
+        applyRootSuite(result);
+
         // Apply status mapping before processing
         applyStatusMapping(result);
 
@@ -87,6 +92,45 @@ public class CoreReporter implements Reporter {
         }
 
         return reporter.getTestCaseIdsForExecution();
+    }
+
+    /**
+     * Apply root suite to test result.
+     * This method sets the root suite as the first element in the suite hierarchy
+     * if it is configured in the config.
+     * 
+     * @param result the test result to apply root suite to
+     */
+    private void applyRootSuite(TestResult result) {
+        if (result == null || config.rootSuite == null || config.rootSuite.isEmpty()) {
+            return;
+        }
+
+        if (result.relations == null) {
+            result.relations = new Relations();
+        }
+
+        if (result.relations.suite == null) {
+            result.relations.suite = new Suite();
+        }
+
+        if (result.relations.suite.data == null) {
+            result.relations.suite.data = new ArrayList<>();
+        }
+
+        // Check if root suite is already the first element
+        if (!result.relations.suite.data.isEmpty()) {
+            SuiteData firstSuite = result.relations.suite.data.get(0);
+            if (firstSuite != null && config.rootSuite.equals(firstSuite.title)) {
+                // Root suite is already set as first element
+                return;
+            }
+        }
+
+        // Add root suite as the first element
+        SuiteData rootSuiteData = new SuiteData();
+        rootSuiteData.title = config.rootSuite;
+        result.relations.suite.data.add(0, rootSuiteData);
     }
 
     /**
