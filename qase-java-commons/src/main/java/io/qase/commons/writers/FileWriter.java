@@ -1,11 +1,13 @@
 package io.qase.commons.writers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.qase.commons.QaseException;
 import io.qase.commons.config.ConnectionConfig;
 import io.qase.commons.config.Format;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.Attachment;
+import io.qase.commons.models.domain.ThrowableAdapter;
 import io.qase.commons.models.report.ReportAttachment;
 import io.qase.commons.models.report.ReportResult;
 import io.qase.commons.models.report.Run;
@@ -43,9 +45,15 @@ public class FileWriter implements Writer {
         this.createDirectory(attachmentPath);
     }
 
+    private Gson createGson() {
+        return new GsonBuilder()
+                .registerTypeHierarchyAdapter(Throwable.class, new ThrowableAdapter())
+                .create();
+    }
+
     @Override
     public void writeRun(Run run) throws QaseException {
-        Gson gson = new Gson();
+        Gson gson = createGson();
         String path = Paths.get(this.rootPath, "run.json").toString();
         File file = new File(path);
 
@@ -62,7 +70,7 @@ public class FileWriter implements Writer {
 
     @Override
     public void writeResult(ReportResult result) throws QaseException {
-        Gson gson = new Gson();
+        Gson gson = createGson();
         String path = Paths.get(this.resultsPath, (result.id + ".json")).toString();
         File file = new File(path);
 

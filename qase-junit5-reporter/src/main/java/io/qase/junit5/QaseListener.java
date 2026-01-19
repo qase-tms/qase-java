@@ -152,7 +152,7 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
     @Override
     public void testSuccessful(ExtensionContext context) {
-       this.stopTestCase(TestResultStatus.PASSED, null);
+        this.stopTestCase(TestResultStatus.PASSED, null);
     }
 
     @Override
@@ -168,33 +168,43 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
     }
 
     private void stopTestCase(TestResultStatus status, Throwable cause) {
-        TestResult resultCreate = CasesStorage.getCurrentCase();
-
-        if (resultCreate.ignore) {
-            CasesStorage.stopCase();
+        if (!CasesStorage.isCaseInProgress()) {
+            // Case was already stopped, possibly by another thread or cleanup
             return;
         }
+        
+        TestResult resultCreate = CasesStorage.getCurrentCase();
 
-        Optional<Throwable> resultThrowable = Optional.ofNullable(cause);
-        String comment = resultThrowable.flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-        String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<StepResult> steps = StepStorage.stopSteps();
+        try {
+            if (resultCreate.ignore) {
+                return;
+            }
 
-        resultCreate.execution.status = status;
-        resultCreate.execution.endTime = Instant.now().toEpochMilli();
-        resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
-        resultCreate.execution.stacktrace = stacktrace;
-        resultCreate.steps = steps;
+            Optional<Throwable> resultThrowable = Optional.ofNullable(cause);
+            String comment = resultThrowable.flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
+            String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+            LinkedList<StepResult> steps = StepStorage.stopSteps();
 
-        if (comment != null) {
-            if (resultCreate.message != null) {
-                resultCreate.message += "\n\n" + comment;
-            } else {
-                resultCreate.message = comment;
+            resultCreate.execution.status = status;
+            resultCreate.execution.endTime = Instant.now().toEpochMilli();
+            resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
+            resultCreate.execution.stacktrace = stacktrace;
+            resultCreate.steps = steps;
+
+            if (comment != null) {
+                if (resultCreate.message != null) {
+                    resultCreate.message += "\n\n" + comment;
+                } else {
+                    resultCreate.message = comment;
+                }
+            }
+
+            this.qaseTestCaseListener.addResult(resultCreate);
+        } finally {
+            // Always stop the case, even if an exception occurs
+            if (CasesStorage.isCaseInProgress()) {
+                CasesStorage.stopCase();
             }
         }
-
-        this.qaseTestCaseListener.addResult(resultCreate);
-        CasesStorage.stopCase();
     }
 }

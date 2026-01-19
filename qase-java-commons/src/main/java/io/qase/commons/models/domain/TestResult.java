@@ -38,7 +38,7 @@ public class TestResult {
     @Override
     public String toString() {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Throwable.class, new ThrowableAdapter())
+                .registerTypeHierarchyAdapter(Throwable.class, new ThrowableAdapter())
                 .create();
         return gson.toJson(this);
     }
