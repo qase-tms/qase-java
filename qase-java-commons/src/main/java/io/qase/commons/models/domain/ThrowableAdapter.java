@@ -6,7 +6,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-class ThrowableAdapter extends TypeAdapter<Throwable> {
+public class ThrowableAdapter extends TypeAdapter<Throwable> {
     @Override
     public void write(JsonWriter out, Throwable value) throws IOException {
         out.beginObject();

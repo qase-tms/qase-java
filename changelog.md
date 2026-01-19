@@ -1,3 +1,9 @@
+# qase-java 4.1.29
+
+## What's new
+
+- Fixed issue with test result cleanup in JUnit5 reporter.
+
 # qase-java 4.1.28
 
 ## What's new
