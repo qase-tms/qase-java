@@ -19,6 +19,22 @@ import org.json.JSONObject;
 public class HostInfo {
 
     /**
+     * Remove ANSI escape sequences from a string
+     * ANSI escape sequences start with ESC (0x1b) and are used for terminal formatting
+     * 
+     * @param input String that may contain ANSI escape sequences
+     * @return String with ANSI escape sequences removed
+     */
+    private String removeAnsiEscapeSequences(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+        // Remove ANSI escape sequences: \x1b[...m or \x1b[...;...m or similar patterns
+        // Pattern matches: ESC followed by [ and any characters until a letter (command)
+        return input.replaceAll("\u001B\\[[\\d;]*[A-Za-z]", "");
+    }
+
+    /**
      * Execute a command and return its output as a string
      *
      * @param command      Command to execute
@@ -47,7 +63,9 @@ public class HostInfo {
                 return defaultValue;
             }
 
-            return output.toString().trim();
+            String result = output.toString().trim();
+            // Remove ANSI escape sequences from command output
+            return removeAnsiEscapeSequences(result);
         } catch (IOException | InterruptedException e) {
             System.err.println("Exception executing command '" + command + "': " + e.getMessage());
             return defaultValue;

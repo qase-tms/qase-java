@@ -1,3 +1,9 @@
+# qase-java 4.1.30
+
+## What's new
+
+- Fixed issue with headers in API requests.
+
 # qase-java 4.1.29
 
 ## What's new
