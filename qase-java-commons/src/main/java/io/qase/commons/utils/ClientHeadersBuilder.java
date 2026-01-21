@@ -82,6 +82,25 @@ public class ClientHeadersBuilder {
     }
     
     /**
+     * Remove ANSI escape sequences and other control characters from a string
+     * ANSI escape sequences start with ESC (0x1b) and are used for terminal formatting
+     * Control characters (0x00-0x1F, except tab, newline, carriage return) are not allowed in HTTP headers
+     * 
+     * @param input String that may contain ANSI escape sequences or control characters
+     * @return String with ANSI escape sequences and invalid control characters removed
+     */
+    private static String sanitizeHeaderValue(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+        // Remove ANSI escape sequences: \x1b[...m or \x1b[...;...m or similar patterns
+        String result = input.replaceAll("\u001B\\[[\\d;]*[A-Za-z]", "");
+        // Remove other control characters except tab (0x09), newline (0x0A), and carriage return (0x0D)
+        result = result.replaceAll("[\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F\\x7F]", "");
+        return result;
+    }
+    
+    /**
      * Build X-Platform header value
      * Format: os={os_name};arch={arch};{language}={language_version};{package_manager}={package_manager_version}
      * 
@@ -98,19 +117,19 @@ public class ClientHeadersBuilder {
         // OS name
         String osName = hostInfo.get("system");
         if (osName != null && !osName.isEmpty()) {
-            parts.add("os=" + osName);
+            parts.add("os=" + sanitizeHeaderValue(osName));
         }
         
         // Architecture
         String arch = hostInfo.get("arch");
         if (arch != null && !arch.isEmpty()) {
-            parts.add("arch=" + arch);
+            parts.add("arch=" + sanitizeHeaderValue(arch));
         }
         
         // Java version (language)
         String javaVersion = hostInfo.get("java");
         if (javaVersion != null && !javaVersion.isEmpty()) {
-            parts.add("java=" + javaVersion);
+            parts.add("java=" + sanitizeHeaderValue(javaVersion));
         }
         
         // Build tool version (package manager: maven or gradle)
@@ -122,7 +141,7 @@ public class ClientHeadersBuilder {
             if (packageManager == null || packageManager.isEmpty()) {
                 packageManager = "maven"; // Default to maven if buildTool is present
             }
-            parts.add(packageManager + "=" + buildTool);
+            parts.add(packageManager + "=" + sanitizeHeaderValue(buildTool));
         }
         
         return String.join(";", parts);
