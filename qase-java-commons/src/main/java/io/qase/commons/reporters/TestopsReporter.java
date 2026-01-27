@@ -123,7 +123,7 @@ public class TestopsReporter implements InternalReporter {
     private String prepareLink(Long id, String title) {
         String baseLink = this.getBaseUrl(this.config.api.host) + "/run/"
                 + this.config.project + "/dashboard/" + this.testRunId
-                + "?source=logs&status=%5B2%5D&search=";
+                + "?source=logs&search=";
 
         if (id != null) {
             return baseLink + this.config.project + "-" + id;

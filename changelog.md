@@ -1,3 +1,9 @@
+# qase-java 4.1.31
+
+## What's new
+
+- Fixed an issue where the test run link was not being generated correctly when filtering by status.
+
 # qase-java 4.1.30
 
 ## What's new
