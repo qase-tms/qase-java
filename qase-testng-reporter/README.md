@@ -173,11 +173,12 @@ public void testNotTracked() {
 
 ### Test Result Statuses
 
-| TestNG Result | Qase Status |
-|---------------|-------------|
-| SUCCESS | passed |
-| FAILURE | failed |
-| SKIP | skipped |
+| TestNG Result | Qase Status | Description |
+|---------------|-------------|-------------|
+| SUCCESS | passed | Test completed successfully |
+| FAILURE (assertion) | failed | Test failed due to assertion error (`AssertionError`, `assertEquals`, etc.) |
+| FAILURE (other) | invalid | Test failed due to non-assertion error (`NullPointerException`, `RuntimeException`, etc.) |
+| SKIP | skipped | Test was skipped |
 
 > For more usage examples, see the [Usage Guide](docs/usage.md).
 

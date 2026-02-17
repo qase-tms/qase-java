@@ -162,13 +162,14 @@ Scenario: Not tracked in Qase
 
 ### Test Result Statuses
 
-| Cucumber Result | Qase Status |
-|----------------|-------------|
-| PASSED | passed |
-| FAILED | failed |
-| SKIPPED | skipped |
-| PENDING | skipped |
-| UNDEFINED | failed |
+| Cucumber Result | Qase Status | Description |
+|----------------|-------------|-------------|
+| PASSED | passed | Scenario completed successfully |
+| FAILED (assertion) | failed | Step failed due to assertion error (`AssertionError`, `assertEquals`, etc.) |
+| FAILED (other) | invalid | Step failed due to non-assertion error (`NullPointerException`, `RuntimeException`, etc.) |
+| SKIPPED | skipped | Scenario was skipped |
+| PENDING | skipped | Step definition is pending |
+| UNDEFINED | invalid | Step definition is missing |
 
 > For more usage examples, see the [Usage Guide](docs/usage.md).
 

@@ -173,11 +173,12 @@ public void testNotTracked() {
 
 ### Test Result Statuses
 
-| JUnit 4 Result | Qase Status |
-|----------------|-------------|
-| Passed | passed |
-| Failed | failed |
-| Skipped | skipped |
+| JUnit 4 Result | Qase Status | Description |
+|----------------|-------------|-------------|
+| Passed | passed | Test completed successfully |
+| Failed (assertion) | failed | Test failed due to assertion error (`AssertionError`, `assertEquals`, etc.) |
+| Failed (other) | invalid | Test failed due to non-assertion error (`NullPointerException`, `RuntimeException`, etc.) |
+| Skipped | skipped | Test was skipped or ignored |
 
 > For more usage examples, see the [Usage Guide](docs/usage.md).
 

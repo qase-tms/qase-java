@@ -42,6 +42,7 @@ This guide provides comprehensive instructions for integrating Qase with Cucumbe
   - [Filtering by Tags](#filtering-by-tags)
 
 **Reference**
+- [Test Result Statuses](#test-result-statuses)
 - [Complete Examples](#complete-examples)
 - [Troubleshooting](#troubleshooting)
 - [See Also](#see-also)
@@ -463,6 +464,28 @@ mvn clean test -Dcucumber.filter.tags="@QaseSuite=Authentication and not @QaseIg
 ```
 
 **Alternative:** You can also use `qase.config.json` in your project root to configure settings. See the [README](../../qase-cucumber-v6-reporter/README.md) for details.
+
+---
+
+## Test Result Statuses
+
+The reporter automatically classifies test results based on the type of failure:
+
+| Cucumber Result | Qase Status | Description |
+|----------------|-------------|-------------|
+| PASSED | passed | Scenario completed successfully |
+| FAILED (assertion) | failed | Step failed due to assertion error (`AssertionError`, `assertEquals`, etc.) |
+| FAILED (other) | invalid | Step failed due to non-assertion error (`NullPointerException`, `RuntimeException`, etc.) |
+| SKIPPED | skipped | Scenario was skipped |
+| PENDING | skipped | Step definition is pending |
+| UNDEFINED | invalid | Step definition is missing |
+
+The distinction between `failed` and `invalid` helps you separate real test failures from infrastructure or code issues:
+
+- **failed** — the scenario executed correctly but an assertion did not pass (e.g., `assertEquals(expected, actual)` mismatch). This indicates a bug in the application under test.
+- **invalid** — the scenario could not complete due to an unexpected error (e.g., `NullPointerException`, network timeout, missing resource) or a missing step definition. This indicates a problem with the test environment or test code itself.
+
+The reporter detects assertion libraries automatically, including JUnit (`org.junit`), AssertJ (`org.assertj`), and OpenTest4J (`org.opentest4j`).
 
 ---
 

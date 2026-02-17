@@ -42,6 +42,7 @@ This guide provides comprehensive instructions for using Qase annotations and AP
   - [Targeting Specific Tests](#targeting-specific-tests)
 
 **Reference**
+- [Test Result Statuses](#test-result-statuses)
 - [Complete Examples](#complete-examples)
 - [Troubleshooting](#troubleshooting)
 - [See Also](#see-also)
@@ -586,6 +587,26 @@ mvn test -Dtest=SimpleTests#testWithQaseId
 ```
 
 **Configuration Note:** You can also use a `qase.config.json` file at the project root instead of environment variables or system properties. See the [README](../../qase-junit4-reporter/README.md) for details.
+
+---
+
+## Test Result Statuses
+
+The reporter automatically classifies test results based on the type of failure:
+
+| JUnit 4 Result | Qase Status | Description |
+|----------------|-------------|-------------|
+| Passed | passed | Test completed successfully |
+| Failed (assertion) | failed | Test failed due to assertion error (`AssertionError`, `assertEquals`, etc.) |
+| Failed (other) | invalid | Test failed due to non-assertion error (`NullPointerException`, `RuntimeException`, etc.) |
+| Skipped | skipped | Test was skipped |
+
+The distinction between `failed` and `invalid` helps you separate real test failures from infrastructure or code issues:
+
+- **failed** — the test executed correctly but the assertion did not pass (e.g., `assertEquals(expected, actual)` mismatch). This indicates a bug in the application under test.
+- **invalid** — the test could not complete due to an unexpected error (e.g., `NullPointerException`, network timeout, missing resource). This indicates a problem with the test environment or test code itself.
+
+The reporter detects assertion libraries automatically, including JUnit (`org.junit`), AssertJ (`org.assertj`), and OpenTest4J (`org.opentest4j`).
 
 ---
 
