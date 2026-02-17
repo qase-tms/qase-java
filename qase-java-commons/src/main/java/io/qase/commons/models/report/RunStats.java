@@ -5,7 +5,8 @@ public class RunStats {
     public int passed;
     public int failed;
     public int skipped;
-    public int broken;
+    public int blocked;
+    public int invalid;
     public int muted;
     public int total;
 
@@ -13,7 +14,8 @@ public class RunStats {
         this.passed = 0;
         this.failed = 0;
         this.skipped = 0;
-        this.broken = 0;
+        this.blocked = 0;
+        this.invalid = 0;
         this.muted = 0;
         this.total = 0;
     }
@@ -28,6 +30,12 @@ public class RunStats {
                 break;
             case "skipped":
                 this.skipped++;
+                break;
+            case "blocked":
+                this.blocked++;
+                break;
+            case "invalid":
+                this.invalid++;
                 break;
         }
 
