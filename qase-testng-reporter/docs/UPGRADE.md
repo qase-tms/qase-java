@@ -8,7 +8,7 @@ This guide covers migration from Qase Java Reporter v3 to v4 for the TestNG repo
 
 | Version Range | Key Changes |
 |---|---|
-| v4.0.0 - v4.1.31 (current) | New architecture, v2 API, qase.config.json, new annotations |
+| v4.0.0 - v4.1.32 (current) | New architecture, v2 API, qase.config.json, new annotations |
 | v3.x (v3.2.1 last) | Legacy architecture, v1 API, env-only configuration |
 
 ---
@@ -49,7 +49,7 @@ This guide covers migration from Qase Java Reporter v3 to v4 for the TestNG repo
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-testng-reporter</artifactId>
-    <version>4.1.31</version>
+    <version>4.1.32</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -61,7 +61,7 @@ testImplementation 'io.qase:qase-testng:3.2.1'
 
 **Gradle After (v4):**
 ```groovy
-testImplementation 'io.qase:qase-testng-reporter:4.1.31'
+testImplementation 'io.qase:qase-testng-reporter:4.1.32'
 ```
 
 ### Step 2: Update Configuration
@@ -279,7 +279,7 @@ public class LoginTests {
 
 ## Verification Checklist
 
-- [ ] Maven/Gradle dependency updated to `qase-testng-reporter` v4.1.31
+- [ ] Maven/Gradle dependency updated to `qase-testng-reporter` v4.1.32
 - [ ] Old `qase-testng` dependency removed
 - [ ] `qase.config.json` created in project root (or env vars updated)
 - [ ] All imports updated from `io.qase.api.*` to `io.qase.commons.*`
