@@ -1,10 +1,13 @@
 package io.qase.commons.models.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SuiteData {
     public String title;
-    public int publicId;
+    @SerializedName("public_id")
+    public Integer publicId;
 
     public SuiteData() {
-        this.publicId = 0;
+        this.publicId = null;
     }
 }

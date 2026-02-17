@@ -3,6 +3,7 @@ package io.qase.commons.models.report;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class Run {
     public String environment;
     
     @SerializedName("host_data")
-    public List<ReportHostData> hostData;
+    public Map<String, String> hostData;
 
     public Run(String title, long startTime, long endTime, String environment) {
         this.title = title;
@@ -30,7 +31,7 @@ public class Run {
         this.threads = new ArrayList<>();
         this.suites = new ArrayList<>();
         this.environment = environment;
-        this.hostData = new ArrayList<>();
+        this.hostData = new HashMap<>();
     }
 
     public void addResults(List<ReportResult> results) {
@@ -61,9 +62,6 @@ public class Run {
         if (hostData == null) {
             return;
         }
-        
-        for (Map.Entry<String, String> entry : hostData.entrySet()) {
-            this.hostData.add(new ReportHostData(entry.getKey(), entry.getValue()));
-        }
+        this.hostData.putAll(hostData);
     }
 }
