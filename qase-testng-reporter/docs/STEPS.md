@@ -170,7 +170,7 @@ public class NestedStepTests {
 
 **How it appears in Qase:**
 
-```
+```text
 - Authenticate user                    [PASSED]
   - Navigate to login page             [PASSED]
   - Submit login credentials           [PASSED]

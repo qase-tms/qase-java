@@ -566,7 +566,7 @@ public class UserManagementSteps {
 
 ### Project Structure Example
 
-```
+```text
 my-cucumber-project/
 ├── qase.config.json
 ├── pom.xml (or build.gradle)
