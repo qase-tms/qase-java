@@ -170,7 +170,7 @@ public class NestedStepTests {
 
 **How it appears in Qase:**
 
-```
+```text
 - Authenticate user                    [PASSED]
   - Navigate to login page             [PASSED]
   - Submit login credentials           [PASSED]
@@ -390,7 +390,7 @@ test {
 1. Ensure `junit-platform.properties` exists in `src/test/resources/` with:
    ```properties
    junit.jupiter.extensions.autodetection.enabled=true
-   ```
+```text
 2. Verify both SPI files exist in the reporter JAR (automatic with dependency).
 3. Restart your IDE or clean rebuild the project.
 

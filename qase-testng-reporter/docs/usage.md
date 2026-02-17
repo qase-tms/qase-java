@@ -863,7 +863,7 @@ public class LoginTests {
 
 Recommended project structure for TestNG with Qase:
 
-```
+```text
 project-root/
 ├── src/
 │   └── test/
@@ -979,7 +979,7 @@ project-root/
 <listeners>
     <listener class-name="io.qase.testng.QaseTestngListener"/>
 </listeners>
-```
+```text
 4. Verify ServiceLoader mechanism is working (check for SPI files in classpath)
 5. Enable TestNG verbose logging: `-verbose:10`
 

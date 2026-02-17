@@ -74,7 +74,7 @@ public class LoginSteps {
 
 ### What Appears in Qase
 
-```
+```text
 Steps:
 - Given the user is on the login page                            [PASSED]
 - When the user enters "admin@example.com" and "password123"     [PASSED]
@@ -403,7 +403,7 @@ public void completeCheckout() {
 - `@Step` annotation requires AspectJ weaver. Verify aspectjweaver is configured as javaagent:
   ```bash
   -javaagent:path/to/aspectjweaver.jar
-  ```
+```text
 - Check your Maven Surefire or Gradle test configuration includes the AspectJ weaver.
 - Note: Automatic Gherkin step reporting does NOT require AspectJ — only @Step annotation does.
 

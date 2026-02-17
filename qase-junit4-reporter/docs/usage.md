@@ -659,7 +659,7 @@ public class LoginTest {
 
 **Example project structure:**
 
-```
+```text
 my-project/
 ├── pom.xml (or build.gradle)
 ├── qase.config.json

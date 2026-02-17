@@ -648,7 +648,7 @@ public class LoginTest {
 
 **Example project structure:**
 
-```
+```text
 my-project/
 ├── pom.xml (or build.gradle)
 ├── qase.config.json
@@ -747,7 +747,7 @@ my-project/
 1. Create or update `src/test/resources/junit-platform.properties`:
    ```properties
    junit.jupiter.extensions.autodetection.enabled=true
-   ```
+```text
 2. Restart your IDE or clean rebuild the project
 
 ### Parameterized tests creating duplicate test cases
