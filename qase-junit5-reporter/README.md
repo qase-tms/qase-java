@@ -1,261 +1,219 @@
-# Qase TMS JUnit5 Reporter
+# [Qase TestOps](https://qase.io) JUnit 5 Reporter
 
-Publish your test results easily and effectively with Qase TMS.
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/io.qase/qase-junit5-reporter)](https://mvnrepository.com/artifact/io.qase/qase-junit5-reporter)
+
+The Qase JUnit 5 Reporter enables seamless integration between your JUnit 5 tests and [Qase TestOps](https://qase.io), providing automatic test result reporting, test case management, and comprehensive test analytics.
+
+## Features
+
+- Link automated tests to Qase test cases by ID
+- Auto-create test cases from your test code
+- Report test results with rich metadata (fields, attachments, steps)
+- Support for parameterized tests
+- Flexible configuration (file, environment variables, system properties)
+- Real-time reporting with batched uploads
 
 ## Installation
-
-To install the latest release version (4.0.x), follow the instructions below for Maven and Gradle.
 
 ### Maven
 
 Add the following dependency to your `pom.xml`:
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>your.group.id</groupId>
-   <artifactId>your-artifact-id</artifactId>
-   <version>1.0-SNAPSHOT</version>
-   <properties>
-      <aspectj.version>1.9.22</aspectj.version>
-      <maven.compiler.source>1.8</maven.compiler.source>
-      <maven.compiler.target>1.8</maven.compiler.target>
-   </properties>
-
-   <dependencies>
-      <dependency>
-         <groupId>io.qase</groupId>
-         <artifactId>qase-junit5-reporter</artifactId>
-         <version>4.0.0</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.junit</groupId>
-         <artifactId>junit-bom</artifactId>
-         <version>5.11.2</version>
-         <type>pom</type>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.junit.jupiter</groupId>
-         <artifactId>junit-jupiter-api</artifactId>
-         <version>5.11.2</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.junit.jupiter</groupId>
-         <artifactId>junit-jupiter-params</artifactId>
-         <version>5.11.2</version>
-         <scope>test</scope>
-      </dependency>
-   </dependencies>
-
-   <build>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
-            <configuration>
-               <argLine>
-                  -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-               </argLine>
-               <!-- This section is required for the proper functioning of the reporter. -->
-               <properties>
-                  <configurationParameters>
-                     junit.jupiter.extensions.autodetection.enabled = true
-                  </configurationParameters>
-               </properties>
-            </configuration>
-            <dependencies>
-               <dependency>
-                  <groupId>org.aspectj</groupId>
-                  <artifactId>aspectjweaver</artifactId>
-                  <version>${aspectj.version}</version>
-               </dependency>
-            </dependencies>
-         </plugin>
-      </plugins>
-   </build>
-</project>
+<dependency>
+    <groupId>io.qase</groupId>
+    <artifactId>qase-junit5-reporter</artifactId>
+    <version>4.1.31</version>
+    <scope>test</scope>
+</dependency>
 ```
 
 ### Gradle
 
-Add the following dependencies to your `build.gradle`:
+Add the following to your `build.gradle`:
 
 ```groovy
-configurations {
-   aspectjweaver
-}
+testImplementation 'io.qase:qase-junit5-reporter:4.1.31'
+```
 
-tasks.withType(JavaCompile).configureEach {
-   // Enables the adapter to accept real parameter names
-   options.compilerArgs.add("-parameters")
-}
+> **Note:** The reporter requires AspectJ weaver for step functionality and `junit.jupiter.extensions.autodetection.enabled = true`. See the [examples directory](../examples/junit5/) for complete Maven and Gradle setup.
 
-dependencies {
-   aspectjweaver "org.aspectj:aspectjweaver:1.9.22"
-   testImplementation platform('org.junit:junit-bom:5.10.0')
-   testImplementation 'org.junit.jupiter:junit-jupiter'
-   testImplementation 'org.junit.jupiter:junit-jupiter-api'
-   testImplementation 'org.junit.jupiter:junit-jupiter-params'
-   testImplementation 'org.junit.jupiter:junit-jupiter-engine'
-   testImplementation 'org.junit.platform:junit-platform-launcher'
-   testImplementation('io.qase:qase-junit5-reporter:4.0.0')
-}
+## Quick Start
 
-test {
-   systemProperties = System.properties
-}
+**1. Create `qase.config.json` in your project root:**
 
-compileTestJava {
-   options.getCompilerArgs().add("-parameters")
-}
-
-test.doFirst {
-   useJUnitPlatform()
-   // This line is required for the proper functioning of the reporter.
-   systemProperty "junit.jupiter.extensions.autodetection.enabled", true
-   def weaver = configurations.aspectjweaver.find { it.name.contains("aspectjweaver") }
-   jvmArgs += "-javaagent:$weaver"
+```json
+{
+  "mode": "testops",
+  "testops": {
+    "project": "YOUR_PROJECT_CODE",
+    "api": {
+      "token": "YOUR_API_TOKEN"
+    }
+  }
 }
 ```
 
-## Updating from v3 to v4
-
-To update an existing test project using the Qase reporter from version 3 to version 4, follow these steps:
-
-1. **Change Import Paths**: Update your test files to change the import paths:
-   ```diff
-   - import io.qase.api.annotation.*;
-   + import io.qase.commons.annotation.*;
-   ```
-
-2. **Update Reporter Configuration**: Modify your `qase.config.json` and/or environment variables. For more information,
-   see the [Configuration Reference](#configuration) below.
-
-## Getting Started
-
-The JUnit5 reporter can auto-generate test cases and suites based on your test data. Test results from subsequent runs
-will match the same test cases as long as their names and file paths remain unchanged.
-
-You can also annotate tests with IDs of existing test cases from Qase.io before execution. This approach ensures a
-reliable binding between your automated tests and test cases, even if you rename, move, or parameterize your tests.
-
-### Metadata Annotations
-
-- **`QaseId`**: Set the ID of the test case.
-- **`QaseTitle`**: Set the title of the test case.
-- **`QaseFields`**: Set custom fields for the test case.
-- **`QaseSuite`**: Specify the suite for the test case.
-- **`QaseIgnore`**: Ignore the test case in Qase. The test will execute, but results won't be sent to Qase.
-- **`Qase.comment`**: Add a comment to the test case.
-- **`Qase.attach`**: Attach a file to the test case.
-
-For detailed instructions on using annotations and methods, refer to [Usage](./docs/usage.md).
-
-### Example Test Case
-
-Here’s a simple example of using Qase annotations in a JUnit5 test:
+**2. Add Qase ID to your test:**
 
 ```java
-package org.example;
+package com.example;
 
-import io.qase.commons.annotation.*;
+import io.qase.commons.annotation.QaseId;
+import io.qase.commons.annotation.QaseTitle;
 import org.junit.jupiter.api.Test;
 
-public class SimpleTests {
+public class SampleTest {
 
     @Test
     @QaseId(1)
-    @QaseTitle("Example Test")
-    public void test() {
-        System.out.println("Running example test");
+    @QaseTitle("Open login page")
+    public void testLogin() {
+        // your test logic
     }
 }
 ```
 
-To execute your JUnit5 tests and report the results to Qase.io, use the following commands:
-
-#### Maven
+**3. Run your tests:**
 
 ```bash
 mvn clean test
 ```
 
-#### Gradle
-
-```bash
-gradle test
-```
-
-You can try it with the example project at [`examples/junit5`](../examples/junit5/).
-
-<p align="center">
-  <img width="65%" src="./screenshots/screenshot.png" alt="Qase JUnit5 Screenshot">
-</p>
-
-After running the tests, results will be available at:
-
-```
-https://app.qase.io/run/QASE_PROJECT_CODE
-```
-
 ## Configuration
 
-The Qase JUnit5 reporter can be configured in multiple ways:
+The reporter is configured via (in order of priority):
 
-- **Configuration File**: Use a separate config file `qase.config.json`.
-- **Environment Variables**: These override values from the configuration file.
-- **CLI Arguments**: CLI arguments take precedence over both configuration files and environment variables.
+1. **System properties** (`-Dqase.*`, highest priority)
+2. **Environment variables** (`QASE_*`)
+3. **Config file** (`qase.config.json`)
 
-For a complete list of configuration options, refer to
-the [Configuration Reference](../qase-java-commons/README.md#configuration).
+### Minimal Configuration
+
+| Option | Environment Variable | Description |
+|--------|---------------------|-------------|
+| `mode` | `QASE_MODE` | Set to `testops` to enable reporting |
+| `testops.project` | `QASE_TESTOPS_PROJECT` | Your Qase project code |
+| `testops.api.token` | `QASE_TESTOPS_API_TOKEN` | Your Qase API token |
 
 ### Example `qase.config.json`
 
 ```json
 {
-   "mode": "testops",
-   "fallback": "report",
-   "debug": true,
-   "environment": "local",
-   "report": {
-      "driver": "local",
-      "connection": {
-         "local": {
-            "path": "./build/qase-report",
-            "format": "json"
-         }
+  "mode": "testops",
+  "fallback": "report",
+  "testops": {
+    "project": "YOUR_PROJECT_CODE",
+    "api": {
+      "token": "YOUR_API_TOKEN"
+    },
+    "run": {
+      "title": "JUnit 5 Automated Run"
+    },
+    "batch": {
+      "size": 100
+    }
+  },
+  "report": {
+    "driver": "local",
+    "connection": {
+      "local": {
+        "path": "./build/qase-report",
+        "format": "json"
       }
-   },
-   "testops": {
-      "api": {
-         "token": "<token>",
-         "host": "qase.io"
-      },
-      "run": {
-         "title": "Regression Run",
-         "description": "Description of the regression run",
-         "complete": true
-      },
-      "defect": false,
-      "project": "<project_code>",
-      "batch": {
-         "size": 100
-      }
-   }
+    }
+  }
 }
+```
+
+> **Full configuration reference:** See [qase-java-commons](../qase-java-commons/README.md#configuration) for all available options including logging, status mapping, execution plans, and more.
+
+## Usage
+
+### Link Tests with Test Cases
+
+Associate your tests with Qase test cases using the `@QaseId` annotation:
+
+```java
+@Test
+@QaseId(42)
+public void testFeature() {
+    // ...
+}
+```
+
+### Add Metadata
+
+Enhance your tests with additional information:
+
+```java
+@Test
+@QaseId(1)
+@QaseTitle("Verify user authentication")
+@QaseFields({"priority:high", "layer:api"})
+@QaseSuite("Authentication")
+public void testAuth() {
+    Qase.comment("Testing auth with valid credentials");
+    // ...
+}
+```
+
+### Ignore Tests in Qase
+
+Exclude specific tests from Qase reporting (test still runs, but results are not sent):
+
+```java
+@Test
+@QaseIgnore
+public void testNotTracked() {
+    // ...
+}
+```
+
+### Test Result Statuses
+
+| JUnit 5 Result | Qase Status |
+|----------------|-------------|
+| Passed | passed |
+| Failed | failed |
+| Disabled | skipped |
+
+> For more usage examples, see the [Usage Guide](docs/usage.md).
+
+## Running Tests
+
+### Maven
+
+```bash
+mvn clean test
+```
+
+### Gradle
+
+```bash
+gradle test
 ```
 
 ## Requirements
 
-- **JUnit5**: Version 5.0.0 or higher is required.
-- **Java**: Version 1.8 or higher is required.
+- **JUnit 5**: Version 5.0.0 or higher
+- **Java**: Version 1.8 or higher
 
-For further assistance, please refer to
-the [Qase Authentication Documentation](https://developers.qase.io/#authentication).
+## Documentation
+
+| Guide | Description |
+|-------|-------------|
+| [Usage Guide](docs/usage.md) | Complete usage reference with all annotations and options |
+| [Attachments](docs/ATTACHMENTS.md) | Adding screenshots, logs, and files to test results |
+| [Steps](docs/STEPS.md) | Defining test steps for detailed reporting |
+| [Upgrade Guide](docs/UPGRADE.md) | Migration guide from v3 to v4 |
+| [Configuration Reference](../qase-java-commons/README.md#configuration) | Full configuration options reference |
+
+## Examples
+
+See the [examples directory](../examples/junit5/) for complete working examples with Maven, Gradle, and Bazel.
+
+## License
+
+Apache License 2.0. See [LICENSE](../LICENSE) for details.
