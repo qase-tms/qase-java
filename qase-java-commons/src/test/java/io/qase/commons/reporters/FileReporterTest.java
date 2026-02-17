@@ -8,14 +8,17 @@ import io.qase.commons.models.domain.SuiteData;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.domain.TestResultStatus;
 import io.qase.commons.models.report.ReportAttachment;
+import io.qase.commons.models.report.ReportData;
 import io.qase.commons.models.report.ReportResult;
 import io.qase.commons.models.report.Run;
 import io.qase.commons.models.report.RunExecution;
 import io.qase.commons.models.report.RunStats;
 import io.qase.commons.models.report.ShortReportResult;
 import io.qase.commons.writers.Writer;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -258,6 +261,80 @@ class FileReporterTest {
         String jsonWithId = gson.toJson(suiteData);
         assertTrue(jsonWithId.contains("\"public_id\":42"));
         assertFalse(jsonWithId.contains("\"publicId\""));
+    }
+
+    @Test
+    void testResultJsonDoesNotContainRemovedFields() throws QaseException {
+        TestResult testResult = this.prepareResult();
+
+        ReportAttachment mockAttachment = new ReportAttachment();
+        mockAttachment.id = "att-id";
+        mockAttachment.fileName = "test.txt";
+        mockAttachment.filePath = "attachment-path";
+        when(writerMock.writeAttachment(any())).thenReturn(mockAttachment);
+
+        fileReporter.startTestRun();
+        fileReporter.addResult(testResult);
+        fileReporter.completeTestRun();
+
+        ArgumentCaptor<ReportResult> captor = ArgumentCaptor.forClass(ReportResult.class);
+        verify(writerMock).writeResult(captor.capture());
+        ReportResult captured = captor.getValue();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(captured);
+
+        // Removed fields must NOT appear
+        assertFalse(json.contains("\"runId\""), "JSON must not contain runId");
+        assertFalse(json.contains("\"run_id\""), "JSON must not contain run_id");
+        assertFalse(json.contains("\"testops_id\":"), "JSON must not contain testops_id (singular)");
+        assertFalse(json.contains("\"author\""), "JSON must not contain author");
+
+        // Spec fields MUST appear
+        assertTrue(json.contains("\"testops_ids\""), "JSON must contain testops_ids array");
+        assertTrue(json.contains("\"id\""), "JSON must contain id");
+        assertTrue(json.contains("\"title\""), "JSON must contain title");
+        assertTrue(json.contains("\"execution\""), "JSON must contain execution");
+    }
+
+    @Test
+    void testAttachmentJsonDoesNotContainSize() {
+        ReportAttachment attachment = new ReportAttachment();
+        attachment.id = "att-1";
+        attachment.fileName = "report.pdf";
+        attachment.mimeType = "application/pdf";
+        attachment.filePath = "/tmp/report.pdf";
+
+        Gson gson = new Gson();
+        String json = gson.toJson(attachment);
+
+        // Removed field must NOT appear
+        assertFalse(json.contains("\"size\""), "JSON must not contain size");
+
+        // Spec fields MUST appear
+        assertTrue(json.contains("\"id\""), "JSON must contain id");
+        assertTrue(json.contains("\"file_name\""), "JSON must contain file_name");
+        assertTrue(json.contains("\"mime_type\""), "JSON must contain mime_type");
+        assertTrue(json.contains("\"file_path\""), "JSON must contain file_path");
+    }
+
+    @Test
+    void testStepDataJsonDoesNotContainAttachments() {
+        ReportData data = new ReportData();
+        data.action = "Click button";
+        data.expectedResult = "Page loads";
+        data.inputData = "username=test";
+
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+
+        // Removed field must NOT appear
+        assertFalse(json.contains("\"attachments\""), "JSON must not contain attachments");
+
+        // Spec fields MUST appear
+        assertTrue(json.contains("\"action\""), "JSON must contain action");
+        assertTrue(json.contains("\"expected_result\""), "JSON must contain expected_result");
+        assertTrue(json.contains("\"input_data\""), "JSON must contain input_data");
     }
 
     private TestResult prepareResult(){
