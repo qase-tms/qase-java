@@ -14,14 +14,7 @@ public class ReportResult {
     public String id;
     public String title;
     public String signature;
-    public String runId;
-    
-    /**
-     * Single testops ID (nullable)
-     */
-    @SerializedName("testops_id")
-    public Long testopsId;
-    
+
     /**
      * Array of testops IDs (nullable)
      */
@@ -37,7 +30,6 @@ public class ReportResult {
     @SerializedName("param_groups")
     public List<List<String>> paramGroups;
     
-    public String author;
     public Relations relations;
     public boolean muted;
     public String message;

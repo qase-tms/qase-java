@@ -76,14 +76,7 @@ public class FileReporter implements InternalReporter {
         reportResult.paramGroups = result.paramGroups;
         reportResult.fields = result.fields;
         reportResult.testopsIds = result.testopsIds;
-        reportResult.runId = result.runId;
-        reportResult.author = result.author;
         reportResult.signature = result.signature;
-
-        // Set testops_id to the first element if available
-        if (result.testopsIds != null && !result.testopsIds.isEmpty()) {
-            reportResult.testopsId = result.testopsIds.get(0);
-        }
 
         // Convert execution
         reportResult.execution = convertExecution(result.execution);
@@ -152,11 +145,6 @@ public class FileReporter implements InternalReporter {
         reportData.action = data.action;
         reportData.expectedResult = data.expectedResult;
         reportData.inputData = data.inputData;
-
-        reportData.attachments = data.attachments.stream()
-                .map(this.writer::writeAttachment)
-                .filter(attachment -> attachment != null)
-                .collect(Collectors.toList());
 
         return reportData;
     }
