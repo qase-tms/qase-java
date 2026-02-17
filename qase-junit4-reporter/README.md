@@ -24,7 +24,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-junit4-reporter</artifactId>
-    <version>4.1.31</version>
+    <version>4.1.32</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -34,7 +34,7 @@ Add the following dependency to your `pom.xml`:
 Add the following to your `build.gradle`:
 
 ```groovy
-testImplementation 'io.qase:qase-junit4-reporter:4.1.31'
+testImplementation 'io.qase:qase-junit4-reporter:4.1.32'
 ```
 
 > **Note:** The reporter requires AspectJ weaver for step functionality. See the [examples directory](../examples/junit4/) for complete Maven and Gradle setup including AspectJ configuration.

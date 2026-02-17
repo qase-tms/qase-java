@@ -8,7 +8,7 @@ This guide covers migration from Qase Java Reporter v3 to v4 for the JUnit 4 rep
 
 | Version Range | Key Changes |
 |---|---|
-| v4.0.0 - v4.1.31 (current) | New architecture, v2 API, qase.config.json, new annotations |
+| v4.0.0 - v4.1.32 (current) | New architecture, v2 API, qase.config.json, new annotations |
 | v3.x (v3.2.1 last) | Legacy architecture, v1 API, env-only configuration |
 
 ---
@@ -49,7 +49,7 @@ This guide covers migration from Qase Java Reporter v3 to v4 for the JUnit 4 rep
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-junit4-reporter</artifactId>
-    <version>4.1.31</version>
+    <version>4.1.32</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -61,7 +61,7 @@ testImplementation 'io.qase:qase-junit4:3.2.1'
 
 **Gradle After (v4):**
 ```groovy
-testImplementation 'io.qase:qase-junit4-reporter:4.1.31'
+testImplementation 'io.qase:qase-junit4-reporter:4.1.32'
 ```
 
 ### Step 2: Update Configuration
@@ -271,7 +271,7 @@ public class LoginTests {
 
 ## Verification Checklist
 
-- [ ] Maven/Gradle dependency updated to `qase-junit4-reporter` v4.1.31
+- [ ] Maven/Gradle dependency updated to `qase-junit4-reporter` v4.1.32
 - [ ] Old `qase-junit4` dependency removed
 - [ ] Old `qase-junit4-aspect` dependency removed (if present)
 - [ ] `qase.config.json` created in project root (or env vars updated)
