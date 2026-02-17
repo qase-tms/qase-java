@@ -103,8 +103,7 @@ public class FileWriter implements Writer {
             try {
                 Files.copy(source, destination);
                 reportAttachment.filePath = destination.toString();
-                reportAttachment.size = Files.size(destination);
-                
+
                 // Set file name from source if not already set
                 if (reportAttachment.fileName == null) {
                     reportAttachment.fileName = source.getFileName().toString();
@@ -133,13 +132,11 @@ public class FileWriter implements Writer {
                     try (java.io.FileWriter fileWriter = new java.io.FileWriter(file)) {
                         fileWriter.write(attachment.content);
                         reportAttachment.filePath = destinationPath;
-                        reportAttachment.size = (long) attachment.content.length();
                         reportAttachment.fileName = fileName;
                     }
                 } else if (attachment.contentBytes != null) {
                     Files.write(Paths.get(destinationPath), attachment.contentBytes);
                     reportAttachment.filePath = destinationPath;
-                    reportAttachment.size = (long) attachment.contentBytes.length;
                     reportAttachment.fileName = fileName;
                 }
                 

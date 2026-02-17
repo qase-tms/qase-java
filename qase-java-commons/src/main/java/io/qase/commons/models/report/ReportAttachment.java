@@ -34,9 +34,5 @@ public class ReportAttachment {
     @SerializedName("mime_type")
     public String mimeType;
 
-    /**
-     * Size of the attachment in bytes (nullable)
-     */
-    public Long size;
 }
 
