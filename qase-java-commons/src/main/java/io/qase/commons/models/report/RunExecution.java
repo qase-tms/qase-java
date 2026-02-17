@@ -1,15 +1,20 @@
 package io.qase.commons.models.report;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RunExecution {
+    @SerializedName("start_time")
     public long startTime;
+    @SerializedName("end_time")
     public long endTime;
     public int duration;
+    @SerializedName("cumulative_duration")
     public int cumulativeDuration;
 
     public RunExecution(long startTime, long endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.duration = (int) ((endTime - startTime) * 1000);
+        this.duration = (int) (endTime - startTime);
         this.cumulativeDuration = 0;
     }
 
