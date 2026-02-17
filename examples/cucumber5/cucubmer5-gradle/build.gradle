@@ -22,7 +22,7 @@ dependencies {
     testImplementation("io.cucumber:cucumber-core:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-java:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
-    testImplementation("io.qase:qase-cucumber-v5-reporter:4.1.31")
+    testImplementation("io.qase:qase-cucumber-v5-reporter:4.1.32")
 }
 
 test {
