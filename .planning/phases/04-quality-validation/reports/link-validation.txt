@@ -1,0 +1,301 @@
+=== QUAL-02: Internal Link Validation ===
+Date: 2026-02-17
+
+Checking: qase-cucumber-v3-reporter/README.md
+  ✓ ../qase-java-commons/README.md#configuration
+  ✓ docs/usage.md
+  ✓ docs/usage.md
+  ✓ docs/ATTACHMENTS.md
+  ✓ docs/STEPS.md
+  ✓ docs/UPGRADE.md
+  ✓ ../qase-java-commons/README.md#configuration
+
+Checking: qase-cucumber-v3-reporter/docs/ATTACHMENTS.md
+  ✓ usage.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v3-reporter/docs/STEPS.md
+  ✓ ATTACHMENTS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v3-reporter/docs/UPGRADE.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../changelog.md
+
+Checking: qase-cucumber-v3-reporter/docs/usage.md
+  ✓ ../../qase-cucumber-v3-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../qase-cucumber-v3-reporter/README.md
+  ✓ ../../qase-cucumber-v3-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v4-reporter/README.md
+  ✓ ../qase-java-commons/README.md#configuration
+  ✓ docs/usage.md
+  ✓ docs/usage.md
+  ✓ docs/ATTACHMENTS.md
+  ✓ docs/STEPS.md
+  ✓ docs/UPGRADE.md
+  ✓ ../qase-java-commons/README.md#configuration
+
+Checking: qase-cucumber-v4-reporter/docs/ATTACHMENTS.md
+  ✓ usage.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v4-reporter/docs/STEPS.md
+  ✓ ATTACHMENTS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v4-reporter/docs/UPGRADE.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../changelog.md
+
+Checking: qase-cucumber-v4-reporter/docs/usage.md
+  ✓ ../../qase-cucumber-v4-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../qase-cucumber-v4-reporter/README.md
+  ✓ ../../qase-cucumber-v4-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v5-reporter/README.md
+  ✓ ../qase-java-commons/README.md#configuration
+  ✓ docs/usage.md
+  ✓ docs/usage.md
+  ✓ docs/ATTACHMENTS.md
+  ✓ docs/STEPS.md
+  ✓ docs/UPGRADE.md
+  ✓ ../qase-java-commons/README.md#configuration
+
+Checking: qase-cucumber-v5-reporter/docs/ATTACHMENTS.md
+  ✓ usage.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v5-reporter/docs/STEPS.md
+  ✓ ATTACHMENTS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v5-reporter/docs/UPGRADE.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../changelog.md
+
+Checking: qase-cucumber-v5-reporter/docs/usage.md
+  ✓ ../../qase-cucumber-v5-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../qase-cucumber-v5-reporter/README.md
+  ✓ ../../qase-cucumber-v5-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v6-reporter/README.md
+  ✓ ../qase-java-commons/README.md#configuration
+  ✓ docs/usage.md
+  ✓ docs/usage.md
+  ✓ docs/ATTACHMENTS.md
+  ✓ docs/STEPS.md
+  ✓ docs/UPGRADE.md
+  ✓ ../qase-java-commons/README.md#configuration
+
+Checking: qase-cucumber-v6-reporter/docs/ATTACHMENTS.md
+  ✓ usage.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v6-reporter/docs/STEPS.md
+  ✓ ATTACHMENTS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v6-reporter/docs/UPGRADE.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../changelog.md
+
+Checking: qase-cucumber-v6-reporter/docs/usage.md
+  ✓ ../../qase-cucumber-v6-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../qase-cucumber-v6-reporter/README.md
+  ✓ ../../qase-cucumber-v6-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v7-reporter/README.md
+  ✓ ../qase-java-commons/README.md#configuration
+  ✓ docs/usage.md
+  ✓ docs/usage.md
+  ✓ docs/ATTACHMENTS.md
+  ✓ docs/STEPS.md
+  ✓ docs/UPGRADE.md
+  ✓ ../qase-java-commons/README.md#configuration
+
+Checking: qase-cucumber-v7-reporter/docs/ATTACHMENTS.md
+  ✓ usage.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v7-reporter/docs/STEPS.md
+  ✓ ATTACHMENTS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ UPGRADE.md
+
+Checking: qase-cucumber-v7-reporter/docs/UPGRADE.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../changelog.md
+
+Checking: qase-cucumber-v7-reporter/docs/usage.md
+  ✓ ../../qase-cucumber-v7-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../qase-cucumber-v7-reporter/README.md
+  ✓ ../../qase-cucumber-v7-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-junit4-reporter/README.md
+  ✓ ../qase-java-commons/README.md#configuration
+  ✓ docs/usage.md
+  ✓ docs/usage.md
+  ✓ docs/ATTACHMENTS.md
+  ✓ docs/STEPS.md
+  ✓ docs/UPGRADE.md
+  ✓ ../qase-java-commons/README.md#configuration
+
+Checking: qase-junit4-reporter/docs/ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ usage.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-junit4-reporter/docs/STEPS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ UPGRADE.md
+
+Checking: qase-junit4-reporter/docs/UPGRADE.md
+  ✓ STEPS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../changelog.md
+
+Checking: qase-junit4-reporter/docs/usage.md
+  ✓ ../../qase-junit4-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../qase-junit4-reporter/README.md
+  ✓ ../../qase-junit4-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-junit5-reporter/README.md
+  ✓ ../qase-java-commons/README.md#configuration
+  ✓ docs/usage.md
+  ✓ docs/usage.md
+  ✓ docs/ATTACHMENTS.md
+  ✓ docs/STEPS.md
+  ✓ docs/UPGRADE.md
+  ✓ ../qase-java-commons/README.md#configuration
+
+Checking: qase-junit5-reporter/docs/ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ usage.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-junit5-reporter/docs/STEPS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ UPGRADE.md
+
+Checking: qase-junit5-reporter/docs/UPGRADE.md
+  ✓ STEPS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../changelog.md
+
+Checking: qase-junit5-reporter/docs/usage.md
+  ✓ ../../qase-junit5-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../qase-junit5-reporter/README.md
+  ✓ ../../qase-junit5-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-testng-reporter/README.md
+  ✓ ../qase-java-commons/README.md#configuration
+  ✓ docs/usage.md
+  ✓ docs/usage.md
+  ✓ docs/ATTACHMENTS.md
+  ✓ docs/STEPS.md
+  ✓ docs/UPGRADE.md
+  ✓ ../qase-java-commons/README.md#configuration
+
+Checking: qase-testng-reporter/docs/ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ usage.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+Checking: qase-testng-reporter/docs/STEPS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ UPGRADE.md
+
+Checking: qase-testng-reporter/docs/UPGRADE.md
+  ✓ STEPS.md
+  ✓ usage.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ ../../changelog.md
+
+Checking: qase-testng-reporter/docs/usage.md
+  ✓ ../../qase-testng-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ ../../qase-testng-reporter/README.md
+  ✓ STEPS.md
+  ✓ ../../qase-testng-reporter/README.md
+  ✓ ATTACHMENTS.md
+  ✓ STEPS.md
+  ✓ UPGRADE.md
+
+
+=== Link Validation Results ===
+Links checked: 211
+Broken links: 0
+Status: ✓ QUAL-02 PASSED
+
+Report saved: .planning/phases/04-quality-validation/reports/link-validation.txt
