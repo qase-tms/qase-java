@@ -1,3 +1,17 @@
+# qase-java 4.1.32
+
+## What's new
+
+- Brought FileReporter JSON output into full compliance with specs/report schemas:
+  - Added `@SerializedName` annotations for snake_case serialization (`start_time`, `end_time`, `cumulative_duration`, `public_id`)
+  - Fixed `RunExecution.duration` calculation (removed erroneous `* 1000` multiplication)
+  - Changed `host_data` from array of objects to flat JSON object (`Map<String, String>`)
+  - Made `SuiteData.publicId` nullable (`Integer` instead of `int`)
+  - Renamed `RunStats.broken` to `blocked` and added `invalid` field per spec
+  - Added `BLOCKED` to `TestResultStatus` enum
+  - Removed non-spec fields: `runId`, `testopsId` (singular), `author` from `ReportResult`; `size` from `ReportAttachment`; `attachments` from step `ReportData`
+  - Deleted unused `ReportHostData` class
+
 # qase-java 4.1.31
 
 ## What's new
