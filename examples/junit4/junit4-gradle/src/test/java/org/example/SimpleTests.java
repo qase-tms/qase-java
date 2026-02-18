@@ -7,114 +7,72 @@ import org.junit.Test;
 public class SimpleTests {
 
     @Test
-    public void testWithoutAnnotation_success() {
-        System.out.println("Test without annotation success");
-    }
-
-    @Test
-    public void testWithoutAnnotation_filed() {
-        try {
-            Thread.sleep(2 * 1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Test without annotation failed");
-        throw new RuntimeException("Test without annotation failed");
+    public void testWithoutAnnotation() {
+        System.out.println("Test without any Qase annotation");
     }
 
     @Test
     @QaseId(1)
-    public void testWithQaseId_success() {
-        System.out.println("Test with QaseId");
+    public void testWithQaseId() {
+        System.out.println("Test linked to case ID 1");
     }
 
     @Test
-    @QaseId(2)
-    public void testWithQaseId_failed() {
-        System.out.println("Test with QaseId");
-        throw new RuntimeException("Test with QaseId failed");
+    @QaseIds({1, 2, 3})
+    public void testWithMultipleQaseIds() {
+        System.out.println("Test linked to case IDs 1, 2, and 3");
     }
 
     @Test
-    @QaseTitle("Test with title success")
-    public void testWithTitle_success() {
-        System.out.println("Test with title success");
-    }
-
-    @Test
-    @QaseTitle("Test with title failed")
-    public void testWithTitle_failed() {
-        System.out.println("Test with title failed");
-        throw new RuntimeException("Test with title failed");
-    }
-
-
-    @Test
-    @QaseFields(value = {
-            @Field(name = "description", value = "Description of test success"),
-            @Field(name = "severity", value = "major"),
-    })
-    public void testWithFields_success() {
-        System.out.println("Test with fields success");
+    @QaseTitle("Custom test title for reporting")
+    public void testWithTitle() {
+        System.out.println("Test with a custom title");
     }
 
     @Test
     @QaseFields(value = {
-            @Field(name = "description", value = "Description of test failed"),
-            @Field(name = "severity", value = "major"),
+            @Field(name = "description", value = "Verifies login with valid credentials"),
+            @Field(name = "severity", value = "critical"),
+            @Field(name = "priority", value = "high"),
+            @Field(name = "layer", value = "unit"),
     })
-    public void testWithFields_failed() {
-        System.out.println("Test with fields failed");
-        throw new RuntimeException("Test with fields failed");
-    }
-
-    @Test
-    @QaseIgnore
-    public void testWithIgnore_success() {
-        System.out.println("Test with ignore success");
-    }
-
-    @Test
-    @QaseIgnore
-    public void testWithIgnore_failed() {
-        System.out.println("Test with ignore failed");
-        throw new RuntimeException("Test with ignore failed");
+    public void testWithFields() {
+        System.out.println("Test with custom fields");
     }
 
     @Test
     @QaseSuite("Suite 1")
-    public void testWithSuite_success() {
-        System.out.println("Test with suite success");
+    public void testWithSuite() {
+        System.out.println("Test assigned to Suite 1");
     }
 
     @Test
-    @QaseSuite("Suite 1")
-    public void testWithSuite_failed() {
-        System.out.println("Test with suite failed");
-        throw new RuntimeException("Test with suite failed");
+    @QaseSuite("Parent suite\tChild suite\tGrandchild suite")
+    public void testWithNestedSuites() {
+        System.out.println("Test assigned to nested suite hierarchy");
     }
 
     @Test
-    @QaseSuite("Suite 2\tSub suite")
-    public void testWithMultipleSuites_success() {
-        System.out.println("Test with multiple suites success");
+    @QaseIgnore
+    public void testWithIgnore() {
+        System.out.println("This test is excluded from Qase reporting");
     }
 
     @Test
-    @QaseSuite("Suite 2\tSub suite")
-    public void testWithMultipleSuites_failed() {
-        System.out.println("Test with multiple suites failed");
-        throw new RuntimeException("Test with multiple suites failed");
+    @QaseId(100)
+    @QaseTitle("Combined annotations example")
+    @QaseFields(value = {
+            @Field(name = "description", value = "Demonstrates using multiple annotations together"),
+            @Field(name = "severity", value = "normal"),
+    })
+    @QaseSuite("Regression\tSmoke")
+    public void testWithCombinedAnnotations() {
+        System.out.println("Test with multiple Qase annotations combined");
     }
 
-    @Step("Step 1")
-    private void step01() {
-        step02();
-        System.out.println("Step 1");
-    }
-
-    @Step("Step 2")
-    private void step02() {
-        System.out.println("Step 2");
+    @Test
+    public void testWithFailure() {
+        System.out.println("This test will fail");
+        throw new AssertionError("Expected failure to demonstrate failure reporting");
     }
 }
