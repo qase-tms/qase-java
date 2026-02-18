@@ -26,10 +26,6 @@
             <groupId>io.qase</groupId>
             <artifactId>qase-cucumber-v5-reporter</artifactId>
             <version>${qase.version}</version>
-            <scope>system</scope>
-            <systemPath>
-                /Users/gda/.m2/repository/io/qase/qase-cucumber-v5-reporter/4.0.0/qase-cucumber-v5-reporter-4.0.0.jar
-            </systemPath>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
