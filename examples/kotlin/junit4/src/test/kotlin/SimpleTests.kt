@@ -5,114 +5,72 @@ import org.junit.Test
 class SimpleTests {
 
     @Test
-    fun testWithoutAnnotation_success() {
-        println("Test without annotation success")
-    }
-
-    @Test
-    fun testWithoutAnnotation_filed() {
-        println("Test without annotation failed")
-        throw RuntimeException("Test without annotation failed")
+    fun testWithoutAnnotation() {
+        println("Test without any Qase annotation")
     }
 
     @Test
     @QaseId(1)
-    fun testWithQaseId_success() {
-        println("Test with QaseId")
+    fun testWithQaseId() {
+        println("Test linked to case ID 1")
     }
 
     @Test
-    @QaseId(2)
-    fun testWithQaseId_failed() {
-        println("Test with QaseId")
-        throw RuntimeException("Test with QaseId failed")
+    @QaseIds(intArrayOf(1, 2, 3))
+    fun testWithMultipleQaseIds() {
+        println("Test linked to case IDs 1, 2, and 3")
     }
 
     @Test
-    @QaseTitle("Test with title success")
-    fun testWithTitle_success() {
-        println("Test with title success")
+    @QaseTitle("Custom test title for reporting")
+    fun testWithTitle() {
+        println("Test with a custom title")
     }
 
     @Test
-    @QaseTitle("Test with title failed")
-    fun testWithTitle_failed() {
-        println("Test with title failed")
-        throw RuntimeException("Test with title failed")
-    }
-
-
-    @Test
-    @QaseFields(
-        value = [Field(name = "description", value = "Description of test success"), Field(
-            name = "severity",
-            value = "major"
-        )]
-    )
-    fun testWithFields_success() {
-        println("Test with fields success")
-    }
-
-    @Test
-    @QaseFields(
-        value = [Field(name = "description", value = "Description of test failed"), Field(
-            name = "severity",
-            value = "major"
-        )]
-    )
-    fun testWithFields_failed() {
-        println("Test with fields failed")
-        throw RuntimeException("Test with fields failed")
-    }
-
-    @Test
-    @QaseIgnore
-    fun testWithIgnore_success() {
-        println("Test with ignore success")
-    }
-
-    @Test
-    @QaseIgnore
-    fun testWithIgnore_failed() {
-        println("Test with ignore failed")
-        throw RuntimeException("Test with ignore failed")
+    @QaseFields(value = [
+        Field(name = "description", value = "Verifies login with valid credentials"),
+        Field(name = "severity", value = "critical"),
+        Field(name = "priority", value = "high"),
+        Field(name = "layer", value = "unit")
+    ])
+    fun testWithFields() {
+        println("Test with custom fields")
     }
 
     @Test
     @QaseSuite("Suite 1")
-    fun testWithSuite_success() {
-        println("Test with suite success")
+    fun testWithSuite() {
+        println("Test assigned to Suite 1")
     }
 
     @Test
-    @QaseSuite("Suite 1")
-    fun testWithSuite_failed() {
-        println("Test with suite failed")
-        throw RuntimeException("Test with suite failed")
+    @QaseSuite("Parent suite\tChild suite\tGrandchild suite")
+    fun testWithNestedSuites() {
+        println("Test assigned to nested suite hierarchy")
     }
 
     @Test
-    @QaseSuite("Suite 2\tSub suite")
-    fun testWithMultipleSuites_success() {
-        println("Test with multiple suites success")
+    @QaseIgnore
+    fun testWithIgnore() {
+        println("This test is excluded from Qase reporting")
     }
 
     @Test
-    @QaseSuite("Suite 2\tSub suite")
-    fun testWithMultipleSuites_failed() {
-        println("Test with multiple suites failed")
-        throw RuntimeException("Test with multiple suites failed")
+    @QaseId(100)
+    @QaseTitle("Combined annotations example")
+    @QaseFields(value = [
+        Field(name = "description", value = "Demonstrates using multiple annotations together"),
+        Field(name = "severity", value = "normal")
+    ])
+    @QaseSuite("Regression\tSmoke")
+    fun testWithCombinedAnnotations() {
+        println("Test with multiple Qase annotations combined")
     }
 
-    @Step("Step 1")
-    private fun step01() {
-        step02()
-        println("Step 1")
-    }
-
-    @Step("Step 2")
-    private fun step02() {
-        println("Step 2")
+    @Test
+    fun testWithFailure() {
+        println("This test will fail")
+        throw AssertionError("Expected failure to demonstrate failure reporting")
     }
 }
-
