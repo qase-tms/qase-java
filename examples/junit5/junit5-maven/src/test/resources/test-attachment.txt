@@ -1,0 +1,2 @@
+This is a test attachment file.
+Used to demonstrate Qase.attach() with file paths.
