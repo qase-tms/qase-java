@@ -1,50 +1,92 @@
 package org.example;
 
-import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.qase.cucumber7.Qase;
 import org.junit.jupiter.api.Assertions;
 
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 public class Steps {
-    @Then("return true")
-    public void returnTrue() {
+
+    // --- Simple steps ---
+
+    @Then("the test passes")
+    public void theTestPasses() {
         Assertions.assertTrue(true);
     }
 
-    @Then("return false")
-    public void returnFalse() {
-        Assertions.assertTrue(false);
+    // --- Attachment steps ---
+
+    @When("a comment is added")
+    public void addComment() {
+        Qase.comment("This is a comment added during test execution");
     }
 
-    @When("add comment")
-    public void addMessage() {
-        Qase.comment("Hello, Qase.io!");
+    @When("a file is attached")
+    public void attachFile() {
+        URL resource = getClass().getClassLoader().getResource("test-attachment.txt");
+        if (resource != null) {
+            Qase.attach(resource.getPath());
+        }
     }
 
-    @When("add attachments from file")
-    public void addAttachments() {
-        Qase.attach("/Users/gda/Downloads/second.txt");
+    @When("string content is attached")
+    public void attachStringContent() {
+        Qase.attach("log-output.txt", "2024-01-15 INFO: Test started\n2024-01-15 INFO: Test completed", "text/plain");
     }
 
-    @When("add attachments from content")
-    public void addAttachmentsContent() {
-        Qase.attach("file.txt", "Content", "text/plain");
+    @When("byte array content is attached")
+    public void attachByteArrayContent() {
+        String jsonContent = "{\"status\": \"passed\", \"duration\": 1500}";
+        byte[] bytes = jsonContent.getBytes(StandardCharsets.UTF_8);
+        Qase.attach("result.json", bytes, "application/json");
     }
 
-    @Given("I have a parameter {word}")
-    public void iHaveAParameter(String parameter) {
-        System.out.println("Parameter: " + parameter);
+    @When("a nested step adds an attachment")
+    public void nestedStepWithAttachment() {
+        outerStep();
     }
 
-    @When("I do something with the parameter")
-    public void iDoSomethingWithTheParameter(DataTable dataTable) {
-        System.out.println("Doing something with the parameter...");
+    private void outerStep() {
+        innerStepWithAttachment();
     }
 
-    @Then("I should see the result")
-    public void iShouldSeeTheResult() {
-        System.out.println("Result is displayed.");
+    private void innerStepWithAttachment() {
+        Qase.attach("nested-log.txt", "Log from inside a nested step", "text/plain");
+    }
+
+    // --- Parameterized steps ---
+
+    @Given("a user with username {string}")
+    public void userWithUsername(String username) {
+        System.out.println("User: " + username);
+    }
+
+    @When("the user attempts to login")
+    public void userAttemptsLogin() {
+        System.out.println("Attempting login...");
+    }
+
+    @Then("the login result is {string}")
+    public void loginResult(String result) {
+        System.out.println("Login result: " + result);
+    }
+
+    @Given("an item {string} with quantity {int}")
+    public void itemWithQuantity(String item, int quantity) {
+        System.out.println("Item: " + item + ", Quantity: " + quantity);
+    }
+
+    @When("the item is processed")
+    public void itemProcessed() {
+        System.out.println("Processing item...");
+    }
+
+    @Then("the processing completes")
+    public void processingCompletes() {
+        System.out.println("Processing complete.");
     }
 }

@@ -1,49 +1,37 @@
-# Created by gda at 21.10.24.
 Feature: Simple tests
-  Here are some simple tests
+  Demonstrates Qase annotation tags on Cucumber scenarios.
 
-  Scenario: Without annotations success
-    Then return true
-
-  Scenario: Without annotations failed
-    Then return false
+  Scenario: Test without annotations
+    Then the test passes
 
   @QaseId=1
-  Scenario: With QaseID success
-    Then return true
+  Scenario: Test with QaseId
+    Then the test passes
 
-  @QaseId=2
-  Scenario: With QaseID failed
-    Then return false
+  @QaseId=2 @QaseId=3
+  Scenario: Test with multiple QaseIds
+    Then the test passes
 
-  @QaseTitle=Title_success
-  Scenario: With title success
-    Then return true
+  @QaseTitle=Custom_test_title
+  Scenario: Test with QaseTitle
+    Then the test passes
 
-  @QaseTitle=Title_failed
-  Scenario: With title failed
-    Then return false
-
-  @QaseSuite=Suite01
-  Scenario: With suite success
-    Then return true
+  @QaseFields={"description":"Verifies_login","severity":"critical","priority":"high","layer":"e2e"}
+  Scenario: Test with QaseFields
+    Then the test passes
 
   @QaseSuite=Suite01
-  Scenario: With suite failed
-    Then return false
+  Scenario: Test with QaseSuite
+    Then the test passes
 
-  @QaseFields={"description":"Some_description","severity":"major"}
-  Scenario: With fields success
-    Then return true
-
-  @QaseFields={"description":"Some_description","severity":"major"}
-  Scenario: With fields failed
-    Then return false
+  @QaseSuite=Parent\tChild\tGrandchild
+  Scenario: Test with nested QaseSuite
+    Then the test passes
 
   @QaseIgnore
-  Scenario: With ignore success
-    Then return true
+  Scenario: Test excluded from reporting
+    Then the test passes
 
-  @QaseIgnore
-  Scenario: With ignore failed
-    Then return false
+  @QaseId=100 @QaseTitle=Combined_annotations
+  Scenario: Test with combined annotations
+    Then the test passes
