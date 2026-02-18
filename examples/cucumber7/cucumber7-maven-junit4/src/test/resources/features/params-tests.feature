@@ -1,15 +1,25 @@
 Feature: Parameterized tests
+  Demonstrates Scenario Outline with Examples table and Qase tags.
 
-  Scenario Outline: Test with parameters
-    Given I have a parameter <param>
-    When I do something with the parameter
-      | transaction | types          |
-      | transfer    | manual, mobile |
-      | inward      | manual, mobile |
-    Then I should see the result
+  @QaseId=50
+  Scenario Outline: Login with different credentials
+    Given a user with username "<username>"
+    When the user attempts to login
+    Then the login result is "<result>"
 
     Examples:
-      | param  |
-      | value1 |
-      | value2 |
-      | value3 |
+      | username | result  |
+      | admin    | success |
+      | guest    | limited |
+      | invalid  | denied  |
+
+  Scenario Outline: Process items with quantities
+    Given an item "<item>" with quantity <quantity>
+    When the item is processed
+    Then the processing completes
+
+    Examples:
+      | item   | quantity |
+      | Widget | 5        |
+      | Gadget | 10       |
+      | Gizmo  | 1        |
