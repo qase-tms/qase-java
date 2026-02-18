@@ -1,85 +1,92 @@
 package org.example;
 
+import io.qase.commons.annotation.QaseId;
+import io.qase.commons.annotation.QaseTitle;
 import io.qase.commons.annotation.Step;
 import org.junit.Test;
 
 public class StepTests {
 
-    @Step("Step 1")
-    public void step1() {
-        step1_1();
-        try {
-            Thread.sleep(2 * 1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Step 1");
+    // --- Level 1 steps ---
+
+    @Step("Open the application")
+    public void openApplication() {
+        System.out.println("Opening the application");
+        navigateToLoginPage();
     }
 
-    @Step("Step 1.1")
-    public void step1_1() {
-        System.out.println("Step 1.1");
+    // --- Level 2 steps ---
+
+    @Step("Navigate to login page")
+    public void navigateToLoginPage() {
+        System.out.println("Navigating to login page");
+        waitForPageLoad();
     }
 
-    @Step("Step 2")
-    public void step2() {
-        System.out.println("Step 2");
+    // --- Level 3 steps ---
+
+    @Step("Wait for page to load")
+    public void waitForPageLoad() {
+        System.out.println("Waiting for page to load");
     }
 
-    @Step("Step 3")
-    public void step3() {
-        System.out.println("Step 3");
+    @Step("Enter credentials for {username}")
+    public void enterCredentials(String username) {
+        System.out.println("Entering credentials for " + username);
     }
 
-    @Step("Step 1 failed")
-    public void step1_failed() {
-        System.out.println("Step 1 failed");
-        step1_1_failed();
+    @Step("Submit the form")
+    public void submitForm() {
+        System.out.println("Submitting the form");
     }
 
-    @Step("Step 1.1 failed")
-    public void step1_1_failed() {
-        System.out.println("Step 1.1 failed");
-        throw new RuntimeException("Step 1.1 failed");
+    @Step("Verify welcome message for {username}")
+    public void verifyWelcomeMessage(String username) {
+        System.out.println("Verifying welcome message for " + username);
     }
 
-    @Step("Step 2 failed")
-    public void step2_failed() {
-        System.out.println("Step 2 failed");
-        throw new RuntimeException("Step 2 failed");
+    @Step("Perform action with {item} quantity {qty}")
+    public void performAction(String item, int qty) {
+        System.out.println("Performing action with " + item + " quantity " + qty);
     }
 
+    @Step("Step that fails")
+    public void failingStep() {
+        System.out.println("This step will fail");
+        throw new AssertionError("Step failure");
+    }
+
+    @Step("Step wrapping a failing step")
+    public void outerFailingStep() {
+        System.out.println("Outer step before failure");
+        failingStep();
+    }
+
+    // --- Test methods ---
 
     @Test
-    public void testWithSteps_success() {
-        System.out.println("Test with steps success");
-        step1();
-        step2();
-        step3();
-    }
-
-    @Test
-    public void testWithSteps_failed() {
-        System.out.println("Test with steps failed");
-        step1();
-        step2();
-        step3();
-        throw new RuntimeException("Test with steps failed");
-    }
-
-    @Test
-    public void testWithSteps_failed2() {
-        System.out.println("Test with steps failed");
-        step1();
-        step2_failed();
-        step3();
+    @QaseId(10)
+    @QaseTitle("Login flow with 3+ nested steps")
+    public void testNestedSteps() {
+        openApplication();
+        enterCredentials("admin");
+        submitForm();
+        verifyWelcomeMessage("admin");
     }
 
     @Test
-    public void testWithSteps_failed3() {
-        System.out.println("Test with steps failed");
-        step1_failed();
-        step2();
-        step3();
+    @QaseTitle("Steps with parameter interpolation")
+    public void testStepParameterInterpolation() {
+        enterCredentials("testuser");
+        performAction("Widget", 5);
+        performAction("Gadget", 10);
+        verifyWelcomeMessage("testuser");
+    }
+
+    @Test
+    @QaseTitle("Step failure propagation")
+    public void testStepFailure() {
+        openApplication();
+        outerFailingStep();
     }
 }
