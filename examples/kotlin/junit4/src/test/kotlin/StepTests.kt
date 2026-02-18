@@ -1,79 +1,90 @@
+import io.qase.commons.annotation.QaseId
+import io.qase.commons.annotation.QaseTitle
 import io.qase.commons.annotation.Step
 import org.junit.Test
 
 class StepTests {
 
-    @Step("Step 1")
-    fun step1() {
-        step1_1()
-        println("Step 1")
+    // --- Level 1 steps ---
+
+    @Step("Open the application")
+    fun openApplication() {
+        println("Opening the application")
+        navigateToLoginPage()
     }
 
-    @Step("Step 1.1")
-    fun step1_1() {
-        println("Step 1.1")
+    // --- Level 2 steps ---
+
+    @Step("Navigate to login page")
+    fun navigateToLoginPage() {
+        println("Navigating to login page")
+        waitForPageLoad()
     }
 
-    @Step("Step 2")
-    fun step2() {
-        println("Step 2")
+    // --- Level 3 steps ---
+
+    @Step("Wait for page to load")
+    fun waitForPageLoad() {
+        println("Waiting for page to load")
     }
 
-    @Step("Step 3")
-    fun step3() {
-        println("Step 3")
+    @Step("Enter credentials for {username}")
+    fun enterCredentials(username: String) {
+        println("Entering credentials for $username")
     }
 
-    @Step("Step 1 failed")
-    fun step1_failed() {
-        println("Step 1 failed")
-        step1_1_failed()
+    @Step("Submit the form")
+    fun submitForm() {
+        println("Submitting the form")
     }
 
-    @Step("Step 1.1 failed")
-    fun step1_1_failed() {
-        println("Step 1.1 failed")
-        throw RuntimeException("Step 1.1 failed")
+    @Step("Verify welcome message for {username}")
+    fun verifyWelcomeMessage(username: String) {
+        println("Verifying welcome message for $username")
     }
 
-    @Step("Step 2 failed")
-    fun step2_failed() {
-        println("Step 2 failed")
-        throw RuntimeException("Step 2 failed")
+    @Step("Perform action with {item} quantity {qty}")
+    fun performAction(item: String, qty: Int) {
+        println("Performing action with $item quantity $qty")
     }
 
+    @Step("Step that fails")
+    fun failingStep() {
+        println("This step will fail")
+        throw AssertionError("Step failure")
+    }
+
+    @Step("Step wrapping a failing step")
+    fun outerFailingStep() {
+        println("Outer step before failure")
+        failingStep()
+    }
+
+    // --- Test methods ---
 
     @Test
-    fun testWithSteps_success() {
-        println("Test with steps success")
-        step1()
-        step2()
-        step3()
+    @QaseId(10)
+    @QaseTitle("Login flow with 3+ nested steps")
+    fun testNestedSteps() {
+        openApplication()
+        enterCredentials("admin")
+        submitForm()
+        verifyWelcomeMessage("admin")
     }
 
     @Test
-    fun testWithSteps_failed() {
-        println("Test with steps failed")
-        step1()
-        step2()
-        step3()
-        throw RuntimeException("Test with steps failed")
+    @QaseTitle("Steps with parameter interpolation")
+    fun testStepParameterInterpolation() {
+        enterCredentials("testuser")
+        performAction("Widget", 5)
+        performAction("Gadget", 10)
+        verifyWelcomeMessage("testuser")
     }
 
     @Test
-    fun testWithSteps_failed2() {
-        println("Test with steps failed")
-        step1()
-        step2_failed()
-        step3()
-    }
-
-    @Test
-    fun testWithSteps_failed3() {
-        println("Test with steps failed")
-        step1_failed()
-        step2()
-        step3()
+    @QaseTitle("Step failure propagation")
+    fun testStepFailure() {
+        openApplication()
+        outerFailingStep()
     }
 }
-
