@@ -3,8 +3,9 @@
     <test name = "Parallel Tests" parallel = "methods">
         <classes>
             <class name = "org.example.SimpleTests" />
-            <class name = "org.example.MethodTests" />
+            <class name = "org.example.AttachmentTests" />
             <class name = "org.example.StepTests" />
+            <class name = "org.example.ParameterizedTests" />
         </classes>
     </test>
 </suite>
