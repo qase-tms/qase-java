@@ -75,7 +75,7 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
 public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(SearchResponseAllOfResultEntities.class.getName());
 
@@ -159,7 +159,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data matches schema 'RunQuery'");
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for RunQuery failed with `%s`.", e.getMessage()));
+                        errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for RunQuery failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'RunQuery'", e);
                     }
                     // deserialize ResultQuery
@@ -171,7 +171,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data matches schema 'ResultQuery'");
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for ResultQuery failed with `%s`.", e.getMessage()));
+                        errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for ResultQuery failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'ResultQuery'", e);
                     }
                     // deserialize RequirementQuery
@@ -183,7 +183,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data matches schema 'RequirementQuery'");
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for RequirementQuery failed with `%s`.", e.getMessage()));
+                        errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for RequirementQuery failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'RequirementQuery'", e);
                     }
                     // deserialize TestCaseQuery
@@ -195,7 +195,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data matches schema 'TestCaseQuery'");
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for TestCaseQuery failed with `%s`.", e.getMessage()));
+                        errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for TestCaseQuery failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'TestCaseQuery'", e);
                     }
                     // deserialize DefectQuery
@@ -207,7 +207,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data matches schema 'DefectQuery'");
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for DefectQuery failed with `%s`.", e.getMessage()));
+                        errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for DefectQuery failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'DefectQuery'", e);
                     }
                     // deserialize PlanQuery
@@ -219,7 +219,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data matches schema 'PlanQuery'");
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for PlanQuery failed with `%s`.", e.getMessage()));
+                        errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for PlanQuery failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'PlanQuery'", e);
                     }
 
@@ -229,7 +229,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
                         return ret;
                     }
 
-                    throw new IOException(String.format("Failed deserialization for SearchResponseAllOfResultEntities: %d classes match result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", match, errorMessages, jsonElement.toString()));
+                    throw new IOException(String.format(java.util.Locale.ROOT, "Failed deserialization for SearchResponseAllOfResultEntities: %d classes match result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", match, errorMessages, jsonElement.toString()));
                 }
             }.nullSafe();
         }
@@ -396,7 +396,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
             RunQuery.validateJsonElement(jsonElement);
             validCount++;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for RunQuery failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for RunQuery failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
         // validate the json string with ResultQuery
@@ -404,7 +404,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
             ResultQuery.validateJsonElement(jsonElement);
             validCount++;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for ResultQuery failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for ResultQuery failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
         // validate the json string with RequirementQuery
@@ -412,7 +412,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
             RequirementQuery.validateJsonElement(jsonElement);
             validCount++;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for RequirementQuery failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for RequirementQuery failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
         // validate the json string with TestCaseQuery
@@ -420,7 +420,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
             TestCaseQuery.validateJsonElement(jsonElement);
             validCount++;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for TestCaseQuery failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for TestCaseQuery failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
         // validate the json string with DefectQuery
@@ -428,7 +428,7 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
             DefectQuery.validateJsonElement(jsonElement);
             validCount++;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for DefectQuery failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for DefectQuery failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
         // validate the json string with PlanQuery
@@ -436,11 +436,11 @@ public class SearchResponseAllOfResultEntities extends AbstractOpenApiSchema {
             PlanQuery.validateJsonElement(jsonElement);
             validCount++;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for PlanQuery failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for PlanQuery failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
         if (validCount != 1) {
-            throw new IOException(String.format("The JSON string is invalid for SearchResponseAllOfResultEntities with oneOf schemas: DefectQuery, PlanQuery, RequirementQuery, ResultQuery, RunQuery, TestCaseQuery. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
+            throw new IOException(String.format(java.util.Locale.ROOT, "The JSON string is invalid for SearchResponseAllOfResultEntities with oneOf schemas: DefectQuery, PlanQuery, RequirementQuery, ResultQuery, RunQuery, TestCaseQuery. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
         }
     }
 

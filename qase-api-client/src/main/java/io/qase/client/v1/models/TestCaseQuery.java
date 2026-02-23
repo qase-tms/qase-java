@@ -57,7 +57,7 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseQuery
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
 public class TestCaseQuery {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -941,35 +941,35 @@ public class TestCaseQuery {
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCaseQuery.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in TestCaseQuery is not found in the empty JSON string", TestCaseQuery.openapiRequiredFields.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in TestCaseQuery is not found in the empty JSON string", TestCaseQuery.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : TestCaseQuery.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if ((jsonObj.get("title") != null && !jsonObj.get("title").isJsonNull()) && !jsonObj.get("title").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `title` to be a primitive type in the JSON string but got `%s`", jsonObj.get("title").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `title` to be a primitive type in the JSON string but got `%s`", jsonObj.get("title").toString()));
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
       if ((jsonObj.get("preconditions") != null && !jsonObj.get("preconditions").isJsonNull()) && !jsonObj.get("preconditions").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `preconditions` to be a primitive type in the JSON string but got `%s`", jsonObj.get("preconditions").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `preconditions` to be a primitive type in the JSON string but got `%s`", jsonObj.get("preconditions").toString()));
       }
       if ((jsonObj.get("postconditions") != null && !jsonObj.get("postconditions").isJsonNull()) && !jsonObj.get("postconditions").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `postconditions` to be a primitive type in the JSON string but got `%s`", jsonObj.get("postconditions").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `postconditions` to be a primitive type in the JSON string but got `%s`", jsonObj.get("postconditions").toString()));
       }
       if (jsonObj.get("custom_fields") != null && !jsonObj.get("custom_fields").isJsonNull()) {
         JsonArray jsonArraycustomFields = jsonObj.getAsJsonArray("custom_fields");
         if (jsonArraycustomFields != null) {
           // ensure the json data is an array
           if (!jsonObj.get("custom_fields").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `custom_fields` to be an array in the JSON string but got `%s`", jsonObj.get("custom_fields").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `custom_fields` to be an array in the JSON string but got `%s`", jsonObj.get("custom_fields").toString()));
           }
 
           // validate the optional field `custom_fields` (array)
@@ -983,7 +983,7 @@ public class TestCaseQuery {
         if (jsonArrayattachments != null) {
           // ensure the json data is an array
           if (!jsonObj.get("attachments").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `attachments` to be an array in the JSON string but got `%s`", jsonObj.get("attachments").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `attachments` to be an array in the JSON string but got `%s`", jsonObj.get("attachments").toString()));
           }
 
           // validate the optional field `attachments` (array)
@@ -993,14 +993,14 @@ public class TestCaseQuery {
         }
       }
       if ((jsonObj.get("steps_type") != null && !jsonObj.get("steps_type").isJsonNull()) && !jsonObj.get("steps_type").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `steps_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("steps_type").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("steps_type").toString()));
       }
       if (jsonObj.get("steps") != null && !jsonObj.get("steps").isJsonNull()) {
         JsonArray jsonArraysteps = jsonObj.getAsJsonArray("steps");
         if (jsonArraysteps != null) {
           // ensure the json data is an array
           if (!jsonObj.get("steps").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `steps` to be an array in the JSON string but got `%s`", jsonObj.get("steps").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps` to be an array in the JSON string but got `%s`", jsonObj.get("steps").toString()));
           }
 
           // validate the optional field `steps` (array)
@@ -1018,7 +1018,7 @@ public class TestCaseQuery {
         if (jsonArraytags != null) {
           // ensure the json data is an array
           if (!jsonObj.get("tags").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `tags` to be an array in the JSON string but got `%s`", jsonObj.get("tags").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `tags` to be an array in the JSON string but got `%s`", jsonObj.get("tags").toString()));
           }
 
           // validate the optional field `tags` (array)
@@ -1086,7 +1086,7 @@ public class TestCaseQuery {
                    else if (entry.getValue().getAsJsonPrimitive().isBoolean())
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                     throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
                  } else if (entry.getValue().isJsonArray()) {
                      instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
                  } else { // JSON object

@@ -12,6 +12,7 @@
 |**action** | **String** |  |  [optional] |
 |**expectedResult** | **String** |  |  [optional] |
 |**attachments** | [**List&lt;AttachmentHash&gt;**](AttachmentHash.md) |  |  [optional] |
+|**steps** | **List&lt;Object&gt;** | Nested steps will be here. The same structure is used for them. |  [optional] |
 
 
 

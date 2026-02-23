@@ -51,7 +51,7 @@ import io.qase.client.v1.JSON;
 /**
  * TestCasebulk
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
 public class TestCasebulk {
   public static final String SERIALIZED_NAME_CASES = "cases";
   @SerializedName(SERIALIZED_NAME_CASES)
@@ -193,27 +193,27 @@ public class TestCasebulk {
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCasebulk.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in TestCasebulk is not found in the empty JSON string", TestCasebulk.openapiRequiredFields.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in TestCasebulk is not found in the empty JSON string", TestCasebulk.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : TestCasebulk.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // ensure the json data is an array
-      if (!jsonObj.get("cases").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `cases` to be an array in the JSON string but got `%s`", jsonObj.get("cases").toString()));
+      if (jsonObj.get("cases") != null) {
+        if (!jsonObj.get("cases").isJsonArray()) {
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `cases` to be an array in the JSON string but got `%s`", jsonObj.get("cases").toString()));
+        }
+        JsonArray jsonArraycases = jsonObj.getAsJsonArray("cases");
+        // validate the required field `cases` (array)
+        for (int i = 0; i < jsonArraycases.size(); i++) {
+          TestCasebulkCasesInner.validateJsonElement(jsonArraycases.get(i));
+        }
       }
-
-      JsonArray jsonArraycases = jsonObj.getAsJsonArray("cases");
-      // validate the required field `cases` (array)
-      for (int i = 0; i < jsonArraycases.size(); i++) {
-        TestCasebulkCasesInner.validateJsonElement(jsonArraycases.get(i));
-      };
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -273,7 +273,7 @@ public class TestCasebulk {
                    else if (entry.getValue().getAsJsonPrimitive().isBoolean())
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                     throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
                  } else if (entry.getValue().isJsonArray()) {
                      instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
                  } else { // JSON object

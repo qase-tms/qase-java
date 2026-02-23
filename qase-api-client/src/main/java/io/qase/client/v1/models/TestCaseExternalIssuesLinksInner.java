@@ -50,7 +50,7 @@ import io.qase.client.v1.JSON;
 /**
  * TestCaseExternalIssuesLinksInner
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
 public class TestCaseExternalIssuesLinksInner {
   public static final String SERIALIZED_NAME_CASE_ID = "case_id";
   @SerializedName(SERIALIZED_NAME_CASE_ID)
@@ -218,14 +218,14 @@ public class TestCaseExternalIssuesLinksInner {
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCaseExternalIssuesLinksInner.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in TestCaseExternalIssuesLinksInner is not found in the empty JSON string", TestCaseExternalIssuesLinksInner.openapiRequiredFields.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in TestCaseExternalIssuesLinksInner is not found in the empty JSON string", TestCaseExternalIssuesLinksInner.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : TestCaseExternalIssuesLinksInner.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -233,7 +233,7 @@ public class TestCaseExternalIssuesLinksInner {
       if (jsonObj.get("external_issues") == null) {
         throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
       } else if (!jsonObj.get("external_issues").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `external_issues` to be an array in the JSON string but got `%s`", jsonObj.get("external_issues").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `external_issues` to be an array in the JSON string but got `%s`", jsonObj.get("external_issues").toString()));
       }
   }
 
@@ -294,7 +294,7 @@ public class TestCaseExternalIssuesLinksInner {
                    else if (entry.getValue().getAsJsonPrimitive().isBoolean())
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                     throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
                  } else if (entry.getValue().isJsonArray()) {
                      instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
                  } else { // JSON object

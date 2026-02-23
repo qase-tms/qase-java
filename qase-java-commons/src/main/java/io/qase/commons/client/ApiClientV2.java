@@ -114,7 +114,9 @@ public class ApiClientV2 implements ApiClient {
                             runId,
                             model);
         } catch (ApiException e) {
-            throw new QaseException("Failed to upload test results: " + e.getResponseBody(), e.getCause());
+            String details = String.format("code=%d, message=%s, body=%s",
+                    e.getCode(), e.getMessage(), e.getResponseBody());
+            throw new QaseException("Failed to upload test results: " + details, e);
         }
     }
 

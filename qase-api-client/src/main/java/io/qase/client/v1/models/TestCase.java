@@ -59,7 +59,7 @@ import io.qase.client.v1.JSON;
 /**
  * TestCase
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
 public class TestCase {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -1057,28 +1057,28 @@ public class TestCase {
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!TestCase.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in TestCase is not found in the empty JSON string", TestCase.openapiRequiredFields.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in TestCase is not found in the empty JSON string", TestCase.openapiRequiredFields.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if ((jsonObj.get("title") != null && !jsonObj.get("title").isJsonNull()) && !jsonObj.get("title").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `title` to be a primitive type in the JSON string but got `%s`", jsonObj.get("title").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `title` to be a primitive type in the JSON string but got `%s`", jsonObj.get("title").toString()));
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
       if ((jsonObj.get("preconditions") != null && !jsonObj.get("preconditions").isJsonNull()) && !jsonObj.get("preconditions").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `preconditions` to be a primitive type in the JSON string but got `%s`", jsonObj.get("preconditions").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `preconditions` to be a primitive type in the JSON string but got `%s`", jsonObj.get("preconditions").toString()));
       }
       if ((jsonObj.get("postconditions") != null && !jsonObj.get("postconditions").isJsonNull()) && !jsonObj.get("postconditions").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `postconditions` to be a primitive type in the JSON string but got `%s`", jsonObj.get("postconditions").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `postconditions` to be a primitive type in the JSON string but got `%s`", jsonObj.get("postconditions").toString()));
       }
       if (jsonObj.get("custom_fields") != null && !jsonObj.get("custom_fields").isJsonNull()) {
         JsonArray jsonArraycustomFields = jsonObj.getAsJsonArray("custom_fields");
         if (jsonArraycustomFields != null) {
           // ensure the json data is an array
           if (!jsonObj.get("custom_fields").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `custom_fields` to be an array in the JSON string but got `%s`", jsonObj.get("custom_fields").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `custom_fields` to be an array in the JSON string but got `%s`", jsonObj.get("custom_fields").toString()));
           }
 
           // validate the optional field `custom_fields` (array)
@@ -1092,7 +1092,7 @@ public class TestCase {
         if (jsonArrayattachments != null) {
           // ensure the json data is an array
           if (!jsonObj.get("attachments").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `attachments` to be an array in the JSON string but got `%s`", jsonObj.get("attachments").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `attachments` to be an array in the JSON string but got `%s`", jsonObj.get("attachments").toString()));
           }
 
           // validate the optional field `attachments` (array)
@@ -1102,14 +1102,14 @@ public class TestCase {
         }
       }
       if ((jsonObj.get("steps_type") != null && !jsonObj.get("steps_type").isJsonNull()) && !jsonObj.get("steps_type").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `steps_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("steps_type").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("steps_type").toString()));
       }
       if (jsonObj.get("steps") != null && !jsonObj.get("steps").isJsonNull()) {
         JsonArray jsonArraysteps = jsonObj.getAsJsonArray("steps");
         if (jsonArraysteps != null) {
           // ensure the json data is an array
           if (!jsonObj.get("steps").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `steps` to be an array in the JSON string but got `%s`", jsonObj.get("steps").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps` to be an array in the JSON string but got `%s`", jsonObj.get("steps").toString()));
           }
 
           // validate the optional field `steps` (array)
@@ -1127,7 +1127,7 @@ public class TestCase {
         if (jsonArrayparameters != null) {
           // ensure the json data is an array
           if (!jsonObj.get("parameters").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `parameters` to be an array in the JSON string but got `%s`", jsonObj.get("parameters").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `parameters` to be an array in the JSON string but got `%s`", jsonObj.get("parameters").toString()));
           }
 
           // validate the optional field `parameters` (array)
@@ -1141,7 +1141,7 @@ public class TestCase {
         if (jsonArraytags != null) {
           // ensure the json data is an array
           if (!jsonObj.get("tags").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `tags` to be an array in the JSON string but got `%s`", jsonObj.get("tags").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `tags` to be an array in the JSON string but got `%s`", jsonObj.get("tags").toString()));
           }
 
           // validate the optional field `tags` (array)
@@ -1151,20 +1151,20 @@ public class TestCase {
         }
       }
       if ((jsonObj.get("deleted") != null && !jsonObj.get("deleted").isJsonNull()) && !jsonObj.get("deleted").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `deleted` to be a primitive type in the JSON string but got `%s`", jsonObj.get("deleted").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `deleted` to be a primitive type in the JSON string but got `%s`", jsonObj.get("deleted").toString()));
       }
       if ((jsonObj.get("created") != null && !jsonObj.get("created").isJsonNull()) && !jsonObj.get("created").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `created` to be a primitive type in the JSON string but got `%s`", jsonObj.get("created").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `created` to be a primitive type in the JSON string but got `%s`", jsonObj.get("created").toString()));
       }
       if ((jsonObj.get("updated") != null && !jsonObj.get("updated").isJsonNull()) && !jsonObj.get("updated").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `updated` to be a primitive type in the JSON string but got `%s`", jsonObj.get("updated").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `updated` to be a primitive type in the JSON string but got `%s`", jsonObj.get("updated").toString()));
       }
       if (jsonObj.get("external_issues") != null && !jsonObj.get("external_issues").isJsonNull()) {
         JsonArray jsonArrayexternalIssues = jsonObj.getAsJsonArray("external_issues");
         if (jsonArrayexternalIssues != null) {
           // ensure the json data is an array
           if (!jsonObj.get("external_issues").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `external_issues` to be an array in the JSON string but got `%s`", jsonObj.get("external_issues").toString()));
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `external_issues` to be an array in the JSON string but got `%s`", jsonObj.get("external_issues").toString()));
           }
 
           // validate the optional field `external_issues` (array)
@@ -1232,7 +1232,7 @@ public class TestCase {
                    else if (entry.getValue().getAsJsonPrimitive().isBoolean())
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                     throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
                  } else if (entry.getValue().isJsonArray()) {
                      instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
                  } else { // JSON object
