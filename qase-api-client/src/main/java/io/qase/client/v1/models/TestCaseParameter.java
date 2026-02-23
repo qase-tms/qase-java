@@ -64,7 +64,7 @@ import com.google.gson.JsonParseException;
 
 import io.qase.client.v1.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
 public class TestCaseParameter extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(TestCaseParameter.class.getName());
 
@@ -120,7 +120,7 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data matches schema 'TestCaseParameterSingle'");
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for TestCaseParameterSingle failed with `%s`.", e.getMessage()));
+                        errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for TestCaseParameterSingle failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'TestCaseParameterSingle'", e);
                     }
                     // deserialize TestCaseParameterGroup
@@ -132,7 +132,7 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data matches schema 'TestCaseParameterGroup'");
                     } catch (Exception e) {
                         // deserialization failed, continue
-                        errorMessages.add(String.format("Deserialization for TestCaseParameterGroup failed with `%s`.", e.getMessage()));
+                        errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for TestCaseParameterGroup failed with `%s`.", e.getMessage()));
                         log.log(Level.FINER, "Input data does not match schema 'TestCaseParameterGroup'", e);
                     }
 
@@ -142,7 +142,7 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
                         return ret;
                     }
 
-                    throw new IOException(String.format("Failed deserialization for TestCaseParameter: %d classes match result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", match, errorMessages, jsonElement.toString()));
+                    throw new IOException(String.format(java.util.Locale.ROOT, "Failed deserialization for TestCaseParameter: %d classes match result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", match, errorMessages, jsonElement.toString()));
                 }
             }.nullSafe();
         }
@@ -241,7 +241,7 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
             TestCaseParameterSingle.validateJsonElement(jsonElement);
             validCount++;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for TestCaseParameterSingle failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for TestCaseParameterSingle failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
         // validate the json string with TestCaseParameterGroup
@@ -249,11 +249,11 @@ public class TestCaseParameter extends AbstractOpenApiSchema {
             TestCaseParameterGroup.validateJsonElement(jsonElement);
             validCount++;
         } catch (Exception e) {
-            errorMessages.add(String.format("Deserialization for TestCaseParameterGroup failed with `%s`.", e.getMessage()));
+            errorMessages.add(String.format(java.util.Locale.ROOT, "Deserialization for TestCaseParameterGroup failed with `%s`.", e.getMessage()));
             // continue to the next one
         }
         if (validCount != 1) {
-            throw new IOException(String.format("The JSON string is invalid for TestCaseParameter with oneOf schemas: TestCaseParameterGroup, TestCaseParameterSingle. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
+            throw new IOException(String.format(java.util.Locale.ROOT, "The JSON string is invalid for TestCaseParameter with oneOf schemas: TestCaseParameterGroup, TestCaseParameterSingle. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
         }
     }
 

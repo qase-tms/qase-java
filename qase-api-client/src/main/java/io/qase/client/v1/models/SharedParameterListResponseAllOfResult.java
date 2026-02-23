@@ -51,7 +51,7 @@ import io.qase.client.v1.JSON;
 /**
  * SharedParameterListResponseAllOfResult
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
 public class SharedParameterListResponseAllOfResult {
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)
@@ -219,27 +219,27 @@ public class SharedParameterListResponseAllOfResult {
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SharedParameterListResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in SharedParameterListResponseAllOfResult is not found in the empty JSON string", SharedParameterListResponseAllOfResult.openapiRequiredFields.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in SharedParameterListResponseAllOfResult is not found in the empty JSON string", SharedParameterListResponseAllOfResult.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : SharedParameterListResponseAllOfResult.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // ensure the json data is an array
-      if (!jsonObj.get("entities").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `entities` to be an array in the JSON string but got `%s`", jsonObj.get("entities").toString()));
+      if (jsonObj.get("entities") != null) {
+        if (!jsonObj.get("entities").isJsonArray()) {
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `entities` to be an array in the JSON string but got `%s`", jsonObj.get("entities").toString()));
+        }
+        JsonArray jsonArrayentities = jsonObj.getAsJsonArray("entities");
+        // validate the required field `entities` (array)
+        for (int i = 0; i < jsonArrayentities.size(); i++) {
+          SharedParameter.validateJsonElement(jsonArrayentities.get(i));
+        }
       }
-
-      JsonArray jsonArrayentities = jsonObj.getAsJsonArray("entities");
-      // validate the required field `entities` (array)
-      for (int i = 0; i < jsonArrayentities.size(); i++) {
-        SharedParameter.validateJsonElement(jsonArrayentities.get(i));
-      };
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -299,7 +299,7 @@ public class SharedParameterListResponseAllOfResult {
                    else if (entry.getValue().getAsJsonPrimitive().isBoolean())
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                     throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
                  } else if (entry.getValue().isJsonArray()) {
                      instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
                  } else { // JSON object

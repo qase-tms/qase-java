@@ -50,7 +50,7 @@ import io.qase.client.v1.JSON;
 /**
  * SharedStepContentCreate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
 public class SharedStepContentCreate {
   public static final String SERIALIZED_NAME_HASH = "hash";
   @SerializedName(SERIALIZED_NAME_HASH)
@@ -76,6 +76,11 @@ public class SharedStepContentCreate {
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
   @javax.annotation.Nullable
   private List<String> attachments = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_STEPS = "steps";
+  @SerializedName(SERIALIZED_NAME_STEPS)
+  @javax.annotation.Nullable
+  private List<Object> steps = new ArrayList<>();
 
   public SharedStepContentCreate() {
   }
@@ -182,6 +187,33 @@ public class SharedStepContentCreate {
     this.attachments = attachments;
   }
 
+
+  public SharedStepContentCreate steps(@javax.annotation.Nullable List<Object> steps) {
+    this.steps = steps;
+    return this;
+  }
+
+  public SharedStepContentCreate addStepsItem(Object stepsItem) {
+    if (this.steps == null) {
+      this.steps = new ArrayList<>();
+    }
+    this.steps.add(stepsItem);
+    return this;
+  }
+
+  /**
+   * Nested steps will be here. The same structure is used for them.
+   * @return steps
+   */
+  @javax.annotation.Nullable
+  public List<Object> getSteps() {
+    return steps;
+  }
+
+  public void setSteps(@javax.annotation.Nullable List<Object> steps) {
+    this.steps = steps;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -241,13 +273,14 @@ public class SharedStepContentCreate {
         Objects.equals(this.action, sharedStepContentCreate.action) &&
         Objects.equals(this.expectedResult, sharedStepContentCreate.expectedResult) &&
         Objects.equals(this.data, sharedStepContentCreate.data) &&
-        Objects.equals(this.attachments, sharedStepContentCreate.attachments)&&
+        Objects.equals(this.attachments, sharedStepContentCreate.attachments) &&
+        Objects.equals(this.steps, sharedStepContentCreate.steps)&&
         Objects.equals(this.additionalProperties, sharedStepContentCreate.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(hash, action, expectedResult, data, attachments, additionalProperties);
+    return Objects.hash(hash, action, expectedResult, data, attachments, steps, additionalProperties);
   }
 
   @Override
@@ -259,6 +292,7 @@ public class SharedStepContentCreate {
     sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+    sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -281,7 +315,7 @@ public class SharedStepContentCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("hash", "action", "expected_result", "data", "attachments"));
+    openapiFields = new HashSet<String>(Arrays.asList("hash", "action", "expected_result", "data", "attachments", "steps"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(Arrays.asList("action"));
@@ -296,32 +330,36 @@ public class SharedStepContentCreate {
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
         if (!SharedStepContentCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in SharedStepContentCreate is not found in the empty JSON string", SharedStepContentCreate.openapiRequiredFields.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in SharedStepContentCreate is not found in the empty JSON string", SharedStepContentCreate.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : SharedStepContentCreate.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if ((jsonObj.get("hash") != null && !jsonObj.get("hash").isJsonNull()) && !jsonObj.get("hash").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `hash` to be a primitive type in the JSON string but got `%s`", jsonObj.get("hash").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `hash` to be a primitive type in the JSON string but got `%s`", jsonObj.get("hash").toString()));
       }
       if (!jsonObj.get("action").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `action` to be a primitive type in the JSON string but got `%s`", jsonObj.get("action").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `action` to be a primitive type in the JSON string but got `%s`", jsonObj.get("action").toString()));
       }
       if ((jsonObj.get("expected_result") != null && !jsonObj.get("expected_result").isJsonNull()) && !jsonObj.get("expected_result").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `expected_result` to be a primitive type in the JSON string but got `%s`", jsonObj.get("expected_result").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `expected_result` to be a primitive type in the JSON string but got `%s`", jsonObj.get("expected_result").toString()));
       }
       if ((jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) && !jsonObj.get("data").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `data` to be a primitive type in the JSON string but got `%s`", jsonObj.get("data").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `data` to be a primitive type in the JSON string but got `%s`", jsonObj.get("data").toString()));
       }
       // ensure the optional json data is an array if present
       if (jsonObj.get("attachments") != null && !jsonObj.get("attachments").isJsonNull() && !jsonObj.get("attachments").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `attachments` to be an array in the JSON string but got `%s`", jsonObj.get("attachments").toString()));
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `attachments` to be an array in the JSON string but got `%s`", jsonObj.get("attachments").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("steps") != null && !jsonObj.get("steps").isJsonNull() && !jsonObj.get("steps").isJsonArray()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps` to be an array in the JSON string but got `%s`", jsonObj.get("steps").toString()));
       }
   }
 
@@ -382,7 +420,7 @@ public class SharedStepContentCreate {
                    else if (entry.getValue().getAsJsonPrimitive().isBoolean())
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                     throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
                  } else if (entry.getValue().isJsonArray()) {
                      instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
                  } else { // JSON object

@@ -104,7 +104,9 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                             .getResult())
                     .getId();
         } catch (ApiException e) {
-            throw new QaseException("Failed to create test run: " + e.getResponseBody(), e.getCause());
+            String details = String.format("code=%d, message=%s, body=%s",
+                    e.getCode(), e.getMessage(), e.getResponseBody());
+            throw new QaseException("Failed to create test run: " + details, e);
         }
     }
 
@@ -114,7 +116,9 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
             new RunsApi(client)
                     .completeRun(this.config.testops.project, runId.intValue());
         } catch (ApiException e) {
-            throw new QaseException("Failed to complete test run: " + e.getResponseBody(), e.getCause());
+            String details = String.format("code=%d, message=%s, body=%s",
+                    e.getCode(), e.getMessage(), e.getResponseBody());
+            throw new QaseException("Failed to complete test run: " + details, e);
         }
 
         logger.info("Test run link: %srun/%s/dashboard/%d", this.url, this.config.testops.project, runId);
@@ -145,7 +149,9 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
             logger.info("External issue link updated for run %d: %s", runId, this.config.testops.run.externalLink.getLink());
         } catch (ApiException e) {
-            throw new QaseException("Failed to update external issue: " + e.getResponseBody(), e.getCause());
+            String details = String.format("code=%d, message=%s, body=%s",
+                    e.getCode(), e.getMessage(), e.getResponseBody());
+            throw new QaseException("Failed to update external issue: " + details, e);
         }
     }
 
@@ -162,7 +168,9 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                 throw new QaseException("Public report URL not found in response");
             }
         } catch (ApiException e) {
-            throw new QaseException("Failed to enable public report: " + e.getResponseBody(), e.getCause());
+            String details = String.format("code=%d, message=%s, body=%s",
+                    e.getCode(), e.getMessage(), e.getResponseBody());
+            throw new QaseException("Failed to enable public report: " + details, e);
         }
     }
 
@@ -188,7 +196,9 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                     .map(PlanDetailedAllOfCases::getCaseId)
                     .collect(Collectors.toList());
         } catch (ApiException e) {
-            throw new QaseException("Failed to get test case ids for execution: " + e.getResponseBody(), e.getCause());
+            String details = String.format("code=%d, message=%s, body=%s",
+                    e.getCode(), e.getMessage(), e.getResponseBody());
+            throw new QaseException("Failed to get test case ids for execution: " + details, e);
         }
     }
 

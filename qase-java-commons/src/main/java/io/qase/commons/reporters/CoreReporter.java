@@ -26,6 +26,7 @@ public class CoreReporter implements Reporter {
     private InternalReporter reporter;
     private InternalReporter fallback;
     private final HooksManager hooksManager;
+    private final Object lock = new Object();
     private final QaseConfig config;
     private final String reporterName;
     private final String reporterVersion;
@@ -35,6 +36,18 @@ public class CoreReporter implements Reporter {
 
     public CoreReporter(QaseConfig config) {
         this(config, null, null, null, null, null);
+    }
+
+    CoreReporter(QaseConfig config, InternalReporter reporter, InternalReporter fallback) {
+        this.config = config;
+        this.reporterName = null;
+        this.reporterVersion = null;
+        this.frameworkName = null;
+        this.frameworkVersion = null;
+        this.hostInfo = null;
+        this.reporter = reporter;
+        this.fallback = fallback;
+        this.hooksManager = HooksManager.getDefaultHooksManager();
     }
 
     public CoreReporter(QaseConfig config, String reporterName, String reporterVersion,
@@ -87,11 +100,12 @@ public class CoreReporter implements Reporter {
     }
 
     public List<Long> getTestCaseIdsForExecution() {
-        if (reporter == null) {
-            return new ArrayList<>();
+        synchronized (lock) {
+            if (reporter == null) {
+                return new ArrayList<>();
+            }
+            return reporter.getTestCaseIdsForExecution();
         }
-
-        return reporter.getTestCaseIdsForExecution();
     }
 
     /**
@@ -160,7 +174,10 @@ public class CoreReporter implements Reporter {
 
 
     private void executeWithFallback(ReporterAction action, String actionName) {
-        if (reporter != null) {
+        synchronized (lock) {
+            if (reporter == null) {
+                return;
+            }
             try {
                 action.execute();
             } catch (QaseException e) {
