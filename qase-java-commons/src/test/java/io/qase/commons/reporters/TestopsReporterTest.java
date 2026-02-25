@@ -14,6 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 class TestopsReporterTest {
@@ -56,6 +57,51 @@ class TestopsReporterTest {
     @Test
     void testCompleteTestRun() throws QaseException {
         reporter.testRunId = 789L;
+
+        reporter.completeTestRun();
+
+        verify(clientMock, times(1)).completeTestRun(789L);
+    }
+
+    @Test
+    void testCompleteTestRunFlushesBufferedResults() throws QaseException {
+        reporter.testRunId = 789L;
+        configMock.testops.batch.size = 10;
+
+        TestResult result1 = new TestResult();
+        TestResult result2 = new TestResult();
+        reporter.addResult(result1);
+        reporter.addResult(result2);
+
+        assertEquals(2, reporter.getResults().size());
+
+        reporter.completeTestRun();
+
+        verify(clientMock, times(1)).uploadResults(eq(789L), anyList());
+        verify(clientMock, times(1)).completeTestRun(789L);
+        assertEquals(0, reporter.getResults().size());
+    }
+
+    @Test
+    void testCompleteTestRunWithCompleteFalseSkipsCompletion() throws QaseException {
+        reporter.testRunId = 789L;
+        configMock.testops.run.complete = false;
+        configMock.testops.batch.size = 10;
+
+        TestResult result = new TestResult();
+        reporter.addResult(result);
+
+        reporter.completeTestRun();
+
+        verify(clientMock, times(1)).uploadResults(eq(789L), anyList());
+        verify(clientMock, never()).completeTestRun(anyLong());
+        assertEquals(0, reporter.getResults().size());
+    }
+
+    @Test
+    void testCompleteTestRunWithCompleteTrueCallsCompletion() throws QaseException {
+        reporter.testRunId = 789L;
+        configMock.testops.run.complete = true;
 
         reporter.completeTestRun();
 
