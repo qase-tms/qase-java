@@ -14,6 +14,7 @@ import io.qase.commons.config.QaseConfig;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.utils.RetryHelper;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.File;
@@ -98,27 +99,28 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         }
 
         try {
-            return Objects.requireNonNull(
-                    new RunsApi(client)
-                            .createRun(this.config.testops.project, model)
-                            .getResult())
-                    .getId();
-        } catch (ApiException e) {
-            String details = String.format("code=%d, message=%s, body=%s",
-                    e.getCode(), e.getMessage(), e.getResponseBody());
-            throw new QaseException("Failed to create test run: " + details, e);
+            return RetryHelper.retry(() ->
+                    Objects.requireNonNull(
+                            new RunsApi(client)
+                                    .createRun(this.config.testops.project, model)
+                                    .getResult())
+                            .getId(),
+                    "create test run"
+            );
+        } catch (Exception e) {
+            throw wrapException("create test run", e);
         }
     }
 
     @Override
     public void completeTestRun(Long runId) throws QaseException {
         try {
-            new RunsApi(client)
-                    .completeRun(this.config.testops.project, runId.intValue());
-        } catch (ApiException e) {
-            String details = String.format("code=%d, message=%s, body=%s",
-                    e.getCode(), e.getMessage(), e.getResponseBody());
-            throw new QaseException("Failed to complete test run: " + details, e);
+            RetryHelper.retry(() -> {
+                new RunsApi(client)
+                        .completeRun(this.config.testops.project, runId.intValue());
+            }, "complete test run");
+        } catch (Exception e) {
+            throw wrapException("complete test run", e);
         }
 
         logger.info("Test run link: %srun/%s/dashboard/%d", this.url, this.config.testops.project, runId);
@@ -144,33 +146,33 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                     .type(apiType)
                     .links(Collections.singletonList(link));
 
-            new RunsApi(client)
-                    .runUpdateExternalIssue(this.config.testops.project, externalIssues);
+            RetryHelper.retry(() -> {
+                new RunsApi(client)
+                        .runUpdateExternalIssue(this.config.testops.project, externalIssues);
+            }, "update external issue");
 
             logger.info("External issue link updated for run %d: %s", runId, this.config.testops.run.externalLink.getLink());
-        } catch (ApiException e) {
-            String details = String.format("code=%d, message=%s, body=%s",
-                    e.getCode(), e.getMessage(), e.getResponseBody());
-            throw new QaseException("Failed to update external issue: " + details, e);
+        } catch (Exception e) {
+            throw wrapException("update external issue", e);
         }
     }
 
     @Override
     public String enablePublicReport(Long runId) throws QaseException {
         try {
-            RunPublic runPublic = new RunPublic().status(true);
-            RunPublicResponse response = new RunsApi(client)
-                    .updateRunPublicity(this.config.testops.project, runId.intValue(), runPublic);
-            
-            if (response != null && response.getResult() != null && response.getResult().getUrl() != null) {
-                return response.getResult().getUrl().toString();
-            } else {
-                throw new QaseException("Public report URL not found in response");
-            }
-        } catch (ApiException e) {
-            String details = String.format("code=%d, message=%s, body=%s",
-                    e.getCode(), e.getMessage(), e.getResponseBody());
-            throw new QaseException("Failed to enable public report: " + details, e);
+            return RetryHelper.retry(() -> {
+                RunPublic runPublic = new RunPublic().status(true);
+                RunPublicResponse response = new RunsApi(client)
+                        .updateRunPublicity(this.config.testops.project, runId.intValue(), runPublic);
+
+                if (response != null && response.getResult() != null && response.getResult().getUrl() != null) {
+                    return response.getResult().getUrl().toString();
+                } else {
+                    throw new QaseException("Public report URL not found in response");
+                }
+            }, "enable public report");
+        } catch (Exception e) {
+            throw wrapException("enable public report", e);
         }
     }
 
@@ -186,19 +188,19 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         }
 
         try {
-            PlanResponse response = new PlansApi(client)
-                    .getPlan(this.config.testops.project, this.config.testops.plan.id);
+            return RetryHelper.retry(() -> {
+                PlanResponse response = new PlansApi(client)
+                        .getPlan(this.config.testops.project, this.config.testops.plan.id);
 
-            return Objects.requireNonNull(
-                    Objects.requireNonNull(response.getResult())
-                            .getCases())
-                    .stream()
-                    .map(PlanDetailedAllOfCases::getCaseId)
-                    .collect(Collectors.toList());
-        } catch (ApiException e) {
-            String details = String.format("code=%d, message=%s, body=%s",
-                    e.getCode(), e.getMessage(), e.getResponseBody());
-            throw new QaseException("Failed to get test case ids for execution: " + details, e);
+                return Objects.requireNonNull(
+                        Objects.requireNonNull(response.getResult())
+                                .getCases())
+                        .stream()
+                        .map(PlanDetailedAllOfCases::getCaseId)
+                        .collect(Collectors.toList());
+            }, "get test case ids");
+        } catch (Exception e) {
+            throw wrapException("get test case ids for execution", e);
         }
     }
 
@@ -336,24 +338,25 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         
         for (int i = 0; i < batches.size(); i++) {
             List<FileInfo> batch = batches.get(i);
+            final int batchIndex = i;
             try {
                 List<File> batchFiles = batch.stream()
                         .map(fi -> fi.file)
                         .collect(Collectors.toList());
-                
-                List<Attachmentupload> response = api
-                        .uploadAttachment(this.config.testops.project, batchFiles).getResult();
-                
+
+                List<Attachmentupload> response = RetryHelper.retry(() ->
+                        api.uploadAttachment(this.config.testops.project, batchFiles).getResult(),
+                        "upload attachments batch " + (batchIndex + 1)
+                );
+
                 List<String> batchHashes = processUploadResponse(response, batch);
                 allHashes.addAll(batchHashes);
-                
-                logger.debug("Uploaded batch %d/%d: %d files, %d hashes", 
-                    i + 1, batches.size(), batch.size(), batchHashes.size());
-            } catch (ApiException e) {
-                logger.error("Failed to upload batch %d/%d: %s", i + 1, batches.size(), e.getMessage());
-                // Continue with next batch instead of failing completely
+
+                logger.debug("Uploaded batch %d/%d: %d files, %d hashes",
+                    batchIndex + 1, batches.size(), batch.size(), batchHashes.size());
+            } catch (Exception e) {
+                logger.error("Failed to upload batch %d/%d: %s", batchIndex + 1, batches.size(), e.getMessage());
             } finally {
-                // Clean up temporary files for this batch
                 cleanupFileInfos(batch);
             }
         }
@@ -491,5 +494,17 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                 fileInfo.file.delete();
             }
         }
+    }
+
+    private QaseException wrapException(String action, Exception e) {
+        if (e instanceof QaseException) {
+            return (QaseException) e;
+        }
+        if (e instanceof ApiException) {
+            ApiException ae = (ApiException) e;
+            return new QaseException(String.format("Failed to %s: code=%d, message=%s, body=%s",
+                    action, ae.getCode(), ae.getMessage(), ae.getResponseBody()), e);
+        }
+        return new QaseException("Failed to " + action + ": " + e.getMessage(), e);
     }
 }

@@ -6,6 +6,7 @@ import io.qase.client.v2.models.*;
 import io.qase.commons.QaseException;
 import io.qase.commons.config.QaseConfig;
 import io.qase.commons.logger.Logger;
+import io.qase.commons.utils.RetryHelper;
 import io.qase.commons.models.domain.StepResult;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.utils.ClientHeadersBuilder;
@@ -109,15 +110,28 @@ public class ApiClientV2 implements ApiClient {
         logger.debug("Uploading results: %s", model);
 
         try {
-            new ResultsApi(client)
-                    .createResultsV2(this.config.testops.project,
-                            runId,
-                            model);
-        } catch (ApiException e) {
-            String details = String.format("code=%d, message=%s, body=%s",
-                    e.getCode(), e.getMessage(), e.getResponseBody());
-            throw new QaseException("Failed to upload test results: " + details, e);
+            RetryHelper.retry(() -> {
+                new ResultsApi(client)
+                        .createResultsV2(this.config.testops.project,
+                                runId,
+                                model);
+            }, "upload results");
+            logger.info("Results uploaded successfully: %d results", results.size());
+        } catch (Exception e) {
+            throw wrapException("upload test results", e);
         }
+    }
+
+    private QaseException wrapException(String action, Exception e) {
+        if (e instanceof QaseException) {
+            return (QaseException) e;
+        }
+        if (e instanceof ApiException) {
+            ApiException ae = (ApiException) e;
+            return new QaseException(String.format("Failed to %s: code=%d, message=%s, body=%s",
+                    action, ae.getCode(), ae.getMessage(), ae.getResponseBody()), e);
+        }
+        return new QaseException("Failed to " + action + ": " + e.getMessage(), e);
     }
 
     @Override

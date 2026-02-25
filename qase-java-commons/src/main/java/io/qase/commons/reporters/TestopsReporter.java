@@ -43,10 +43,16 @@ public class TestopsReporter implements InternalReporter {
 
     @Override
     public void completeTestRun() throws QaseException {
+        uploadResults();
+
+        if (!this.config.run.complete) {
+            logger.info("Test run %d: skipping completion (complete=false)", this.testRunId);
+            return;
+        }
+
         this.client.completeTestRun(this.testRunId);
         logger.info("Test run %d completed", this.testRunId);
-        
-        // Enable public report if configured
+
         if (this.config.showPublicReportLink) {
             try {
                 String publicReportUrl = this.client.enablePublicReport(this.testRunId);

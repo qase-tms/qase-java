@@ -59,10 +59,11 @@ class ApiClientV1PublicReportTest {
     void testEnablePublicReport_WithNullRunId() {
         // Arrange
         Long runId = null;
-        
-        // Act & Assert
-        assertThrows(NullPointerException.class, () -> {
+
+        // Act & Assert - NullPointerException is now wrapped in QaseException by wrapException()
+        QaseException thrown = assertThrows(QaseException.class, () -> {
             apiClient.enablePublicReport(runId);
         });
+        assertTrue(thrown.getCause() instanceof NullPointerException);
     }
 }
