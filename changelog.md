@@ -1,3 +1,20 @@
+# qase-java 4.1.34
+
+## Bug fixes
+
+- Fixed test result loss during parallel execution caused by missing retry logic and unflushed buffers
+  - Added `RetryHelper` utility with exponential backoff (3 retries: 1s, 3s, 9s) for transient API errors (timeout, 5xx, 429)
+  - Wrapped all API calls in `ApiClientV1` and `ApiClientV2` with retry logic to prevent permanent failures on transient errors
+  - Fixed `TestopsReporter.completeTestRun()` to flush buffered results before completing the run
+  - Added support for `complete=false` flag to skip API run completion while still uploading results
+
+# qase-java 4.1.33
+
+## What's new
+
+- Added thread-safety to CoreReporter and fixed API client issues for parallel test execution
+- Added support for status mapping configuration
+
 # qase-java 4.1.32
 
 ## What's new
