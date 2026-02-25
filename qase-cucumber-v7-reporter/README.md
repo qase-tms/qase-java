@@ -24,7 +24,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>io.qase</groupId>
     <artifactId>qase-cucumber-v7-reporter</artifactId>
-    <version>4.1.33</version>
+    <version>4.1.34</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -34,7 +34,7 @@ Add the following dependency to your `pom.xml`:
 Add the following to your `build.gradle`:
 
 ```groovy
-testImplementation 'io.qase:qase-cucumber-v7-reporter:4.1.33'
+testImplementation 'io.qase:qase-cucumber-v7-reporter:4.1.34'
 ```
 
 > **Note:** The reporter requires AspectJ weaver for step functionality. See the [examples directory](../examples/cucumber7/) for complete Maven and Gradle setup including Cucumber runner and AspectJ configuration.
