@@ -7,19 +7,27 @@ import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
 import io.qase.commons.utils.ExceptionUtils;
 import org.junit.jupiter.api.extension.*;
+import org.junit.platform.engine.TestExecutionResult;
+import org.junit.platform.engine.TestSource;
+import org.junit.platform.engine.support.descriptor.ClassSource;
+import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.TestExecutionListener;
+import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static io.qase.commons.utils.IntegrationUtils.*;
 
 
 public class QaseListener implements TestExecutionListener, Extension, BeforeAllCallback, AfterAllCallback, InvocationInterceptor, TestWatcher {
     private final Reporter qaseTestCaseListener;
+    private TestPlan testPlan;
+    private final Set<String> startedIdentifiers = ConcurrentHashMap.newKeySet();
 
 
     public QaseListener() {
@@ -47,7 +55,42 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
+        this.testPlan = testPlan;
         this.qaseTestCaseListener.startTestRun();
+    }
+
+    @Override
+    public void executionStarted(TestIdentifier testIdentifier) {
+        startedIdentifiers.add(testIdentifier.getUniqueId());
+    }
+
+    @Override
+    public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
+        if (testIdentifier.isTest()) {
+            return;
+        }
+
+        if (testExecutionResult.getStatus() != TestExecutionResult.Status.FAILED) {
+            return;
+        }
+
+        Optional<TestSource> sourceOpt = testIdentifier.getSource();
+        if (!sourceOpt.isPresent() || !(sourceOpt.get() instanceof ClassSource)) {
+            return;
+        }
+
+        if (testPlan == null) {
+            return;
+        }
+
+        String reason = testExecutionResult.getThrowable()
+                .map(Throwable::toString)
+                .orElse("Container failed");
+        String stacktrace = testExecutionResult.getThrowable()
+                .map(t -> getStacktrace(t))
+                .orElse(null);
+
+        reportUnstartedDescendants(testIdentifier, reason, stacktrace);
     }
 
     @Override
@@ -206,5 +249,80 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
                 CasesStorage.stopCase();
             }
         }
+    }
+
+    private void reportUnstartedDescendants(TestIdentifier container, String reason, String stacktrace) {
+        Set<TestIdentifier> children = testPlan.getChildren(container);
+        for (TestIdentifier child : children) {
+            if (startedIdentifiers.contains(child.getUniqueId())) {
+                continue;
+            }
+
+            if (child.isTest()) {
+                reportSkippedTest(child, reason, stacktrace);
+            } else if (child.isContainer()) {
+                // Container child: could be @Nested class (ClassSource) or
+                // parameterized/repeated test (MethodSource)
+                Optional<TestSource> childSource = child.getSource();
+                if (childSource.isPresent()) {
+                    if (childSource.get() instanceof MethodSource) {
+                        // Parameterized/repeated test container — report the method once
+                        reportSkippedTest(child, reason, stacktrace);
+                    } else if (childSource.get() instanceof ClassSource) {
+                        // @Nested class — recurse
+                        reportUnstartedDescendants(child, reason, stacktrace);
+                    }
+                }
+            }
+        }
+    }
+
+    private void reportSkippedTest(TestIdentifier testIdentifier, String reason, String failureStacktrace) {
+        Optional<TestSource> sourceOpt = testIdentifier.getSource();
+        if (!sourceOpt.isPresent() || !(sourceOpt.get() instanceof MethodSource)) {
+            return;
+        }
+
+        MethodSource methodSource = (MethodSource) sourceOpt.get();
+        Method method = methodSource.getJavaMethod();
+
+        if (getQaseIgnore(method)) {
+            return;
+        }
+
+        List<Long> caseIds = getCaseIds(method);
+        String caseTitle = getCaseTitle(method);
+        Map<String, String> fields = getQaseFields(method);
+        String suite = getQaseSuite(method);
+
+        Relations relations = new Relations();
+        if (suite != null) {
+            String[] parts = suite.split("\t");
+            for (String part : parts) {
+                SuiteData data = new SuiteData();
+                data.title = part;
+                relations.suite.data.add(data);
+            }
+        } else {
+            SuiteData className = new SuiteData();
+            className.title = method.getDeclaringClass().getName();
+            relations.suite.data.add(className);
+        }
+
+        TestResult result = new TestResult();
+        result.testopsIds = caseIds;
+        result.title = caseTitle;
+        result.fields = fields;
+        result.relations = relations;
+        result.signature = generateSignature(method, caseIds, Collections.emptyMap());
+        result.execution.status = TestResultStatus.SKIPPED;
+        result.execution.startTime = Instant.now().toEpochMilli();
+        result.execution.endTime = result.execution.startTime;
+        result.execution.duration = 0;
+        result.execution.stacktrace = failureStacktrace;
+        result.execution.thread = Thread.currentThread().getName();
+        result.message = reason;
+
+        this.qaseTestCaseListener.addResult(result);
     }
 }
