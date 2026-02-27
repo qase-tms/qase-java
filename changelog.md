@@ -1,3 +1,13 @@
+# qase-java 4.1.35
+
+## Bug fixes
+
+- Fixed missing test results when `@BeforeAll` fails in JUnit 5
+  - When `@BeforeAll` throws an exception, tests are now reported as SKIPPED with the failure details
+  - Uses `TestExecutionListener.executionFinished()` to detect failed class containers and find unstarted test descendants
+  - Handles `@Nested` classes (recursive), `@ParameterizedTest`/`@RepeatedTest` containers, and `@QaseIgnore` exclusion
+  - Thread-safe tracking via `ConcurrentHashMap`
+
 # qase-java 4.1.34
 
 ## Bug fixes
