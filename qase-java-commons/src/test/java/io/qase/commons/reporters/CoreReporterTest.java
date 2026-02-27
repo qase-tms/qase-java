@@ -4,8 +4,10 @@ import io.qase.commons.QaseException;
 import io.qase.commons.config.Mode;
 import io.qase.commons.config.QaseConfig;
 import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.models.domain.TestResultStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -151,6 +153,39 @@ class CoreReporterTest {
         executor.shutdown();
 
         assertEquals(1, fallbackStartCount.get(), "Fallback startTestRun should be called exactly once");
+    }
+
+    @Test
+    void testHooksCanSetCustomStatus() throws QaseException {
+        InternalReporter primary = mock(InternalReporter.class);
+
+        CoreReporter reporter = new CoreReporter(config, primary, null);
+
+        TestResult result = new TestResult();
+        result.title = "test";
+        result.execution.status = TestResultStatus.FAILED;
+        result.execution.throwable = new RuntimeException("HTTP 500 Internal Server Error");
+
+        // Simulate what a hook would do: set customStatus based on throwable
+        result.execution.customStatus = "server_error";
+        reporter.addResult(result);
+
+        ArgumentCaptor<TestResult> captor = ArgumentCaptor.forClass(TestResult.class);
+        verify(primary).addResult(captor.capture());
+        TestResult captured = captor.getValue();
+
+        assertEquals("server_error", captured.execution.customStatus);
+        assertNotNull(captured.execution.throwable);
+        assertEquals(TestResultStatus.FAILED, captured.execution.status);
+    }
+
+    @Test
+    void testThrowableIsAccessibleInResult() {
+        TestResult result = new TestResult();
+        RuntimeException exception = new RuntimeException("test error");
+        result.execution.throwable = exception;
+
+        assertSame(exception, result.execution.throwable);
     }
 
     @Test

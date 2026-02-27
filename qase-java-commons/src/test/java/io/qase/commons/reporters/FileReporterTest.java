@@ -337,6 +337,50 @@ class FileReporterTest {
         assertTrue(json.contains("\"input_data\""), "JSON must contain input_data");
     }
 
+    @Test
+    void testCustomStatusUsedWhenSet() throws QaseException {
+        TestResult testResult = this.prepareResult();
+        testResult.execution.customStatus = "server_error";
+
+        ReportAttachment mockAttachment = new ReportAttachment();
+        mockAttachment.id = "test-id";
+        mockAttachment.fileName = "test.txt";
+        mockAttachment.filePath = "attachment-path";
+        when(writerMock.writeAttachment(any())).thenReturn(mockAttachment);
+
+        fileReporter.startTestRun();
+        fileReporter.addResult(testResult);
+        fileReporter.completeTestRun();
+
+        ArgumentCaptor<ReportResult> captor = ArgumentCaptor.forClass(ReportResult.class);
+        verify(writerMock).writeResult(captor.capture());
+        ReportResult captured = captor.getValue();
+
+        assertEquals("server_error", captured.execution.status);
+    }
+
+    @Test
+    void testEnumStatusUsedWhenCustomStatusNull() throws QaseException {
+        TestResult testResult = this.prepareResult();
+        testResult.execution.customStatus = null;
+
+        ReportAttachment mockAttachment = new ReportAttachment();
+        mockAttachment.id = "test-id";
+        mockAttachment.fileName = "test.txt";
+        mockAttachment.filePath = "attachment-path";
+        when(writerMock.writeAttachment(any())).thenReturn(mockAttachment);
+
+        fileReporter.startTestRun();
+        fileReporter.addResult(testResult);
+        fileReporter.completeTestRun();
+
+        ArgumentCaptor<ReportResult> captor = ArgumentCaptor.forClass(ReportResult.class);
+        verify(writerMock).writeResult(captor.capture());
+        ReportResult captured = captor.getValue();
+
+        assertEquals("passed", captured.execution.status);
+    }
+
     private TestResult prepareResult(){
         TestResult testResult = new TestResult();
         testResult.id = "test1";
