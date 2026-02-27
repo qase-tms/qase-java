@@ -182,6 +182,7 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
 
         resultCreate.execution.status = status;
+        resultCreate.execution.throwable = optionalThrowable.orElse(null);
         resultCreate.execution.endTime = Instant.now().toEpochMilli();
         resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
         resultCreate.execution.stacktrace = stacktrace;

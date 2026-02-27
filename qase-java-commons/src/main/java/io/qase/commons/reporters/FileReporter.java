@@ -97,7 +97,9 @@ public class FileReporter implements InternalReporter {
 
     private ReportExecution convertExecution(io.qase.commons.models.domain.TestResultExecution execution) {
         ReportExecution reportExecution = new ReportExecution();
-        reportExecution.status = execution.status != null ? execution.status.toString().toLowerCase() : null;
+        reportExecution.status = execution.customStatus != null
+                ? execution.customStatus
+                : (execution.status != null ? execution.status.toString().toLowerCase() : null);
         reportExecution.startTime = execution.startTime;
         reportExecution.endTime = execution.endTime;
         reportExecution.duration = execution.duration != null ? execution.duration.longValue() : null;

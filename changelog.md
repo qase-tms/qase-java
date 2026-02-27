@@ -1,3 +1,13 @@
+# qase-java 4.1.36
+
+## What's new
+
+- Added custom status support for test results (#220)
+  - New `customStatus` field on `TestResultExecution` — when set, takes priority over the standard status enum when sending results to the Qase API (e.g. `server_error`, `known_bug`)
+  - New `throwable` field on `TestResultExecution` — stores the original exception so `HooksListener` implementations can analyze it programmatically
+  - Updated all listeners (TestNG, JUnit4, JUnit5, Cucumber v3–v7) to populate `throwable`
+  - Updated `ApiClientV2` and `FileReporter` to use `customStatus` when set
+
 # qase-java 4.1.35
 
 ## Bug fixes

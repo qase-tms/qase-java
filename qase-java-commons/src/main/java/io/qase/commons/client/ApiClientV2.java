@@ -151,7 +151,9 @@ public class ApiClientV2 implements ApiClient {
                 .map(this::convertStepResult).collect(Collectors.toList());
 
         ResultExecution execution = new ResultExecution()
-                .status(result.execution.status.toString().toLowerCase())
+                .status(result.execution.customStatus != null
+                        ? result.execution.customStatus
+                        : result.execution.status.toString().toLowerCase())
                 .startTime(result.execution.startTime / 1000.0)
                 .endTime(result.execution.endTime / 1000.0)
                 .duration(result.execution.duration.longValue())

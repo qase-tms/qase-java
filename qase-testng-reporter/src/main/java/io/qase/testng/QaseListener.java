@@ -96,6 +96,7 @@ public class QaseListener implements ISuiteListener,
         LinkedList<StepResult> steps = StepStorage.stopSteps();
 
         resultCreate.execution.status = status;
+        resultCreate.execution.throwable = result.getThrowable();
         resultCreate.execution.endTime = result.getEndMillis();
         resultCreate.execution.duration = (int) (result.getEndMillis() - result.getStartMillis());
         resultCreate.execution.stacktrace = stacktrace;

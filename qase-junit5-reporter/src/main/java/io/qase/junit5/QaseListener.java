@@ -229,6 +229,7 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
             LinkedList<StepResult> steps = StepStorage.stopSteps();
 
             resultCreate.execution.status = status;
+            resultCreate.execution.throwable = cause;
             resultCreate.execution.endTime = Instant.now().toEpochMilli();
             resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
             resultCreate.execution.stacktrace = stacktrace;

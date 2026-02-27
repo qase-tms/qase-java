@@ -166,3 +166,46 @@ After that, you need to add file **io.qase.commons.hooks.HooksListener** to **re
 ```text
 <your-package>.AttachmentManager
 ```
+
+## How to set a custom status for a test result?
+
+The Qase API supports custom statuses beyond the standard `passed`, `failed`, `blocked`, `skipped`, and `invalid`.
+You can set a custom status on a test result using the `HooksListener` interface.
+
+When `customStatus` is set on `TestResultExecution`, it takes priority over the standard `status` enum
+when sending results to the Qase API.
+
+The `execution.throwable` field contains the original exception that caused the test failure,
+so you can analyze it programmatically in your hook.
+
+### Example: setting `server_error` status for 5xx HTTP exceptions
+
+```java
+import io.qase.commons.hooks.HooksListener;
+import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.models.domain.TestResultStatus;
+
+public class CustomStatusHook implements HooksListener {
+
+    @Override
+    public void beforeTestStop(final TestResult result) {
+        if (result.execution.status == TestResultStatus.FAILED
+                && result.execution.throwable != null) {
+            Throwable cause = result.execution.throwable;
+            if (isServerError(cause)) {
+                result.execution.customStatus = "server_error";
+            }
+        }
+    }
+
+    private boolean isServerError(Throwable throwable) {
+        String message = throwable.getMessage();
+        return message != null && message.contains("HTTP 5");
+    }
+}
+```
+
+Register your hook via SPI by adding a file **io.qase.commons.hooks.HooksListener** to **resources/META-INF/services** folder:
+```text
+<your-package>.CustomStatusHook
+```
