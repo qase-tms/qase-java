@@ -43,7 +43,7 @@
         <cucumber7-java.version>7.14.0</cucumber7-java.version>
         <swagger-core-version>2.0.0</swagger-core-version>
         <aspectj.version>1.9.22</aspectj.version>
-        <jackson.version>2.17.2</jackson.version>
+        <jackson.version>2.18.6</jackson.version>
         <httpclient.version>4.5.14</httpclient.version>
         <commons-codec.version>1.15</commons-codec.version>
         <guice.version>5.1.0</guice.version>
