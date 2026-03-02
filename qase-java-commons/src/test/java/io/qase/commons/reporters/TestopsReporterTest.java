@@ -121,7 +121,7 @@ class TestopsReporterTest {
         reporter.addResult(result2);
         assertEquals(0, reporter.getResults().size());
 
-        verify(clientMock, times(1)).uploadResults(anyLong(), anyList());
+        verify(clientMock, timeout(5000).times(1)).uploadResults(anyLong(), anyList());
     }
 
     @Test
@@ -147,7 +147,7 @@ class TestopsReporterTest {
 
         reporter.uploadResults();
 
-        verify(clientMock, times(2)).uploadResults(anyLong(), anyList());
+        verify(clientMock, timeout(5000).times(2)).uploadResults(anyLong(), anyList());
         assertEquals(0, reporter.getResults().size());
     }
 
@@ -204,8 +204,8 @@ class TestopsReporterTest {
         // Проверяем, что uploadResults был вызван (количество может варьироваться из-за race conditions)
         // Минимальное количество вызовов должно быть равно количеству полных батчей
         int minExpectedCalls = (threadCount * resultsPerThread) / 2;
-        verify(clientMock, atLeast(minExpectedCalls)).uploadResults(anyLong(), anyList());
-        
+        verify(clientMock, timeout(5000).atLeast(minExpectedCalls)).uploadResults(anyLong(), anyList());
+
         // Проверяем, что в конце не осталось результатов (они были очищены)
         assertEquals(0, reporter.getResults().size());
     }
@@ -278,6 +278,31 @@ class TestopsReporterTest {
         assertEquals(2, results.size());
         assertTrue(results.contains(passedResult));
         assertTrue(results.contains(skippedResult));
+    }
+
+    @Test
+    void testAsyncUploadDoesNotBlockAddResult() throws Exception {
+        reporter.testRunId = 789L;
+        configMock.testops.batch.size = 1;
+
+        // Mock uploadResults to simulate slow HTTP upload
+        doAnswer(invocation -> {
+            Thread.sleep(500);
+            return null;
+        }).when(clientMock).uploadResults(anyLong(), anyList());
+
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 5; i++) {
+            reporter.addResult(new TestResult());
+        }
+        long elapsed = System.currentTimeMillis() - start;
+
+        // addResult should return almost instantly (< 200ms for all 5 calls)
+        // If synchronous, 5 uploads * 500ms = 2500ms minimum
+        assertTrue(elapsed < 500, "addResult should not block on upload, took " + elapsed + "ms");
+
+        // Wait for async uploads to complete
+        verify(clientMock, timeout(10000).times(5)).uploadResults(anyLong(), anyList());
     }
 
     private TestResult createTestResultWithStatus(String statusName) {

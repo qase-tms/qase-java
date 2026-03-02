@@ -12,6 +12,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class TestopsReporter implements InternalReporter {
     private static final Logger logger = Logger.getInstance();
@@ -20,11 +23,18 @@ public class TestopsReporter implements InternalReporter {
     private final ApiClient client;
     Long testRunId;
     private final List<TestResult> results;
+    private final ExecutorService uploadExecutor;
+    private volatile QaseException asyncError;
 
     public TestopsReporter(TestopsConfig config, ApiClient client) {
         this.config = config;
         this.client = client;
         this.results = new ArrayList<>();
+        this.uploadExecutor = Executors.newSingleThreadExecutor(r -> {
+            Thread t = new Thread(r, "qase-upload");
+            t.setDaemon(true);
+            return t;
+        });
     }
 
     @Override
@@ -36,7 +46,7 @@ public class TestopsReporter implements InternalReporter {
         this.testRunId = this.client.createTestRun();
         this.config.run.id = this.testRunId.intValue();
         logger.info("Test run %d started", this.testRunId);
-        
+
         // Update external issue link if configured
         this.client.updateExternalIssue(this.testRunId);
     }
@@ -44,6 +54,19 @@ public class TestopsReporter implements InternalReporter {
     @Override
     public void completeTestRun() throws QaseException {
         uploadResults();
+
+        uploadExecutor.shutdown();
+        try {
+            if (!uploadExecutor.awaitTermination(300, TimeUnit.SECONDS)) {
+                logger.warn("Upload executor timed out after 5 minutes");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        if (asyncError != null) {
+            throw asyncError;
+        }
 
         if (!this.config.run.complete) {
             logger.info("Test run %d: skipping completion (complete=false)", this.testRunId);
@@ -65,6 +88,10 @@ public class TestopsReporter implements InternalReporter {
 
     @Override
     public synchronized void addResult(TestResult result) throws QaseException {
+        if (asyncError != null) {
+            throw asyncError;
+        }
+
         // Check if result status should be filtered out
         if (shouldFilterResult(result)) {
             logger.debug("Filtering out result with status: %s", result.execution != null && result.execution.status != null ? result.execution.status : "null");
@@ -78,32 +105,37 @@ public class TestopsReporter implements InternalReporter {
         }
 
         if (this.results.size() >= this.config.batch.size) {
-            this.client.uploadResults(this.testRunId, this.results);
+            List<TestResult> batch = new ArrayList<>(this.results);
             this.results.clear();
+            uploadExecutor.submit(() -> uploadBatch(batch));
         }
     }
 
     @Override
     public synchronized void uploadResults() throws QaseException {
+        if (this.results.isEmpty()) {
+            return;
+        }
+
         int batchSize = this.config.batch.size;
-        int totalResults = this.results.size();
-
-        if (totalResults == 0) {
-            return;
+        while (!this.results.isEmpty()) {
+            int end = Math.min(batchSize, this.results.size());
+            List<TestResult> batch = new ArrayList<>(this.results.subList(0, end));
+            this.results.subList(0, end).clear();
+            uploadExecutor.submit(() -> uploadBatch(batch));
         }
+    }
 
-        if (totalResults <= batchSize) {
-            this.client.uploadResults(this.testRunId, this.results);
-            this.results.clear();
-            return;
+    private void uploadBatch(List<TestResult> batch) {
+        try {
+            this.client.uploadResults(this.testRunId, batch);
+        } catch (QaseException e) {
+            logger.error("Async upload failed: %s", e.getMessage());
+            synchronized (this) {
+                this.results.addAll(0, batch);
+            }
+            this.asyncError = e;
         }
-
-        for (int index = 0; index < totalResults; index += batchSize) {
-            int end = Math.min(index + batchSize, totalResults);
-            this.client.uploadResults(this.testRunId, this.results.subList(index, end));
-        }
-
-        this.results.clear();
     }
 
     @Override
