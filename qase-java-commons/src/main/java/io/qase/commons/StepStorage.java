@@ -34,6 +34,7 @@ public final class StepStorage {
 
         StepResult resultCreateSteps = STEP_IN_PROGRESS.get();
         resultCreateSteps.execution.stop();
+        STEPS_MAP.remove(resultCreateSteps.id);
 
         if (resultCreateSteps.parentId != null) {
             STEP_ID.set(resultCreateSteps.parentId);
@@ -73,6 +74,17 @@ public final class StepStorage {
         LinkedList<StepResult> resultCreateSteps = STEPS_STORAGE.get();
         STEPS_STORAGE.remove();
 
+        for (StepResult step : resultCreateSteps) {
+            cleanupStepsMap(step);
+        }
+
         return resultCreateSteps;
+    }
+
+    private static void cleanupStepsMap(StepResult step) {
+        STEPS_MAP.remove(step.id);
+        for (StepResult child : step.steps) {
+            cleanupStepsMap(child);
+        }
     }
 }
