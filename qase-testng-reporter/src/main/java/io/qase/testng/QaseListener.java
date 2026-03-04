@@ -80,6 +80,10 @@ public class QaseListener implements ISuiteListener,
 
     @Override
     public void onTestSkipped(ITestResult tr) {
+        if (!CasesStorage.isCaseInProgress()) {
+            TestResult result = startTestCase(tr);
+            CasesStorage.startCase(result);
+        }
         this.stopTestCase(tr, TestResultStatus.SKIPPED);
     }
 

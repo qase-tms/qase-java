@@ -1,3 +1,13 @@
+# qase-java 4.1.37
+
+## Bug fixes
+
+- Fixed NPE in TestNG reporter when a test is skipped before `onTestStart` is called (#224)
+  - When a test is skipped via `SkipException` thrown in another listener's `onTestStart`, the Qase `onTestStart` is never invoked, leaving `CasesStorage` empty
+  - `onTestSkipped` now checks `CasesStorage.isCaseInProgress()` and initializes the test case if needed before processing the skip
+- Fixed memory leak in `StepStorage` — `ThreadLocal` entries are now properly cleaned up after each test
+- Result uploading is now asynchronous to prevent blocking test execution
+
 # qase-java 4.1.36
 
 ## What's new
