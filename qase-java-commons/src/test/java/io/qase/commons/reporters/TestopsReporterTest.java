@@ -132,7 +132,7 @@ class TestopsReporterTest {
 
         reporter.uploadResults();
 
-        verify(clientMock, times(1)).uploadResults(anyLong(), anyList());
+        verify(clientMock, timeout(5000).times(1)).uploadResults(anyLong(), anyList());
         assertEquals(0, reporter.getResults().size());
     }
 
