@@ -9,7 +9,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -303,6 +309,127 @@ class TestopsReporterTest {
 
         // Wait for async uploads to complete
         verify(clientMock, timeout(10000).times(5)).uploadResults(anyLong(), anyList());
+    }
+
+    @Test
+    void concurrentAddResultAndCompleteTestRunDoesNotDeadlock() throws Exception {
+        reporter.testRunId = 789L;
+        configMock.testops.batch.size = 2;
+
+        doNothing().when(clientMock).uploadResults(anyLong(), anyList());
+        doNothing().when(clientMock).completeTestRun(anyLong());
+
+        int threadCount = 10;
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount + 1);
+        CountDownLatch startLatch = new CountDownLatch(1);
+        CountDownLatch doneLatch = new CountDownLatch(threadCount + 1);
+        List<Throwable> errors = Collections.synchronizedList(new ArrayList<>());
+
+        for (int i = 0; i < threadCount; i++) {
+            final int idx = i;
+            executor.submit(() -> {
+                try {
+                    startLatch.await();
+                    TestResult result = new TestResult();
+                    result.title = "concurrent-" + idx;
+                    reporter.addResult(result);
+                } catch (QaseException e) {
+                    // Expected: some calls may see asyncError during shutdown
+                } catch (Exception e) {
+                    errors.add(e);
+                } finally {
+                    doneLatch.countDown();
+                }
+            });
+        }
+
+        executor.submit(() -> {
+            try {
+                startLatch.await();
+                Thread.sleep(5);
+                reporter.completeTestRun();
+            } catch (Exception e) {
+                // Expected during shutdown
+            } finally {
+                doneLatch.countDown();
+            }
+        });
+
+        startLatch.countDown();
+        assertTrue(doneLatch.await(10, TimeUnit.SECONDS),
+            "All threads should complete within 10s -- no deadlock");
+        executor.shutdown();
+
+        assertTrue(errors.isEmpty(), "No unexpected exceptions: " + errors);
+    }
+
+    @Test
+    void asyncErrorAndBatchReInsertionAreAtomic() throws Exception {
+        reporter.testRunId = 789L;
+        configMock.testops.batch.size = 1;
+
+        QaseException uploadError = new QaseException("Upload failed");
+        doThrow(uploadError).when(clientMock).uploadResults(anyLong(), anyList());
+
+        reporter.addResult(new TestResult());
+
+        // Wait for executor to process the failed upload
+        verify(clientMock, timeout(5000).atLeastOnce()).uploadResults(anyLong(), anyList());
+
+        // The second addResult should throw asyncError
+        QaseException thrown = assertThrows(QaseException.class, () -> {
+            reporter.addResult(new TestResult());
+        });
+        assertEquals("Upload failed", thrown.getMessage());
+
+        // If asyncError is set, the failed batch must also be re-inserted (atomicity)
+        assertFalse(reporter.getResults().isEmpty(),
+            "If asyncError is set, failed batch must be re-inserted in results");
+    }
+
+    @Test
+    void uploadFailureDoesNotCorruptResultsUnderConcurrency() throws Exception {
+        reporter.testRunId = 789L;
+        configMock.testops.batch.size = 2;
+
+        AtomicInteger uploadCallCount = new AtomicInteger(0);
+        doAnswer(invocation -> {
+            if (uploadCallCount.incrementAndGet() == 1) {
+                throw new QaseException("First upload fails");
+            }
+            return null;
+        }).when(clientMock).uploadResults(anyLong(), anyList());
+
+        int threadCount = 10;
+        CountDownLatch startLatch = new CountDownLatch(1);
+        CountDownLatch doneLatch = new CountDownLatch(threadCount);
+        List<Throwable> errors = Collections.synchronizedList(new ArrayList<>());
+
+        ExecutorService testExecutor = Executors.newFixedThreadPool(threadCount);
+        for (int i = 0; i < threadCount; i++) {
+            final int idx = i;
+            testExecutor.submit(() -> {
+                try {
+                    startLatch.await();
+                    TestResult result = new TestResult();
+                    result.title = "test-" + idx;
+                    reporter.addResult(result);
+                } catch (QaseException e) {
+                    // Expected: asyncError propagated
+                } catch (Exception e) {
+                    errors.add(e);
+                } finally {
+                    doneLatch.countDown();
+                }
+            });
+        }
+
+        startLatch.countDown();
+        assertTrue(doneLatch.await(10, TimeUnit.SECONDS), "No deadlock");
+        testExecutor.shutdown();
+
+        // No unexpected (non-QaseException) errors
+        assertTrue(errors.isEmpty(), "No unexpected errors: " + errors);
     }
 
     private TestResult createTestResultWithStatus(String statusName) {
