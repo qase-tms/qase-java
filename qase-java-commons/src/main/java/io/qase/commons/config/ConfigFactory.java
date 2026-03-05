@@ -72,6 +72,7 @@ public class ConfigFactory {
                         qaseConfig.testops.configurations.isCreateIfNotExists()));
         qaseConfig.testops.api.token = getEnv("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getEnv("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
+        qaseConfig.testops.api.timeoutSeconds = getIntEnv("QASE_TESTOPS_API_TIMEOUT_SECONDS", qaseConfig.testops.api.timeoutSeconds);
         qaseConfig.testops.run.title = getEnv("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
         qaseConfig.testops.run.description = getEnv("QASE_TESTOPS_RUN_DESCRIPTION", qaseConfig.testops.run.description);
         qaseConfig.testops.run.id = getIntEnv("QASE_TESTOPS_RUN_ID", qaseConfig.testops.run.id);
@@ -115,6 +116,7 @@ public class ConfigFactory {
                         qaseConfig.testops.configurations.isCreateIfNotExists()));
         qaseConfig.testops.api.token = getProperty("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getProperty("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
+        qaseConfig.testops.api.timeoutSeconds = getIntProperty("QASE_TESTOPS_API_TIMEOUT_SECONDS", qaseConfig.testops.api.timeoutSeconds);
         qaseConfig.testops.run.title = getProperty("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
         qaseConfig.testops.run.description = getProperty("QASE_TESTOPS_RUN_DESCRIPTION",
                 qaseConfig.testops.run.description);
@@ -344,6 +346,10 @@ public class ConfigFactory {
 
                 if (api.has("host")) {
                     qaseConfig.testops.api.host = api.getString("host");
+                }
+
+                if (api.has("timeoutSeconds")) {
+                    qaseConfig.testops.api.timeoutSeconds = api.getInt("timeoutSeconds");
                 }
             }
 
