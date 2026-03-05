@@ -174,6 +174,10 @@ public class CoreReporter implements Reporter {
 
 
     private void executeWithFallback(ReporterAction action, String actionName) {
+        // Thread-safety (TSAFE-04): all mutable state (reporter, fallback fields) is guarded
+        // by this.lock. Pre-lock processing (applyRootSuite, applyStatusMapping, beforeTestStop)
+        // operates only on the per-call TestResult argument — no shared state is accessed
+        // outside this synchronized block.
         synchronized (lock) {
             if (reporter == null) {
                 return;
