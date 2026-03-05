@@ -25,6 +25,7 @@ public class TestopsReporter implements InternalReporter {
     private final List<TestResult> results;
     private final ExecutorService uploadExecutor;
     private volatile QaseException asyncError;
+    private volatile boolean shuttingDown = false;
 
     public TestopsReporter(TestopsConfig config, ApiClient client) {
         this.config = config;
@@ -53,6 +54,9 @@ public class TestopsReporter implements InternalReporter {
 
     @Override
     public void completeTestRun() throws QaseException {
+        synchronized (this) {
+            shuttingDown = true;
+        }
         uploadResults();
 
         uploadExecutor.shutdown();
@@ -88,6 +92,10 @@ public class TestopsReporter implements InternalReporter {
 
     @Override
     public synchronized void addResult(TestResult result) throws QaseException {
+        if (shuttingDown) {
+            logger.warn("Test run is completing, result for '%s' will not be uploaded", result.title);
+            return;
+        }
         if (asyncError != null) {
             throw asyncError;
         }
@@ -133,8 +141,8 @@ public class TestopsReporter implements InternalReporter {
             logger.error("Async upload failed: %s", e.getMessage());
             synchronized (this) {
                 this.results.addAll(0, batch);
+                this.asyncError = e;  // Atomic with batch re-insertion (TSAFE-02)
             }
-            this.asyncError = e;
         }
     }
 
