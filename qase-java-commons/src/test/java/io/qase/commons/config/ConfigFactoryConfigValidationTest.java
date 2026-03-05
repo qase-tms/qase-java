@@ -1,8 +1,10 @@
 package io.qase.commons.config;
 
+import io.qase.commons.logger.Logger;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for config validation hardening (CONF-01 through CONF-04).
@@ -168,5 +170,47 @@ class ConfigFactoryConfigValidationTest {
         BatchConfig batch = new BatchConfig();
         batch.setSize(3000);
         assertEquals(200, batch.getSize());
+    }
+
+    // --- TEST-03: WARN log count verification for bad batch size config ---
+
+    /**
+     * TEST-03: Non-numeric batch size via system property must log a WARN and use default 200.
+     * Verifies Logger.warn() is actually called (statistics WARN count increases).
+     */
+    @Test
+    void nonNumericBatchSizeViaPropertyLogsWarnAndUsesDefault() {
+        Logger logger = Logger.getInstance();
+        long warnBefore = logger.getStatistics().get("WARN");
+
+        System.setProperty("QASE_TESTOPS_BATCH_SIZE", "not-a-number");
+        try {
+            QaseConfig config = ConfigFactory.loadConfig();
+            assertEquals(200, config.testops.batch.getSize());
+            assertTrue(logger.getStatistics().get("WARN") > warnBefore,
+                    "A WARN must be logged for non-numeric batch size");
+        } finally {
+            System.clearProperty("QASE_TESTOPS_BATCH_SIZE");
+        }
+    }
+
+    /**
+     * TEST-03: Negative batch size via system property must log a WARN and use default 200.
+     * Verifies Logger.warn() is actually called (statistics WARN count increases).
+     */
+    @Test
+    void negativeBatchSizeViaPropertyLogsWarnAndUsesDefault() {
+        Logger logger = Logger.getInstance();
+        long warnBefore = logger.getStatistics().get("WARN");
+
+        System.setProperty("QASE_TESTOPS_BATCH_SIZE", "-10");
+        try {
+            QaseConfig config = ConfigFactory.loadConfig();
+            assertEquals(200, config.testops.batch.getSize());
+            assertTrue(logger.getStatistics().get("WARN") > warnBefore,
+                    "A WARN must be logged for negative batch size");
+        } finally {
+            System.clearProperty("QASE_TESTOPS_BATCH_SIZE");
+        }
     }
 }

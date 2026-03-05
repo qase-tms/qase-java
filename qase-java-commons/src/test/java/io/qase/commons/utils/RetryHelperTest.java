@@ -3,6 +3,7 @@ package io.qase.commons.utils;
 import io.qase.client.v1.ApiException;
 import org.junit.jupiter.api.Test;
 
+import java.net.SocketTimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -191,5 +192,40 @@ class RetryHelperTest {
         );
 
         assertEquals(1, attempts.get());
+    }
+
+    /**
+     * TEST-02: Verify the real OkHttp SocketTimeout path is retried.
+     * OkHttp's ApiClient.execute() catches IOException and wraps as new ApiException(e),
+     * leaving code=0. RetryHelper must retry code=0 exceptions.
+     */
+    @Test
+    void socketTimeoutExceptionWrappedAsApiExceptionIsRetried() throws Exception {
+        AtomicInteger attempts = new AtomicInteger(0);
+
+        String result = RetryHelper.retry(() -> {
+            if (attempts.incrementAndGet() < 2) {
+                throw new ApiException(new SocketTimeoutException("Read timed out"));
+            }
+            return "ok";
+        }, "socket timeout action");
+
+        assertEquals("ok", result);
+        assertEquals(2, attempts.get());
+    }
+
+    /**
+     * TEST-02: Verify ApiException(Throwable) leaves code=0 — the OkHttp SocketTimeout path.
+     * This documents the invariant that code=0 means a transient network failure (retryable).
+     */
+    @Test
+    void apiExceptionWrappingThrowableHasCodeZero() {
+        SocketTimeoutException ste = new SocketTimeoutException("timeout");
+        ApiException wrapped = new ApiException(ste);
+
+        assertEquals(0, wrapped.getCode(),
+                "ApiException(Throwable) constructor must leave code=0 — the OkHttp SocketTimeout path");
+        assertTrue(RetryHelper.isRetryable(wrapped),
+                "code=0 must be retryable (transient network failure)");
     }
 }
