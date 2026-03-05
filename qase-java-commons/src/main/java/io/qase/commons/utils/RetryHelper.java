@@ -37,8 +37,14 @@ public class RetryHelper {
                 }
 
                 int delay = BASE_DELAY_MS * (int) Math.pow(BACKOFF_MULTIPLIER, attempt);
-                logger.warn("Retrying '%s' (attempt %d/%d) after %dms: %s",
-                        actionName, attempt + 1, MAX_RETRIES, delay, e.getMessage());
+                int httpCode = extractHttpCode(e);
+                if (httpCode > 0) {
+                    logger.warn("Retrying '%s' (attempt %d/%d) after %dms: HTTP %d - %s",
+                            actionName, attempt + 1, MAX_RETRIES, delay, httpCode, e.getMessage());
+                } else {
+                    logger.warn("Retrying '%s' (attempt %d/%d) after %dms: %s",
+                            actionName, attempt + 1, MAX_RETRIES, delay, e.getMessage());
+                }
 
                 try {
                     Thread.sleep(delay);
@@ -61,7 +67,7 @@ public class RetryHelper {
 
     static boolean isRetryable(Exception e) {
         int code = extractHttpCode(e);
-        return code == 0 || code == 429 || code >= 500;
+        return code == 0 || code == 408 || code == 429 || code >= 500;
     }
 
     private static int extractHttpCode(Exception e) {
