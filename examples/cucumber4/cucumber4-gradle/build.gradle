@@ -18,11 +18,11 @@ tasks.withType(JavaCompile).configureEach {
 def cucumberVersion = "4.8.1"
 
 dependencies {
-    testImplementation 'org.testng:testng:7.5'
+    testImplementation 'org.testng:testng:7.5.1'
     testImplementation("io.cucumber:cucumber-core:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-java:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
-    testImplementation("io.qase:qase-cucumber-v4-reporter:4.1.34")
+    testImplementation("io.qase:qase-cucumber-v4-reporter:4.1.38")
 }
 
 test {

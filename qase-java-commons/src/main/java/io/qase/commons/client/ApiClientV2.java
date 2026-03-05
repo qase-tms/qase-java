@@ -52,11 +52,26 @@ public class ApiClientV2 implements ApiClient {
         }
 
         this.client.setApiKey(config.testops.api.token);
-        
+
         // Set default headers X-Client and X-Platform
         setupDefaultHeaders();
+
+        if (config.testops.api.timeoutSeconds > 0) {
+            int timeoutMs = config.testops.api.timeoutSeconds * 1000;
+            this.client.setConnectTimeout(timeoutMs);
+            this.client.setReadTimeout(timeoutMs);
+            this.client.setWriteTimeout(timeoutMs);
+            logger.debug("HTTP timeout set to %ds for API v2 client", config.testops.api.timeoutSeconds);
+        }
     }
-    
+
+    /**
+     * Returns the underlying generated v2 ApiClient (used in tests to verify timeout configuration).
+     */
+    io.qase.client.v2.ApiClient getV2ApiClient() {
+        return this.client;
+    }
+
     /**
      * Setup default headers X-Client and X-Platform for all API requests
      */

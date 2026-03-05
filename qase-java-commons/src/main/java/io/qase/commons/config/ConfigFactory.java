@@ -72,6 +72,7 @@ public class ConfigFactory {
                         qaseConfig.testops.configurations.isCreateIfNotExists()));
         qaseConfig.testops.api.token = getEnv("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getEnv("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
+        qaseConfig.testops.api.timeoutSeconds = getIntEnv("QASE_TESTOPS_API_TIMEOUT_SECONDS", qaseConfig.testops.api.timeoutSeconds);
         qaseConfig.testops.run.title = getEnv("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
         qaseConfig.testops.run.description = getEnv("QASE_TESTOPS_RUN_DESCRIPTION", qaseConfig.testops.run.description);
         qaseConfig.testops.run.id = getIntEnv("QASE_TESTOPS_RUN_ID", qaseConfig.testops.run.id);
@@ -115,6 +116,7 @@ public class ConfigFactory {
                         qaseConfig.testops.configurations.isCreateIfNotExists()));
         qaseConfig.testops.api.token = getProperty("QASE_TESTOPS_API_TOKEN", qaseConfig.testops.api.token);
         qaseConfig.testops.api.host = getProperty("QASE_TESTOPS_API_HOST", qaseConfig.testops.api.host);
+        qaseConfig.testops.api.timeoutSeconds = getIntProperty("QASE_TESTOPS_API_TIMEOUT_SECONDS", qaseConfig.testops.api.timeoutSeconds);
         qaseConfig.testops.run.title = getProperty("QASE_TESTOPS_RUN_TITLE", qaseConfig.testops.run.title);
         qaseConfig.testops.run.description = getProperty("QASE_TESTOPS_RUN_DESCRIPTION",
                 qaseConfig.testops.run.description);
@@ -145,9 +147,13 @@ public class ConfigFactory {
         return qaseConfig;
     }
 
+    private static boolean isNullOrEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
     private static void validateConfig(QaseConfig qaseConfig) {
         if ((qaseConfig.mode == Mode.TESTOPS || qaseConfig.fallback == Mode.TESTOPS)
-                && (qaseConfig.testops.project == null || qaseConfig.testops.api.token == null)) {
+                && (isNullOrEmpty(qaseConfig.testops.project) || isNullOrEmpty(qaseConfig.testops.api.token))) {
             logger.error("Project and API token are required for TestOps mode");
             qaseConfig.mode = Mode.OFF;
             qaseConfig.fallback = Mode.OFF;
@@ -171,7 +177,16 @@ public class ConfigFactory {
     }
 
     private static int getIntEnv(String key, int defaultValue) {
-        return Optional.ofNullable(System.getenv(key)).map(Integer::parseInt).orElse(defaultValue);
+        String value = System.getenv(key);
+        if (value == null) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid integer value '%s' for parameter '%s'. Using default: %d", value, key, defaultValue);
+            return defaultValue;
+        }
     }
 
     private static List<ConfigurationValue> getConfigurationsEnv(String key, List<ConfigurationValue> defaultValue) {
@@ -201,7 +216,16 @@ public class ConfigFactory {
     }
 
     private static int getIntProperty(String key, int defaultValue) {
-        return Optional.ofNullable(System.getProperty(key)).map(Integer::parseInt).orElse(defaultValue);
+        String value = System.getProperty(key);
+        if (value == null) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid integer value '%s' for parameter '%s'. Using default: %d", value, key, defaultValue);
+            return defaultValue;
+        }
     }
 
     private static List<ConfigurationValue> getConfigurationsProperty(String key,
@@ -322,6 +346,10 @@ public class ConfigFactory {
 
                 if (api.has("host")) {
                     qaseConfig.testops.api.host = api.getString("host");
+                }
+
+                if (api.has("timeoutSeconds")) {
+                    qaseConfig.testops.api.timeoutSeconds = api.getInt("timeoutSeconds");
                 }
             }
 

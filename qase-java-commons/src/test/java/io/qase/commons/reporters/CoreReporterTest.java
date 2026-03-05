@@ -188,6 +188,55 @@ class CoreReporterTest {
         assertSame(exception, result.execution.throwable);
     }
 
+    /**
+     * TSAFE-04: Verify addResult is thread-safe under 100 concurrent callers.
+     * All mutable state is guarded by CoreReporter.lock; this test ensures no
+     * deadlock, data race, or result loss under maximum concurrency.
+     */
+    @Test
+    void addResultIsThreadSafeUnderConcurrentCalls() throws Exception {
+        int threadCount = 100;
+        InternalReporter primary = mock(InternalReporter.class);
+        AtomicInteger callCount = new AtomicInteger(0);
+        List<Throwable> errors = Collections.synchronizedList(new ArrayList<>());
+
+        doAnswer(invocation -> {
+            callCount.incrementAndGet();
+            return null;
+        }).when(primary).addResult(any());
+
+        CoreReporter reporter = new CoreReporter(config, primary, null);
+
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        CountDownLatch startLatch = new CountDownLatch(1);
+        CountDownLatch doneLatch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            final int idx = i;
+            executor.submit(() -> {
+                try {
+                    startLatch.await();
+                    TestResult result = new TestResult();
+                    result.title = "tsafe04-thread-" + idx;
+                    reporter.addResult(result);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } catch (Throwable t) {
+                    errors.add(t);
+                } finally {
+                    doneLatch.countDown();
+                }
+            });
+        }
+
+        startLatch.countDown();
+        assertTrue(doneLatch.await(10, TimeUnit.SECONDS), "All 100 threads should complete within timeout (no deadlock)");
+        executor.shutdown();
+
+        assertTrue(errors.isEmpty(), "No exceptions should occur under concurrent addResult calls: " + errors);
+        assertEquals(threadCount, callCount.get(), "All 100 results must be delivered (no result loss)");
+    }
+
     @Test
     void testNoDataRaceOnReporterField() throws Exception {
         int threadCount = 50;

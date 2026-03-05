@@ -1,3 +1,25 @@
+# qase-java 4.1.38
+
+## What's new
+
+- Added configurable HTTP timeout for API clients via `QASE_TESTOPS_API_TIMEOUT_SECONDS` environment variable, system property, or `qase.config.json` — applies connect/read/write timeout to both V1 and V2 clients
+- Added HTTP 408 (Request Timeout) to retryable status codes in `RetryHelper`
+- Enhanced retry warnings to include attempt number for better debugging
+- Documented `CoreReporter.executeWithFallback()` thread safety contract
+
+## Bug fixes
+
+- Fixed `TestopsReporter` deadlock under concurrent test execution — replaced `synchronized` lock with volatile `asyncError` field for atomic error handling
+- Fixed `StepStorage` orphaned in-progress step leak — `stopSteps()` now cleans up orphaned step chains before processing results
+- Hardened config parsing: non-numeric values for batch size and timeout now fall back to defaults with a warning instead of crashing
+- Empty/blank API token and project code are now treated as null (previously caused silent API failures)
+- Invalid batch sizes (≤ 0) are now rejected with a warning, using default value of 200
+
+## Dependencies
+
+- Updated AspectJ weaver from 1.9.22 to 1.9.25.1 (fixes JDK 21+ compatibility)
+- Updated TestNG in examples to 7.5.1 (Java 8) / 7.10.2 (Java 11) to fix Zip Slip vulnerability
+
 # qase-java 4.1.37
 
 ## Bug fixes

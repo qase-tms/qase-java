@@ -59,6 +59,21 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         }
 
         this.client.setApiKey(config.testops.api.token);
+
+        if (config.testops.api.timeoutSeconds > 0) {
+            int timeoutMs = config.testops.api.timeoutSeconds * 1000;
+            this.client.setConnectTimeout(timeoutMs);
+            this.client.setReadTimeout(timeoutMs);
+            this.client.setWriteTimeout(timeoutMs);
+            logger.debug("HTTP timeout set to %ds for API v1 client", config.testops.api.timeoutSeconds);
+        }
+    }
+
+    /**
+     * Returns the underlying generated ApiClient (used in tests to verify timeout configuration).
+     */
+    ApiClient getApiClient() {
+        return this.client;
     }
 
     @Override

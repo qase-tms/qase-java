@@ -69,6 +69,16 @@ public final class StepStorage {
     }
 
     public static LinkedList<StepResult> stopSteps() {
+        // TSAFE-03: Clean up orphaned in-progress step chain before collecting results.
+        // Handles test abort cases where stopStep() was never called.
+        StepResult orphan = STEP_IN_PROGRESS.get();
+        if (orphan != null) {
+            logger.warn("Orphaned in-progress step '%s' in stopSteps(); cleaning up to prevent STEPS_MAP leak.", orphan.id);
+            cleanupInProgressChain(orphan);
+            STEP_IN_PROGRESS.remove();
+            STEP_ID.remove();
+        }
+
         checkStepIsNotInProgress();
 
         LinkedList<StepResult> resultCreateSteps = STEPS_STORAGE.get();
@@ -79,6 +89,16 @@ public final class StepStorage {
         }
 
         return resultCreateSteps;
+    }
+
+    private static void cleanupInProgressChain(StepResult step) {
+        STEPS_MAP.remove(step.id);
+        if (step.parentId != null) {
+            StepResult parent = STEPS_MAP.get(step.parentId);
+            if (parent != null) {
+                cleanupInProgressChain(parent);
+            }
+        }
     }
 
     private static void cleanupStepsMap(StepResult step) {
