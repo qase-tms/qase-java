@@ -1,3 +1,9 @@
+# qase-java 4.1.39
+
+## What's new
+
+- Added configurable upload timeout for batch result uploads via `batch.uploadTimeout` in `qase.config.json` (default: 300 seconds), `QASE_TESTOPS_BATCH_UPLOAD_TIMEOUT` environment variable, or system property — prevents result loss when uploading large attachments
+
 # qase-java 4.1.38
 
 ## What's new
