@@ -7,6 +7,7 @@ public class BatchConfig {
     private static final Logger logger = Logger.getInstance();
 
     public int size = 200;
+    public int uploadTimeout = 300;
 
     public void setSize(int size) {
         if (size <= 0) {
@@ -19,6 +20,19 @@ public class BatchConfig {
         }
 
         this.size = size;
+    }
+
+    public void setUploadTimeout(int uploadTimeout) {
+        if (uploadTimeout <= 0) {
+            logger.warn("Upload timeout must be positive, got %d for parameter 'QASE_TESTOPS_BATCH_UPLOAD_TIMEOUT'. Using default: 300", uploadTimeout);
+            return;
+        }
+
+        this.uploadTimeout = uploadTimeout;
+    }
+
+    public int getUploadTimeout() {
+        return uploadTimeout;
     }
 
     public int getSize() {

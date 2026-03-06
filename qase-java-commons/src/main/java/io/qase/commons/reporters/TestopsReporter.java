@@ -61,8 +61,8 @@ public class TestopsReporter implements InternalReporter {
 
         uploadExecutor.shutdown();
         try {
-            if (!uploadExecutor.awaitTermination(300, TimeUnit.SECONDS)) {
-                logger.warn("Upload executor timed out after 5 minutes");
+            if (!uploadExecutor.awaitTermination(config.batch.uploadTimeout, TimeUnit.SECONDS)) {
+                logger.warn("Upload executor timed out after %d seconds", config.batch.uploadTimeout);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
