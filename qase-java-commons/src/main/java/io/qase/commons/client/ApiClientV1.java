@@ -312,6 +312,33 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
     private static final long MAX_REQUEST_SIZE = 128 * 1024 * 1024; // 128 MB
     private static final int MAX_FILES_PER_REQUEST = 20;
 
+    // Dynamic upload timeout constants
+    static final long MINIMUM_UPLOAD_SPEED_BPS = 100L * 1024; // 100 KB/s minimum expected speed
+    static final int BASE_UPLOAD_TIMEOUT_SECONDS = 30;         // baseline regardless of file size
+    static final int MAX_UPLOAD_TIMEOUT_SECONDS = 3600;        // cap at 1 hour
+
+    /**
+     * Computes the upload timeout in seconds for a batch of the given total size.
+     * Formula: BASE + totalBytes / MINIMUM_SPEED, capped at MAX.
+     * Package-private for unit testing.
+     *
+     * @param totalBytes total bytes in the batch
+     * @return timeout in seconds (30 minimum, 3600 maximum)
+     */
+    int computeUploadTimeoutSeconds(long totalBytes) {
+        long dynamicSeconds = totalBytes / MINIMUM_UPLOAD_SPEED_BPS;
+        long timeout = BASE_UPLOAD_TIMEOUT_SECONDS + dynamicSeconds;
+        return (int) Math.min(timeout, MAX_UPLOAD_TIMEOUT_SECONDS);
+    }
+
+    /**
+     * Creates the AttachmentsApi instance used for uploads.
+     * Package-private to allow test subclasses to inject a mock.
+     */
+    AttachmentsApi createAttachmentsApi() {
+        return new AttachmentsApi(this.client);
+    }
+
     /**
      * Uploads a single attachment. For backward compatibility.
      * 
@@ -349,31 +376,50 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         
         // Upload each batch
         List<String> allHashes = new ArrayList<>();
-        AttachmentsApi api = new AttachmentsApi(client);
-        
-        for (int i = 0; i < batches.size(); i++) {
-            List<FileInfo> batch = batches.get(i);
-            final int batchIndex = i;
-            try {
-                List<File> batchFiles = batch.stream()
-                        .map(fi -> fi.file)
-                        .collect(Collectors.toList());
+        AttachmentsApi api = createAttachmentsApi();
 
-                List<Attachmentupload> response = RetryHelper.retry(() ->
-                        api.uploadAttachment(this.config.testops.project, batchFiles).getResult(),
-                        "upload attachments batch " + (batchIndex + 1)
-                );
+        // Save original timeouts so we can restore them after all uploads complete
+        int originalReadTimeout = this.client.getReadTimeout();
+        int originalWriteTimeout = this.client.getWriteTimeout();
 
-                List<String> batchHashes = processUploadResponse(response, batch);
-                allHashes.addAll(batchHashes);
+        try {
+            for (int i = 0; i < batches.size(); i++) {
+                List<FileInfo> batch = batches.get(i);
+                final int batchIndex = i;
+                try {
+                    List<File> batchFiles = batch.stream()
+                            .map(fi -> fi.file)
+                            .collect(Collectors.toList());
 
-                logger.debug("Uploaded batch %d/%d: %d files, %d hashes",
-                    batchIndex + 1, batches.size(), batch.size(), batchHashes.size());
-            } catch (Exception e) {
-                logger.error("Failed to upload batch %d/%d: %s", batchIndex + 1, batches.size(), e.getMessage());
-            } finally {
-                cleanupFileInfos(batch);
+                    // Apply dynamic timeout proportional to batch size before upload
+                    long batchBytes = batch.stream().mapToLong(fi -> fi.size).sum();
+                    int timeoutSeconds = computeUploadTimeoutSeconds(batchBytes);
+                    int timeoutMs = timeoutSeconds * 1000;
+                    this.client.setReadTimeout(timeoutMs);
+                    this.client.setWriteTimeout(timeoutMs);
+                    logger.debug("Dynamic upload timeout set to %ds for batch of %.1f MB",
+                            timeoutSeconds, batchBytes / (1024.0 * 1024.0));
+
+                    List<Attachmentupload> response = RetryHelper.retry(() ->
+                            api.uploadAttachment(this.config.testops.project, batchFiles).getResult(),
+                            "upload attachments batch " + (batchIndex + 1)
+                    );
+
+                    List<String> batchHashes = processUploadResponse(response, batch);
+                    allHashes.addAll(batchHashes);
+
+                    logger.debug("Uploaded batch %d/%d: %d files, %d hashes",
+                        batchIndex + 1, batches.size(), batch.size(), batchHashes.size());
+                } catch (Exception e) {
+                    logger.error("Failed to upload batch %d/%d: %s", batchIndex + 1, batches.size(), e.getMessage());
+                } finally {
+                    cleanupFileInfos(batch);
+                }
             }
+        } finally {
+            // Always restore original timeouts for subsequent API calls
+            this.client.setReadTimeout(originalReadTimeout);
+            this.client.setWriteTimeout(originalWriteTimeout);
         }
 
         return allHashes;
