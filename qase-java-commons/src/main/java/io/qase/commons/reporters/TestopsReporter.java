@@ -25,7 +25,6 @@ public class TestopsReporter implements InternalReporter {
     Long testRunId;
     private final List<TestResult> results;
     private final ExecutorService uploadExecutor;
-    private volatile QaseException asyncError;
     private volatile boolean shuttingDown = false;
 
     public TestopsReporter(TestopsConfig config, ApiClient client) {
@@ -69,10 +68,6 @@ public class TestopsReporter implements InternalReporter {
             Thread.currentThread().interrupt();
         }
 
-        if (asyncError != null) {
-            throw asyncError;
-        }
-
         if (!this.config.run.complete) {
             logger.info("Test run %d: skipping completion (complete=false)", this.testRunId);
             return;
@@ -97,10 +92,6 @@ public class TestopsReporter implements InternalReporter {
             logger.warn("Test run is completing, result for '%s' will not be uploaded", result.title);
             return;
         }
-        if (asyncError != null) {
-            throw asyncError;
-        }
-
         // Check if result status should be filtered out
         if (shouldFilterResult(result)) {
             logger.debug("Filtering out result with status: %s", result.execution != null && result.execution.status != null ? result.execution.status : "null");
@@ -148,11 +139,7 @@ public class TestopsReporter implements InternalReporter {
         try {
             this.client.uploadResults(this.testRunId, batch);
         } catch (QaseException e) {
-            logger.error("Async upload failed: %s", e.getMessage());
-            synchronized (this) {
-                this.results.addAll(0, batch);
-                this.asyncError = e;  // Atomic with batch re-insertion (TSAFE-02)
-            }
+            logger.warn("Batch upload failed, %d results dropped: %s", batch.size(), e.getMessage());
         }
     }
 

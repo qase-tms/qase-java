@@ -411,7 +411,11 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                     logger.debug("Uploaded batch %d/%d: %d files, %d hashes",
                         batchIndex + 1, batches.size(), batch.size(), batchHashes.size());
                 } catch (Exception e) {
-                    logger.error("Failed to upload batch %d/%d: %s", batchIndex + 1, batches.size(), e.getMessage());
+                    List<String> droppedNames = batch.stream()
+                            .map(fi -> fi.file.getName())
+                            .collect(Collectors.toList());
+                    logger.warn("Attachment upload failed after retries, result will be sent without attachments %s. Error: %s",
+                            droppedNames, e.getMessage());
                 } finally {
                     cleanupFileInfos(batch);
                 }
