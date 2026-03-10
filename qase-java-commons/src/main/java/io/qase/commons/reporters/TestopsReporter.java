@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 public class TestopsReporter implements InternalReporter {
     private static final Logger logger = Logger.getInstance();
@@ -135,6 +136,15 @@ public class TestopsReporter implements InternalReporter {
     }
 
     private void uploadBatch(List<TestResult> batch) {
+        int totalAttachments = batch.stream()
+            .mapToInt(r -> r.attachments != null ? r.attachments.size() : 0)
+            .sum();
+        long totalBytes = batch.stream()
+            .flatMap(r -> r.attachments != null ? r.attachments.stream() : Stream.empty())
+            .mapToLong(a -> a.contentBytes != null ? a.contentBytes.length : 0)
+            .sum();
+        logger.info("Uploading batch: %d results, %d attachments, %.1f MB",
+            batch.size(), totalAttachments, totalBytes / (1024.0 * 1024.0));
         try {
             this.client.uploadResults(this.testRunId, batch);
         } catch (QaseException e) {

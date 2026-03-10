@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ApiClientV2 implements ApiClient {
     private static final Logger logger = Logger.getInstance();
@@ -122,7 +123,17 @@ public class ApiClientV2 implements ApiClient {
 
         CreateResultsRequestV2 model = new CreateResultsRequestV2().results(models);
 
-        logger.debug("Uploading results: %s", model);
+        if (logger.isEnabled(Logger.LogLevel.DEBUG)) {
+            int totalAttachments = results.stream()
+                .mapToInt(r -> r.attachments != null ? r.attachments.size() : 0)
+                .sum();
+            long totalBytes = results.stream()
+                .flatMap(r -> r.attachments != null ? r.attachments.stream() : Stream.empty())
+                .mapToLong(a -> a.contentBytes != null ? a.contentBytes.length : 0)
+                .sum();
+            logger.debug("Uploading batch: %d results, %d attachments, %.1f MB",
+                results.size(), totalAttachments, totalBytes / (1024.0 * 1024.0));
+        }
 
         try {
             RetryHelper.retry(() -> {
