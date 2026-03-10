@@ -1,15 +1,14 @@
 package io.qase.commons.client;
 
+import io.qase.client.v1.ApiException;
 import io.qase.client.v1.api.AttachmentsApi;
 import io.qase.client.v1.models.AttachmentUploadsResponse;
 import io.qase.client.v1.models.Attachmentupload;
-import io.qase.commons.config.ApiConfig;
 import io.qase.commons.config.QaseConfig;
 import io.qase.commons.config.TestopsConfig;
 import io.qase.commons.models.domain.Attachment;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 
 import java.io.File;
@@ -31,7 +30,6 @@ class UploadTimeoutTest {
     // Constants mirrored from ApiClientV1 for assertion clarity
     private static final int BASE_UPLOAD_TIMEOUT_SECONDS = 30;
     private static final int MAX_UPLOAD_TIMEOUT_SECONDS = 3600;
-    private static final long MINIMUM_UPLOAD_SPEED_BPS = 100L * 1024; // 100 KB/s
 
     private QaseConfig createConfig(int timeoutSeconds) {
         QaseConfig config = new QaseConfig();
@@ -43,14 +41,30 @@ class UploadTimeoutTest {
         return config;
     }
 
+    /**
+     * Test subclass that injects a mock AttachmentsApi to avoid real HTTP calls.
+     */
+    private static class TestableApiClientV1 extends ApiClientV1 {
+        private final AttachmentsApi mockApi;
+
+        TestableApiClientV1(QaseConfig config, AttachmentsApi mockApi) {
+            super(config);
+            this.mockApi = mockApi;
+        }
+
+        @Override
+        AttachmentsApi createAttachmentsApi() {
+            return mockApi;
+        }
+    }
+
     // -----------------------------------------------------------------------
     // Tests for computeUploadTimeoutSeconds formula
     // -----------------------------------------------------------------------
 
     @Test
     void zeroByteAttachmentUsesBaseTimeout() {
-        QaseConfig config = createConfig(0);
-        ApiClientV1 client = new ApiClientV1(config);
+        ApiClientV1 client = new ApiClientV1(createConfig(0));
 
         int result = client.computeUploadTimeoutSeconds(0L);
 
@@ -60,8 +74,7 @@ class UploadTimeoutTest {
 
     @Test
     void fiftyMbAttachmentUsesCorrectDynamicTimeout() {
-        QaseConfig config = createConfig(0);
-        ApiClientV1 client = new ApiClientV1(config);
+        ApiClientV1 client = new ApiClientV1(createConfig(0));
 
         long fiftyMb = 50L * 1024 * 1024;
         int result = client.computeUploadTimeoutSeconds(fiftyMb);
@@ -72,9 +85,8 @@ class UploadTimeoutTest {
     }
 
     @Test
-    void extremelyLargeAttachmentIsCapedAtMaxTimeout() {
-        QaseConfig config = createConfig(0);
-        ApiClientV1 client = new ApiClientV1(config);
+    void extremelyLargeAttachmentIsCappedAtMaxTimeout() {
+        ApiClientV1 client = new ApiClientV1(createConfig(0));
 
         long fiveHundredGb = 500L * 1024 * 1024 * 1024;
         int result = client.computeUploadTimeoutSeconds(fiveHundredGb);
@@ -83,18 +95,30 @@ class UploadTimeoutTest {
                 "500GB should be capped at 3600s max timeout");
     }
 
+    // -----------------------------------------------------------------------
+    // Tests for timeout save/restore behaviour during uploadAttachments()
+    // -----------------------------------------------------------------------
+
     @Test
     void timeoutRestoredAfterUploadCompletes(@TempDir Path tempDir) throws Exception {
-        // Set up config with a specific timeout so we can verify restoration
-        QaseConfig config = createConfig(30); // 30s configured timeout
-        ApiClientV1 client = new ApiClientV1(config);
+        // Arrange: configure with a known 30s timeout
+        QaseConfig config = createConfig(30);
 
-        // Verify initial state: 30s configured => 30000ms
+        AttachmentUploadsResponse mockResponse = Mockito.mock(AttachmentUploadsResponse.class);
+        Attachmentupload uploadResult = new Attachmentupload();
+        uploadResult.setHash("test-hash-abc");
+        when(mockResponse.getResult()).thenReturn(Collections.singletonList(uploadResult));
+
+        AttachmentsApi mockApi = Mockito.mock(AttachmentsApi.class);
+        when(mockApi.uploadAttachment(anyString(), any())).thenReturn(mockResponse);
+
+        TestableApiClientV1 client = new TestableApiClientV1(config, mockApi);
+
         io.qase.client.v1.ApiClient apiClient = client.getApiClient();
         assertEquals(30000, apiClient.getReadTimeout(), "Initial read timeout should be 30000ms");
         assertEquals(30000, apiClient.getWriteTimeout(), "Initial write timeout should be 30000ms");
 
-        // Create a real file to upload (small, so timeout is just BASE 30s)
+        // Create a real (empty) file so prepareFiles() doesn't skip it
         File testFile = tempDir.resolve("test.txt").toFile();
         testFile.createNewFile();
 
@@ -102,32 +126,27 @@ class UploadTimeoutTest {
         attachment.filePath = testFile.getAbsolutePath();
         attachment.fileName = "test.txt";
 
-        // Mock AttachmentsApi so we don't make real HTTP calls
-        try (MockedConstruction<AttachmentsApi> mocked = Mockito.mockConstruction(AttachmentsApi.class,
-                (mock, context) -> {
-                    AttachmentUploadsResponse mockResponse = Mockito.mock(AttachmentUploadsResponse.class);
-                    Attachmentupload uploadResult = new Attachmentupload();
-                    uploadResult.setHash("test-hash-abc");
-                    when(mockResponse.getResult()).thenReturn(Collections.singletonList(uploadResult));
-                    when(mock.uploadAttachment(anyString(), any())).thenReturn(mockResponse);
-                })) {
+        // Act
+        List<String> hashes = client.uploadAttachments(Collections.singletonList(attachment));
 
-            List<String> hashes = client.uploadAttachments(Collections.singletonList(attachment));
-            assertTrue(hashes.contains("test-hash-abc"), "Should return uploaded hash");
-        }
-
-        // After upload, timeout must be restored to original 30000ms
+        // Assert: hash returned and timeout restored
+        assertTrue(hashes.contains("test-hash-abc"), "Should return uploaded hash");
         assertEquals(30000, apiClient.getReadTimeout(),
-                "Read timeout must be restored to 30000ms after upload");
+                "Read timeout must be restored to 30000ms after upload completes");
         assertEquals(30000, apiClient.getWriteTimeout(),
-                "Write timeout must be restored to 30000ms after upload");
+                "Write timeout must be restored to 30000ms after upload completes");
     }
 
     @Test
     void timeoutRestoredAfterUploadFails(@TempDir Path tempDir) throws Exception {
-        // Verify timeout is restored even when upload throws an exception
+        // Arrange: configure with a known 30s timeout
         QaseConfig config = createConfig(30);
-        ApiClientV1 client = new ApiClientV1(config);
+
+        AttachmentsApi mockApi = Mockito.mock(AttachmentsApi.class);
+        when(mockApi.uploadAttachment(anyString(), any()))
+                .thenThrow(new ApiException("Simulated network error"));
+
+        TestableApiClientV1 client = new TestableApiClientV1(config, mockApi);
 
         io.qase.client.v1.ApiClient apiClient = client.getApiClient();
         assertEquals(30000, apiClient.getReadTimeout(), "Initial read timeout should be 30000ms");
@@ -139,19 +158,11 @@ class UploadTimeoutTest {
         attachment.filePath = testFile.getAbsolutePath();
         attachment.fileName = "fail.txt";
 
-        // Mock AttachmentsApi to throw an exception
-        try (MockedConstruction<AttachmentsApi> mocked = Mockito.mockConstruction(AttachmentsApi.class,
-                (mock, context) -> {
-                    when(mock.uploadAttachment(anyString(), any()))
-                            .thenThrow(new RuntimeException("Simulated network error"));
-                })) {
+        // Act: should not throw — errors are caught and logged internally
+        List<String> hashes = client.uploadAttachments(Collections.singletonList(attachment));
 
-            // Should not throw — errors are caught and logged
-            List<String> hashes = client.uploadAttachments(Collections.singletonList(attachment));
-            assertTrue(hashes.isEmpty(), "On upload failure, no hashes returned");
-        }
-
-        // Timeout must still be restored despite exception in upload loop
+        // Assert: no hashes and timeout restored
+        assertTrue(hashes.isEmpty(), "On upload failure, no hashes should be returned");
         assertEquals(30000, apiClient.getReadTimeout(),
                 "Read timeout must be restored to 30000ms even after upload failure");
         assertEquals(30000, apiClient.getWriteTimeout(),
