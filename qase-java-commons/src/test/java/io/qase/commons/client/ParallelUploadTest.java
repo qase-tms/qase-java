@@ -185,30 +185,31 @@ class ParallelUploadTest {
     // -------------------------------------------------------------------------
 
     /**
-     * UPLD-02: When batch 2 (middle) throws ApiException, batches 1 and 3 must still succeed.
+     * UPLD-02: When one batch throws ApiException, the other batches must still succeed.
      *
-     * Uses a call counter to identify which invocation is batch 2.
-     * Expected: returned hashes come from batches 1 and 3 only.
+     * Uses a thread-safe flag to make exactly one invocation fail. The remaining
+     * batches succeed. The test asserts that at least some hashes are returned
+     * (error isolation preserved) and that the total is less than the full 3 batches.
      *
      * This test FAILS because the parallel execution path does not exist — the current
      * sequential loop catches per-batch exceptions, but parallel execution is not implemented.
      */
     @Test
     void failedBatchDoesNotBlockOtherBatches() throws Exception {
-        final AtomicInteger callCount = new AtomicInteger(0);
+        // Use an AtomicInteger as a "fail once" flag: first thread to claim it fails
+        final AtomicInteger failToken = new AtomicInteger(1); // 1 = still available to claim
 
         AttachmentsApi mockApi = mock(AttachmentsApi.class);
         when(mockApi.uploadAttachment(anyString(), any())).thenAnswer(invocation -> {
-            int call = callCount.incrementAndGet();
-
-            if (call == 2) {
-                // Batch 2 fails
-                throw new ApiException("Simulated batch 2 failure");
+            // Exactly one batch claims the fail token — use code 400 to skip RetryHelper retries
+            if (failToken.compareAndSet(1, 0)) {
+                // Code 400 is non-retryable in RetryHelper.isRetryable()
+                throw new ApiException(400, "Simulated single-batch failure");
             }
 
             AttachmentUploadsResponse mockResponse = mock(AttachmentUploadsResponse.class);
             Attachmentupload uploadResult = new Attachmentupload();
-            uploadResult.setHash("hash-batch-" + call);
+            uploadResult.setHash("hash-success-" + System.nanoTime());
             when(mockResponse.getResult()).thenReturn(Collections.singletonList(uploadResult));
             return mockResponse;
         });
@@ -216,19 +217,16 @@ class ParallelUploadTest {
         QaseConfig config = createConfig();
         TestableApiClientV1 client = new TestableApiClientV1(config, mockApi);
 
-        // 60 files → 3 batches (batch 2 will fail)
+        // 60 files → 3 batches; 1 will fail, 2 must succeed
         List<Attachment> attachments = createFilePathAttachments(60);
 
         // Act
         List<String> hashes = client.uploadAttachments(attachments);
 
-        // Assert: 2 hashes from batches 1 and 3 (batch 2 was dropped)
+        // Assert: exactly 2 batches succeeded (1 failed, 2 succeeded)
         assertEquals(2, hashes.size(),
-                "Expected 2 hashes from batches 1 and 3, but got: " + hashes.size()
+                "Expected 2 hashes from the 2 successful batches, but got: " + hashes.size()
                         + " hashes: " + hashes);
-
-        assertTrue(hashes.contains("hash-batch-1"), "Hash from batch 1 must be in result");
-        assertTrue(hashes.contains("hash-batch-3"), "Hash from batch 3 must be in result");
     }
 
     // -------------------------------------------------------------------------
