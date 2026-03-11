@@ -1,3 +1,16 @@
+# qase-java 4.1.40
+
+## What's new
+
+- Added per-batch upload progress logging at INFO level — each batch reports file count, bytes, elapsed time, and retry count
+- Added run-completion upload summary at INFO level — total results, attachments, bytes, upload time, and failed batch count
+- Added parallel attachment batch upload via configurable thread pool (`batch.threads` in `qase.config.json`, default: 1)
+- Added disk-backed attachment staging — large `contentBytes` are written to temp files and released from memory immediately
+- Added dynamic upload timeout — scales with total attachment size (1 MB/s baseline) instead of fixed timeout
+- Added batch error isolation — a single failed batch no longer aborts the entire upload, other batches continue
+- Added graceful attachment degradation — on upload failure, test results are re-sent without attachments to prevent data loss
+- Sanitized debug log output to prevent binary content from corrupting logs — `contentBytes` and long `content` fields are replaced with size placeholders
+
 # qase-java 4.1.39
 
 ## What's new
