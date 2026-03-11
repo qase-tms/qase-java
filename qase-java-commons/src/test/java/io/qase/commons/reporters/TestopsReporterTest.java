@@ -334,7 +334,8 @@ class TestopsReporterTest {
                     result.title = "concurrent-" + idx;
                     reporter.addResult(result);
                 } catch (QaseException e) {
-                    // Expected: some calls may see asyncError during shutdown
+                    // QaseException from addResult() is NOT expected after UPLD-03
+                    errors.add(e);
                 } catch (Exception e) {
                     errors.add(e);
                 } finally {
@@ -364,27 +365,29 @@ class TestopsReporterTest {
     }
 
     @Test
-    void asyncErrorAndBatchReInsertionAreAtomic() throws Exception {
+    void failedBatchIsDroppedAndSubsequentBatchesStillUpload() throws Exception {
         reporter.testRunId = 789L;
         configMock.testops.batch.size = 1;
 
-        QaseException uploadError = new QaseException("Upload failed");
-        doThrow(uploadError).when(clientMock).uploadResults(anyLong(), anyList());
+        AtomicInteger uploadCallCount = new AtomicInteger(0);
+        doAnswer(invocation -> {
+            if (uploadCallCount.incrementAndGet() == 2) {
+                throw new QaseException("Second batch fails");
+            }
+            return null;
+        }).when(clientMock).uploadResults(anyLong(), anyList());
 
-        reporter.addResult(new TestResult());
-
-        // Wait for executor to process the failed upload
-        verify(clientMock, timeout(5000).atLeastOnce()).uploadResults(anyLong(), anyList());
-
-        // The second addResult should throw asyncError
-        QaseException thrown = assertThrows(QaseException.class, () -> {
+        // All 5 addResult calls must succeed without throwing
+        for (int i = 0; i < 5; i++) {
             reporter.addResult(new TestResult());
-        });
-        assertEquals("Upload failed", thrown.getMessage());
+        }
 
-        // If asyncError is set, the failed batch must also be re-inserted (atomicity)
-        assertFalse(reporter.getResults().isEmpty(),
-            "If asyncError is set, failed batch must be re-inserted in results");
+        // All 5 batches must be attempted (no cascading failure)
+        verify(clientMock, timeout(10000).times(5)).uploadResults(anyLong(), anyList());
+
+        // Failed batch is dropped (not re-inserted), results list empty after all batches
+        assertEquals(0, reporter.getResults().size(),
+            "Failed batch must be dropped, not re-inserted into results");
     }
 
     @Test
@@ -415,7 +418,8 @@ class TestopsReporterTest {
                     result.title = "test-" + idx;
                     reporter.addResult(result);
                 } catch (QaseException e) {
-                    // Expected: asyncError propagated
+                    // QaseException from addResult() is NOT expected after UPLD-03
+                    errors.add(e);
                 } catch (Exception e) {
                     errors.add(e);
                 } finally {
@@ -428,8 +432,8 @@ class TestopsReporterTest {
         assertTrue(doneLatch.await(10, TimeUnit.SECONDS), "No deadlock");
         testExecutor.shutdown();
 
-        // No unexpected (non-QaseException) errors
-        assertTrue(errors.isEmpty(), "No unexpected errors: " + errors);
+        // No errors at all — QaseException must NOT propagate from addResult()
+        assertTrue(errors.isEmpty(), "No errors expected — QaseException must not propagate: " + errors);
     }
 
     private TestResult createTestResultWithStatus(String statusName) {

@@ -79,7 +79,14 @@ public class CoreReporter implements Reporter {
 
     @Override
     public void addResult(TestResult result) {
-        logger.debug("Adding result: %s", result);
+        if (logger.isEnabled(Logger.LogLevel.DEBUG)) {
+            int attachmentCount = result.attachments != null ? result.attachments.size() : 0;
+            logger.debug("Adding result: title='%s', status=%s, attachments=%d",
+                result.title,
+                result.execution != null && result.execution.status != null
+                    ? result.execution.status.toString().toLowerCase() : "null",
+                attachmentCount);
+        }
 
         // Apply root suite first, before any other processing
         applyRootSuite(result);

@@ -21,19 +21,24 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Qase API V1 client
@@ -312,6 +317,33 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
     private static final long MAX_REQUEST_SIZE = 128 * 1024 * 1024; // 128 MB
     private static final int MAX_FILES_PER_REQUEST = 20;
 
+    // Dynamic upload timeout constants
+    static final long MINIMUM_UPLOAD_SPEED_BPS = 100L * 1024; // 100 KB/s minimum expected speed
+    static final int BASE_UPLOAD_TIMEOUT_SECONDS = 30;         // baseline regardless of file size
+    static final int MAX_UPLOAD_TIMEOUT_SECONDS = 3600;        // cap at 1 hour
+
+    /**
+     * Computes the upload timeout in seconds for a batch of the given total size.
+     * Formula: BASE + totalBytes / MINIMUM_SPEED, capped at MAX.
+     * Package-private for unit testing.
+     *
+     * @param totalBytes total bytes in the batch
+     * @return timeout in seconds (30 minimum, 3600 maximum)
+     */
+    int computeUploadTimeoutSeconds(long totalBytes) {
+        long dynamicSeconds = totalBytes / MINIMUM_UPLOAD_SPEED_BPS;
+        long timeout = BASE_UPLOAD_TIMEOUT_SECONDS + dynamicSeconds;
+        return (int) Math.min(timeout, MAX_UPLOAD_TIMEOUT_SECONDS);
+    }
+
+    /**
+     * Creates the AttachmentsApi instance used for uploads.
+     * Package-private to allow test subclasses to inject a mock.
+     */
+    AttachmentsApi createAttachmentsApi() {
+        return new AttachmentsApi(this.client);
+    }
+
     /**
      * Uploads a single attachment. For backward compatibility.
      * 
@@ -346,37 +378,117 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
         // Split into batches
         List<List<FileInfo>> batches = splitIntoBatches(fileInfos);
-        
-        // Upload each batch
-        List<String> allHashes = new ArrayList<>();
-        AttachmentsApi api = new AttachmentsApi(client);
-        
-        for (int i = 0; i < batches.size(); i++) {
-            List<FileInfo> batch = batches.get(i);
-            final int batchIndex = i;
-            try {
-                List<File> batchFiles = batch.stream()
-                        .map(fi -> fi.file)
-                        .collect(Collectors.toList());
 
-                List<Attachmentupload> response = RetryHelper.retry(() ->
-                        api.uploadAttachment(this.config.testops.project, batchFiles).getResult(),
-                        "upload attachments batch " + (batchIndex + 1)
-                );
+        // Determine thread pool size: min(batches, configured threads)
+        int parallelism = Math.min(batches.size(), this.config.testops.batch.getUploadThreads());
+        ExecutorService pool = Executors.newFixedThreadPool(parallelism);
 
-                List<String> batchHashes = processUploadResponse(response, batch);
-                allHashes.addAll(batchHashes);
+        // Save original timeouts so we can restore them after all uploads complete
+        int originalReadTimeout = this.client.getReadTimeout();
+        int originalWriteTimeout = this.client.getWriteTimeout();
 
-                logger.debug("Uploaded batch %d/%d: %d files, %d hashes",
-                    batchIndex + 1, batches.size(), batch.size(), batchHashes.size());
-            } catch (Exception e) {
-                logger.error("Failed to upload batch %d/%d: %s", batchIndex + 1, batches.size(), e.getMessage());
-            } finally {
-                cleanupFileInfos(batch);
+        // Create a single AttachmentsApi instance shared across callables
+        // (OkHttp connection pool is thread-safe; timeout is set once before submitting)
+        AttachmentsApi api = createAttachmentsApi();
+
+        try {
+            // Compute max timeout across all batches and apply once before parallel execution
+            long maxBatchBytes = batches.stream()
+                    .mapToLong(batch -> batch.stream().mapToLong(fi -> fi.size).sum())
+                    .max()
+                    .orElse(0L);
+            int timeoutSeconds = computeUploadTimeoutSeconds(maxBatchBytes);
+            int timeoutMs = timeoutSeconds * 1000;
+            this.client.setReadTimeout(timeoutMs);
+            this.client.setWriteTimeout(timeoutMs);
+            logger.debug("Dynamic upload timeout set to %ds for parallel batch upload (%d batches, %d threads)",
+                    timeoutSeconds, batches.size(), parallelism);
+
+            // Build callables for all batches
+            final int totalBatches = batches.size();
+            List<Callable<List<String>>> callables = new ArrayList<>();
+            for (int i = 0; i < batches.size(); i++) {
+                final List<FileInfo> batch = batches.get(i);
+                final int batchIdx = i;
+                callables.add(() -> uploadBatchParallel(api, batch, batchIdx, totalBatches));
             }
-        }
 
-        return allHashes;
+            // Execute all callables in parallel and collect results
+            List<Future<List<String>>> futures = pool.invokeAll(callables);
+
+            List<String> allHashes = new ArrayList<>();
+            for (Future<List<String>> future : futures) {
+                try {
+                    List<String> batchHashes = future.get();
+                    allHashes.addAll(batchHashes);
+                } catch (ExecutionException e) {
+                    // uploadBatchParallel catches all exceptions internally; this should not occur
+                    logger.warn("Unexpected error collecting batch result: %s", e.getMessage());
+                }
+            }
+
+            return allHashes;
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.warn("Parallel attachment upload was interrupted: %s", e.getMessage());
+            return Collections.emptyList();
+        } finally {
+            pool.shutdownNow();
+            // Always restore original timeouts for subsequent API calls
+            this.client.setReadTimeout(originalReadTimeout);
+            this.client.setWriteTimeout(originalWriteTimeout);
+        }
+    }
+
+    /**
+     * Uploads a single batch in a parallel worker.
+     * Mirrors the per-batch logic of the original sequential loop.
+     * Catches all exceptions to preserve error isolation: a failed batch
+     * returns an empty list without propagating the error to other batches.
+     *
+     * @param api         shared AttachmentsApi instance (thread-safe)
+     * @param batch       list of FileInfo entries for this batch
+     * @param batchIdx    zero-based batch index (for logging)
+     * @param totalBatches total number of batches (for logging)
+     * @return list of hashes from successful upload, or empty list on failure
+     */
+    private List<String> uploadBatchParallel(AttachmentsApi api, List<FileInfo> batch,
+                                              int batchIdx, int totalBatches) {
+        try {
+            List<File> batchFiles = batch.stream()
+                    .map(fi -> fi.file)
+                    .collect(Collectors.toList());
+
+            long batchBytes = batch.stream().mapToLong(fi -> fi.size).sum();
+            long startNanos = System.nanoTime();
+            AtomicInteger retryCounter = new AtomicInteger(0);
+
+            List<Attachmentupload> response = RetryHelper.retry(() -> {
+                retryCounter.getAndIncrement();
+                return api.uploadAttachment(this.config.testops.project, batchFiles).getResult();
+            }, "upload attachments batch " + (batchIdx + 1));
+
+            long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000;
+            int retriesUsed = Math.max(0, retryCounter.get() - 1);
+
+            List<String> batchHashes = processUploadResponse(response, batch);
+
+            logger.info("Upload batch %d/%d complete: %d files, %d bytes, %d ms, %d retries",
+                    batchIdx + 1, totalBatches, batch.size(), batchBytes, elapsedMs, retriesUsed);
+
+            return batchHashes;
+
+        } catch (Exception e) {
+            List<String> droppedNames = batch.stream()
+                    .map(fi -> fi.file.getName())
+                    .collect(Collectors.toList());
+            logger.warn("Attachment upload failed after retries, result will be sent without attachments %s. Error: %s",
+                    droppedNames, e.getMessage());
+            return Collections.emptyList();
+        } finally {
+            cleanupFileInfos(batch);
+        }
     }
 
     /**
@@ -394,6 +506,11 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         }
     }
 
+    private static String sanitizeForFileName(String fileName) {
+        if (fileName == null) return "unknown";
+        return fileName.replaceAll("[^a-zA-Z0-9._-]", "_");
+    }
+
     /**
      * Prepares files from attachments and validates individual file sizes
      */
@@ -406,30 +523,37 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
             if (attachment.filePath != null) {
                 file = new File(attachment.filePath);
+                removeFile = attachment.isStagedTempFile;
                 if (!file.exists()) {
                     logger.error("File not found: %s", attachment.filePath);
                     continue;
                 }
             } else if (attachment.content != null) {
-                String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
-                file = new File(tempPath);
-
-                try (FileWriter fileWriter = new FileWriter(file)) {
-                    fileWriter.write(attachment.content);
+                try {
+                    File tempFile = File.createTempFile("qase-attachment-", "-" + sanitizeForFileName(attachment.fileName));
+                    tempFile.deleteOnExit();
+                    try (FileWriter fw = new FileWriter(tempFile)) {
+                        fw.write(attachment.content);
+                    }
+                    attachment.content = null;
+                    file = tempFile;
                     removeFile = true;
                 } catch (IOException e) {
-                    logger.error("Failed to write attachment content to file: %s", e.getMessage());
+                    logger.error("Failed to write attachment content to temp file: %s", e.getMessage());
                     continue;
                 }
             } else if (attachment.contentBytes != null) {
-                String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
-                file = new File(tempPath);
-
-                try (FileOutputStream fos = new FileOutputStream(file)) {
-                    fos.write(attachment.contentBytes);
+                try {
+                    File tempFile = File.createTempFile("qase-attachment-", "-" + sanitizeForFileName(attachment.fileName));
+                    tempFile.deleteOnExit();
+                    try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                        fos.write(attachment.contentBytes);
+                    }
+                    attachment.contentBytes = null;
+                    file = tempFile;
                     removeFile = true;
                 } catch (IOException e) {
-                    logger.error("Failed to write attachment content to file: %s", e.getMessage());
+                    logger.error("Failed to write attachment content to temp file: %s", e.getMessage());
                     continue;
                 }
             } else {

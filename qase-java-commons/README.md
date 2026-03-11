@@ -45,6 +45,7 @@ All configuration options are listed in the table below:
 | **Qase TestOps configuration**                                                                                             |                            |                                 |                                 |                                         |          |                            |
 | Token for [API access](https://developers.qase.io/#authentication)                                                         | `testops.api.token`        | `QASE_TESTOPS_API_TOKEN`        | `QASE_TESTOPS_API_TOKEN`        | undefined                               | Yes      | Any string                 |
 | Qase API host. For enterprise users, specify address: `example.qase.io`                                          | `testops.api.host`         | `QASE_TESTOPS_API_HOST`         | `QASE_TESTOPS_API_HOST`         | `qase.io`                               | No       | Any string                 |
+| HTTP connect/read/write timeout in seconds (0 = OkHttp default 10s)                                                        | `testops.api.timeoutSeconds` | `QASE_TESTOPS_API_TIMEOUT_SECONDS` | `QASE_TESTOPS_API_TIMEOUT_SECONDS` | `0`                                | No       | Any non-negative integer   |
 | Qase enterprise environment                                                                                                | `testops.api.enterprise`   | `QASE_TESTOPS_API_ENTERPRISE`   | `QASE_TESTOPS_API_ENTERPRISE`   | `False`                                 | No       | `True`, `False`            |
 | Code of your project, which you can take from the URL: `https://app.qase.io/project/DEMOTR` - `DEMOTR` is the project code | `testops.project`          | `QASE_TESTOPS_PROJECT`          | `QASE_TESTOPS_PROJECT`          | undefined                               | Yes      | Any string                 |
 | Qase test run ID                                                                                                           | `testops.run.id`           | `QASE_TESTOPS_RUN_ID`           | `QASE_TESTOPS_RUN_ID`           | undefined                               | No       | Any integer                |
@@ -58,7 +59,9 @@ All configuration options are listed in the table below:
 | Qase test run configurations                                                                                               | `testops.run.configurations` | `QASE_TESTOPS_RUN_CONFIGURATIONS` | `QASE_TESTOPS_RUN_CONFIGURATIONS` | undefined                               | No       | Comma-separated key=value pairs |
 | Qase test run configurations create if not exists                                                                         | `testops.run.configurations.createIfNotExists` | `QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS` | `QASE_TESTOPS_CONFIGURATIONS_CREATE_IF_NOT_EXISTS` | `False`                                 | No       | `True`, `False`            |
 | Qase test plan ID                                                                                                          | `testops.plan.id`          | `QASE_TESTOPS_PLAN_ID`          | `QASE_TESTOPS_PLAN_ID`          | undefined                               | No       | Any integer                |
-| Size of batch for sending test results                                                                                     | `testops.batch.size`       | `QASE_TESTOPS_BATCH_SIZE`       | `QASE_TESTOPS_BATCH_SIZE`       | `200`                                   | No       | Any integer                |
+| Size of batch for sending test results                                                                                     | `testops.batch.size`       | `QASE_TESTOPS_BATCH_SIZE`       | `QASE_TESTOPS_BATCH_SIZE`       | `200`                                   | No       | `1`–`2000`                 |
+| Attachment upload timeout in seconds (minimum; scales up with attachment size at 1 MB/s)                                   | `testops.batch.uploadTimeout` | `QASE_TESTOPS_BATCH_UPLOAD_TIMEOUT` | `QASE_TESTOPS_BATCH_UPLOAD_TIMEOUT` | `300`                          | No       | Any positive integer       |
+| Number of threads for parallel attachment upload                                                                           | `testops.batch.uploadThreads` | `QASE_TESTOPS_BATCH_UPLOAD_THREADS` | `QASE_TESTOPS_BATCH_UPLOAD_THREADS` | `4`                            | No       | `1`–`32`                   |
 | Enable defects for failed test cases                                                                                       | `testops.defect`           | `QASE_TESTOPS_DEFECT`           | `QASE_TESTOPS_DEFECT`           | `False`                                 | No       | `True`, `False`            |
 | Filter test results by status (exclude specified statuses)                                                                | `testops.statusFilter`     | `QASE_TESTOPS_STATUS_FILTER`    | `QASE_TESTOPS_STATUS_FILTER`    | `[]`                                    | No       | Comma-separated status names |
 
@@ -119,7 +122,9 @@ All configuration options are listed in the table below:
     "defect": false,
     "project": "<project_code>",
     "batch": {
-      "size": 100
+      "size": 100,
+      "uploadTimeout": 300,
+      "uploadThreads": 4
     },
     "statusFilter": [
       "SKIPPED",
