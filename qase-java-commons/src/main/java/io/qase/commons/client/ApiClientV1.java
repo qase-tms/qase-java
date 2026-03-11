@@ -38,6 +38,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Qase API V1 client
@@ -459,15 +460,22 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                     .map(fi -> fi.file)
                     .collect(Collectors.toList());
 
-            List<Attachmentupload> response = RetryHelper.retry(() ->
-                    api.uploadAttachment(this.config.testops.project, batchFiles).getResult(),
-                    "upload attachments batch " + (batchIdx + 1)
-            );
+            long batchBytes = batch.stream().mapToLong(fi -> fi.size).sum();
+            long startNanos = System.nanoTime();
+            AtomicInteger retryCounter = new AtomicInteger(0);
+
+            List<Attachmentupload> response = RetryHelper.retry(() -> {
+                retryCounter.getAndIncrement();
+                return api.uploadAttachment(this.config.testops.project, batchFiles).getResult();
+            }, "upload attachments batch " + (batchIdx + 1));
+
+            long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000;
+            int retriesUsed = Math.max(0, retryCounter.get() - 1);
 
             List<String> batchHashes = processUploadResponse(response, batch);
 
-            logger.debug("Uploaded batch %d/%d: %d files, %d hashes",
-                    batchIdx + 1, totalBatches, batch.size(), batchHashes.size());
+            logger.info("Upload batch %d/%d complete: %d files, %d bytes, %d ms, %d retries",
+                    batchIdx + 1, totalBatches, batch.size(), batchBytes, elapsedMs, retriesUsed);
 
             return batchHashes;
 
