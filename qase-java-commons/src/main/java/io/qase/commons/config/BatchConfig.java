@@ -8,6 +8,7 @@ public class BatchConfig {
 
     public int size = 200;
     public int uploadTimeout = 300;
+    public int uploadThreads = 4;
 
     public void setSize(int size) {
         if (size <= 0) {
@@ -37,5 +38,21 @@ public class BatchConfig {
 
     public int getSize() {
         return size;
+    }
+
+    public void setUploadThreads(int uploadThreads) {
+        if (uploadThreads <= 0) {
+            logger.warn("Upload threads must be positive, got %d for parameter 'QASE_TESTOPS_BATCH_UPLOAD_THREADS'. Using default: 4", uploadThreads);
+            return;
+        }
+        if (uploadThreads > 32) {
+            logger.warn("Upload threads must be <= 32, got %d for parameter 'QASE_TESTOPS_BATCH_UPLOAD_THREADS'. Using default: 4", uploadThreads);
+            return;
+        }
+        this.uploadThreads = uploadThreads;
+    }
+
+    public int getUploadThreads() {
+        return uploadThreads;
     }
 }

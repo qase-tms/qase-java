@@ -83,6 +83,7 @@ public class ConfigFactory {
         qaseConfig.testops.plan.id = getIntEnv("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntEnv("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
         qaseConfig.testops.batch.setUploadTimeout(getIntEnv("QASE_TESTOPS_BATCH_UPLOAD_TIMEOUT", qaseConfig.testops.batch.getUploadTimeout()));
+        qaseConfig.testops.batch.setUploadThreads(getIntEnv("QASE_TESTOPS_BATCH_UPLOAD_THREADS", qaseConfig.testops.batch.getUploadThreads()));
         qaseConfig.testops.statusFilter = Arrays.asList(getEnvArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
         String envStatusMapping = getEnv("QASE_STATUS_MAPPING", null);
         if (envStatusMapping != null) {
@@ -130,6 +131,7 @@ public class ConfigFactory {
         qaseConfig.testops.plan.id = getIntProperty("QASE_TESTOPS_PLAN_ID", qaseConfig.testops.plan.id);
         qaseConfig.testops.batch.setSize(getIntProperty("QASE_TESTOPS_BATCH_SIZE", qaseConfig.testops.batch.getSize()));
         qaseConfig.testops.batch.setUploadTimeout(getIntProperty("QASE_TESTOPS_BATCH_UPLOAD_TIMEOUT", qaseConfig.testops.batch.getUploadTimeout()));
+        qaseConfig.testops.batch.setUploadThreads(getIntProperty("QASE_TESTOPS_BATCH_UPLOAD_THREADS", qaseConfig.testops.batch.getUploadThreads()));
         qaseConfig.testops.statusFilter = Arrays.asList(getPropertyArray("QASE_TESTOPS_STATUS_FILTER", qaseConfig.testops.statusFilter.toArray(new String[0])));
         String propStatusMapping = getProperty("QASE_STATUS_MAPPING", null);
         if (propStatusMapping != null) {
@@ -433,6 +435,10 @@ public class ConfigFactory {
 
                 if (batch.has("uploadTimeout")) {
                     qaseConfig.testops.batch.setUploadTimeout(batch.getInt("uploadTimeout"));
+                }
+
+                if (batch.has("uploadThreads")) {
+                    qaseConfig.testops.batch.setUploadThreads(batch.getInt("uploadThreads"));
                 }
             }
 

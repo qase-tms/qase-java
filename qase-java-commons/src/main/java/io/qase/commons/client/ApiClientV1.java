@@ -27,6 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -372,60 +377,110 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
         // Split into batches
         List<List<FileInfo>> batches = splitIntoBatches(fileInfos);
-        
-        // Upload each batch
-        List<String> allHashes = new ArrayList<>();
-        AttachmentsApi api = createAttachmentsApi();
+
+        // Determine thread pool size: min(batches, configured threads)
+        int parallelism = Math.min(batches.size(), this.config.testops.batch.getUploadThreads());
+        ExecutorService pool = Executors.newFixedThreadPool(parallelism);
 
         // Save original timeouts so we can restore them after all uploads complete
         int originalReadTimeout = this.client.getReadTimeout();
         int originalWriteTimeout = this.client.getWriteTimeout();
 
+        // Create a single AttachmentsApi instance shared across callables
+        // (OkHttp connection pool is thread-safe; timeout is set once before submitting)
+        AttachmentsApi api = createAttachmentsApi();
+
         try {
+            // Compute max timeout across all batches and apply once before parallel execution
+            long maxBatchBytes = batches.stream()
+                    .mapToLong(batch -> batch.stream().mapToLong(fi -> fi.size).sum())
+                    .max()
+                    .orElse(0L);
+            int timeoutSeconds = computeUploadTimeoutSeconds(maxBatchBytes);
+            int timeoutMs = timeoutSeconds * 1000;
+            this.client.setReadTimeout(timeoutMs);
+            this.client.setWriteTimeout(timeoutMs);
+            logger.debug("Dynamic upload timeout set to %ds for parallel batch upload (%d batches, %d threads)",
+                    timeoutSeconds, batches.size(), parallelism);
+
+            // Build callables for all batches
+            final int totalBatches = batches.size();
+            List<Callable<List<String>>> callables = new ArrayList<>();
             for (int i = 0; i < batches.size(); i++) {
-                List<FileInfo> batch = batches.get(i);
-                final int batchIndex = i;
+                final List<FileInfo> batch = batches.get(i);
+                final int batchIdx = i;
+                callables.add(() -> uploadBatchParallel(api, batch, batchIdx, totalBatches));
+            }
+
+            // Execute all callables in parallel and collect results
+            List<Future<List<String>>> futures = pool.invokeAll(callables);
+
+            List<String> allHashes = new ArrayList<>();
+            for (Future<List<String>> future : futures) {
                 try {
-                    List<File> batchFiles = batch.stream()
-                            .map(fi -> fi.file)
-                            .collect(Collectors.toList());
-
-                    // Apply dynamic timeout proportional to batch size before upload
-                    long batchBytes = batch.stream().mapToLong(fi -> fi.size).sum();
-                    int timeoutSeconds = computeUploadTimeoutSeconds(batchBytes);
-                    int timeoutMs = timeoutSeconds * 1000;
-                    this.client.setReadTimeout(timeoutMs);
-                    this.client.setWriteTimeout(timeoutMs);
-                    logger.debug("Dynamic upload timeout set to %ds for batch of %.1f MB",
-                            timeoutSeconds, batchBytes / (1024.0 * 1024.0));
-
-                    List<Attachmentupload> response = RetryHelper.retry(() ->
-                            api.uploadAttachment(this.config.testops.project, batchFiles).getResult(),
-                            "upload attachments batch " + (batchIndex + 1)
-                    );
-
-                    List<String> batchHashes = processUploadResponse(response, batch);
+                    List<String> batchHashes = future.get();
                     allHashes.addAll(batchHashes);
-
-                    logger.debug("Uploaded batch %d/%d: %d files, %d hashes",
-                        batchIndex + 1, batches.size(), batch.size(), batchHashes.size());
-                } catch (Exception e) {
-                    List<String> droppedNames = batch.stream()
-                            .map(fi -> fi.file.getName())
-                            .collect(Collectors.toList());
-                    logger.warn("Attachment upload failed after retries, result will be sent without attachments %s. Error: %s",
-                            droppedNames, e.getMessage());
-                } finally {
-                    cleanupFileInfos(batch);
+                } catch (ExecutionException e) {
+                    // uploadBatchParallel catches all exceptions internally; this should not occur
+                    logger.warn("Unexpected error collecting batch result: %s", e.getMessage());
                 }
             }
+
+            return allHashes;
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.warn("Parallel attachment upload was interrupted: %s", e.getMessage());
+            return Collections.emptyList();
         } finally {
+            pool.shutdownNow();
             // Always restore original timeouts for subsequent API calls
             this.client.setReadTimeout(originalReadTimeout);
             this.client.setWriteTimeout(originalWriteTimeout);
         }
+    }
 
-        return allHashes;
+    /**
+     * Uploads a single batch in a parallel worker.
+     * Mirrors the per-batch logic of the original sequential loop.
+     * Catches all exceptions to preserve error isolation: a failed batch
+     * returns an empty list without propagating the error to other batches.
+     *
+     * @param api         shared AttachmentsApi instance (thread-safe)
+     * @param batch       list of FileInfo entries for this batch
+     * @param batchIdx    zero-based batch index (for logging)
+     * @param totalBatches total number of batches (for logging)
+     * @return list of hashes from successful upload, or empty list on failure
+     */
+    private List<String> uploadBatchParallel(AttachmentsApi api, List<FileInfo> batch,
+                                              int batchIdx, int totalBatches) {
+        try {
+            List<File> batchFiles = batch.stream()
+                    .map(fi -> fi.file)
+                    .collect(Collectors.toList());
+
+            List<Attachmentupload> response = RetryHelper.retry(() ->
+                    api.uploadAttachment(this.config.testops.project, batchFiles).getResult(),
+                    "upload attachments batch " + (batchIdx + 1)
+            );
+
+            List<String> batchHashes = processUploadResponse(response, batch);
+
+            logger.debug("Uploaded batch %d/%d: %d files, %d hashes",
+                    batchIdx + 1, totalBatches, batch.size(), batchHashes.size());
+
+            return batchHashes;
+
+        } catch (Exception e) {
+            List<String> droppedNames = batch.stream()
+                    .map(fi -> fi.file.getName())
+                    .collect(Collectors.toList());
+            logger.warn("Attachment upload failed after retries, result will be sent without attachments %s. Error: %s",
+                    droppedNames, e.getMessage());
+            return Collections.emptyList();
+        } finally {
+            cleanupFileInfos(batch);
+        }
     }
 
     /**
