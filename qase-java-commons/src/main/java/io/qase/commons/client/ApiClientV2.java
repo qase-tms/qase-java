@@ -129,7 +129,7 @@ public class ApiClientV2 implements ApiClient {
                 .sum();
             long totalBytes = results.stream()
                 .flatMap(r -> r.attachments != null ? r.attachments.stream() : Stream.empty())
-                .mapToLong(a -> a.contentBytes != null ? a.contentBytes.length : 0)
+                .mapToLong(a -> a.sizeBytes)
                 .sum();
             logger.debug("Uploading batch: %d results, %d attachments, %.1f MB",
                 results.size(), totalAttachments, totalBytes / (1024.0 * 1024.0));

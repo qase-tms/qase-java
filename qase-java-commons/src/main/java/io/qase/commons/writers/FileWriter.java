@@ -104,11 +104,15 @@ public class FileWriter implements Writer {
                 Files.copy(source, destination);
                 reportAttachment.filePath = destination.toString();
 
+                if (attachment.isStagedTempFile) {
+                    Files.deleteIfExists(source);
+                }
+
                 // Set file name from source if not already set
                 if (reportAttachment.fileName == null) {
                     reportAttachment.fileName = source.getFileName().toString();
                 }
-                
+
                 return reportAttachment;
             } catch (IOException e) {
                 logger.error("Failed to save attachment: {}", attachment.filePath, e);

@@ -69,6 +69,7 @@ class UploadSummaryLogTest {
             attachment.fileName = title + "-attachment.bin";
             attachment.mimeType = "application/octet-stream";
             attachment.contentBytes = new byte[attachmentBytes];
+            attachment.sizeBytes = attachmentBytes;
             result.attachments.add(attachment);
         }
 

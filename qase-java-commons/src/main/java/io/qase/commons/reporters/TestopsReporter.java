@@ -28,12 +28,22 @@ public class TestopsReporter implements InternalReporter {
     private final ExecutorService uploadExecutor;
     private volatile boolean shuttingDown = false;
 
-    // LOGS-04: Run-level aggregate upload statistics
+    // Run-level aggregate upload statistics
     private final AtomicLong statTotalResults = new AtomicLong(0);
     private final AtomicLong statTotalAttachments = new AtomicLong(0);
     private final AtomicLong statTotalBytes = new AtomicLong(0);
     private final AtomicLong statTotalUploadTimeMs = new AtomicLong(0);
     private final AtomicLong statFailedBatches = new AtomicLong(0);
+
+    // Submitted (pending + in-flight) counters for dynamic timeout computation
+    private final AtomicLong statSubmittedBytes = new AtomicLong(0);
+    private final AtomicLong statSubmittedAttachments = new AtomicLong(0);
+
+    // Dynamic timeout constants
+    static final long MINIMUM_UPLOAD_SPEED_BPS = 500L * 1024; // 500 KB/s conservative estimate
+    static final int BASE_TIMEOUT_SECONDS = 60;                // baseline overhead
+    static final int PER_ATTACHMENT_OVERHEAD_SECONDS = 2;      // API overhead per attachment
+    static final int MAX_TIMEOUT_SECONDS = 3600;               // cap at 1 hour
 
     public TestopsReporter(TestopsConfig config, ApiClient client) {
         this.config = config;
@@ -68,9 +78,10 @@ public class TestopsReporter implements InternalReporter {
         uploadResults();
 
         uploadExecutor.shutdown();
+        int timeoutSeconds = computeUploadTimeout();
         try {
-            if (!uploadExecutor.awaitTermination(config.batch.uploadTimeout, TimeUnit.SECONDS)) {
-                logger.warn("Upload executor timed out after %d seconds", config.batch.uploadTimeout);
+            if (!uploadExecutor.awaitTermination(timeoutSeconds, TimeUnit.SECONDS)) {
+                logger.warn("Upload executor timed out after %d seconds", timeoutSeconds);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -123,6 +134,7 @@ public class TestopsReporter implements InternalReporter {
         if (this.results.size() >= this.config.batch.size) {
             List<TestResult> batch = new ArrayList<>(this.results);
             this.results.clear();
+            trackSubmittedBatch(batch);
             uploadExecutor.submit(() -> uploadBatch(batch));
         }
     }
@@ -138,19 +150,48 @@ public class TestopsReporter implements InternalReporter {
             int end = Math.min(batchSize, this.results.size());
             List<TestResult> batch = new ArrayList<>(this.results.subList(0, end));
             this.results.subList(0, end).clear();
+            trackSubmittedBatch(batch);
             uploadExecutor.submit(() -> uploadBatch(batch));
         }
+    }
+
+    /**
+     * Computes the upload timeout based on submitted data volume and configured minimum.
+     * Formula: max(configured, BASE + submittedBytes / MIN_SPEED + attachments * OVERHEAD), capped at MAX.
+     * Package-private for unit testing.
+     */
+    int computeUploadTimeout() {
+        long bytes = statSubmittedBytes.get();
+        long attachments = statSubmittedAttachments.get();
+        long dynamicSeconds = BASE_TIMEOUT_SECONDS
+                + bytes / MINIMUM_UPLOAD_SPEED_BPS
+                + attachments * PER_ATTACHMENT_OVERHEAD_SECONDS;
+        int computed = (int) Math.min(dynamicSeconds, MAX_TIMEOUT_SECONDS);
+        int timeout = Math.max(config.batch.uploadTimeout, computed);
+        logger.debug("Dynamic upload timeout: %ds (configured=%ds, computed=%ds, submitted=%d bytes, %d attachments)",
+                timeout, config.batch.uploadTimeout, computed, bytes, attachments);
+        return timeout;
+    }
+
+    private void trackSubmittedBatch(List<TestResult> batch) {
+        long bytes = batch.stream()
+            .flatMap(r -> r.attachments != null ? r.attachments.stream() : Stream.empty())
+            .mapToLong(a -> a.sizeBytes)
+            .sum();
+        int attachments = batch.stream()
+            .mapToInt(r -> r.attachments != null ? r.attachments.size() : 0)
+            .sum();
+        statSubmittedBytes.addAndGet(bytes);
+        statSubmittedAttachments.addAndGet(attachments);
     }
 
     private void uploadBatch(List<TestResult> batch) {
         int attachmentCount = batch.stream()
             .mapToInt(r -> r.attachments != null ? r.attachments.size() : 0)
             .sum();
-        // Snapshot bytes BEFORE upload — contentBytes is nulled during prepareFiles() (UPLD-05)
         long batchBytes = batch.stream()
             .flatMap(r -> r.attachments != null ? r.attachments.stream() : Stream.empty())
-            .mapToLong(a -> a.contentBytes != null ? a.contentBytes.length :
-                           (a.content != null ? a.content.length() : 0))
+            .mapToLong(a -> a.sizeBytes)
             .sum();
 
         logger.info("Uploading batch: %d results, %d attachments, %.1f MB",

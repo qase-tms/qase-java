@@ -523,6 +523,7 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
             if (attachment.filePath != null) {
                 file = new File(attachment.filePath);
+                removeFile = attachment.isStagedTempFile;
                 if (!file.exists()) {
                     logger.error("File not found: %s", attachment.filePath);
                     continue;
