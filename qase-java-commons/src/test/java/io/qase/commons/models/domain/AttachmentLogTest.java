@@ -11,6 +11,7 @@ class AttachmentLogTest {
         a.fileName = "screenshot.png";
         a.mimeType = "image/png";
         a.contentBytes = new byte[1024]; // 1KB of zeros
+        a.sizeBytes = 1024;
 
         String log = a.toLogString();
 
@@ -28,6 +29,7 @@ class AttachmentLogTest {
         a.mimeType = "text/plain";
         a.contentBytes = null;
         a.content = null;
+        a.sizeBytes = 0;
 
         String log = a.toLogString();
 
@@ -40,7 +42,7 @@ class AttachmentLogTest {
         Attachment a = new Attachment();
         a.fileName = "large-video.mp4";
         a.mimeType = "video/mp4";
-        a.contentBytes = new byte[10 * 1024 * 1024]; // 10 MB
+        a.sizeBytes = 10 * 1024 * 1024; // 10 MB
 
         String log = a.toLogString();
 
@@ -56,6 +58,7 @@ class AttachmentLogTest {
         a.mimeType = "text/plain";
         a.content = "x".repeat(50000); // 50K chars of text content
         a.contentBytes = null;
+        a.sizeBytes = 50000;
 
         String log = a.toLogString();
 
