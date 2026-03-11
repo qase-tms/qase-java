@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -444,6 +443,11 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
         }
     }
 
+    private static String sanitizeForFileName(String fileName) {
+        if (fileName == null) return "unknown";
+        return fileName.replaceAll("[^a-zA-Z0-9._-]", "_");
+    }
+
     /**
      * Prepares files from attachments and validates individual file sizes
      */
@@ -461,25 +465,31 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
                     continue;
                 }
             } else if (attachment.content != null) {
-                String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
-                file = new File(tempPath);
-
-                try (FileWriter fileWriter = new FileWriter(file)) {
-                    fileWriter.write(attachment.content);
+                try {
+                    File tempFile = File.createTempFile("qase-attachment-", "-" + sanitizeForFileName(attachment.fileName));
+                    tempFile.deleteOnExit();
+                    try (FileWriter fw = new FileWriter(tempFile)) {
+                        fw.write(attachment.content);
+                    }
+                    attachment.content = null;
+                    file = tempFile;
                     removeFile = true;
                 } catch (IOException e) {
-                    logger.error("Failed to write attachment content to file: %s", e.getMessage());
+                    logger.error("Failed to write attachment content to temp file: %s", e.getMessage());
                     continue;
                 }
             } else if (attachment.contentBytes != null) {
-                String tempPath = Paths.get(System.getProperty("user.dir"), attachment.fileName).toString();
-                file = new File(tempPath);
-
-                try (FileOutputStream fos = new FileOutputStream(file)) {
-                    fos.write(attachment.contentBytes);
+                try {
+                    File tempFile = File.createTempFile("qase-attachment-", "-" + sanitizeForFileName(attachment.fileName));
+                    tempFile.deleteOnExit();
+                    try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                        fos.write(attachment.contentBytes);
+                    }
+                    attachment.contentBytes = null;
+                    file = tempFile;
                     removeFile = true;
                 } catch (IOException e) {
-                    logger.error("Failed to write attachment content to file: %s", e.getMessage());
+                    logger.error("Failed to write attachment content to temp file: %s", e.getMessage());
                     continue;
                 }
             } else {
