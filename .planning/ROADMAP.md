@@ -48,7 +48,7 @@ Phases 11-13 archived in `.planning/milestones/v1.3-ROADMAP.md`
 
 - [x] **Phase 14: Log Sanitization** - Remove binary data from logs and switch to summary-format upload logging (completed 2026-03-10)
 - [x] **Phase 15: Upload Resilience Core** - Dynamic timeouts, batch error isolation, and graceful degradation for attachment uploads (completed 2026-03-10)
-- [ ] **Phase 16: Upload Performance & Memory** - Parallel attachment uploads and disk-backed attachment storage to reduce memory pressure
+- [x] **Phase 16: Upload Performance & Memory** - Parallel attachment uploads and disk-backed attachment storage to reduce memory pressure (completed 2026-03-11)
 - [ ] **Phase 17: Upload Observability** - Structured progress tracking and completion summary statistics
 
 ## Phase Details
@@ -104,10 +104,10 @@ Plans:
   1. Each upload operation produces a structured log line containing: batch number, file count, total bytes, elapsed time, and retry attempt count
   2. At test run completion, the reporter logs a summary line with: total results sent, total attachments uploaded, total bytes transferred, total upload time, count of failed uploads, and total retry attempts
   3. The progress and summary information is logged at INFO level so users see it by default without enabling debug logging
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 17-01: TBD
+- [ ] 17-01-PLAN.md — TDD: Batch progress logging (LOGS-03) and run summary statistics (LOGS-04)
 
 ## Progress
 
@@ -124,5 +124,5 @@ Phases execute in numeric order: 14 → 15 → 16 → 17
 | 13. API Resilience + StepStorage | v1.3 | 2/2 | Complete | 2026-03-05 |
 | 14. Log Sanitization | v1.4 | 1/1 | Complete | 2026-03-10 |
 | 15. Upload Resilience Core | 2/2 | Complete    | 2026-03-10 | - |
-| 16. Upload Performance & Memory | v1.4 | 0/2 | Not started | - |
-| 17. Upload Observability | v1.4 | 0/? | Not started | - |
+| 16. Upload Performance & Memory | 2/2 | Complete    | 2026-03-11 | - |
+| 17. Upload Observability | v1.4 | 0/1 | Not started | - |
