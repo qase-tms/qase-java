@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
 public class TestopsReporter implements InternalReporter {
@@ -26,6 +27,13 @@ public class TestopsReporter implements InternalReporter {
     private final List<TestResult> results;
     private final ExecutorService uploadExecutor;
     private volatile boolean shuttingDown = false;
+
+    // LOGS-04: Run-level aggregate upload statistics
+    private final AtomicLong statTotalResults = new AtomicLong(0);
+    private final AtomicLong statTotalAttachments = new AtomicLong(0);
+    private final AtomicLong statTotalBytes = new AtomicLong(0);
+    private final AtomicLong statTotalUploadTimeMs = new AtomicLong(0);
+    private final AtomicLong statFailedBatches = new AtomicLong(0);
 
     public TestopsReporter(TestopsConfig config, ApiClient client) {
         this.config = config;
@@ -67,6 +75,14 @@ public class TestopsReporter implements InternalReporter {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
+        // LOGS-04: Emit aggregate upload statistics after all uploads complete
+        logger.info("Upload summary: %d results, %d attachments, %d bytes, %d ms total, %d failed batches",
+            statTotalResults.get(),
+            statTotalAttachments.get(),
+            statTotalBytes.get(),
+            statTotalUploadTimeMs.get(),
+            statFailedBatches.get());
 
         if (!this.config.run.complete) {
             logger.info("Test run %d: skipping completion (complete=false)", this.testRunId);
@@ -127,18 +143,29 @@ public class TestopsReporter implements InternalReporter {
     }
 
     private void uploadBatch(List<TestResult> batch) {
-        int totalAttachments = batch.stream()
+        int attachmentCount = batch.stream()
             .mapToInt(r -> r.attachments != null ? r.attachments.size() : 0)
             .sum();
-        long totalBytes = batch.stream()
+        // Snapshot bytes BEFORE upload — contentBytes is nulled during prepareFiles() (UPLD-05)
+        long batchBytes = batch.stream()
             .flatMap(r -> r.attachments != null ? r.attachments.stream() : Stream.empty())
-            .mapToLong(a -> a.contentBytes != null ? a.contentBytes.length : 0)
+            .mapToLong(a -> a.contentBytes != null ? a.contentBytes.length :
+                           (a.content != null ? a.content.length() : 0))
             .sum();
+
         logger.info("Uploading batch: %d results, %d attachments, %.1f MB",
-            batch.size(), totalAttachments, totalBytes / (1024.0 * 1024.0));
+            batch.size(), attachmentCount, batchBytes / (1024.0 * 1024.0));
+
+        long startNanos = System.nanoTime();
         try {
             this.client.uploadResults(this.testRunId, batch);
+            long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000;
+            statTotalResults.addAndGet(batch.size());
+            statTotalAttachments.addAndGet(attachmentCount);
+            statTotalBytes.addAndGet(batchBytes);
+            statTotalUploadTimeMs.addAndGet(elapsedMs);
         } catch (QaseException e) {
+            statFailedBatches.incrementAndGet();
             logger.warn("Batch upload failed, %d results dropped: %s", batch.size(), e.getMessage());
         }
     }
