@@ -13,7 +13,9 @@ import io.cucumber.plugin.event.TestStepStarted;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
 import io.qase.commons.utils.CucumberUtils;
-import io.qase.commons.utils.StringUtils;
+import io.qase.commons.utils.IntegrationUtils;
+import io.qase.commons.utils.TestResultBuilder;
+import io.qase.commons.utils.TestResultCompletion;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.utils.ExceptionUtils;
@@ -24,8 +26,6 @@ import java.net.URI;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.IntStream;
-
-import static io.qase.commons.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements ConcurrentEventListener {
 
@@ -43,19 +43,7 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private String getFrameworkVersion() {
-        try {
-            Package pkg = io.cucumber.plugin.event.TestCase.class.getPackage();
-            if (pkg != null) {
-                String version = pkg.getImplementationVersion();
-                if (version == null || version.isEmpty()) {
-                    version = pkg.getSpecificationVersion();
-                }
-                return version != null ? version : "";
-            }
-        } catch (Throwable e) {
-            // Framework version not available
-        }
-        return "";
+        return IntegrationUtils.detectFrameworkVersion(io.cucumber.plugin.event.TestCase.class);
     }
 
     @Override
@@ -123,66 +111,29 @@ public class QaseEventListener implements ConcurrentEventListener {
     }
 
     private TestResult startTestCase(TestCaseStarted event) {
-        TestResult resultCreate = new TestResult();
         List<String> tags = event.getTestCase().getTags();
 
-        boolean ignore = CucumberUtils.getCaseIgnore(tags);
-        if (ignore) {
-            resultCreate.ignore = true;
-            return resultCreate;
+        // Guard: check ignore BEFORE ScenarioStorage to avoid NPE on ignored tests
+        if (CucumberUtils.getCaseIgnore(tags)) {
+            TestResult ignored = new TestResult();
+            ignored.ignore = true;
+            return ignored;
         }
 
         currentFeatureFile.set(event.getTestCase().getUri());
 
-        final Scenario scenarioDefinition = ScenarioStorage.getScenarioDefinition(scenarioStorage.getCucumberNode(currentFeatureFile.get(), event.getTestCase().getLocation().getLine()));
+        final Scenario scenarioDefinition = ScenarioStorage.getScenarioDefinition(
+                scenarioStorage.getCucumberNode(
+                        currentFeatureFile.get(),
+                        event.getTestCase().getLocation().getLine()));
 
         Map<String, String> parameters = new HashMap<>();
-
         if (scenarioDefinition.getExamples() != null) {
-            parameters =
-                    getExamplesAsParameters(scenarioDefinition, event.getTestCase());
+            parameters = getExamplesAsParameters(scenarioDefinition, event.getTestCase());
         }
 
-        List<Long> caseIds = CucumberUtils.getCaseIds(tags);
-        Map<String, String> fields = CucumberUtils.getCaseFields(tags);
-
-        String caseTitle = Optional.ofNullable(CucumberUtils.getCaseTitle(tags))
-                .orElse(event.getTestCase().getName());
-
-        String suite = CucumberUtils.getCaseSuite(tags);
-        Relations relations = new Relations();
-        if (suite != null) {
-            String[] parts = suite.split("\\\\t");
-            for (String part : parts) {
-                SuiteData data = new SuiteData();
-                data.title = part;
-                relations.suite.data.add(data);
-            }
-        } else {
-            SuiteData className = new SuiteData();
-            String[] parts = event.getTestCase().getUri().toString().split("/");
-            className.title = parts[parts.length - 1];
-            relations.suite.data.add(className);
-        }
-
-        resultCreate.title = caseTitle;
-        resultCreate.testopsIds = caseIds;
-        resultCreate.execution.startTime = Instant.now().toEpochMilli();
-        resultCreate.execution.thread = Thread.currentThread().getName();
-        resultCreate.fields = fields;
-        resultCreate.relations = relations;
-        resultCreate.params = parameters;
-
-        ArrayList<String> suites = new ArrayList<>();
-        suites.addAll(Arrays.asList(event.getTestCase().getUri().toString().split("/")));
-        suites.add(caseTitle);
-        
-        resultCreate.signature = StringUtils.generateSignature(
-            caseIds != null ? new ArrayList<>(caseIds) : new ArrayList<>(),
-            suites, 
-            parameters);
-
-        return resultCreate;
+        V7TestCaseAdapter adapter = new V7TestCaseAdapter(event.getTestCase());
+        return TestResultBuilder.fromCucumber(adapter, parameters, Instant.now().toEpochMilli());
     }
 
     private TestResult stopTestCase(TestCaseFinished event) {
@@ -193,29 +144,15 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
 
         Optional<Throwable> optionalThrowable = Optional.ofNullable(event.getResult().getError());
-        String stacktrace = optionalThrowable
-                .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        Throwable cause = optionalThrowable.orElse(null);
 
-        // Determine the correct status based on the exception type
         TestResultStatus status = convertStatus(event.getResult().getStatus());
-        if (status == TestResultStatus.FAILED && optionalThrowable.isPresent()) {
-            status = ExceptionUtils.isAssertionFailure(optionalThrowable.get()) ? 
-                TestResultStatus.FAILED : TestResultStatus.INVALID;
+        if (status == TestResultStatus.FAILED && cause != null) {
+            status = ExceptionUtils.isAssertionFailure(cause) ?
+                    TestResultStatus.FAILED : TestResultStatus.INVALID;
         }
 
-        resultCreate.execution.status = status;
-        resultCreate.execution.throwable = optionalThrowable.orElse(null);
-        resultCreate.execution.endTime = Instant.now().toEpochMilli();
-        resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
-        resultCreate.execution.stacktrace = stacktrace;
-        resultCreate.steps = StepStorage.stopSteps();
-
-        optionalThrowable.ifPresent(throwable ->
-                resultCreate.message = Optional.ofNullable(resultCreate.message)
-                        .map(msg -> msg + "\n\n" + throwable.toString())
-                        .orElse(throwable.toString()));
-
-        return resultCreate;
+        return TestResultCompletion.complete(status, cause);
     }
 
     private TestResultStatus convertStatus(Status status) {
