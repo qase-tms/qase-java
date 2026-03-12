@@ -2,10 +2,12 @@ package io.qase.testng;
 
 
 import io.qase.commons.CasesStorage;
-import io.qase.commons.StepStorage;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.utils.ExceptionUtils;
+import io.qase.commons.utils.IntegrationUtils;
+import io.qase.commons.utils.TestResultBuilder;
+import io.qase.commons.utils.TestResultCompletion;
 import org.testng.*;
 import org.testng.annotations.Parameters;
 import org.testng.xml.XmlTest;
@@ -34,19 +36,7 @@ public class QaseListener implements ISuiteListener,
     }
 
     private String getFrameworkVersion() {
-        try {
-            Package pkg = org.testng.TestNG.class.getPackage();
-            if (pkg != null) {
-                String version = pkg.getImplementationVersion();
-                if (version == null || version.isEmpty()) {
-                    version = pkg.getSpecificationVersion();
-                }
-                return version != null ? version : "";
-            }
-        } catch (Exception e) {
-            // Framework version not available
-        }
-        return "";
+        return IntegrationUtils.detectFrameworkVersion(org.testng.TestNG.class);
     }
 
     @Override
@@ -73,7 +63,7 @@ public class QaseListener implements ISuiteListener,
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        TestResultStatus status = ExceptionUtils.isAssertionFailure(tr.getThrowable()) ? 
+        TestResultStatus status = ExceptionUtils.isAssertionFailure(tr.getThrowable()) ?
             TestResultStatus.FAILED : TestResultStatus.INVALID;
         this.stopTestCase(tr, status);
     }
@@ -87,77 +77,28 @@ public class QaseListener implements ISuiteListener,
         this.stopTestCase(tr, TestResultStatus.SKIPPED);
     }
 
+    private TestResult startTestCase(ITestResult result) {
+        Method method = result.getMethod().getConstructorOrMethod().getMethod();
+        Map<String, String> parameters = getParameters(result);
+        return TestResultBuilder.fromMethod(method, parameters, result.getStartMillis());
+    }
+
     private void stopTestCase(ITestResult result, TestResultStatus status) {
         TestResult resultCreate = CasesStorage.getCurrentCase();
         if (resultCreate.ignore) {
             CasesStorage.stopCase();
             return;
         }
-
-        Optional<Throwable> resultThrowable = Optional.ofNullable(result.getThrowable());
-        String comment = resultThrowable.flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-        String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-        LinkedList<StepResult> steps = StepStorage.stopSteps();
-
-        resultCreate.execution.status = status;
-        resultCreate.execution.throwable = result.getThrowable();
-        resultCreate.execution.endTime = result.getEndMillis();
-        resultCreate.execution.duration = (int) (result.getEndMillis() - result.getStartMillis());
-        resultCreate.execution.stacktrace = stacktrace;
-        resultCreate.steps = steps;
-
-        if (comment != null) {
-            if (resultCreate.message != null) {
-                resultCreate.message += "\n\n" + comment;
-            } else {
-                resultCreate.message = comment;
-            }
+        TestResult completed = TestResultCompletion.completeWithTiming(
+            status,
+            result.getThrowable(),
+            result.getStartMillis(),
+            result.getEndMillis()
+        );
+        if (!completed.ignore) {
+            this.qaseTestCaseListener.addResult(completed);
         }
-
-        this.qaseTestCaseListener.addResult(resultCreate);
         CasesStorage.stopCase();
-    }
-
-    private TestResult startTestCase(ITestResult result) {
-        TestResult resultCreate = new TestResult();
-        Method method = result.getMethod().getConstructorOrMethod().getMethod();
-        boolean ignore = getQaseIgnore(method);
-
-        if (ignore) {
-            resultCreate.ignore = true;
-            return resultCreate;
-        }
-
-        List<Long> caseIds = getCaseIds(method);
-        String caseTitle = getCaseTitle(method);
-        Map<String, String> parameters = this.getParameters(result);
-        Map<String, String> fields = getQaseFields(method);
-        String suite = getQaseSuite(method);
-        Relations relations = new Relations();
-
-        if (suite != null) {
-            String[] parts = suite.split("\t");
-            for (String part : parts) {
-                SuiteData data = new SuiteData();
-                data.title = part;
-                relations.suite.data.add(data);
-            }
-        } else {
-            SuiteData className = new SuiteData();
-            className.title = method.getDeclaringClass().getName();
-            relations.suite.data.add(className);
-        }
-
-        resultCreate.execution.startTime = result.getStartMillis();
-        resultCreate.execution.thread = Thread.currentThread().getName();
-        resultCreate.testopsIds = caseIds;
-        resultCreate.title = caseTitle;
-        resultCreate.params = parameters;
-        resultCreate.fields = fields;
-        resultCreate.relations = relations;
-        resultCreate.signature = generateSignature(method, caseIds, parameters);
-
-        return resultCreate;
     }
 
     private Map<String, String> getParameters(final ITestResult testResult) {
