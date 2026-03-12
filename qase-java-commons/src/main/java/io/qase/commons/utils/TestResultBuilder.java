@@ -173,7 +173,8 @@ public final class TestResultBuilder {
      * Suite hierarchy is built from {@code @QaseSuite} tag (split on literal {@code "\\t"})
      * or from the adapter's URI path parts.
      *
-     * <p>The signature is not generated here — TODO Phase 20: finalize Cucumber signature.
+     * <p>Signature is generated from URI path parts + title + parameters using
+     * {@link StringUtils#generateSignature(List, List, Map)}.
      *
      * @param adapter     normalized Cucumber TestCase adapter
      * @param parameters  merged parameters (adapter.getParameters() + ScenarioStorage)
@@ -206,7 +207,13 @@ public final class TestResultBuilder {
         result.params = parameters != null ? parameters : new java.util.HashMap<String, String>();
         result.fields = fields;
         result.relations = buildCucumberRelations(suite, adapter.getUriPathParts());
-        // TODO Phase 20: finalize Cucumber signature generation
+
+        ArrayList<String> suites = new ArrayList<>(adapter.getUriPathParts());
+        suites.add(result.title);
+        result.signature = StringUtils.generateSignature(
+                caseIds != null ? new ArrayList<Long>(caseIds) : new ArrayList<Long>(),
+                suites,
+                result.params);
 
         return result;
     }

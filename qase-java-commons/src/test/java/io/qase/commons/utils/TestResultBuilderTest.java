@@ -381,6 +381,27 @@ class TestResultBuilderTest {
         assertEquals("Tag Title", result.title);
         assertEquals(500L, result.execution.startTime);
         assertEquals(Thread.currentThread().getName(), result.execution.thread);
+        assertNotNull(result.signature);
+    }
+
+    @Test
+    void fromCucumber_generatesSignatureFromUriPartsAndTitle() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseId=42"),
+                "Login scenario",
+                Arrays.asList("features", "login", "auth.feature")
+        );
+        Map<String, String> params = new HashMap<>();
+        params.put("user", "admin");
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, params, 0L);
+
+        assertNotNull(result.signature);
+        // Signature should contain URI path parts + title
+        assertTrue(result.signature.contains("features"));
+        assertTrue(result.signature.contains("login"));
+        // Params should be part of signature
+        assertTrue(result.signature.contains("user"));
     }
 
     @Test
