@@ -3,36 +3,27 @@ package io.qase.cucumber5;
 import gherkin.ast.*;
 import io.cucumber.plugin.event.*;
 import io.qase.commons.CasesStorage;
-import io.qase.commons.StepStorage;
+import io.qase.commons.cucumber.AbstractCucumberEventListener;
+import io.qase.commons.models.domain.StepResultStatus;
+import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.models.domain.TestResultStatus;
 import io.qase.commons.utils.CucumberUtils;
 import io.qase.commons.utils.IntegrationUtils;
-import io.qase.commons.utils.TestResultBuilder;
-import io.qase.commons.utils.TestResultCompletion;
-import io.qase.commons.models.domain.*;
-import io.qase.commons.reporters.CoreReporterFactory;
-import io.qase.commons.utils.ExceptionUtils;
 import io.cucumber.plugin.ConcurrentEventListener;
-import io.qase.commons.reporters.Reporter;
 
-import java.time.Instant;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class QaseEventListener implements ConcurrentEventListener {
+public class QaseEventListener extends AbstractCucumberEventListener
+        implements ConcurrentEventListener {
 
-    private final Reporter qaseTestCaseListener;
     private final ScenarioStorage scenarioStorage;
 
     public QaseEventListener() {
-        String reporterVersion = QaseEventListener.class.getPackage().getImplementationVersion();
-        String frameworkVersion = getFrameworkVersion();
-        this.qaseTestCaseListener = CoreReporterFactory.getInstance(
-            "qase-cucumber-v5", reporterVersion, "cucumber", frameworkVersion);
+        super("qase-cucumber-v5",
+                QaseEventListener.class.getPackage().getImplementationVersion(),
+                IntegrationUtils.detectFrameworkVersion(io.cucumber.plugin.event.TestCase.class));
         this.scenarioStorage = new ScenarioStorage();
-    }
-
-    private String getFrameworkVersion() {
-        return IntegrationUtils.detectFrameworkVersion(io.cucumber.plugin.event.TestCase.class);
     }
 
     @Override
@@ -40,9 +31,9 @@ public class QaseEventListener implements ConcurrentEventListener {
         publisher.registerHandlerFor(TestSourceRead.class, this::scenarioRead);
         publisher.registerHandlerFor(TestCaseStarted.class, this::testCaseStarted);
         publisher.registerHandlerFor(TestCaseFinished.class, this::testCaseFinished);
-        publisher.registerHandlerFor(TestRunStarted.class, this::testRunStarted);
-        publisher.registerHandlerFor(TestRunFinished.class, this::testRunFinished);
-        publisher.registerHandlerFor(TestStepStarted.class, this::testStepStarted);
+        publisher.registerHandlerFor(TestRunStarted.class, e -> onTestRunStarted());
+        publisher.registerHandlerFor(TestRunFinished.class, e -> onTestRunFinished());
+        publisher.registerHandlerFor(TestStepStarted.class, e -> onTestStepStarted(e.getTestStep() instanceof PickleStepTestStep));
         publisher.registerHandlerFor(TestStepFinished.class, this::testStepFinished);
     }
 
@@ -50,53 +41,24 @@ public class QaseEventListener implements ConcurrentEventListener {
         this.scenarioStorage.addScenarioEvent(event.getUri(), event);
     }
 
-    private void testRunStarted(TestRunStarted testRunStarted) {
-        this.qaseTestCaseListener.startTestRun();
-    }
-
-    private void testRunFinished(TestRunFinished testRunFinished) {
-        this.qaseTestCaseListener.uploadResults();
-        this.qaseTestCaseListener.completeTestRun();
-    }
-
-    private void testStepStarted(TestStepStarted testStepStarted) {
-        if (testStepStarted.getTestStep() instanceof PickleStepTestStep) {
-            StepStorage.startStep();
-        }
-    }
-
     private void testStepFinished(TestStepFinished testStepFinished) {
         if (testStepFinished.getTestStep() instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.getTestStep();
-            StepResult stepResult = StepStorage.getCurrentStep();
-            stepResult.data.action = step.getStep().getKeyWord() + " " + step.getStep().getText();
-            stepResult.execution.status = this.convertStepStatus(testStepFinished.getResult().getStatus());
-            StepStorage.stopStep();
+            // v5: uses getKeyWord() (capital W) - differs from v6/v7
+            String stepText = step.getStep().getKeyWord() + " " + step.getStep().getText();
+            StepResultStatus stepStatus = convertStepStatus(testStepFinished.getResult().getStatus());
+            onTestStepFinished(true, stepText, stepStatus);
         }
     }
 
     private void testCaseStarted(TestCaseStarted event) {
-        TestResult resultCreate = startTestCase(event);
-        CasesStorage.startCase(resultCreate);
-    }
-
-    private void testCaseFinished(TestCaseFinished event) {
-        TestResult result = this.stopTestCase(event);
-
-        if (result == null) {
-            return;
-        }
-
-        this.qaseTestCaseListener.addResult(result);
-    }
-
-    private TestResult startTestCase(TestCaseStarted event) {
         List<String> tags = event.getTestCase().getTags();
 
         if (CucumberUtils.getCaseIgnore(tags)) {
             TestResult ignored = new TestResult();
             ignored.ignore = true;
-            return ignored;
+            CasesStorage.startCase(ignored);
+            return;
         }
 
         final ScenarioDefinition scenarioDefinition = ScenarioStorage.getScenarioDefinition(
@@ -108,33 +70,18 @@ public class QaseEventListener implements ConcurrentEventListener {
         }
 
         V5TestCaseAdapter adapter = new V5TestCaseAdapter(event.getTestCase());
-        return TestResultBuilder.fromCucumber(adapter, parameters, Instant.now().toEpochMilli());
+        onTestCaseStarted(adapter, parameters);
     }
 
-    private TestResult stopTestCase(TestCaseFinished event) {
-        TestResult resultCreate = CasesStorage.getCurrentCase();
-        CasesStorage.stopCase();
-        if (resultCreate.ignore) {
-            return null;
-        }
-
-        Optional<Throwable> optionalThrowable = Optional.ofNullable(event.getResult().getError());
-        Throwable cause = optionalThrowable.orElse(null);
-
+    private void testCaseFinished(TestCaseFinished event) {
+        Throwable cause = event.getResult().getError();
         TestResultStatus status = convertStatus(event.getResult().getStatus());
-        if (status == TestResultStatus.FAILED && cause != null) {
-            status = ExceptionUtils.isAssertionFailure(cause) ?
-                    TestResultStatus.FAILED : TestResultStatus.INVALID;
-        }
-
-        return TestResultCompletion.complete(status, cause);
+        onTestCaseFinished(status, cause);
     }
 
     private TestResultStatus convertStatus(Status status) {
         switch (status) {
             case FAILED:
-                // We need to check if the failure is due to assertion or other reason
-                // This will be handled in stopTestCase method where we have access to the throwable
                 return TestResultStatus.FAILED;
             case PASSED:
                 return TestResultStatus.PASSED;
