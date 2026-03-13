@@ -1,3 +1,13 @@
+# qase-java 4.1.41
+
+## What's new
+
+- Refactored all Cucumber v4-v7 QaseEventListeners to extend shared `AbstractCucumberEventListener` base class in commons — eliminates ~200 lines of duplicated event handling code
+- Created `CucumberTestCaseAdapter` interface and version-specific adapters (V3-V7) for uniform test case data extraction
+- Extracted shared utilities into commons: `TestResultBuilder.fromCucumber()`, `TestResultCompletion`, `AnnotationReader`, `DescriptionAnnotationReader`, `IntegrationUtils.detectFrameworkVersion()`
+- Refactored JUnit4, JUnit5, and TestNG QaseListeners to use shared commons utilities
+- Fixed NPE in Cucumber reporters when `CasesStorage.stopCase()` was called before `TestResultCompletion.complete()`
+
 # qase-java 4.1.40
 
 ## What's new
