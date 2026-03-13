@@ -77,8 +77,8 @@ public abstract class AbstractCucumberEventListener {
      */
     protected void onTestCaseFinished(TestResultStatus status, Throwable cause) {
         TestResult resultCreate = CasesStorage.getCurrentCase();
-        CasesStorage.stopCase();
-        if (resultCreate.ignore) {
+        if (resultCreate == null || resultCreate.ignore) {
+            CasesStorage.stopCase();
             return;
         }
         TestResultStatus resolvedStatus = status;
@@ -88,6 +88,7 @@ public abstract class AbstractCucumberEventListener {
                     : TestResultStatus.INVALID;
         }
         TestResult result = TestResultCompletion.complete(resolvedStatus, cause);
+        CasesStorage.stopCase();
         qaseTestCaseListener.addResult(result);
     }
 }

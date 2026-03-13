@@ -108,8 +108,8 @@ public class QaseEventListener implements Formatter {
 
     private TestResult stopTestCase(TestCaseFinished event) {
         TestResult resultCreate = CasesStorage.getCurrentCase();
-        CasesStorage.stopCase();
-        if (resultCreate.ignore) {
+        if (resultCreate == null || resultCreate.ignore) {
+            CasesStorage.stopCase();
             return null;
         }
 
@@ -122,7 +122,9 @@ public class QaseEventListener implements Formatter {
                     TestResultStatus.FAILED : TestResultStatus.INVALID;
         }
 
-        return TestResultCompletion.complete(status, cause);
+        TestResult result = TestResultCompletion.complete(status, cause);
+        CasesStorage.stopCase();
+        return result;
     }
 
     private TestResultStatus convertStatus(Result.Type status) {
