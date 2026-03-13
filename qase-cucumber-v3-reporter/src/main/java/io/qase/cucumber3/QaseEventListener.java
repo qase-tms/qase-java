@@ -12,20 +12,18 @@ import gherkin.ast.TableRow;
 import gherkin.pickles.PickleTag;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
-import io.qase.commons.utils.CucumberUtils;
-import io.qase.commons.utils.StringUtils;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
-import io.qase.commons.utils.ExceptionUtils;
 import io.qase.commons.reporters.Reporter;
-import okio.Path;
+import io.qase.commons.utils.ExceptionUtils;
+import io.qase.commons.utils.IntegrationUtils;
+import io.qase.commons.utils.TestResultBuilder;
+import io.qase.commons.utils.TestResultCompletion;
 
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import static io.qase.commons.utils.IntegrationUtils.getStacktrace;
 
 public class QaseEventListener implements Formatter {
 
@@ -34,26 +32,10 @@ public class QaseEventListener implements Formatter {
 
     public QaseEventListener() {
         String reporterVersion = QaseEventListener.class.getPackage().getImplementationVersion();
-        String frameworkVersion = getFrameworkVersion();
+        String frameworkVersion = IntegrationUtils.detectFrameworkVersion(cucumber.api.TestCase.class);
         this.qaseTestCaseListener = CoreReporterFactory.getInstance(
             "qase-cucumber-v3", reporterVersion, "cucumber", frameworkVersion);
         this.scenarioStorage = new ScenarioStorage();
-    }
-
-    private String getFrameworkVersion() {
-        try {
-            Package pkg = cucumber.api.TestCase.class.getPackage();
-            if (pkg != null) {
-                String version = pkg.getImplementationVersion();
-                if (version == null || version.isEmpty()) {
-                    version = pkg.getSpecificationVersion();
-                }
-                return version != null ? version : "";
-            }
-        } catch (Exception e) {
-            // Framework version not available
-        }
-        return "";
     }
 
     @Override
@@ -112,100 +94,37 @@ public class QaseEventListener implements Formatter {
     }
 
     private TestResult startTestCase(TestCaseStarted event) {
-        TestResult resultCreate = new TestResult();
-        List<String> tags = event.testCase
-                .getTags()
-                .stream()
-                .map(PickleTag::getName)
-                .collect(Collectors.toList());
-
-        boolean ignore = CucumberUtils.getCaseIgnore(tags);
-        if (ignore) {
-            resultCreate.ignore = true;
-            return resultCreate;
-        }
-
         final ScenarioDefinition scenarioDefinition = ScenarioStorage.getScenarioDefinition(
                 scenarioStorage.getCucumberNode(event.testCase.getUri(), event.testCase.getLine()));
 
         Map<String, String> parameters = new HashMap<>();
-
         if (scenarioDefinition instanceof ScenarioOutline) {
             parameters = getExamplesAsParameters((ScenarioOutline) scenarioDefinition, event.testCase);
         }
 
-        List<Long> caseIds = CucumberUtils.getCaseIds(tags);
-        Map<String, String> fields = CucumberUtils.getCaseFields(tags);
-
-        String caseTitle = Optional.ofNullable(CucumberUtils.getCaseTitle(tags))
-                .orElse(event.testCase.getName());
-
-        String suite = CucumberUtils.getCaseSuite(tags);
-        Relations relations = new Relations();
-        if (suite != null) {
-            String[] parts = suite.split("\\\\t");
-            for (String part : parts) {
-                SuiteData data = new SuiteData();
-                data.title = part;
-                relations.suite.data.add(data);
-            }
-        } else {
-            SuiteData className = new SuiteData();
-            String[] parts = event.testCase.getScenarioDesignation().split(":")[0].split(Path.DIRECTORY_SEPARATOR);
-            className.title = parts[parts.length - 1];
-            relations.suite.data.add(className);
-        }
-
-        resultCreate.title = caseTitle;
-        resultCreate.testopsIds = caseIds;
-        resultCreate.execution.startTime = Instant.now().toEpochMilli();
-        resultCreate.execution.thread = Thread.currentThread().getName();
-        resultCreate.fields = fields;
-        resultCreate.relations = relations;
-
-        ArrayList<String> suites = new ArrayList<>();
-        suites.addAll(
-                Arrays.asList(event.testCase.getScenarioDesignation().split(":")[0].split(Path.DIRECTORY_SEPARATOR)));
-        suites.add(caseTitle);
-
-        resultCreate.signature = StringUtils.generateSignature(
-                caseIds != null ? new ArrayList<>(caseIds) : new ArrayList<>(),
-                suites,
-                parameters);
-
-        return resultCreate;
+        V3TestCaseAdapter adapter = new V3TestCaseAdapter(event.testCase);
+        return TestResultBuilder.fromCucumber(adapter, parameters, Instant.now().toEpochMilli());
     }
 
     private TestResult stopTestCase(TestCaseFinished event) {
         TestResult resultCreate = CasesStorage.getCurrentCase();
-        CasesStorage.stopCase();
-        if (resultCreate.ignore) {
+        if (resultCreate == null || resultCreate.ignore) {
+            CasesStorage.stopCase();
             return null;
         }
 
         Optional<Throwable> optionalThrowable = Optional.ofNullable(event.result.getError());
-        String stacktrace = optionalThrowable
-                .flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        Throwable cause = optionalThrowable.orElse(null);
 
-        // Determine the correct status based on the exception type
         TestResultStatus status = convertStatus(event.result.getStatus());
-        if (status == TestResultStatus.FAILED && optionalThrowable.isPresent()) {
-            status = ExceptionUtils.isAssertionFailure(optionalThrowable.get()) ? 
-                TestResultStatus.FAILED : TestResultStatus.INVALID;
+        if (status == TestResultStatus.FAILED && cause != null) {
+            status = ExceptionUtils.isAssertionFailure(cause) ?
+                    TestResultStatus.FAILED : TestResultStatus.INVALID;
         }
 
-        resultCreate.execution.status = status;
-        resultCreate.execution.throwable = optionalThrowable.orElse(null);
-        resultCreate.execution.endTime = Instant.now().toEpochMilli();
-        resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
-        resultCreate.execution.stacktrace = stacktrace;
-        resultCreate.steps = StepStorage.stopSteps();
-
-        optionalThrowable.ifPresent(throwable -> resultCreate.message = Optional.ofNullable(resultCreate.message)
-                .map(msg -> msg + "\n\n" + throwable.toString())
-                .orElse(throwable.toString()));
-
-        return resultCreate;
+        TestResult result = TestResultCompletion.complete(status, cause);
+        CasesStorage.stopCase();
+        return result;
     }
 
     private TestResultStatus convertStatus(Result.Type status) {

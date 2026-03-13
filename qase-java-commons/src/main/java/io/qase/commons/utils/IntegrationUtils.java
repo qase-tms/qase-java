@@ -101,6 +101,34 @@ public final class IntegrationUtils {
         return null;
     }
 
+    /**
+     * Detects the version of the framework that probeClass belongs to.
+     * Returns the implementation version first, then the specification version as a fallback.
+     * Returns an empty string on any failure (null class, missing manifest, exception).
+     *
+     * @param probeClass any class from the target framework on the classpath
+     * @return the detected version string, or "" if not determinable
+     */
+    public static String detectFrameworkVersion(Class<?> probeClass) {
+        try {
+            Package pkg = probeClass.getPackage();
+            if (pkg == null) {
+                return "";
+            }
+            String implVersion = pkg.getImplementationVersion();
+            if (implVersion != null && !implVersion.isEmpty()) {
+                return implVersion;
+            }
+            String specVersion = pkg.getSpecificationVersion();
+            if (specVersion != null && !specVersion.isEmpty()) {
+                return specVersion;
+            }
+            return "";
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public static String generateSignature(Method testMethod, List<Long> qaseIds, Map<String, String> parameters) {
         String packageName = testMethod.getDeclaringClass().getPackage().getName().toLowerCase().replace('.', ':');
         String className = testMethod.getDeclaringClass().getSimpleName().toLowerCase();

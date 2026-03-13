@@ -1,11 +1,13 @@
 package io.qase.junit5;
 
 import io.qase.commons.CasesStorage;
-import io.qase.commons.StepStorage;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
 import io.qase.commons.utils.ExceptionUtils;
+import io.qase.commons.utils.IntegrationUtils;
+import io.qase.commons.utils.TestResultBuilder;
+import io.qase.commons.utils.TestResultCompletion;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
@@ -38,19 +40,7 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
     }
 
     private String getFrameworkVersion() {
-        try {
-            Package pkg = org.junit.jupiter.api.Test.class.getPackage();
-            if (pkg != null) {
-                String version = pkg.getImplementationVersion();
-                if (version == null || version.isEmpty()) {
-                    version = pkg.getSpecificationVersion();
-                }
-                return version != null ? version : "";
-            }
-        } catch (Exception e) {
-            // Framework version not available
-        }
-        return "";
+        return IntegrationUtils.detectFrameworkVersion(org.junit.jupiter.api.Test.class);
     }
 
     @Override
@@ -132,44 +122,8 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
     }
 
     private TestResult startTestCase(Method method, ReflectiveInvocationContext<Method> invocationContext) {
-        TestResult resultCreate = new TestResult();
-        boolean ignore = getQaseIgnore(method);
-
-        if (ignore) {
-            resultCreate.ignore = true;
-            return resultCreate;
-        }
-
-        List<Long> caseIds = getCaseIds(method);
-        String caseTitle = getCaseTitle(method);
-        Map<String, String> parameters = this.getParameters(invocationContext);
-        Map<String, String> fields = getQaseFields(method);
-        String suite = getQaseSuite(method);
-        Relations relations = new Relations();
-
-        if (suite != null) {
-            String[] parts = suite.split("\t");
-            for (String part : parts) {
-                SuiteData data = new SuiteData();
-                data.title = part;
-                relations.suite.data.add(data);
-            }
-        } else {
-            SuiteData className = new SuiteData();
-            className.title = method.getDeclaringClass().getName();
-            relations.suite.data.add(className);
-        }
-
-        resultCreate.execution.startTime = Instant.now().toEpochMilli();
-        resultCreate.execution.thread = Thread.currentThread().getName();
-        resultCreate.testopsIds = caseIds;
-        resultCreate.title = caseTitle;
-        resultCreate.params = parameters;
-        resultCreate.fields = fields;
-        resultCreate.relations = relations;
-        resultCreate.signature = generateSignature(method, caseIds, parameters);
-
-        return resultCreate;
+        Map<String, String> parameters = getParameters(invocationContext);
+        return TestResultBuilder.fromMethod(method, parameters, Instant.now().toEpochMilli());
     }
 
     private Map<String, String> getParameters(final ReflectiveInvocationContext<Method> invocationContext) {
@@ -205,47 +159,25 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        TestResultStatus status = ExceptionUtils.isAssertionFailure(cause) ? 
+        TestResultStatus status = ExceptionUtils.isAssertionFailure(cause) ?
             TestResultStatus.FAILED : TestResultStatus.INVALID;
         this.stopTestCase(status, cause);
     }
 
     private void stopTestCase(TestResultStatus status, Throwable cause) {
         if (!CasesStorage.isCaseInProgress()) {
-            // Case was already stopped, possibly by another thread or cleanup
             return;
         }
-        
         TestResult resultCreate = CasesStorage.getCurrentCase();
-
         try {
             if (resultCreate.ignore) {
                 return;
             }
-
-            Optional<Throwable> resultThrowable = Optional.ofNullable(cause);
-            String comment = resultThrowable.flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-            String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
-            LinkedList<StepResult> steps = StepStorage.stopSteps();
-
-            resultCreate.execution.status = status;
-            resultCreate.execution.throwable = cause;
-            resultCreate.execution.endTime = Instant.now().toEpochMilli();
-            resultCreate.execution.duration = (int) (resultCreate.execution.endTime - resultCreate.execution.startTime);
-            resultCreate.execution.stacktrace = stacktrace;
-            resultCreate.steps = steps;
-
-            if (comment != null) {
-                if (resultCreate.message != null) {
-                    resultCreate.message += "\n\n" + comment;
-                } else {
-                    resultCreate.message = comment;
-                }
+            TestResult result = TestResultCompletion.complete(status, cause);
+            if (!result.ignore) {
+                this.qaseTestCaseListener.addResult(result);
             }
-
-            this.qaseTestCaseListener.addResult(resultCreate);
         } finally {
-            // Always stop the case, even if an exception occurs
             if (CasesStorage.isCaseInProgress()) {
                 CasesStorage.stopCase();
             }
