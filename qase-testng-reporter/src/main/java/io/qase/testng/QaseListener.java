@@ -84,6 +84,9 @@ public class QaseListener implements ISuiteListener,
     }
 
     private void stopTestCase(ITestResult result, TestResultStatus status) {
+        if (!CasesStorage.isCaseInProgress()) {
+            return;
+        }
         TestResult resultCreate = CasesStorage.getCurrentCase();
         if (resultCreate.ignore) {
             CasesStorage.stopCase();

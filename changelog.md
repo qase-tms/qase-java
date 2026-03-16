@@ -1,3 +1,11 @@
+# qase-java 4.1.42
+
+## Bug fixes
+
+- Fixed NPE in TestNG and JUnit4 reporters when `CasesStorage.getCurrentCase()` returns null due to ThreadLocal thread mismatch under concurrent execution
+  - Added `CasesStorage.isCaseInProgress()` guard in `stopTestCase()` — same pattern already used in JUnit5 and Cucumber reporters
+  - Prevents `SurefireBooterForkException` crash when running large test suites (~220+ tests) with Maven Surefire
+
 # qase-java 4.1.41
 
 ## What's new
