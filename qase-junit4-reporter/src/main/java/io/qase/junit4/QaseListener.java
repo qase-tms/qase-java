@@ -103,6 +103,9 @@ public class QaseListener extends RunListener {
     }
 
     private void stopTestCase(TestResultStatus status, Throwable error) {
+        if (!CasesStorage.isCaseInProgress()) {
+            return;
+        }
         TestResult resultCreate = CasesStorage.getCurrentCase();
         if (resultCreate.ignore) {
             CasesStorage.stopCase();
