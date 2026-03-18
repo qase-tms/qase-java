@@ -22,7 +22,7 @@ public class ClientHeadersBuilder {
     /**
      * Build X-Client header value
      * Format: reporter={reporter_name};reporter_version=v{reporter_version};framework={framework};framework_version={framework_version};client_version_v1=v{api_client_v1_version};client_version_v2=v{api_client_v2_version};core_version=v{commons_version}
-     * 
+     *
      * @param reporterName Reporter name (e.g., "qase-junit5")
      * @param reporterVersion Reporter version
      * @param frameworkName Framework name (e.g., "junit5", "testng", "cucumber")
@@ -31,13 +31,39 @@ public class ClientHeadersBuilder {
      */
     public static String buildXClientHeader(String reporterName, String reporterVersion,
                                             String frameworkName, String frameworkVersion) {
+        return buildXClientHeader(reporterName, reporterVersion, frameworkName, frameworkVersion, null);
+    }
+
+    /**
+     * Build X-Client header value using host info map for version lookups
+     *
+     * @param reporterName    Reporter name (e.g., "qase-junit5")
+     * @param reporterVersion Reporter version
+     * @param frameworkName   Framework name (e.g., "junit5", "testng", "cucumber")
+     * @param frameworkVersion Framework version
+     * @param hostInfo        Host information map from HostInfo.getHostInfo()
+     * @return X-Client header value
+     */
+    public static String buildXClientHeader(String reporterName, String reporterVersion,
+                                            String frameworkName, String frameworkVersion,
+                                            Map<String, String> hostInfo) {
         List<String> parts = new ArrayList<>();
-        
-        // Get package versions
-        String apiClientV1Version = getPackageVersion("io.qase.client.v1.ApiClient");
-        String apiClientV2Version = getPackageVersion("io.qase.client.v2.ApiClient");
-        String commonsVersion = getPackageVersion("io.qase.commons.utils.ClientHeadersBuilder");
-        
+
+        // Get package versions from hostInfo if available, otherwise detect
+        String apiClientV1Version;
+        String apiClientV2Version;
+        String commonsVersion;
+
+        if (hostInfo != null) {
+            apiClientV1Version = hostInfo.getOrDefault("apiClientV1", "");
+            apiClientV2Version = hostInfo.getOrDefault("apiClientV2", "");
+            commonsVersion = hostInfo.getOrDefault("commons", "");
+        } else {
+            apiClientV1Version = getPackageVersion("io.qase.client.v1.ApiClient");
+            apiClientV2Version = getPackageVersion("io.qase.client.v2.ApiClient");
+            commonsVersion = getPackageVersion("io.qase.commons.utils.ClientHeadersBuilder");
+        }
+
         // Try to detect reporter and framework from stack trace if not provided
         if (reporterName == null || reporterName.isEmpty()) {
             ReporterInfo detected = detectReporterAndFramework();
@@ -48,7 +74,7 @@ public class ClientHeadersBuilder {
                 frameworkVersion = detected.frameworkVersion;
             }
         }
-        
+
         // Add reporter info
         if (reporterName != null && !reporterName.isEmpty()) {
             parts.add("reporter=" + reporterName);
@@ -56,7 +82,7 @@ public class ClientHeadersBuilder {
         if (reporterVersion != null && !reporterVersion.isEmpty()) {
             parts.add("reporter_version=" + ensureNoVPrefix(reporterVersion));
         }
-        
+
         // Add framework info
         if (frameworkName != null && !frameworkName.isEmpty()) {
             parts.add("framework=" + frameworkName);
@@ -64,7 +90,7 @@ public class ClientHeadersBuilder {
         if (frameworkVersion != null && !frameworkVersion.isEmpty()) {
             parts.add("framework_version=" + frameworkVersion);
         }
-        
+
         // Add client versions
         if (apiClientV1Version != null && !apiClientV1Version.isEmpty()) {
             parts.add("client_version_v1=" + ensureNoVPrefix(apiClientV1Version));
@@ -72,12 +98,12 @@ public class ClientHeadersBuilder {
         if (apiClientV2Version != null && !apiClientV2Version.isEmpty()) {
             parts.add("client_version_v2=" + ensureNoVPrefix(apiClientV2Version));
         }
-        
+
         // Add core version
         if (commonsVersion != null && !commonsVersion.isEmpty()) {
             parts.add("core_version=" + ensureNoVPrefix(commonsVersion));
         }
-        
+
         return String.join(";", parts);
     }
     
@@ -127,13 +153,13 @@ public class ClientHeadersBuilder {
         }
         
         // Java version (language)
-        String javaVersion = hostInfo.get("java");
+        String javaVersion = hostInfo.get("language");
         if (javaVersion != null && !javaVersion.isEmpty()) {
             parts.add("java=" + sanitizeHeaderValue(javaVersion));
         }
-        
+
         // Build tool version (package manager: maven or gradle)
-        String buildTool = hostInfo.get("buildTool");
+        String buildTool = hostInfo.get("packageManager");
         if (buildTool != null && !buildTool.isEmpty()) {
             // Determine package manager type
             String packageManager = detectPackageManager();

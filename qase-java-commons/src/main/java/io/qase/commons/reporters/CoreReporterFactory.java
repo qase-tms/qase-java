@@ -36,7 +36,8 @@ public class CoreReporterFactory {
             logger.debug("Qase config: %s", config);
             HostInfo hostInfoCollector = new HostInfo();
             Map<String, String> hostInfo = hostInfoCollector.getHostInfo(
-                reporterVersion != null ? reporterVersion : CoreReporterFactory.class.getPackage().getImplementationVersion());
+                reporterVersion != null ? reporterVersion : CoreReporterFactory.class.getPackage().getImplementationVersion(),
+                frameworkName, frameworkVersion);
             logger.debug("Using host info: %s", hostInfo.toString());
             instance = new CoreReporter(config, reporterName, reporterVersion, frameworkName, frameworkVersion, hostInfo);
         }

@@ -80,7 +80,7 @@ public class ApiClientV2 implements ApiClient {
         try {
             // Build X-Client header with reporter and framework info
             String xClientHeader = ClientHeadersBuilder.buildXClientHeader(
-                reporterName, reporterVersion, frameworkName, frameworkVersion);
+                reporterName, reporterVersion, frameworkName, frameworkVersion, hostInfo);
             if (xClientHeader != null && !xClientHeader.isEmpty()) {
                 this.client.addDefaultHeader("X-Client", xClientHeader);
                 logger.debug("Set X-Client header: %s", xClientHeader);
