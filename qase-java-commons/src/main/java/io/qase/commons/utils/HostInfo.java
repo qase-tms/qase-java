@@ -110,12 +110,65 @@ public class HostInfo {
     }
 
     /**
+     * Normalize OS name to a standard format: darwin, windows, linux
+     *
+     * @param osName Raw OS name from system properties
+     * @return Normalized OS name
+     */
+    private String normalizeSystem(String osName) {
+        if (osName == null || osName.isEmpty()) {
+            return "";
+        }
+        String lower = osName.toLowerCase();
+        if (lower.contains("mac") || lower.contains("darwin")) {
+            return "darwin";
+        } else if (lower.contains("windows")) {
+            return "windows";
+        } else if (lower.contains("linux")) {
+            return "linux";
+        }
+        return lower;
+    }
+
+    /**
+     * Get package implementation version by class name
+     *
+     * @param className Fully qualified class name
+     * @return Package version or empty string if not available
+     */
+    private String getPackageVersion(String className) {
+        try {
+            Class<?> clazz = Class.forName(className);
+            Package pkg = clazz.getPackage();
+            if (pkg != null) {
+                String version = pkg.getImplementationVersion();
+                return version != null ? version : "";
+            }
+        } catch (ClassNotFoundException e) {
+            // Class not found, return empty string
+        }
+        return "";
+    }
+
+    /**
      * Get information about the current host environment
      *
      * @param reporterVersion Reporter version to check
      * @return Map with host information
      */
     public Map<String, String> getHostInfo(String reporterVersion) {
+        return getHostInfo(reporterVersion, null, null);
+    }
+
+    /**
+     * Get information about the current host environment
+     *
+     * @param reporterVersion  Reporter version
+     * @param frameworkName    Framework name (e.g., "junit5", "testng")
+     * @param frameworkVersion Framework version
+     * @return Map with host information
+     */
+    public Map<String, String> getHostInfo(String reporterVersion, String frameworkName, String frameworkVersion) {
         Map<String, String> hostInfo = new HashMap<>();
 
         try {
@@ -142,26 +195,44 @@ public class HostInfo {
                 }
             }
 
-            hostInfo.put("system", System.getProperty("os.name").toLowerCase());
+            hostInfo.put("system", normalizeSystem(System.getProperty("os.name")));
             hostInfo.put("machineName", InetAddress.getLocalHost().getHostName());
             hostInfo.put("release", System.getProperty("os.version"));
             hostInfo.put("version", getDetailedOsInfo());
             hostInfo.put("arch", System.getProperty("os.arch"));
-            hostInfo.put("java", javaVersion);
-            hostInfo.put("buildTool", buildToolVersion);
-            hostInfo.put("reporter", reporterVersion);
+            hostInfo.put("language", javaVersion);
+            hostInfo.put("packageManager", buildToolVersion);
+            hostInfo.put("reporter", reporterVersion != null ? reporterVersion : "");
+
+            // Framework version
+            String fwVersion = "";
+            if (frameworkName != null && !frameworkName.isEmpty()) {
+                fwVersion = (frameworkVersion != null && !frameworkVersion.isEmpty())
+                        ? frameworkName + "=" + frameworkVersion
+                        : frameworkName;
+            }
+            hostInfo.put("framework", fwVersion);
+
+            // Library versions
+            hostInfo.put("commons", getPackageVersion("io.qase.commons.utils.HostInfo"));
+            hostInfo.put("apiClientV1", getPackageVersion("io.qase.client.v1.ApiClient"));
+            hostInfo.put("apiClientV2", getPackageVersion("io.qase.client.v2.ApiClient"));
         } catch (Exception e) {
             System.err.println("Error getting host info: " + e.getMessage());
 
             try {
-                hostInfo.put("system", System.getProperty("os.name").toLowerCase());
+                hostInfo.put("system", normalizeSystem(System.getProperty("os.name")));
                 hostInfo.put("machineName", InetAddress.getLocalHost().getHostName());
                 hostInfo.put("release", System.getProperty("os.version"));
                 hostInfo.put("version", "");
                 hostInfo.put("arch", System.getProperty("os.arch"));
-                hostInfo.put("java", "");
-                hostInfo.put("buildTool", "");
+                hostInfo.put("language", "");
+                hostInfo.put("packageManager", "");
                 hostInfo.put("reporter", "");
+                hostInfo.put("framework", "");
+                hostInfo.put("commons", "");
+                hostInfo.put("apiClientV1", "");
+                hostInfo.put("apiClientV2", "");
             } catch (Exception ex) {
                 System.err.println("Error creating fallback host info: " + ex.getMessage());
             }

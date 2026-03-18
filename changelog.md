@@ -1,3 +1,14 @@
+# qase-java 4.1.43
+
+## What's new
+
+Unified HostData model to align field names across all Qase reporter languages:
+
+- Renamed `java` -> `language` and `buildTool` -> `packageManager` in host info map.
+- Added `framework`, `commons`, `apiClientV1`, `apiClientV2` fields to host info.
+- Normalized `system` field: `Mac OS X` -> `darwin`, `Windows *` -> `windows`, `Linux` -> `linux`.
+- X-Platform headers retain language-specific keys (`java=`, `maven=`/`gradle=`).
+
 # qase-java 4.1.42
 
 ## Bug fixes
