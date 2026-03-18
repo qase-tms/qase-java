@@ -15,9 +15,13 @@ package io.qase.client.v2;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.TypeAdapter;
 import com.google.gson.internal.bind.util.ISO8601Utils;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.google.gson.JsonElement;
@@ -115,6 +119,21 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.ResultStep.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.ResultStepData.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.qase.client.v2.models.ResultStepExecution.CustomTypeAdapterFactory());
+
+        // Defensive: ensure Map<String,String> params are always serialized as JSON strings,
+        // even if a Gson version conflict causes type information loss at runtime (#233)
+        gsonBuilder.registerTypeAdapter(
+            new TypeToken<Map<String, String>>(){}.getType(),
+            (JsonSerializer<Map<String, String>>) (src, typeOfSrc, context) -> {
+                JsonObject obj = new JsonObject();
+                if (src != null) {
+                    for (Map.Entry<String, String> entry : src.entrySet()) {
+                        obj.addProperty(entry.getKey(), entry.getValue());
+                    }
+                }
+                return obj;
+            });
+
         gson = gsonBuilder.create();
     }
 
