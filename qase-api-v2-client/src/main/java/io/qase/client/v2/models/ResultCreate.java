@@ -684,6 +684,16 @@ public class ResultCreate {
            public void write(JsonWriter out, ResultCreate value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
+             // Defensive: ensure params values are always JSON strings,
+             // even if Gson version conflict causes type erasure at runtime (#233)
+             if (obj.has("params") && obj.get("params").isJsonObject()) {
+               JsonObject paramsObj = obj.getAsJsonObject("params");
+               JsonObject fixedParams = new JsonObject();
+               for (Map.Entry<String, JsonElement> entry : paramsObj.entrySet()) {
+                 fixedParams.addProperty(entry.getKey(), entry.getValue().getAsString());
+               }
+               obj.add("params", fixedParams);
+             }
              // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {

@@ -1,10 +1,15 @@
+# qase-java 4.1.45
+
+## Bug fixes
+
+- Fixed `@ParameterizedTest` params with numeric-looking string values (e.g. `"0"`, `"-1"`, `"12345"`) still being serialized as JSON numbers despite v4.1.44 fix — the `JsonSerializer<Map<String, String>>` in `JSON.java` was bypassed by `ResultCreate.CustomTypeAdapterFactory` which serializes via `toJsonTree()` delegate adapter
+  - Added params string coercion directly in `ResultCreate.CustomTypeAdapterFactory.write()` to ensure values are always JSON strings after `toJsonTree()` serialization
+
 # qase-java 4.1.44
 
 ## Bug fixes
 
-- Fixed `@ParameterizedTest` params with numeric-looking string values (e.g. `"0"`, `"-1"`, `"12345"`) being serialized as JSON numbers instead of strings, causing HTTP 422 from Qase API (`"The params.content must be a string."`)
-  - Added defensive `JsonSerializer<Map<String, String>>` in `JSON.java` that explicitly writes all values as strings
-  - Protects against Gson version conflicts where type erasure may cause `ObjectTypeAdapter` fallback
+- Attempted fix for `@ParameterizedTest` params serialization — added defensive `JsonSerializer<Map<String, String>>` in `JSON.java` (insufficient, see v4.1.45)
 
 # qase-java 4.1.43
 
