@@ -81,6 +81,26 @@ class ParamsSerializationTest {
     }
 
     @Test
+    void nullAndEmptyParamsShouldSerializeAsEmpty() {
+        Map<String, String> params = new HashMap<>();
+        params.put("paramA", null);
+        params.put("paramB", "");
+        params.put("paramC", "valid");
+
+        ResultCreate result = new ResultCreate()
+                .title("test")
+                .execution(new ResultExecution().status("passed").duration(100L))
+                .params(params);
+
+        String json = JSON.serialize(result);
+        System.out.println("Null/empty params JSON: " + json);
+
+        assertTrue(json.contains("\"paramA\":\"empty\""), "null param should become 'empty', got: " + json);
+        assertTrue(json.contains("\"paramB\":\"empty\""), "empty string param should become 'empty', got: " + json);
+        assertTrue(json.contains("\"paramC\":\"valid\""), "valid param should stay 'valid', got: " + json);
+    }
+
+    @Test
     void verifyDeserializeRoundtrip() {
         // Test that if we deserialize JSON with numeric-looking string params, they remain strings
         String inputJson = "{\"title\":\"test\",\"execution\":{\"status\":\"passed\",\"duration\":100}," +
