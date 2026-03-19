@@ -13,6 +13,7 @@ import io.qase.commons.utils.ClientHeadersBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -246,11 +247,23 @@ public class ApiClientV2 implements ApiClient {
                 .attachments(attachments)
                 .steps(steps)
                 .stepsType(ResultStepsType.CLASSIC)
-                .params(result.params)
+                .params(sanitizeParams(result.params))
                 .paramGroups(result.paramGroups)
                 .relations(relations)
                 .message(result.message)
                 .defect(this.config.testops.defect);
+    }
+
+    private Map<String, String> sanitizeParams(Map<String, String> params) {
+        if (params == null) {
+            return null;
+        }
+        Map<String, String> sanitized = new HashMap<>();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            String value = entry.getValue();
+            sanitized.put(entry.getKey(), (value == null || value.isEmpty()) ? "empty" : value);
+        }
+        return sanitized;
     }
 
     private ResultStep convertStepResult(StepResult step) {

@@ -1,3 +1,12 @@
+# qase-java 4.1.46
+
+## Bug fixes
+
+- Fixed crash and API rejection when `@ParameterizedTest` params contain `null` or empty string `""` values
+  - `null` values caused `UnsupportedOperationException: JsonNull` during serialization, crashing the entire batch upload
+  - Empty strings `""` were rejected by the API as invalid param values
+  - Both are now replaced with `"empty"` string at two levels: in `ApiClientV2.sanitizeParams()` and defensively in `ResultCreate.CustomTypeAdapterFactory.write()`
+
 # qase-java 4.1.45
 
 ## Bug fixes
