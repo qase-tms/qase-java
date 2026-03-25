@@ -26,7 +26,7 @@
 |**suiteId** | **Long** |  |  [optional] |
 |**customFields** | [**List&lt;CustomFieldValue&gt;**](CustomFieldValue.md) |  |  [optional] |
 |**attachments** | [**List&lt;Attachment&gt;**](Attachment.md) |  |  [optional] |
-|**stepsType** | **String** |  |  [optional] |
+|**stepsType** | [**StepsTypeEnum**](#StepsTypeEnum) |  |  [optional] |
 |**steps** | [**List&lt;TestStep&gt;**](TestStep.md) |  |  [optional] |
 |**params** | [**QqlTestCaseParams**](QqlTestCaseParams.md) |  |  [optional] |
 |**tags** | [**List&lt;TagValue&gt;**](TagValue.md) |  |  [optional] |
@@ -35,6 +35,15 @@
 |**createdAt** | **OffsetDateTime** |  |  [optional] |
 |**updatedAt** | **OffsetDateTime** |  |  [optional] |
 |**updatedBy** | **Long** | Author ID of the last update. |  [optional] |
+
+
+
+## Enum: StepsTypeEnum
+
+| Name | Value |
+|---- | -----|
+| CLASSIC | &quot;classic&quot; |
+| GHERKIN | &quot;gherkin&quot; |
 
 
 

@@ -67,6 +67,11 @@ public class TestStepCreate {
   @javax.annotation.Nullable
   private String data;
 
+  public static final String SERIALIZED_NAME_VALUE = "value";
+  @SerializedName(SERIALIZED_NAME_VALUE)
+  @javax.annotation.Nullable
+  private String value;
+
   public static final String SERIALIZED_NAME_POSITION = "position";
   @Deprecated
   @SerializedName(SERIALIZED_NAME_POSITION)
@@ -92,7 +97,7 @@ public class TestStepCreate {
   }
 
   /**
-   * Get action
+   * Step action text. Used for classic steps. For gherkin steps, use the \&quot;value\&quot; property instead.
    * @return action
    */
   @javax.annotation.Nullable
@@ -140,6 +145,25 @@ public class TestStepCreate {
 
   public void setData(@javax.annotation.Nullable String data) {
     this.data = data;
+  }
+
+
+  public TestStepCreate value(@javax.annotation.Nullable String value) {
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Gherkin scenario text. Used when steps_type is \&quot;gherkin\&quot;. Example: \&quot;Given a user exists\\nWhen they log in\\nThen they see the dashboard\&quot;
+   * @return value
+   */
+  @javax.annotation.Nullable
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(@javax.annotation.Nullable String value) {
+    this.value = value;
   }
 
 
@@ -277,6 +301,7 @@ public class TestStepCreate {
     return Objects.equals(this.action, testStepCreate.action) &&
         Objects.equals(this.expectedResult, testStepCreate.expectedResult) &&
         Objects.equals(this.data, testStepCreate.data) &&
+        Objects.equals(this.value, testStepCreate.value) &&
         Objects.equals(this.position, testStepCreate.position) &&
         Objects.equals(this.attachments, testStepCreate.attachments) &&
         Objects.equals(this.steps, testStepCreate.steps)&&
@@ -285,7 +310,7 @@ public class TestStepCreate {
 
   @Override
   public int hashCode() {
-    return Objects.hash(action, expectedResult, data, position, attachments, steps, additionalProperties);
+    return Objects.hash(action, expectedResult, data, value, position, attachments, steps, additionalProperties);
   }
 
   @Override
@@ -295,6 +320,7 @@ public class TestStepCreate {
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
     sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    position: ").append(toIndentedString(position)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
@@ -320,7 +346,7 @@ public class TestStepCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("action", "expected_result", "data", "position", "attachments", "steps"));
+    openapiFields = new HashSet<String>(Arrays.asList("action", "expected_result", "data", "value", "position", "attachments", "steps"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -347,6 +373,9 @@ public class TestStepCreate {
       }
       if ((jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) && !jsonObj.get("data").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `data` to be a primitive type in the JSON string but got `%s`", jsonObj.get("data").toString()));
+      }
+      if ((jsonObj.get("value") != null && !jsonObj.get("value").isJsonNull()) && !jsonObj.get("value").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `value` to be a primitive type in the JSON string but got `%s`", jsonObj.get("value").toString()));
       }
       // ensure the optional json data is an array if present
       if (jsonObj.get("attachments") != null && !jsonObj.get("attachments").isJsonNull() && !jsonObj.get("attachments").isJsonArray()) {

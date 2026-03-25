@@ -25,7 +25,7 @@
 |**suiteId** | **Long** |  |  [optional] |
 |**customFields** | [**List&lt;CustomFieldValue&gt;**](CustomFieldValue.md) |  |  [optional] |
 |**attachments** | [**List&lt;Attachment&gt;**](Attachment.md) |  |  [optional] |
-|**stepsType** | **String** |  |  [optional] |
+|**stepsType** | [**StepsTypeEnum**](#StepsTypeEnum) |  |  [optional] |
 |**steps** | [**List&lt;TestStep&gt;**](TestStep.md) |  |  [optional] |
 |**params** | [**TestCaseParams**](TestCaseParams.md) |  |  [optional] |
 |**parameters** | [**List&lt;TestCaseParameter&gt;**](TestCaseParameter.md) |  |  [optional] |
@@ -38,6 +38,15 @@
 |**created** | **String** | Deprecated, use the &#x60;created_at&#x60; property instead. |  [optional] |
 |**updated** | **String** | Deprecated, use the &#x60;updated_at&#x60; property instead. |  [optional] |
 |**externalIssues** | [**List&lt;ExternalIssue&gt;**](ExternalIssue.md) |  |  [optional] |
+
+
+
+## Enum: StepsTypeEnum
+
+| Name | Value |
+|---- | -----|
+| CLASSIC | &quot;classic&quot; |
+| GHERKIN | &quot;gherkin&quot; |
 
 
 

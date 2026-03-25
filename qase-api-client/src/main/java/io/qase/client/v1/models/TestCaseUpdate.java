@@ -127,6 +127,63 @@ public class TestCaseUpdate {
   @javax.annotation.Nullable
   private Integer status;
 
+  /**
+   * Determines the format of the steps field. When \&quot;classic\&quot;, steps use the standard action/expected_result/data format. When \&quot;gherkin\&quot;, steps use the {value: \&quot;Given...\\nWhen...\\nThen...\&quot;} format.
+   */
+  @JsonAdapter(StepsTypeEnum.Adapter.class)
+  public enum StepsTypeEnum {
+    CLASSIC("classic"),
+    
+    GHERKIN("gherkin");
+
+    private String value;
+
+    StepsTypeEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static StepsTypeEnum fromValue(String value) {
+      for (StepsTypeEnum b : StepsTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<StepsTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StepsTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StepsTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return StepsTypeEnum.fromValue(value);
+      }
+    }
+
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      String value = jsonElement.getAsString();
+      StepsTypeEnum.fromValue(value);
+    }
+  }
+
+  public static final String SERIALIZED_NAME_STEPS_TYPE = "steps_type";
+  @SerializedName(SERIALIZED_NAME_STEPS_TYPE)
+  @javax.annotation.Nullable
+  private StepsTypeEnum stepsType = StepsTypeEnum.CLASSIC;
+
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
   @javax.annotation.Nullable
@@ -427,6 +484,25 @@ public class TestCaseUpdate {
   }
 
 
+  public TestCaseUpdate stepsType(@javax.annotation.Nullable StepsTypeEnum stepsType) {
+    this.stepsType = stepsType;
+    return this;
+  }
+
+  /**
+   * Determines the format of the steps field. When \&quot;classic\&quot;, steps use the standard action/expected_result/data format. When \&quot;gherkin\&quot;, steps use the {value: \&quot;Given...\\nWhen...\\nThen...\&quot;} format.
+   * @return stepsType
+   */
+  @javax.annotation.Nullable
+  public StepsTypeEnum getStepsType() {
+    return stepsType;
+  }
+
+  public void setStepsType(@javax.annotation.Nullable StepsTypeEnum stepsType) {
+    this.stepsType = stepsType;
+  }
+
+
   public TestCaseUpdate attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
@@ -661,6 +737,7 @@ public class TestCaseUpdate {
         Objects.equals(this.milestoneId, testCaseUpdate.milestoneId) &&
         Objects.equals(this.automation, testCaseUpdate.automation) &&
         Objects.equals(this.status, testCaseUpdate.status) &&
+        Objects.equals(this.stepsType, testCaseUpdate.stepsType) &&
         Objects.equals(this.attachments, testCaseUpdate.attachments) &&
         Objects.equals(this.steps, testCaseUpdate.steps) &&
         Objects.equals(this.tags, testCaseUpdate.tags) &&
@@ -676,7 +753,7 @@ public class TestCaseUpdate {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, status, attachments, steps, tags, params, parameters, customField, additionalProperties);
+    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, status, stepsType, attachments, steps, tags, params, parameters, customField, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -704,6 +781,7 @@ public class TestCaseUpdate {
     sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
     sb.append("    automation: ").append(toIndentedString(automation)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    stepsType: ").append(toIndentedString(stepsType)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
@@ -732,7 +810,7 @@ public class TestCaseUpdate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("description", "preconditions", "postconditions", "title", "severity", "priority", "behavior", "type", "layer", "is_flaky", "suite_id", "milestone_id", "automation", "status", "attachments", "steps", "tags", "params", "parameters", "custom_field"));
+    openapiFields = new HashSet<String>(Arrays.asList("description", "preconditions", "postconditions", "title", "severity", "priority", "behavior", "type", "layer", "is_flaky", "suite_id", "milestone_id", "automation", "status", "steps_type", "attachments", "steps", "tags", "params", "parameters", "custom_field"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -762,6 +840,13 @@ public class TestCaseUpdate {
       }
       if ((jsonObj.get("title") != null && !jsonObj.get("title").isJsonNull()) && !jsonObj.get("title").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `title` to be a primitive type in the JSON string but got `%s`", jsonObj.get("title").toString()));
+      }
+      if ((jsonObj.get("steps_type") != null && !jsonObj.get("steps_type").isJsonNull()) && !jsonObj.get("steps_type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("steps_type").toString()));
+      }
+      // validate the optional field `steps_type`
+      if (jsonObj.get("steps_type") != null && !jsonObj.get("steps_type").isJsonNull()) {
+        StepsTypeEnum.validateJsonElement(jsonObj.get("steps_type"));
       }
       // ensure the optional json data is an array if present
       if (jsonObj.get("attachments") != null && !jsonObj.get("attachments").isJsonNull() && !jsonObj.get("attachments").isJsonArray()) {

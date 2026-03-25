@@ -52,7 +52,7 @@
 |**automation** | **Integer** |  |  [optional] |
 |**milestoneId** | **Long** |  |  [optional] |
 |**suiteId** | **Long** |  |  [optional] |
-|**stepsType** | **String** |  |  [optional] |
+|**stepsType** | [**StepsTypeEnum**](#StepsTypeEnum) |  |  [optional] |
 |**params** | [**QqlTestCaseParams**](QqlTestCaseParams.md) |  |  [optional] |
 |**authorId** | **Long** |  |  [optional] |
 |**updatedBy** | **Long** | Author ID of the last update. |  [optional] |
@@ -61,6 +61,15 @@
 |**resolved** | **OffsetDateTime** |  |  [optional] |
 |**externalData** | **String** |  |  [optional] |
 |**casesCount** | **Integer** |  |  [optional] |
+
+
+
+## Enum: StepsTypeEnum
+
+| Name | Value |
+|---- | -----|
+| CLASSIC | &quot;classic&quot; |
+| GHERKIN | &quot;gherkin&quot; |
 
 
 

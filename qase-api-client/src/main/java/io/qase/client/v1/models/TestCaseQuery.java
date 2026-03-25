@@ -154,10 +154,62 @@ public class TestCaseQuery {
   @javax.annotation.Nullable
   private List<Attachment> attachments = new ArrayList<>();
 
+  /**
+   * Gets or Sets stepsType
+   */
+  @JsonAdapter(StepsTypeEnum.Adapter.class)
+  public enum StepsTypeEnum {
+    CLASSIC("classic"),
+    
+    GHERKIN("gherkin");
+
+    private String value;
+
+    StepsTypeEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static StepsTypeEnum fromValue(String value) {
+      for (StepsTypeEnum b : StepsTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StepsTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StepsTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StepsTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return StepsTypeEnum.fromValue(value);
+      }
+    }
+
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      String value = jsonElement.getAsString();
+      StepsTypeEnum.fromValue(value);
+    }
+  }
+
   public static final String SERIALIZED_NAME_STEPS_TYPE = "steps_type";
   @SerializedName(SERIALIZED_NAME_STEPS_TYPE)
   @javax.annotation.Nullable
-  private String stepsType;
+  private StepsTypeEnum stepsType;
 
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
@@ -580,7 +632,7 @@ public class TestCaseQuery {
   }
 
 
-  public TestCaseQuery stepsType(@javax.annotation.Nullable String stepsType) {
+  public TestCaseQuery stepsType(@javax.annotation.Nullable StepsTypeEnum stepsType) {
     this.stepsType = stepsType;
     return this;
   }
@@ -590,11 +642,11 @@ public class TestCaseQuery {
    * @return stepsType
    */
   @javax.annotation.Nullable
-  public String getStepsType() {
+  public StepsTypeEnum getStepsType() {
     return stepsType;
   }
 
-  public void setStepsType(@javax.annotation.Nullable String stepsType) {
+  public void setStepsType(@javax.annotation.Nullable StepsTypeEnum stepsType) {
     this.stepsType = stepsType;
   }
 
@@ -994,6 +1046,10 @@ public class TestCaseQuery {
       }
       if ((jsonObj.get("steps_type") != null && !jsonObj.get("steps_type").isJsonNull()) && !jsonObj.get("steps_type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("steps_type").toString()));
+      }
+      // validate the optional field `steps_type`
+      if (jsonObj.get("steps_type") != null && !jsonObj.get("steps_type").isJsonNull()) {
+        StepsTypeEnum.validateJsonElement(jsonObj.get("steps_type"));
       }
       if (jsonObj.get("steps") != null && !jsonObj.get("steps").isJsonNull()) {
         JsonArray jsonArraysteps = jsonObj.getAsJsonArray("steps");
