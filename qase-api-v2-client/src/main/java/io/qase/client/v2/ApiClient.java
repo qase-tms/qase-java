@@ -142,7 +142,8 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("OpenAPI-Generator/2.0.0/java");
+        String version = getClass().getPackage() != null ? getClass().getPackage().getImplementationVersion() : null;
+        setUserAgent("qase-api-client-java/" + (version != null && !version.isEmpty() ? version : "unknown"));
 
         authentications = new HashMap<String, Authentication>();
     }

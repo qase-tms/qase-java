@@ -1,3 +1,9 @@
+# qase-java 4.1.48
+
+## Bug fixes
+
+- Fixed `User-Agent` header in API clients to follow Qase convention `qase-api-client-java/<version>` — previously set to OpenAPI Generator default value, which prevented the backend from classifying requests as SDK client traffic
+
 # qase-java 4.1.47
 
 - Updated API clients to the latest specification
