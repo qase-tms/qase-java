@@ -83,6 +83,12 @@
             <artifactId>javax.ws.rs-api</artifactId>
             <version>${javax.ws.rs-api-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
