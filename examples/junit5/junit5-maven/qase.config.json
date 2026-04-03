@@ -6,7 +6,7 @@
     "driver": "local",
     "connection": {
       "local": {
-        "path": "./build/qase-report",
+        "path": "./build/report",
         "format": "json"
       }
     }

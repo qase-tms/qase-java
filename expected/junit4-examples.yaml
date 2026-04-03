@@ -1,0 +1,266 @@
+run:
+  stats:
+    passed: 15
+    failed: 2
+    skipped: 0
+    blocked: 0
+    invalid: 0
+    muted: 0
+    total: 17
+results:
+- title: testWithFields
+  signature: 306::example:simpletests::testwithfields
+  testops_ids:
+  - 306
+  execution:
+    status: passed
+  fields:
+    severity: critical
+    description: Verifies login with valid credentials
+    priority: high
+    layer: unit
+  relations:
+    suite:
+      data:
+      - title: example.SimpleTests
+- title: Step failure propagation
+  signature: 314::example:steptests::teststepfailure
+  testops_ids:
+  - 314
+  execution:
+    status: failed
+  steps:
+  - data:
+      action: Open the application
+    execution:
+      status: passed
+    steps:
+    - data:
+        action: Navigate to login page
+      execution:
+        status: passed
+      steps:
+      - data:
+          action: Wait for page to load
+        execution:
+          status: passed
+  - data:
+      action: Step wrapping a failing step
+    execution:
+      status: failed
+    steps:
+    - data:
+        action: Step that fails
+      execution:
+        status: failed
+  relations:
+    suite:
+      data:
+      - title: example.StepTests
+- title: testWithSuite
+  signature: 307::example:simpletests::testwithsuite
+  testops_ids:
+  - 307
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: Suite 1
+- title: testWithFailure
+  signature: 311::example:simpletests::testwithfailure
+  testops_ids:
+  - 311
+  execution:
+    status: failed
+  relations:
+    suite:
+      data:
+      - title: example.SimpleTests
+- title: Login flow with 3+ nested steps
+  signature: 312::example:steptests::testnestedsteps
+  testops_ids:
+  - 312
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Open the application
+    execution:
+      status: passed
+    steps:
+    - data:
+        action: Navigate to login page
+      execution:
+        status: passed
+      steps:
+      - data:
+          action: Wait for page to load
+        execution:
+          status: passed
+  - data:
+      action: Enter credentials for admin
+    execution:
+      status: passed
+  - data:
+      action: Submit the form
+    execution:
+      status: passed
+  - data:
+      action: Verify welcome message for admin
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: example.StepTests
+- title: Attach a file by path
+  signature: 316::example:attachmenttests::testwithfileattachment
+  testops_ids:
+  - 316
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: example.AttachmentTests
+- title: testWithNestedSuites
+  signature: 308::example:simpletests::testwithnestedsuites
+  testops_ids:
+  - 308
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: Parent suite
+      - title: Child suite
+      - title: Grandchild suite
+- title: testWithMultipleQaseIds
+  signature: 302-303-304::example:simpletests::testwithmultipleqaseids
+  testops_ids:
+  - 302
+  - 303
+  - 304
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: example.SimpleTests
+- title: Attachment inside a step
+  signature: 319::example:attachmenttests::testwithattachmentinstep
+  testops_ids:
+  - 319
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Step that creates an attachment
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: example.AttachmentTests
+- title: Steps with parameter interpolation
+  signature: 313::example:steptests::teststepparameterinterpolation
+  testops_ids:
+  - 313
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Enter credentials for testuser
+    execution:
+      status: passed
+  - data:
+      action: Perform action with Widget quantity 5
+    execution:
+      status: passed
+  - data:
+      action: Perform action with Gadget quantity 10
+    execution:
+      status: passed
+  - data:
+      action: Verify welcome message for testuser
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: example.StepTests
+- title: Attach byte array content
+  signature: 318::example:attachmenttests::testwithbytearrayattachment
+  testops_ids:
+  - 318
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: example.AttachmentTests
+- title: Custom test title for reporting
+  signature: 305::example:simpletests::testwithtitle
+  testops_ids:
+  - 305
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: example.SimpleTests
+- title: Add a comment to test results
+  signature: 315::example:attachmenttests::testwithcomment
+  testops_ids:
+  - 315
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: example.AttachmentTests
+- title: testWithQaseId
+  signature: 301::example:simpletests::testwithqaseid
+  testops_ids:
+  - 301
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: example.SimpleTests
+- title: Multiple attachments in one test
+  signature: 320::example:attachmenttests::testwithmultipleattachments
+  testops_ids:
+  - 320
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: example.AttachmentTests
+- title: Attach string content
+  signature: 317::example:attachmenttests::testwithstringattachment
+  testops_ids:
+  - 317
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: example.AttachmentTests
+- title: Combined annotations example
+  signature: 310::example:simpletests::testwithcombinedannotations
+  testops_ids:
+  - 310
+  execution:
+    status: passed
+  fields:
+    severity: normal
+    description: Demonstrates using multiple annotations together
+  relations:
+    suite:
+      data:
+      - title: Regression
+      - title: Smoke

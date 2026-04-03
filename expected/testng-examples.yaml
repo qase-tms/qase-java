@@ -1,0 +1,433 @@
+run:
+  stats:
+    passed: 26
+    failed: 2
+    skipped: 0
+    blocked: 0
+    invalid: 0
+    muted: 0
+    total: 28
+results:
+- title: Login with credentials from data provider
+  signature: 221::org:example::parameterizedtests::testwithmultipleparams::{"arg1":"guest"}::{"arg0":"guest"}
+  testops_ids:
+  - 221
+  execution:
+    status: passed
+  params:
+    arg1: guest
+    arg0: guest
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: Steps with parameter interpolation
+  signature: 213::org:example::steptests::teststepparameterinterpolation
+  testops_ids:
+  - 213
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Enter credentials for testuser
+    execution:
+      status: passed
+  - data:
+      action: Perform action with Widget quantity 5
+    execution:
+      status: passed
+  - data:
+      action: Perform action with Gadget quantity 10
+    execution:
+      status: passed
+  - data:
+      action: Verify welcome message for testuser
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: org.example.StepTests
+- title: Login with credentials from data provider
+  signature: 221::org:example::parameterizedtests::testwithmultipleparams::{"arg1":"password123"}::{"arg0":"user"}
+  testops_ids:
+  - 221
+  execution:
+    status: passed
+  params:
+    arg1: password123
+    arg0: user
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: Browser compatibility test
+  signature: 222::org:example::parameterizedtests::testwithsingleparam::{"arg0":"Chrome"}
+  testops_ids:
+  - 222
+  execution:
+    status: passed
+  params:
+    arg0: Chrome
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: API endpoint response codes
+  signature: 223::org:example::parameterizedtests::testwithmixedparams::{"arg2":"201"}::{"arg1":"/api/users"}::{"arg0":"POST"}
+  testops_ids:
+  - 223
+  execution:
+    status: passed
+  fields:
+    layer: api
+  params:
+    arg2: '201'
+    arg1: /api/users
+    arg0: POST
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: API endpoint response codes
+  signature: 223::org:example::parameterizedtests::testwithmixedparams::{"arg2":"204"}::{"arg1":"/api/users/1"}::{"arg0":"DELETE"}
+  testops_ids:
+  - 223
+  execution:
+    status: passed
+  fields:
+    layer: api
+  params:
+    arg2: '204'
+    arg1: /api/users/1
+    arg0: DELETE
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: Browser compatibility test
+  signature: 222::org:example::parameterizedtests::testwithsingleparam::{"arg0":"Safari"}
+  testops_ids:
+  - 222
+  execution:
+    status: passed
+  params:
+    arg0: Safari
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: Attachment inside a step
+  signature: 219::org:example::attachmenttests::testwithattachmentinstep
+  testops_ids:
+  - 219
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Step that creates an attachment
+    execution:
+      status: passed
+      attachments:
+      - file_name: step-log.txt
+        mime_type: text/plain
+  relations:
+    suite:
+      data:
+      - title: org.example.AttachmentTests
+- title: Multiple attachments in one test
+  signature: 220::org:example::attachmenttests::testwithmultipleattachments
+  testops_ids:
+  - 220
+  execution:
+    status: passed
+  attachments:
+  - file_name: notes.txt
+    mime_type: text/plain
+  - file_name: report.html
+    mime_type: text/html
+  relations:
+    suite:
+      data:
+      - title: org.example.AttachmentTests
+- title: Login flow with 3+ nested steps
+  signature: 212::org:example::steptests::testnestedsteps
+  testops_ids:
+  - 212
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Open the application
+    execution:
+      status: passed
+    steps:
+    - data:
+        action: Navigate to login page
+      execution:
+        status: passed
+      steps:
+      - data:
+          action: Wait for page to load
+        execution:
+          status: passed
+  - data:
+      action: Enter credentials for admin
+    execution:
+      status: passed
+  - data:
+      action: Submit the form
+    execution:
+      status: passed
+  - data:
+      action: Verify welcome message for admin
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: org.example.StepTests
+- title: API endpoint response codes
+  signature: 223::org:example::parameterizedtests::testwithmixedparams::{"arg2":"404"}::{"arg1":"/api/unknown"}::{"arg0":"GET"}
+  testops_ids:
+  - 223
+  execution:
+    status: passed
+  fields:
+    layer: api
+  params:
+    arg2: '404'
+    arg1: /api/unknown
+    arg0: GET
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: Custom test title for reporting
+  signature: 205::org:example::simpletests::testwithtitle
+  testops_ids:
+  - 205
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: org.example.SimpleTests
+- title: testWithNestedSuites
+  signature: 208::org:example::simpletests::testwithnestedsuites
+  testops_ids:
+  - 208
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: Parent suite
+      - title: Child suite
+      - title: Grandchild suite
+- title: testWithFailure
+  signature: 211::org:example::simpletests::testwithfailure
+  testops_ids:
+  - 211
+  execution:
+    status: failed
+  relations:
+    suite:
+      data:
+      - title: org.example.SimpleTests
+- title: Combined annotations example
+  signature: 210::org:example::simpletests::testwithcombinedannotations
+  testops_ids:
+  - 210
+  execution:
+    status: passed
+  fields:
+    severity: normal
+    description: Demonstrates using multiple annotations together
+  relations:
+    suite:
+      data:
+      - title: Regression
+      - title: Smoke
+- title: testWithMultipleQaseIds
+  signature: 202-203-204::org:example::simpletests::testwithmultipleqaseids
+  testops_ids:
+  - 202
+  - 203
+  - 204
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: org.example.SimpleTests
+- title: testWithQaseId
+  signature: 201::org:example::simpletests::testwithqaseid
+  testops_ids:
+  - 201
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: org.example.SimpleTests
+- title: Attach string content
+  signature: 217::org:example::attachmenttests::testwithstringattachment
+  testops_ids:
+  - 217
+  execution:
+    status: passed
+  attachments:
+  - file_name: log-output.txt
+    mime_type: text/plain
+  relations:
+    suite:
+      data:
+      - title: org.example.AttachmentTests
+- title: Browser compatibility test
+  signature: 222::org:example::parameterizedtests::testwithsingleparam::{"arg0":"Edge"}
+  testops_ids:
+  - 222
+  execution:
+    status: passed
+  params:
+    arg0: Edge
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: Attach a file by path
+  signature: 216::org:example::attachmenttests::testwithfileattachment
+  testops_ids:
+  - 216
+  execution:
+    status: passed
+  attachments:
+  - file_name: test-attachment.txt
+  relations:
+    suite:
+      data:
+      - title: org.example.AttachmentTests
+- title: Step failure propagation
+  signature: 214::org:example::steptests::teststepfailure
+  testops_ids:
+  - 214
+  execution:
+    status: failed
+  steps:
+  - data:
+      action: Open the application
+    execution:
+      status: passed
+    steps:
+    - data:
+        action: Navigate to login page
+      execution:
+        status: passed
+      steps:
+      - data:
+          action: Wait for page to load
+        execution:
+          status: passed
+  - data:
+      action: Step wrapping a failing step
+    execution:
+      status: failed
+    steps:
+    - data:
+        action: Step that fails
+      execution:
+        status: failed
+  relations:
+    suite:
+      data:
+      - title: org.example.StepTests
+- title: Add a comment to test results
+  signature: 215::org:example::attachmenttests::testwithcomment
+  testops_ids:
+  - 215
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: org.example.AttachmentTests
+- title: API endpoint response codes
+  signature: 223::org:example::parameterizedtests::testwithmixedparams::{"arg2":"200"}::{"arg1":"/api/users"}::{"arg0":"GET"}
+  testops_ids:
+  - 223
+  execution:
+    status: passed
+  fields:
+    layer: api
+  params:
+    arg2: '200'
+    arg1: /api/users
+    arg0: GET
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: Login with credentials from data provider
+  signature: 221::org:example::parameterizedtests::testwithmultipleparams::{"arg1":"secret"}::{"arg0":"admin"}
+  testops_ids:
+  - 221
+  execution:
+    status: passed
+  params:
+    arg1: secret
+    arg0: admin
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests
+- title: testWithSuite
+  signature: 207::org:example::simpletests::testwithsuite
+  testops_ids:
+  - 207
+  execution:
+    status: passed
+  relations:
+    suite:
+      data:
+      - title: Suite 1
+- title: testWithFields
+  signature: 206::org:example::simpletests::testwithfields
+  testops_ids:
+  - 206
+  execution:
+    status: passed
+  fields:
+    severity: critical
+    description: Verifies login with valid credentials
+    priority: high
+    layer: unit
+  relations:
+    suite:
+      data:
+      - title: org.example.SimpleTests
+- title: Attach byte array content
+  signature: 218::org:example::attachmenttests::testwithbytearrayattachment
+  testops_ids:
+  - 218
+  execution:
+    status: passed
+  attachments:
+  - file_name: result.json
+    mime_type: application/json
+  relations:
+    suite:
+      data:
+      - title: org.example.AttachmentTests
+- title: Browser compatibility test
+  signature: 222::org:example::parameterizedtests::testwithsingleparam::{"arg0":"Firefox"}
+  testops_ids:
+  - 222
+  execution:
+    status: passed
+  params:
+    arg0: Firefox
+  relations:
+    suite:
+      data:
+      - title: org.example.ParameterizedTests

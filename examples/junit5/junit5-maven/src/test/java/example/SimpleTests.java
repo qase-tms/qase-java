@@ -7,29 +7,26 @@ import org.junit.jupiter.api.Test;
 public class SimpleTests {
 
     @Test
-    public void testWithoutAnnotation() {
-        System.out.println("Test without any Qase annotation");
-    }
-
-    @Test
     @QaseId(1)
     public void testWithQaseId() {
         System.out.println("Test linked to case ID 1");
     }
 
     @Test
-    @QaseIds({1, 2, 3})
+    @QaseIds({2, 3, 4})
     public void testWithMultipleQaseIds() {
-        System.out.println("Test linked to case IDs 1, 2, and 3");
+        System.out.println("Test linked to case IDs 2, 3, and 4");
     }
 
     @Test
+    @QaseId(5)
     @QaseTitle("Custom test title for reporting")
     public void testWithTitle() {
         System.out.println("Test with a custom title");
     }
 
     @Test
+    @QaseId(6)
     @QaseFields(value = {
             @Field(name = "description", value = "Verifies login with valid credentials"),
             @Field(name = "severity", value = "critical"),
@@ -41,18 +38,21 @@ public class SimpleTests {
     }
 
     @Test
+    @QaseId(7)
     @QaseSuite("Suite 1")
     public void testWithSuite() {
         System.out.println("Test assigned to Suite 1");
     }
 
     @Test
+    @QaseId(8)
     @QaseSuite("Parent suite\tChild suite\tGrandchild suite")
     public void testWithNestedSuites() {
         System.out.println("Test assigned to nested suite hierarchy");
     }
 
     @Test
+    @QaseId(9)
     @QaseIgnore
     public void testWithIgnore() {
         System.out.println("This test is excluded from Qase reporting");
@@ -71,6 +71,7 @@ public class SimpleTests {
     }
 
     @Test
+    @QaseId(101)
     public void testWithFailure() {
         System.out.println("This test will fail");
         throw new AssertionError("Expected failure to demonstrate failure reporting");

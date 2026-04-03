@@ -21,6 +21,56 @@ jobs:
       - name: Maven Verify
         run: mvn -B clean verify
 
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - framework: junit5
+            example-dir: examples/junit5/junit5-maven
+            expected-file: expected/junit5-examples.yaml
+          - framework: testng
+            example-dir: examples/testng/testng-maven
+            expected-file: expected/testng-examples.yaml
+          - framework: junit4
+            example-dir: examples/junit4/junit4-maven
+            expected-file: expected/junit4-examples.yaml
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+          cache-dependency-path: '**/pom.xml'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install reporters-validator
+        run: pip install git+https://github.com/qase-tms/reporters-validator.git
+
+      - name: Download report schemas
+        run: git clone --depth 1 https://github.com/qase-tms/specs.git /tmp/specs
+
+      - name: Build project
+        run: mvn -B clean install -DskipTests
+
+      - name: Validate ${{ matrix.framework }} reporter
+        run: |
+          cd ${{ matrix.example-dir }}
+          QASE_MODE=report mvn -B test || true
+
+          reporters-validator validate \
+            --report-dir ${{ github.workspace }}/${{ matrix.example-dir }}/build/report \
+            --expected ${{ github.workspace }}/${{ matrix.expected-file }} \
+            --schema-dir /tmp/specs/report/schemas
+
   publish:
     runs-on: ubuntu-latest
     permissions:
