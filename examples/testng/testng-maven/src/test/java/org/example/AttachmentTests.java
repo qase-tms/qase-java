@@ -1,5 +1,6 @@
 package org.example;
 
+import io.qase.commons.annotation.QaseId;
 import io.qase.commons.annotation.QaseTitle;
 import io.qase.commons.annotation.Step;
 import io.qase.testng.Qase;
@@ -11,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 public class AttachmentTests {
 
     @Test
+    @QaseId(215)
     @QaseTitle("Add a comment to test results")
     public void testWithComment() {
         Qase.comment("This is a comment added during test execution");
@@ -18,6 +20,7 @@ public class AttachmentTests {
     }
 
     @Test
+    @QaseId(216)
     @QaseTitle("Attach a file by path")
     public void testWithFileAttachment() {
         URL resource = getClass().getClassLoader().getResource("test-attachment.txt");
@@ -28,6 +31,7 @@ public class AttachmentTests {
     }
 
     @Test
+    @QaseId(217)
     @QaseTitle("Attach string content")
     public void testWithStringAttachment() {
         Qase.attach("log-output.txt", "2024-01-15 INFO: Test started\n2024-01-15 INFO: Test completed", "text/plain");
@@ -35,6 +39,7 @@ public class AttachmentTests {
     }
 
     @Test
+    @QaseId(218)
     @QaseTitle("Attach byte array content")
     public void testWithByteArrayAttachment() {
         String jsonContent = "{\"status\": \"passed\", \"duration\": 1500}";
@@ -50,6 +55,7 @@ public class AttachmentTests {
     }
 
     @Test
+    @QaseId(219)
     @QaseTitle("Attachment inside a step")
     public void testWithAttachmentInStep() {
         System.out.println("Test demonstrating attachment inside a step");
@@ -57,6 +63,7 @@ public class AttachmentTests {
     }
 
     @Test
+    @QaseId(220)
     @QaseTitle("Multiple attachments in one test")
     public void testWithMultipleAttachments() {
         Qase.comment("Test with multiple attachments");

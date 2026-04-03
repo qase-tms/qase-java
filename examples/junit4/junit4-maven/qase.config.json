@@ -6,14 +6,14 @@
     "driver": "local",
     "connection": {
       "local": {
-        "path": "./build/qase-report",
+        "path": "./build/report",
         "format": "json"
       }
     }
   },
   "testops": {
     "api": {
-      "token": "0d4fa8d629824f8fdbb7ff61c1d0286d9acee18144835e1c731fbbcf8f5e2fb6",
+      "token": "<token>",
       "host": "qase.io"
     },
     "run": {
@@ -22,7 +22,7 @@
       "complete": true
     },
     "defect": false,
-    "project": "DEVX",
+    "project": "<project code>",
     "batch": {
       "size": 200
     },

@@ -65,7 +65,7 @@ public class StepTests {
     // --- Test methods ---
 
     @Test
-    @QaseId(10)
+    @QaseId(312)
     @QaseTitle("Login flow with 3+ nested steps")
     public void testNestedSteps() {
         openApplication();
@@ -75,6 +75,7 @@ public class StepTests {
     }
 
     @Test
+    @QaseId(313)
     @QaseTitle("Steps with parameter interpolation")
     public void testStepParameterInterpolation() {
         enterCredentials("testuser");
@@ -84,6 +85,7 @@ public class StepTests {
     }
 
     @Test
+    @QaseId(314)
     @QaseTitle("Step failure propagation")
     public void testStepFailure() {
         openApplication();

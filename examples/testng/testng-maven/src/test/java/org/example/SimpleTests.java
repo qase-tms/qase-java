@@ -7,29 +7,26 @@ import org.testng.annotations.Test;
 public class SimpleTests {
 
     @Test
-    public void testWithoutAnnotation() {
-        System.out.println("Test without any Qase annotation");
-    }
-
-    @Test
-    @QaseId(1)
+    @QaseId(201)
     public void testWithQaseId() {
-        System.out.println("Test linked to case ID 1");
+        System.out.println("Test linked to case ID 201");
     }
 
     @Test
-    @QaseIds({1, 2, 3})
+    @QaseIds({202, 203, 204})
     public void testWithMultipleQaseIds() {
-        System.out.println("Test linked to case IDs 1, 2, and 3");
+        System.out.println("Test linked to case IDs 202, 203, and 204");
     }
 
     @Test
+    @QaseId(205)
     @QaseTitle("Custom test title for reporting")
     public void testWithTitle() {
         System.out.println("Test with a custom title");
     }
 
     @Test
+    @QaseId(206)
     @QaseFields(value = {
             @Field(name = "description", value = "Verifies login with valid credentials"),
             @Field(name = "severity", value = "critical"),
@@ -41,25 +38,28 @@ public class SimpleTests {
     }
 
     @Test
+    @QaseId(207)
     @QaseSuite("Suite 1")
     public void testWithSuite() {
         System.out.println("Test assigned to Suite 1");
     }
 
     @Test
+    @QaseId(208)
     @QaseSuite("Parent suite\tChild suite\tGrandchild suite")
     public void testWithNestedSuites() {
         System.out.println("Test assigned to nested suite hierarchy");
     }
 
     @Test
+    @QaseId(209)
     @QaseIgnore
     public void testWithIgnore() {
         System.out.println("This test is excluded from Qase reporting");
     }
 
     @Test
-    @QaseId(100)
+    @QaseId(210)
     @QaseTitle("Combined annotations example")
     @QaseFields(value = {
             @Field(name = "description", value = "Demonstrates using multiple annotations together"),
@@ -70,7 +70,8 @@ public class SimpleTests {
         System.out.println("Test with multiple Qase annotations combined");
     }
 
-    @Test(expectedExceptions = AssertionError.class)
+    @Test
+    @QaseId(211)
     public void testWithFailure() {
         System.out.println("This test will fail");
         throw new AssertionError("Expected failure to demonstrate failure reporting");

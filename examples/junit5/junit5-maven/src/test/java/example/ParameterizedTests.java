@@ -26,6 +26,7 @@ public class ParameterizedTests {
 
     @ParameterizedTest
     @MethodSource("loginCredentials")
+    @QaseId(19)
     @QaseTitle("Login with credentials from method source")
     public void testWithMethodSource(String username, String password) {
         System.out.println("Login with " + username + " / " + password);
@@ -50,6 +51,7 @@ public class ParameterizedTests {
             "DELETE, /api/users/1, 204",
             "GET, /api/unknown, 404"
     })
+    @QaseId(21)
     @QaseTitle("API endpoint response codes")
     @QaseFields(value = {
             @Field(name = "layer", value = "api"),
