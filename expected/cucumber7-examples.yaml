@@ -1,0 +1,439 @@
+run:
+  stats:
+    passed: 19
+    failed: 0
+    skipped: 0
+    blocked: 0
+    invalid: 0
+    muted: 0
+    total: 19
+results:
+- title: Test with QaseSuite
+  signature: 406::classpath:features::simple-tests.feature::test_with_qasesuite
+  testops_ids:
+  - 406
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: Suite01
+- title: Custom_test_title
+  signature: 404::classpath:features::simple-tests.feature::custom_test_title
+  testops_ids:
+  - 404
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: simple-tests.feature
+- title: Test with multiple QaseIds
+  signature: 402-403::classpath:features::simple-tests.feature::test_with_multiple_qaseids
+  testops_ids:
+  - 402
+  - 403
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: simple-tests.feature
+- title: Process items with quantities
+  signature: 411::classpath:features::params-tests.feature::process_items_with_quantities::{"item":"Widget"}::{"quantity":"5"}
+  testops_ids:
+  - 411
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  an item "Widget" with quantity 5
+    execution:
+      status: passed
+  - data:
+      action: When  the item is processed
+    execution:
+      status: passed
+  - data:
+      action: Then  the processing completes
+    execution:
+      status: passed
+  params:
+    item: Widget
+    quantity: '5'
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: params-tests.feature
+- title: Combined_annotations
+  signature: 409::classpath:features::simple-tests.feature::combined_annotations
+  testops_ids:
+  - 409
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: simple-tests.feature
+- title: Test with QaseId
+  signature: 401::classpath:features::simple-tests.feature::test_with_qaseid
+  testops_ids:
+  - 401
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: simple-tests.feature
+- title: Login with different credentials
+  signature: 410::classpath:features::params-tests.feature::login_with_different_credentials::{"result":"limited"}::{"username":"guest"}
+  testops_ids:
+  - 410
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  a user with username "guest"
+    execution:
+      status: passed
+  - data:
+      action: When  the user attempts to login
+    execution:
+      status: passed
+  - data:
+      action: Then  the login result is "limited"
+    execution:
+      status: passed
+  params:
+    result: limited
+    username: guest
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: params-tests.feature
+- title: Attach a file
+  signature: 413::classpath:features::attachment-tests.feature::attach_a_file
+  testops_ids:
+  - 413
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  a file is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: test-attachment.txt
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: attachment-tests.feature
+- title: Attachment inside a nested step
+  signature: 416::classpath:features::attachment-tests.feature::attachment_inside_a_nested_step
+  testops_ids:
+  - 416
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  a nested step adds an attachment
+    execution:
+      status: passed
+      attachments:
+      - file_name: nested-log.txt
+        mime_type: text/plain
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: attachment-tests.feature
+- title: Attach byte array content
+  signature: 415::classpath:features::attachment-tests.feature::attach_byte_array_content
+  testops_ids:
+  - 415
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  byte array content is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: result.json
+        mime_type: application/json
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: attachment-tests.feature
+- title: Login with different credentials
+  signature: 410::classpath:features::params-tests.feature::login_with_different_credentials::{"result":"denied"}::{"username":"invalid"}
+  testops_ids:
+  - 410
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  a user with username "invalid"
+    execution:
+      status: passed
+  - data:
+      action: When  the user attempts to login
+    execution:
+      status: passed
+  - data:
+      action: Then  the login result is "denied"
+    execution:
+      status: passed
+  params:
+    result: denied
+    username: invalid
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: params-tests.feature
+- title: Add a comment
+  signature: 412::classpath:features::attachment-tests.feature::add_a_comment
+  testops_ids:
+  - 412
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  a comment is added
+    execution:
+      status: passed
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: attachment-tests.feature
+- title: Attach string content
+  signature: 414::classpath:features::attachment-tests.feature::attach_string_content
+  testops_ids:
+  - 414
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  string content is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: log-output.txt
+        mime_type: text/plain
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: attachment-tests.feature
+- title: Test with QaseFields
+  signature: 405::classpath:features::simple-tests.feature::test_with_qasefields
+  testops_ids:
+  - 405
+  execution:
+    status: passed
+  fields:
+    description: Verifies_login
+    severity: critical
+    priority: high
+    layer: e2e
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: simple-tests.feature
+- title: Process items with quantities
+  signature: 411::classpath:features::params-tests.feature::process_items_with_quantities::{"item":"Gadget"}::{"quantity":"10"}
+  testops_ids:
+  - 411
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  an item "Gadget" with quantity 10
+    execution:
+      status: passed
+  - data:
+      action: When  the item is processed
+    execution:
+      status: passed
+  - data:
+      action: Then  the processing completes
+    execution:
+      status: passed
+  params:
+    item: Gadget
+    quantity: '10'
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: params-tests.feature
+- title: Login with different credentials
+  signature: 410::classpath:features::params-tests.feature::login_with_different_credentials::{"result":"success"}::{"username":"admin"}
+  testops_ids:
+  - 410
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  a user with username "admin"
+    execution:
+      status: passed
+  - data:
+      action: When  the user attempts to login
+    execution:
+      status: passed
+  - data:
+      action: Then  the login result is "success"
+    execution:
+      status: passed
+  params:
+    result: success
+    username: admin
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: params-tests.feature
+- title: Test with nested QaseSuite
+  signature: 407::classpath:features::simple-tests.feature::test_with_nested_qasesuite
+  testops_ids:
+  - 407
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: Parent
+      - title: Child
+      - title: Grandchild
+- title: Process items with quantities
+  signature: 411::classpath:features::params-tests.feature::process_items_with_quantities::{"item":"Gizmo"}::{"quantity":"1"}
+  testops_ids:
+  - 411
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  an item "Gizmo" with quantity 1
+    execution:
+      status: passed
+  - data:
+      action: When  the item is processed
+    execution:
+      status: passed
+  - data:
+      action: Then  the processing completes
+    execution:
+      status: passed
+  params:
+    item: Gizmo
+    quantity: '1'
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: params-tests.feature
+- title: Multiple attachments in one scenario
+  signature: 417::classpath:features::attachment-tests.feature::multiple_attachments_in_one_scenario
+  testops_ids:
+  - 417
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  a comment is added
+    execution:
+      status: passed
+  - data:
+      action: And  string content is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: log-output.txt
+        mime_type: text/plain
+  - data:
+      action: And  byte array content is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: result.json
+        mime_type: application/json
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: classpath:features
+      - title: attachment-tests.feature

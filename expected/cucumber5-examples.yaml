@@ -1,0 +1,694 @@
+run:
+  stats:
+    passed: 19
+    failed: 0
+    skipped: 0
+    blocked: 0
+    invalid: 0
+    muted: 0
+    total: 19
+results:
+- title: Add a comment
+  signature: 512::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::attachment-tests.feature::add_a_comment
+  testops_ids:
+  - 512
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  a comment is added
+    execution:
+      status: passed
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: attachment-tests.feature
+- title: Attach byte array content
+  signature: 515::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::attachment-tests.feature::attach_byte_array_content
+  testops_ids:
+  - 515
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  byte array content is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: result.json
+        mime_type: application/json
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: attachment-tests.feature
+- title: Test with QaseSuite
+  signature: 506::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::simple-tests.feature::test_with_qasesuite
+  testops_ids:
+  - 506
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: Suite01
+- title: Login with different credentials
+  signature: 510::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::params-tests.feature::login_with_different_credentials::{"result":"success"}::{"username":"admin"}
+  testops_ids:
+  - 510
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  a user with username "admin"
+    execution:
+      status: passed
+  - data:
+      action: When  the user attempts to login
+    execution:
+      status: passed
+  - data:
+      action: Then  the login result is "success"
+    execution:
+      status: passed
+  params:
+    result: success
+    username: admin
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: params-tests.feature
+- title: Login with different credentials
+  signature: 510::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::params-tests.feature::login_with_different_credentials::{"result":"denied"}::{"username":"invalid"}
+  testops_ids:
+  - 510
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  a user with username "invalid"
+    execution:
+      status: passed
+  - data:
+      action: When  the user attempts to login
+    execution:
+      status: passed
+  - data:
+      action: Then  the login result is "denied"
+    execution:
+      status: passed
+  params:
+    result: denied
+    username: invalid
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: params-tests.feature
+- title: Attachment inside a nested step
+  signature: 516::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::attachment-tests.feature::attachment_inside_a_nested_step
+  testops_ids:
+  - 516
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  a nested step adds an attachment
+    execution:
+      status: passed
+      attachments:
+      - file_name: nested-log.txt
+        mime_type: text/plain
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: attachment-tests.feature
+- title: Process items with quantities
+  signature: 511::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::params-tests.feature::process_items_with_quantities::{"item":"Gadget"}::{"quantity":"10"}
+  testops_ids:
+  - 511
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  an item "Gadget" with quantity 10
+    execution:
+      status: passed
+  - data:
+      action: When  the item is processed
+    execution:
+      status: passed
+  - data:
+      action: Then  the processing completes
+    execution:
+      status: passed
+  params:
+    item: Gadget
+    quantity: '10'
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: params-tests.feature
+- title: Process items with quantities
+  signature: 511::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::params-tests.feature::process_items_with_quantities::{"item":"Gizmo"}::{"quantity":"1"}
+  testops_ids:
+  - 511
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  an item "Gizmo" with quantity 1
+    execution:
+      status: passed
+  - data:
+      action: When  the item is processed
+    execution:
+      status: passed
+  - data:
+      action: Then  the processing completes
+    execution:
+      status: passed
+  params:
+    item: Gizmo
+    quantity: '1'
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: params-tests.feature
+- title: Login with different credentials
+  signature: 510::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::params-tests.feature::login_with_different_credentials::{"result":"limited"}::{"username":"guest"}
+  testops_ids:
+  - 510
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  a user with username "guest"
+    execution:
+      status: passed
+  - data:
+      action: When  the user attempts to login
+    execution:
+      status: passed
+  - data:
+      action: Then  the login result is "limited"
+    execution:
+      status: passed
+  params:
+    result: limited
+    username: guest
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: params-tests.feature
+- title: Custom_test_title
+  signature: 504::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::simple-tests.feature::custom_test_title
+  testops_ids:
+  - 504
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: simple-tests.feature
+- title: Process items with quantities
+  signature: 511::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::params-tests.feature::process_items_with_quantities::{"item":"Widget"}::{"quantity":"5"}
+  testops_ids:
+  - 511
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Given  an item "Widget" with quantity 5
+    execution:
+      status: passed
+  - data:
+      action: When  the item is processed
+    execution:
+      status: passed
+  - data:
+      action: Then  the processing completes
+    execution:
+      status: passed
+  params:
+    item: Widget
+    quantity: '5'
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: params-tests.feature
+- title: Test with QaseFields
+  signature: 505::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::simple-tests.feature::test_with_qasefields
+  testops_ids:
+  - 505
+  execution:
+    status: passed
+  fields:
+    description: Verifies_login
+    severity: critical
+    priority: high
+    layer: e2e
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: simple-tests.feature
+- title: Test with multiple QaseIds
+  signature: 502-503::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::simple-tests.feature::test_with_multiple_qaseids
+  testops_ids:
+  - 502
+  - 503
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: simple-tests.feature
+- title: Test with nested QaseSuite
+  signature: 507::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::simple-tests.feature::test_with_nested_qasesuite
+  testops_ids:
+  - 507
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: Parent
+      - title: Child
+      - title: Grandchild
+- title: Multiple attachments in one scenario
+  signature: 517::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::attachment-tests.feature::multiple_attachments_in_one_scenario
+  testops_ids:
+  - 517
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  a comment is added
+    execution:
+      status: passed
+  - data:
+      action: And  string content is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: log-output.txt
+        mime_type: text/plain
+  - data:
+      action: And  byte array content is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: result.json
+        mime_type: application/json
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: attachment-tests.feature
+- title: Test with QaseId
+  signature: 501::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::simple-tests.feature::test_with_qaseid
+  testops_ids:
+  - 501
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: simple-tests.feature
+- title: Attach a file
+  signature: 513::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::attachment-tests.feature::attach_a_file
+  testops_ids:
+  - 513
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  a file is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: test-attachment.txt
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: attachment-tests.feature
+- title: Combined_annotations
+  signature: 509::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::simple-tests.feature::combined_annotations
+  testops_ids:
+  - 509
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: simple-tests.feature
+- title: Attach string content
+  signature: 514::file:::::::users::gda::documents::github::qase-tms::qase-java::examples::cucumber5::cucumber5-maven::src::test::resources::features::attachment-tests.feature::attach_string_content
+  testops_ids:
+  - 514
+  execution:
+    status: passed
+  steps:
+  - data:
+      action: When  string content is attached
+    execution:
+      status: passed
+      attachments:
+      - file_name: log-output.txt
+        mime_type: text/plain
+  - data:
+      action: Then  the test passes
+    execution:
+      status: passed
+  relations:
+    suite:
+      data:
+      - title: 'file:'
+      - title: ''
+      - title: ''
+      - title: Users
+      - title: gda
+      - title: Documents
+      - title: github
+      - title: qase-tms
+      - title: qase-java
+      - title: examples
+      - title: cucumber5
+      - title: cucumber5-maven
+      - title: src
+      - title: test
+      - title: resources
+      - title: features
+      - title: attachment-tests.feature

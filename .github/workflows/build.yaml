@@ -37,6 +37,12 @@ jobs:
           - framework: junit4
             example-dir: examples/junit4/junit4-maven
             expected-file: expected/junit4-examples.yaml
+          - framework: cucumber7
+            example-dir: examples/cucumber7/cucumber7-maven-junit5
+            expected-file: expected/cucumber7-examples.yaml
+          - framework: cucumber5
+            example-dir: examples/cucumber5/cucumber5-maven
+            expected-file: expected/cucumber5-examples.yaml
     steps:
       - uses: actions/checkout@v4
 
