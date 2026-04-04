@@ -1,7 +1,7 @@
 Feature: Parameterized tests
   Demonstrates Scenario Outline with Examples table and Qase tags.
 
-  @QaseId=50
+  @QaseId=510
   Scenario Outline: Login with different credentials
     Given a user with username "<username>"
     When the user attempts to login
@@ -13,6 +13,7 @@ Feature: Parameterized tests
       | guest    | limited |
       | invalid  | denied  |
 
+  @QaseId=511
   Scenario Outline: Process items with quantities
     Given an item "<item>" with quantity <quantity>
     When the item is processed
