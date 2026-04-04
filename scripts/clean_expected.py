@@ -4,6 +4,7 @@ Cleans expected YAML files by removing dynamic fields that change between runs.
 Usage: python scripts/clean_expected.py expected/*.yaml
 """
 
+import re
 import sys
 import yaml
 
@@ -53,13 +54,32 @@ def clean_step(step):
     return cleaned
 
 
+def normalize_signature(sig):
+    """Normalize Cucumber file-based signatures to be path-independent.
+
+    Cucumber 5 and earlier produce signatures with absolute file paths like:
+      512::file:::::::users::gda::...::features::attachment-tests.feature::scenario_name
+    Replace the absolute path prefix with just 'file::features::' to make it portable.
+    """
+    if not sig or "::file::" not in sig:
+        return sig
+    # Match: <ids>::file::<absolute-path>::features::<rest>
+    m = re.match(r"^(.+?::file::).+?(features::.+)$", sig)
+    if m:
+        return m.group(1) + m.group(2)
+    return sig
+
+
 def clean_result(result):
     """Clean a single test result."""
     cleaned = {}
 
-    for key in ("title", "signature", "testops_id", "testops_ids"):
+    for key in ("title", "testops_id", "testops_ids"):
         if key in result and result[key]:
             cleaned[key] = result[key]
+
+    if "signature" in result and result["signature"]:
+        cleaned["signature"] = normalize_signature(result["signature"])
 
     if "execution" in result and isinstance(result["execution"], dict):
         exec_cleaned = {}
