@@ -75,6 +75,7 @@ public class StepTests {
     }
 
     @Test
+    @QaseId(11)
     @QaseTitle("Steps with parameter interpolation")
     public void testStepParameterInterpolation() {
         enterCredentials("testuser");
@@ -84,6 +85,7 @@ public class StepTests {
     }
 
     @Test
+    @QaseId(12)
     @QaseTitle("Step failure propagation")
     public void testStepFailure() {
         openApplication();

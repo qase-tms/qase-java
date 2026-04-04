@@ -39,19 +39,21 @@ public class ParameterizedTests {
     }
 
     @Test(dataProvider = "login-credentials")
+    @QaseId(221)
     @QaseTitle("Login with credentials from data provider")
     public void testWithMultipleParams(String username, String password) {
         System.out.println("Login with " + username + " / " + password);
     }
 
     @Test(dataProvider = "browsers")
-    @QaseId(20)
+    @QaseId(222)
     @QaseTitle("Browser compatibility test")
     public void testWithSingleParam(String browser) {
         System.out.println("Testing with browser: " + browser);
     }
 
     @Test(dataProvider = "api-endpoints")
+    @QaseId(223)
     @QaseTitle("API endpoint response codes")
     @QaseFields(value = {
             @Field(name = "layer", value = "api"),
