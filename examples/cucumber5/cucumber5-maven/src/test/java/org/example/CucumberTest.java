@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 @Test
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "classpath:features",
         glue = "org.example",
         plugin = {
                 "io.qase.cucumber5.QaseEventListener",
