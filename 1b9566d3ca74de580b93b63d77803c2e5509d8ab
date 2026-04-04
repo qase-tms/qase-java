@@ -1,0 +1,43 @@
+examples/cucumber7/cucumber7-maven-junit5/src/test/resources/features/params-tests.feature
+  a68ecc3bbacd105c 4,16
+.github/workflows/build.yaml
+  a68ecc3bbacd105c 40-45
+examples/cucumber5/cucumber5-maven/src/test/resources/features/params-tests.feature
+  a68ecc3bbacd105c 4,16
+examples/cucumber7/cucumber7-maven-junit5/src/test/resources/features/attachment-tests.feature
+  a68ecc3bbacd105c 4,9,14,19,24,29
+examples/cucumber5/cucumber5-maven/src/test/resources/features/simple-tests.feature
+  a68ecc3bbacd105c 4,8,12,16,20,24,28,32
+examples/cucumber7/cucumber7-maven-junit5/qase.config.json
+  a68ecc3bbacd105c 9
+examples/cucumber7/cucumber7-maven-junit5/src/test/resources/features/simple-tests.feature
+  a68ecc3bbacd105c 4,8,12,16,20,24,28,32
+examples/cucumber5/cucumber5-maven/src/test/resources/features/attachment-tests.feature
+  a68ecc3bbacd105c 4,9,14,19,24,29
+examples/cucumber5/cucumber5-maven/qase.config.json
+  a68ecc3bbacd105c 9
+examples/cucumber7/cucumber7-maven-junit5/pom.xml
+  a68ecc3bbacd105c 16
+examples/cucumber5/cucumber5-maven/pom.xml
+  a68ecc3bbacd105c 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "1b9566d3ca74de580b93b63d77803c2e5509d8ab",
+  "prompts": {
+    "a68ecc3bbacd105c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bde4b325-eb7f-4e1e-a793-743af8e32d76",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 42,
+      "total_deletions": 28,
+      "accepted_lines": 42,
+      "overriden_lines": 0
+    }
+  }
+}
