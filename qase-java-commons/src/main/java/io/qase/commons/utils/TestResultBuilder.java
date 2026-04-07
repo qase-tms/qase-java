@@ -209,6 +209,7 @@ public final class TestResultBuilder {
         }
         Map<String, String> fields = CucumberUtils.getCaseFields(tags);
         String suite = CucumberUtils.getCaseSuite(tags);
+        List<String> caseTags = CucumberUtils.getCaseTags(tags);
 
         result.execution.startTime = startTime;
         result.execution.thread = Thread.currentThread().getName();
@@ -216,6 +217,7 @@ public final class TestResultBuilder {
         result.title = caseTitle;
         result.params = parameters != null ? parameters : new java.util.HashMap<String, String>();
         result.fields = fields;
+        result.tags = caseTags;
         result.relations = buildCucumberRelations(suite, adapter.getUriPathParts());
 
         ArrayList<String> suites = new ArrayList<>(adapter.getUriPathParts());

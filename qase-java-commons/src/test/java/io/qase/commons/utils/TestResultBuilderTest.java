@@ -490,4 +490,50 @@ class TestResultBuilderTest {
         assertEquals("login", result.relations.suite.data.get(1).title);
         assertEquals("auth", result.relations.suite.data.get(2).title);
     }
+
+    @Test
+    void fromCucumber_withQaseTagsTag_setsTagsList() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseId=42", "@QaseTags=smoke,regression"),
+                "My Scenario",
+                Arrays.asList("features", "login")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertEquals(2, result.tags.size());
+        assertTrue(result.tags.contains("smoke"));
+        assertTrue(result.tags.contains("regression"));
+    }
+
+    @Test
+    void fromCucumber_multipleQaseTagsTags_accumulate() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseId=42", "@QaseTags=smoke", "@QaseTags=regression"),
+                "My Scenario",
+                Arrays.asList("features", "login")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertEquals(2, result.tags.size());
+        assertTrue(result.tags.contains("smoke"));
+        assertTrue(result.tags.contains("regression"));
+    }
+
+    @Test
+    void fromCucumber_withoutQaseTagsTag_returnsEmptyTagsList() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseId=42"),
+                "My Scenario",
+                Arrays.asList("features", "login")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertTrue(result.tags.isEmpty());
+    }
 }
