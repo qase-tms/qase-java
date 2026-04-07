@@ -2,7 +2,7 @@
 
 ## Overview
 
-Add support for assigning tags to test cases via annotations (`@QaseTags`) and Gherkin tags (`@QaseTags:tag1,tag2`). Tags are sent as a comma-separated string in the `tags` field of `ResultCreateFields` in the Qase API v2.
+Add support for assigning tags to test cases via annotations (`@QaseTags`) and Gherkin tags (`@QaseTags=tag1,tag2`). Tags are sent as a comma-separated string in the `tags` field of `ResultCreateFields` in the Qase API v2.
 
 Reference implementation: [qase-csharp PR #53](https://github.com/qase-tms/qase-csharp/pull/53)
 
@@ -103,28 +103,22 @@ result.tags = cucumberTags;
 **File:** `qase-java-commons/src/main/java/io/qase/commons/utils/CucumberUtils.java`
 
 ```java
-private static final String QASE_TAGS_PREFIX = "@QaseTags";
+private static final String QASE_TAGS = "@QaseTags";
 
 public static List<String> getCaseTags(List<String> tags) {
     return tags.stream()
-            .filter(tag -> {
-                String prefix = tag.split("[:=]", 2)[0];
-                return prefix.equalsIgnoreCase(QASE_TAGS_PREFIX);
-            })
-            .flatMap(tag -> {
-                String[] parts = tag.split("[:=]", 2);
-                if (parts.length == 2 && !parts[1].isEmpty()) {
-                    return Arrays.stream(parts[1].split(","))
-                            .map(String::trim)
-                            .filter(s -> !s.isEmpty());
-                }
-                return Stream.empty();
-            })
+            .map(tag -> tag.split(DELIMITER, 2))
+            .filter(split -> QASE_TAGS.equalsIgnoreCase(split[0]) && split.length == 2)
+            .flatMap(split -> Arrays.stream(split[1].split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty()))
             .collect(Collectors.toList());
 }
 ```
 
-- Format: `@QaseTags:smoke,regression` (colon delimiter) or `@QaseTags=smoke,regression` (equals delimiter)
+Uses the existing `DELIMITER = "="` constant, matching the pattern of `getCaseTitle()`, `getCaseFields()`, etc.
+
+- Format: `@QaseTags=smoke,regression` (equals delimiter, consistent with all other Cucumber tags)
 - Case-insensitive prefix matching
 - Each tag is trimmed
 - Multiple `@QaseTags` tags accumulate (flatMap collects from all matching tags)
@@ -184,8 +178,8 @@ Add `@QaseTags` to corresponding tests following same pattern.
 #### 7d. Cucumber Examples
 
 Add Gherkin tags to feature files:
-- `@QaseTags:smoke` on relevant scenarios
-- `@QaseTags:regression` on relevant scenarios
+- `@QaseTags=smoke` on relevant scenarios
+- `@QaseTags=regression` on relevant scenarios
 
 ### 8. Expected YAML Files
 
@@ -193,7 +187,7 @@ Update all expected YAML files to include `tags:` field:
 
 - Tests with `@QaseTags({"smoke"})`: add `tags: [smoke]`
 - Tests with `@QaseTags({"regression"})`: add `tags: [regression]`
-- Cucumber scenarios with `@QaseTags:smoke`: add `tags: [smoke]`
+- Cucumber scenarios with `@QaseTags=smoke`: add `tags: [smoke]`
 
 ### 9. Unit Tests
 
@@ -204,19 +198,18 @@ Add test methods for:
 1. **`fromMethod` with `@QaseTags`**: method annotated with `@QaseTags({"smoke", "regression"})` produces `result.tags` containing both values
 2. **`fromMethod` without `@QaseTags`**: `result.tags` is empty list (not null)
 3. **`fromAnnotationReader` with `QaseTags`**: reader returns QaseTags annotation, tags are populated
-4. **`fromCucumber` with `@QaseTags:smoke,regression`**: tags are parsed and populated
-5. **`fromCucumber` with multiple `@QaseTags`**: `@QaseTags:tag1` + `@QaseTags:tag2` accumulate
+4. **`fromCucumber` with `@QaseTags=smoke,regression`**: tags are parsed and populated
+5. **`fromCucumber` with multiple `@QaseTags`**: `@QaseTags=tag1` + `@QaseTags=tag2` accumulate
 
 **File:** `qase-java-commons/src/test/java/io/qase/commons/utils/CucumberUtilsTest.java` (new or extend existing)
 
 Add test methods for:
 
-1. **Basic parsing**: `@QaseTags:smoke,regression` -> `["smoke", "regression"]`
-2. **Case-insensitive**: `@qasetags:Smoke` -> `["Smoke"]`
-3. **Trimming**: `@QaseTags:smoke , regression` -> `["smoke", "regression"]`
+1. **Basic parsing**: `@QaseTags=smoke,regression` -> `["smoke", "regression"]`
+2. **Case-insensitive**: `@qasetags=Smoke` -> `["Smoke"]`
+3. **Trimming**: `@QaseTags=smoke , regression` -> `["smoke", "regression"]`
 4. **Accumulation**: multiple `@QaseTags` tags produce combined list
 5. **Empty/missing**: no `@QaseTags` tags -> empty list
-6. **Equals delimiter**: `@QaseTags=smoke` -> `["smoke"]`
 
 ### 10. Documentation
 
@@ -227,7 +220,7 @@ Update the following files:
 3. **`qase-junit5-reporter/README.md`**: Add Tags to features list and usage example
 4. **`qase-junit4-reporter/README.md`**: Add mention of `@QaseTags`
 5. **`qase-testng-reporter/README.md`**: Add mention of `@QaseTags`
-6. **`qase-cucumber-v7-reporter/README.md`**: Add mention of `@QaseTags:` Gherkin tag
+6. **`qase-cucumber-v7-reporter/README.md`**: Add mention of `@QaseTags=` Gherkin tag
 7. **Other cucumber reporter READMEs**: Add brief mention
 
 ### 11. Version Bump
@@ -253,8 +246,8 @@ Bump version `4.1.49` -> `4.1.50` in all `pom.xml` files (parent + all modules).
 | `examples/junit5/junit5-maven/.../SimpleTests.java` | Add `@QaseTags` examples |
 | `examples/junit4/junit4-maven/.../SimpleTests.java` | Add `@QaseTags` examples |
 | `examples/testng/testng-maven/.../SimpleTests.java` | Add `@QaseTags` examples |
-| `examples/cucumber5/.../simple-tests.feature` | Add `@QaseTags:` tags |
-| `examples/cucumber7/.../simple-tests.feature` | Add `@QaseTags:` tags |
+| `examples/cucumber5/.../simple-tests.feature` | Add `@QaseTags=` tags |
+| `examples/cucumber7/.../simple-tests.feature` | Add `@QaseTags=` tags |
 | `expected/junit5-examples.yaml` | Add `tags:` field |
 | `expected/junit4-examples.yaml` | Add `tags:` field |
 | `expected/testng-examples.yaml` | Add `tags:` field |
