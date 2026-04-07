@@ -10,6 +10,7 @@ The Qase JUnit 4 Reporter enables seamless integration between your JUnit 4 test
 - Link automated tests to Qase test cases by ID
 - Auto-create test cases from your test code
 - Report test results with rich metadata (fields, attachments, steps)
+- Assign tags to test cases via `@QaseTags` annotation
 - Support for parameterized tests
 - Flexible configuration (file, environment variables, system properties)
 - Real-time reporting with batched uploads

@@ -10,6 +10,7 @@ The Qase Cucumber 7 Reporter enables seamless integration between your Cucumber 
 - Link automated tests to Qase test cases by ID
 - Auto-create test cases from your test code
 - Report test results with rich metadata (fields, attachments, steps)
+- Assign tags to test cases via `@QaseTags=tag1,tag2` Gherkin tag
 - Support for parameterized scenarios
 - Flexible configuration (file, environment variables, system properties)
 - Real-time reporting with batched uploads
