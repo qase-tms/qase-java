@@ -137,6 +137,13 @@ public final class TestResultBuilder {
             }
         }
 
+        // Tags: @QaseTags
+        List<String> tags = new ArrayList<>();
+        QaseTags qaseTags = reader.getAnnotation(QaseTags.class);
+        if (qaseTags != null) {
+            Collections.addAll(tags, qaseTags.value());
+        }
+
         // Suite: @QaseSuite → className fallback
         QaseSuite qaseSuiteAnnotation = reader.getAnnotation(QaseSuite.class);
         String suite = qaseSuiteAnnotation != null ? qaseSuiteAnnotation.value() : null;
@@ -161,6 +168,7 @@ public final class TestResultBuilder {
         result.title = caseTitle;
         result.params = parameters;
         result.fields = fields;
+        result.tags = tags;
         result.relations = buildRelations(suite, className);
         result.signature = signature;
 

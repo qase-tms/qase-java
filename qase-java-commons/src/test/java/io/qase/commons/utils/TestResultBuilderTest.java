@@ -249,6 +249,20 @@ class TestResultBuilderTest {
         };
     }
 
+    private static QaseTags newQaseTags(final String... values) {
+        return new QaseTags() {
+            @Override
+            public String[] value() {
+                return values;
+            }
+
+            @Override
+            public Class<? extends Annotation> annotationType() {
+                return QaseTags.class;
+            }
+        };
+    }
+
     @Test
     void fromAnnotationReader_withQaseIgnore_returnsIgnoreTrue() {
         Map<Class<?>, Annotation> map = new HashMap<>();
@@ -322,6 +336,35 @@ class TestResultBuilderTest {
         assertDoesNotThrow(() ->
                 TestResultBuilder.fromAnnotationReader(reader, "com.example.Test", "testBar", null, 0L)
         );
+    }
+
+    @Test
+    void fromAnnotationReader_withQaseTags_setsTagsList() {
+        Map<Class<?>, Annotation> map = new HashMap<>();
+        map.put(QaseId.class, newQaseId(1L));
+        map.put(QaseTags.class, newQaseTags("smoke", "regression"));
+        AnnotationReader reader = new MapAnnotationReader(map);
+
+        TestResult result = TestResultBuilder.fromAnnotationReader(reader, "com.example.MyTest", "testFoo",
+                null, 0L);
+
+        assertNotNull(result.tags);
+        assertEquals(2, result.tags.size());
+        assertTrue(result.tags.contains("smoke"));
+        assertTrue(result.tags.contains("regression"));
+    }
+
+    @Test
+    void fromAnnotationReader_withoutQaseTags_returnsEmptyTagsList() {
+        Map<Class<?>, Annotation> map = new HashMap<>();
+        map.put(QaseId.class, newQaseId(1L));
+        AnnotationReader reader = new MapAnnotationReader(map);
+
+        TestResult result = TestResultBuilder.fromAnnotationReader(reader, "com.example.MyTest", "testFoo",
+                null, 0L);
+
+        assertNotNull(result.tags);
+        assertTrue(result.tags.isEmpty());
     }
 
     // -------------------------------------------------------------------------
