@@ -105,6 +105,11 @@ public class ResultCreateFields {
   @javax.annotation.Nullable
   private String isFlaky;
 
+  public static final String SERIALIZED_NAME_TAGS = "tags";
+  @SerializedName(SERIALIZED_NAME_TAGS)
+  @javax.annotation.Nullable
+  private String tags;
+
   public static final String SERIALIZED_NAME_EXECUTED_BY = "executed_by";
   @SerializedName(SERIALIZED_NAME_EXECUTED_BY)
   @javax.annotation.Nullable
@@ -322,6 +327,25 @@ public class ResultCreateFields {
   }
 
 
+  public ResultCreateFields tags(@javax.annotation.Nullable String tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  /**
+   * Comma-separated list of tag titles to assign to the test case
+   * @return tags
+   */
+  @javax.annotation.Nullable
+  public String getTags() {
+    return tags;
+  }
+
+  public void setTags(@javax.annotation.Nullable String tags) {
+    this.tags = tags;
+  }
+
+
   public ResultCreateFields executedBy(@javax.annotation.Nullable String executedBy) {
     this.executedBy = executedBy;
     return this;
@@ -406,13 +430,14 @@ public class ResultCreateFields {
         Objects.equals(this.type, resultCreateFields.type) &&
         Objects.equals(this.muted, resultCreateFields.muted) &&
         Objects.equals(this.isFlaky, resultCreateFields.isFlaky) &&
+        Objects.equals(this.tags, resultCreateFields.tags) &&
         Objects.equals(this.executedBy, resultCreateFields.executedBy)&&
         Objects.equals(this.additionalProperties, resultCreateFields.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(author, description, preconditions, postconditions, layer, severity, priority, behavior, type, muted, isFlaky, executedBy, additionalProperties);
+    return Objects.hash(author, description, preconditions, postconditions, layer, severity, priority, behavior, type, muted, isFlaky, tags, executedBy, additionalProperties);
   }
 
   @Override
@@ -430,6 +455,7 @@ public class ResultCreateFields {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    muted: ").append(toIndentedString(muted)).append("\n");
     sb.append("    isFlaky: ").append(toIndentedString(isFlaky)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    executedBy: ").append(toIndentedString(executedBy)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -453,7 +479,7 @@ public class ResultCreateFields {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("author", "description", "preconditions", "postconditions", "layer", "severity", "priority", "behavior", "type", "muted", "is_flaky", "executed_by"));
+    openapiFields = new HashSet<String>(Arrays.asList("author", "description", "preconditions", "postconditions", "layer", "severity", "priority", "behavior", "type", "muted", "is_flaky", "tags", "executed_by"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -504,6 +530,9 @@ public class ResultCreateFields {
       }
       if ((jsonObj.get("is_flaky") != null && !jsonObj.get("is_flaky").isJsonNull()) && !jsonObj.get("is_flaky").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `is_flaky` to be a primitive type in the JSON string but got `%s`", jsonObj.get("is_flaky").toString()));
+      }
+      if ((jsonObj.get("tags") != null && !jsonObj.get("tags").isJsonNull()) && !jsonObj.get("tags").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `tags` to be a primitive type in the JSON string but got `%s`", jsonObj.get("tags").toString()));
       }
       if ((jsonObj.get("executed_by") != null && !jsonObj.get("executed_by").isJsonNull()) && !jsonObj.get("executed_by").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `executed_by` to be a primitive type in the JSON string but got `%s`", jsonObj.get("executed_by").toString()));

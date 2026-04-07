@@ -68,6 +68,9 @@ public class SharedParameterParameter extends AbstractOpenApiSchema {
             final Type typeInstanceListParameterSingle = new TypeToken<List<ParameterSingle>>(){}.getType();
             final TypeAdapter<List<ParameterSingle>> adapterListParameterSingle = (TypeAdapter<List<ParameterSingle>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstanceListParameterSingle));
 
+            final Type typeInstanceListParameterSingle = new TypeToken<List<ParameterSingle>>(){}.getType();
+            final TypeAdapter<List<ParameterSingle>> adapterListParameterSingle = (TypeAdapter<List<ParameterSingle>>) gson.getDelegateAdapter(this, TypeToken.get(typeInstanceListParameterSingle));
+
             return (TypeAdapter<T>) new TypeAdapter<SharedParameterParameter>() {
                 @Override
                 public void write(JsonWriter out, SharedParameterParameter value) throws IOException {
