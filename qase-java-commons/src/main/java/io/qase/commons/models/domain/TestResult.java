@@ -14,6 +14,7 @@ public class TestResult {
     public List<Long> testopsIds;
     public TestResultExecution execution;
     public Map<String, String> fields;
+    public List<String> tags;
     public List<Attachment> attachments;
     public List<StepResult> steps;
     public Map<String, String> params;
@@ -32,6 +33,7 @@ public class TestResult {
         this.relations = new Relations();
         this.execution = new TestResultExecution();
         this.fields = new HashMap<>();
+        this.tags = new ArrayList<>();
         this.testopsIds = null;
     }
 
