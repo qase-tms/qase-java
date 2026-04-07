@@ -1,0 +1,31 @@
+expected/cucumber5-examples.yaml
+  e2fd4586851eeba5 22-23,412-413
+expected/junit5-examples.yaml
+  e2fd4586851eeba5 218-219,432-433
+expected/junit4-examples.yaml
+  e2fd4586851eeba5 22-23,264-265
+expected/cucumber7-examples.yaml
+  e2fd4586851eeba5 92-93,300-301
+expected/testng-examples.yaml
+  e2fd4586851eeba5 247-248,407-408
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "18d7dcf587d94924234956a1aea890daf1f96d33",
+  "prompts": {
+    "e2fd4586851eeba5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3baa545c-8919-40b2-bd7b-9d85542c60a9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 20,
+      "total_deletions": 0,
+      "accepted_lines": 20,
+      "overriden_lines": 0
+    }
+  }
+}
