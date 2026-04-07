@@ -16,6 +16,7 @@ This guide provides comprehensive instructions for using Qase annotations and AP
 - [Adding Fields](#adding-fields)
   - [System Fields Reference](#system-fields-reference)
   - [Example](#fields-example)
+- [Adding Tags](#adding-tags)
 - [Adding Suite](#adding-suite)
   - [Simple Suite](#simple-suite)
   - [Nested Suites](#nested-suites)
@@ -156,6 +157,29 @@ public class SimpleTests {
         System.out.println("Test with metadata fields");
     }
 }
+```
+
+---
+
+## Adding Tags
+
+Assign tags to test cases using the `@QaseTags` annotation. Tags are sent to Qase as metadata on the test result.
+
+```java
+import io.qase.commons.annotation.QaseTags;
+
+@QaseTags({"smoke", "regression"})
+public void testWithTags() {
+    System.out.println("Test with tags");
+}
+```
+
+You can also set tags using `@QaseFields`:
+
+```java
+@QaseFields({
+    @Field(name = "tags", value = "smoke,regression")
+})
 ```
 
 ---

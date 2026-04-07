@@ -16,6 +16,7 @@ This guide provides comprehensive instructions for integrating Qase with Cucumbe
 - [Adding Fields](#adding-fields)
   - [System Fields Reference](#system-fields-reference)
   - [Example](#field-example)
+- [Adding Tags](#adding-tags)
 - [Adding Suite](#adding-suite)
   - [Simple Suite](#simple-suite)
   - [Nested Suites](#nested-suites)
@@ -144,6 +145,26 @@ Feature: Authentication
 ```
 
 **Note:** Use valid JSON format in the tag value. Underscores in string values will be converted to spaces.
+
+---
+
+## Adding Tags
+
+Assign tags to test cases using the `@QaseTags=` Gherkin tag. Tags are sent to Qase as metadata on the test result.
+
+```gherkin
+@QaseTags=smoke,regression
+Scenario: Test with tags
+  Then the test passes
+```
+
+Multiple tags are comma-separated. Multiple `@QaseTags=` tags on the same scenario are accumulated.
+
+You can also set tags using `@QaseFields`:
+
+```gherkin
+@QaseFields={"tags":"smoke,regression"}
+```
 
 ---
 
