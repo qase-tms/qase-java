@@ -1,0 +1,31 @@
+examples/junit4/junit4-maven/src/test/java/example/SimpleTests.java
+  e2fd4586851eeba5 30,64
+examples/junit5/junit5-maven/src/test/java/example/SimpleTests.java
+  e2fd4586851eeba5 30,64
+examples/cucumber5/cucumber5-maven/src/test/resources/features/simple-tests.feature
+  e2fd4586851eeba5 16,32
+examples/cucumber7/cucumber7-maven-junit5/src/test/resources/features/simple-tests.feature
+  e2fd4586851eeba5 16,32
+examples/testng/testng-maven/src/test/java/org/example/SimpleTests.java
+  e2fd4586851eeba5 30,64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "2649b8372faa8958f209e7dd20086f15a2cd6c2f",
+  "prompts": {
+    "e2fd4586851eeba5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3baa545c-8919-40b2-bd7b-9d85542c60a9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 10,
+      "total_deletions": 4,
+      "accepted_lines": 10,
+      "overriden_lines": 0
+    }
+  }
+}
