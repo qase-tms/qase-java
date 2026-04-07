@@ -1,0 +1,33 @@
+qase-junit5-reporter/README.md
+  e2fd4586851eeba5 13
+qase-junit5-reporter/docs/usage.md
+  e2fd4586851eeba5 20,164-193
+qase-testng-reporter/README.md
+  e2fd4586851eeba5 13
+qase-cucumber-v7-reporter/README.md
+  e2fd4586851eeba5 13
+qase-junit4-reporter/README.md
+  e2fd4586851eeba5 13
+changelog.md
+  e2fd4586851eeba5 1-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "e243562e10a37826a4123f0e7078e53a987204ba",
+  "prompts": {
+    "e2fd4586851eeba5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3baa545c-8919-40b2-bd7b-9d85542c60a9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 45,
+      "total_deletions": 0,
+      "accepted_lines": 45,
+      "overriden_lines": 0
+    }
+  }
+}
