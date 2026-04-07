@@ -18,6 +18,7 @@
 |**type** | **String** |  |  [optional] |
 |**muted** | **String** |  |  [optional] |
 |**isFlaky** | **String** |  |  [optional] |
+|**tags** | **String** | Comma-separated list of tag titles to assign to the test case |  [optional] |
 |**executedBy** | **String** | User who executed the test (member id, name or email) |  [optional] |
 
 
