@@ -1,0 +1,25 @@
+qase-java-commons/src/main/java/io/qase/commons/models/domain/TestResult.java
+  e2fd4586851eeba5 17,36
+qase-java-commons/src/main/java/io/qase/commons/annotation/QaseTags.java
+  e2fd4586851eeba5 1-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "1d8d0639120ab11406029876382098499103181b",
+  "prompts": {
+    "e2fd4586851eeba5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3baa545c-8919-40b2-bd7b-9d85542c60a9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 12,
+      "total_deletions": 0,
+      "accepted_lines": 12,
+      "overriden_lines": 0
+    }
+  }
+}
