@@ -1,0 +1,29 @@
+qase-java-commons/src/main/java/io/qase/commons/utils/CucumberUtils.java
+  e2fd4586851eeba5 19,90-99
+qase-java-commons/src/test/java/io/qase/commons/utils/TestResultBuilderTest.java
+  e2fd4586851eeba5 493-538
+qase-java-commons/src/main/java/io/qase/commons/utils/TestResultBuilder.java
+  e2fd4586851eeba5 212,220
+qase-java-commons/src/test/java/io/qase/commons/utils/CucumberUtilsTest.java
+  e2fd4586851eeba5 1-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "f0df05c60ab683ec1f65ed30f0ba5521d2325946",
+  "prompts": {
+    "e2fd4586851eeba5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3baa545c-8919-40b2-bd7b-9d85542c60a9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 127,
+      "total_deletions": 0,
+      "accepted_lines": 127,
+      "overriden_lines": 0
+    }
+  }
+}
