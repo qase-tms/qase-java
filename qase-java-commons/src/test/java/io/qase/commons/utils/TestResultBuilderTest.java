@@ -47,6 +47,10 @@ class TestResultBuilderTest {
     void methodWithFields() {
     }
 
+    @QaseTags({"smoke", "regression"})
+    void methodWithTags() {
+    }
+
     // -------------------------------------------------------------------------
     // fromMethod() tests
     // -------------------------------------------------------------------------
@@ -136,6 +140,26 @@ class TestResultBuilderTest {
 
         assertNotNull(result.fields);
         assertEquals("critical", result.fields.get("severity"));
+    }
+
+    @Test
+    void fromMethod_withQaseTags_setsTagsList() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithTags");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertEquals(2, result.tags.size());
+        assertTrue(result.tags.contains("smoke"));
+        assertTrue(result.tags.contains("regression"));
+    }
+
+    @Test
+    void fromMethod_withoutQaseTags_returnsEmptyTagsList() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithQaseId");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertTrue(result.tags.isEmpty());
     }
 
     // -------------------------------------------------------------------------

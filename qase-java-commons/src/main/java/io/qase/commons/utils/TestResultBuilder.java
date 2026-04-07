@@ -59,6 +59,7 @@ public final class TestResultBuilder {
         List<Long> caseIds = IntegrationUtils.getCaseIds(method);
         String caseTitle = IntegrationUtils.getCaseTitle(method);
         Map<String, String> fields = IntegrationUtils.getQaseFields(method);
+        List<String> tags = IntegrationUtils.getQaseTags(method);
         String suite = IntegrationUtils.getQaseSuite(method);
 
         result.execution.startTime = startTime;
@@ -67,6 +68,7 @@ public final class TestResultBuilder {
         result.title = caseTitle;
         result.params = parameters;
         result.fields = fields;
+        result.tags = tags;
         result.relations = buildRelations(suite, method.getDeclaringClass().getName());
         result.signature = IntegrationUtils.generateSignature(method, caseIds, parameters);
 

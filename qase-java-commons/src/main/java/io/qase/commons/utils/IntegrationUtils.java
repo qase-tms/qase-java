@@ -101,6 +101,17 @@ public final class IntegrationUtils {
         return null;
     }
 
+    public static List<String> getQaseTags(Method method) {
+        List<String> tags = new ArrayList<>();
+        if (method.isAnnotationPresent(QaseTags.class)) {
+            QaseTags annotation = method.getDeclaredAnnotation(QaseTags.class);
+            if (annotation != null) {
+                Collections.addAll(tags, annotation.value());
+            }
+        }
+        return tags;
+    }
+
     /**
      * Detects the version of the framework that probeClass belongs to.
      * Returns the implementation version first, then the specification version as a fallback.
