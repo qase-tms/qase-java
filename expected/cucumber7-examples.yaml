@@ -89,6 +89,8 @@ results:
   - 409
   execution:
     status: passed
+  tags:
+  - regression
   steps:
   - data:
       action: Then  the test passes
@@ -295,6 +297,8 @@ results:
     severity: critical
     priority: high
     layer: e2e
+  tags:
+  - smoke
   steps:
   - data:
       action: Then  the test passes
