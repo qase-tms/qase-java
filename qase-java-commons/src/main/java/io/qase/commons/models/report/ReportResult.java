@@ -23,6 +23,7 @@ public class ReportResult {
     
     public ReportExecution execution;
     public Map<String, String> fields;
+    public List<String> tags;
     public List<ReportAttachment> attachments;
     public List<ReportStepResult> steps;
     public Map<String, String> params;

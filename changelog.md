@@ -1,3 +1,13 @@
+# qase-java 4.1.50
+
+## What's new
+
+- Added `@QaseTags` annotation for assigning tags to test cases when reporting results
+  - Java annotation: `@QaseTags({"smoke", "regression"})` on test methods
+  - Cucumber Gherkin tag: `@QaseTags=smoke,regression` on scenarios
+  - Tags can also be set via `@QaseFields(@Field(name = "tags", value = "smoke,regression"))`
+  - Tags are sent as a comma-separated string in the `tags` field of the API result
+
 # qase-java 4.1.49
 
 - Updated API clients to the latest specification

@@ -16,6 +16,7 @@ public final class CucumberUtils {
     private static final String QASE_IGNORE = "@QaseIgnore";
     private static final String QASE_FIELDS = "@QaseFields";
     private static final String QASE_SUITE = "@QaseSuite";
+    private static final String QASE_TAGS = "@QaseTags";
     private static final String DELIMITER = "=";
 
     private CucumberUtils() throws IllegalAccessException {
@@ -84,6 +85,16 @@ public final class CucumberUtils {
                 })
                 .findFirst()
                 .orElse(new HashMap<>());
+    }
+
+    public static List<String> getCaseTags(List<String> tags) {
+        return tags.stream()
+                .map(tag -> tag.split(DELIMITER, 2))
+                .filter(split -> QASE_TAGS.equalsIgnoreCase(split[0]) && split.length == 2)
+                .flatMap(split -> Arrays.stream(split[1].split(","))
+                        .map(String::trim)
+                        .filter(s -> !s.isEmpty()))
+                .collect(Collectors.toList());
     }
 
     public static int getHash(URI uri, Long line) {

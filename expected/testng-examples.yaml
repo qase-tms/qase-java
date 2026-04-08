@@ -244,6 +244,8 @@ results:
   fields:
     severity: normal
     description: Demonstrates using multiple annotations together
+  tags:
+  - regression
   relations:
     suite:
       data:
@@ -402,6 +404,8 @@ results:
     description: Verifies login with valid credentials
     priority: high
     layer: unit
+  tags:
+  - smoke
   relations:
     suite:
       data:

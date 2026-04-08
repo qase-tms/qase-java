@@ -75,6 +75,7 @@ public class FileReporter implements InternalReporter {
         reportResult.params = result.params;
         reportResult.paramGroups = result.paramGroups;
         reportResult.fields = result.fields;
+        reportResult.tags = result.tags;
         reportResult.testopsIds = result.testopsIds;
         reportResult.signature = result.signature;
 

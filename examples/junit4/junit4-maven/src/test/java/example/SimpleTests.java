@@ -27,6 +27,7 @@ public class SimpleTests {
 
     @Test
     @QaseId(306)
+    @QaseTags({"smoke"})
     @QaseFields(value = {
             @Field(name = "description", value = "Verifies login with valid credentials"),
             @Field(name = "severity", value = "critical"),
@@ -60,6 +61,7 @@ public class SimpleTests {
 
     @Test
     @QaseId(310)
+    @QaseTags({"regression"})
     @QaseTitle("Combined annotations example")
     @QaseFields(value = {
             @Field(name = "description", value = "Demonstrates using multiple annotations together"),

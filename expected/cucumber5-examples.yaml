@@ -19,6 +19,8 @@ results:
     severity: critical
     priority: high
     layer: e2e
+  tags:
+  - smoke
   steps:
   - data:
       action: Then  the test passes
@@ -407,6 +409,8 @@ results:
   signature: 509::classpath:features::simple-tests.feature::combined_annotations
   execution:
     status: passed
+  tags:
+  - regression
   steps:
   - data:
       action: Then  the test passes

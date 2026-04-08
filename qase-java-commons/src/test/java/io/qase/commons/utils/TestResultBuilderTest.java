@@ -47,6 +47,10 @@ class TestResultBuilderTest {
     void methodWithFields() {
     }
 
+    @QaseTags({"smoke", "regression"})
+    void methodWithTags() {
+    }
+
     // -------------------------------------------------------------------------
     // fromMethod() tests
     // -------------------------------------------------------------------------
@@ -138,6 +142,26 @@ class TestResultBuilderTest {
         assertEquals("critical", result.fields.get("severity"));
     }
 
+    @Test
+    void fromMethod_withQaseTags_setsTagsList() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithTags");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertEquals(2, result.tags.size());
+        assertTrue(result.tags.contains("smoke"));
+        assertTrue(result.tags.contains("regression"));
+    }
+
+    @Test
+    void fromMethod_withoutQaseTags_returnsEmptyTagsList() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithQaseId");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertTrue(result.tags.isEmpty());
+    }
+
     // -------------------------------------------------------------------------
     // fromAnnotationReader() tests
     // -------------------------------------------------------------------------
@@ -225,6 +249,20 @@ class TestResultBuilderTest {
         };
     }
 
+    private static QaseTags newQaseTags(final String... values) {
+        return new QaseTags() {
+            @Override
+            public String[] value() {
+                return values;
+            }
+
+            @Override
+            public Class<? extends Annotation> annotationType() {
+                return QaseTags.class;
+            }
+        };
+    }
+
     @Test
     void fromAnnotationReader_withQaseIgnore_returnsIgnoreTrue() {
         Map<Class<?>, Annotation> map = new HashMap<>();
@@ -298,6 +336,35 @@ class TestResultBuilderTest {
         assertDoesNotThrow(() ->
                 TestResultBuilder.fromAnnotationReader(reader, "com.example.Test", "testBar", null, 0L)
         );
+    }
+
+    @Test
+    void fromAnnotationReader_withQaseTags_setsTagsList() {
+        Map<Class<?>, Annotation> map = new HashMap<>();
+        map.put(QaseId.class, newQaseId(1L));
+        map.put(QaseTags.class, newQaseTags("smoke", "regression"));
+        AnnotationReader reader = new MapAnnotationReader(map);
+
+        TestResult result = TestResultBuilder.fromAnnotationReader(reader, "com.example.MyTest", "testFoo",
+                null, 0L);
+
+        assertNotNull(result.tags);
+        assertEquals(2, result.tags.size());
+        assertTrue(result.tags.contains("smoke"));
+        assertTrue(result.tags.contains("regression"));
+    }
+
+    @Test
+    void fromAnnotationReader_withoutQaseTags_returnsEmptyTagsList() {
+        Map<Class<?>, Annotation> map = new HashMap<>();
+        map.put(QaseId.class, newQaseId(1L));
+        AnnotationReader reader = new MapAnnotationReader(map);
+
+        TestResult result = TestResultBuilder.fromAnnotationReader(reader, "com.example.MyTest", "testFoo",
+                null, 0L);
+
+        assertNotNull(result.tags);
+        assertTrue(result.tags.isEmpty());
     }
 
     // -------------------------------------------------------------------------
@@ -422,5 +489,51 @@ class TestResultBuilderTest {
         assertEquals("features", result.relations.suite.data.get(0).title);
         assertEquals("login", result.relations.suite.data.get(1).title);
         assertEquals("auth", result.relations.suite.data.get(2).title);
+    }
+
+    @Test
+    void fromCucumber_withQaseTagsTag_setsTagsList() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseId=42", "@QaseTags=smoke,regression"),
+                "My Scenario",
+                Arrays.asList("features", "login")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertEquals(2, result.tags.size());
+        assertTrue(result.tags.contains("smoke"));
+        assertTrue(result.tags.contains("regression"));
+    }
+
+    @Test
+    void fromCucumber_multipleQaseTagsTags_accumulate() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseId=42", "@QaseTags=smoke", "@QaseTags=regression"),
+                "My Scenario",
+                Arrays.asList("features", "login")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertEquals(2, result.tags.size());
+        assertTrue(result.tags.contains("smoke"));
+        assertTrue(result.tags.contains("regression"));
+    }
+
+    @Test
+    void fromCucumber_withoutQaseTagsTag_returnsEmptyTagsList() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseId=42"),
+                "My Scenario",
+                Arrays.asList("features", "login")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.tags);
+        assertTrue(result.tags.isEmpty());
     }
 }

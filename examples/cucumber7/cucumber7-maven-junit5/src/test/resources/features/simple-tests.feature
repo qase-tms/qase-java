@@ -13,7 +13,7 @@ Feature: Simple tests
   Scenario: Test with QaseTitle
     Then the test passes
 
-  @QaseId=405 @QaseFields={"description":"Verifies_login","severity":"critical","priority":"high","layer":"e2e"}
+  @QaseId=405 @QaseFields={"description":"Verifies_login","severity":"critical","priority":"high","layer":"e2e"} @QaseTags=smoke
   Scenario: Test with QaseFields
     Then the test passes
 
@@ -29,6 +29,6 @@ Feature: Simple tests
   Scenario: Test excluded from reporting
     Then the test passes
 
-  @QaseId=409 @QaseTitle=Combined_annotations
+  @QaseId=409 @QaseTitle=Combined_annotations @QaseTags=regression
   Scenario: Test with combined annotations
     Then the test passes

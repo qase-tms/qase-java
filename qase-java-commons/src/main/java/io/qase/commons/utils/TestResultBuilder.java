@@ -59,6 +59,7 @@ public final class TestResultBuilder {
         List<Long> caseIds = IntegrationUtils.getCaseIds(method);
         String caseTitle = IntegrationUtils.getCaseTitle(method);
         Map<String, String> fields = IntegrationUtils.getQaseFields(method);
+        List<String> tags = IntegrationUtils.getQaseTags(method);
         String suite = IntegrationUtils.getQaseSuite(method);
 
         result.execution.startTime = startTime;
@@ -67,6 +68,7 @@ public final class TestResultBuilder {
         result.title = caseTitle;
         result.params = parameters;
         result.fields = fields;
+        result.tags = tags;
         result.relations = buildRelations(suite, method.getDeclaringClass().getName());
         result.signature = IntegrationUtils.generateSignature(method, caseIds, parameters);
 
@@ -135,6 +137,13 @@ public final class TestResultBuilder {
             }
         }
 
+        // Tags: @QaseTags
+        List<String> tags = new ArrayList<>();
+        QaseTags qaseTags = reader.getAnnotation(QaseTags.class);
+        if (qaseTags != null) {
+            Collections.addAll(tags, qaseTags.value());
+        }
+
         // Suite: @QaseSuite → className fallback
         QaseSuite qaseSuiteAnnotation = reader.getAnnotation(QaseSuite.class);
         String suite = qaseSuiteAnnotation != null ? qaseSuiteAnnotation.value() : null;
@@ -159,6 +168,7 @@ public final class TestResultBuilder {
         result.title = caseTitle;
         result.params = parameters;
         result.fields = fields;
+        result.tags = tags;
         result.relations = buildRelations(suite, className);
         result.signature = signature;
 
@@ -199,6 +209,7 @@ public final class TestResultBuilder {
         }
         Map<String, String> fields = CucumberUtils.getCaseFields(tags);
         String suite = CucumberUtils.getCaseSuite(tags);
+        List<String> caseTags = CucumberUtils.getCaseTags(tags);
 
         result.execution.startTime = startTime;
         result.execution.thread = Thread.currentThread().getName();
@@ -206,6 +217,7 @@ public final class TestResultBuilder {
         result.title = caseTitle;
         result.params = parameters != null ? parameters : new java.util.HashMap<String, String>();
         result.fields = fields;
+        result.tags = caseTags;
         result.relations = buildCucumberRelations(suite, adapter.getUriPathParts());
 
         ArrayList<String> suites = new ArrayList<>(adapter.getUriPathParts());

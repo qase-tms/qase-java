@@ -196,6 +196,8 @@ public class ApiClientV2 implements ApiClient {
         RelationSuite suite = new RelationSuite().data(data);
         ResultRelations relations = new ResultRelations().suite(suite);
 
+        List<String> allTags = new ArrayList<>(result.tags);
+
         ResultCreateFields fields = new ResultCreateFields();
         for (String key : result.fields.keySet()) {
             switch (key) {
@@ -232,9 +234,24 @@ public class ApiClientV2 implements ApiClient {
                 case "isFlaky":
                     fields.setIsFlaky(result.fields.get(key));
                     break;
+                case "tags":
+                    String fieldTags = result.fields.get(key);
+                    if (fieldTags != null && !fieldTags.isEmpty()) {
+                        for (String t : fieldTags.split(",")) {
+                            String trimmed = t.trim();
+                            if (!trimmed.isEmpty()) {
+                                allTags.add(trimmed);
+                            }
+                        }
+                    }
+                    break;
                 default:
                     fields.putAdditionalProperty(key, result.fields.get(key));
             }
+        }
+
+        if (!allTags.isEmpty()) {
+            fields.setTags(allTags.stream().distinct().collect(Collectors.joining(",")));
         }
 
         return new ResultCreate()
