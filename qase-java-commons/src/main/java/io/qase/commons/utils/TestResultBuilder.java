@@ -278,12 +278,18 @@ public final class TestResultBuilder {
             // Cucumber uses literal "\\t" (two chars) not tab
             String[] parts = suite.split("\\\\t");
             for (String part : parts) {
+                if (part == null || part.trim().isEmpty()) {
+                    continue;
+                }
                 SuiteData data = new SuiteData();
                 data.title = part;
                 relations.suite.data.add(data);
             }
         } else {
             for (String part : uriPathParts) {
+                if (part == null || part.trim().isEmpty()) {
+                    continue;
+                }
                 SuiteData data = new SuiteData();
                 data.title = part;
                 relations.suite.data.add(data);

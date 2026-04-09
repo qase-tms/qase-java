@@ -1,3 +1,9 @@
+# qase-java 4.1.51
+
+## Bug fixes
+
+- Fixed Cucumber reporters failing to upload results with HTTP 422 error when feature files are resolved via `file:///` URI (common with Gradle). Splitting the URI on `/` produced empty path segments that were sent as suite entries with blank titles, which the API rejected. Empty and blank segments are now filtered out before building suite relations. Affects all Cucumber reporter versions (v3–v7).
+
 # qase-java 4.1.50
 
 ## What's new
