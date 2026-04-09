@@ -492,6 +492,33 @@ class TestResultBuilderTest {
     }
 
     @Test
+    void fromCucumber_fileUriPathPartsWithEmptySegments_filtersOutBlanks() {
+        // Simulates file:///absolute/path/features/file.feature split on "/"
+        // which produces ["file:", "", "", "absolute", "path", "features", "file.feature"]
+        StubAdapter adapter = new StubAdapter(
+                Collections.<String>emptyList(),
+                "My Scenario",
+                Arrays.asList("file:", "", "", "absolute", "path", "features", "file.feature")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.relations);
+        assertNotNull(result.relations.suite);
+        // Empty segments must be filtered out
+        for (SuiteData sd : result.relations.suite.data) {
+            assertNotNull(sd.title);
+            assertFalse(sd.title.trim().isEmpty(), "Suite title must not be blank");
+        }
+        assertEquals(5, result.relations.suite.data.size());
+        assertEquals("file:", result.relations.suite.data.get(0).title);
+        assertEquals("absolute", result.relations.suite.data.get(1).title);
+        assertEquals("path", result.relations.suite.data.get(2).title);
+        assertEquals("features", result.relations.suite.data.get(3).title);
+        assertEquals("file.feature", result.relations.suite.data.get(4).title);
+    }
+
+    @Test
     void fromCucumber_withQaseTagsTag_setsTagsList() {
         StubAdapter adapter = new StubAdapter(
                 Arrays.asList("@QaseId=42", "@QaseTags=smoke,regression"),
