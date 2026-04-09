@@ -1,0 +1,67 @@
+examples/cucumber4/cucumber4-maven/pom.xml
+  1ae411b7ac31e4b1 16
+examples/cucumber6/cucumber6-gradle/build.gradle
+  1ae411b7ac31e4b1 25
+examples/cucumber4/cucumber4-gradle/build.gradle
+  1ae411b7ac31e4b1 25
+qase-java-commons/src/test/java/io/qase/commons/utils/TestResultBuilderTest.java
+  1ae411b7ac31e4b1 495-520
+examples/junit5/junit5-gradle/build.gradle
+  1ae411b7ac31e4b1 24
+changelog.md
+  1ae411b7ac31e4b1 1-6
+examples/cucumber7/cucumber7-gradle-junit5/build.gradle
+  1ae411b7ac31e4b1 27
+examples/cucumber5/cucumber5-maven/pom.xml
+  1ae411b7ac31e4b1 16
+examples/cucumber5/cucumber5-gradle/build.gradle
+  1ae411b7ac31e4b1 25
+examples/testng/testng-gradle/build.gradle
+  1ae411b7ac31e4b1 27
+examples/junit5/junit5-maven/pom.xml
+  1ae411b7ac31e4b1 16
+examples/cucumber3/cucumber3-gradle/build.gradle
+  1ae411b7ac31e4b1 25
+examples/testng/testng-maven/pom.xml
+  1ae411b7ac31e4b1 16
+examples/junit4/junit4-maven/pom.xml
+  1ae411b7ac31e4b1 16
+examples/cucumber7/cucumber7-gradle-junit4/build.gradle
+  1ae411b7ac31e4b1 25
+examples/cucumber7/cucumber7-maven-testng/pom.xml
+  1ae411b7ac31e4b1 16
+examples/junit4/junit4-gradle/build.gradle
+  1ae411b7ac31e4b1 20
+examples/cucumber7/cucumber7-maven-junit4/pom.xml
+  1ae411b7ac31e4b1 16
+examples/cucumber7/cucumber7-maven-junit5/pom.xml
+  1ae411b7ac31e4b1 16
+examples/cucumber3/cucumber3-maven/pom.xml
+  1ae411b7ac31e4b1 16
+qase-java-commons/src/main/java/io/qase/commons/utils/TestResultBuilder.java
+  1ae411b7ac31e4b1 281-283,290-292
+examples/cucumber6/cucumber6-maven/pom.xml
+  1ae411b7ac31e4b1 16
+examples/cucumber7/cucumber7-gradle-testng/build.gradle
+  1ae411b7ac31e4b1 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "99c595ff0bcd9f350a7a8178959a95a9f2e8bdd4",
+  "prompts": {
+    "1ae411b7ac31e4b1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725f369c-cb99-4a41-8381-9cf9b12bcdc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 59,
+      "total_deletions": 20,
+      "accepted_lines": 59,
+      "overriden_lines": 0
+    }
+  }
+}
