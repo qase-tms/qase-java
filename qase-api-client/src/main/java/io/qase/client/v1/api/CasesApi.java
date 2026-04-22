@@ -1162,7 +1162,7 @@ public class CasesApi {
         }
 
         if (externalIssuesIds != null) {
-            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("csv", "external_issues[ids][]", externalIssuesIds));
+            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "external_issues[ids][]", externalIssuesIds));
         }
 
         if (include != null) {
