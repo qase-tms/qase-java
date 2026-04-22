@@ -1,3 +1,7 @@
+# qase-java 4.1.52
+
+- Updated API clients to the latest specification
+
 # qase-java 4.1.51
 
 ## Bug fixes
