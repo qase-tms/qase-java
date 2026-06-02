@@ -2,6 +2,7 @@ package io.qase.commons.utils;
 
 import io.qase.commons.annotation.*;
 import io.qase.commons.cucumber.CucumberTestCaseAdapter;
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.Relations;
 import io.qase.commons.models.domain.SuiteData;
 import io.qase.commons.models.domain.TestResult;
@@ -29,8 +30,36 @@ import java.util.stream.Collectors;
  */
 public final class TestResultBuilder {
 
+    private static final Logger logger = Logger.getInstance();
+
     private TestResultBuilder() throws IllegalAccessException {
         throw new IllegalAccessException("Utils class");
+    }
+
+    /**
+     * Drops non-positive case ids (e.g. placeholder {@code @QaseId(0)}). Qase TestOps
+     * rejects bulk uploads where any {@code testops_ids} item is not a positive integer,
+     * and because uploads are all-or-nothing, a single placeholder would otherwise wipe
+     * the metrics of every other result in the batch.
+     */
+    static List<Long> sanitizeJUnit4CaseIds(List<Long> ids, String className, String methodName) {
+        if (ids == null || ids.isEmpty()) {
+            return ids;
+        }
+        List<Long> filtered = new ArrayList<>(ids.size());
+        boolean droppedAny = false;
+        for (Long id : ids) {
+            if (id != null && id > 0) {
+                filtered.add(id);
+            } else {
+                droppedAny = true;
+            }
+        }
+        if (droppedAny) {
+            logger.warn("Ignoring non-positive Qase case id(s) on %s.%s: %s. Qase TestOps requires positive integer ids; the test will be uploaded as untagged if no valid id remains.",
+                    className, methodName, ids);
+        }
+        return filtered.isEmpty() ? null : filtered;
     }
 
     // -------------------------------------------------------------------------
@@ -117,6 +146,7 @@ public final class TestResultBuilder {
                 caseIds = caseIdAnnotation != null ? Collections.singletonList(caseIdAnnotation.value()) : null;
             }
         }
+        caseIds = sanitizeJUnit4CaseIds(caseIds, className, methodName);
 
         // Case title: @QaseTitle → @CaseTitle (legacy) → methodName
         String caseTitle;

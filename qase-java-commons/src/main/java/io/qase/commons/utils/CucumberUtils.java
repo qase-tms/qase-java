@@ -3,6 +3,7 @@ package io.qase.commons.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import io.qase.commons.logger.Logger;
 
 import java.net.URI;
 import java.util.*;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 
 
 public final class CucumberUtils {
+    private static final Logger logger = Logger.getInstance();
     private static final List<String> CASE_TAGS = Collections.unmodifiableList(Arrays.asList("@caseid", "@tmslink", "@qaseid", "@qaseids"));
     private static final String QASE_TITLE = "@QaseTitle";
     private static final String QASE_IGNORE = "@QaseIgnore";
@@ -46,7 +48,20 @@ public final class CucumberUtils {
             return null;
         }
 
-        return ids;
+        List<Long> filtered = new ArrayList<>(ids.size());
+        boolean droppedAny = false;
+        for (Long id : ids) {
+            if (id != null && id > 0) {
+                filtered.add(id);
+            } else {
+                droppedAny = true;
+            }
+        }
+        if (droppedAny) {
+            logger.warn("Ignoring non-positive Qase case id(s) in Cucumber tags: %s. Qase TestOps requires positive integer ids; the scenario will be uploaded as untagged if no valid id remains.",
+                    ids);
+        }
+        return filtered.isEmpty() ? null : filtered;
     }
 
     public static String getCaseTitle(List<String> tags) {

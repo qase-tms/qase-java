@@ -28,6 +28,22 @@ class TestResultBuilderTest {
     void methodWithQaseId() {
     }
 
+    @QaseId(0)
+    void methodWithQaseIdZero() {
+    }
+
+    @QaseId(-5)
+    void methodWithQaseIdNegative() {
+    }
+
+    @QaseIds({0, 42, -1})
+    void methodWithQaseIdsMixed() {
+    }
+
+    @QaseIds({0})
+    void methodWithQaseIdsAllZero() {
+    }
+
     @QaseId(42)
     @QaseSuite("A\tB")
     void methodWithQaseIdAndSuite() {
@@ -160,6 +176,56 @@ class TestResultBuilderTest {
 
         assertNotNull(result.tags);
         assertTrue(result.tags.isEmpty());
+    }
+
+    @Test
+    void fromMethod_withQaseIdZero_dropsIdAndTreatsAsUntagged() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithQaseIdZero");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        // Placeholder id must not be forwarded to the API
+        assertNull(result.testopsIds, "non-positive id must be dropped to keep batch upload safe");
+        // The test itself should still be reportable
+        assertFalse(result.ignore);
+        assertNotNull(result.title);
+    }
+
+    @Test
+    void fromMethod_withQaseIdNegative_dropsIdAndTreatsAsUntagged() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithQaseIdNegative");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        assertNull(result.testopsIds);
+        assertFalse(result.ignore);
+    }
+
+    @Test
+    void fromMethod_withMixedQaseIds_keepsOnlyPositiveIds() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithQaseIdsMixed");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.testopsIds);
+        assertEquals(1, result.testopsIds.size());
+        assertEquals(42L, (long) result.testopsIds.get(0));
+    }
+
+    @Test
+    void fromMethod_withAllZeroQaseIds_dropsAllAndTreatsAsUntagged() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithQaseIdsAllZero");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        assertNull(result.testopsIds);
+    }
+
+    @Test
+    void fromMethod_withQaseIdZero_signatureDoesNotContainZeroId() throws Exception {
+        Method method = TestResultBuilderTest.class.getDeclaredMethod("methodWithQaseIdZero");
+        TestResult result = TestResultBuilder.fromMethod(method, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.signature);
+        // Signature must not embed the dropped placeholder id (would otherwise differ
+        // from the signature of the same test once the real id is assigned)
+        assertFalse(result.signature.startsWith("0::"), "signature must not begin with the dropped id");
     }
 
     // -------------------------------------------------------------------------
@@ -367,6 +433,45 @@ class TestResultBuilderTest {
         assertTrue(result.tags.isEmpty());
     }
 
+    @Test
+    void fromAnnotationReader_withQaseIdZero_dropsIdAndTreatsAsUntagged() {
+        Map<Class<?>, Annotation> map = new HashMap<>();
+        map.put(QaseId.class, newQaseId(0L));
+        AnnotationReader reader = new MapAnnotationReader(map);
+
+        TestResult result = TestResultBuilder.fromAnnotationReader(reader, "com.example.MyTest", "testFoo",
+                null, 0L);
+
+        assertNull(result.testopsIds);
+        assertFalse(result.ignore);
+    }
+
+    @Test
+    void fromAnnotationReader_withQaseIdsMixed_keepsOnlyPositive() {
+        Map<Class<?>, Annotation> map = new HashMap<>();
+        map.put(QaseIds.class, newQaseIds(0L, 7L, -3L));
+        AnnotationReader reader = new MapAnnotationReader(map);
+
+        TestResult result = TestResultBuilder.fromAnnotationReader(reader, "com.example.MyTest", "testFoo",
+                null, 0L);
+
+        assertNotNull(result.testopsIds);
+        assertEquals(1, result.testopsIds.size());
+        assertEquals(7L, (long) result.testopsIds.get(0));
+    }
+
+    @Test
+    void fromAnnotationReader_withLegacyCaseIdZero_dropsIdAndTreatsAsUntagged() {
+        Map<Class<?>, Annotation> map = new HashMap<>();
+        map.put(CaseId.class, newCaseId(0L));
+        AnnotationReader reader = new MapAnnotationReader(map);
+
+        TestResult result = TestResultBuilder.fromAnnotationReader(reader, "com.example.MyTest", "testFoo",
+                null, 0L);
+
+        assertNull(result.testopsIds);
+    }
+
     // -------------------------------------------------------------------------
     // fromCucumber() tests
     // -------------------------------------------------------------------------
@@ -562,5 +667,34 @@ class TestResultBuilderTest {
 
         assertNotNull(result.tags);
         assertTrue(result.tags.isEmpty());
+    }
+
+    @Test
+    void fromCucumber_withQaseIdZero_dropsIdAndTreatsAsUntagged() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseId=0"),
+                "My Scenario",
+                Arrays.asList("features", "login")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNull(result.testopsIds);
+        assertFalse(result.ignore);
+    }
+
+    @Test
+    void fromCucumber_withQaseIdsMixed_keepsOnlyPositive() {
+        StubAdapter adapter = new StubAdapter(
+                Arrays.asList("@QaseIds=0,42"),
+                "My Scenario",
+                Arrays.asList("features", "login")
+        );
+
+        TestResult result = TestResultBuilder.fromCucumber(adapter, Collections.<String, String>emptyMap(), 0L);
+
+        assertNotNull(result.testopsIds);
+        assertEquals(1, result.testopsIds.size());
+        assertEquals(42L, (long) result.testopsIds.get(0));
     }
 }

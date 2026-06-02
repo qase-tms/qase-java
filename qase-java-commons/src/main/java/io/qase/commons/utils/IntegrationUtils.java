@@ -1,6 +1,7 @@
 package io.qase.commons.utils;
 
 import io.qase.commons.annotation.*;
+import io.qase.commons.logger.Logger;
 import io.qase.commons.models.annotation.Field;
 
 import java.io.PrintWriter;
@@ -10,6 +11,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public final class IntegrationUtils {
+    private static final Logger logger = Logger.getInstance();
+
     private IntegrationUtils() throws IllegalAccessException {
         throw new IllegalAccessException("Utils class");
     }
@@ -23,19 +26,42 @@ public final class IntegrationUtils {
     public static List<Long> getCaseIds(Method method) {
         Long qaseId = getQaseId(method);
         if (qaseId != null) {
-            return Collections.singletonList(qaseId);
+            return sanitizeCaseIds(Collections.singletonList(qaseId), method);
         }
 
         List<Long> qaseIds = getQaseIds(method);
         if (qaseIds != null) {
-            return qaseIds;
+            return sanitizeCaseIds(qaseIds, method);
         }
 
         if (method.isAnnotationPresent(CaseId.class)) {
-            return Collections.singletonList(method
-                    .getDeclaredAnnotation(CaseId.class).value());
+            return sanitizeCaseIds(Collections.singletonList(method
+                    .getDeclaredAnnotation(CaseId.class).value()), method);
         }
         return null;
+    }
+
+    static List<Long> sanitizeCaseIds(List<Long> ids, Method method) {
+        if (ids == null || ids.isEmpty()) {
+            return null;
+        }
+        List<Long> filtered = new ArrayList<>(ids.size());
+        boolean droppedAny = false;
+        for (Long id : ids) {
+            if (id != null && id > 0) {
+                filtered.add(id);
+            } else {
+                droppedAny = true;
+            }
+        }
+        if (droppedAny) {
+            String where = method != null
+                    ? method.getDeclaringClass().getName() + "." + method.getName()
+                    : "<unknown>";
+            logger.warn("Ignoring non-positive Qase case id(s) on %s: %s. Qase TestOps requires positive integer ids; the test will be uploaded as untagged if no valid id remains.",
+                    where, ids);
+        }
+        return filtered.isEmpty() ? null : filtered;
     }
 
     public static String getCaseTitle(Method method) {
