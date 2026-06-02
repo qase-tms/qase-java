@@ -1,3 +1,9 @@
+# qase-java 4.1.53
+
+## Bug fixes
+
+- Fixed a single `@QaseId(0)` (or any non-positive id) wiping every result in a bulk upload. Qase TestOps rejected the whole batch with HTTP 422 (`testops_ids must be a positive integer`), and because uploads are all-or-nothing, the run was created but ended up empty. Non-positive ids from `@QaseId`, `@QaseIds`, legacy `@CaseId` and Cucumber `@QaseId=...` / `@QaseIds=...` tags are now dropped before the signature is built and before the batch is sent; the result is uploaded as untagged when no valid id remains. A `WARN` log makes the dropped placeholder visible without `QASE_DEBUG=true`.
+
 # qase-java 4.1.52
 
 - Updated API clients to the latest specification
