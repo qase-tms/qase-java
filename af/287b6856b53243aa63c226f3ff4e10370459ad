@@ -1,0 +1,35 @@
+qase-java-commons/src/main/java/io/qase/commons/utils/IntegrationUtils.java
+  s_c558cad05988d5::t_ff30f525cc6f70 4,14-15,29,34,38-39,44-64
+qase-java-commons/src/main/java/io/qase/commons/utils/CucumberUtils.java
+  s_c558cad05988d5::t_831213136d7cf4 6,15
+  s_c558cad05988d5::t_aa218f012617a4 51-64
+qase-java-commons/src/main/java/io/qase/commons/utils/TestResultBuilder.java
+  s_c558cad05988d5::t_e654b8379fc153 149
+  s_c558cad05988d5::t_5a5fb9bcf1d2f9 33-34,39-62
+  s_c558cad05988d5::t_9c2396951bcc97 5
+qase-java-commons/src/test/java/io/qase/commons/utils/TestResultBuilderTest.java
+  s_c558cad05988d5::t_caeaf8820f302f 181-230
+  s_c558cad05988d5::t_50bbe7198693f0 31-46
+  s_c558cad05988d5::t_1cc4340736f401 671-699
+  s_c558cad05988d5::t_40a5381c2fcb76 436-474
+qase-java-commons/src/test/java/io/qase/commons/utils/IntegrationUtilsTest.java
+  s_c558cad05988d5::t_ff18bbf594fe1d 5-8,13-45
+qase-java-commons/src/test/java/io/qase/commons/utils/CucumberUtilsTest.java
+  s_c558cad05988d5::t_311ac945888b10 68-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "af287b6856b53243aa63c226f3ff4e10370459ad",
+  "prompts": {},
+  "sessions": {
+    "s_c558cad05988d5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8ea27c89-cca7-449b-8d91-5d313caa1c07",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
