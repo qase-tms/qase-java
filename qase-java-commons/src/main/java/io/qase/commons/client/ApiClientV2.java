@@ -278,7 +278,7 @@ public class ApiClientV2 implements ApiClient {
         Map<String, String> sanitized = new HashMap<>();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             String value = entry.getValue();
-            sanitized.put(entry.getKey(), (value == null || value.isEmpty()) ? "empty" : value);
+            sanitized.put(entry.getKey(), (value == null || value.trim().isEmpty()) ? "empty" : value);
         }
         return sanitized;
     }

@@ -1,3 +1,9 @@
+# qase-java 4.1.54
+
+## Bug fixes
+
+- Fixed `@ParameterizedTest` params with whitespace-only values (e.g. `"   "`, `"\t"`, `"\n"`) causing the TestOps results endpoint to reject the whole batch with HTTP 422 (`The params.* must be a string.`). Because uploads are all-or-nothing, a single blank parameter silently dropped up to 200 valid results from a run. Blank values are now coerced to `"empty"` at the same two layers that already handled `null` / `""` — `ApiClientV2.sanitizeParams()` and the defensive fallback in `ResultCreate.CustomTypeAdapterFactory.write()`. Non-blank values (including values with leading/trailing whitespace such as `" valid "`) are preserved verbatim.
+
 # qase-java 4.1.53
 
 ## Bug fixes
