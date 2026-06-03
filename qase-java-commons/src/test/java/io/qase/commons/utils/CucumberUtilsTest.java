@@ -65,4 +65,44 @@ class CucumberUtilsTest {
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
+
+    @Test
+    void getCaseIds_singleQaseId_returnsId() {
+        List<Long> result = CucumberUtils.getCaseIds(Arrays.asList("@QaseId=42"));
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals(42L, (long) result.get(0));
+    }
+
+    @Test
+    void getCaseIds_qaseIdZero_returnsNull() {
+        List<Long> result = CucumberUtils.getCaseIds(Arrays.asList("@QaseId=0"));
+
+        assertNull(result, "non-positive id must be dropped");
+    }
+
+    @Test
+    void getCaseIds_qaseIdsMixed_dropsNonPositive() {
+        List<Long> result = CucumberUtils.getCaseIds(Arrays.asList("@QaseIds=0,42,7"));
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertTrue(result.contains(42L));
+        assertTrue(result.contains(7L));
+    }
+
+    @Test
+    void getCaseIds_qaseIdsAllZero_returnsNull() {
+        List<Long> result = CucumberUtils.getCaseIds(Arrays.asList("@QaseIds=0,0"));
+
+        assertNull(result);
+    }
+
+    @Test
+    void getCaseIds_noCaseTag_returnsNull() {
+        List<Long> result = CucumberUtils.getCaseIds(Arrays.asList("@QaseTitle=foo"));
+
+        assertNull(result);
+    }
 }
