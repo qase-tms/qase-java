@@ -694,7 +694,7 @@ public class ResultCreate {
                    val = "empty";
                  } else {
                    val = entry.getValue().getAsString();
-                   if (val == null || val.isEmpty()) {
+                   if (val == null || val.trim().isEmpty()) {
                      val = "empty";
                    }
                  }
