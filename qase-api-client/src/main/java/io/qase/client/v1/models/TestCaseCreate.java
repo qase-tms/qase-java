@@ -118,9 +118,20 @@ public class TestCaseCreate {
   private Long milestoneId;
 
   public static final String SERIALIZED_NAME_AUTOMATION = "automation";
+  @Deprecated
   @SerializedName(SERIALIZED_NAME_AUTOMATION)
   @javax.annotation.Nullable
   private Integer automation;
+
+  public static final String SERIALIZED_NAME_IS_MANUAL = "isManual";
+  @SerializedName(SERIALIZED_NAME_IS_MANUAL)
+  @javax.annotation.Nullable
+  private Integer isManual;
+
+  public static final String SERIALIZED_NAME_IS_TO_BE_AUTOMATED = "isToBeAutomated";
+  @SerializedName(SERIALIZED_NAME_IS_TO_BE_AUTOMATED)
+  @javax.annotation.Nullable
+  private Integer isToBeAutomated;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
@@ -456,22 +467,64 @@ public class TestCaseCreate {
   }
 
 
+  @Deprecated
   public TestCaseCreate automation(@javax.annotation.Nullable Integer automation) {
     this.automation = automation;
     return this;
   }
 
   /**
-   * Get automation
+   * Deprecated, use &#x60;isManual&#x60; and &#x60;isToBeAutomated&#x60; instead. Encodes the test case automation state as a single integer: &#x60;0&#x60; &#x3D; manual, &#x60;1&#x60; &#x3D; manual planned to be automated, &#x60;2&#x60; &#x3D; automated. If both &#x60;automation&#x60; and &#x60;isManual&#x60;/&#x60;isToBeAutomated&#x60; are provided, &#x60;isManual&#x60; and &#x60;isToBeAutomated&#x60; take precedence.
    * @return automation
+   * @deprecated
    */
+  @Deprecated
   @javax.annotation.Nullable
   public Integer getAutomation() {
     return automation;
   }
 
+  @Deprecated
   public void setAutomation(@javax.annotation.Nullable Integer automation) {
     this.automation = automation;
+  }
+
+
+  public TestCaseCreate isManual(@javax.annotation.Nullable Integer isManual) {
+    this.isManual = isManual;
+    return this;
+  }
+
+  /**
+   * &#x60;1&#x60; if the case is manual, &#x60;0&#x60; if it is automated. Combined with &#x60;isToBeAutomated&#x60;, replaces the deprecated &#x60;automation&#x60; field.
+   * @return isManual
+   */
+  @javax.annotation.Nullable
+  public Integer getIsManual() {
+    return isManual;
+  }
+
+  public void setIsManual(@javax.annotation.Nullable Integer isManual) {
+    this.isManual = isManual;
+  }
+
+
+  public TestCaseCreate isToBeAutomated(@javax.annotation.Nullable Integer isToBeAutomated) {
+    this.isToBeAutomated = isToBeAutomated;
+    return this;
+  }
+
+  /**
+   * &#x60;1&#x60; if a manual case is planned to be automated, &#x60;0&#x60; otherwise. Only meaningful when &#x60;isManual &#x3D; 1&#x60;; ignored when &#x60;isManual &#x3D; 0&#x60;.
+   * @return isToBeAutomated
+   */
+  @javax.annotation.Nullable
+  public Integer getIsToBeAutomated() {
+    return isToBeAutomated;
+  }
+
+  public void setIsToBeAutomated(@javax.annotation.Nullable Integer isToBeAutomated) {
+    this.isToBeAutomated = isToBeAutomated;
   }
 
 
@@ -666,7 +719,7 @@ public class TestCaseCreate {
   }
 
   /**
-   * A map of custom fields values (id &#x3D;&gt; value)
+   * Custom field values keyed by the field&#39;s project-scoped &#x60;internal_id&#x60; (see &#x60;GET /custom_field&#x60;). Values are always **scalar strings**; arrays, objects or non-scalars are rejected.  | Field type           | Value format                              | Example                 | |----------------------|-------------------------------------------|-------------------------| | &#x60;string&#x60;, &#x60;text&#x60;     | Plain string                              | &#x60;\&quot;hello\&quot;&#x60;               | | &#x60;number&#x60;             | Numeric string                            | &#x60;\&quot;42\&quot;&#x60;                  | | &#x60;url&#x60;                | Valid URL                                 | &#x60;\&quot;https://qase.io\&quot;&#x60;     | | &#x60;datetime&#x60;           | Absolute date (ISO 8601 recommended)      | &#x60;\&quot;2026-04-29T15:00:00Z\&quot;&#x60;| | &#x60;selectbox&#x60;, &#x60;radio&#x60; | Option &#x60;id&#x60; as string                     | &#x60;\&quot;1\&quot;&#x60;                   | | &#x60;multiselect&#x60;        | Comma-separated option &#x60;id&#x60;s (no spaces)  | &#x60;\&quot;1,2,3\&quot;&#x60;               | | &#x60;checkbox&#x60;           | &#x60;\&quot;1\&quot;&#x60; to check, &#x60;\&quot;\&quot;&#x60; to uncheck           | &#x60;\&quot;1\&quot;&#x60;                   | | &#x60;user&#x60;               | Team member &#x60;internal_id&#x60; as string       | &#x60;\&quot;42\&quot;&#x60;                  |  Validation: all required fields without a default value must be present and non-empty; unknown &#x60;internal_id&#x60;s are rejected; option-based values must reference an existing option.  Note: a &#x60;required&#x60; checkbox without a default cannot be unchecked via the API — set a default or clear &#x60;required&#x60; in workspace settings. 
    * @return customField
    */
   @javax.annotation.Nullable
@@ -784,6 +837,8 @@ public class TestCaseCreate {
         Objects.equals(this.suiteId, testCaseCreate.suiteId) &&
         Objects.equals(this.milestoneId, testCaseCreate.milestoneId) &&
         Objects.equals(this.automation, testCaseCreate.automation) &&
+        Objects.equals(this.isManual, testCaseCreate.isManual) &&
+        Objects.equals(this.isToBeAutomated, testCaseCreate.isToBeAutomated) &&
         Objects.equals(this.status, testCaseCreate.status) &&
         Objects.equals(this.stepsType, testCaseCreate.stepsType) &&
         Objects.equals(this.attachments, testCaseCreate.attachments) &&
@@ -803,7 +858,7 @@ public class TestCaseCreate {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, status, stepsType, attachments, steps, tags, params, parameters, customField, createdAt, updatedAt, additionalProperties);
+    return Objects.hash(description, preconditions, postconditions, title, severity, priority, behavior, type, layer, isFlaky, suiteId, milestoneId, automation, isManual, isToBeAutomated, status, stepsType, attachments, steps, tags, params, parameters, customField, createdAt, updatedAt, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -830,6 +885,8 @@ public class TestCaseCreate {
     sb.append("    suiteId: ").append(toIndentedString(suiteId)).append("\n");
     sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
     sb.append("    automation: ").append(toIndentedString(automation)).append("\n");
+    sb.append("    isManual: ").append(toIndentedString(isManual)).append("\n");
+    sb.append("    isToBeAutomated: ").append(toIndentedString(isToBeAutomated)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    stepsType: ").append(toIndentedString(stepsType)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
@@ -862,7 +919,7 @@ public class TestCaseCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("description", "preconditions", "postconditions", "title", "severity", "priority", "behavior", "type", "layer", "is_flaky", "suite_id", "milestone_id", "automation", "status", "steps_type", "attachments", "steps", "tags", "params", "parameters", "custom_field", "created_at", "updated_at"));
+    openapiFields = new HashSet<String>(Arrays.asList("description", "preconditions", "postconditions", "title", "severity", "priority", "behavior", "type", "layer", "is_flaky", "suite_id", "milestone_id", "automation", "isManual", "isToBeAutomated", "status", "steps_type", "attachments", "steps", "tags", "params", "parameters", "custom_field", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(Arrays.asList("title"));

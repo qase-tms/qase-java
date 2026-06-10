@@ -122,9 +122,20 @@ public class TestCase {
   private Integer behavior;
 
   public static final String SERIALIZED_NAME_AUTOMATION = "automation";
+  @Deprecated
   @SerializedName(SERIALIZED_NAME_AUTOMATION)
   @javax.annotation.Nullable
   private Integer automation;
+
+  public static final String SERIALIZED_NAME_IS_MANUAL = "isManual";
+  @SerializedName(SERIALIZED_NAME_IS_MANUAL)
+  @javax.annotation.Nullable
+  private Integer isManual;
+
+  public static final String SERIALIZED_NAME_IS_TO_BE_AUTOMATED = "isToBeAutomated";
+  @SerializedName(SERIALIZED_NAME_IS_TO_BE_AUTOMATED)
+  @javax.annotation.Nullable
+  private Integer isToBeAutomated;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
@@ -504,22 +515,64 @@ public class TestCase {
   }
 
 
+  @Deprecated
   public TestCase automation(@javax.annotation.Nullable Integer automation) {
     this.automation = automation;
     return this;
   }
 
   /**
-   * Get automation
+   * Deprecated, use &#x60;isManual&#x60; and &#x60;isToBeAutomated&#x60; instead. Encodes the test case automation state as a single integer: &#x60;0&#x60; &#x3D; manual, &#x60;1&#x60; &#x3D; manual planned to be automated, &#x60;2&#x60; &#x3D; automated.
    * @return automation
+   * @deprecated
    */
+  @Deprecated
   @javax.annotation.Nullable
   public Integer getAutomation() {
     return automation;
   }
 
+  @Deprecated
   public void setAutomation(@javax.annotation.Nullable Integer automation) {
     this.automation = automation;
+  }
+
+
+  public TestCase isManual(@javax.annotation.Nullable Integer isManual) {
+    this.isManual = isManual;
+    return this;
+  }
+
+  /**
+   * &#x60;1&#x60; if the case is manual, &#x60;0&#x60; if it is automated. Combined with &#x60;isToBeAutomated&#x60;, replaces the deprecated &#x60;automation&#x60; field.
+   * @return isManual
+   */
+  @javax.annotation.Nullable
+  public Integer getIsManual() {
+    return isManual;
+  }
+
+  public void setIsManual(@javax.annotation.Nullable Integer isManual) {
+    this.isManual = isManual;
+  }
+
+
+  public TestCase isToBeAutomated(@javax.annotation.Nullable Integer isToBeAutomated) {
+    this.isToBeAutomated = isToBeAutomated;
+    return this;
+  }
+
+  /**
+   * &#x60;1&#x60; if a manual case is planned to be automated, &#x60;0&#x60; otherwise. Only meaningful when &#x60;isManual &#x3D; 1&#x60;; ignored when &#x60;isManual &#x3D; 0&#x60;.
+   * @return isToBeAutomated
+   */
+  @javax.annotation.Nullable
+  public Integer getIsToBeAutomated() {
+    return isToBeAutomated;
+  }
+
+  public void setIsToBeAutomated(@javax.annotation.Nullable Integer isToBeAutomated) {
+    this.isToBeAutomated = isToBeAutomated;
   }
 
 
@@ -1000,6 +1053,8 @@ public class TestCase {
         Objects.equals(this.isFlaky, testCase.isFlaky) &&
         Objects.equals(this.behavior, testCase.behavior) &&
         Objects.equals(this.automation, testCase.automation) &&
+        Objects.equals(this.isManual, testCase.isManual) &&
+        Objects.equals(this.isToBeAutomated, testCase.isToBeAutomated) &&
         Objects.equals(this.status, testCase.status) &&
         Objects.equals(this.milestoneId, testCase.milestoneId) &&
         Objects.equals(this.suiteId, testCase.suiteId) &&
@@ -1027,7 +1082,7 @@ public class TestCase {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, parameters, tags, memberId, authorId, createdAt, updatedAt, deleted, created, updated, externalIssues, additionalProperties);
+    return Objects.hash(id, position, title, description, preconditions, postconditions, severity, priority, type, layer, isFlaky, behavior, automation, isManual, isToBeAutomated, status, milestoneId, suiteId, customFields, attachments, stepsType, steps, params, parameters, tags, memberId, authorId, createdAt, updatedAt, deleted, created, updated, externalIssues, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -1054,6 +1109,8 @@ public class TestCase {
     sb.append("    isFlaky: ").append(toIndentedString(isFlaky)).append("\n");
     sb.append("    behavior: ").append(toIndentedString(behavior)).append("\n");
     sb.append("    automation: ").append(toIndentedString(automation)).append("\n");
+    sb.append("    isManual: ").append(toIndentedString(isManual)).append("\n");
+    sb.append("    isToBeAutomated: ").append(toIndentedString(isToBeAutomated)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    milestoneId: ").append(toIndentedString(milestoneId)).append("\n");
     sb.append("    suiteId: ").append(toIndentedString(suiteId)).append("\n");
@@ -1094,7 +1151,7 @@ public class TestCase {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("id", "position", "title", "description", "preconditions", "postconditions", "severity", "priority", "type", "layer", "is_flaky", "behavior", "automation", "status", "milestone_id", "suite_id", "custom_fields", "attachments", "steps_type", "steps", "params", "parameters", "tags", "member_id", "author_id", "created_at", "updated_at", "deleted", "created", "updated", "external_issues"));
+    openapiFields = new HashSet<String>(Arrays.asList("id", "position", "title", "description", "preconditions", "postconditions", "severity", "priority", "type", "layer", "is_flaky", "behavior", "automation", "isManual", "isToBeAutomated", "status", "milestone_id", "suite_id", "custom_fields", "attachments", "steps_type", "steps", "params", "parameters", "tags", "member_id", "author_id", "created_at", "updated_at", "deleted", "created", "updated", "external_issues"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
