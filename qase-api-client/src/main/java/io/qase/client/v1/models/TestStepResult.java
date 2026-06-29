@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -64,6 +65,26 @@ public class TestStepResult {
   @javax.annotation.Nullable
   private Integer position;
 
+  public static final String SERIALIZED_NAME_COMMENT = "comment";
+  @SerializedName(SERIALIZED_NAME_COMMENT)
+  @javax.annotation.Nullable
+  private String comment;
+
+  public static final String SERIALIZED_NAME_START_TIME = "start_time";
+  @SerializedName(SERIALIZED_NAME_START_TIME)
+  @javax.annotation.Nullable
+  private Long startTime;
+
+  public static final String SERIALIZED_NAME_END_TIME = "end_time";
+  @SerializedName(SERIALIZED_NAME_END_TIME)
+  @javax.annotation.Nullable
+  private Long endTime;
+
+  public static final String SERIALIZED_NAME_DURATION_MS = "duration_ms";
+  @SerializedName(SERIALIZED_NAME_DURATION_MS)
+  @javax.annotation.Nullable
+  private Long durationMs;
+
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
   @javax.annotation.Nullable
@@ -72,7 +93,7 @@ public class TestStepResult {
   public static final String SERIALIZED_NAME_STEPS = "steps";
   @SerializedName(SERIALIZED_NAME_STEPS)
   @javax.annotation.Nullable
-  private List<Object> steps = new ArrayList<>();
+  private List<TestStepResult> steps = new ArrayList<>();
 
   public TestStepResult() {
   }
@@ -119,6 +140,82 @@ public class TestStepResult {
   }
 
 
+  public TestStepResult comment(@javax.annotation.Nullable String comment) {
+    this.comment = comment;
+    return this;
+  }
+
+  /**
+   * Comment left for the step.
+   * @return comment
+   */
+  @javax.annotation.Nullable
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(@javax.annotation.Nullable String comment) {
+    this.comment = comment;
+  }
+
+
+  public TestStepResult startTime(@javax.annotation.Nullable Long startTime) {
+    this.startTime = startTime;
+    return this;
+  }
+
+  /**
+   * Unix timestamp of the step start time.
+   * @return startTime
+   */
+  @javax.annotation.Nullable
+  public Long getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(@javax.annotation.Nullable Long startTime) {
+    this.startTime = startTime;
+  }
+
+
+  public TestStepResult endTime(@javax.annotation.Nullable Long endTime) {
+    this.endTime = endTime;
+    return this;
+  }
+
+  /**
+   * Unix timestamp of the step end time.
+   * @return endTime
+   */
+  @javax.annotation.Nullable
+  public Long getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(@javax.annotation.Nullable Long endTime) {
+    this.endTime = endTime;
+  }
+
+
+  public TestStepResult durationMs(@javax.annotation.Nullable Long durationMs) {
+    this.durationMs = durationMs;
+    return this;
+  }
+
+  /**
+   * Step duration in milliseconds.
+   * @return durationMs
+   */
+  @javax.annotation.Nullable
+  public Long getDurationMs() {
+    return durationMs;
+  }
+
+  public void setDurationMs(@javax.annotation.Nullable Long durationMs) {
+    this.durationMs = durationMs;
+  }
+
+
   public TestStepResult attachments(@javax.annotation.Nullable List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
@@ -146,12 +243,12 @@ public class TestStepResult {
   }
 
 
-  public TestStepResult steps(@javax.annotation.Nullable List<Object> steps) {
+  public TestStepResult steps(@javax.annotation.Nullable List<TestStepResult> steps) {
     this.steps = steps;
     return this;
   }
 
-  public TestStepResult addStepsItem(Object stepsItem) {
+  public TestStepResult addStepsItem(TestStepResult stepsItem) {
     if (this.steps == null) {
       this.steps = new ArrayList<>();
     }
@@ -160,15 +257,15 @@ public class TestStepResult {
   }
 
   /**
-   * Nested steps results will be here. The same structure is used for them for them.
+   * Nested steps results will be here. The same structure is used for them.
    * @return steps
    */
   @javax.annotation.Nullable
-  public List<Object> getSteps() {
+  public List<TestStepResult> getSteps() {
     return steps;
   }
 
-  public void setSteps(@javax.annotation.Nullable List<Object> steps) {
+  public void setSteps(@javax.annotation.Nullable List<TestStepResult> steps) {
     this.steps = steps;
   }
 
@@ -229,14 +326,29 @@ public class TestStepResult {
     TestStepResult testStepResult = (TestStepResult) o;
     return Objects.equals(this.status, testStepResult.status) &&
         Objects.equals(this.position, testStepResult.position) &&
+        Objects.equals(this.comment, testStepResult.comment) &&
+        Objects.equals(this.startTime, testStepResult.startTime) &&
+        Objects.equals(this.endTime, testStepResult.endTime) &&
+        Objects.equals(this.durationMs, testStepResult.durationMs) &&
         Objects.equals(this.attachments, testStepResult.attachments) &&
         Objects.equals(this.steps, testStepResult.steps)&&
         Objects.equals(this.additionalProperties, testStepResult.additionalProperties);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
-    return Objects.hash(status, position, attachments, steps, additionalProperties);
+    return Objects.hash(status, position, comment, startTime, endTime, durationMs, attachments, steps, additionalProperties);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -245,6 +357,10 @@ public class TestStepResult {
     sb.append("class TestStepResult {\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    position: ").append(toIndentedString(position)).append("\n");
+    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
+    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
+    sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
+    sb.append("    durationMs: ").append(toIndentedString(durationMs)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -269,7 +385,7 @@ public class TestStepResult {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("status", "position", "attachments", "steps"));
+    openapiFields = new HashSet<String>(Arrays.asList("status", "position", "comment", "start_time", "end_time", "duration_ms", "attachments", "steps"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -288,6 +404,9 @@ public class TestStepResult {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("comment") != null && !jsonObj.get("comment").isJsonNull()) && !jsonObj.get("comment").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `comment` to be a primitive type in the JSON string but got `%s`", jsonObj.get("comment").toString()));
+      }
       if (jsonObj.get("attachments") != null && !jsonObj.get("attachments").isJsonNull()) {
         JsonArray jsonArrayattachments = jsonObj.getAsJsonArray("attachments");
         if (jsonArrayattachments != null) {
@@ -302,9 +421,19 @@ public class TestStepResult {
           };
         }
       }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("steps") != null && !jsonObj.get("steps").isJsonNull() && !jsonObj.get("steps").isJsonArray()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps` to be an array in the JSON string but got `%s`", jsonObj.get("steps").toString()));
+      if (jsonObj.get("steps") != null && !jsonObj.get("steps").isJsonNull()) {
+        JsonArray jsonArraysteps = jsonObj.getAsJsonArray("steps");
+        if (jsonArraysteps != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("steps").isJsonArray()) {
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `steps` to be an array in the JSON string but got `%s`", jsonObj.get("steps").toString()));
+          }
+
+          // validate the optional field `steps` (array)
+          for (int i = 0; i < jsonArraysteps.size(); i++) {
+            TestStepResult.validateJsonElement(jsonArraysteps.get(i));
+          };
+        }
       }
   }
 
