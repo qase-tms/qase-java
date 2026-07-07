@@ -1,0 +1,59 @@
+qase-api-client/src/main/java/io/qase/client/v1/models/TestCaseCreate.java
+  s_9949356bb8136a::t_cd2eae6a24cc62 129,134,493,499,503,507,512,518,522,526
+qase-api-v2-client/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 9
+qase-cucumber-v4-reporter/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+qase-java-commons/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 9
+qase-testng-reporter/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+qase-junit4-reporter/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+qase-api-client/src/main/java/io/qase/client/v1/models/TestCasebulkCasesInner.java
+  s_9949356bb8136a::t_cd2eae6a24cc62 129,134,498,504,508,512,517,523,527,531
+qase-api-client/docs/TestCaseCreate.md
+  s_9949356bb8136a::t_cd2eae6a24cc62 23-24
+qase-cucumber-v3-reporter/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+qase-api-client/src/main/java/io/qase/client/v1/models/TestCaseUpdate.java
+  s_9949356bb8136a::t_cd2eae6a24cc62 129,134,483,489,493,497,502,508,512,516
+qase-cucumber-v6-reporter/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+qase-cucumber-v7-reporter/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+qase-junit5-reporter/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+changelog.md
+  s_9949356bb8136a::t_a77f9ce03a18ca 1-4
+qase-api-client/docs/TestCaseUpdate.md
+  s_9949356bb8136a::t_cd2eae6a24cc62 23-24
+qase-api-client/src/main/java/io/qase/client/v1/models/TestCase.java
+  s_9949356bb8136a::t_cd2eae6a24cc62 133,138,541,547,551,555,560,566,570,574
+qase-api-client/docs/TestCase.md
+  s_9949356bb8136a::t_cd2eae6a24cc62 23-24
+qase-api-client/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+qase-cucumber-v5-reporter/pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 8
+qase-api-client/docs/TestCasebulkCasesInner.md
+  s_9949356bb8136a::t_cd2eae6a24cc62 23-24
+pom.xml
+  s_9949356bb8136a::t_cd2eae6a24cc62 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6c1292d5a153abd8e1bda193e07c6473a277baee",
+  "prompts": {},
+  "sessions": {
+    "s_9949356bb8136a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9373579e-1e0e-4b20-a586-4931f56494e8",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
