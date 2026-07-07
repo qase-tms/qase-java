@@ -130,12 +130,12 @@ public class TestCase {
   public static final String SERIALIZED_NAME_IS_MANUAL = "isManual";
   @SerializedName(SERIALIZED_NAME_IS_MANUAL)
   @javax.annotation.Nullable
-  private Integer isManual;
+  private Boolean isManual;
 
   public static final String SERIALIZED_NAME_IS_TO_BE_AUTOMATED = "isToBeAutomated";
   @SerializedName(SERIALIZED_NAME_IS_TO_BE_AUTOMATED)
   @javax.annotation.Nullable
-  private Integer isToBeAutomated;
+  private Boolean isToBeAutomated;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
@@ -538,40 +538,40 @@ public class TestCase {
   }
 
 
-  public TestCase isManual(@javax.annotation.Nullable Integer isManual) {
+  public TestCase isManual(@javax.annotation.Nullable Boolean isManual) {
     this.isManual = isManual;
     return this;
   }
 
   /**
-   * &#x60;1&#x60; if the case is manual, &#x60;0&#x60; if it is automated. Combined with &#x60;isToBeAutomated&#x60;, replaces the deprecated &#x60;automation&#x60; field.
+   * &#x60;true&#x60; if the case is manual, &#x60;false&#x60; if it is automated. Combined with &#x60;isToBeAutomated&#x60;, replaces the deprecated &#x60;automation&#x60; field.
    * @return isManual
    */
   @javax.annotation.Nullable
-  public Integer getIsManual() {
+  public Boolean getIsManual() {
     return isManual;
   }
 
-  public void setIsManual(@javax.annotation.Nullable Integer isManual) {
+  public void setIsManual(@javax.annotation.Nullable Boolean isManual) {
     this.isManual = isManual;
   }
 
 
-  public TestCase isToBeAutomated(@javax.annotation.Nullable Integer isToBeAutomated) {
+  public TestCase isToBeAutomated(@javax.annotation.Nullable Boolean isToBeAutomated) {
     this.isToBeAutomated = isToBeAutomated;
     return this;
   }
 
   /**
-   * &#x60;1&#x60; if a manual case is planned to be automated, &#x60;0&#x60; otherwise. Only meaningful when &#x60;isManual &#x3D; 1&#x60;; ignored when &#x60;isManual &#x3D; 0&#x60;.
+   * &#x60;true&#x60; if a manual case is planned to be automated, &#x60;false&#x60; otherwise. Only meaningful when &#x60;isManual&#x60; is &#x60;true&#x60;; ignored when &#x60;isManual&#x60; is &#x60;false&#x60;.
    * @return isToBeAutomated
    */
   @javax.annotation.Nullable
-  public Integer getIsToBeAutomated() {
+  public Boolean getIsToBeAutomated() {
     return isToBeAutomated;
   }
 
-  public void setIsToBeAutomated(@javax.annotation.Nullable Integer isToBeAutomated) {
+  public void setIsToBeAutomated(@javax.annotation.Nullable Boolean isToBeAutomated) {
     this.isToBeAutomated = isToBeAutomated;
   }
 
