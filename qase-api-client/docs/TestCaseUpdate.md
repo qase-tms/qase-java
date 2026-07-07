@@ -20,8 +20,8 @@
 |**suiteId** | **Long** |  |  [optional] |
 |**milestoneId** | **Long** |  |  [optional] |
 |**automation** | **Integer** | Deprecated, use &#x60;isManual&#x60; and &#x60;isToBeAutomated&#x60; instead. Encodes the test case automation state as a single integer: &#x60;0&#x60; &#x3D; manual, &#x60;1&#x60; &#x3D; manual planned to be automated, &#x60;2&#x60; &#x3D; automated. If both &#x60;automation&#x60; and &#x60;isManual&#x60;/&#x60;isToBeAutomated&#x60; are provided, &#x60;isManual&#x60; and &#x60;isToBeAutomated&#x60; take precedence. |  [optional] |
-|**isManual** | **Integer** | &#x60;1&#x60; if the case is manual, &#x60;0&#x60; if it is automated. Combined with &#x60;isToBeAutomated&#x60;, replaces the deprecated &#x60;automation&#x60; field. |  [optional] |
-|**isToBeAutomated** | **Integer** | &#x60;1&#x60; if a manual case is planned to be automated, &#x60;0&#x60; otherwise. Only meaningful when &#x60;isManual &#x3D; 1&#x60;; ignored when &#x60;isManual &#x3D; 0&#x60;. |  [optional] |
+|**isManual** | **Boolean** | &#x60;true&#x60; if the case is manual, &#x60;false&#x60; if it is automated. Combined with &#x60;isToBeAutomated&#x60;, replaces the deprecated &#x60;automation&#x60; field. |  [optional] |
+|**isToBeAutomated** | **Boolean** | &#x60;true&#x60; if a manual case is planned to be automated, &#x60;false&#x60; otherwise. Only meaningful when &#x60;isManual&#x60; is &#x60;true&#x60;; ignored when &#x60;isManual&#x60; is &#x60;false&#x60;. |  [optional] |
 |**status** | **Integer** |  |  [optional] |
 |**stepsType** | [**StepsTypeEnum**](#StepsTypeEnum) | Determines the format of the steps field. When \&quot;classic\&quot;, steps use the standard action/expected_result/data format. When \&quot;gherkin\&quot;, steps use the {value: \&quot;Given...\\nWhen...\\nThen...\&quot;} format. |  [optional] |
 |**attachments** | **List&lt;String&gt;** | A list of Attachment hashes. |  [optional] |
