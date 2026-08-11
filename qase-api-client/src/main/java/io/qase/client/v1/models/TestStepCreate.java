@@ -57,6 +57,11 @@ public class TestStepCreate {
   @javax.annotation.Nullable
   private String action;
 
+  public static final String SERIALIZED_NAME_SHARED = "shared";
+  @SerializedName(SERIALIZED_NAME_SHARED)
+  @javax.annotation.Nullable
+  private String shared;
+
   public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
   @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
   @javax.annotation.Nullable
@@ -107,6 +112,25 @@ public class TestStepCreate {
 
   public void setAction(@javax.annotation.Nullable String action) {
     this.action = action;
+  }
+
+
+  public TestStepCreate shared(@javax.annotation.Nullable String shared) {
+    this.shared = shared;
+    return this;
+  }
+
+  /**
+   * Hash of an existing shared step to insert at this position.
+   * @return shared
+   */
+  @javax.annotation.Nullable
+  public String getShared() {
+    return shared;
+  }
+
+  public void setShared(@javax.annotation.Nullable String shared) {
+    this.shared = shared;
   }
 
 
@@ -299,6 +323,7 @@ public class TestStepCreate {
     }
     TestStepCreate testStepCreate = (TestStepCreate) o;
     return Objects.equals(this.action, testStepCreate.action) &&
+        Objects.equals(this.shared, testStepCreate.shared) &&
         Objects.equals(this.expectedResult, testStepCreate.expectedResult) &&
         Objects.equals(this.data, testStepCreate.data) &&
         Objects.equals(this.value, testStepCreate.value) &&
@@ -310,7 +335,7 @@ public class TestStepCreate {
 
   @Override
   public int hashCode() {
-    return Objects.hash(action, expectedResult, data, value, position, attachments, steps, additionalProperties);
+    return Objects.hash(action, shared, expectedResult, data, value, position, attachments, steps, additionalProperties);
   }
 
   @Override
@@ -318,6 +343,7 @@ public class TestStepCreate {
     StringBuilder sb = new StringBuilder();
     sb.append("class TestStepCreate {\n");
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
+    sb.append("    shared: ").append(toIndentedString(shared)).append("\n");
     sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
@@ -346,7 +372,7 @@ public class TestStepCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("action", "expected_result", "data", "value", "position", "attachments", "steps"));
+    openapiFields = new HashSet<String>(Arrays.asList("action", "shared", "expected_result", "data", "value", "position", "attachments", "steps"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -367,6 +393,9 @@ public class TestStepCreate {
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if ((jsonObj.get("action") != null && !jsonObj.get("action").isJsonNull()) && !jsonObj.get("action").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `action` to be a primitive type in the JSON string but got `%s`", jsonObj.get("action").toString()));
+      }
+      if ((jsonObj.get("shared") != null && !jsonObj.get("shared").isJsonNull()) && !jsonObj.get("shared").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `shared` to be a primitive type in the JSON string but got `%s`", jsonObj.get("shared").toString()));
       }
       if ((jsonObj.get("expected_result") != null && !jsonObj.get("expected_result").isJsonNull()) && !jsonObj.get("expected_result").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `expected_result` to be a primitive type in the JSON string but got `%s`", jsonObj.get("expected_result").toString()));

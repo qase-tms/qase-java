@@ -512,10 +512,10 @@ public class Example {
     Integer suiteId = 56; // Integer | ID of test suite.
     String severity = "severity_example"; // String | A list of severity values separated by comma. Possible values: undefined, blocker, critical, major, normal, minor, trivial 
     String priority = "priority_example"; // String | A list of priority values separated by comma. Possible values: undefined, high, medium, low 
-    String type = "type_example"; // String | A list of type values separated by comma. Possible values: other, functional smoke, regression, security, usability, performance, acceptance 
-    String behavior = "behavior_example"; // String | A list of behavior values separated by comma. Possible values: undefined, positive negative, destructive 
-    String automation = "automation_example"; // String | A list of values separated by comma. Possible values: is-not-automated, automated to-be-automated 
-    String status = "status_example"; // String | A list of values separated by comma. Possible values: actual, draft deprecated 
+    String type = "type_example"; // String | A list of type values separated by comma. Possible values: other, functional, smoke, regression, security, usability, performance, acceptance 
+    String behavior = "behavior_example"; // String | A list of behavior values separated by comma. Possible values: undefined, positive, negative, destructive 
+    String automation = "automation_example"; // String | A list of values separated by comma. Possible values: is-not-automated, automated, to-be-automated 
+    String status = "status_example"; // String | A list of values separated by comma. Possible values: actual, draft, deprecated 
     String externalIssuesType = "asana"; // String | An integration type. 
     List<String> externalIssuesIds = Arrays.asList(); // List<String> | A list of issue IDs.
     String include = "include_example"; // String | A list of entities to include in response separated by comma. Possible values: external_issues. 
@@ -545,10 +545,10 @@ public class Example {
 | **suiteId** | **Integer**| ID of test suite. | [optional] |
 | **severity** | **String**| A list of severity values separated by comma. Possible values: undefined, blocker, critical, major, normal, minor, trivial  | [optional] |
 | **priority** | **String**| A list of priority values separated by comma. Possible values: undefined, high, medium, low  | [optional] |
-| **type** | **String**| A list of type values separated by comma. Possible values: other, functional smoke, regression, security, usability, performance, acceptance  | [optional] |
-| **behavior** | **String**| A list of behavior values separated by comma. Possible values: undefined, positive negative, destructive  | [optional] |
-| **automation** | **String**| A list of values separated by comma. Possible values: is-not-automated, automated to-be-automated  | [optional] |
-| **status** | **String**| A list of values separated by comma. Possible values: actual, draft deprecated  | [optional] |
+| **type** | **String**| A list of type values separated by comma. Possible values: other, functional, smoke, regression, security, usability, performance, acceptance  | [optional] |
+| **behavior** | **String**| A list of behavior values separated by comma. Possible values: undefined, positive, negative, destructive  | [optional] |
+| **automation** | **String**| A list of values separated by comma. Possible values: is-not-automated, automated, to-be-automated  | [optional] |
+| **status** | **String**| A list of values separated by comma. Possible values: actual, draft, deprecated  | [optional] |
 | **externalIssuesType** | **String**| An integration type.  | [optional] [enum: asana, azure-devops, clickup-app, github-app, gitlab-app, jira-cloud, jira-server, linear, monday, redmine-app, trello-app, youtrack-app] |
 | **externalIssuesIds** | [**List&lt;String&gt;**](String.md)| A list of issue IDs. | [optional] |
 | **include** | **String**| A list of entities to include in response separated by comma. Possible values: external_issues.  | [optional] |
