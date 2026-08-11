@@ -8,6 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**action** | **String** | Step action text. Used for classic steps. For gherkin steps, use the \&quot;value\&quot; property instead. |  [optional] |
+|**shared** | **String** | Hash of an existing shared step to insert at this position. |  [optional] |
 |**expectedResult** | **String** |  |  [optional] |
 |**data** | **String** |  |  [optional] |
 |**value** | **String** | Gherkin scenario text. Used when steps_type is \&quot;gherkin\&quot;. Example: \&quot;Given a user exists\\nWhen they log in\\nThen they see the dashboard\&quot; |  [optional] |
