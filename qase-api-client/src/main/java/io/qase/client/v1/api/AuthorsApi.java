@@ -75,7 +75,7 @@ public class AuthorsApi {
 
     /**
      * Build call for getAuthor
-     * @param id Identifier. (required)
+     * @param id Author UUID, or the deprecated integer author ID. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -91,7 +91,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAuthorCall(@javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getAuthorCall(@javax.annotation.Nonnull String id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -137,7 +137,7 @@ public class AuthorsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAuthorValidateBeforeCall(@javax.annotation.Nonnull Integer id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getAuthorValidateBeforeCall(@javax.annotation.Nonnull String id, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling getAuthor(Async)");
@@ -150,7 +150,7 @@ public class AuthorsApi {
     /**
      * Get a specific author
      * This method allows to retrieve a specific author. 
-     * @param id Identifier. (required)
+     * @param id Author UUID, or the deprecated integer author ID. (required)
      * @return AuthorResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -165,7 +165,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public AuthorResponse getAuthor(@javax.annotation.Nonnull Integer id) throws ApiException {
+    public AuthorResponse getAuthor(@javax.annotation.Nonnull String id) throws ApiException {
         ApiResponse<AuthorResponse> localVarResp = getAuthorWithHttpInfo(id);
         return localVarResp.getData();
     }
@@ -173,7 +173,7 @@ public class AuthorsApi {
     /**
      * Get a specific author
      * This method allows to retrieve a specific author. 
-     * @param id Identifier. (required)
+     * @param id Author UUID, or the deprecated integer author ID. (required)
      * @return ApiResponse&lt;AuthorResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -188,7 +188,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AuthorResponse> getAuthorWithHttpInfo(@javax.annotation.Nonnull Integer id) throws ApiException {
+    public ApiResponse<AuthorResponse> getAuthorWithHttpInfo(@javax.annotation.Nonnull String id) throws ApiException {
         okhttp3.Call localVarCall = getAuthorValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<AuthorResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -197,7 +197,7 @@ public class AuthorsApi {
     /**
      * Get a specific author (asynchronously)
      * This method allows to retrieve a specific author. 
-     * @param id Identifier. (required)
+     * @param id Author UUID, or the deprecated integer author ID. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -213,7 +213,7 @@ public class AuthorsApi {
         <tr><td> 429 </td><td> Too Many Requests. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAuthorAsync(@javax.annotation.Nonnull Integer id, final ApiCallback<AuthorResponse> _callback) throws ApiException {
+    public okhttp3.Call getAuthorAsync(@javax.annotation.Nonnull String id, final ApiCallback<AuthorResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getAuthorValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<AuthorResponse>(){}.getType();

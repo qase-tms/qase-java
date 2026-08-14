@@ -38,7 +38,7 @@ public class Example {
     //TokenAuth.setApiKeyPrefix("Token");
 
     AuthorsApi apiInstance = new AuthorsApi(defaultClient);
-    Integer id = 56; // Integer | Identifier.
+    String id = "id_example"; // String | Author UUID, or the deprecated integer author ID.
     try {
       AuthorResponse result = apiInstance.getAuthor(id);
       System.out.println(result);
@@ -57,7 +57,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **id** | **Integer**| Identifier. | |
+| **id** | **String**| Author UUID, or the deprecated integer author ID. | |
 
 ### Return type
 
