@@ -1,0 +1,133 @@
+changelog.md
+  s_4e6213ef90d85e::t_0ddaf70c250d24 1-4
+pom.xml
+  s_4e6213ef90d85e::t_7993ed451989da 10
+qase-api-client/docs/Author.md
+  s_12aaa6e0f40c67::t_63e717b287711a 11-12
+qase-api-client/docs/AuthorsApi.md
+  s_12aaa6e0f40c67::t_cb9702d8ac3e41 41,60
+qase-api-client/docs/Review.md
+  s_12aaa6e0f40c67::t_a173a519a10105 1-40
+qase-api-client/docs/ReviewBulk.md
+  s_12aaa6e0f40c67::t_5239d6d5f82df1 1-13
+qase-api-client/docs/ReviewBulkResponse.md
+  s_12aaa6e0f40c67::t_d8a59e0b7e08dc 1-14
+qase-api-client/docs/ReviewBulkResponseAllOfResult.md
+  s_12aaa6e0f40c67::t_114672d6233aa2 1-13
+qase-api-client/docs/ReviewBulkResponseAllOfResultItems.md
+  s_12aaa6e0f40c67::t_01d792547f30fa 1-15
+qase-api-client/docs/ReviewCaseData.md
+  s_12aaa6e0f40c67::t_946bbe5cf984a5 1-44
+qase-api-client/docs/ReviewCreate.md
+  s_12aaa6e0f40c67::t_3ddac065f36156 1-15
+qase-api-client/docs/ReviewDetailed.md
+  s_12aaa6e0f40c67::t_a9112d2ceafb28 1-41
+qase-api-client/docs/ReviewListResponse.md
+  s_12aaa6e0f40c67::t_cfa4a8dfc04483 1-14
+qase-api-client/docs/ReviewListResponseAllOfResult.md
+  s_12aaa6e0f40c67::t_dfbe1c3eb5a3f4 1-16
+qase-api-client/docs/ReviewProposedCase.md
+  s_12aaa6e0f40c67::t_d0ad76460a7fc3 1-44
+qase-api-client/docs/ReviewProposedStep.md
+  s_12aaa6e0f40c67::t_fe7e0a67ed7fb7 1-19
+qase-api-client/docs/ReviewResponse.md
+  s_12aaa6e0f40c67::t_b94658cab5aaa3 1-14
+qase-api-client/docs/ReviewReviewersInner.md
+  s_12aaa6e0f40c67::t_c88df147381f31 1-24
+qase-api-client/docs/ReviewStepData.md
+  s_12aaa6e0f40c67::t_05ebca6102b5eb 1-20
+qase-api-client/docs/ReviewUpdate.md
+  s_12aaa6e0f40c67::t_dde2b77d2a5cd2 1-14
+qase-api-client/docs/ReviewsApi.md
+  s_12aaa6e0f40c67::t_cfe2e1f6f0ef97 1-496
+qase-api-client/docs/TestStepCreate.md
+  s_12aaa6e0f40c67::t_3305d4fec3622c 5
+qase-api-client/pom.xml
+  s_4e6213ef90d85e::t_3d1588fa9acd54 8
+qase-api-client/src/main/java/io/qase/client/v1/JSON.java
+  s_12aaa6e0f40c67::t_aff7ce080f8b0b 196-211
+qase-api-client/src/main/java/io/qase/client/v1/api/AuthorsApi.java
+  s_12aaa6e0f40c67::t_c93001e0870204 78,94,140,153,168,176,191,200,216
+qase-api-client/src/main/java/io/qase/client/v1/api/ReviewsApi.java
+  s_12aaa6e0f40c67::t_b6f14fd5849e48 1-1128
+qase-api-client/src/main/java/io/qase/client/v1/models/Author.java
+  s_12aaa6e0f40c67::t_fe0df687d306e7 24,59-63,65,117-136,143,145,147,153,309,321,329,358,377-379
+qase-api-client/src/main/java/io/qase/client/v1/models/Review.java
+  s_12aaa6e0f40c67::t_a9f44bfe00c617 1-656
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewBulk.java
+  s_12aaa6e0f40c67::t_c4954501572407 1-311
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewBulkResponse.java
+  s_12aaa6e0f40c67::t_06a8cbf5ab7744 1-314
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewBulkResponseAllOfResult.java
+  s_12aaa6e0f40c67::t_e1d3cfe19ef05f 1-308
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewBulkResponseAllOfResultItems.java
+  s_12aaa6e0f40c67::t_8ec1d3406ea2c1 1-350
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewCaseData.java
+  s_12aaa6e0f40c67::t_07a454638c7050 1-994
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewCreate.java
+  s_12aaa6e0f40c67::t_ae1bb57965bd50 1-372
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewDetailed.java
+  s_12aaa6e0f40c67::t_e87a4fc7996138 1-682
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewListResponse.java
+  s_12aaa6e0f40c67::t_b795e44a119a6d 1-314
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewListResponseAllOfResult.java
+  s_12aaa6e0f40c67::t_f2c29da71a2be4 1-386
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewProposedCase.java
+  s_12aaa6e0f40c67::t_44f22e3c49fada 1-1007
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewProposedStep.java
+  s_12aaa6e0f40c67::t_5ab8c63f8d2a76 1-480
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewResponse.java
+  s_12aaa6e0f40c67::t_251b75f480013d 1-314
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewReviewersInner.java
+  s_12aaa6e0f40c67::t_c33eda7bff3e26 1-386
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewStepData.java
+  s_12aaa6e0f40c67::t_1bd6f60ce08657 1-480
+qase-api-client/src/main/java/io/qase/client/v1/models/ReviewUpdate.java
+  s_12aaa6e0f40c67::t_65472e4662e0b2 1-329
+qase-api-client/src/main/java/io/qase/client/v1/models/TestStepCreate.java
+  s_12aaa6e0f40c67::t_919d1a89bcfc7e 51
+qase-api-v2-client/pom.xml
+  s_4e6213ef90d85e::t_32c5e869b7d8db 9
+qase-cucumber-v3-reporter/pom.xml
+  s_4e6213ef90d85e::t_260c9dee2eda5e 8
+qase-cucumber-v4-reporter/pom.xml
+  s_4e6213ef90d85e::t_2aaee428f2d623 8
+qase-cucumber-v5-reporter/pom.xml
+  s_4e6213ef90d85e::t_024faf2700197e 8
+qase-cucumber-v6-reporter/pom.xml
+  s_4e6213ef90d85e::t_8af26dbc707d50 8
+qase-cucumber-v7-reporter/pom.xml
+  s_4e6213ef90d85e::t_79e037bfa10860 8
+qase-java-commons/pom.xml
+  s_4e6213ef90d85e::t_bbff379a432245 9
+qase-junit4-reporter/pom.xml
+  s_4e6213ef90d85e::t_2f404b93fc3ea7 8
+qase-junit5-reporter/pom.xml
+  s_4e6213ef90d85e::t_800398d5b9315e 8
+qase-testng-reporter/pom.xml
+  s_4e6213ef90d85e::t_497564fd69daee 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "7c2c82dcaf0fe094d1517fd619ac7d2394574669",
+  "prompts": {},
+  "sessions": {
+    "s_12aaa6e0f40c67": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "494f1553-645e-411a-9dee-c376f4be7009",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    },
+    "s_4e6213ef90d85e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "94dad6f4-0859-498c-813b-bb752472d9ce",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
