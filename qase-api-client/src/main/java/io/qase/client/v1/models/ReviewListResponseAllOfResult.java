@@ -19,9 +19,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.qase.client.v1.models.Review;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,207 +49,114 @@ import java.util.Set;
 import io.qase.client.v1.JSON;
 
 /**
- * Author
+ * ReviewListResponseAllOfResult
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
-public class Author {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+public class ReviewListResponseAllOfResult {
+  public static final String SERIALIZED_NAME_TOTAL = "total";
+  @SerializedName(SERIALIZED_NAME_TOTAL)
   @javax.annotation.Nullable
-  private Long id;
+  private Integer total;
 
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
+  public static final String SERIALIZED_NAME_FILTERED = "filtered";
+  @SerializedName(SERIALIZED_NAME_FILTERED)
   @javax.annotation.Nullable
-  private UUID uuid;
+  private Integer filtered;
 
-  public static final String SERIALIZED_NAME_AUTHOR_ID = "author_id";
-  @Deprecated
-  @SerializedName(SERIALIZED_NAME_AUTHOR_ID)
+  public static final String SERIALIZED_NAME_COUNT = "count";
+  @SerializedName(SERIALIZED_NAME_COUNT)
   @javax.annotation.Nullable
-  private Long authorId;
+  private Integer count;
 
-  public static final String SERIALIZED_NAME_ENTITY_TYPE = "entity_type";
-  @SerializedName(SERIALIZED_NAME_ENTITY_TYPE)
+  public static final String SERIALIZED_NAME_ENTITIES = "entities";
+  @SerializedName(SERIALIZED_NAME_ENTITIES)
   @javax.annotation.Nullable
-  private String entityType;
+  private List<Review> entities = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_ENTITY_ID = "entity_id";
-  @SerializedName(SERIALIZED_NAME_ENTITY_ID)
-  @javax.annotation.Nullable
-  private Long entityId;
-
-  public static final String SERIALIZED_NAME_EMAIL = "email";
-  @SerializedName(SERIALIZED_NAME_EMAIL)
-  @javax.annotation.Nullable
-  private String email;
-
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  @javax.annotation.Nullable
-  private String name;
-
-  public static final String SERIALIZED_NAME_IS_ACTIVE = "is_active";
-  @SerializedName(SERIALIZED_NAME_IS_ACTIVE)
-  @javax.annotation.Nullable
-  private Boolean isActive;
-
-  public Author() {
+  public ReviewListResponseAllOfResult() {
   }
 
-  public Author id(@javax.annotation.Nullable Long id) {
-    this.id = id;
+  public ReviewListResponseAllOfResult total(@javax.annotation.Nullable Integer total) {
+    this.total = total;
     return this;
   }
 
   /**
-   * Get id
-   * @return id
+   * Get total
+   * @return total
    */
   @javax.annotation.Nullable
-  public Long getId() {
-    return id;
+  public Integer getTotal() {
+    return total;
   }
 
-  public void setId(@javax.annotation.Nullable Long id) {
-    this.id = id;
+  public void setTotal(@javax.annotation.Nullable Integer total) {
+    this.total = total;
   }
 
 
-  public Author uuid(@javax.annotation.Nullable UUID uuid) {
-    this.uuid = uuid;
+  public ReviewListResponseAllOfResult filtered(@javax.annotation.Nullable Integer filtered) {
+    this.filtered = filtered;
     return this;
   }
 
   /**
-   * Author UUID. Use it to reference the author in other API methods.
-   * @return uuid
+   * Get filtered
+   * @return filtered
    */
   @javax.annotation.Nullable
-  public UUID getUuid() {
-    return uuid;
+  public Integer getFiltered() {
+    return filtered;
   }
 
-  public void setUuid(@javax.annotation.Nullable UUID uuid) {
-    this.uuid = uuid;
+  public void setFiltered(@javax.annotation.Nullable Integer filtered) {
+    this.filtered = filtered;
   }
 
 
-  @Deprecated
-  public Author authorId(@javax.annotation.Nullable Long authorId) {
-    this.authorId = authorId;
+  public ReviewListResponseAllOfResult count(@javax.annotation.Nullable Integer count) {
+    this.count = count;
     return this;
   }
 
   /**
-   * Deprecated, use &#x60;uuid&#x60; instead.
-   * @return authorId
-   * @deprecated
+   * Get count
+   * @return count
    */
-  @Deprecated
   @javax.annotation.Nullable
-  public Long getAuthorId() {
-    return authorId;
+  public Integer getCount() {
+    return count;
   }
 
-  @Deprecated
-  public void setAuthorId(@javax.annotation.Nullable Long authorId) {
-    this.authorId = authorId;
+  public void setCount(@javax.annotation.Nullable Integer count) {
+    this.count = count;
   }
 
 
-  public Author entityType(@javax.annotation.Nullable String entityType) {
-    this.entityType = entityType;
+  public ReviewListResponseAllOfResult entities(@javax.annotation.Nullable List<Review> entities) {
+    this.entities = entities;
+    return this;
+  }
+
+  public ReviewListResponseAllOfResult addEntitiesItem(Review entitiesItem) {
+    if (this.entities == null) {
+      this.entities = new ArrayList<>();
+    }
+    this.entities.add(entitiesItem);
     return this;
   }
 
   /**
-   * Get entityType
-   * @return entityType
+   * Get entities
+   * @return entities
    */
   @javax.annotation.Nullable
-  public String getEntityType() {
-    return entityType;
+  public List<Review> getEntities() {
+    return entities;
   }
 
-  public void setEntityType(@javax.annotation.Nullable String entityType) {
-    this.entityType = entityType;
-  }
-
-
-  public Author entityId(@javax.annotation.Nullable Long entityId) {
-    this.entityId = entityId;
-    return this;
-  }
-
-  /**
-   * Get entityId
-   * @return entityId
-   */
-  @javax.annotation.Nullable
-  public Long getEntityId() {
-    return entityId;
-  }
-
-  public void setEntityId(@javax.annotation.Nullable Long entityId) {
-    this.entityId = entityId;
-  }
-
-
-  public Author email(@javax.annotation.Nullable String email) {
-    this.email = email;
-    return this;
-  }
-
-  /**
-   * Get email
-   * @return email
-   */
-  @javax.annotation.Nullable
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(@javax.annotation.Nullable String email) {
-    this.email = email;
-  }
-
-
-  public Author name(@javax.annotation.Nullable String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   */
-  @javax.annotation.Nullable
-  public String getName() {
-    return name;
-  }
-
-  public void setName(@javax.annotation.Nullable String name) {
-    this.name = name;
-  }
-
-
-  public Author isActive(@javax.annotation.Nullable Boolean isActive) {
-    this.isActive = isActive;
-    return this;
-  }
-
-  /**
-   * Get isActive
-   * @return isActive
-   */
-  @javax.annotation.Nullable
-  public Boolean getIsActive() {
-    return isActive;
-  }
-
-  public void setIsActive(@javax.annotation.Nullable Boolean isActive) {
-    this.isActive = isActive;
+  public void setEntities(@javax.annotation.Nullable List<Review> entities) {
+    this.entities = entities;
   }
 
   /**
@@ -263,9 +172,9 @@ public class Author {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the Author instance itself
+   * @return the ReviewListResponseAllOfResult instance itself
    */
-  public Author putAdditionalProperty(String key, Object value) {
+  public ReviewListResponseAllOfResult putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -304,35 +213,27 @@ public class Author {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Author author = (Author) o;
-    return Objects.equals(this.id, author.id) &&
-        Objects.equals(this.uuid, author.uuid) &&
-        Objects.equals(this.authorId, author.authorId) &&
-        Objects.equals(this.entityType, author.entityType) &&
-        Objects.equals(this.entityId, author.entityId) &&
-        Objects.equals(this.email, author.email) &&
-        Objects.equals(this.name, author.name) &&
-        Objects.equals(this.isActive, author.isActive)&&
-        Objects.equals(this.additionalProperties, author.additionalProperties);
+    ReviewListResponseAllOfResult reviewListResponseAllOfResult = (ReviewListResponseAllOfResult) o;
+    return Objects.equals(this.total, reviewListResponseAllOfResult.total) &&
+        Objects.equals(this.filtered, reviewListResponseAllOfResult.filtered) &&
+        Objects.equals(this.count, reviewListResponseAllOfResult.count) &&
+        Objects.equals(this.entities, reviewListResponseAllOfResult.entities)&&
+        Objects.equals(this.additionalProperties, reviewListResponseAllOfResult.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, uuid, authorId, entityType, entityId, email, name, isActive, additionalProperties);
+    return Objects.hash(total, filtered, count, entities, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Author {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-    sb.append("    authorId: ").append(toIndentedString(authorId)).append("\n");
-    sb.append("    entityType: ").append(toIndentedString(entityType)).append("\n");
-    sb.append("    entityId: ").append(toIndentedString(entityId)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
+    sb.append("class ReviewListResponseAllOfResult {\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    filtered: ").append(toIndentedString(filtered)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    entities: ").append(toIndentedString(entities)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -355,7 +256,7 @@ public class Author {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("id", "uuid", "author_id", "entity_type", "entity_id", "email", "name", "is_active"));
+    openapiFields = new HashSet<String>(Arrays.asList("total", "filtered", "count", "entities"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -365,26 +266,28 @@ public class Author {
    * Validates the JSON Element and throws an exception if issues found
    *
    * @param jsonElement JSON Element
-   * @throws IOException if the JSON Element is invalid with respect to Author
+   * @throws IOException if the JSON Element is invalid with respect to ReviewListResponseAllOfResult
    */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!Author.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in Author is not found in the empty JSON string", Author.openapiRequiredFields.toString()));
+        if (!ReviewListResponseAllOfResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in ReviewListResponseAllOfResult is not found in the empty JSON string", ReviewListResponseAllOfResult.openapiRequiredFields.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      if ((jsonObj.get("entity_type") != null && !jsonObj.get("entity_type").isJsonNull()) && !jsonObj.get("entity_type").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `entity_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("entity_type").toString()));
-      }
-      if ((jsonObj.get("email") != null && !jsonObj.get("email").isJsonNull()) && !jsonObj.get("email").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `email` to be a primitive type in the JSON string but got `%s`", jsonObj.get("email").toString()));
-      }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      if (jsonObj.get("entities") != null && !jsonObj.get("entities").isJsonNull()) {
+        JsonArray jsonArrayentities = jsonObj.getAsJsonArray("entities");
+        if (jsonArrayentities != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("entities").isJsonArray()) {
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `entities` to be an array in the JSON string but got `%s`", jsonObj.get("entities").toString()));
+          }
+
+          // validate the optional field `entities` (array)
+          for (int i = 0; i < jsonArrayentities.size(); i++) {
+            Review.validateJsonElement(jsonArrayentities.get(i));
+          };
+        }
       }
   }
 
@@ -392,16 +295,16 @@ public class Author {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Author.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Author' and its subtypes
+       if (!ReviewListResponseAllOfResult.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ReviewListResponseAllOfResult' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Author> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Author.class));
+       final TypeAdapter<ReviewListResponseAllOfResult> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ReviewListResponseAllOfResult.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Author>() {
+       return (TypeAdapter<T>) new TypeAdapter<ReviewListResponseAllOfResult>() {
            @Override
-           public void write(JsonWriter out, Author value) throws IOException {
+           public void write(JsonWriter out, ReviewListResponseAllOfResult value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -429,12 +332,12 @@ public class Author {
            }
 
            @Override
-           public Author read(JsonReader in) throws IOException {
+           public ReviewListResponseAllOfResult read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
-             Author instance = thisAdapter.fromJsonTree(jsonObj);
+             ReviewListResponseAllOfResult instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -461,18 +364,18 @@ public class Author {
   }
 
   /**
-   * Create an instance of Author given an JSON string
+   * Create an instance of ReviewListResponseAllOfResult given an JSON string
    *
    * @param jsonString JSON string
-   * @return An instance of Author
-   * @throws IOException if the JSON string is invalid with respect to Author
+   * @return An instance of ReviewListResponseAllOfResult
+   * @throws IOException if the JSON string is invalid with respect to ReviewListResponseAllOfResult
    */
-  public static Author fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Author.class);
+  public static ReviewListResponseAllOfResult fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ReviewListResponseAllOfResult.class);
   }
 
   /**
-   * Convert an instance of Author to an JSON string
+   * Convert an instance of ReviewListResponseAllOfResult to an JSON string
    *
    * @return JSON string
    */

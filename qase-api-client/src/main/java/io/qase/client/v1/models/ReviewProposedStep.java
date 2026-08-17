@@ -48,19 +48,14 @@ import java.util.Set;
 import io.qase.client.v1.JSON;
 
 /**
- * When &#x60;steps_type&#x60; is &#x60;gherkin&#x60; only the scenario text is read from a step. A non-empty &#x60;expected_result&#x60;, &#x60;data&#x60;, &#x60;attachments&#x60;, &#x60;shared&#x60; or nested &#x60;steps&#x60; is rejected, and so is sending the scenario in &#x60;value&#x60; and &#x60;action&#x60; at once.
+ * ReviewProposedStep
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.20.0")
-public class TestStepCreate {
+public class ReviewProposedStep {
   public static final String SERIALIZED_NAME_ACTION = "action";
   @SerializedName(SERIALIZED_NAME_ACTION)
   @javax.annotation.Nullable
   private String action;
-
-  public static final String SERIALIZED_NAME_SHARED = "shared";
-  @SerializedName(SERIALIZED_NAME_SHARED)
-  @javax.annotation.Nullable
-  private String shared;
 
   public static final String SERIALIZED_NAME_EXPECTED_RESULT = "expected_result";
   @SerializedName(SERIALIZED_NAME_EXPECTED_RESULT)
@@ -77,11 +72,10 @@ public class TestStepCreate {
   @javax.annotation.Nullable
   private String value;
 
-  public static final String SERIALIZED_NAME_POSITION = "position";
-  @Deprecated
-  @SerializedName(SERIALIZED_NAME_POSITION)
+  public static final String SERIALIZED_NAME_SHARED = "shared";
+  @SerializedName(SERIALIZED_NAME_SHARED)
   @javax.annotation.Nullable
-  private Integer position;
+  private String shared;
 
   public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
   @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
@@ -93,10 +87,10 @@ public class TestStepCreate {
   @javax.annotation.Nullable
   private List<Object> steps = new ArrayList<>();
 
-  public TestStepCreate() {
+  public ReviewProposedStep() {
   }
 
-  public TestStepCreate action(@javax.annotation.Nullable String action) {
+  public ReviewProposedStep action(@javax.annotation.Nullable String action) {
     this.action = action;
     return this;
   }
@@ -115,26 +109,7 @@ public class TestStepCreate {
   }
 
 
-  public TestStepCreate shared(@javax.annotation.Nullable String shared) {
-    this.shared = shared;
-    return this;
-  }
-
-  /**
-   * Hash of an existing shared step to insert at this position.
-   * @return shared
-   */
-  @javax.annotation.Nullable
-  public String getShared() {
-    return shared;
-  }
-
-  public void setShared(@javax.annotation.Nullable String shared) {
-    this.shared = shared;
-  }
-
-
-  public TestStepCreate expectedResult(@javax.annotation.Nullable String expectedResult) {
+  public ReviewProposedStep expectedResult(@javax.annotation.Nullable String expectedResult) {
     this.expectedResult = expectedResult;
     return this;
   }
@@ -153,7 +128,7 @@ public class TestStepCreate {
   }
 
 
-  public TestStepCreate data(@javax.annotation.Nullable String data) {
+  public ReviewProposedStep data(@javax.annotation.Nullable String data) {
     this.data = data;
     return this;
   }
@@ -172,13 +147,13 @@ public class TestStepCreate {
   }
 
 
-  public TestStepCreate value(@javax.annotation.Nullable String value) {
+  public ReviewProposedStep value(@javax.annotation.Nullable String value) {
     this.value = value;
     return this;
   }
 
   /**
-   * Gherkin scenario text. Used when steps_type is \&quot;gherkin\&quot;. Example: \&quot;Given a user exists\\nWhen they log in\\nThen they see the dashboard\&quot;
+   * Gherkin scenario text. Used when steps_type is \&quot;gherkin\&quot;.
    * @return value
    */
   @javax.annotation.Nullable
@@ -191,35 +166,31 @@ public class TestStepCreate {
   }
 
 
-  @Deprecated
-  public TestStepCreate position(@javax.annotation.Nullable Integer position) {
-    this.position = position;
+  public ReviewProposedStep shared(@javax.annotation.Nullable String shared) {
+    this.shared = shared;
     return this;
   }
 
   /**
-   * Get position
-   * @return position
-   * @deprecated
+   * Hash of the referenced shared step.
+   * @return shared
    */
-  @Deprecated
   @javax.annotation.Nullable
-  public Integer getPosition() {
-    return position;
+  public String getShared() {
+    return shared;
   }
 
-  @Deprecated
-  public void setPosition(@javax.annotation.Nullable Integer position) {
-    this.position = position;
+  public void setShared(@javax.annotation.Nullable String shared) {
+    this.shared = shared;
   }
 
 
-  public TestStepCreate attachments(@javax.annotation.Nullable List<String> attachments) {
+  public ReviewProposedStep attachments(@javax.annotation.Nullable List<String> attachments) {
     this.attachments = attachments;
     return this;
   }
 
-  public TestStepCreate addAttachmentsItem(String attachmentsItem) {
+  public ReviewProposedStep addAttachmentsItem(String attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<>();
     }
@@ -241,12 +212,12 @@ public class TestStepCreate {
   }
 
 
-  public TestStepCreate steps(@javax.annotation.Nullable List<Object> steps) {
+  public ReviewProposedStep steps(@javax.annotation.Nullable List<Object> steps) {
     this.steps = steps;
     return this;
   }
 
-  public TestStepCreate addStepsItem(Object stepsItem) {
+  public ReviewProposedStep addStepsItem(Object stepsItem) {
     if (this.steps == null) {
       this.steps = new ArrayList<>();
     }
@@ -255,7 +226,7 @@ public class TestStepCreate {
   }
 
   /**
-   * Nested steps may be passed here. Use same structure for them.
+   * Nested steps use the same structure.
    * @return steps
    */
   @javax.annotation.Nullable
@@ -280,9 +251,9 @@ public class TestStepCreate {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the TestStepCreate instance itself
+   * @return the ReviewProposedStep instance itself
    */
-  public TestStepCreate putAdditionalProperty(String key, Object value) {
+  public ReviewProposedStep putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -321,33 +292,31 @@ public class TestStepCreate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TestStepCreate testStepCreate = (TestStepCreate) o;
-    return Objects.equals(this.action, testStepCreate.action) &&
-        Objects.equals(this.shared, testStepCreate.shared) &&
-        Objects.equals(this.expectedResult, testStepCreate.expectedResult) &&
-        Objects.equals(this.data, testStepCreate.data) &&
-        Objects.equals(this.value, testStepCreate.value) &&
-        Objects.equals(this.position, testStepCreate.position) &&
-        Objects.equals(this.attachments, testStepCreate.attachments) &&
-        Objects.equals(this.steps, testStepCreate.steps)&&
-        Objects.equals(this.additionalProperties, testStepCreate.additionalProperties);
+    ReviewProposedStep reviewProposedStep = (ReviewProposedStep) o;
+    return Objects.equals(this.action, reviewProposedStep.action) &&
+        Objects.equals(this.expectedResult, reviewProposedStep.expectedResult) &&
+        Objects.equals(this.data, reviewProposedStep.data) &&
+        Objects.equals(this.value, reviewProposedStep.value) &&
+        Objects.equals(this.shared, reviewProposedStep.shared) &&
+        Objects.equals(this.attachments, reviewProposedStep.attachments) &&
+        Objects.equals(this.steps, reviewProposedStep.steps)&&
+        Objects.equals(this.additionalProperties, reviewProposedStep.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(action, shared, expectedResult, data, value, position, attachments, steps, additionalProperties);
+    return Objects.hash(action, expectedResult, data, value, shared, attachments, steps, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TestStepCreate {\n");
+    sb.append("class ReviewProposedStep {\n");
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
-    sb.append("    shared: ").append(toIndentedString(shared)).append("\n");
     sb.append("    expectedResult: ").append(toIndentedString(expectedResult)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    position: ").append(toIndentedString(position)).append("\n");
+    sb.append("    shared: ").append(toIndentedString(shared)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    steps: ").append(toIndentedString(steps)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -372,7 +341,7 @@ public class TestStepCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("action", "shared", "expected_result", "data", "value", "position", "attachments", "steps"));
+    openapiFields = new HashSet<String>(Arrays.asList("action", "expected_result", "data", "value", "shared", "attachments", "steps"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -382,20 +351,17 @@ public class TestStepCreate {
    * Validates the JSON Element and throws an exception if issues found
    *
    * @param jsonElement JSON Element
-   * @throws IOException if the JSON Element is invalid with respect to TestStepCreate
+   * @throws IOException if the JSON Element is invalid with respect to ReviewProposedStep
    */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!TestStepCreate.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in TestStepCreate is not found in the empty JSON string", TestStepCreate.openapiRequiredFields.toString()));
+        if (!ReviewProposedStep.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field(s) %s in ReviewProposedStep is not found in the empty JSON string", ReviewProposedStep.openapiRequiredFields.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if ((jsonObj.get("action") != null && !jsonObj.get("action").isJsonNull()) && !jsonObj.get("action").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `action` to be a primitive type in the JSON string but got `%s`", jsonObj.get("action").toString()));
-      }
-      if ((jsonObj.get("shared") != null && !jsonObj.get("shared").isJsonNull()) && !jsonObj.get("shared").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `shared` to be a primitive type in the JSON string but got `%s`", jsonObj.get("shared").toString()));
       }
       if ((jsonObj.get("expected_result") != null && !jsonObj.get("expected_result").isJsonNull()) && !jsonObj.get("expected_result").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `expected_result` to be a primitive type in the JSON string but got `%s`", jsonObj.get("expected_result").toString()));
@@ -405,6 +371,9 @@ public class TestStepCreate {
       }
       if ((jsonObj.get("value") != null && !jsonObj.get("value").isJsonNull()) && !jsonObj.get("value").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `value` to be a primitive type in the JSON string but got `%s`", jsonObj.get("value").toString()));
+      }
+      if ((jsonObj.get("shared") != null && !jsonObj.get("shared").isJsonNull()) && !jsonObj.get("shared").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `shared` to be a primitive type in the JSON string but got `%s`", jsonObj.get("shared").toString()));
       }
       // ensure the optional json data is an array if present
       if (jsonObj.get("attachments") != null && !jsonObj.get("attachments").isJsonNull() && !jsonObj.get("attachments").isJsonArray()) {
@@ -420,16 +389,16 @@ public class TestStepCreate {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!TestStepCreate.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'TestStepCreate' and its subtypes
+       if (!ReviewProposedStep.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ReviewProposedStep' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<TestStepCreate> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(TestStepCreate.class));
+       final TypeAdapter<ReviewProposedStep> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ReviewProposedStep.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<TestStepCreate>() {
+       return (TypeAdapter<T>) new TypeAdapter<ReviewProposedStep>() {
            @Override
-           public void write(JsonWriter out, TestStepCreate value) throws IOException {
+           public void write(JsonWriter out, ReviewProposedStep value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -457,12 +426,12 @@ public class TestStepCreate {
            }
 
            @Override
-           public TestStepCreate read(JsonReader in) throws IOException {
+           public ReviewProposedStep read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
-             TestStepCreate instance = thisAdapter.fromJsonTree(jsonObj);
+             ReviewProposedStep instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -489,18 +458,18 @@ public class TestStepCreate {
   }
 
   /**
-   * Create an instance of TestStepCreate given an JSON string
+   * Create an instance of ReviewProposedStep given an JSON string
    *
    * @param jsonString JSON string
-   * @return An instance of TestStepCreate
-   * @throws IOException if the JSON string is invalid with respect to TestStepCreate
+   * @return An instance of ReviewProposedStep
+   * @throws IOException if the JSON string is invalid with respect to ReviewProposedStep
    */
-  public static TestStepCreate fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, TestStepCreate.class);
+  public static ReviewProposedStep fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ReviewProposedStep.class);
   }
 
   /**
-   * Convert an instance of TestStepCreate to an JSON string
+   * Convert an instance of ReviewProposedStep to an JSON string
    *
    * @return JSON string
    */
