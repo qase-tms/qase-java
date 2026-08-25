@@ -1,0 +1,43 @@
+qase-api-v2-client/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 9
+qase-cucumber-v4-reporter/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+qase-testng-reporter/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+qase-api-client/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+changelog.md
+  s_5b1dedcc14de25::t_9d667452f7541e 1-6
+qase-junit4-reporter/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+qase-cucumber-v6-reporter/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+qase-cucumber-v7-reporter/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 10
+qase-cucumber-v5-reporter/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+qase-cucumber-v3-reporter/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+qase-java-commons/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 9
+qase-junit5-reporter/pom.xml
+  s_5b1dedcc14de25::t_8ca552a38c4c87 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "d6e22aacf5dbab3bab231d9bad78a1a13674afa9",
+  "prompts": {},
+  "sessions": {
+    "s_5b1dedcc14de25": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "750f232b-e73b-417c-bf90-cd0ace1da14e",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
