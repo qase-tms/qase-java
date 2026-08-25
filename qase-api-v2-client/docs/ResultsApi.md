@@ -162,5 +162,6 @@ public class Example {
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
+| **413** | Payload Too Large. Returned when the request contains more than 200 results, or when the combined length of &#x60;execution.error_context&#x60; across the batch exceeds 4194304 characters. In both cases the whole batch is rejected — no results are created.  |  -  |
 | **422** | Unprocessable Entity |  -  |
 

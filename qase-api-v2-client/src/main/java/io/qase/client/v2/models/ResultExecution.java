@@ -76,6 +76,11 @@ public class ResultExecution {
   @javax.annotation.Nullable
   private String stacktrace;
 
+  public static final String SERIALIZED_NAME_ERROR_CONTEXT = "error_context";
+  @SerializedName(SERIALIZED_NAME_ERROR_CONTEXT)
+  @javax.annotation.Nullable
+  private String errorContext;
+
   public static final String SERIALIZED_NAME_THREAD = "thread";
   @SerializedName(SERIALIZED_NAME_THREAD)
   @javax.annotation.Nullable
@@ -179,6 +184,25 @@ public class ResultExecution {
   }
 
 
+  public ResultExecution errorContext(@javax.annotation.Nullable String errorContext) {
+    this.errorContext = errorContext;
+    return this;
+  }
+
+  /**
+   * Free-form failure context captured by the reporter. For Playwright this is the content of error-context.md (test info, error details, page snapshot), so it may include rendered page content. Stored verbatim so it can be copied as raw text. Values longer than 262144 characters are silently truncated by Qase and the request still succeeds. Write-only — not returned by the result read endpoints.
+   * @return errorContext
+   */
+  @javax.annotation.Nullable
+  public String getErrorContext() {
+    return errorContext;
+  }
+
+  public void setErrorContext(@javax.annotation.Nullable String errorContext) {
+    this.errorContext = errorContext;
+  }
+
+
   public ResultExecution thread(@javax.annotation.Nullable String thread) {
     this.thread = thread;
     return this;
@@ -257,6 +281,7 @@ public class ResultExecution {
         Objects.equals(this.status, resultExecution.status) &&
         Objects.equals(this.duration, resultExecution.duration) &&
         Objects.equals(this.stacktrace, resultExecution.stacktrace) &&
+        Objects.equals(this.errorContext, resultExecution.errorContext) &&
         Objects.equals(this.thread, resultExecution.thread)&&
         Objects.equals(this.additionalProperties, resultExecution.additionalProperties);
   }
@@ -267,7 +292,7 @@ public class ResultExecution {
 
   @Override
   public int hashCode() {
-    return Objects.hash(startTime, endTime, status, duration, stacktrace, thread, additionalProperties);
+    return Objects.hash(startTime, endTime, status, duration, stacktrace, errorContext, thread, additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -286,6 +311,7 @@ public class ResultExecution {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    duration: ").append(toIndentedString(duration)).append("\n");
     sb.append("    stacktrace: ").append(toIndentedString(stacktrace)).append("\n");
+    sb.append("    errorContext: ").append(toIndentedString(errorContext)).append("\n");
     sb.append("    thread: ").append(toIndentedString(thread)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -309,7 +335,7 @@ public class ResultExecution {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("start_time", "end_time", "status", "duration", "stacktrace", "thread"));
+    openapiFields = new HashSet<String>(Arrays.asList("start_time", "end_time", "status", "duration", "stacktrace", "error_context", "thread"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(Arrays.asList("status"));
@@ -340,6 +366,9 @@ public class ResultExecution {
       }
       if ((jsonObj.get("stacktrace") != null && !jsonObj.get("stacktrace").isJsonNull()) && !jsonObj.get("stacktrace").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `stacktrace` to be a primitive type in the JSON string but got `%s`", jsonObj.get("stacktrace").toString()));
+      }
+      if ((jsonObj.get("error_context") != null && !jsonObj.get("error_context").isJsonNull()) && !jsonObj.get("error_context").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `error_context` to be a primitive type in the JSON string but got `%s`", jsonObj.get("error_context").toString()));
       }
       if ((jsonObj.get("thread") != null && !jsonObj.get("thread").isJsonNull()) && !jsonObj.get("thread").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `thread` to be a primitive type in the JSON string but got `%s`", jsonObj.get("thread").toString()));
