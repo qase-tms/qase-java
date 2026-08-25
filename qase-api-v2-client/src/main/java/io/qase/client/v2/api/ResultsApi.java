@@ -259,6 +259,7 @@ public class ResultsApi {
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. Returned when the request contains more than 200 results, or when the combined length of &#x60;execution.error_context&#x60; across the batch exceeds 4194304 characters. In both cases the whole batch is rejected — no results are created.  </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
@@ -347,6 +348,7 @@ public class ResultsApi {
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. Returned when the request contains more than 200 results, or when the combined length of &#x60;execution.error_context&#x60; across the batch exceeds 4194304 characters. In both cases the whole batch is rejected — no results are created.  </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
@@ -372,6 +374,7 @@ public class ResultsApi {
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. Returned when the request contains more than 200 results, or when the combined length of &#x60;execution.error_context&#x60; across the batch exceeds 4194304 characters. In both cases the whole batch is rejected — no results are created.  </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
@@ -399,6 +402,7 @@ public class ResultsApi {
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 413 </td><td> Payload Too Large. Returned when the request contains more than 200 results, or when the combined length of &#x60;execution.error_context&#x60; across the batch exceeds 4194304 characters. In both cases the whole batch is rejected — no results are created.  </td><td>  -  </td></tr>
         <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
      */
