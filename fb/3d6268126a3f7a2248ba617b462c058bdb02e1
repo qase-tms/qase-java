@@ -1,0 +1,55 @@
+changelog.md
+  s_e03abde9710ca8::t_c66e40aac92c58 1-4
+pom.xml
+  s_e03abde9710ca8::t_7865c0abdd008d 10
+qase-api-client/docs/ResultsApi.md
+  s_e03abde9710ca8::t_0f98e08250da64 100
+qase-api-client/pom.xml
+  s_e03abde9710ca8::t_c86970d49d4355 8
+qase-api-client/src/main/java/io/qase/client/v1/api/ResultsApi.java
+  s_e03abde9710ca8::t_a76c9d25f601cd 345,372,400
+qase-api-v2-client/docs/ResultExecution.md
+  s_e03abde9710ca8::t_58e7a4cec929b5 15
+qase-api-v2-client/docs/ResultsApi.md
+  s_e03abde9710ca8::t_c09a88fd589a15 165
+qase-api-v2-client/pom.xml
+  s_e03abde9710ca8::t_31eb4f6a673bc9 9
+qase-api-v2-client/src/main/java/io/qase/client/v2/api/ResultsApi.java
+  s_e03abde9710ca8::t_15c02c1452436e 262,351,377,405
+qase-api-v2-client/src/main/java/io/qase/client/v2/models/ResultExecution.java
+  s_e03abde9710ca8::t_1d8659515e9bc5 79-83,187-205,284,295,314,338,370-372
+qase-cucumber-v3-reporter/pom.xml
+  s_e03abde9710ca8::t_006e0377d262e4 8
+qase-cucumber-v4-reporter/pom.xml
+  s_e03abde9710ca8::t_a277103356d44f 8
+qase-cucumber-v5-reporter/pom.xml
+  s_e03abde9710ca8::t_14313c641c0185 8
+qase-cucumber-v6-reporter/pom.xml
+  s_e03abde9710ca8::t_1d121b44463991 8
+qase-cucumber-v7-reporter/pom.xml
+  s_e03abde9710ca8::t_a0780e93ff9e23 8
+qase-java-commons/pom.xml
+  s_e03abde9710ca8::t_425c2037f926db 9
+qase-junit4-reporter/pom.xml
+  s_e03abde9710ca8::t_d2eeaf2ea2cf1c 8
+qase-junit5-reporter/pom.xml
+  s_e03abde9710ca8::t_3331714bb22367 8
+qase-testng-reporter/pom.xml
+  s_e03abde9710ca8::t_c476af238da3b7 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "fb3d6268126a3f7a2248ba617b462c058bdb02e1",
+  "prompts": {},
+  "sessions": {
+    "s_e03abde9710ca8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f9577e82-6d1c-46be-8523-385d83fc66fe",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
