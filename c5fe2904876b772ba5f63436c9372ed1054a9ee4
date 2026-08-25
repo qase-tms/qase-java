@@ -1,0 +1,61 @@
+.github/workflows/build.yaml
+  a68ecc3bbacd105c 24-73
+examples/testng/testng-maven/qase.config.json
+  a68ecc3bbacd105c 9
+examples/junit5/junit5-maven/src/test/java/example/AttachmentTests.java
+  a68ecc3bbacd105c 3,15,23,34,42,58,66
+examples/junit4/junit4-maven/src/test/java/example/AttachmentTests.java
+  a68ecc3bbacd105c 3,15,23,34,42,58,66
+examples/junit5/junit5-maven/src/test/java/example/SimpleTests.java
+  a68ecc3bbacd105c 16,18,22,29,41,48,55,74
+examples/junit4/junit4-maven/src/test/java/example/StepTests.java
+  a68ecc3bbacd105c 68,78,88
+examples/testng/testng-maven/src/test/java/org/example/ParameterizedTests.java
+  a68ecc3bbacd105c 42,49,56
+examples/junit5/junit5-maven/src/test/java/example/StepTests.java
+  a68ecc3bbacd105c 78,88
+examples/testng/testng-maven/pom.xml
+  a68ecc3bbacd105c 16
+examples/testng/testng-maven/src/test/java/org/example/AttachmentTests.java
+  a68ecc3bbacd105c 3,15,23,34,42,58,66
+examples/junit4/junit4-maven/src/test/java/example/SimpleTests.java
+  a68ecc3bbacd105c 10,12,16,18,22,29,41,48,55,62,74
+examples/junit5/junit5-maven/pom.xml
+  a68ecc3bbacd105c 16
+examples/testng/testng-maven/src/test/java/org/example/SimpleTests.java
+  a68ecc3bbacd105c 10,12,16,18,22,29,41,48,55,62,73-74
+examples/testng/testng-maven/src/test/java/org/example/StepTests.java
+  a68ecc3bbacd105c 68,78,87-88
+.gitignore
+  a68ecc3bbacd105c 4
+examples/junit4/junit4-maven/qase.config.json
+  a68ecc3bbacd105c 9,16,25
+examples/junit5/junit5-maven/src/test/java/example/ParameterizedTests.java
+  a68ecc3bbacd105c 29,54
+scripts/clean_expected.py
+  a68ecc3bbacd105c 1-131
+examples/junit4/junit4-maven/pom.xml
+  a68ecc3bbacd105c 16
+examples/junit5/junit5-maven/qase.config.json
+  a68ecc3bbacd105c 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "c5fe2904876b772ba5f63436c9372ed1054a9ee4",
+  "prompts": {
+    "a68ecc3bbacd105c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bde4b325-eb7f-4e1e-a793-743af8e32d76",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 256,
+      "total_deletions": 40,
+      "accepted_lines": 256,
+      "overriden_lines": 0
+    }
+  }
+}

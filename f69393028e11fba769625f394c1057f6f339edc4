@@ -1,0 +1,49 @@
+qase-api-client/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+qase-cucumber-v7-reporter/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+qase-java-commons/src/test/java/io/qase/commons/client/ParamsSerializationTest.java
+  s_1f6b8c1bbb8069::t_4691f4f5f9d86a 104-124
+qase-junit5-reporter/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+qase-java-commons/src/main/java/io/qase/commons/client/ApiClientV2.java
+  s_1f6b8c1bbb8069::t_41defa2f3e76fa 281
+qase-java-commons/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 9
+qase-cucumber-v6-reporter/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+qase-junit4-reporter/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+qase-api-v2-client/src/main/java/io/qase/client/v2/models/ResultCreate.java
+  s_1f6b8c1bbb8069::t_a8c558865d2c2e 697
+changelog.md
+  s_1f6b8c1bbb8069::t_2cf605df4a2c71 1-6
+pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 10
+qase-cucumber-v5-reporter/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+qase-cucumber-v3-reporter/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+qase-testng-reporter/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+qase-api-v2-client/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 9
+qase-cucumber-v4-reporter/pom.xml
+  s_1f6b8c1bbb8069::t_207691a39540ad 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "f69393028e11fba769625f394c1057f6f339edc4",
+  "prompts": {},
+  "sessions": {
+    "s_1f6b8c1bbb8069": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cbe002ed-0bf7-478b-aaaa-7ddad656e3a5",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}

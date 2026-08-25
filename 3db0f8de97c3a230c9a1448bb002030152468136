@@ -1,0 +1,27 @@
+qase-java-commons/src/test/java/io/qase/commons/utils/TestResultBuilderTest.java
+  e2fd4586851eeba5 50-53,145-164
+qase-java-commons/src/main/java/io/qase/commons/utils/TestResultBuilder.java
+  e2fd4586851eeba5 62,71
+qase-java-commons/src/main/java/io/qase/commons/utils/IntegrationUtils.java
+  e2fd4586851eeba5 104-114
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "3db0f8de97c3a230c9a1448bb002030152468136",
+  "prompts": {
+    "e2fd4586851eeba5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3baa545c-8919-40b2-bd7b-9d85542c60a9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 37,
+      "total_deletions": 0,
+      "accepted_lines": 37,
+      "overriden_lines": 0
+    }
+  }
+}

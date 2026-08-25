@@ -1,0 +1,35 @@
+qase-cucumber-v7-reporter/docs/usage.md
+  e2fd4586851eeba5 19,151-170
+qase-cucumber-v4-reporter/docs/usage.md
+  e2fd4586851eeba5 19,151-170
+qase-testng-reporter/docs/usage.md
+  e2fd4586851eeba5 21,178-200
+qase-cucumber-v3-reporter/docs/usage.md
+  e2fd4586851eeba5 19,151-170
+qase-junit4-reporter/docs/usage.md
+  e2fd4586851eeba5 19,164-186
+qase-cucumber-v6-reporter/docs/usage.md
+  e2fd4586851eeba5 19,151-170
+qase-cucumber-v5-reporter/docs/usage.md
+  e2fd4586851eeba5 19,151-170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "f4bda3e81104d957c50d484aa90f3bd0e10ab8d4",
+  "prompts": {
+    "e2fd4586851eeba5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3baa545c-8919-40b2-bd7b-9d85542c60a9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 153,
+      "total_deletions": 0,
+      "accepted_lines": 153,
+      "overriden_lines": 0
+    }
+  }
+}

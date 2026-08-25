@@ -1,0 +1,25 @@
+scripts/clean_expected.py
+  a68ecc3bbacd105c 7,57-72,77,81-82
+examples/cucumber5/cucumber5-maven/src/test/java/org/example/CucumberTest.java
+  a68ecc3bbacd105c 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "488ff91e6fa07ca0d7534bf653bfa1c8cec54c34",
+  "prompts": {
+    "a68ecc3bbacd105c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bde4b325-eb7f-4e1e-a793-743af8e32d76",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 22,
+      "total_deletions": 2,
+      "accepted_lines": 22,
+      "overriden_lines": 0
+    }
+  }
+}
