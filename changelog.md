@@ -1,3 +1,9 @@
+# qase-java 4.1.60
+
+## Bug fixes
+
+- Lowered the maximum accepted value of `testops.batch.size` (`QASE_TESTOPS_BATCH_SIZE`) from `2000` to `200`, matching the limit enforced by the TestOps results endpoint. Values above `200` are rejected with a warning and the default of `200` is used instead, so an oversized batch no longer fails the whole upload. Documentation updated accordingly.
+
 # qase-java 4.1.59
 
 - Updated API clients to the latest specification
