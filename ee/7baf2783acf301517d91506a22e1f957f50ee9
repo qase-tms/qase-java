@@ -1,0 +1,44 @@
+qase-cucumber-v7-reporter/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+qase-cucumber-v6-reporter/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+qase-cucumber-v3-reporter/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+qase-cucumber-v5-reporter/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+changelog.md
+  s_d082caac00a807::t_5087a5bb11bdc6 9-12
+  s_d082caac00a807::t_b193c1871a98a8 1
+qase-api-v2-client/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 9
+qase-cucumber-v4-reporter/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+qase-api-client/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 10
+qase-java-commons/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 9
+qase-junit4-reporter/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+qase-junit5-reporter/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+qase-testng-reporter/pom.xml
+  s_d082caac00a807::t_92af0ca9fb4d88 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "ee7baf2783acf301517d91506a22e1f957f50ee9",
+  "prompts": {},
+  "sessions": {
+    "s_d082caac00a807": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "47d7adde-190f-4899-8396-1e78d4dfc69d",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
