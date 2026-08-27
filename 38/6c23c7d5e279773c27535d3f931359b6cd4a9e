@@ -1,0 +1,30 @@
+qase-java-commons/src/test/java/io/qase/commons/utils/RetryHelperRetryAfterTest.java
+  s_d082caac00a807::t_386b0198be1b11 1-148
+qase-java-commons/src/main/java/io/qase/commons/utils/RetryHelper.java
+  s_d082caac00a807::t_7c0d320f4003ea 105-106,165-166
+  s_d082caac00a807::t_e50a00a8f1cce5 5-7,15-26,54-61,64-65,67-68,90-104,112-164
+qase-java-commons/src/test/java/io/qase/commons/reporters/UploadSummaryLogTest.java
+  s_d082caac00a807::t_74d32133793910 131,133-136,158-160,162-165
+qase-java-commons/src/test/java/io/qase/commons/reporters/TestopsReporterFailedBatchTest.java
+  s_d082caac00a807::t_717a30e2ed9f03 1-135
+qase-java-commons/src/main/java/io/qase/commons/reporters/TestopsReporter.java
+  s_d082caac00a807::t_1d2c639af3b121 9,38,43,101-111,174-181,187-188,191-192,195-197,211,236-237
+changelog.md
+  s_d082caac00a807::t_a04eb57306ddb3 5-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "386c23c7d5e279773c27535d3f931359b6cd4a9e",
+  "prompts": {},
+  "sessions": {
+    "s_d082caac00a807": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "47d7adde-190f-4899-8396-1e78d4dfc69d",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
