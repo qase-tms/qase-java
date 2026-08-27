@@ -1,3 +1,11 @@
+# qase-java 4.1.62
+
+## Bug fixes
+
+- A test run whose result batches failed to upload is no longer marked complete. Previously a permanently failed batch was counted and logged, but `completeTestRun` was still called, so a run over partial data looked trustworthy and CI stayed green over missing results. The run is now left open — a visible signal that results are missing — and the number of lost results, not just lost batches, is reported at `ERROR` level. Enabling the public report link is skipped for the same reason.
+- The dropped-batch message (`Batch upload failed, N results dropped`) was raised from `WARN` to `ERROR`, since it means lost data.
+- `RetryHelper` now honours the `Retry-After` response header. Qase answers HTTP 429 with `Retry-After` at roughly 60 seconds, while the computed backoff ladder (1s + 3s + 9s) was exhausted long before the rate limit cleared — so retries did not survive the most common real-world trigger, rate limiting in large parallel CI runs. A numeric `Retry-After` is now used in place of the computed delay, capped at 120 seconds; an HTTP-date value falls back to the computed backoff rather than guessing at clock skew. The dynamic upload timeout reserves the worst-case retry budget per submitted batch so `awaitTermination` cannot expire while a thread is correctly waiting out a rate limit.
+
 # qase-java 4.1.61
 
 - Updated API clients to the latest specification
