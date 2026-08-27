@@ -6,6 +6,7 @@ import io.qase.commons.config.TestopsConfig;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.domain.TestResultStatus;
+import io.qase.commons.utils.RetryHelper;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -34,10 +35,12 @@ public class TestopsReporter implements InternalReporter {
     private final AtomicLong statTotalBytes = new AtomicLong(0);
     private final AtomicLong statTotalUploadTimeMs = new AtomicLong(0);
     private final AtomicLong statFailedBatches = new AtomicLong(0);
+    private final AtomicLong statFailedResults = new AtomicLong(0);
 
     // Submitted (pending + in-flight) counters for dynamic timeout computation
     private final AtomicLong statSubmittedBytes = new AtomicLong(0);
     private final AtomicLong statSubmittedAttachments = new AtomicLong(0);
+    private final AtomicLong statSubmittedBatches = new AtomicLong(0);
 
     // Dynamic timeout constants
     static final long MINIMUM_UPLOAD_SPEED_BPS = 500L * 1024; // 500 KB/s conservative estimate
@@ -94,6 +97,17 @@ public class TestopsReporter implements InternalReporter {
             statTotalBytes.get(),
             statTotalUploadTimeMs.get(),
             statFailedBatches.get());
+
+        // A run whose batches were dropped must not be marked complete: a completed
+        // run over partial data looks trustworthy and is not, while an open run is a
+        // visible signal that results are missing.
+        long failedBatches = statFailedBatches.get();
+        if (failedBatches > 0) {
+            logger.error("Test run %d: NOT completing the run - %d result(s) in %d batch(es) failed to upload "
+                    + "and are missing from the run. The run is left open so the missing data stays visible.",
+                this.testRunId, statFailedResults.get(), failedBatches);
+            return;
+        }
 
         if (!this.config.run.complete) {
             logger.info("Test run %d: skipping completion (complete=false)", this.testRunId);
@@ -157,19 +171,30 @@ public class TestopsReporter implements InternalReporter {
 
     /**
      * Computes the upload timeout based on submitted data volume and configured minimum.
-     * Formula: max(configured, BASE + submittedBytes / MIN_SPEED + attachments * OVERHEAD), capped at MAX.
+     * Formula: max(configured, BASE + submittedBytes / MIN_SPEED + attachments * OVERHEAD
+     * + batches * retryBudget), capped at MAX.
+     *
+     * The retry budget matters because a batch answering HTTP 429 sleeps for the
+     * server's Retry-After (up to two minutes) inside {@code uploadBatch}. Without
+     * reserving that time, awaitTermination would expire while a thread is correctly
+     * waiting out a rate limit, and the results would be reported as dropped.
+     *
      * Package-private for unit testing.
      */
     int computeUploadTimeout() {
         long bytes = statSubmittedBytes.get();
         long attachments = statSubmittedAttachments.get();
+        long batches = statSubmittedBatches.get();
+        long retryBudgetSeconds = batches * RetryHelper.maxRetryDelaySeconds();
         long dynamicSeconds = BASE_TIMEOUT_SECONDS
                 + bytes / MINIMUM_UPLOAD_SPEED_BPS
-                + attachments * PER_ATTACHMENT_OVERHEAD_SECONDS;
+                + attachments * PER_ATTACHMENT_OVERHEAD_SECONDS
+                + retryBudgetSeconds;
         int computed = (int) Math.min(dynamicSeconds, MAX_TIMEOUT_SECONDS);
         int timeout = Math.max(config.batch.uploadTimeout, computed);
-        logger.debug("Dynamic upload timeout: %ds (configured=%ds, computed=%ds, submitted=%d bytes, %d attachments)",
-                timeout, config.batch.uploadTimeout, computed, bytes, attachments);
+        logger.debug("Dynamic upload timeout: %ds (configured=%ds, computed=%ds, submitted=%d bytes, "
+                + "%d attachments, %d batches, %ds retry budget)",
+                timeout, config.batch.uploadTimeout, computed, bytes, attachments, batches, retryBudgetSeconds);
         return timeout;
     }
 
@@ -183,6 +208,7 @@ public class TestopsReporter implements InternalReporter {
             .sum();
         statSubmittedBytes.addAndGet(bytes);
         statSubmittedAttachments.addAndGet(attachments);
+        statSubmittedBatches.incrementAndGet();
     }
 
     private void uploadBatch(List<TestResult> batch) {
@@ -207,7 +233,8 @@ public class TestopsReporter implements InternalReporter {
             statTotalUploadTimeMs.addAndGet(elapsedMs);
         } catch (QaseException e) {
             statFailedBatches.incrementAndGet();
-            logger.warn("Batch upload failed, %d results dropped: %s", batch.size(), e.getMessage());
+            statFailedResults.addAndGet(batch.size());
+            logger.error("Batch upload failed, %d results dropped: %s", batch.size(), e.getMessage());
         }
     }
 

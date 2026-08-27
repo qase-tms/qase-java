@@ -128,18 +128,12 @@ class UploadSummaryLogTest {
      * LOGS-04: When uploadResults throws QaseException, statFailedBatches increments
      * and the summary log is still emitted in completeTestRun().
      *
-     * Known INFO logs from current code during completeTestRun() with 1 failed batch:
+     * INFO logs during completeTestRun() with 1 failed batch:
      *   1. "Uploading batch: 1 results, 1 attachments, 0.0 MB"
-     *   2. "Test run 1 completed"
-     * (Note: the WARN for the failed batch does not count as INFO)
-     *
-     * With LOGS-04 implemented:
-     *   1. "Uploading batch: ..."
-     *   2. "Upload summary: ..."  <- NEW
-     *   3. "Test run 1 completed"
-     *
-     * Capture infoBefore right before completeTestRun(). We expect infoIncrement >= 3.
-     * This FAILS because infoIncrement == 2 (no summary log in current code).
+     *   2. "Upload summary: ..."
+     * (Note: the ERROR for the failed batch does not count as INFO, and
+     * "Test run 1 completed" is NOT emitted — a run with dropped batches is
+     * deliberately left open, see TestopsReporterFailedBatchTest.)
      */
     @Test
     void summaryCountsFailedBatches() throws Exception {
@@ -156,19 +150,19 @@ class UploadSummaryLogTest {
         long infoBefore = logger.getStatistics().get("INFO");
 
         // completeTestRun() flushes buffer, batch fails, summary should still fire
-        // Current code INFOs during this: "Uploading batch: ..." + "Test run 1 completed" = 2
-        // LOGS-04 target: "Uploading batch: ..." + "Upload summary: ..." + "Test run 1 completed" = 3
         reporter.completeTestRun();
 
         long infoAfter = logger.getStatistics().get("INFO");
         long infoIncrement = infoAfter - infoBefore;
 
-        assertTrue(infoIncrement >= 3,
-                "completeTestRun() with a failed batch must emit at least 3 INFO messages: " +
-                "'Uploading batch', 'Upload summary' (LOGS-04), and 'Test run completed'. " +
+        assertTrue(infoIncrement >= 2,
+                "completeTestRun() with a failed batch must emit at least 2 INFO messages: " +
+                "'Uploading batch' and 'Upload summary' (LOGS-04). " +
                 "Got infoIncrement=" + infoIncrement +
-                " (infoBefore=" + infoBefore + ", infoAfter=" + infoAfter + "). " +
-                "This FAILS because the summary log does not exist yet.");
+                " (infoBefore=" + infoBefore + ", infoAfter=" + infoAfter + ").");
+
+        // The summary must be reported, but the run must not be closed over the loss.
+        verify(clientMock, never()).completeTestRun(anyLong());
     }
 
     // -------------------------------------------------------------------------
