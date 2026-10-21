@@ -1,3 +1,10 @@
+# qase-java 4.1.63
+
+## Bug fixes
+
+- Test run links for enterprise hosts now point to the enterprise web app. With `testops.api.host` set to `example.qase.io`, the run link pointed to `https://app-example.qase.io/`, which does not exist; it now points to `https://example.qase.io/`. The EU cluster (`eu.qase.io`) keeps linking to `https://app-eu.qase.io/`, and the default host to `https://app.qase.io/`.
+- Links to failed results in the run summary now use the same resolution, so EU cluster links point to `https://app-eu.qase.io/` instead of `https://eu.qase.io/`.
+
 # qase-java 4.1.62
 
 ## Bug fixes

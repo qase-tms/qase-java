@@ -6,6 +6,7 @@ import io.qase.commons.config.TestopsConfig;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.TestResult;
 import io.qase.commons.models.domain.TestResultStatus;
+import io.qase.commons.utils.QaseHostUtils;
 import io.qase.commons.utils.RetryHelper;
 
 import java.io.UnsupportedEncodingException;
@@ -259,7 +260,7 @@ public class TestopsReporter implements InternalReporter {
     }
 
     private String prepareLink(Long id, String title) {
-        String baseLink = this.getBaseUrl(this.config.api.host) + "/run/"
+        String baseLink = QaseHostUtils.getAppUrl(this.config.api.host) + "run/"
                 + this.config.project + "/dashboard/" + this.testRunId
                 + "?source=logs&search=";
 
@@ -287,13 +288,5 @@ public class TestopsReporter implements InternalReporter {
 
         String statusName = result.execution.status.name();
         return config.statusFilter.contains(statusName);
-    }
-
-    private String getBaseUrl(String host) {
-        if (host.equals("qase.io")) {
-            return "https://app.qase.io";
-        }
-
-        return "https://" + host.replace("api", "app");
     }
 }

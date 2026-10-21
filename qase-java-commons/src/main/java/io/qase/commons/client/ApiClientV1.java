@@ -14,6 +14,7 @@ import io.qase.commons.config.QaseConfig;
 import io.qase.commons.logger.Logger;
 import io.qase.commons.models.domain.Attachment;
 import io.qase.commons.models.domain.TestResult;
+import io.qase.commons.utils.QaseHostUtils;
 import io.qase.commons.utils.RetryHelper;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -56,12 +57,11 @@ public class ApiClientV1 implements io.qase.commons.client.ApiClient {
 
         if (config.testops.api.host.equals("qase.io")) {
             this.client.setBasePath("https://api.qase.io/v1");
-            this.url = "https://app.qase.io/";
         } else {
             String url = "https://api-" + config.testops.api.host + "/v1";
             this.client.setBasePath(url);
-            this.url = "https://app-" + config.testops.api.host + "/";
         }
+        this.url = QaseHostUtils.getAppUrl(config.testops.api.host);
 
         this.client.setApiKey(config.testops.api.token);
 
