@@ -427,16 +427,20 @@ mvn clean test
 Set configuration via environment variables:
 
 ```bash
+# Set QASE_TESTOPS_API_HOST to eu.qase.io if your workspace is on the EU cluster
 QASE_MODE=testops \
 QASE_TESTOPS_PROJECT=DEMO \
 QASE_TESTOPS_API_TOKEN=your_token \
+QASE_TESTOPS_API_HOST=qase.io \
 mvn clean test
 ```
 
 ```bash
+# Set QASE_TESTOPS_API_HOST to eu.qase.io if your workspace is on the EU cluster
 QASE_MODE=testops \
 QASE_TESTOPS_PROJECT=DEMO \
 QASE_TESTOPS_API_TOKEN=your_token \
+QASE_TESTOPS_API_HOST=qase.io \
 ./gradlew clean test
 ```
 
@@ -446,18 +450,22 @@ Pass configuration as system properties:
 
 **Maven:**
 ```bash
+# Set qase.testops.api.host to eu.qase.io if your workspace is on the EU cluster
 mvn clean test \
   -Dqase.mode=testops \
   -Dqase.testops.project=DEMO \
-  -Dqase.testops.api.token=your_token
+  -Dqase.testops.api.token=your_token \
+  -Dqase.testops.api.host=qase.io
 ```
 
 **Gradle:**
 ```bash
+# Set qase.testops.api.host to eu.qase.io if your workspace is on the EU cluster
 ./gradlew clean test \
   -Dqase.mode=testops \
   -Dqase.testops.project=DEMO \
-  -Dqase.testops.api.token=your_token
+  -Dqase.testops.api.token=your_token \
+  -Dqase.testops.api.host=qase.io
 ```
 
 ### Filtering by Tags

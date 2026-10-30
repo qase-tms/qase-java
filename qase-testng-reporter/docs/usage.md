@@ -649,18 +649,22 @@ Override configuration using environment variables:
 #### Maven
 
 ```bash
+# Set QASE_TESTOPS_API_HOST to eu.qase.io if your workspace is on the EU cluster
 QASE_MODE=testops \
 QASE_TESTOPS_PROJECT=DEMO \
 QASE_TESTOPS_API_TOKEN=your_api_token_here \
+QASE_TESTOPS_API_HOST=qase.io \
 mvn clean test
 ```
 
 #### Gradle
 
 ```bash
+# Set QASE_TESTOPS_API_HOST to eu.qase.io if your workspace is on the EU cluster
 QASE_MODE=testops \
 QASE_TESTOPS_PROJECT=DEMO \
 QASE_TESTOPS_API_TOKEN=your_api_token_here \
+QASE_TESTOPS_API_HOST=qase.io \
 ./gradlew clean test
 ```
 
@@ -671,19 +675,23 @@ Pass configuration as system properties (Java system properties):
 #### Maven
 
 ```bash
+# Set qase.testops.api.host to eu.qase.io if your workspace is on the EU cluster
 mvn clean test \
   -Dqase.mode=testops \
   -Dqase.testops.project=DEMO \
-  -Dqase.testops.api.token=your_api_token_here
+  -Dqase.testops.api.token=your_api_token_here \
+  -Dqase.testops.api.host=qase.io
 ```
 
 #### Gradle
 
 ```bash
+# Set qase.testops.api.host to eu.qase.io if your workspace is on the EU cluster
 ./gradlew clean test \
   -Dqase.mode=testops \
   -Dqase.testops.project=DEMO \
-  -Dqase.testops.api.token=your_api_token_here
+  -Dqase.testops.api.token=your_api_token_here \
+  -Dqase.testops.api.host=qase.io
 ```
 
 ### Targeting Specific Tests
@@ -754,6 +762,7 @@ Common configuration options:
 | `mode` | Reporter mode | `testops`, `report`, `off` |
 | `testops.project` | Qase project code | Project code (e.g., `DEMO`) |
 | `testops.api.token` | API token for authentication | Your API token |
+| `testops.api.host` | `qase.io` (US cluster, the default) or `eu.qase.io` (EU cluster). Required if your workspace is on the EU cluster | `qase.io`, `eu.qase.io` |
 | `testops.run.id` | Existing run ID to append results | Run ID number |
 | `testops.run.title` | Custom run title | Any string |
 | `environment` | Environment slug | Environment identifier |
@@ -934,7 +943,8 @@ project-root/
   "testops": {
     "project": "DEMO",
     "api": {
-      "token": "your_api_token_here"
+      "token": "your_api_token_here",
+      "host": "qase.io"
     },
     "run": {
       "title": "TestNG Regression",
