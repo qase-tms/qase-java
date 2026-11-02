@@ -1,0 +1,39 @@
+qase-cucumber-v6-reporter/src/main/java/io/qase/cucumber6/ScenarioStorage.java
+  s_2cb5a37906bffd::t_39f630bc656e0d 38-43
+qase-java-commons/src/main/java/io/qase/commons/utils/IntegrationUtils.java
+  s_2cb5a37906bffd::t_65d6880613b246 26-34
+qase-junit5-reporter/src/main/java/io/qase/junit5/QaseListener.java
+  s_2cb5a37906bffd::t_65d6880613b246 30,137,142,150-160
+  s_2cb5a37906bffd::t_4b35200ac4659f 37,40-44
+  s_2cb5a37906bffd::t_2e9faa164ba3cb 161-162
+qase-cucumber-v7-reporter/src/main/java/io/qase/cucumber7/ScenarioStorage.java
+  s_2cb5a37906bffd::t_39f630bc656e0d 29-34
+qase-cucumber-v7-reporter/src/main/java/io/qase/cucumber7/QaseEventListener.java
+  s_2cb5a37906bffd::t_39f630bc656e0d 178
+qase-cucumber-v6-reporter/src/main/java/io/qase/cucumber6/QaseEventListener.java
+  s_2cb5a37906bffd::t_39f630bc656e0d 168
+changelog.md
+  s_2cb5a37906bffd::t_56b04a90b9746f 12,14-17
+qase-testng-reporter/src/main/java/io/qase/testng/QaseListener.java
+  s_2cb5a37906bffd::t_65d6880613b246 145,148
+qase-java-commons/src/test/java/io/qase/commons/utils/IntegrationUtilsTest.java
+  s_2cb5a37906bffd::t_f066108aea60e4 78-86
+qase-junit5-reporter/src/main/java/io/qase/junit5/Junit5PostDiscoveryFilter.java
+  s_2cb5a37906bffd::t_4b35200ac4659f 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "388ea85214a50919ef26e4a1553764e3a4c31b26",
+  "prompts": {},
+  "sessions": {
+    "s_2cb5a37906bffd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fc1af00c-4305-431f-8bb9-f16efd236273",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
