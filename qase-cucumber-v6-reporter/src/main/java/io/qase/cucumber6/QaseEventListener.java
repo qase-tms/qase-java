@@ -53,7 +53,7 @@ public class QaseEventListener extends AbstractCucumberEventListener
     private void testStepFinished(TestStepFinished testStepFinished) {
         if (testStepFinished.getTestStep() instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.getTestStep();
-            String stepText = step.getStep().getKeyword() + " " + step.getStep().getText();
+            String stepText = CucumberUtils.formatStepText(step.getStep().getKeyword(), step.getStep().getText());
             StepResultStatus stepStatus = convertStepStatus(testStepFinished.getResult().getStatus());
 
             // v6-specific: process data table before calling base handler (base calls stopStep at end)
@@ -87,7 +87,7 @@ public class QaseEventListener extends AbstractCucumberEventListener
                         event.getTestCase().getLocation().getLine()));
 
         Map<String, String> parameters = new HashMap<>();
-        if (scenarioDefinition.getExamplesList() != null) {
+        if (scenarioDefinition != null && scenarioDefinition.getExamplesList() != null) {
             parameters = getExamplesAsParameters(scenarioDefinition, event.getTestCase());
         }
 
@@ -165,15 +165,7 @@ public class QaseEventListener extends AbstractCucumberEventListener
     }
 
     private Step getCucumberStep(final URI uri, final int stepLine) {
-        Scenario scenario = ScenarioStorage.getScenarioDefinition(scenarioStorage.getCucumberNode(uri, stepLine));
-
-        if (scenario == null) {
-            return null;
-        }
-
-        return scenario.getStepsList().stream()
-                .filter(s -> s.getLocation().getLine() == stepLine)
-                .findFirst().orElse(null);
+        return scenarioStorage.getStep(uri, stepLine);
     }
 
     private List<List<String>> convertTableRowsToLists(List<TableRow> rows) {

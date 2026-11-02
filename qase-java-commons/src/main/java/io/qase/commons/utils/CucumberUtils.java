@@ -151,5 +151,10 @@ public final class CucumberUtils {
 
         return result.toString().trim();
     }
+
+    // Gherkin keywords carry their trailing space ("Given "), so joining with another space doubled it.
+    public static String formatStepText(String keyword, String text) {
+        return keyword.trim() + " " + text;
+    }
 }
 

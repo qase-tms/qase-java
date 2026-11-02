@@ -1,5 +1,6 @@
 package io.qase.api.utils;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -9,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static io.qase.commons.utils.CucumberUtils.formatStepText;
 import static io.qase.commons.utils.CucumberUtils.getCaseIds;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,4 +39,11 @@ public class CucumberUtilsTest {
         );
     }
 
+
+    @Test
+    void formatStepTextJoinsKeywordAndTextWithSingleSpace() {
+        assertEquals("Given a user", formatStepText("Given ", "a user"));
+        assertEquals("* a user", formatStepText("* ", "a user"));
+        assertEquals("Given a user", formatStepText("Given", "a user"));
+    }
 }

@@ -19,7 +19,8 @@ import java.util.stream.Stream;
 
 import static io.qase.commons.utils.IntegrationUtils.*;
 
-public class QaseListener implements ISuiteListener,
+public class QaseListener implements IExecutionListener,
+        ISuiteListener,
         ITestListener,
         IClassListener,
         IInvokedMethodListener,
@@ -40,6 +41,18 @@ public class QaseListener implements ISuiteListener,
     }
 
     @Override
+    public void onExecutionStart() {
+        this.qaseTestCaseListener.startTestRun();
+    }
+
+    @Override
+    public void onExecutionFinish() {
+        this.qaseTestCaseListener.uploadResults();
+        this.qaseTestCaseListener.completeTestRun();
+    }
+
+    // One TestNG execution may contain several suites; they share a single Qase run.
+    @Override
     public void onStart(final ISuite suite) {
         this.qaseTestCaseListener.startTestRun();
     }
@@ -47,7 +60,6 @@ public class QaseListener implements ISuiteListener,
     @Override
     public void onFinish(final ISuite suite) {
         this.qaseTestCaseListener.uploadResults();
-        this.qaseTestCaseListener.completeTestRun();
     }
 
     @Override
@@ -130,12 +142,10 @@ public class QaseListener implements ISuiteListener,
 
             final int indexFromAnnotation = i - skippedCount;
 
-            String value = String.format("%s", parameters[i]);
+            String value = formatParameterValue(parameters[i]);
 
             if (indexFromAnnotation < providedNames.length) {
-                if (parameters[i] != null) {
-                    testParameters.put(providedNames[indexFromAnnotation], value);
-                }
+                testParameters.put(providedNames[indexFromAnnotation], value);
                 continue;
             }
 
@@ -156,11 +166,11 @@ public class QaseListener implements ISuiteListener,
         }
 
         return methods.stream()
-                .filter(this::hasMatchingCaseId)
+                .filter(method -> hasMatchingCaseId(method, caseIdsToExecute))
                 .collect(Collectors.toList());
     }
 
-    private boolean hasMatchingCaseId(IMethodInstance methodInstance) {
+    private boolean hasMatchingCaseId(IMethodInstance methodInstance, List<Long> caseIdsToExecute) {
         Method method = methodInstance.getMethod().getConstructorOrMethod().getMethod();
         List<Long> caseIds = getCaseIds(method);
 
@@ -169,7 +179,7 @@ public class QaseListener implements ISuiteListener,
         }
 
         for (Long caseId : caseIds) {
-            if (qaseTestCaseListener.getTestCaseIdsForExecution().contains(caseId)) {
+            if (caseIdsToExecute.contains(caseId)) {
                 return true;
             }
         }

@@ -10,16 +10,14 @@ import io.qase.commons.utils.TestResultBuilder;
 import io.qase.commons.utils.TestResultCompletion;
 
 import org.junit.runner.Description;
+import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 
 @RunListener.ThreadSafe
 public class QaseListener extends RunListener {
-    private final Set<String> methods = new HashSet<>();
     private final Reporter qaseTestCaseListener;
 
     public QaseListener() {
@@ -34,6 +32,19 @@ public class QaseListener extends RunListener {
     }
 
     @Override
+    public void testRunStarted(Description description) {
+        this.qaseTestCaseListener.startTestRun();
+    }
+
+    @Override
+    public void testRunFinished(Result result) {
+        this.qaseTestCaseListener.uploadResults();
+        this.qaseTestCaseListener.completeTestRun();
+    }
+
+    // Gradle fires no testRun* events, so the run is started by the first suite and
+    // completed by the shutdown hook; per-suite events only flush the results.
+    @Override
     public void testSuiteStarted(Description description) {
         this.qaseTestCaseListener.startTestRun();
     }
@@ -41,7 +52,6 @@ public class QaseListener extends RunListener {
     @Override
     public void testSuiteFinished(Description result) {
         this.qaseTestCaseListener.uploadResults();
-        this.qaseTestCaseListener.completeTestRun();
     }
 
     @Override
@@ -52,43 +62,19 @@ public class QaseListener extends RunListener {
 
     @Override
     public void testFinished(Description description) {
-        if (addIfNotPresent(description)) {
-            this.stopTestCase(TestResultStatus.PASSED, null);
-        }
+        this.stopTestCase(TestResultStatus.PASSED, null);
     }
 
     @Override
     public void testFailure(Failure failure) {
-        if (addIfNotPresent(failure.getDescription())) {
-            TestResultStatus status = ExceptionUtils.isAssertionFailure(failure.getException()) ?
-                TestResultStatus.FAILED : TestResultStatus.INVALID;
-            this.stopTestCase(status, failure.getException());
-        }
+        TestResultStatus status = ExceptionUtils.isAssertionFailure(failure.getException()) ?
+            TestResultStatus.FAILED : TestResultStatus.INVALID;
+        this.stopTestCase(status, failure.getException());
     }
 
     @Override
     public void testAssumptionFailure(Failure failure) {
-        if (addIfNotPresent(failure.getDescription())) {
-            TestResultStatus status = ExceptionUtils.isAssertionFailure(failure.getException()) ?
-                TestResultStatus.FAILED : TestResultStatus.INVALID;
-            this.stopTestCase(status, failure.getException());
-        }
-    }
-
-    @Override
-    public void testIgnored(Description description) {
-        if (addIfNotPresent(description)) {
-            this.stopTestCase(TestResultStatus.SKIPPED, null);
-        }
-    }
-
-    private boolean addIfNotPresent(Description description) {
-        String methodFullName = description.getClassName() + description.getMethodName();
-        if (methods.contains(methodFullName)) {
-            return false;
-        }
-        methods.add(methodFullName);
-        return true;
+        this.stopTestCase(TestResultStatus.SKIPPED, failure.getException());
     }
 
     private TestResult startTestCase(Description description) {

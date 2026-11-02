@@ -20,11 +20,11 @@ public class ScenarioStorage {
                 : (ScenarioDefinition) cucumberNode.parent.parent.node;
     }
 
-    public void addScenarioEvent(final URI path, final TestSourceRead event) {
+    public synchronized void addScenarioEvent(final URI path, final TestSourceRead event) {
         pathToScenarioMap.put(path, event);
     }
 
-    public CucumberNode getCucumberNode(final URI path, final int line) {
+    public synchronized CucumberNode getCucumberNode(final URI path, final int line) {
         if (!pathToNodeMap.containsKey(path)) {
             parseGherkinSource(path);
         }

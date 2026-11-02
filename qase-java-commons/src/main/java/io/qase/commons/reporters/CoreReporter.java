@@ -33,6 +33,9 @@ public class CoreReporter implements Reporter {
     private final String frameworkName;
     private final String frameworkVersion;
     private final java.util.Map<String, String> hostInfo;
+    // Listeners may report lifecycle events per suite or class, but a run is started and completed once.
+    private boolean runStarted;
+    private boolean runCompleted;
 
     public CoreReporter(QaseConfig config) {
         this(config, null, null, null, null, null);
@@ -65,16 +68,29 @@ public class CoreReporter implements Reporter {
 
     @Override
     public void startTestRun() {
-        logger.info("Starting test run");
+        synchronized (lock) {
+            if (runStarted) {
+                return;
+            }
+            runStarted = true;
+            logger.info("Starting test run");
 
-        executeWithFallback(() -> reporter.startTestRun(), "start test run");
+            // useFallback() already starts the fallback reporter, so the start itself is not retried.
+            executeWithFallback(() -> reporter.startTestRun(), "start test run", false);
+        }
     }
 
     @Override
     public void completeTestRun() {
-        logger.info("Completing test run");
+        synchronized (lock) {
+            if (!runStarted || runCompleted) {
+                return;
+            }
+            runCompleted = true;
+            logger.info("Completing test run");
 
-        executeWithFallback(() -> reporter.completeTestRun(), "complete test run");
+            executeWithFallback(() -> reporter.completeTestRun(), "complete test run");
+        }
     }
 
     @Override
@@ -181,6 +197,10 @@ public class CoreReporter implements Reporter {
 
 
     private void executeWithFallback(ReporterAction action, String actionName) {
+        executeWithFallback(action, actionName, true);
+    }
+
+    private void executeWithFallback(ReporterAction action, String actionName, boolean retryOnFallback) {
         // Thread-safety (TSAFE-04): all mutable state (reporter, fallback fields) is guarded
         // by this.lock. Pre-lock processing (applyRootSuite, applyStatusMapping, beforeTestStop)
         // operates only on the per-call TestResult argument — no shared state is accessed
@@ -191,10 +211,13 @@ public class CoreReporter implements Reporter {
             }
             try {
                 action.execute();
-            } catch (QaseException e) {
+            } catch (QaseException | RuntimeException e) {
+                // A reporter failure must never propagate into the test framework and break the build.
                 logger.error("Failed to %s with reporter: %s", actionName, e.getMessage());
                 useFallback();
-                retryAction(action, actionName);
+                if (retryOnFallback) {
+                    retryAction(action, actionName);
+                }
             }
         }
     }
@@ -203,7 +226,7 @@ public class CoreReporter implements Reporter {
         if (reporter != null) {
             try {
                 action.execute();
-            } catch (QaseException ex) {
+            } catch (QaseException | RuntimeException ex) {
                 logger.error("Failed to %s with reporter after fallback: %s", actionName, ex.getMessage());
                 reporter = null;
             }
@@ -221,7 +244,7 @@ public class CoreReporter implements Reporter {
             fallback.setResults(reporter.getResults());
             reporter = fallback;
             fallback = null;
-        } catch (QaseException e) {
+        } catch (QaseException | RuntimeException e) {
             logger.error("Failed to start test run with fallback reporter", e);
             reporter = null;
         }

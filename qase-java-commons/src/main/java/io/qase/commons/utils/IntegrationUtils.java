@@ -23,6 +23,15 @@ public final class IntegrationUtils {
         return stringWriter.toString();
     }
 
+    // Arrays have no useful toString(), and primitive arrays are not Object[], hence deepToString on a wrapper.
+    public static String formatParameterValue(Object value) {
+        if (value == null || !value.getClass().isArray()) {
+            return String.valueOf(value);
+        }
+        String wrapped = Arrays.deepToString(new Object[]{value});
+        return wrapped.substring(1, wrapped.length() - 1);
+    }
+
     public static List<Long> getCaseIds(Method method) {
         Long qaseId = getQaseId(method);
         if (qaseId != null) {

@@ -27,20 +27,21 @@ import static io.qase.commons.utils.IntegrationUtils.*;
 
 
 public class QaseListener implements TestExecutionListener, Extension, BeforeAllCallback, AfterAllCallback, InvocationInterceptor, TestWatcher {
+    private static final String JUPITER_API_PACKAGE = "org.junit.jupiter.api";
     private final Reporter qaseTestCaseListener;
     private TestPlan testPlan;
     private final Set<String> startedIdentifiers = ConcurrentHashMap.newKeySet();
 
 
     public QaseListener() {
-        String reporterVersion = QaseListener.class.getPackage().getImplementationVersion();
-        String frameworkVersion = getFrameworkVersion();
-        this.qaseTestCaseListener = CoreReporterFactory.getInstance(
-            "qase-junit5", reporterVersion, "junit5", frameworkVersion);
+        this.qaseTestCaseListener = getReporter();
     }
 
-    private String getFrameworkVersion() {
-        return IntegrationUtils.detectFrameworkVersion(org.junit.jupiter.api.Test.class);
+    // Shared with Junit5PostDiscoveryFilter: whichever runs first creates the reporter with JUnit 5 metadata.
+    static Reporter getReporter() {
+        String reporterVersion = QaseListener.class.getPackage().getImplementationVersion();
+        String frameworkVersion = IntegrationUtils.detectFrameworkVersion(org.junit.jupiter.api.Test.class);
+        return CoreReporterFactory.getInstance("qase-junit5", reporterVersion, "junit5", frameworkVersion);
     }
 
     @Override
@@ -132,14 +133,13 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
         for (int i = 0; i < parameters.length; i++) {
             final Parameter parameter = parameters[i];
-            final Class<?> parameterType = parameter.getType();
 
-            if (parameterType.getCanonicalName().startsWith("org.junit.jupiter.api")) {
+            if (isJupiterInjected(parameter)) {
                 continue;
             }
 
             String name = parameter.getName();
-            String value = invocationContext.getArguments().get(i).toString();
+            String value = formatParameterValue(invocationContext.getArguments().get(i));
 
             testParameters.put(name, value);
         }
@@ -147,26 +147,45 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
         return testParameters;
     }
 
+    // TestInfo, TestReporter and the like, or values supplied through Jupiter annotations such as @TempDir.
+    private static boolean isJupiterInjected(Parameter parameter) {
+        if (parameter.getType().getName().startsWith(JUPITER_API_PACKAGE)) {
+            return true;
+        }
+        for (java.lang.annotation.Annotation annotation : parameter.getAnnotations()) {
+            if (annotation.annotationType().getName().startsWith(JUPITER_API_PACKAGE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void testSuccessful(ExtensionContext context) {
-        this.stopTestCase(TestResultStatus.PASSED, null);
+        this.stopTestCase(context, TestResultStatus.PASSED, null);
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
-        this.stopTestCase(TestResultStatus.SKIPPED, cause);
+        this.stopTestCase(context, TestResultStatus.SKIPPED, cause);
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         TestResultStatus status = ExceptionUtils.isAssertionFailure(cause) ?
             TestResultStatus.FAILED : TestResultStatus.INVALID;
-        this.stopTestCase(status, cause);
+        this.stopTestCase(context, status, cause);
     }
 
-    private void stopTestCase(TestResultStatus status, Throwable cause) {
+    private void stopTestCase(ExtensionContext context, TestResultStatus status, Throwable cause) {
         if (!CasesStorage.isCaseInProgress()) {
-            return;
+            // The test method was never invoked (e.g. @BeforeEach threw), so no case was started.
+            Optional<Method> method = context.getTestMethod();
+            if (!method.isPresent()) {
+                return;
+            }
+            CasesStorage.startCase(TestResultBuilder.fromMethod(
+                method.get(), Collections.emptyMap(), Instant.now().toEpochMilli()));
         }
         TestResult resultCreate = CasesStorage.getCurrentCase();
         try {
