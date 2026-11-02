@@ -16,6 +16,7 @@ import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
+import org.opentest4j.TestAbortedException;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -28,6 +29,7 @@ import static io.qase.commons.utils.IntegrationUtils.*;
 
 public class QaseListener implements TestExecutionListener, Extension, BeforeAllCallback, AfterAllCallback, InvocationInterceptor, TestWatcher {
     private static final String JUPITER_API_PACKAGE = "org.junit.jupiter.api";
+    private static final String DYNAMIC_TEST_PARAMETER = "dynamic test";
     private final Reporter qaseTestCaseListener;
     private TestPlan testPlan;
     private final Set<String> startedIdentifiers = ConcurrentHashMap.newKeySet();
@@ -122,6 +124,78 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
         invocation.proceed();
     }
 
+    @Override
+    public <T> T interceptTestFactoryMethod(
+            InvocationInterceptor.Invocation<T> invocation,
+            ReflectiveInvocationContext<Method> invocationContext,
+            ExtensionContext extensionContext
+    ) throws Throwable {
+        try {
+            return invocation.proceed();
+        } catch (Throwable failure) {
+            // A factory that throws produces no dynamic tests, so the factory itself is reported.
+            CasesStorage.startCase(startTestCase(extensionContext.getRequiredTestMethod(), invocationContext));
+            this.stopTestCase(extensionContext, failureStatus(failure), failure);
+            throw failure;
+        }
+    }
+
+    // JUnit 5.8+ and 6 call this overload; 5.5-5.7 call the deprecated one below.
+    @Override
+    public void interceptDynamicTest(
+            InvocationInterceptor.Invocation<Void> invocation,
+            DynamicTestInvocationContext invocationContext,
+            ExtensionContext extensionContext
+    ) throws Throwable {
+        reportDynamicTest(invocation, extensionContext);
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void interceptDynamicTest(
+            InvocationInterceptor.Invocation<Void> invocation,
+            ExtensionContext extensionContext
+    ) throws Throwable {
+        reportDynamicTest(invocation, extensionContext);
+    }
+
+    // TestWatcher is not notified for dynamic tests, so each one is reported here as a
+    // parameterized result of its factory method's case.
+    private void reportDynamicTest(
+            InvocationInterceptor.Invocation<Void> invocation,
+            ExtensionContext extensionContext
+    ) throws Throwable {
+        Deque<String> path = new ArrayDeque<>();
+        ExtensionContext context = extensionContext;
+        while (context != null && !(context.getElement().orElse(null) instanceof Method)) {
+            path.addFirst(context.getDisplayName());
+            context = context.getParent().orElse(null);
+        }
+        if (context == null) {
+            invocation.proceed();
+            return;
+        }
+
+        Method factory = (Method) context.getElement().get();
+        Map<String, String> parameters = Collections.singletonMap(DYNAMIC_TEST_PARAMETER, String.join(" / ", path));
+        CasesStorage.startCase(TestResultBuilder.fromMethod(factory, parameters, Instant.now().toEpochMilli()));
+
+        try {
+            invocation.proceed();
+        } catch (Throwable failure) {
+            this.stopTestCase(extensionContext, failureStatus(failure), failure);
+            throw failure;
+        }
+        this.stopTestCase(extensionContext, TestResultStatus.PASSED, null);
+    }
+
+    private static TestResultStatus failureStatus(Throwable failure) {
+        if (failure instanceof TestAbortedException) {
+            return TestResultStatus.SKIPPED;
+        }
+        return ExceptionUtils.isAssertionFailure(failure) ? TestResultStatus.FAILED : TestResultStatus.INVALID;
+    }
+
     private TestResult startTestCase(Method method, ReflectiveInvocationContext<Method> invocationContext) {
         Map<String, String> parameters = getParameters(invocationContext);
         return TestResultBuilder.fromMethod(method, parameters, Instant.now().toEpochMilli());
@@ -172,9 +246,7 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        TestResultStatus status = ExceptionUtils.isAssertionFailure(cause) ?
-            TestResultStatus.FAILED : TestResultStatus.INVALID;
-        this.stopTestCase(context, status, cause);
+        this.stopTestCase(context, failureStatus(cause), cause);
     }
 
     private void stopTestCase(ExtensionContext context, TestResultStatus status, Throwable cause) {

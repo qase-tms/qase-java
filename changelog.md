@@ -1,3 +1,9 @@
+# qase-java 4.1.66
+
+## What's new
+
+- JUnit 5: dynamic tests from `@TestFactory` methods are now reported. Each dynamic test is a parameterized result of the factory method's case, with the `dynamic test` parameter set to its display name (nested `DynamicContainer` names are joined with ` / `), so `@QaseId`, `@QaseTitle` and other annotations on the factory apply. A factory that throws before producing any dynamic tests is reported as a failed result of its case.
+
 # qase-java 4.1.65
 
 ## What's new
