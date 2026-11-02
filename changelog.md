@@ -1,3 +1,9 @@
+# qase-java 4.1.65
+
+## What's new
+
+- Cucumber v3, v4 and v5 now attach a step's data table to the step in Qase, as v6 and v7 already did. The table is taken from the executed step, so in a `Scenario Outline` it carries the values substituted from `Examples`.
+
 # qase-java 4.1.64
 
 ## Bug fixes

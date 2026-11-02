@@ -8,8 +8,11 @@ import gherkin.ast.Examples;
 import gherkin.ast.ScenarioDefinition;
 import gherkin.ast.ScenarioOutline;
 import gherkin.ast.TableRow;
+import gherkin.pickles.PickleCell;
+import gherkin.pickles.PickleTable;
 import gherkin.pickles.PickleTag;
 import io.qase.commons.CasesStorage;
+import io.qase.commons.StepStorage;
 import io.qase.commons.cucumber.AbstractCucumberEventListener;
 import io.qase.commons.models.domain.StepResultStatus;
 import io.qase.commons.models.domain.TestResult;
@@ -58,6 +61,10 @@ public class QaseEventListener extends AbstractCucumberEventListener
             String stepText = step.getStepText();
             // v4: public field result
             StepResultStatus stepStatus = convertStepStatus(testStepFinished.result.getStatus());
+            List<List<String>> dataTable = getDataTable(step);
+            if (!dataTable.isEmpty()) {
+                StepStorage.getCurrentStep().data.inputData = CucumberUtils.formatTable(dataTable);
+            }
             onTestStepFinished(true, stepText, stepStatus);
         }
     }
@@ -149,5 +156,16 @@ public class QaseEventListener extends AbstractCucumberEventListener
         } else {
             return Collections.emptyMap();
         }
+    }
+
+    private static List<List<String>> getDataTable(PickleStepTestStep step) {
+        for (gherkin.pickles.Argument argument : step.getStepArgument()) {
+            if (argument instanceof PickleTable) {
+                return ((PickleTable) argument).getRows().stream()
+                        .map(row -> row.getCells().stream().map(PickleCell::getValue).collect(Collectors.toList()))
+                        .collect(Collectors.toList());
+            }
+        }
+        return Collections.emptyList();
     }
 }

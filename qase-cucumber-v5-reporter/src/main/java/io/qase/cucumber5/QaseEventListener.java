@@ -3,6 +3,7 @@ package io.qase.cucumber5;
 import gherkin.ast.*;
 import io.cucumber.plugin.event.*;
 import io.qase.commons.CasesStorage;
+import io.qase.commons.StepStorage;
 import io.qase.commons.cucumber.AbstractCucumberEventListener;
 import io.qase.commons.models.domain.StepResultStatus;
 import io.qase.commons.models.domain.TestResult;
@@ -47,6 +48,12 @@ public class QaseEventListener extends AbstractCucumberEventListener
             // v5: uses getKeyWord() (capital W) - differs from v6/v7
             String stepText = CucumberUtils.formatStepText(step.getStep().getKeyWord(), step.getStep().getText());
             StepResultStatus stepStatus = convertStepStatus(testStepFinished.getResult().getStatus());
+            if (step.getStep().getArgument() instanceof DataTableArgument) {
+                List<List<String>> cells = ((DataTableArgument) step.getStep().getArgument()).cells();
+                if (!cells.isEmpty()) {
+                    StepStorage.getCurrentStep().data.inputData = CucumberUtils.formatTable(cells);
+                }
+            }
             onTestStepFinished(true, stepText, stepStatus);
         }
     }

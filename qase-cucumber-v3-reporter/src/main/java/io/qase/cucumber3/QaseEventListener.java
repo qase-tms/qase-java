@@ -9,12 +9,15 @@ import gherkin.ast.Examples;
 import gherkin.ast.ScenarioDefinition;
 import gherkin.ast.ScenarioOutline;
 import gherkin.ast.TableRow;
+import gherkin.pickles.PickleCell;
+import gherkin.pickles.PickleTable;
 import gherkin.pickles.PickleTag;
 import io.qase.commons.CasesStorage;
 import io.qase.commons.StepStorage;
 import io.qase.commons.models.domain.*;
 import io.qase.commons.reporters.CoreReporterFactory;
 import io.qase.commons.reporters.Reporter;
+import io.qase.commons.utils.CucumberUtils;
 import io.qase.commons.utils.ExceptionUtils;
 import io.qase.commons.utils.IntegrationUtils;
 import io.qase.commons.utils.TestResultBuilder;
@@ -73,6 +76,10 @@ public class QaseEventListener implements Formatter {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.testStep;
             StepResult stepResult = StepStorage.getCurrentStep();
             stepResult.data.action = step.getStepText();
+            List<List<String>> dataTable = getDataTable(step);
+            if (!dataTable.isEmpty()) {
+                stepResult.data.inputData = CucumberUtils.formatTable(dataTable);
+            }
             stepResult.execution.status = this.convertStepStatus(testStepFinished.result.getStatus());
             StepStorage.stopStep();
         }
@@ -182,5 +189,16 @@ public class QaseEventListener implements Formatter {
         } else {
             return Collections.emptyMap();
         }
+    }
+
+    private static List<List<String>> getDataTable(PickleStepTestStep step) {
+        for (gherkin.pickles.Argument argument : step.getStepArgument()) {
+            if (argument instanceof PickleTable) {
+                return ((PickleTable) argument).getRows().stream()
+                        .map(row -> row.getCells().stream().map(PickleCell::getValue).collect(Collectors.toList()))
+                        .collect(Collectors.toList());
+            }
+        }
+        return Collections.emptyList();
     }
 }
