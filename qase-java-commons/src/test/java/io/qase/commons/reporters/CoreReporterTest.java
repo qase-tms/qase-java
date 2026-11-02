@@ -279,4 +279,57 @@ class CoreReporterTest {
 
         assertTrue(errors.isEmpty(), "No exceptions should occur: " + errors);
     }
+
+    @Test
+    void testRunIsStartedAndCompletedOnce() throws QaseException {
+        InternalReporter primary = mock(InternalReporter.class);
+        CoreReporter reporter = new CoreReporter(config, primary, null);
+
+        for (int i = 0; i < 3; i++) {
+            reporter.startTestRun();
+            reporter.addResult(new TestResult());
+            reporter.uploadResults();
+            reporter.completeTestRun();
+        }
+
+        verify(primary, times(1)).startTestRun();
+        verify(primary, times(1)).completeTestRun();
+    }
+
+    @Test
+    void testCompleteWithoutStartIsNoop() throws QaseException {
+        InternalReporter primary = mock(InternalReporter.class);
+        CoreReporter reporter = new CoreReporter(config, primary, null);
+
+        reporter.completeTestRun();
+
+        verify(primary, never()).completeTestRun();
+    }
+
+    @Test
+    void testRuntimeExceptionSwitchesToFallback() throws QaseException {
+        InternalReporter primary = mock(InternalReporter.class);
+        InternalReporter fallback = mock(InternalReporter.class);
+        doThrow(new IllegalStateException("boom")).when(primary).addResult(any());
+        when(primary.getResults()).thenReturn(new ArrayList<>());
+
+        CoreReporter reporter = new CoreReporter(config, primary, fallback);
+        TestResult result = new TestResult();
+
+        assertDoesNotThrow(() -> reporter.addResult(result));
+        verify(fallback).addResult(result);
+    }
+
+    @Test
+    void testFallbackIsStartedOnceWhenStartFails() throws QaseException {
+        InternalReporter primary = mock(InternalReporter.class);
+        InternalReporter fallback = mock(InternalReporter.class);
+        doThrow(new QaseException("API error")).when(primary).startTestRun();
+        when(primary.getResults()).thenReturn(new ArrayList<>());
+
+        CoreReporter reporter = new CoreReporter(config, primary, fallback);
+        reporter.startTestRun();
+
+        verify(fallback, times(1)).startTestRun();
+    }
 }

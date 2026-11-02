@@ -139,7 +139,7 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
             }
 
             String name = parameter.getName();
-            String value = invocationContext.getArguments().get(i).toString();
+            String value = String.valueOf(invocationContext.getArguments().get(i));
 
             testParameters.put(name, value);
         }
@@ -149,24 +149,30 @@ public class QaseListener implements TestExecutionListener, Extension, BeforeAll
 
     @Override
     public void testSuccessful(ExtensionContext context) {
-        this.stopTestCase(TestResultStatus.PASSED, null);
+        this.stopTestCase(context, TestResultStatus.PASSED, null);
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
-        this.stopTestCase(TestResultStatus.SKIPPED, cause);
+        this.stopTestCase(context, TestResultStatus.SKIPPED, cause);
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         TestResultStatus status = ExceptionUtils.isAssertionFailure(cause) ?
             TestResultStatus.FAILED : TestResultStatus.INVALID;
-        this.stopTestCase(status, cause);
+        this.stopTestCase(context, status, cause);
     }
 
-    private void stopTestCase(TestResultStatus status, Throwable cause) {
+    private void stopTestCase(ExtensionContext context, TestResultStatus status, Throwable cause) {
         if (!CasesStorage.isCaseInProgress()) {
-            return;
+            // The test method was never invoked (e.g. @BeforeEach threw), so no case was started.
+            Optional<Method> method = context.getTestMethod();
+            if (!method.isPresent()) {
+                return;
+            }
+            CasesStorage.startCase(TestResultBuilder.fromMethod(
+                method.get(), Collections.emptyMap(), Instant.now().toEpochMilli()));
         }
         TestResult resultCreate = CasesStorage.getCurrentCase();
         try {

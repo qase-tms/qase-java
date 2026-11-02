@@ -1,3 +1,18 @@
+# qase-java 4.1.64
+
+## Bug fixes
+
+- JUnit 4: results of every test class after the first were dropped in TestOps mode. JUnit fires suite events per class, and the listener started and completed the Qase run on each of them, so the run was completed after the first class and all later results were discarded with `Test run is completing, result ... will not be uploaded`. In report mode the same results were written repeatedly. The run is now started once and completed on `testRunFinished` (Maven) or on JVM shutdown (Gradle, which fires no run-level events); per-suite events only flush results.
+- TestNG: the same loss happened with several suites in one execution (`suite-files`, multiple `suiteXmlFiles`). The run now spans the whole TestNG execution (`IExecutionListener`), and the test plan is fetched once per `<test>` instead of once per method and case ID.
+- `startTestRun` and `completeTestRun` are now idempotent, and a run that was started but never completed is completed when the JVM exits.
+- Steps recorded in a test or scenario marked `@QaseIgnore` were attached to the next test on the same thread. They are now discarded with the ignored case.
+- JUnit 5: a parameterized test with a `null` argument failed with a `NullPointerException` thrown by the reporter.
+- JUnit 5: a test whose `@BeforeEach` failed was not reported; it is now reported as `invalid` (or `skipped` for an aborted assumption).
+- JUnit 5: the test plan filter no longer fails with `ClassCastException` on descriptors without a method source, such as an empty test class or tests from other engines.
+- JUnit 4: `@Ignore`d tests are now reported as `skipped`, and a failed assumption is reported as `skipped` instead of `failed`, matching JUnit 5 and TestNG. A re-run of the same test is no longer silently ignored.
+- Cucumber: the feature file cache is now safe for parallel execution, and a scenario whose definition cannot be resolved no longer causes a `NullPointerException` in v6/v7.
+- Unexpected runtime errors in a reporter now switch to the fallback reporter instead of propagating into the test framework, and the fallback is no longer started twice when starting the run fails.
+
 # qase-java 4.1.63
 
 ## Bug fixes

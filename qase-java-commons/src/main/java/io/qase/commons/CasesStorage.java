@@ -17,6 +17,9 @@ public final class CasesStorage {
     public static void stopCase() {
         checkCaseIsInProgress();
 
+        // Steps of an ignored or abandoned case are never collected; drop them so they
+        // do not leak into the next case on this thread.
+        StepStorage.stopSteps();
         CURRENT_CASE.remove();
     }
 

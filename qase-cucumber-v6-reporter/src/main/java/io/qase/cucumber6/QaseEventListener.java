@@ -87,7 +87,7 @@ public class QaseEventListener extends AbstractCucumberEventListener
                         event.getTestCase().getLocation().getLine()));
 
         Map<String, String> parameters = new HashMap<>();
-        if (scenarioDefinition.getExamplesList() != null) {
+        if (scenarioDefinition != null && scenarioDefinition.getExamplesList() != null) {
             parameters = getExamplesAsParameters(scenarioDefinition, event.getTestCase());
         }
 

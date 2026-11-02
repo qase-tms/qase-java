@@ -36,6 +36,10 @@ public class Junit5PostDiscoveryFilter implements PostDiscoveryFilter {
             return FilterResult.includedIf(false);
         }
 
+        if (!(testSource.get() instanceof MethodSource)) {
+            return FilterResult.included("filter only applied for test methods");
+        }
+
         final MethodSource methodSource = (MethodSource) testSource.get();
         List<Long> ids = getCaseIds(methodSource.getJavaMethod());
 

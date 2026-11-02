@@ -40,7 +40,24 @@ public class CoreReporterFactory {
                 frameworkName, frameworkVersion);
             logger.debug("Using host info: %s", hostInfo.toString());
             instance = new CoreReporter(config, reporterName, reporterVersion, frameworkName, frameworkVersion, hostInfo);
+            registerShutdownHook(instance);
         }
         return instance;
+    }
+
+    // Some runners (e.g. JUnit4 under Gradle) never signal the end of the whole run,
+    // so a started run is completed when the JVM exits. It is a no-op if the listener already completed it.
+    private static void registerShutdownHook(CoreReporter reporter) {
+        try {
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    reporter.completeTestRun();
+                } catch (Exception e) {
+                    logger.error("Failed to complete test run on shutdown: %s", e.getMessage());
+                }
+            }, "qase-shutdown"));
+        } catch (IllegalStateException | SecurityException e) {
+            logger.warn("Unable to register shutdown hook: %s", e.getMessage());
+        }
     }
 }
