@@ -15,6 +15,7 @@
 - JUnit 5: arguments supplied through Jupiter annotations such as `@TempDir` are no longer reported as test parameters.
 - JUnit 5: the test plan filter now creates the reporter with JUnit 5 metadata when it runs before the listener.
 - Cucumber v6/v7: data tables of `Background` steps are now attached to the step, as they already were for scenario steps.
+- Cucumber v5–v7: step names no longer contain a double space after the keyword (`Given  a user` → `Given a user`). Gherkin keywords already end with a space, and the reporter added another one. Existing auto-created cases keep their identity; Qase updates the step text in place.
 - Unexpected runtime errors in a reporter now switch to the fallback reporter instead of propagating into the test framework, and the fallback is no longer started twice when starting the run fails.
 
 # qase-java 4.1.63

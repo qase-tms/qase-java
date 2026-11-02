@@ -53,7 +53,7 @@ public class QaseEventListener extends AbstractCucumberEventListener
     private void testStepFinished(TestStepFinished testStepFinished) {
         if (testStepFinished.getTestStep() instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.getTestStep();
-            String stepText = step.getStep().getKeyword() + " " + step.getStep().getText();
+            String stepText = CucumberUtils.formatStepText(step.getStep().getKeyword(), step.getStep().getText());
             StepResultStatus stepStatus = convertStepStatus(testStepFinished.getResult().getStatus());
 
             // v6-specific: process data table before calling base handler (base calls stopStep at end)

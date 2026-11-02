@@ -45,7 +45,7 @@ public class QaseEventListener extends AbstractCucumberEventListener
         if (testStepFinished.getTestStep() instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) testStepFinished.getTestStep();
             // v5: uses getKeyWord() (capital W) - differs from v6/v7
-            String stepText = step.getStep().getKeyWord() + " " + step.getStep().getText();
+            String stepText = CucumberUtils.formatStepText(step.getStep().getKeyWord(), step.getStep().getText());
             StepResultStatus stepStatus = convertStepStatus(testStepFinished.getResult().getStatus());
             onTestStepFinished(true, stepText, stepStatus);
         }
