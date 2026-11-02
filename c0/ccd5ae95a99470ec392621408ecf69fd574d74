@@ -1,0 +1,30 @@
+qase-cucumber-v5-reporter/src/main/java/io/qase/cucumber5/QaseEventListener.java
+  s_2cb5a37906bffd::t_30ad50e7db30a9 48
+qase-java-commons/src/main/java/io/qase/commons/utils/CucumberUtils.java
+  s_2cb5a37906bffd::t_30ad50e7db30a9 154-158
+qase-java-commons/src/test/java/io/qase/api/utils/CucumberUtilsTest.java
+  s_2cb5a37906bffd::t_b7adbb0a9a6e5a 3,13,43,45-47
+  s_2cb5a37906bffd::t_30ad50e7db30a9 42,44,48
+qase-cucumber-v6-reporter/src/main/java/io/qase/cucumber6/QaseEventListener.java
+  s_2cb5a37906bffd::t_30ad50e7db30a9 56
+qase-cucumber-v7-reporter/src/main/java/io/qase/cucumber7/QaseEventListener.java
+  s_2cb5a37906bffd::t_30ad50e7db30a9 60
+changelog.md
+  s_2cb5a37906bffd::t_611abfd81bfef3 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c0ccd5ae95a99470ec392621408ecf69fd574d74",
+  "prompts": {},
+  "sessions": {
+    "s_2cb5a37906bffd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fc1af00c-4305-431f-8bb9-f16efd236273",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
