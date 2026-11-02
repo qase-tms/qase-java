@@ -77,17 +77,6 @@ public class QaseListener extends RunListener {
         this.stopTestCase(TestResultStatus.SKIPPED, failure.getException());
     }
 
-    @Override
-    public void testIgnored(Description description) {
-        // A class-level @Ignore comes without method descriptions, so there is nothing to map to a case.
-        if (description.getMethodName() == null) {
-            return;
-        }
-        // JUnit does not fire testStarted for ignored tests.
-        CasesStorage.startCase(startTestCase(description));
-        this.stopTestCase(TestResultStatus.SKIPPED, null);
-    }
-
     private TestResult startTestCase(Description description) {
         DescriptionAnnotationReader reader = new DescriptionAnnotationReader(description);
         return TestResultBuilder.fromAnnotationReader(

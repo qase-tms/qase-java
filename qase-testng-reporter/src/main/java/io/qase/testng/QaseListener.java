@@ -142,12 +142,10 @@ public class QaseListener implements IExecutionListener,
 
             final int indexFromAnnotation = i - skippedCount;
 
-            String value = String.format("%s", parameters[i]);
+            String value = formatParameterValue(parameters[i]);
 
             if (indexFromAnnotation < providedNames.length) {
-                if (parameters[i] != null) {
-                    testParameters.put(providedNames[indexFromAnnotation], value);
-                }
+                testParameters.put(providedNames[indexFromAnnotation], value);
                 continue;
             }
 

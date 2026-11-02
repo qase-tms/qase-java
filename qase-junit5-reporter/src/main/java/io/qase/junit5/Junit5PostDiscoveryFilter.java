@@ -1,6 +1,5 @@
 package io.qase.junit5;
 
-import io.qase.commons.reporters.CoreReporterFactory;
 import org.junit.platform.engine.FilterResult;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestSource;
@@ -16,9 +15,7 @@ public class Junit5PostDiscoveryFilter implements PostDiscoveryFilter {
     private final List<Long> caseIds;
 
     public Junit5PostDiscoveryFilter() {
-        // Use getInstance() without parameters - instance should already be created by QaseListener
-        // with proper reporter and framework info
-        this.caseIds = CoreReporterFactory.getInstance().getTestCaseIdsForExecution();
+        this.caseIds = QaseListener.getReporter().getTestCaseIdsForExecution();
     }
 
     @Override

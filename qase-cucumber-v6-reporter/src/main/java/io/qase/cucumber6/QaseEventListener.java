@@ -165,15 +165,7 @@ public class QaseEventListener extends AbstractCucumberEventListener
     }
 
     private Step getCucumberStep(final URI uri, final int stepLine) {
-        Scenario scenario = ScenarioStorage.getScenarioDefinition(scenarioStorage.getCucumberNode(uri, stepLine));
-
-        if (scenario == null) {
-            return null;
-        }
-
-        return scenario.getStepsList().stream()
-                .filter(s -> s.getLocation().getLine() == stepLine)
-                .findFirst().orElse(null);
+        return scenarioStorage.getStep(uri, stepLine);
     }
 
     private List<List<String>> convertTableRowsToLists(List<TableRow> rows) {

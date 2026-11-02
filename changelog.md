@@ -9,8 +9,12 @@
 - JUnit 5: a parameterized test with a `null` argument failed with a `NullPointerException` thrown by the reporter.
 - JUnit 5: a test whose `@BeforeEach` failed was not reported; it is now reported as `invalid` (or `skipped` for an aborted assumption).
 - JUnit 5: the test plan filter no longer fails with `ClassCastException` on descriptors without a method source, such as an empty test class or tests from other engines.
-- JUnit 4: `@Ignore`d tests are now reported as `skipped`, and a failed assumption is reported as `skipped` instead of `failed`, matching JUnit 5 and TestNG. A re-run of the same test is no longer silently ignored.
+- JUnit 4: a failed assumption is reported as `skipped` instead of `failed`, matching JUnit 5 and TestNG. A re-run of the same test is no longer silently ignored. Disabled tests (`@Ignore`, like JUnit 5 `@Disabled` and TestNG `enabled = false`) are still not reported.
 - Cucumber: the feature file cache is now safe for parallel execution, and a scenario whose definition cannot be resolved no longer causes a `NullPointerException` in v6/v7.
+- Array parameters are reported by value (`[1, 2, 3]`) instead of the array's identity hash (`[I@1b6d3586`) in JUnit 5 and TestNG. TestNG now reports a `null` argument named through `@Parameters` as `null` instead of dropping it.
+- JUnit 5: arguments supplied through Jupiter annotations such as `@TempDir` are no longer reported as test parameters.
+- JUnit 5: the test plan filter now creates the reporter with JUnit 5 metadata when it runs before the listener.
+- Cucumber v6/v7: data tables of `Background` steps are now attached to the step, as they already were for scenario steps.
 - Unexpected runtime errors in a reporter now switch to the fallback reporter instead of propagating into the test framework, and the fallback is no longer started twice when starting the run fails.
 
 # qase-java 4.1.63

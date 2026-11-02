@@ -75,4 +75,13 @@ class IntegrationUtilsTest {
         assertNotNull(version);
         // Must return a string (not null), empty or otherwise
     }
+
+    @Test
+    void formatParameterValueHandlesNullScalarsAndArrays() {
+        assertEquals("null", IntegrationUtils.formatParameterValue(null));
+        assertEquals("42", IntegrationUtils.formatParameterValue(42));
+        assertEquals("[1, 2]", IntegrationUtils.formatParameterValue(new int[]{1, 2}));
+        assertEquals("[a, null]", IntegrationUtils.formatParameterValue(new String[]{"a", null}));
+        assertEquals("[[1], [2, 3]]", IntegrationUtils.formatParameterValue(new int[][]{{1}, {2, 3}}));
+    }
 }

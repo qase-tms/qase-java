@@ -26,6 +26,12 @@ public class ScenarioStorage {
         pathToScenarioMap.put(path, event);
     }
 
+    // Looks the step up by its own line, so steps of a Background are found as well as scenario steps.
+    public synchronized Step getStep(final URI path, final int line) {
+        final CucumberNode cucumberNode = getCucumberNode(path, line);
+        return cucumberNode != null && cucumberNode.node instanceof Step ? (Step) cucumberNode.node : null;
+    }
+
     public synchronized CucumberNode getCucumberNode(final URI path, final int line) {
         if (!pathToNodeMap.containsKey(path)) {
             parseGherkinSource(path);
